@@ -1,0 +1,20 @@
+# Editor / OS
+.history/
+*~
+
+# Python
+__pycache__/
+*.pyc
+
+# KiCad local/user state, backups, locks
+*.kicad_prl
+*-backups/
+fp-info-cache
+~*.lck
+*.lck
+
+# Regenerable artifacts (rebuild from tools/ + the .kicad_sch/.kicad_pcb)
+erc_report.json
+*.dsn
+*.ses
+micromouse-pcb.svg
