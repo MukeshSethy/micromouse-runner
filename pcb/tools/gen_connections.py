@@ -35,33 +35,18 @@ HEF4067_PINS = {
     "14": "S2", "15": "~E", "16": "Y15", "17": "Y14", "18": "Y13", "19": "Y12",
     "20": "Y11", "21": "Y10", "22": "Y9", "23": "Y8", "24": "VDD",
 }
-ESP32_PINS = {
-    "1": "GND", "2": "GND", "3": "3V3", "4": "IO0", "5": "IO1", "6": "IO2",
-    "7": "IO3", "8": "IO4", "9": "IO5", "10": "IO6", "11": "IO7", "12": "IO8",
-    "13": "IO9", "14": "IO10", "15": "IO11", "16": "IO12", "17": "IO13",
-    "18": "IO14", "19": "IO15", "20": "IO16", "21": "IO17", "22": "IO18",
-    "23": "USB_D-", "24": "USB_D+", "25": "IO21", "26": "IO26", "27": "IO47",
-    "28": "IO33", "29": "IO34", "30": "IO48", "31": "IO35", "32": "IO36",
-    "33": "IO37", "34": "IO38", "35": "IO39", "36": "IO40", "37": "IO41",
-    "38": "IO42", "39": "TXD0", "40": "RXD0", "41": "IO45", "42": "GND",
-    "43": "GND", "44": "IO46", "45": "EN",
-}
-for _n in range(46, 66):
-    ESP32_PINS[str(_n)] = "GND"
-
 AP63203_PINS = {"1": "FB/VOUT-sense", "2": "EN", "3": "VIN", "4": "GND", "5": "SW", "6": "BST"}
 
-# Nano-header rows, verified against KiCad's bundled Arduino Nano reference
-# PCB (both rows' pin 1 at the same physical end; digital row runs D12->D1).
-J4_PINS = {
-    "1": "D12/PB4", "2": "D11/PB5", "3": "D10/PA11", "4": "D9/PA8", "5": "D8/PF1",
-    "6": "D7/PF0", "7": "D6/PB6", "8": "D5/PA15", "9": "D4/PB7", "10": "D3/PB0",
-    "11": "D2/PA12", "12": "GND", "13": "RESET", "14": "D0/PA10", "15": "D1/PA9",
-}
-J8_PINS = {
-    "1": "D13/PB3", "2": "3V3", "3": "AREF", "4": "A0/PA0", "5": "A1/PA1",
-    "6": "A2/PA3", "7": "A3/PA4", "8": "A4/PA5", "9": "A5/PA6", "10": "A6/PA7",
-    "11": "A7/PA2", "12": "5V", "13": "RESET", "14": "GND", "15": "VIN",
+# Sole controller: Arduino Nano ESP32 on the real Module:Arduino_Nano footprint,
+# one 30-pad part (A1). Pad -> Arduino function, locked against the footprint's
+# USB marker at (7.62,35.56): pads 1-15 = analog row VIN..D13, pads 16-30 =
+# digital row D12..D1 (see build_schematic.py A1_MAP for the full net mapping).
+A1_PINS = {
+    "1": "VIN", "2": "GND", "3": "RESET", "4": "5V", "5": "A7", "6": "A6",
+    "7": "A5", "8": "A4", "9": "A3", "10": "A2", "11": "A1", "12": "A0",
+    "13": "AREF", "14": "3V3", "15": "D13", "16": "D12", "17": "D11", "18": "D10",
+    "19": "D9", "20": "D8", "21": "D7", "22": "D6", "23": "D5", "24": "D4",
+    "25": "D3", "26": "D2", "27": "GND", "28": "RESET", "29": "D0", "30": "D1",
 }
 
 MOTOR_CONN_PINS = {"1": "M+", "2": "M-", "3": "ENC_VCC", "4": "ENC_GND", "5": "ENC_A", "6": "ENC_B"}
@@ -72,34 +57,19 @@ J10_PINS = {"1": "STBY", "2": "PWMA", "3": "AIN1", "4": "AIN2", "5": "PWMB",
             "6": "BIN1", "7": "BIN2", "8": "GND"}
 J11_PINS = {"1": "VM (batt)", "2": "VCC (+3V3)", "3": "GND", "4": "AO1", "5": "AO2",
             "6": "BO1", "7": "BO2", "8": "GND"}
-# Socketed Arduino Nano ESP32 dev board -- same physical Nano rows as the STM32
-# (J12 = digital row, J13 = analog row). Only 3V3/GND/D0/D1/D2 are wired.
-J12_PINS = {
-    "1": "D12", "2": "D11", "3": "D10", "4": "D9", "5": "D8", "6": "D7", "7": "D6",
-    "8": "D5", "9": "D4", "10": "D3", "11": "D2 (->STM32 NRST)", "12": "GND",
-    "13": "RESET", "14": "D0/RX (<-STM32 TX)", "15": "D1/TX (->STM32 RX)",
-}
-J13_PINS = {
-    "1": "D13", "2": "3V3 (power in)", "3": "AREF", "4": "A0", "5": "A1", "6": "A2",
-    "7": "A3", "8": "A4", "9": "A5", "10": "A6", "11": "A7", "12": "5V",
-    "13": "RESET", "14": "GND", "15": "VIN",
-}
 
 EXACT_PIN_NAMES = {
+    "A1": A1_PINS,
     "U1": AP63203_PINS,
     "U4": HEF4067_PINS,
     "U5": HEF4067_PINS,
     "J1": {"1": "BAT+", "2": "BAT-"},
     "J2": {"1": "SW_A", "2": "SW_B"},
     "J3": {"1": "PACK+ (cell2+)", "2": "CELL_MID (cell1+/cell2-)", "3": "PACK- (GND)"},
-    "J4": J4_PINS,
     "J5": MOTOR_CONN_PINS,
     "J6": MOTOR_CONN_PINS,
-    "J8": J8_PINS,
     "J10": J10_PINS,
     "J11": J11_PINS,
-    "J12": J12_PINS,
-    "J13": J13_PINS,
     "Q1": {"D": "Drain (battery side)", "G": "Gate", "S": "Source (load side)"},
 }
 
@@ -167,7 +137,7 @@ R = {}
 
 R["GND"] = (
     "System ground and current return for every subsystem. Both battery-negative terminals "
-    "(J1.2 main lead, J3.3 balance lead) land here; all logic (STM32 header, ESP32, both muxes), "
+    "(J1.2 main lead, J3.3 balance lead) land here; all logic (the ESP32 controller, both muxes), "
     "all decoupling capacitors, every phototransistor emitter, every LED-switch source, all three "
     "push buttons, the divider bottoms, and the TB6612's logic GND plus both power grounds (PGND1/"
     "PGND2) return here. A single unified ground (no split analog/motor ground) is a deliberate "
@@ -180,18 +150,15 @@ R["PLUS3V3"] = (
     "The single regulated 3.3V logic rail, produced by U1 (AP63203WU buck) via L1 and sensed at its "
     "FB pin. A switching buck (not an LDO) was chosen because the ESP32-S3's WiFi TX bursts reach "
     "~350-500mA, which an LDO from 8.4V would burn ~2.5W dissipating. Consumers, each justified: "
-    "STM32 module power (J8.2, the module's 3V3 input -- the module is powered here instead of via "
-    "5V/VIN because its own regulator stage is bypassed when feeding 3V3 directly, and everything "
-    "else on this board is 3.3V logic); ESP32 3V3 (U3.3); both mux VDD pins (U4/U5.24 -- HEF4067 "
-    "supply must match the analog signal range, and phototransistor outputs swing 0..3.3V); all 14 "
-    "phototransistor pull-ups (47k each, QTR-8A-style divider); all 14 IR-LED current-limit "
-    "resistors (the LED drive current is sized against the REGULATED rail so sensor brightness "
-    "doesn't drift as the 2S pack discharges 8.4V to 6.0V -- a Peter Harrison micromouse design "
-    "rule); the four encoder pull-ups and both motor-connector ENC_VCC pins (Hall encoder boards "
-    "accept 3.3V, keeping encoder logic levels native to the STM32); TB6612 VCC (logic side, "
-    "2.7-5.5V rated); the EN/IO0 strap pull-ups and USER_BTN pull-up; and the ESP32 programming "
-    "header's 3V3 pin (J7.2, so a dongle can power the ESP32 for flashing -- do NOT connect the "
-    "dongle's power while the battery is switched on; two supplies would fight).")
+    "the Arduino Nano ESP32's 3V3 pin (A1.14 -- the dev board is powered from our regulated rail; "
+    "do NOT power it via its USB while the battery is on, two supplies would fight); both mux VDD "
+    "pins (U4/U5.24 -- HEF4067 supply must match the analog signal range, and phototransistor "
+    "outputs swing 0..3.3V); all 14 phototransistor pull-ups (47k each, QTR-8A-style divider); all "
+    "14 IR-LED current-limit resistors (LED drive current is sized against the REGULATED rail so "
+    "sensor brightness does not drift as the 2S pack discharges 8.4V to 6.0V -- a Peter Harrison "
+    "micromouse design rule); the four encoder pull-ups and both motor-connector ENC_VCC pins "
+    "(Hall encoder boards accept 3.3V, keeping encoder logic levels native to the ESP32); TB6612 "
+    "VCC via the breakout header (logic side, 2.7-5.5V rated); and the USER_BTN pull-up.")
 
 R["VM_BATT"] = (
     "The protected raw-battery rail (6.0-8.4V from the 2S pack, downstream of the switch J2, fuse "
@@ -205,17 +172,17 @@ R["VM_BATT"] = (
     "battery leads' inductance.")
 
 R["VBAT_CELL1_SENSE"] = (
-    "Scaled cell-1 voltage into STM32 ADC pin D8/PF1 (ADC2_IN10) via J4.5. R2 (10k, from the "
+    "Scaled cell-1 voltage into ESP32 ADC pin A1 (A1.11). R2 (10k, from the "
     "balance-lead cell-1 tap J3.2) and R3 (22k, to GND) divide 0-4.2V down to 0-2.89V, inside the "
     "3.3V ADC range with margin. C6 100nF across the bottom leg low-passes the node -- the ADC "
     "samples a low-impedance-ish source and motor PWM noise is filtered. Firmware computes "
     "cell2 = pack - cell1 so BOTH cells are monitored for the per-cell 3.0V LiPo cutoff (a pack "
-    "reading alone can hide one weak cell). PF1 was chosen for this because it has NO timer "
-    "alternate function on the LQFP32 package -- it would otherwise be a wasted pin (verified "
-    "against ST's CubeMX pin data via Zephyr hal_stm32).")
+    "reading alone can hide one weak cell). A0-A2 carry all three analog inputs on this board "
+    "-- confirm the Nano-ESP32 header->GPIO->ADC1-channel mapping in firmware (ADC1, not ADC2, "
+    "must be used while WiFi is active).")
 
 R["VBAT_PACK_SENSE"] = (
-    "Scaled full-pack voltage into STM32 ADC pin D7/PF0 (ADC1_IN10) via J4.6. R4 (10k, from the "
+    "Scaled full-pack voltage into ESP32 ADC pin A2 (A1.10). R4 (10k, from the "
     "balance connector's pack+ pin J3.1) and R5 (6.2k, to GND) divide 0-8.4V down to 0-3.21V. C7 "
     "100nF filters the node, same reasoning as the cell-1 divider. NOTE (flagged risk, also in "
     "PROJECT_NOTES): both dividers hang directly on the balance connector, UPSTREAM of switch and "
@@ -224,38 +191,13 @@ R["VBAT_PACK_SENSE"] = (
     "for storage (documented assembly/user rule), or a future revision can add a high-side sense "
     "switch.")
 
-R["USART1_TX"] = (
-    "STM32 USART1 transmit (D1/PA9 via J4.15) into the ESP32 dev board's D0/RX (J12.14). This is "
-    "the telemetry uplink AND the STM32's side of the firmware-update dialogue: USART1 on PA9/PA10 "
-    "is one of the exact pin pairs the STM32G43x System Memory ROM bootloader listens on (VERIFIED "
-    "against AN2606 section 46 Table 99: USART1_TX=PA9, USART1_RX=PA10, 8E1 framing, standard "
-    "AN3155 protocol), which lets the ESP32 flash the STM32 over this wire pair with no BOOT0 line "
-    "(the Nano header does not expose BOOT0 -- the update path is a firmware-triggered jump into "
-    "the ROM bootloader; AN2606 sanctions the jump but requires firmware to disable peripheral "
-    "clocks, PLL and interrupts first, and the bootloader refuses flash commands under readout-"
-    "protection level 2 -- both firmware-side rules). The ESP32 dev board uses its D0/D1 UART for "
-    "the STM32 link and its own USB-C for flashing itself, so the two never contend.")
-
-R["USART1_RX"] = (
-    "ESP32 dev board D1/TX (J12.15) driving STM32 USART1 receive (D0/PA10 via J4.14). Downlink "
-    "half of the telemetry/update link -- see USART1_TX for the STM32 pin-pair rationale.")
-
-R["NRST"] = (
-    "STM32 hardware reset line. Three members: the two RESET pins of the Nano header (J4.13 digital "
-    "row, J8.13 analog row -- the Arduino Nano standard carries reset on BOTH rows, tied to the "
-    "same MCU line, so the socket mirrors that) and the ESP32 dev board's D2 (J12.11), which lets "
-    "the ESP32 hard-reset the STM32 in the wireless-update flow (reset into freshly-flashed "
-    "firmware, or recover a hung app before retrying the UART dialogue). FIRMWARE RULE: configure "
-    "ESP32 D2 as open-drain (drive low to reset, release to run) -- the Nucleo module has its own "
-    "pull-up/reset circuitry on NRST and a push-pull high would fight it and any manual reset.")
-
 R["MUX_S0"] = None  # filled by loop below
 R["MUX_S1"] = None
 R["MUX_S2"] = None
 R["MUX_S3"] = None
-for _i, _pin in ((0, "D2/PA12 via J4.11"), (1, "D4/PB7 via J4.9"), (2, "D6/PB6 via J4.7"), (3, "A0/PA0 via J8.4")):
+for _i, _pin in ((0, "D13 via A1.15"), (1, "A3 via A1.9"), (2, "A4 via A1.8"), (3, "A5 via A1.7")):
     R[f"MUX_S{_i}"] = (
-        f"Mux channel-select bit {_i} (binary weight {2**_i}), STM32 GPIO {_pin} driving select "
+        f"Mux channel-select bit {_i} (binary weight {2**_i}), ESP32 GPIO {_pin} driving select "
         f"input S{_i} on BOTH HEF4067s in parallel (U4.{ {0:'10',1:'11',2:'14',3:'13'}[_i] } and "
         f"U5.{ {0:'10',1:'11',2:'14',3:'13'}[_i] }). Sharing one 4-bit select bus across the "
         "read-mux and the write-demux is the core of the sensor architecture: selecting channel N "
@@ -265,23 +207,22 @@ for _i, _pin in ((0, "D2/PA12 via J4.11"), (1, "D4/PB7 via J4.9"), (2, "D6/PB6 v
         "WALL1..6 = channels 0-5 (Y0-Y5), LINE1..8 = channels 6-13 (Y6-Y13).")
 
 R["MUX_SENSE"] = (
-    "Analog common (Z, U4.1) of the READ mux into STM32 ADC pin D3/PB0 (ADC1_IN15) via J4.10. "
+    "Analog common (Z, U4.1) of the READ mux into ESP32 ADC pin A0 (A1.12). "
     "Whatever channel S3..S0 selects, that sensor's phototransistor divider node appears here. One "
-    "ADC pin thus reads all 14 sensors -- the only alternative on this MCU package was physically "
-    "impossible (14 sensor signals + 2 battery senses > the 11 ADC-capable pins on the whole Nano "
-    "header, PROJECT_NOTES budget analysis). HEF4067 is a bidirectional ANALOG switch (verified: "
+    "ADC pin thus reads all 14 sensors -- far fewer than 14 ADC-capable pins exist on the Nano "
+    "header, so muxing is mandatory; it also saves GPIO for the drive side. HEF4067 is a bidirectional ANALOG switch (verified: "
     "Nexperia datasheet Rev.11 calls it a bidirectional transmission-gate switch), so the divider "
     "voltage passes through unmodified in DC terms. Verified caveats for firmware (adversarial "
     "datasheet check, 2 independent agents): the datasheet only characterizes Ron at 5/10/15V "
     "(350R typ / 2500R MAX at 5V); at our 3.3V, mid-scale Ron rises to ~1k+ typical and plausibly "
     "several k worst case (metal-gate CMOS, only ~1.65V overdrive at mid-supply). Into the ADC's "
     "high-Z input this costs NO ratio accuracy (no DC current flows), but the 47k pull-up + ~1k+ "
-    "Ron source impedance is far above the STM32 ADC's fast-sample limit, so USE A LONG ADC "
+    "Ron source impedance is far above the ESP32 ADC's fast-sample limit, so USE A LONG ADC "
     "SAMPLING TIME (or an op-amp buffer if speed matters). Channel off-leakage (spec'd 1000nA max "
     "Z-port at 25C) through 47k is a low-tens-of-mV worst-case offset, typically negligible.")
 
 R["LED_PULSE"] = (
-    "STM32 GPIO A1/PA1 (via J8.5) into the WRITE demux common (Z, U5.1). Firmware raises this for "
+    "ESP32 GPIO A6 (A1.6) into the WRITE demux common (Z, U5.1). Firmware raises this for "
     "~60-100us to fire the currently-selected sensor's IR LED via its BSS138 gate, samples "
     "MUX_SENSE ('bright'), lowers it, samples again ('ambient'), and subtracts -- synchronous "
     "detection that cancels ambient IR (Peter Harrison's method, see PROJECT_NOTES). FIRMWARE "
@@ -291,76 +232,52 @@ R["LED_PULSE"] = (
     "any power-up gate charge. Otherwise a deselected LED can stay on -- crosstalk + battery drain.")
 
 R["STBY"] = (
-    "TB6612 standby control (U2.19, active-low standby) from STM32 GPIO A2/PA3 via J8.6. "
+    "TB6612 standby control (active-low) from ESP32 GPIO D2 (A1.26) to the breakout header J10.1. "
     "GPIO-driven rather than strapped high so firmware can hard-disable both H-bridges (fault "
     "response, low-power idle) -- an explicit user requirement recorded in PROJECT_NOTES. TB6612 "
     "outputs are disabled while STBY is low regardless of the IN/PWM pins, so the robot cannot "
     "drive during MCU reset if the pin idles low.")
 
 for _sig, _pin_lbl, _brk, _desc in (
-        ("AIN1", "A3/PA4 via J8.7", "J10.3", "motor A direction bit 1"),
-        ("AIN2", "A4/PA5 via J8.8", "J10.4", "motor A direction bit 2"),
-        ("BIN1", "A5/PA6 via J8.9", "J10.6", "motor B direction bit 1"),
-        ("BIN2", "A6/PA7 via J8.10", "J10.7", "motor B direction bit 2")):
+        ("AIN1", "D6 via A1.22", "J10.3", "motor A direction bit 1"),
+        ("AIN2", "D5 via A1.23", "J10.4", "motor A direction bit 2"),
+        ("BIN1", "D4 via A1.24", "J10.6", "motor B direction bit 1"),
+        ("BIN2", "D3 via A1.25", "J10.7", "motor B direction bit 2")):
     R[_sig] = (
-        f"TB6612 {_desc} from STM32 GPIO {_pin_lbl} to the motor-driver breakout control header "
+        f"TB6612 {_desc} from ESP32 GPIO {_pin_lbl} to the motor-driver breakout control header "
         f"({_brk}). The IN1/IN2 pair per channel selects forward / reverse / short-brake / stop "
-        "per the TB6612 truth table while the PWM pin modulates speed. Plain GPIOs suffice (no "
-        "timer function needed -- direction changes are slow); the timer-capable pins were "
-        "budgeted for PWM and encoders instead (see the AF table in PROJECT_NOTES).")
+        "per the TB6612 truth table while the PWM pin modulates speed. Plain GPIOs suffice -- "
+        "direction changes are slow, and the ESP32's LEDC PWM works on any pin so no special "
+        "pin assignment is needed anywhere on the drive side.")
 
 R["PWMA"] = (
-    "Motor A speed PWM: STM32 D9/PA8 via J4.4 to the breakout's PWMA (J10.2). PA8 is TIM1_CH1 "
-    "(AF6, verified against ST's CubeMX pin data) -- hardware PWM from the advanced-control timer, "
-    "typically 20-25kHz (above audible). Paired with PWMB on the SAME timer (TIM1) so both motors' "
-    "PWM is phase-aligned and updated by one timer.")
+    "Motor A speed PWM: ESP32 D8 (A1.20) to the breakout's PWMA (J10.2). The ESP32-S3's LEDC "
+    "peripheral generates hardware PWM on any GPIO, typically configured 20-25kHz (above audible). "
+    "Use one LEDC timer for both PWMA and PWMB so the two motors' PWM stays phase-aligned.")
 
 R["PWMB"] = (
-    "Motor B speed PWM: STM32 D10/PA11 via J4.3 to the breakout's PWMB (J10.5). PA11 is TIM1_CH4 "
-    "(AF11) -- same TIM1 as PWMA, see PWMA rationale.")
+    "Motor B speed PWM: ESP32 D7 (A1.21) to the breakout's PWMB (J10.5). Same LEDC timer as PWMA, "
+    "see PWMA rationale.")
 
-for _sig, _row, _pin_lbl, _conn, _r, _tim in (
-        ("ENC1_A", "J4.1", "D12/PB4", "J5.5", "R6", "TIM3_CH1 (AF2)"),
-        ("ENC1_B", "J4.2", "D11/PB5", "J5.6", "R7", "TIM3_CH2 (AF2)"),
-        ("ENC2_A", "J4.8", "D5/PA15", "J6.5", "R8", "TIM2_CH1 (AF1)"),
-        ("ENC2_B", "J8.1", "D13/PB3", "J6.6", "R9", "TIM2_CH2 (AF1)")):
+for _sig, _row, _pin_lbl, _conn, _r in (
+        ("ENC1_A", "A1.16", "D12", "J5.5", "R6"),
+        ("ENC1_B", "A1.17", "D11", "J5.6", "R7"),
+        ("ENC2_A", "A1.18", "D10", "J6.5", "R8"),
+        ("ENC2_B", "A1.19", "D9", "J6.6", "R9")):
     _m = "A" if "1" in _sig else "B"
     R[_sig] = (
         f"Motor {_m} quadrature encoder phase {_sig[-1]}: from the N20 motor's Hall encoder via "
-        f"connector {_conn}, into STM32 {_pin_lbl} ({_row}), with 10k pull-up {_r} to +3V3. "
-        f"This pin is {_tim} -- the two phases of each motor land on channels 1+2 of the SAME "
-        "timer (TIM3 for motor A, TIM2 for motor B), which is the hardware requirement for the "
-        "STM32's zero-CPU-cost hardware quadrature-encoder mode. The pull-up is defensive: the "
-        "encoder's output stage (open-drain vs push-pull) is unverified for the exact unit ordered "
-        "-- required if open-drain, harmless if push-pull (PROJECT_NOTES).")
+        f"connector {_conn}, into ESP32 {_pin_lbl} ({_row}), with 10k pull-up {_r} to +3V3. "
+        "The ESP32-S3 has 4 PCNT (pulse-counter) units with hardware quadrature decoding, and "
+        "PCNT inputs route through the GPIO matrix from ANY pin -- each motor's phase pair just "
+        "needs two ordinary GPIOs (no special timer-pin pairing as an STM32 would need). The "
+        "pull-up is defensive: the encoder's output stage (open-drain vs push-pull) is unverified "
+        "for the exact unit ordered -- required if open-drain, harmless if push-pull "
+        "(PROJECT_NOTES).")
 
 R["USER_BTN"] = (
-    "Start-run button: STM32 A7/PA2 via J8.11, pulled to +3V3 through R12 10k, switched to GND by "
-    "SW3 (active-low). Standard micromouse UX -- arm the run without touching the robot's power. "
-    "PA2/A7 was the single pin left over once every required function was allocated; the button "
-    "was added because the pin was free, not because the spec demanded it (PROJECT_NOTES).")
-
-R["ESP_EN_NET"] = (
-    "ESP32 chip-enable/reset node: EN (U3.45) held high by R10 10k to +3V3, pulled to GND by SW1 "
-    "(manual reset). The ESP32-S3-MINI-1 module does NOT integrate an EN pull-up, so the external "
-    "resistor is required for the chip to boot (Espressif hardware design guidelines); the button "
-    "gives the standard manual-reset UX during development and is half of the classic "
-    "EN+IO0 flashing two-button dance.")
-
-R["ESP_IO0_NET"] = (
-    "ESP32 boot-strap node: IO0 (U3.4) pulled high by R11 10k (normal boot from flash), pulled to "
-    "GND by SW2. Holding IO0 low through a reset puts the ESP32-S3 into serial download mode "
-    "(Espressif boot-mode strapping) -- press SW2, tap SW1, release SW2, then flash via J7. "
-    "Once ESP32 WiFi OTA is running this is only a recovery path.")
-
-R["ESP_PROG_TX"] = (
-    "ESP32 UART0 TXD0 (U3.39) to programming header J7.3. UART0 is the ROM serial-bootloader port "
-    "on the S3; keeping it dedicated to the external USB-serial dongle (and NOT shared with the "
-    "STM32 link on IO4/IO5) means flashing or monitoring the ESP32 never disturbs robot telemetry. "
-    "Labelled from the ESP32's perspective -- connect to the dongle's RX.")
-
-R["ESP_PROG_RX"] = (
-    "ESP32 UART0 RXD0 (U3.40) from programming header J7.4 -- the dongle's TX. See ESP_PROG_TX.")
+    "Start-run button: ESP32 A7 (A1.5), pulled to +3V3 through R10 10k, switched to GND by SW1 "
+    "(active-low). Standard micromouse UX -- arm the run without touching the robot's power.")
 
 # --- Local (auto-named) power-chain nets ---
 
@@ -492,10 +409,17 @@ for i, name in enumerate(SENSOR_NAMES):
 # --- No-connects: every unconnected-* net, with real reasons ---
 
 NC_REASONS = {
-    ("J8", "3"):  "AREF -- the STM32's ADC uses the internal 3.3V reference; nothing external supplied.",
-    ("J8", "12"): "5V -- the module is powered via its 3V3 pin instead (see PLUS3V3); the module's "
-                   "USB/5V path is only used when its own USB is plugged.",
-    ("J8", "15"): "VIN -- same reason as 5V: this board feeds regulated 3.3V directly.",
+    ("A1", "1"):  "VIN -- the dev board is fed regulated 3.3V directly on its 3V3 pin; feeding "
+                   "VIN too would run its onboard regulator in parallel with ours.",
+    ("A1", "3"):  "RESET (analog-row copy) -- nothing on this board needs to hard-reset the "
+                   "ESP32; its own button/auto-reset handle it.",
+    ("A1", "4"):  "5V -- the board is battery-powered at 3.3V throughout; the dev board's 5V "
+                   "USB rail is only alive while its USB is plugged.",
+    ("A1", "13"): "AREF -- the ESP32's ADC uses its internal reference; nothing external supplied.",
+    ("A1", "28"): "RESET (digital-row copy) -- same line as A1.3, see there.",
+    ("A1", "29"): "D0/RX -- kept free for USB-serial debug on the dev board; no on-board UART "
+                   "link exists now that the ESP32 is the sole controller.",
+    ("A1", "30"): "D1/TX -- kept free, same reason as D0/RX.",
     ("U4", "16"): "Read-mux channel Y15 -- only 14 sensors exist; channels 14/15 unused.",
     ("U4", "17"): "Read-mux channel Y14 -- unused, see Y15.",
     ("U5", "16"): "Write-demux channel Y15 -- unused, see U4.",
@@ -505,11 +429,6 @@ NC_REASONS = {
 def nc_reason(ref, pin):
     if (ref, pin) in NC_REASONS:
         return NC_REASONS[(ref, pin)]
-    if ref in ("J12", "J13"):
-        nm = pin_name(ref, pin)
-        return (f"Arduino Nano ESP32 dev-board pin {nm} -- unused. The wireless role needs only "
-                "3V3, GND, D0/RX, D1/TX (STM32 UART link) and D2 (STM32 NRST); every other Nano "
-                "pin is left unconnected. USB, auto-reset, and boot are handled on the dev board.")
     return "Intentionally unconnected."
 
 # ---------------------------------------------------------------------------
@@ -524,8 +443,6 @@ GROUPS = [
     ("Ground", ["GND"]),
     ("Battery monitoring",
      ["Net-(J3-Pin_1)", "Net-(J3-Pin_2)", "VBAT_PACK_SENSE", "VBAT_CELL1_SENSE"]),
-    ("STM32 <-> ESP32 link & reset",
-     ["USART1_TX", "USART1_RX", "NRST"]),
     ("Motor drive (socketed TB6612 breakout)",
      ["STBY", "PWMA", "AIN1", "AIN2", "MOTA_P", "MOTA_N",
       "PWMB", "BIN1", "BIN2", "MOTB_P", "MOTB_N"]),
@@ -561,8 +478,7 @@ out.append(
 out.append("## How parts attach to this board (sockets vs. solder vs. plugs)\n")
 out.append(
     "| Part | Attachment | Why |\n|---|---|---|\n"
-    "| NUCLEO-G431KB (STM32) | **Socketed** -- two 1x15 female headers (J4 digital row, J8 analog row, 15.24mm apart) | User requirement; module is removable/reusable; its snap-off ST-LINK still works for recovery while the tab is attached. The G431KB's CN3/CN4 silk labels are swapped vs. every other Nucleo-32 (ST forum, confirmed by ST moderator), so rows here are named by function. Row order verified against KiCad's bundled Arduino Nano reference PCB. |\n"
-    "| ESP32 (Arduino Nano ESP32 dev board) | **Socketed** -- two 1x15 female headers (J12 digital row, J13 analog row, 15.24mm apart) | User decision (2026-07-12): a socketed ESP32-S3 dev board, not a bare SMD module. Same Nano form factor as the Nucleo, so it sockets identically. The dev board brings its own USB, auto-reset, boot button, regulator and decoupling -- so the SMD version's strap buttons, boot pull-ups, programming header and decoupling are all removed. Only 3V3/GND/UART/NRST are wired. |\n"
+    "| Arduino Nano ESP32 (A1, SOLE controller) | **Socketed** -- the real Module:Arduino_Nano land pattern (two 1x15 rows, 15.24mm apart; fit female headers) | User decision (2026-07-13): the STM32 was dropped entirely to shrink the board; one ESP32-S3 dev board now does all control AND telemetry. The dev board brings its own USB-C, auto-reset, boot button, regulator and decoupling, and is flashed/debugged over that USB (or WiFi OTA). Pad order locked against the footprint's USB silk marker; identical to KiCad's Arduino Nano reference. |\n"
     "| Motor driver (TB6612 breakout) | **Socketed** -- two 1x8 female headers (J10 control, J11 power+outputs) | User decision (2026-07-12): a socketed TB6612 carrier (e.g. SparkFun ROB-14451 / Pololu), not a bare SSOP-24. The breakout carries its own decoupling. **Pin order + row spacing vary by vendor -- verify against your actual board before fab.** |\n"
     "| Motors (2x N20 + encoder) | **Pluggable** -- JST-PH 6-pin (J5, J6) | Motors are mechanical wear parts; JST-PH is the class of connector these motors ship with. Pin order is FUNCTIONAL (M+, M-, ENC_VCC, ENC_GND, ENC_A, ENC_B) -- verify against the real cable at assembly, resellers vary (PROJECT_NOTES). |\n"
     "| Battery | **Pluggable** -- JST-XH 2-pin (J1) + JST-XH 3-pin balance (J3) | Standard 2S pack interfaces. Balance lead powers the voltage dividers -- unplug for storage (drain risk, see VBAT_PACK_SENSE). |\n"
@@ -575,7 +491,7 @@ out.append(
     "Each net lists its full pin membership as `REF.pin (pin function)`, then the engineering "
     "justification. Sources referenced: Toshiba TB6612FNG datasheet, Nexperia HEF4067B datasheet, "
     "Espressif ESP32-S3-MINI-1 datasheet + hardware design guidelines, Diodes AP63203 datasheet, "
-    "ST UM2397 / AN2606 / STM32G431 datasheet (via CubeMX pin data), Pololu QTR-8A documentation, "
+    "the ESP32-S3 datasheet/TRM (LEDC any-GPIO PWM, PCNT quadrature, ADC1-with-WiFi), Pololu QTR-8A documentation, "
     "Peter Harrison's micromouse sensor writings, and the project research log (PROJECT_NOTES.md).\n")
 
 out.append("## Verification status of the load-bearing claims\n")
@@ -586,9 +502,7 @@ out.append(
     "| TB6612FNG full pinout + STBY active-low + VM/VCC ranges | **CONFIRMED** | Toshiba TB6612FNG datasheet, pin table p.2 / control table p.4 / ratings p.3 |\n"
     "| HEF4067 active-low enable, 3.3V-capable, bidirectional analog | **CONFIRMED** | Nexperia HEF4067B Rev.11 |\n"
     "| HEF4067 Ron at 3.3V | **Corrected** -- not \"hundreds of ohms\"; ~1k+ typ at mid-supply, multi-k worst case. Doc updated (see MUX_SENSE/*_LED): immaterial for the ADC divider, drives the choice of small-signal BSS138 over a power FET | Nexperia Rev.11 + TI CD4067B (no 3.3V Ron is published by either; extrapolated from 5V data) |\n"
-    "| ESP32-S3 needs external EN pull-up/RC (no on-module pull-up); IO0-low = download boot; IO45/IO46 safe floating | **CONFIRMED** | Espressif ESP32-S3-MINI-1 datasheet v1.7 + HW design guidelines |\n"
-    "| STM32G431 ROM bootloader on USART1 PA9/PA10; software jump (no BOOT0) valid | **CONFIRMED** (caveats: firmware must disable clocks/PLL/IRQ before the jump; no flashing under RDP level 2) | ST AN2606 sec.46 Table 99 + sec.4.1 |\n"
-    "| AP63203 fixed-3.3V: FB direct to VOUT, 100nF BST cap, 3.3uH in-range, EN-to-VIN, 8.4V < Vin,max | **CONFIRMED** (3.9uH is the table's exact suggestion vs. our 3.3uH -- both in the 2.2-10uH range) | Diodes DS41326 Rev.3-2 |\n"
+        "| AP63203 fixed-3.3V: FB direct to VOUT, 100nF BST cap, 3.3uH in-range, EN-to-VIN, 8.4V < Vin,max | **CONFIRMED** (3.9uH is the table's exact suggestion vs. our 3.3uH -- both in the 2.2-10uH range) | Diodes DS41326 Rev.3-2 |\n"
     "| P-FET reverse protection: battery->DRAIN, load->SOURCE, gate->GND | Self-verified via body-diode analysis (workflow agent hit session limit); this is the textbook orientation and the doc's Net-(F1-Pad2) entry walks the proof | onsemi/TI reverse-polarity P-FET app notes |\n"
     "| Nano header row order (D12..D1 digital row; D13,3V3,AREF,A0-A7,5V,RST,GND,VIN analog row; RESET on both) | Self-verified pad-for-pad against KiCad's bundled Arduino Nano reference PCB (workflow agent hit session limit) | `share/kicad/template/Arduino_Nano/Arduino_Nano.kicad_pcb` |\n")
 

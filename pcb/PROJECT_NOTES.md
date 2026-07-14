@@ -340,3 +340,66 @@ User pointed out (comparing against ST/Mouser's real NUCLEO-G431KB bottom-layout
 - **What's actually true**: a real Nano-form-factor board (Arduino Nano, and Nucleo-32 boards like the G431KB specifically because they're designed to be Nano-header-compatible) has TWO SEPARATE 15-pin single-row headers (CN3, CN4) on the two opposite long edges of a narrow ~18mm-wide, ~38mm-long board -- 15.24mm (0.6") apart, not 2.54mm. Confirmed two ways: (1) the module's real bottom-layout photo the user linked, and (2) KiCad's own bundled reference, `share/kicad/template/Arduino_Nano/Arduino_Nano.kicad_pcb`, which places two separate `Connector_PinHeader_2.54mm:PinHeader_1x15_P2.54mm_Vertical` footprints exactly 15.24mm apart -- not a single 2x15 part.
 - **Fix**: split the schematic's single J4 into two `Conn_01x15` symbols -- J4 (=CN3, pins 1-15) and J8 (=CN4, pins 1-15) -- each with footprint `Connector_PinSocket_2.54mm:PinSocket_1x15_P2.54mm_Vertical`, preserving the exact same net-per-physical-pin mapping as before (just split by the original odd/even grouping, which was already tracking real CN3 vs CN4 positions). On the PCB, placed 15.24mm apart as two parallel columns. Re-verified: ERC still 0/0, netlist cross-check still passes (GND/VM_BATT/PLUS3V3/motor/encoder/ESP32/sensor nets all still correct and distinct), PCB DRC still 0 violations after re-placing.
 - **Lesson for next time**: for socketed dev-board modules, verify the footprint against the module's real physical photo/mechanical drawing *before* trusting a schematic symbol's default footprint assignment -- a symbol can be electrically correct while its assigned footprint doesn't match the real part's shape at all. This wasn't caught by ERC or DRC (both only check electrical/spacing rules, not "does this footprint's shape match reality") -- only caught by the user's visual comparison against a real photo, same category of gap as the earlier wire-routing short that only netlist diffing caught, not ERC.
+
+
+---
+
+## 2026-07-14: ESP32-only redesign -- board shrunk to 100 x 128mm, 4 layers
+
+User decisions: (1) DROP the STM32 entirely; a single socketed **Arduino Nano
+ESP32** (ESP32-S3) is now the sole controller (control + telemetry), chosen to
+shrink the board; (2) use the ACTUAL library footprint so dimensions are real;
+(3) pack components very close to satisfy the dimension target.
+
+**What changed**
+- Schematic: MCU section removed; the ESP32 section became the CONTROLLER
+  section. One 30-pin part `A1` (symbol `Conn_02x15_Odd_Even`, footprint
+  **`Module:Arduino_Nano`** -- the real KiCad land pattern, pin==pad 1:1,
+  orientation locked against the footprint's USB silk marker). All control nets
+  kept their NAMES; only their source pin moved. ADC nets (MUX_SENSE,
+  VBAT_CELL1/PACK_SENSE) sit on A0/A1/A2 (ESP32 ADC1 works with WiFi on).
+  USART1_TX/RX, NRST, and the flash-relay wiring are GONE (ESP32 flashes over
+  its own USB-C / OTA). L1 downsized to `L_Bourns_SRP7028A_7.3x6.6mm` (the
+  SRR1260 was the biggest overlap source in the tight power band).
+- ESP32-only GPIO map (30-pin Nano header, see build_schematic.py A1_MAP):
+  A0=MUX_SENSE A1=CELL1 A2=PACK A3..A5=MUX_S1..S3 A6=LED_PULSE A7=USER_BTN
+  D13=MUX_S0 D12/D11=ENC1_A/B D10/D9=ENC2_A/B D8/D7=PWMA/PWMB D6/D5=AIN1/2
+  D4/D3=BIN1/2 D2=STBY; D0/D1 left free for USB-serial debug. Encoders use the
+  ESP32-S3's 4 PCNT units (hardware quadrature, any-pin via GPIO matrix); PWM
+  uses LEDC (any pin).
+- Board: **100 x 128mm** chamfered outline (was 150 x 185), wheels inside via
+  interior slots at AXLE_Y=108, castor hole at (50,4) (NOT (50,8) -- that sat in
+  the middle of the bottom line array and made LINE3/4 unroutable). All 6 wall
+  sensors are compact side-edge clusters (front pair aims diagonally forward);
+  their THT LEDs are ROTATED 90deg so pads stack vertically -- horizontal pads
+  reached x=14.5 and shorted into the bottom line-sensor columns (caught by DRC
+  at D1/R26). Line array: 8 columns, 9.525 QTR pitch, 5mm intra-column pitch
+  (4mm left no routing channel at 0.3mm clearance).
+- **4 copper layers**, all signal (user pre-approved 3-4 layers). The in-house
+  router was generalized from hardcoded F/B to an N-layer `LAYERS` list: THT
+  pads pierce/connect all layers, SMD pads only their face, through-vias join
+  every layer, alternating H/V discipline per layer. 2 layers left 40-51 edges
+  unroutable; 4 layers + a final 0.25mm fine-grid retry pass got it to **5**.
+- Freerouting note: on this board it ROUTES perfectly (~15-24s, score 995) but
+  its SES writer never returns -- reproducible with and without the optimizer
+  (-mp 1 -oit 99). Same hang as the old board. Do not burn time on it; the
+  in-house 4-layer router is the working path.
+- pcbnew API landmine (new): REMOVING many tracks from a loaded board corrupts
+  SWIG proxies for the rest of the process (footprint.Pads() raises
+  'SwigPyObject not iterable', GetDesignSettings dies). route_loaded.py now
+  REFUSES a tracked board -- always regenerate trackless via build_pcb.py first.
+- verify_clr raised 0.13 -> 0.16 (was below the 0.15 netclass clearance, so the
+  router legalized 0.145mm squeezes that DRC then flagged).
+
+**Verified state (kicad-cli, headless)**
+- ERC: 0. DRC: **0 errors** (9 cosmetic silk warnings). 2012 tracks, 150 vias,
+  105 footprints, 96 nets documented in CONNECTIONS.md (coverage-enforced).
+- Remaining for the GUI: fill the GND pours (B), route the last **5 edges**
+  (4x PLUS3V3 spokes + 1 LINE6_LED), optionally convert In1/In2 to GND/3V3
+  planes (then delete the outer pours + the PLUS3V3 spokes entirely).
+- Honest caveats: 0.3mm routing clearance is blanket EXCEPT endpoint escape
+  zones (<=1.8mm from a route's own pads) where 0.16mm squeezes are allowed --
+  necessary at the SOIC muxes; near THT pin rows the escapes exit perpendicular
+  in practice but this is not a hard guarantee. Nano-ESP32 header->GPIO->
+  ADC1-channel mapping must be confirmed in firmware. TB6612 breakout pin order
+  varies by vendor -- verify before fab.

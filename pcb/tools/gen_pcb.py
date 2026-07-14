@@ -34,6 +34,12 @@ class PcbGen:
         self._nets = {}
         self._placed = {}       # ref -> FOOTPRINT
         self._track_segs = []   # (p1_mm, p2_mm, net_name, half_width_mm, layer_id)
+        # Copper layers the ROUTER may use, outer-first. 2-layer default; set
+        # to [F_Cu, In1_Cu, In2_Cu, B_Cu] (e.g. from route_loaded.py, matching
+        # board.GetCopperLayerCount()) for the 4-layer board. THT pads block/
+        # connect on ALL of these; SMD pads only on their own face; through
+        # vias join every layer in the list.
+        self.LAYERS = [pcbnew.F_Cu, pcbnew.B_Cu]
         self._vias = []         # (x_mm, y_mm, net_name, radius_mm)
         self._outline_pts = None
         self._unrouted = []     # (net_name, p1_mm, p2_mm, reason)
@@ -320,10 +326,14 @@ class PcbGen:
                 has_hole = pad.GetDrillSize().x > 0
                 on_f = pad.IsOnLayer(pcbnew.F_Cu) or has_hole
                 on_b = pad.IsOnLayer(pcbnew.B_Cu) or has_hole
+                if has_hole:
+                    lyrs = frozenset(self.LAYERS)      # THT pierces every layer
+                else:
+                    lyrs = frozenset(l for l, f in ((pcbnew.F_Cu, on_f), (pcbnew.B_Cu, on_b)) if f)
                 out.append({
                     "ref": ref, "num": pad.GetNumber(), "net": pad.GetNetname(),
                     "rect": rect, "cx": cx, "cy": cy,
-                    "on_f": on_f, "on_b": on_b, "hole": has_hole,
+                    "on_f": on_f, "on_b": on_b, "hole": has_hole, "layers": lyrs,
                 })
         self._pads_geo_cache = out
         return out
@@ -411,8 +421,8 @@ class PcbGen:
         #           verification afterwards is the actual judge for those.
         inflate = grid * 0.75
         static = self._static_cells(grid)
-        hard = {pcbnew.F_Cu: set(), pcbnew.B_Cu: set()}
-        soft = {pcbnew.F_Cu: set(static), pcbnew.B_Cu: set(static)}
+        hard = {L: set() for L in self.LAYERS}
+        soft = {L: set(static) for L in self.LAYERS}
         via_hard = set(static)
         via_soft = set(static)
         via_r = VIA_DIA_MM / 2
@@ -423,8 +433,8 @@ class PcbGen:
             grow_t = half_w + clearance + inflate
             hard_v = via_r + 0.05
             grow_v = via_r + clearance + inflate
-            for layer, flag in ((pcbnew.F_Cu, pad["on_f"]), (pcbnew.B_Cu, pad["on_b"])):
-                if flag:
+            for layer in self.LAYERS:
+                if layer in pad["layers"]:
                     self._cells_in_rect(pad["rect"], hard_t, grid, hard[layer])
                     self._cells_in_rect(pad["rect"], grow_t, grid, soft[layer])
             self._cells_in_rect(pad["rect"], hard_v, grid, via_hard)
@@ -440,7 +450,7 @@ class PcbGen:
             if net == net_name:
                 continue
             rect = (vx, vy, vx, vy)
-            for layer in (pcbnew.F_Cu, pcbnew.B_Cu):
+            for layer in self.LAYERS:                  # through via blocks every layer
                 self._cells_in_rect(rect, vr + half_w + 0.05, grid, hard[layer])
                 self._cells_in_rect(rect, vr + half_w + clearance + inflate, grid, soft[layer])
             self._cells_in_rect(rect, vr + via_r + 0.05, grid, via_hard)
@@ -466,7 +476,10 @@ class PcbGen:
         # Hard-blocked cells (another net's real copper) are never traversable.
         sc = (round(start[0] / grid), round(start[1] / grid))
         gc = (round(goal[0] / grid), round(goal[1] / grid))
-        F, B = pcbnew.F_Cu, pcbnew.B_Cu
+        LAYERS = self.LAYERS
+        # Alternating H/V preference by layer index (0=F horizontal, 1 vertical,
+        # ...): classic multilayer discipline, keeps the euclidean h admissible.
+        horiz_pref = {L: (i % 2 == 0) for i, L in enumerate(LAYERS)}
 
         def cell_ok(c, layer):
             if c in hard[layer]:
@@ -510,12 +523,11 @@ class PcbGen:
                 if not cell_ok(nc, L):
                     continue
                 nst = (nc, L)
-                # Mild H/V layer discipline (classic 2-layer routing): top
-                # layer prefers horizontal runs, bottom prefers vertical.
-                # Keeps long runs on different layers from fencing each
-                # other into unroutable pockets. Multiplier > 1 keeps the
-                # euclidean heuristic admissible.
-                if L == F:
+                # Mild H/V layer discipline: alternating layers prefer
+                # horizontal vs vertical runs. Keeps long runs on different
+                # layers from fencing each other into unroutable pockets.
+                # Multiplier > 1 keeps the euclidean heuristic admissible.
+                if horiz_pref[L]:
                     step = math.hypot(ddx * 1.0, ddy * 1.25)
                 else:
                     step = math.hypot(ddx * 1.25, ddy * 1.0)
@@ -526,16 +538,18 @@ class PcbGen:
                     h = math.hypot(nc[0] - gc[0], nc[1] - gc[1]) * grid
                     heapq.heappush(open_heap, (ng + h, counter, nst))
                     counter += 1
-            oL = B if L == F else F
-            if via_ok(c) and cell_ok(c, oL):
-                nst = (c, oL)
-                ng = base_g + via_cost
-                if nst not in gscore or ng < gscore[nst] - 1e-9:
-                    gscore[nst] = ng
-                    came[nst] = cur
-                    h = math.hypot(c[0] - gc[0], c[1] - gc[1]) * grid
-                    heapq.heappush(open_heap, (ng + h, counter, nst))
-                    counter += 1
+            if via_ok(c):
+                for oL in LAYERS:
+                    if oL == L or not cell_ok(c, oL):
+                        continue
+                    nst = (c, oL)
+                    ng = base_g + via_cost
+                    if nst not in gscore or ng < gscore[nst] - 1e-9:
+                        gscore[nst] = ng
+                        came[nst] = cur
+                        h = math.hypot(c[0] - gc[0], c[1] - gc[1]) * grid
+                        heapq.heappush(open_heap, (ng + h, counter, nst))
+                        counter += 1
         if goal_state is None:
             return None
 
@@ -574,10 +588,10 @@ class PcbGen:
             i = j
         return segments, via_points
 
-    def _verify_geo(self, segments, via_points, net_name, half_w, verify_clr=0.13,
+    def _verify_geo(self, segments, via_points, net_name, half_w, verify_clr=0.16,
                      edge_margin=0.7):
-        # verify_clr is set just above the 0.127mm clearance rule this board
-        # registers in its design settings (see setup_design_rules) -- 0.127 is
+        # verify_clr sits just above the 0.15mm netclass clearance this board
+        # registers in its design settings (see setup_design_rules) -- and is
         # comfortably within standard fab capability (JLCPCB min 0.127) and is
         # what makes fine-pitch escapes (SSOP-24 at 0.65mm pitch) legal.
         # Continuous-geometry re-check of a candidate route with TRUE
@@ -596,8 +610,7 @@ class PcbGen:
             for pad in pads:
                 if pad["net"] == net_name:
                     continue
-                on_this = pad["on_f"] if layer == pcbnew.F_Cu else pad["on_b"]
-                if not on_this:
+                if layer not in pad["layers"]:
                     continue
                 if self._seg_rect_dist(p1, p2, pad["rect"]) < half_w + verify_clr:
                     return f"segment too close to {pad['ref']}.{pad['num']} ({pad['net']})"
@@ -686,14 +699,7 @@ class PcbGen:
         if len(pads) < 2:
             return True
         pts = [(p["cx"], p["cy"]) for p in pads]
-        pad_layers = []
-        for p in pads:
-            L = []
-            if p["on_f"]:
-                L.append(pcbnew.F_Cu)
-            if p["on_b"]:
-                L.append(pcbnew.B_Cu)
-            pad_layers.append(L)
+        pad_layers = [list(p["layers"]) for p in pads]
 
         # Prim's MST over pad centers
         n = len(pts)
@@ -798,13 +804,8 @@ class PcbGen:
         def layers_at(p):
             for pad in pads:
                 if pad["net"] == net_name and abs(pad["cx"] - p[0]) < 0.01 and abs(pad["cy"] - p[1]) < 0.01:
-                    L = []
-                    if pad["on_f"]:
-                        L.append(pcbnew.F_Cu)
-                    if pad["on_b"]:
-                        L.append(pcbnew.B_Cu)
-                    return L
-            return [pcbnew.F_Cu, pcbnew.B_Cu]
+                    return list(pad["layers"])
+            return list(self.LAYERS)
         half_w = width_mm / 2
         hard, soft, via_hard, via_soft = self._net_obstacles(net_name, half_w, clearance_mm, grid_mm)
         for diag, escape in ((True, 1.8), (True, 1.0), (True, 0.6),

@@ -25,7 +25,7 @@ def C(ref, value, at, n1=None, n2=None, footprint="Capacitor_SMD:C_0805_2012Metr
     g.add_component("Device", "C", ref, value, base, {"1": n1 or "", "2": n2 or ""}, footprint=footprint)
     return pin_at(base, (0, 3.81)), pin_at(base, (0, -3.81))
 
-def L(ref, value, at, footprint="Inductor_SMD:L_Bourns_SRR1260"):
+def L(ref, value, at, footprint="Inductor_SMD:L_Bourns_SRP7028A_7.3x6.6mm"):
     base = snap(at)
     g.add_component("Device", "L", ref, value, base, {"1": "", "2": ""}, footprint=footprint)
     return pin_at(base, (0, 3.81)), pin_at(base, (0, -3.81))
@@ -291,7 +291,7 @@ WIRE(bst_p2, c5p1)
 RAIL("PLUS3V3", c5p1, rotation=90)
 RAIL("GND", c5p2, rotation=270)
 
-TXT("+3V3 is the single regulated logic rail: STM32, ESP32, mux logic, encoder VCC,\nphototransistor pull-ups, and IR LED driver current all come from here (not raw VM_BATT).",
+TXT("+3V3 is the single regulated logic rail: the ESP32 dev board, mux logic, encoder VCC,\nphototransistor pull-ups, and IR LED driver current all come from here (not raw VM_BATT).",
     (200, 100), size=2.2)
 
 j3p1, j3p2, j3p3 = CONN3("J3", "BATT_BALANCE_2S", (20, 60))
@@ -317,110 +317,14 @@ WIRE(r4p2, c7p1)
 RAIL("GND", c7p2, rotation=270)
 RAIL("VBAT_PACK_SENSE", r4p2, rotation=0)
 
-TXT("VBAT_CELL1_SENSE = cell1 voltage (0-4.2V) scaled to <=2.9V.\nVBAT_PACK_SENSE = full pack voltage (0-8.4V) scaled to <=3.3V.\nFirmware computes cell2 = pack - cell1. Both wired to MCU ADC pins D8/D7\n(PF1/PF0) -- see final GPIO allocation table in PROJECT_NOTES.md.",
+TXT("VBAT_CELL1_SENSE = cell1 voltage (0-4.2V) scaled to <=2.9V.\nVBAT_PACK_SENSE = full pack voltage (0-8.4V) scaled to <=3.3V.\nFirmware computes cell2 = pack - cell1. Both wired to ESP32 ADC pins A2/A1\n(VBAT_PACK_SENSE/VBAT_CELL1_SENSE) -- see GPIO allocation table in PROJECT_NOTES.md.",
     (20, 20), size=2.2)
 
 # ---------------------------------------------------------------------------
-# MCU SECTION -- Nano header, now with descriptive net names (was raw GPIO
-# names) now that the full GPIO allocation is finalized (see PROJECT_NOTES.md).
+# (MCU SECTION REMOVED 2026-07-13 -- STM32 dropped; the ESP32 in the CONTROLLER
+#  section below is now the sole controller. All former STM32 nets are sourced
+#  there instead. See PROJECT_NOTES.md.)
 # ---------------------------------------------------------------------------
-TXT("MCU  --  NUCLEO-G431KB socketed via two Nano-compatible 1x15 headers (CN3 + CN4)", (400, 190), size=5)
-
-# The module socket is two SEPARATE 15-pin headers on opposite long edges of
-# the module, 15.24mm (0.6") apart, NOT one combined 2x15 block (first bug,
-# caught by the user against the module's real photo). The pin ORDER within
-# each row was ALSO wrong in the second draft (phantom NC pin shifting D2-D11
-# by one, D12 on the wrong row, power pins scrambled, the Nano's SECOND reset
-# pin missing entirely) -- caught while writing CONNECTIONS.md and fixed
-# against definitive ground truth: KiCad's own bundled Arduino Nano reference
-# PCB (`template/Arduino_Nano/Arduino_Nano.kicad_pcb`), whose two 1x15
-# headers carry, pin 1 -> 15:
-#   digital row: D12 D11 D10 D9 D8 D7 D6 D5 D4 D3 D2 GND RESET D0 D1
-#   analog row:  D13 3V3 AREF A0 A1 A2 A3 A4 A5 A6 A7 5V RESET GND VIN
-# with BOTH rows' pin 1 at the same physical end (D12 across from D13).
-# Note: on the NUCLEO-G431KB specifically, ST swapped which silk label (CN3
-# vs CN4) goes on which row relative to every other Nucleo-32 board (ST
-# community, confirmed by an ST moderator) -- so we deliberately avoid the
-# CN3/CN4 names and define rows by FUNCTION: J4 = digital row, J8 = analog
-# row. D-number -> STM32 GPIO mapping (D2=PA12 etc.) is unchanged from the
-# earlier verified research (PROJECT_NOTES.md).
-J4_DIGITAL_ROW = {
-    "1": "ENC1_A",            # D12  PB4  TIM3_CH1
-    "2": "ENC1_B",            # D11  PB5  TIM3_CH2
-    "3": "PWMB",              # D10  PA11 TIM1_CH4
-    "4": "PWMA",              # D9   PA8  TIM1_CH1
-    "5": "VBAT_CELL1_SENSE",  # D8   PF1  ADC2_IN10
-    "6": "VBAT_PACK_SENSE",   # D7   PF0  ADC1_IN10
-    "7": "MUX_S2",            # D6   PB6
-    "8": "ENC2_A",            # D5   PA15 TIM2_CH1
-    "9": "MUX_S1",            # D4   PB7
-    "10": "MUX_SENSE",        # D3   PB0  ADC1_IN15
-    "11": "MUX_S0",           # D2   PA12
-    "12": "GND",
-    "13": "NRST",
-    "14": "USART1_RX",        # D0   PA10
-    "15": "USART1_TX",        # D1   PA9
-}
-J8_ANALOG_ROW = {
-    "1": "ENC2_B",            # D13  PB3  TIM2_CH2
-    "2": "PLUS3V3",
-    "3": "NC_AREF",           # AREF -- left NC, ADC uses internal reference
-    "4": "MUX_S3",            # A0   PA0
-    "5": "LED_PULSE",         # A1   PA1
-    "6": "STBY",              # A2   PA3
-    "7": "AIN1",              # A3   PA4
-    "8": "AIN2",              # A4   PA5
-    "9": "BIN1",              # A5   PA6
-    "10": "BIN2",             # A6   PA7
-    "11": "USER_BTN",         # A7   PA2
-    "12": "NC_5V",            # 5V -- left NC, module is powered via 3V3 pin
-    "13": "NRST",             # second reset pin -- same physical MCU reset line
-    "14": "GND",
-    "15": "NC_VIN",           # VIN -- left NC, same reason as 5V
-}
-
-conn15_offset = {}
-y = 17.78
-for p in range(1, 16):
-    conn15_offset[str(p)] = (-5.08, y)
-    y -= 2.54
-
-J4_BASE = snap((440, 150))
-g.add_component("Connector_Generic", "Conn_01x15", "J4", "NUCLEO-G431KB digital row (D12..D2,GND,RST,D0,D1)",
-                 J4_BASE, {str(p): "" for p in range(1, 16)},
-                 footprint="Connector_PinSocket_2.54mm:PinSocket_1x15_P2.54mm_Vertical",
-                 datasheet="https://www.st.com/resource/en/user_manual/um2397-stm32g4-nucleo32-board-mb1430-stmicroelectronics.pdf")
-J8_BASE = snap((475, 150))
-g.add_component("Connector_Generic", "Conn_01x15", "J8", "NUCLEO-G431KB analog row (D13,3V3,AREF,A0..A7,5V,RST,GND,VIN)",
-                 J8_BASE, {str(p): "" for p in range(1, 16)},
-                 footprint="Connector_PinSocket_2.54mm:PinSocket_1x15_P2.54mm_Vertical",
-                 datasheet="https://www.st.com/resource/en/user_manual/um2397-stm32g4-nucleo32-board-mb1430-stmicroelectronics.pdf")
-
-MCU_NET_POS = {}  # net name -> absolute pin position, so other sections can find it
-for base, pins, rot in ((J4_BASE, J4_DIGITAL_ROW, 180), (J8_BASE, J8_ANALOG_ROW, 0)):
-    for pin_str, net in pins.items():
-        abs_pos = pin_at(base, conn15_offset[pin_str])
-        if net.startswith("NC"):
-            NC(abs_pos)
-        elif net == "GND":
-            PWR("GND", abs_pos)
-        else:
-            RAIL(net, abs_pos, rotation=rot)
-            MCU_NET_POS[net] = abs_pos
-
-c8p1, c8p2 = C("C8", "100nF", (J8_BASE[0] + 40, J8_BASE[1] + 10))
-RAIL("PLUS3V3", c8p1, rotation=90)
-RAIL("GND", c8p2, rotation=270)
-
-TXT("BOOT0 and SWD (PA13/PA14) are NOT on the Nano header rows on this board -- confirmed\n"
-    "against ST documentation (UM2397 family). Wireless STM32 update uses a firmware-level\n"
-    "System-Memory-bootloader jump (AN2606) triggered over UART, not a hardware BOOT0\n"
-    "line -- see PROJECT_NOTES.md. NRST is on the header (both rows carry a reset pin,\n"
-    "same physical line), also driven by an ESP32 GPIO (open-drain) for wireless hard-reset.\n"
-    "Row pin order verified against KiCad's bundled Arduino Nano reference PCB; note ST\n"
-    "swapped the CN3/CN4 silk labels on this one board vs all other Nucleo-32s, so rows\n"
-    "are named here by function instead. Full GPIO/net table is in PROJECT_NOTES.md.",
-    (400, 40), size=2.2)
 
 # ---------------------------------------------------------------------------
 # MOTOR DRIVER (SOCKETED BREAKOUT) + ENCODERS SECTION
@@ -438,7 +342,7 @@ TXT("BOOT0 and SWD (PA13/PA14) are NOT on the Nano header rows on this board -- 
 # on-carrier decoupling caps are placed here (unlike the bare-chip version).
 TXT("MOTOR DRIVER (socketed TB6612 breakout) + ENCODERS  --  2x N20-with-encoder motors", (10, 230), size=5)
 
-# J10 = control-side header (STM32 -> driver logic inputs)
+# J10 = control-side header (ESP32 -> driver logic inputs)
 J10_MAP = ["STBY", "PWMA", "AIN1", "AIN2", "PWMB", "BIN1", "BIN2", "GND"]
 j10 = CONN_COL("J10", "TB6612_BREAKOUT_CTRL", (95, 320), 8,
                footprint="Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical")
@@ -458,7 +362,7 @@ for pos, net in zip(j11, J11_MAP):
     else:
         RAIL(net, pos, rotation=0)
 
-TXT("Breakout logic inputs: STBY, AIN1/AIN2, BIN1/BIN2 are plain STM32 GPIO; PWMA/PWMB\nare TIM1_CH1/CH4 (firmware configures PWM). VM=raw battery, VCC=+3V3 logic, GND common.\nAO1/AO2 -> motor A (MOTA_P/N), BO1/BO2 -> motor B (MOTB_P/N). The breakout's own board\ncarries VM/VCC decoupling. VERIFY the breakout's real pin order + row spacing before fab.",
+TXT("Breakout logic inputs: STBY, AIN1/AIN2, BIN1/BIN2 are plain ESP32 GPIO; PWMA/PWMB are\nESP32 LEDC PWM outputs (firmware configures PWM). VM=raw battery, VCC=+3V3 logic, GND common.\nAO1/AO2 -> motor A (MOTA_P/N), BO1/BO2 -> motor B (MOTB_P/N). The breakout's own board\ncarries VM/VCC decoupling. VERIFY the breakout's real pin order + row spacing before fab.",
     (10, 258), size=2.0)
 
 # Motor A connector: M+/M- come from the breakout outputs (MOTA_P/N), plus
@@ -496,70 +400,100 @@ TXT("10k pull-ups on all 4 encoder lines -- defensive: N20-encoder wire-color-to
     (10, 400), size=2.0)
 
 # ---------------------------------------------------------------------------
-# WIRELESS SECTION -- socketed Arduino Nano ESP32 dev board
+# CONTROLLER -- socketed Arduino Nano ESP32 (ESP32-S3), the SOLE controller
 # ---------------------------------------------------------------------------
-# User decision (2026-07-12): use a SOCKETED ESP32 DEV BOARD (not the bare
-# ESP32-S3-MINI-1 SMD module). Chosen board: Arduino Nano ESP32 -- an ESP32-S3
-# dev board in the SAME Nano form factor as the NUCLEO-G431KB, so it sockets
-# identically via two 1x15 female headers (J12 digital row, J13 analog row,
-# 15.24mm apart), exactly mirroring the STM32 mounting. Because it is a dev
-# board it brings its OWN USB, auto-reset, boot button, regulator, and
-# decoupling -- so all of that support circuitry from the SMD version (EN/IO0
-# strap buttons SW1/SW2, their pull-ups R10/R11, the 4-pin programming header
-# J7, decoupling C11/C12) is REMOVED. We only wire power, ground, the UART
-# link to the STM32, and one GPIO to drive the STM32's reset.
+# User decision (2026-07-13): the STM32 is DROPPED entirely. One ESP32-S3
+# (Arduino Nano ESP32) now does all real-time control AND wireless telemetry,
+# saving a whole socketed dev-board footprint plus the old UART flash-relay.
+# Modeled with the REAL KiCad footprint Module:Arduino_Nano (true ~18x45mm
+# board outline/courtyard) driven from ONE 30-pin symbol (Conn_02x15_Odd_Even),
+# whose pin numbers map 1:1 to the footprint pads. Pad->function mapping is
+# locked against the footprint's USB silk marker at (7.62, 35.56): footprint
+# pads 1-15 = analog row VIN..D13, pads 16-30 = digital row D12..D1 (identical
+# ordering to KiCad's Arduino Nano reference, which the old STM32 rows were
+# already verified against).
 #
-# Physical Nano row order is identical to the Nucleo (verified against KiCad's
-# Arduino Nano reference): digital row pin1->15 = D12 D11 D10 D9 D8 D7 D6 D5 D4
-# D3 D2 GND RST D0/RX D1/TX; analog row = D13 3V3 AREF A0..A7 5V RST GND VIN.
-TXT("WIRELESS  --  socketed Arduino Nano ESP32 dev board (telemetry + STM32 update relay)", (300, 230), size=5)
+# The control NET NAMES are unchanged from the STM32 design (STBY, PWMA, ENC1_A,
+# MUX_S0 ...), so every downstream consumer (TB6612 header J10/J11, motor
+# connectors J5/J6, muxes U4/U5, button SW1, battery dividers) is untouched --
+# only the pin that SOURCES each net moved here. ESP32 ADC inputs must be real
+# ADC pins, so the 3 analog nets (MUX_SENSE + both battery senses) sit on
+# A0/A1/A2; everything else is plain GPIO (LEDC PWM works on any pin).
+TXT("CONTROLLER  --  socketed Arduino Nano ESP32 (ESP32-S3): control + sensors + telemetry", (300, 230), size=5)
 
-ESP_DIGITAL = {  # pin -> net (only the ones we connect; else NC)
-    "11": "USART1_RX",   # D2  -> optionally spare; we use D2 for NRST below instead
-    "12": "GND",         # GND
-    "14": "USART1_TX",   # D0/RX  <- STM32 transmits (STM32 TX -> ESP RX)
-    "15": "USART1_RX",   # D1/TX  -> STM32 receives (ESP TX -> STM32 RX)
+A1_MAP = {
+    # analog row: footprint pads 1..15 = VIN,GND,RST,5V,A7,A6,A5,A4,A3,A2,A1,A0,AREF,3V3,D13
+    1:  None,               # VIN   -- NC (board powered via 3V3; never back-feed)
+    2:  "GND",              # GND
+    3:  None,               # RESET -- NC
+    4:  None,               # 5V    -- NC
+    5:  "USER_BTN",         # A7
+    6:  "LED_PULSE",        # A6
+    7:  "MUX_S3",           # A5
+    8:  "MUX_S2",           # A4
+    9:  "MUX_S1",           # A3
+    10: "VBAT_PACK_SENSE",  # A2  (ADC)
+    11: "VBAT_CELL1_SENSE", # A1  (ADC)
+    12: "MUX_SENSE",        # A0  (ADC)
+    13: None,               # AREF -- NC
+    14: "PLUS3V3",          # 3V3 -- powers the board from our regulated rail
+    15: "MUX_S0",           # D13
+    # digital row: footprint pads 16..30 = D12,D11,D10,D9,D8,D7,D6,D5,D4,D3,D2,GND,RST,D0,D1
+    16: "ENC1_A",           # D12
+    17: "ENC1_B",           # D11
+    18: "ENC2_A",           # D10
+    19: "ENC2_B",           # D9
+    20: "PWMA",             # D8
+    21: "PWMB",             # D7
+    22: "AIN1",             # D6
+    23: "AIN2",             # D5
+    24: "BIN1",             # D4
+    25: "BIN2",             # D3
+    26: "STBY",             # D2
+    27: "GND",              # GND
+    28: None,               # RESET -- NC
+    29: None,               # D0/RX -- NC (free for USB-serial debug)
+    30: None,               # D1/TX -- NC
 }
-# Correct assignment (kept explicit to avoid the dict-collision above): D0/RX
-# receives what the STM32 transmits (USART1_TX net); D1/TX drives what the
-# STM32 receives (USART1_RX net); D2 drives the STM32 reset (NRST).
-ESP_DIGITAL = {
-    "11": "NRST",        # D2  -> STM32 NRST (ESP resets STM32; open-drain in firmware)
-    "12": "GND",         # GND
-    "14": "USART1_TX",   # D0/RX <- STM32's USART1_TX
-    "15": "USART1_RX",   # D1/TX -> STM32's USART1_RX
-}
-ESP_ANALOG = {
-    "2": "PLUS3V3",      # 3V3 -- powers the dev board from our regulated rail
-    "14": "GND",         # GND
-}
 
-esp_off = {}
-_y = 17.78
-for _p in range(1, 16):
-    esp_off[str(_p)] = (-5.08, _y); _y -= 2.54
+def a1_pin(n):
+    # Conn_02x15_Odd_Even geometry (verified from the KiCad symbol): odd pins on
+    # the left (x=-5.08), even on the right (x=+7.62), rows top->bottom at
+    # y = 17.78 - 2.54*row. Pin number == footprint pad number.
+    if n % 2 == 1:
+        x, row = -5.08, (n - 1) // 2
+    else:
+        x, row = 7.62, (n - 2) // 2
+    return (x, 17.78 - 2.54 * row)
 
-ESP_D_BASE = snap((360, 300))
-g.add_component("Connector_Generic", "Conn_01x15", "J12", "Arduino Nano ESP32 digital row",
-                 ESP_D_BASE, {str(p): "" for p in range(1, 16)},
-                 footprint="Connector_PinSocket_2.54mm:PinSocket_1x15_P2.54mm_Vertical")
-ESP_A_BASE = snap((395, 300))
-g.add_component("Connector_Generic", "Conn_01x15", "J13", "Arduino Nano ESP32 analog row",
-                 ESP_A_BASE, {str(p): "" for p in range(1, 16)},
-                 footprint="Connector_PinSocket_2.54mm:PinSocket_1x15_P2.54mm_Vertical")
+A1_BASE = snap((360, 300))
+g.add_component("Connector_Generic", "Conn_02x15_Odd_Even", "A1",
+                "Arduino Nano ESP32 (ESP32-S3) -- sole controller, socketed",
+                A1_BASE, {str(n): "" for n in range(1, 31)},
+                footprint="Module:Arduino_Nano",
+                datasheet="https://docs.arduino.cc/hardware/nano-esp32")
+for _n in range(1, 31):
+    _pos = pin_at(A1_BASE, a1_pin(_n))
+    _net = A1_MAP[_n]
+    if _net is None:
+        NC(_pos)
+    elif _net == "GND":
+        PWR("GND", _pos)
+    else:
+        RAIL(_net, _pos, rotation=(180 if _n % 2 == 1 else 0))
 
-for base, mp, rot in ((ESP_D_BASE, ESP_DIGITAL, 180), (ESP_A_BASE, ESP_ANALOG, 0)):
-    for p in range(1, 16):
-        pos = pin_at(base, esp_off[str(p)])
-        net = mp.get(str(p))
-        if net is None:
-            NC(pos)
-        elif net == "GND":
-            PWR("GND", pos)
-        else:
-            RAIL(net, pos, rotation=rot)
+# 3V3 decoupling at the controller (kept as C8 from the old MCU section).
+c8p1, c8p2 = C("C8", "100nF", (A1_BASE[0] + 32, A1_BASE[1] + 12))
+RAIL("PLUS3V3", c8p1, rotation=90)
+RAIL("GND", c8p2, rotation=270)
 
-TXT("Only 5 pins used: 3V3 (power in from our rail -- do NOT also power via the board's\nUSB while battery is on), GND, D0/RX <- STM32 USART1_TX, D1/TX -> STM32 USART1_RX,\nand D2 -> STM32 NRST (firmware open-drain, so it never fights the Nucleo's own reset).\nEverything else on the dev board (USB, auto-reset, boot button, regulator) is onboard,\nso the SMD version's strap buttons / programming header / decoupling are all removed.\nThe dev board's own USB-C is used to flash the ESP32; the STM32 is flashed over this\nUART link into its ROM bootloader (see PROJECT_NOTES.md).",
+TXT("Single ESP32-S3 runs everything: TB6612 (STBY/PWMA/PWMB/AIN*/BIN*), 4 encoder inputs,\n"
+    "the 2x HEF4067 sensor muxes (MUX_S0-S3 select, MUX_SENSE ADC, LED_PULSE), the two\n"
+    "battery-sense ADCs, and USER_BTN. Wi-Fi/BLE telemetry is built in; flashed over the\n"
+    "board's own USB-C -- no separate programmer or UART relay. The 3 analog nets are on\n"
+    "A0-A2 (real ADC pins). The Nano-ESP32 header-to-GPIO map, and which pins are\n"
+    "strapping/input-only, must be confirmed against the Arduino Nano ESP32 pinout in\n"
+    "firmware -- see PROJECT_NOTES.md.",
     (300, 360), size=2.0)
 
 # ---------------------------------------------------------------------------
@@ -574,7 +508,7 @@ RAIL("PLUS3V3", rbtn1, rotation=90)
 RAIL("USER_BTN", btn1, rotation=180)
 RAIL("GND", btn2, rotation=0)
 
-TXT("USER_BTN (PA2/A7) -- active-low start-run button, pulled up to +3V3.\nThis is the one Nano-header pin left over once every other net was assigned --\nthe GPIO budget across the 22 usable signal pins came out exactly even otherwise\n(see the full allocation table in PROJECT_NOTES.md). Not in the original spec,\nadded because the pin was there and a start button is standard micromouse UX.\n\nNo SWD/BOOT0 debug header on this board: BOOT0 and SWD are not exposed on the\nNUCLEO-G431KB's Nano-compatible header at all (confirmed against ST UM2397) --\nsee the MCU section note. STM32 firmware updates happen only via the ESP32\nUART relay into the System Memory bootloader; the module's own USB/ST-LINK\n(while its snap-off tab is attached) is the only other recovery path.",
+TXT("USER_BTN (ESP32 A7) -- active-low start-run button, pulled up to +3V3.\nStandard micromouse UX (arm, then start a run). One of the ESP32 analog-capable\npins; the full net/pin allocation is in PROJECT_NOTES.md.\n\nNo separate debug/programming header on this board: the Arduino Nano ESP32 is\nflashed over its own onboard USB-C, and firmware is updated the same way (or\nover-the-air via Wi-Fi). No BOOT0/SWD/UART-relay hardware is needed now that the\nSTM32 is gone -- the ESP32's native USB handles programming and console.",
     (600, 260), size=2.0)
 
 # ---------------------------------------------------------------------------

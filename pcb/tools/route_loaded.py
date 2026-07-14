@@ -15,8 +15,21 @@ NETLIST = r"D:\Projects\micromouse-pcb\pcb\netlist.net"
 # PcbGen gives us the router methods + netlist map; swap in the USER's board
 # so we route their exact placement (never regenerate it).
 g = PcbGen(NETLIST)
+# IMPORTANT: this script must be run on a TRACKLESS board (run build_pcb.py
+# first). Removing existing tracks via the pcbnew API corrupts SWIG proxies for
+# the rest of the session (footprints stop iterating, GetDesignSettings dies) --
+# so instead of stripping here, regenerate the placement-only board and route it.
 g.board = pcbnew.LoadBoard(BOARD)
+ntr = len(list(g.board.GetTracks()))
+if ntr:
+    raise SystemExit(f"Board has {ntr} tracks -- run build_pcb.py first to regenerate trackless.")
 g.setup_design_rules()   # 0.3mm default-netclass clearance (no inter-pin traces)
+
+# Use every copper layer the board defines (4-layer: F/In1/In2/B, all signal --
+# the router treats THT pads as piercing all of them, through vias join them).
+if g.board.GetCopperLayerCount() >= 4:
+    g.LAYERS = [pcbnew.F_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.B_Cu]
+print(f"routing on {len(g.LAYERS)} copper layers")
 
 # Populate the router's placement view from the loaded footprints.
 g._placed = {fp.GetReference(): fp for fp in g.board.GetFootprints()}
@@ -27,19 +40,16 @@ for code, ni in g.board.GetNetsByNetcode().items():
     if nm:
         g._nets[nm] = ni
 
-# Outer board outline (chamfered 150x185). Interior wheel slots + motor
-# keep-outs are handled as obstacles via _keepout_rects (board zones) + here.
-g._outline_pts = [(25, 0), (125, 0), (150, 25), (150, 185), (0, 185), (0, 25)]
+# Outer board outline (chamfered 100x128, ESP32-only redesign). Interior wheel
+# slots + motor keep-outs are obstacles via _keepout_rects (board zones) + here.
+g._outline_pts = [(16, 0), (84, 0), (100, 16), (100, 128), (0, 128), (0, 16)]
 # Interior wheel slots (wheels inside the envelope) as router obstacles.
-AXLE_Y = 78
+AXLE_Y = 108
 g._extra_keepouts = [
-    (4, AXLE_Y - 16, 13, AXLE_Y + 16),            # left wheel slot
-    (137, AXLE_Y - 16, 146, AXLE_Y + 16),         # right wheel slot
+    (3, AXLE_Y - 16, 12, AXLE_Y + 16),            # left wheel slot
+    (88, AXLE_Y - 16, 97, AXLE_Y + 16),           # right wheel slot
 ]
 
-# Strip any leftover tracks first (finalize already did, but be safe).
-for t in list(g.board.GetTracks()):
-    g.board.Remove(t)
 g._track_segs = []
 g._vias = []
 g._pads_geo_cache = None
@@ -61,7 +71,7 @@ sig.sort(key=span, reverse=True)
 
 t0 = time.time()
 CLR = 0.3   # no-inter-pin
-EXP = 30000   # bounded so the whole board finishes in a few minutes
+EXP = 80000   # bounded; the 100x128 board is small enough to afford more search
 # micro-bridges first (adjacent same-net pins), then long signals, then power.
 for n in all_nets:
     if n not in skip:
@@ -80,10 +90,22 @@ retry = list(g._unrouted); g._unrouted = []
 still = []
 for (net, p1, p2, reason) in retry:
     w = 0.5 if net in POWER else 0.3
-    ok = g.retry_edge(net, p1, p2, width_mm=w, clearance_mm=CLR, max_expansions=120000)
+    ok = g.retry_edge(net, p1, p2, width_mm=w, clearance_mm=CLR, max_expansions=400000)
     if not ok:
         still.append((net, p1, p2, reason))
-print(f"[{time.time()-t0:.0f}s] retry done")
+print(f"[{time.time()-t0:.0f}s] retry done, {len(still)} left")
+
+# FINAL fine-grid pass: only the survivors, at 0.25mm grid (4x the cells, so
+# only affordable for a handful of edges) -- resolves endpoint-escape failures
+# the 0.5mm grid can't represent.
+retry2 = still; still = []
+for (net, p1, p2, reason) in retry2:
+    w = 0.5 if net in POWER else 0.3
+    ok = g.retry_edge(net, p1, p2, width_mm=w, clearance_mm=CLR,
+                      grid_mm=0.25, max_expansions=900000)
+    if not ok:
+        still.append((net, p1, p2, reason))
+print(f"[{time.time()-t0:.0f}s] fine-grid retry done, {len(still)} left")
 
 pcbnew.SaveBoard(BOARD, g.board)
 tr = sum(1 for t in g.board.GetTracks() if t.GetClass() == "PCB_TRACK")
