@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "D:\\Projects\\micromouse-pcb\\pcb\\micromouse-pcb.kicad_sch")
-		(date "2026-07-15T20:19:56")
+		(date "2026-07-15T21:49:33")
 		(tool "Eeschema 10.0.4")
 		(sheet
 			(number "1")
@@ -55,144 +55,6 @@
 	)
 	(components
 		(comp
-			(ref "A1")
-			(value "Arduino Nano ESP32 (ESP32-S3) -- sole controller, socketed")
-			(footprint "Module:Arduino_Nano")
-			(datasheet "https://docs.arduino.cc/hardware/nano-esp32")
-			(fields
-				(field
-					(name "Footprint") "Module:Arduino_Nano")
-				(field
-					(name "Datasheet") "https://docs.arduino.cc/hardware/nano-esp32")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_02x15_Odd_Even")
-				(description "Generic connector, double row, 02x15, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_2x??_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "95311f73-ad0e-45fe-b282-8f5c9060b97e")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "5")
-						)
-						(pin
-							(num "7")
-						)
-						(pin
-							(num "9")
-						)
-						(pin
-							(num "11")
-						)
-						(pin
-							(num "13")
-						)
-						(pin
-							(num "15")
-						)
-						(pin
-							(num "17")
-						)
-						(pin
-							(num "19")
-						)
-						(pin
-							(num "21")
-						)
-						(pin
-							(num "23")
-						)
-						(pin
-							(num "25")
-						)
-						(pin
-							(num "27")
-						)
-						(pin
-							(num "29")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "4")
-						)
-						(pin
-							(num "6")
-						)
-						(pin
-							(num "8")
-						)
-						(pin
-							(num "10")
-						)
-						(pin
-							(num "12")
-						)
-						(pin
-							(num "14")
-						)
-						(pin
-							(num "16")
-						)
-						(pin
-							(num "18")
-						)
-						(pin
-							(num "20")
-						)
-						(pin
-							(num "22")
-						)
-						(pin
-							(num "24")
-						)
-						(pin
-							(num "26")
-						)
-						(pin
-							(num "28")
-						)
-						(pin
-							(num "30")
-						)
-					)
-				)
-			)
-		)
-		(comp
 			(ref "C1")
 			(value "100uF")
 			(footprint "Capacitor_SMD:C_1210_3225Metric")
@@ -231,7 +93,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3682e502-dcae-481a-8b42-47c961be435e")
+			(tstamps "f6d69aad-cb96-4b31-aede-b6d40d1d7eed")
 			(units
 				(unit
 					(name "A")
@@ -285,7 +147,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1a9aef09-d7a3-46c5-b183-ccbc5d74aec2")
+			(tstamps "c543e3b1-61f3-4e41-8eff-17a744625083")
 			(units
 				(unit
 					(name "A")
@@ -339,7 +201,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "abf28cf7-565f-4c90-a302-820341a781dc")
+			(tstamps "3919a016-4431-4346-9cce-6b9efb7593e9")
 			(units
 				(unit
 					(name "A")
@@ -393,7 +255,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "53c7b7a2-324c-4d67-9a53-e2eefbe639f3")
+			(tstamps "e25aa8c5-6730-44e5-850d-3e88cea6d490")
 			(units
 				(unit
 					(name "A")
@@ -447,7 +309,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5fda075e-d22e-4d99-987e-4065e310e810")
+			(tstamps "f992f52f-ee00-4ca0-9d66-645a25b45d84")
 			(units
 				(unit
 					(name "A")
@@ -501,61 +363,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2127ee63-346a-4a7c-8fcf-5173880956fa")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C7")
-			(value "100nF")
-			(footprint "Capacitor_SMD:C_0805_2012Metric")
-			(fields
-				(field
-					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C")
-				(description "Unpolarized capacitor")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "C_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "74276815-db23-4250-94c1-67050213f235")
+			(tstamps "ecefb75b-ede8-472f-894d-6c96e323b2a7")
 			(units
 				(unit
 					(name "A")
@@ -609,7 +417,115 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "29b9997d-6faa-4626-94b0-62c3117140aa")
+			(tstamps "cba01e8d-bb0e-4f27-9992-bb7b256c9c41")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C9")
+			(value "1uF")
+			(footprint "Capacitor_SMD:C_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "a8dcd3e6-d072-4b60-8da3-6cba79e903be")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C10")
+			(value "10uF")
+			(footprint "Capacitor_SMD:C_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "7bb68f92-d1c5-44d3-a788-531af030c9c2")
 			(units
 				(unit
 					(name "A")
@@ -663,61 +579,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f393f193-e398-44d8-9c9d-0c3008d736fe")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C14")
-			(value "100nF")
-			(footprint "Capacitor_SMD:C_0805_2012Metric")
-			(fields
-				(field
-					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C")
-				(description "Unpolarized capacitor")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "C_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "ab5164ac-934d-4fe2-8a8a-c8ad8092b0b4")
+			(tstamps "ccd2769c-0eaf-427a-afc6-2c5b6ebdf573")
 			(units
 				(unit
 					(name "A")
@@ -771,7 +633,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9d4085c3-6413-4ebb-ae05-9fad6eb4a092")
+			(tstamps "5f9ab3b7-92b2-47ea-8d71-8cfc37848304")
 			(units
 				(unit
 					(name "A")
@@ -825,7 +687,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3b54925d-e226-4453-baa7-e38a98aa5a6f")
+			(tstamps "8af847da-21f3-45e1-999c-6967754e0a98")
 			(units
 				(unit
 					(name "A")
@@ -879,7 +741,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "43e071ff-282e-4d13-82e6-c6fa77c36857")
+			(tstamps "d667383b-c49e-4699-a816-b53fe39a7ee8")
 			(units
 				(unit
 					(name "A")
@@ -933,7 +795,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "022dd12d-2aa8-4144-a39a-1e4c8f21959d")
+			(tstamps "a4478d1e-022b-4aa4-b815-3f74758f837e")
 			(units
 				(unit
 					(name "A")
@@ -987,7 +849,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e8d6f71c-fc90-451b-9647-cc044a36bb71")
+			(tstamps "74b8fd5c-1233-4699-96af-82db00fc9254")
 			(units
 				(unit
 					(name "A")
@@ -1041,7 +903,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4eb31413-6f4b-4309-892b-5accff9ae1a5")
+			(tstamps "9d9ac550-e51a-4e8b-b77c-12aa4b8139b6")
 			(units
 				(unit
 					(name "A")
@@ -1095,7 +957,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "58b126cd-4c67-4080-9b37-6744cd16e7fd")
+			(tstamps "1032e5ec-4100-4a2b-9ca2-19ed07afaccd")
 			(units
 				(unit
 					(name "A")
@@ -1149,7 +1011,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5495054a-1f53-4ecb-aad4-53eac0ed5fc5")
+			(tstamps "40985bd2-31f0-4071-bf74-08cf7456333c")
 			(units
 				(unit
 					(name "A")
@@ -1203,7 +1065,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "adcddb6f-bdd0-4a56-b726-737e16fa05a5")
+			(tstamps "0a2fc792-5f9b-4456-ab29-7b36856ccd4a")
 			(units
 				(unit
 					(name "A")
@@ -1257,7 +1119,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8f8b638f-ec08-48bc-9ef0-e5b6970c75b0")
+			(tstamps "c9066479-1b94-42ad-9a6f-a8ffe58e3348")
 			(units
 				(unit
 					(name "A")
@@ -1311,7 +1173,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b5d3e3c5-d12f-4dc9-be7d-2f6fbf9c41b3")
+			(tstamps "6a97c258-4ba8-49b0-9854-ac6f2316ff15")
 			(units
 				(unit
 					(name "A")
@@ -1365,7 +1227,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5beaf11a-1275-4136-a7e2-9a4b49309ce5")
+			(tstamps "b5ea55ad-763e-4d6a-8b37-6cf816c62d16")
 			(units
 				(unit
 					(name "A")
@@ -1419,7 +1281,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "eb228242-8f5f-4024-9b00-172337333465")
+			(tstamps "f4b181c9-2799-4aba-ad2c-757556e50acf")
 			(units
 				(unit
 					(name "A")
@@ -1473,7 +1335,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3ab374eb-f606-4627-b860-7b895a2ee46f")
+			(tstamps "4ca656e1-c4d5-4837-865f-a94418860dff")
 			(units
 				(unit
 					(name "A")
@@ -1527,7 +1389,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e68942cf-3ac2-4017-8cd9-daf77f3f73e8")
+			(tstamps "571c5d59-30e0-4bad-9cf3-5235addd44f2")
 			(units
 				(unit
 					(name "A")
@@ -1581,7 +1443,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "44e99dd0-538b-4ca3-aaf9-58d8b9e9a23f")
+			(tstamps "b1127c39-f2f6-4c48-80ad-55c29f9e0543")
 			(units
 				(unit
 					(name "A")
@@ -1635,7 +1497,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8ed1b574-f2c2-4c19-8564-d9c8ed8bfae1")
+			(tstamps "d39d2ce6-9104-40bc-b68e-eb57872479af")
 			(units
 				(unit
 					(name "A")
@@ -1689,7 +1551,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5d1d14e3-936a-46d1-a99a-e1fd9bd44c4f")
+			(tstamps "caa0e578-71ff-40d5-ad69-3c0981ba734f")
 			(units
 				(unit
 					(name "A")
@@ -1743,7 +1605,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "12ad1596-e18f-461d-b934-f5a3b33d2629")
+			(tstamps "afe8292c-b1a0-411e-bffb-6c7cfc4ec574")
 			(units
 				(unit
 					(name "A")
@@ -1797,7 +1659,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1fe843fb-ef6e-42de-b5f4-27105c3fe044")
+			(tstamps "00be04be-2703-48eb-bfb4-7fd33688cd32")
 			(units
 				(unit
 					(name "A")
@@ -1851,7 +1713,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "32acd58d-cb71-4110-bdf1-f20cf61fbf4e")
+			(tstamps "71e8d048-a57e-4e64-8a85-5e779cd88bd7")
 			(units
 				(unit
 					(name "A")
@@ -1905,7 +1767,331 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "93586221-c40a-4764-8ad7-071bfd707549")
+			(tstamps "ffce8c24-ea51-4012-99e6-1dfb78da5343")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D23")
+			(value "Indicator LED 0603 super-red AlInGaP, high-eff bin (e.g. APT1608SURCK)")
+			(footprint "LED_SMD:LED_0603_1608Metric")
+			(fields
+				(field
+					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "LED")
+				(part "LD271")
+				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "IR LED")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "LED*5.0mm*IRGrey*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "a2cf29ff-041d-4344-80b9-81f8af1f61fd")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D24")
+			(value "Indicator LED 0603 super-red AlInGaP, high-eff bin (e.g. APT1608SURCK)")
+			(footprint "LED_SMD:LED_0603_1608Metric")
+			(fields
+				(field
+					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "LED")
+				(part "LD271")
+				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "IR LED")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "LED*5.0mm*IRGrey*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "4d7e0711-a8b4-438a-99ec-aa7090dd2921")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D25")
+			(value "Indicator LED 0603 super-red AlInGaP, high-eff bin (e.g. APT1608SURCK)")
+			(footprint "LED_SMD:LED_0603_1608Metric")
+			(fields
+				(field
+					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "LED")
+				(part "LD271")
+				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "IR LED")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "LED*5.0mm*IRGrey*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "49767379-7ce5-42f5-9528-15260dfb9a3b")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D26")
+			(value "Indicator LED 0603 super-red AlInGaP, high-eff bin (e.g. APT1608SURCK)")
+			(footprint "LED_SMD:LED_0603_1608Metric")
+			(fields
+				(field
+					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "LED")
+				(part "LD271")
+				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "IR LED")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "LED*5.0mm*IRGrey*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "ab83319f-9daa-43f1-8b44-66322498beb0")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D27")
+			(value "Indicator LED 0603 super-red AlInGaP, high-eff bin (e.g. APT1608SURCK)")
+			(footprint "LED_SMD:LED_0603_1608Metric")
+			(fields
+				(field
+					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "LED")
+				(part "LD271")
+				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "IR LED")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "LED*5.0mm*IRGrey*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "d81b8f6c-cb30-4878-ba1d-55ede94ddfbb")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D28")
+			(value "Indicator LED 0603 super-red AlInGaP, high-eff bin (e.g. APT1608SURCK)")
+			(footprint "LED_SMD:LED_0603_1608Metric")
+			(fields
+				(field
+					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "LED")
+				(part "LD271")
+				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "IR LED")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "LED*5.0mm*IRGrey*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "f4ae4b9c-c516-4b1e-9b5f-d07669373363")
 			(units
 				(unit
 					(name "A")
@@ -1922,7 +2108,7 @@
 		)
 		(comp
 			(ref "F1")
-			(value "3A_resettable")
+			(value "2A_resettable")
 			(footprint "Fuse:Fuse_1206_3216Metric")
 			(fields
 				(field
@@ -1959,7 +2145,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "75f5cf35-fe89-4de8-8b34-169b59a6165d")
+			(tstamps "2ca4e8d1-863f-43f2-bd12-f8703df4d119")
 			(units
 				(unit
 					(name "A")
@@ -1976,11 +2162,11 @@
 		)
 		(comp
 			(ref "J1")
-			(value "BATT_IN_2S")
-			(footprint "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical")
+			(value "BATT_IN_1S")
+			(footprint "Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical")
 			(fields
 				(field
-					(name "Footprint") "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical")
+					(name "Footprint") "Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical")
 				(field
 					(name "Datasheet")
 				)
@@ -2013,7 +2199,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f3a40903-3e5c-4e71-90a2-854e28b0cd41")
+			(tstamps "cc069beb-3ad7-4dd2-ba46-02d8cb3f1871")
 			(units
 				(unit
 					(name "A")
@@ -2067,7 +2253,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "fa5bacea-2cd8-448d-a3de-87ee0183d179")
+			(tstamps "658e0139-03d8-4d58-821f-3df5b46a875a")
 			(units
 				(unit
 					(name "A")
@@ -2077,63 +2263,6 @@
 						)
 						(pin
 							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "J3")
-			(value "BATT_BALANCE_2S")
-			(footprint "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical")
-			(fields
-				(field
-					(name "Footprint") "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x03")
-				(description "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "e1f0cf06-b1d3-423f-a9ed-4d9b1a3254ef")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
 						)
 					)
 				)
@@ -2178,7 +2307,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9cfe7b4c-1a99-46cc-84be-ef354b25d1a1")
+			(tstamps "84f1cfab-5b27-4eb2-8388-bbf114e5ada4")
 			(units
 				(unit
 					(name "A")
@@ -2244,7 +2373,172 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f38de7c8-ebf9-4df8-b8b8-10928ee4a24b")
+			(tstamps "12f0e3d7-318c-43ce-b092-876329f84fb5")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "6")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J7")
+			(value "USB-C rear (GCT USB4105; VBUS unused -- battery powers the board)")
+			(footprint "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal")
+			(datasheet "https://gct.co/files/drawings/usb4105.pdf")
+			(fields
+				(field
+					(name "Footprint") "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal")
+				(field
+					(name "Datasheet") "https://gct.co/files/drawings/usb4105.pdf")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "USB_C_Receptacle_USB2.0_16P")
+				(description "USB 2.0-only 16P Type-C Receptacle connector")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "usb universal serial bus type-C USB2.0")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "USB*C*Receptacle*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "be5799c1-4d3c-4596-bbbe-74cc6e3a6797")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "SH")
+						)
+						(pin
+							(num "A1")
+						)
+						(pin
+							(num "A12")
+						)
+						(pin
+							(num "B1")
+						)
+						(pin
+							(num "B12")
+						)
+						(pin
+							(num "A4")
+						)
+						(pin
+							(num "A9")
+						)
+						(pin
+							(num "B4")
+						)
+						(pin
+							(num "B9")
+						)
+						(pin
+							(num "A5")
+						)
+						(pin
+							(num "B5")
+						)
+						(pin
+							(num "A7")
+						)
+						(pin
+							(num "B7")
+						)
+						(pin
+							(num "A6")
+						)
+						(pin
+							(num "B6")
+						)
+						(pin
+							(num "A8")
+						)
+						(pin
+							(num "B8")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J8")
+			(value "JTAG_1x6 (3V3,TMS,TCK,TDO,TDI,GND)")
+			(footprint "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
+			(fields
+				(field
+					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector_Generic")
+				(part "Conn_01x06")
+				(description "Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "973db59e-eb53-496a-9ca4-10d46e404ab1")
 			(units
 				(unit
 					(name "A")
@@ -2310,7 +2604,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "26fac8c4-5932-4bbd-9db1-9a25cbf7c6bb")
+			(tstamps "db6c73d6-6d51-4b9a-aba6-fbf61567505d")
 			(units
 				(unit
 					(name "A")
@@ -2382,7 +2676,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "742eff7e-e5a7-4a1d-8b84-ac6de5b67d5e")
+			(tstamps "0b605f07-6ca7-4980-8915-e87d7ec9cddb")
 			(units
 				(unit
 					(name "A")
@@ -2417,7 +2711,7 @@
 		)
 		(comp
 			(ref "L1")
-			(value "3.3uH")
+			(value "1.5uH")
 			(footprint "Inductor_SMD:L_Bourns_SRP7028A_7.3x6.6mm")
 			(fields
 				(field
@@ -2454,7 +2748,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f65e9d16-5f0b-4ab8-a976-1f5111b8812c")
+			(tstamps "c862ab53-8092-4ece-ab8c-58724090224a")
 			(units
 				(unit
 					(name "A")
@@ -2471,7 +2765,7 @@
 		)
 		(comp
 			(ref "Q1")
-			(value "Q_PMOS (e.g. DMP2035U-7)")
+			(value "Q_PMOS low-Vth (e.g. DMP2035U-7)")
 			(footprint "Package_TO_SOT_SMD:SOT-23")
 			(fields
 				(field
@@ -2504,7 +2798,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b86844e0-b972-4dba-bb8d-fb9a22c3a606")
+			(tstamps "a56ec66f-1ce9-4f7f-b0ab-b841ca4a2a8e")
 			(units
 				(unit
 					(name "A")
@@ -2561,7 +2855,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4fc23c98-f09a-4f73-a813-a1aad615a2ec")
+			(tstamps "3e91e589-372f-468b-8185-dd09f74d43c8")
 			(units
 				(unit
 					(name "A")
@@ -2578,22 +2872,22 @@
 		)
 		(comp
 			(ref "Q3")
-			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
-			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
+			(value "SFH309")
+			(footprint "LED_THT:LED_D3.0mm_Clear")
+			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
 				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
+					(name "Footprint") "LED_THT:LED_D3.0mm_Clear")
 				(field
-					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
+					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
-				(lib "Transistor_FET")
-				(part "Q_NMOS_GSD")
-				(description "N-MOSFET transistor, gate/source/drain")
+				(lib "Sensor_Optical")
+				(part "SFH309")
+				(description "Phototransistor NPN")
 			)
 			(property
 				(name "Sheetname")
@@ -2605,22 +2899,23 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "transistor NMOS N-MOS N-MOSFET")
+				(value "npn phototransistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "LED*3.0mm*Clear*")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c939032f-d83a-45e8-ac4d-67357c5b629e")
+			(tstamps "758a42f8-6314-4491-b6c2-a2a940a0b9c4")
 			(units
 				(unit
 					(name "A")
 					(pins
 						(pin
 							(num "1")
-						)
-						(pin
-							(num "3")
 						)
 						(pin
 							(num "2")
@@ -2668,7 +2963,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0cb4bd75-fc5b-4ca0-81e0-ba3da6d40023")
+			(tstamps "19fd23f0-42ea-4a7e-b94f-a5e089760b11")
 			(units
 				(unit
 					(name "A")
@@ -2685,22 +2980,22 @@
 		)
 		(comp
 			(ref "Q5")
-			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
-			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
+			(value "SFH309")
+			(footprint "LED_THT:LED_D3.0mm_Clear")
+			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
 				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
+					(name "Footprint") "LED_THT:LED_D3.0mm_Clear")
 				(field
-					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
+					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
-				(lib "Transistor_FET")
-				(part "Q_NMOS_GSD")
-				(description "N-MOSFET transistor, gate/source/drain")
+				(lib "Sensor_Optical")
+				(part "SFH309")
+				(description "Phototransistor NPN")
 			)
 			(property
 				(name "Sheetname")
@@ -2712,22 +3007,23 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "transistor NMOS N-MOS N-MOSFET")
+				(value "npn phototransistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "LED*3.0mm*Clear*")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "054eb9d8-c07e-44d2-aa11-2dba11b9f487")
+			(tstamps "edd411c8-51a8-46a3-942a-a662d76148d6")
 			(units
 				(unit
 					(name "A")
 					(pins
 						(pin
 							(num "1")
-						)
-						(pin
-							(num "3")
 						)
 						(pin
 							(num "2")
@@ -2775,7 +3071,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "01d5203f-e7e0-4864-8d6b-92306c25b3fd")
+			(tstamps "e6f2b78a-ada8-4a64-b11f-60074e07e00b")
 			(units
 				(unit
 					(name "A")
@@ -2792,59 +3088,6 @@
 		)
 		(comp
 			(ref "Q7")
-			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
-			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
-			(fields
-				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
-				(field
-					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "Q_NMOS_GSD")
-				(description "N-MOSFET transistor, gate/source/drain")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "transistor NMOS N-MOS N-MOSFET")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "68598b22-17a6-4d9c-8299-b3b7f7b12659")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q8")
 			(value "SFH309")
 			(footprint "LED_THT:LED_D3.0mm_Clear")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
@@ -2882,7 +3125,61 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "245c5d94-eb5b-4164-8335-56705d6373c3")
+			(tstamps "dad228fd-c171-4182-b74e-0532377aeb64")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "Q8")
+			(value "SFH309")
+			(footprint "LED_SMD:LED_1206_3216Metric")
+			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+			(fields
+				(field
+					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
+				(field
+					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Sensor_Optical")
+				(part "SFH309")
+				(description "Phototransistor NPN")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "npn phototransistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "LED*3.0mm*Clear*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "fff72f6e-8c27-4dfa-8999-6232cba7c8a6")
 			(units
 				(unit
 					(name "A")
@@ -2899,65 +3196,12 @@
 		)
 		(comp
 			(ref "Q9")
-			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
-			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
-			(fields
-				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
-				(field
-					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "Q_NMOS_GSD")
-				(description "N-MOSFET transistor, gate/source/drain")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "transistor NMOS N-MOS N-MOSFET")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "78ad440f-8bc8-4bc1-989f-9a709a4d1cf2")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q10")
 			(value "SFH309")
-			(footprint "LED_THT:LED_D3.0mm_Clear")
+			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
 				(field
-					(name "Footprint") "LED_THT:LED_D3.0mm_Clear")
+					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
 					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 				(field
@@ -2989,7 +3233,61 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a0f107ae-54f9-4256-b33e-e6271618a0a7")
+			(tstamps "56f2fee3-32cf-4871-af9b-d79c69c2a01f")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "Q10")
+			(value "SFH309")
+			(footprint "LED_SMD:LED_1206_3216Metric")
+			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+			(fields
+				(field
+					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
+				(field
+					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Sensor_Optical")
+				(part "SFH309")
+				(description "Phototransistor NPN")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "npn phototransistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "LED*3.0mm*Clear*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "39504bae-6ebe-406c-9789-ef711cf7af92")
 			(units
 				(unit
 					(name "A")
@@ -3006,65 +3304,12 @@
 		)
 		(comp
 			(ref "Q11")
-			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
-			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
-			(fields
-				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
-				(field
-					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "Q_NMOS_GSD")
-				(description "N-MOSFET transistor, gate/source/drain")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "transistor NMOS N-MOS N-MOSFET")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "dd91b497-f72f-4a21-a1e5-62f681d718cf")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q12")
 			(value "SFH309")
-			(footprint "LED_THT:LED_D3.0mm_Clear")
+			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
 				(field
-					(name "Footprint") "LED_THT:LED_D3.0mm_Clear")
+					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
 					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 				(field
@@ -3096,7 +3341,61 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "00997726-b462-4528-929c-71d688b95070")
+			(tstamps "8b0570f7-b868-4c7a-80c3-fd5267ffeb44")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "Q12")
+			(value "SFH309")
+			(footprint "LED_SMD:LED_1206_3216Metric")
+			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+			(fields
+				(field
+					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
+				(field
+					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Sensor_Optical")
+				(part "SFH309")
+				(description "Phototransistor NPN")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "npn phototransistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "LED*3.0mm*Clear*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "fa4b75ef-7478-4009-8b27-89a23e919aa7")
 			(units
 				(unit
 					(name "A")
@@ -3113,22 +3412,22 @@
 		)
 		(comp
 			(ref "Q13")
-			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
-			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
+			(value "SFH309")
+			(footprint "LED_SMD:LED_1206_3216Metric")
+			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
 				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
+					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
-					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
+					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
-				(lib "Transistor_FET")
-				(part "Q_NMOS_GSD")
-				(description "N-MOSFET transistor, gate/source/drain")
+				(lib "Sensor_Optical")
+				(part "SFH309")
+				(description "Phototransistor NPN")
 			)
 			(property
 				(name "Sheetname")
@@ -3140,22 +3439,23 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "transistor NMOS N-MOS N-MOSFET")
+				(value "npn phototransistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "LED*3.0mm*Clear*")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6f6ded8e-6569-4500-9aa5-edefd3153252")
+			(tstamps "3c8a9884-159d-409e-80af-6da5e054f180")
 			(units
 				(unit
 					(name "A")
 					(pins
 						(pin
 							(num "1")
-						)
-						(pin
-							(num "3")
 						)
 						(pin
 							(num "2")
@@ -3203,7 +3503,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "dd1ca535-6a2c-4fa3-abbb-ff5f3104a8c3")
+			(tstamps "d477e3b1-b6c1-4157-b377-86831b9dc70c")
 			(units
 				(unit
 					(name "A")
@@ -3220,59 +3520,6 @@
 		)
 		(comp
 			(ref "Q15")
-			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
-			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
-			(fields
-				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
-				(field
-					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "Q_NMOS_GSD")
-				(description "N-MOSFET transistor, gate/source/drain")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "transistor NMOS N-MOS N-MOSFET")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "48bb9e05-551a-43bc-8c55-2319ca42d793")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q16")
 			(value "SFH309")
 			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
@@ -3310,13 +3557,66 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f5f2995f-cb5c-4ea5-956b-9553464ceec4")
+			(tstamps "bc07fad6-2d3a-4a8d-a346-198148afe1f9")
 			(units
 				(unit
 					(name "A")
 					(pins
 						(pin
 							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "Q16")
+			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
+			(footprint "Package_TO_SOT_SMD:SOT-23")
+			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
+			(fields
+				(field
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
+				(field
+					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Transistor_FET")
+				(part "Q_NMOS_GSD")
+				(description "N-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "transistor NMOS N-MOS N-MOSFET")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "e89da4c6-388f-438b-adc5-aa145b7f90d1")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "3")
 						)
 						(pin
 							(num "2")
@@ -3360,7 +3660,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e7e43bb6-57dc-4ca7-b596-2e7568a7f3c5")
+			(tstamps "891022fb-6ad7-4c8e-a627-ed9a7b73ade9")
 			(units
 				(unit
 					(name "A")
@@ -3380,22 +3680,22 @@
 		)
 		(comp
 			(ref "Q18")
-			(value "SFH309")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
+			(footprint "Package_TO_SOT_SMD:SOT-23")
+			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
-				(lib "Sensor_Optical")
-				(part "SFH309")
-				(description "Phototransistor NPN")
+				(lib "Transistor_FET")
+				(part "Q_NMOS_GSD")
+				(description "N-MOSFET transistor, gate/source/drain")
 			)
 			(property
 				(name "Sheetname")
@@ -3407,23 +3707,22 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "npn phototransistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*3.0mm*Clear*")
+				(value "transistor NMOS N-MOS N-MOSFET")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a07cc1c8-81ac-4098-8202-ed92b6884bc5")
+			(tstamps "1384e8f4-208b-4d54-a3f1-e69e03eef6af")
 			(units
 				(unit
 					(name "A")
 					(pins
 						(pin
 							(num "1")
+						)
+						(pin
+							(num "3")
 						)
 						(pin
 							(num "2")
@@ -3467,7 +3766,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "df838d45-8c05-45de-96a1-db9bddb36562")
+			(tstamps "df360033-ce93-498b-9428-11723310fb24")
 			(units
 				(unit
 					(name "A")
@@ -3487,22 +3786,22 @@
 		)
 		(comp
 			(ref "Q20")
-			(value "SFH309")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
+			(footprint "Package_TO_SOT_SMD:SOT-23")
+			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
-				(lib "Sensor_Optical")
-				(part "SFH309")
-				(description "Phototransistor NPN")
+				(lib "Transistor_FET")
+				(part "Q_NMOS_GSD")
+				(description "N-MOSFET transistor, gate/source/drain")
 			)
 			(property
 				(name "Sheetname")
@@ -3514,23 +3813,22 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "npn phototransistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*3.0mm*Clear*")
+				(value "transistor NMOS N-MOS N-MOSFET")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c982136f-ae4e-46c6-92ef-b92a13bb4ad4")
+			(tstamps "82645fbf-2b1c-4cc3-b7d9-cc01d2d562bb")
 			(units
 				(unit
 					(name "A")
 					(pins
 						(pin
 							(num "1")
+						)
+						(pin
+							(num "3")
 						)
 						(pin
 							(num "2")
@@ -3574,7 +3872,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d7721207-4658-4867-98e6-aab3c28e6812")
+			(tstamps "9acbeb85-40c4-4e5c-a40f-9174933f32db")
 			(units
 				(unit
 					(name "A")
@@ -3594,22 +3892,22 @@
 		)
 		(comp
 			(ref "Q22")
-			(value "SFH309")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
+			(footprint "Package_TO_SOT_SMD:SOT-23")
+			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
-				(lib "Sensor_Optical")
-				(part "SFH309")
-				(description "Phototransistor NPN")
+				(lib "Transistor_FET")
+				(part "Q_NMOS_GSD")
+				(description "N-MOSFET transistor, gate/source/drain")
 			)
 			(property
 				(name "Sheetname")
@@ -3621,23 +3919,22 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "npn phototransistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*3.0mm*Clear*")
+				(value "transistor NMOS N-MOS N-MOSFET")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0bfd3a68-bfa5-4dc8-a376-34d9d71b997b")
+			(tstamps "e49b1e47-2d5c-44d8-a027-5450e5f1d4d4")
 			(units
 				(unit
 					(name "A")
 					(pins
 						(pin
 							(num "1")
+						)
+						(pin
+							(num "3")
 						)
 						(pin
 							(num "2")
@@ -3681,7 +3978,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d1ce5cec-6f30-430b-8c80-602cedbdacc5")
+			(tstamps "42d4ac14-e682-4028-aa37-1e02ee94a625")
 			(units
 				(unit
 					(name "A")
@@ -3701,22 +3998,22 @@
 		)
 		(comp
 			(ref "Q24")
-			(value "SFH309")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
+			(footprint "Package_TO_SOT_SMD:SOT-23")
+			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
-				(lib "Sensor_Optical")
-				(part "SFH309")
-				(description "Phototransistor NPN")
+				(lib "Transistor_FET")
+				(part "Q_NMOS_GSD")
+				(description "N-MOSFET transistor, gate/source/drain")
 			)
 			(property
 				(name "Sheetname")
@@ -3728,23 +4025,22 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "npn phototransistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*3.0mm*Clear*")
+				(value "transistor NMOS N-MOS N-MOSFET")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "53a9f882-3113-47e7-a8bf-b205573ec45d")
+			(tstamps "48468e2a-3768-44c7-99d8-759c7daabc89")
 			(units
 				(unit
 					(name "A")
 					(pins
 						(pin
 							(num "1")
+						)
+						(pin
+							(num "3")
 						)
 						(pin
 							(num "2")
@@ -3788,7 +4084,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4efb99f5-d4c7-421e-88eb-8297fdf0586e")
+			(tstamps "bc14d918-d3b7-4e36-b416-5ca38bd15594")
 			(units
 				(unit
 					(name "A")
@@ -3808,22 +4104,22 @@
 		)
 		(comp
 			(ref "Q26")
-			(value "SFH309")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
+			(footprint "Package_TO_SOT_SMD:SOT-23")
+			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
-				(lib "Sensor_Optical")
-				(part "SFH309")
-				(description "Phototransistor NPN")
+				(lib "Transistor_FET")
+				(part "Q_NMOS_GSD")
+				(description "N-MOSFET transistor, gate/source/drain")
 			)
 			(property
 				(name "Sheetname")
@@ -3835,23 +4131,22 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "npn phototransistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*3.0mm*Clear*")
+				(value "transistor NMOS N-MOS N-MOSFET")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "aaffc8c6-5944-4609-a538-05cd8a014c81")
+			(tstamps "dbf0b2c5-c440-4a06-944d-dd512742f714")
 			(units
 				(unit
 					(name "A")
 					(pins
 						(pin
 							(num "1")
+						)
+						(pin
+							(num "3")
 						)
 						(pin
 							(num "2")
@@ -3895,7 +4190,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "dc1d9357-ae97-450e-bd5c-15f93a27f99d")
+			(tstamps "f9e0f040-26a6-41b6-ab77-7f38d137d60c")
 			(units
 				(unit
 					(name "A")
@@ -3915,22 +4210,22 @@
 		)
 		(comp
 			(ref "Q28")
-			(value "SFH309")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+			(value "BSS84 (PMOS indicator driver; Q_PMOS base symbol)")
+			(footprint "Package_TO_SOT_SMD:SOT-23")
 			(fields
 				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
+					(name "Datasheet")
+				)
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
-				(lib "Sensor_Optical")
-				(part "SFH309")
-				(description "Phototransistor NPN")
+				(lib "Device")
+				(part "Q_PMOS")
+				(description "P-MOSFET transistor")
 			)
 			(property
 				(name "Sheetname")
@@ -3942,26 +4237,25 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "npn phototransistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*3.0mm*Clear*")
+				(value "PMOS P-MOS")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e908438c-429e-4893-aa34-d2073082da1c")
+			(tstamps "a94c7951-88c6-4bd4-a9cd-b80a1f1c9102")
 			(units
 				(unit
 					(name "A")
 					(pins
 						(pin
-							(num "1")
+							(num "G")
 						)
 						(pin
-							(num "2")
+							(num "D")
+						)
+						(pin
+							(num "S")
 						)
 					)
 				)
@@ -3969,22 +4263,22 @@
 		)
 		(comp
 			(ref "Q29")
-			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
+			(value "BSS84 (PMOS indicator driver; Q_PMOS base symbol)")
 			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
-					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
+					(name "Datasheet")
+				)
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
-				(lib "Transistor_FET")
-				(part "Q_NMOS_GSD")
-				(description "N-MOSFET transistor, gate/source/drain")
+				(lib "Device")
+				(part "Q_PMOS")
+				(description "P-MOSFET transistor")
 			)
 			(property
 				(name "Sheetname")
@@ -3996,25 +4290,25 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "transistor NMOS N-MOS N-MOSFET")
+				(value "PMOS P-MOS")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ea67fb24-a364-48e3-9b86-f2c22bf39ebf")
+			(tstamps "c475cc4c-b31a-4abe-ba43-18817d77435f")
 			(units
 				(unit
 					(name "A")
 					(pins
 						(pin
-							(num "1")
+							(num "G")
 						)
 						(pin
-							(num "3")
+							(num "D")
 						)
 						(pin
-							(num "2")
+							(num "S")
 						)
 					)
 				)
@@ -4022,22 +4316,22 @@
 		)
 		(comp
 			(ref "Q30")
-			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
+			(value "BSS84 (PMOS indicator driver; Q_PMOS base symbol)")
 			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
-					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
+					(name "Datasheet")
+				)
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
-				(lib "Transistor_FET")
-				(part "Q_NMOS_GSD")
-				(description "N-MOSFET transistor, gate/source/drain")
+				(lib "Device")
+				(part "Q_PMOS")
+				(description "P-MOSFET transistor")
 			)
 			(property
 				(name "Sheetname")
@@ -4049,25 +4343,25 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "transistor NMOS N-MOS N-MOSFET")
+				(value "PMOS P-MOS")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7491a1bc-93fa-4f5b-944e-f46adf7686ac")
+			(tstamps "2a2395b8-f958-419d-9167-7ad20a0f9ef6")
 			(units
 				(unit
 					(name "A")
 					(pins
 						(pin
-							(num "1")
+							(num "G")
 						)
 						(pin
-							(num "3")
+							(num "D")
 						)
 						(pin
-							(num "2")
+							(num "S")
 						)
 					)
 				)
@@ -4075,22 +4369,22 @@
 		)
 		(comp
 			(ref "Q31")
-			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
+			(value "BSS84 (PMOS indicator driver; Q_PMOS base symbol)")
 			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
-					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
+					(name "Datasheet")
+				)
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
-				(lib "Transistor_FET")
-				(part "Q_NMOS_GSD")
-				(description "N-MOSFET transistor, gate/source/drain")
+				(lib "Device")
+				(part "Q_PMOS")
+				(description "P-MOSFET transistor")
 			)
 			(property
 				(name "Sheetname")
@@ -4102,25 +4396,25 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "transistor NMOS N-MOS N-MOSFET")
+				(value "PMOS P-MOS")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a68cace3-ea44-4a22-8ddd-baf1976943ba")
+			(tstamps "a0bbf8d8-cb4c-4bee-b02f-895d8086188b")
 			(units
 				(unit
 					(name "A")
 					(pins
 						(pin
-							(num "1")
+							(num "G")
 						)
 						(pin
-							(num "3")
+							(num "D")
 						)
 						(pin
-							(num "2")
+							(num "S")
 						)
 					)
 				)
@@ -4128,22 +4422,22 @@
 		)
 		(comp
 			(ref "Q32")
-			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
+			(value "BSS84 (PMOS indicator driver; Q_PMOS base symbol)")
 			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
-					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
+					(name "Datasheet")
+				)
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
-				(lib "Transistor_FET")
-				(part "Q_NMOS_GSD")
-				(description "N-MOSFET transistor, gate/source/drain")
+				(lib "Device")
+				(part "Q_PMOS")
+				(description "P-MOSFET transistor")
 			)
 			(property
 				(name "Sheetname")
@@ -4155,25 +4449,25 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "transistor NMOS N-MOS N-MOSFET")
+				(value "PMOS P-MOS")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "140c5bcb-a303-4c84-add2-a0fbf4070ddb")
+			(tstamps "59ed2dda-9472-4383-9ff8-30ca8881d88a")
 			(units
 				(unit
 					(name "A")
 					(pins
 						(pin
-							(num "1")
+							(num "G")
 						)
 						(pin
-							(num "3")
+							(num "D")
 						)
 						(pin
-							(num "2")
+							(num "S")
 						)
 					)
 				)
@@ -4181,22 +4475,22 @@
 		)
 		(comp
 			(ref "Q33")
-			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
+			(value "BSS84 (PMOS indicator driver; Q_PMOS base symbol)")
 			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
-					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
+					(name "Datasheet")
+				)
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
-				(lib "Transistor_FET")
-				(part "Q_NMOS_GSD")
-				(description "N-MOSFET transistor, gate/source/drain")
+				(lib "Device")
+				(part "Q_PMOS")
+				(description "P-MOSFET transistor")
 			)
 			(property
 				(name "Sheetname")
@@ -4208,237 +4502,25 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "transistor NMOS N-MOS N-MOSFET")
+				(value "PMOS P-MOS")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "57d653b8-e4bd-4578-82f0-17933cd55323")
+			(tstamps "33509588-c8fa-4357-bb3d-a7f9d49c9a70")
 			(units
 				(unit
 					(name "A")
 					(pins
 						(pin
-							(num "1")
+							(num "G")
 						)
 						(pin
-							(num "3")
+							(num "D")
 						)
 						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q34")
-			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
-			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
-			(fields
-				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
-				(field
-					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "Q_NMOS_GSD")
-				(description "N-MOSFET transistor, gate/source/drain")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "transistor NMOS N-MOS N-MOSFET")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "307554de-dc50-40e2-8d5c-b187bf6fcd16")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q35")
-			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
-			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
-			(fields
-				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
-				(field
-					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "Q_NMOS_GSD")
-				(description "N-MOSFET transistor, gate/source/drain")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "transistor NMOS N-MOS N-MOSFET")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "23799403-a7b5-4e60-bcdc-ccec678b3401")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q36")
-			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
-			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
-			(fields
-				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
-				(field
-					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "Q_NMOS_GSD")
-				(description "N-MOSFET transistor, gate/source/drain")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "transistor NMOS N-MOS N-MOSFET")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "5477b2cd-5aaf-4926-995c-7316237ee1e4")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q37")
-			(value "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)")
-			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
-			(fields
-				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
-				(field
-					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "Q_NMOS_GSD")
-				(description "N-MOSFET transistor, gate/source/drain")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "transistor NMOS N-MOS N-MOSFET")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "06150ce2-d70c-4e2d-b1b3-8eae8a11191a")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "2")
+							(num "S")
 						)
 					)
 				)
@@ -4483,7 +4565,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "862644a2-2111-4b98-a118-d83d89e8e0d1")
+			(tstamps "ef095c6e-bf3d-4fc5-91d8-971ac37aab51")
 			(units
 				(unit
 					(name "A")
@@ -4500,60 +4582,6 @@
 		)
 		(comp
 			(ref "R2")
-			(value "10k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "813111ab-e4ac-4b86-a69c-8fa259f2c092")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R3")
 			(value "22k")
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
@@ -4591,7 +4619,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cb02261b-5aa5-4b18-b46b-cd83626b644e")
+			(tstamps "8b01f10f-21cb-48d2-9da4-e9225ddc8307")
 			(units
 				(unit
 					(name "A")
@@ -4607,8 +4635,8 @@
 			)
 		)
 		(comp
-			(ref "R4")
-			(value "10k")
+			(ref "R3")
+			(value "33k")
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
@@ -4645,61 +4673,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2e2d9d37-80af-42cf-82fd-c53cfb652009")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R5")
-			(value "6.2k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "9e54631c-c3bb-44c4-bbad-48d4dc5bfdef")
+			(tstamps "deb9318d-e273-4014-ab4e-8604871b656c")
 			(units
 				(unit
 					(name "A")
@@ -4753,7 +4727,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d5785684-88e3-47ee-a6a2-b698ab15aa4f")
+			(tstamps "04dc7549-217a-44ae-87dd-c9cb5f638626")
 			(units
 				(unit
 					(name "A")
@@ -4807,7 +4781,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7e3e80f4-d5bf-42c6-810a-d10df4e5018c")
+			(tstamps "9781b67f-0886-45c6-a22c-c30b25817afb")
 			(units
 				(unit
 					(name "A")
@@ -4861,7 +4835,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e88eec25-5f4f-4027-8f0b-40966f27fc61")
+			(tstamps "9c47435e-0d58-4197-9e0f-4949bdcbe531")
 			(units
 				(unit
 					(name "A")
@@ -4915,7 +4889,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1a2ae830-1794-4b53-94f6-865618c6375a")
+			(tstamps "d91500df-e33e-42a6-b47b-e3df146639cb")
 			(units
 				(unit
 					(name "A")
@@ -4969,7 +4943,115 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2c21e019-5769-49a0-9e75-4ba5a03c66bc")
+			(tstamps "178cdf15-e831-4671-9b2b-bc3b3743eee5")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R11")
+			(value "10k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "58619eba-c570-4abf-8a09-51894b29c381")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R12")
+			(value "5.1k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "d6f0f1b7-ca98-467e-8699-03010e8588bc")
 			(units
 				(unit
 					(name "A")
@@ -5023,7 +5105,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2299c9b4-1622-4f2f-9c58-8da65d65bfbf")
+			(tstamps "b6fa0f1c-843e-471b-8794-fe97180c4a86")
 			(units
 				(unit
 					(name "A")
@@ -5077,7 +5159,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f455122c-1373-4973-97d1-e0e69998a426")
+			(tstamps "1e969d42-2788-4b0f-b207-3048219f62b0")
 			(units
 				(unit
 					(name "A")
@@ -5131,7 +5213,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "00638e6b-c2d5-4e26-ac83-0c84bd94ee08")
+			(tstamps "fb87ae5f-1075-4c19-a0ec-b5fd1cd290a8")
 			(units
 				(unit
 					(name "A")
@@ -5185,7 +5267,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e4158285-5262-4b84-98fe-45508ae9b882")
+			(tstamps "f4dd4217-e199-43c2-9dbd-240e620f51ba")
 			(units
 				(unit
 					(name "A")
@@ -5239,7 +5321,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ec222b46-e217-4aed-b796-78b549194395")
+			(tstamps "beb3b695-028c-4861-88ed-09d330635b0e")
 			(units
 				(unit
 					(name "A")
@@ -5293,7 +5375,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "218833af-71b0-46e6-bea5-b7f947ee89ca")
+			(tstamps "ea2114b2-4927-46b6-8566-d090649ebbd3")
 			(units
 				(unit
 					(name "A")
@@ -5347,7 +5429,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c7bb746a-8139-4007-a1a3-e960ff0943fd")
+			(tstamps "14c615a5-4477-4951-af10-6824e2d0f252")
 			(units
 				(unit
 					(name "A")
@@ -5401,7 +5483,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1ae4a4be-fe94-45cb-ae96-a66a89d32e1e")
+			(tstamps "781b1722-76db-4f7e-89f7-ceb0d8b658a0")
 			(units
 				(unit
 					(name "A")
@@ -5455,7 +5537,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "fff8abf2-d2b3-4d90-bd68-37be05963635")
+			(tstamps "9e95c087-aff2-4f88-af99-e805438eb9f4")
 			(units
 				(unit
 					(name "A")
@@ -5509,7 +5591,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1aa4011a-220f-4cf5-8c6a-b10a1daaa5ac")
+			(tstamps "499cfe55-33b3-4c3b-aa2b-b78dcb0f28e6")
 			(units
 				(unit
 					(name "A")
@@ -5563,7 +5645,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8b106a3b-db98-4e63-a24e-50b5ad6d9b82")
+			(tstamps "6ae1dc43-5587-4bd8-89e9-e8e0fcb7eb2d")
 			(units
 				(unit
 					(name "A")
@@ -5617,7 +5699,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ea591705-cdf0-4368-9a7f-8af5631e1b85")
+			(tstamps "a279fe7e-fb89-44e8-9dd2-67e4223d85e5")
 			(units
 				(unit
 					(name "A")
@@ -5671,7 +5753,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d1c73e4a-4eb3-4534-b7b3-ed73543d645b")
+			(tstamps "a2360824-b787-4fd3-9072-37139f9847be")
 			(units
 				(unit
 					(name "A")
@@ -5725,7 +5807,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2dfbf5b4-bfa2-4d7f-89f3-2f9aa47aab3f")
+			(tstamps "c7ad8139-ae06-491a-b37f-e65848b49173")
 			(units
 				(unit
 					(name "A")
@@ -5779,7 +5861,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a99d5832-80c3-45c4-998e-48dc9c3b771c")
+			(tstamps "6b598c23-0095-444d-8798-387c971e1f52")
 			(units
 				(unit
 					(name "A")
@@ -5833,7 +5915,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "575b0549-0ee1-407f-855d-f522c2049af0")
+			(tstamps "007d2b71-7bbc-411d-bb1f-861d0120839b")
 			(units
 				(unit
 					(name "A")
@@ -5887,7 +5969,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b63c2f1d-b42b-4781-b12c-b723c8f007b1")
+			(tstamps "27d1ffd5-8895-4b5e-9099-bc742042c2ad")
 			(units
 				(unit
 					(name "A")
@@ -5941,7 +6023,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cfcf8c16-eb3f-4f34-9875-73fac7b839b5")
+			(tstamps "779322a0-a658-4f0d-b6ba-154854d596a2")
 			(units
 				(unit
 					(name "A")
@@ -5995,7 +6077,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b784a759-9783-45da-9039-a0a396743014")
+			(tstamps "794e3588-727c-4f2e-9e29-80613b0f860c")
 			(units
 				(unit
 					(name "A")
@@ -6049,7 +6131,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8005839f-1e76-43bf-97fc-48ade47e08f1")
+			(tstamps "f5df9db6-1b81-4a42-94db-487ffab16f78")
 			(units
 				(unit
 					(name "A")
@@ -6103,7 +6185,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f08020ad-4cf3-47b8-989b-67adcd8dea58")
+			(tstamps "3882b671-2d1e-4dac-a307-3b0c504b3f0a")
 			(units
 				(unit
 					(name "A")
@@ -6157,7 +6239,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "19f83526-926f-43de-8114-b6fab30ad73b")
+			(tstamps "9ea0af64-c106-4351-940c-5ebd32d6e38c")
 			(units
 				(unit
 					(name "A")
@@ -6211,7 +6293,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1615941b-8ec1-44fe-875d-5f4e8952c19f")
+			(tstamps "2ea3aecc-01bf-4210-874f-0090e77d6418")
 			(units
 				(unit
 					(name "A")
@@ -6265,7 +6347,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2625a5ec-afce-4e1b-9616-256938265ef9")
+			(tstamps "72dffbe4-de56-48b7-a825-4df21aeb1fe8")
 			(units
 				(unit
 					(name "A")
@@ -6319,7 +6401,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "738ceaab-143a-42d7-96d3-ba2a0e0863ff")
+			(tstamps "8c2771aa-bed6-4cc4-9b13-6049d4b3d580")
 			(units
 				(unit
 					(name "A")
@@ -6373,7 +6455,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2c7f2a51-1870-4ef6-962f-4858043dd620")
+			(tstamps "552b0df8-299f-4e0a-9326-4fa34fb08075")
 			(units
 				(unit
 					(name "A")
@@ -6427,7 +6509,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4a39ba9c-cd6b-4112-bed6-2845d22a2536")
+			(tstamps "2d012159-e2a3-40f4-82a4-4ad33ef197ea")
 			(units
 				(unit
 					(name "A")
@@ -6481,7 +6563,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c63bd632-c8c7-4ae9-830e-55ab282914cb")
+			(tstamps "9e0359cc-2e52-4998-a542-0b9a46b81af8")
 			(units
 				(unit
 					(name "A")
@@ -6535,7 +6617,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a8687068-eb77-42fd-bb17-dfbbca71730b")
+			(tstamps "ec061b0a-f8c5-4d15-86bd-4ab6552659b3")
 			(units
 				(unit
 					(name "A")
@@ -6589,7 +6671,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f55211af-8fcd-4b21-8a8d-2b6dd478be86")
+			(tstamps "6dae95cf-6f01-429d-ba61-bf4780ceb387")
 			(units
 				(unit
 					(name "A")
@@ -6643,7 +6725,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "42344f89-2511-4884-83d8-8e2bcd5fd2b6")
+			(tstamps "7d43b607-bba5-401a-a81f-d1e47e5005a6")
 			(units
 				(unit
 					(name "A")
@@ -6697,7 +6779,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9ca63066-8208-466b-a951-70e83d9272e1")
+			(tstamps "49115f0e-6189-47d4-bc48-ff5b9445ea5a")
 			(units
 				(unit
 					(name "A")
@@ -6751,7 +6833,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9bcff9cd-93b0-4758-bbac-6b38d02dcdae")
+			(tstamps "28bdf64b-a6c6-4de5-9f1b-b3392214fea9")
 			(units
 				(unit
 					(name "A")
@@ -6805,7 +6887,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bff813cd-b21c-41fa-b98b-d790289886af")
+			(tstamps "4f968bb3-0147-4fa6-a64c-ee4d98267244")
 			(units
 				(unit
 					(name "A")
@@ -6859,7 +6941,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "dcbe82e6-2880-4f42-a220-cf7bfae9217c")
+			(tstamps "76efa20e-99a1-4bf5-85bd-f6e05ef4fb5d")
 			(units
 				(unit
 					(name "A")
@@ -6913,7 +6995,925 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1a8c1116-7084-4b21-8129-cf45c5293adb")
+			(tstamps "b171cace-a4f5-4f5c-af31-6b3442a450bd")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R49")
+			(value "1k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "65e9f6a2-c886-48e5-b1e2-f7ac55d87824")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R50")
+			(value "1k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "f1b770a2-cc36-4a4f-9e46-1207b381cfb9")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R51")
+			(value "1k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "a2dd7d08-8b57-4be7-bd35-aa2f083ac466")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R52")
+			(value "1k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "152c2a13-ee4d-4477-b2a4-de6cd730510d")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R53")
+			(value "1k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "19777c55-4457-466e-866c-aca2b6974c21")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R54")
+			(value "1k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "8dd130d2-4909-4f11-8c8c-2df2fe4094ef")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R56")
+			(value "5.1k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "cf70d6f6-754a-4372-a775-ddc2b7c6d02a")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R57")
+			(value "1k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "97e69aee-e617-4950-9875-dd03a211dbfe")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R58")
+			(value "1k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "f62371e4-6c6a-497e-a6ed-d52fd4454634")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R59")
+			(value "22")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "70ac85fc-f2b2-4eca-be02-509bf83d05ea")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R60")
+			(value "22")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "caf99f0c-0d49-459c-9068-90a04066496b")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R61")
+			(value "100k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "c536ace2-6040-4d18-8d3d-4246abfe495e")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R62")
+			(value "100k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "f658977c-f946-47d2-949d-655305964a12")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R63")
+			(value "100k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "f8b42c14-8c61-453c-a0e5-711af47116c4")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R64")
+			(value "100k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "1df1fe45-c5db-4528-b104-b3c5e93aa87f")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R65")
+			(value "10k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "0c9dc417-bffc-4526-b875-a9decd78aa64")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R66")
+			(value "10k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "d37ff6c2-e5b2-4a64-83d6-1fc011836717")
 			(units
 				(unit
 					(name "A")
@@ -6963,7 +7963,157 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5193631f-5989-4a16-b7d5-39d2d6f1a4ad")
+			(tstamps "926bc878-fc39-4ac8-aec0-eec54479adac")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "SW2")
+			(value "SW_Push")
+			(footprint "Button_Switch_THT:SW_PUSH_6mm")
+			(fields
+				(field
+					(name "Footprint") "Button_Switch_THT:SW_PUSH_6mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Switch")
+				(part "SW_Push")
+				(description "Push button switch, generic, two pins")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "switch normally-open pushbutton push-button")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "6d000868-239a-4623-b342-646a4b40fc09")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "SW3")
+			(value "SW_Push")
+			(footprint "Button_Switch_THT:SW_PUSH_6mm")
+			(fields
+				(field
+					(name "Footprint") "Button_Switch_THT:SW_PUSH_6mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Switch")
+				(part "SW_Push")
+				(description "Push button switch, generic, two pins")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "switch normally-open pushbutton push-button")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "c0639c5f-8ede-4a2f-b235-cf2759966964")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "SW4")
+			(value "SW_Push")
+			(footprint "Button_Switch_THT:SW_PUSH_6mm")
+			(fields
+				(field
+					(name "Footprint") "Button_Switch_THT:SW_PUSH_6mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Switch")
+				(part "SW_Push")
+				(description "Push button switch, generic, two pins")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "switch normally-open pushbutton push-button")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "e7232641-1da7-4498-957b-7f2dd4d6e6e7")
 			(units
 				(unit
 					(name "A")
@@ -6980,22 +8130,22 @@
 		)
 		(comp
 			(ref "U1")
-			(value "AP63203WU (fixed 3.3V; symbol is pin-compatible AP63200WU base)")
-			(footprint "Package_TO_SOT_SMD:TSOT-23-6")
-			(datasheet "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf")
+			(value "TPS63001 (fixed 3.3V buck-boost; TPS63000 base symbol so ERC checks pins)")
+			(footprint "Package_SON:Texas_DRC0010J_ThermalVias")
+			(datasheet "https://www.ti.com/lit/ds/symlink/tps63001.pdf")
 			(fields
 				(field
-					(name "Footprint") "Package_TO_SOT_SMD:TSOT-23-6")
+					(name "Footprint") "Package_SON:Texas_DRC0010J_ThermalVias")
 				(field
-					(name "Datasheet") "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf")
+					(name "Datasheet") "https://www.ti.com/lit/ds/symlink/tps63001.pdf")
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
 				(lib "Regulator_Switching")
-				(part "AP63200WU")
-				(description "2A, 500kHz Buck DC/DC Converter, adjustable output voltage, TSOT-23-6")
+				(part "TPS63000")
+				(description "Buck-Boost Converter, 1.8-5.5V Input Voltage, 1.8A Switch Current, Adjustable 1.2-5.5V Output Voltage, VSON-10")
 			)
 			(property
 				(name "Sheetname")
@@ -7007,17 +8157,98 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "2A Buck DC/DC")
+				(value "Buck-Boost adjustable converter")
 			)
 			(property
 				(name "ki_fp_filters")
-				(value "TSOT?23*")
+				(value "Texas*DRC0010J*")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e05c2409-af6d-4531-ab4f-fb0cfc38f790")
+			(tstamps "0014e1e6-f79c-43f3-a068-c44031d4a606")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "11")
+						)
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "10")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U3")
+			(value "ESP32-S3-WROOM-1-N16 (non-R8: octal-PSRAM variants lose IO35-37 = buttons 2/3)")
+			(footprint "RF_Module:ESP32-S3-WROOM-1")
+			(datasheet "https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf")
+			(fields
+				(field
+					(name "Footprint") "RF_Module:ESP32-S3-WROOM-1")
+				(field
+					(name "Datasheet") "https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "RF_Module")
+				(part "ESP32-S3-WROOM-1")
+				(description "RF Module, ESP32-S3 SoC, Wi-Fi 802.11b/g/n, Bluetooth, BLE, 32-bit, 3.3V, onboard antenna, SMD")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "RF Radio BT ESP ESP32-S3 Espressif onboard PCB antenna")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "ESP32?S3?WROOM?1*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "28d70879-7854-4ded-a6b3-8941c49c29d1")
 			(units
 				(unit
 					(name "A")
@@ -7026,7 +8257,16 @@
 							(num "3")
 						)
 						(pin
-							(num "2")
+							(num "27")
+						)
+						(pin
+							(num "39")
+						)
+						(pin
+							(num "38")
+						)
+						(pin
+							(num "15")
 						)
 						(pin
 							(num "4")
@@ -7038,7 +8278,103 @@
 							(num "6")
 						)
 						(pin
+							(num "7")
+						)
+						(pin
+							(num "12")
+						)
+						(pin
+							(num "17")
+						)
+						(pin
+							(num "18")
+						)
+						(pin
+							(num "19")
+						)
+						(pin
+							(num "20")
+						)
+						(pin
+							(num "21")
+						)
+						(pin
+							(num "22")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "41")
+						)
+						(pin
 							(num "1")
+						)
+						(pin
+							(num "40")
+						)
+						(pin
+							(num "37")
+						)
+						(pin
+							(num "36")
+						)
+						(pin
+							(num "10")
+						)
+						(pin
+							(num "11")
+						)
+						(pin
+							(num "13")
+						)
+						(pin
+							(num "14")
+						)
+						(pin
+							(num "23")
+						)
+						(pin
+							(num "28")
+						)
+						(pin
+							(num "29")
+						)
+						(pin
+							(num "30")
+						)
+						(pin
+							(num "31")
+						)
+						(pin
+							(num "32")
+						)
+						(pin
+							(num "33")
+						)
+						(pin
+							(num "34")
+						)
+						(pin
+							(num "35")
+						)
+						(pin
+							(num "26")
+						)
+						(pin
+							(num "16")
+						)
+						(pin
+							(num "24")
+						)
+						(pin
+							(num "25")
 						)
 					)
 				)
@@ -7046,22 +8382,22 @@
 		)
 		(comp
 			(ref "U4")
-			(value "HEF4067BT")
+			(value "CD74HC4067M")
 			(footprint "Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm")
-			(datasheet "https://assets.nexperia.com/documents/data-sheet/HEF4067B.pdf")
+			(datasheet "https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf")
 			(fields
 				(field
 					(name "Footprint") "Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm")
 				(field
-					(name "Datasheet") "https://assets.nexperia.com/documents/data-sheet/HEF4067B.pdf")
+					(name "Datasheet") "https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf")
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
-				(lib "Analog_Switch")
-				(part "HEF4067BT")
-				(description "16-channel analog multiplexer / demultiplexer, 3.0..15.0V supply voltage, SOIC-24")
+				(lib "74xx")
+				(part "CD74HC4067M")
+				(description "High-Speed CMOS Logic 16-Channel Analog Multiplexer/Demultiplexer, SOIC-24")
 			)
 			(property
 				(name "Sheetname")
@@ -7073,17 +8409,17 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "mux demux analog-switch")
+				(value "multiplexer demultiplexer mux demux")
 			)
 			(property
 				(name "ki_fp_filters")
-				(value "*SOIC*7.5x15.4mm*P1.27mm*")
+				(value "SOIC*W*7.5x15.4mm*P1.27mm*")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "fcecde28-c616-450d-8d5d-6fa805657399")
+			(tstamps "d8712b23-e273-42e1-bf53-3b8523087978")
 			(units
 				(unit
 					(name "A")
@@ -7165,23 +8501,23 @@
 			)
 		)
 		(comp
-			(ref "U5")
-			(value "HEF4067BT")
-			(footprint "Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm")
-			(datasheet "https://assets.nexperia.com/documents/data-sheet/HEF4067B.pdf")
+			(ref "U6")
+			(value "USBLC6-2SC6 (SOT-23-6; 2P6 base symbol so ERC checks pins)")
+			(footprint "Package_TO_SOT_SMD:SOT-23-6")
+			(datasheet "https://www.st.com/resource/en/datasheet/usblc6-2.pdf")
 			(fields
 				(field
-					(name "Footprint") "Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm")
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-23-6")
 				(field
-					(name "Datasheet") "https://assets.nexperia.com/documents/data-sheet/HEF4067B.pdf")
+					(name "Datasheet") "https://www.st.com/resource/en/datasheet/usblc6-2.pdf")
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
-				(lib "Analog_Switch")
-				(part "HEF4067BT")
-				(description "16-channel analog multiplexer / demultiplexer, 3.0..15.0V supply voltage, SOIC-24")
+				(lib "Power_Protection")
+				(part "USBLC6-2P6")
+				(description "Very low capacitance ESD protection diode, 2 data-line, SOT-666")
 			)
 			(property
 				(name "Sheetname")
@@ -7193,17 +8529,17 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "mux demux analog-switch")
+				(value "usb ethernet video")
 			)
 			(property
 				(name "ki_fp_filters")
-				(value "*SOIC*7.5x15.4mm*P1.27mm*")
+				(value "SOT?666*")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b0ce89c7-3754-41d8-93f1-bc17baa54616")
+			(tstamps "55ba5a7f-42a1-466f-b532-6112c488b7e6")
 			(units
 				(unit
 					(name "A")
@@ -7212,73 +8548,19 @@
 							(num "1")
 						)
 						(pin
-							(num "10")
-						)
-						(pin
-							(num "11")
-						)
-						(pin
-							(num "14")
-						)
-						(pin
-							(num "13")
-						)
-						(pin
-							(num "15")
-						)
-						(pin
-							(num "24")
-						)
-						(pin
-							(num "12")
-						)
-						(pin
-							(num "9")
-						)
-						(pin
-							(num "8")
-						)
-						(pin
-							(num "7")
-						)
-						(pin
-							(num "6")
+							(num "3")
 						)
 						(pin
 							(num "5")
 						)
 						(pin
-							(num "4")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
 							(num "2")
 						)
 						(pin
-							(num "23")
+							(num "6")
 						)
 						(pin
-							(num "22")
-						)
-						(pin
-							(num "21")
-						)
-						(pin
-							(num "20")
-						)
-						(pin
-							(num "19")
-						)
-						(pin
-							(num "18")
-						)
-						(pin
-							(num "17")
-						)
-						(pin
-							(num "16")
+							(num "4")
 						)
 					)
 				)
@@ -7289,94 +8571,94 @@
 	(variants)
 	(libparts
 		(libpart
-			(lib "Analog_Switch")
-			(part "HEF4067BT")
-			(description "16-channel analog multiplexer / demultiplexer, 3.0..15.0V supply voltage, SOIC-24")
-			(docs "https://assets.nexperia.com/documents/data-sheet/HEF4067B.pdf")
+			(lib "74xx")
+			(part "CD74HC4067M")
+			(description "High-Speed CMOS Logic 16-Channel Analog Multiplexer/Demultiplexer, SOIC-24")
+			(docs "http://www.ti.com/lit/ds/symlink/cd74hc4067.pdf")
 			(footprints
-				(fp "*SOIC*7.5x15.4mm*P1.27mm*")
+				(fp "SOIC*W*7.5x15.4mm*P1.27mm*")
 			)
 			(fields
 				(field
 					(name "Reference") "U")
 				(field
-					(name "Value") "HEF4067BT")
+					(name "Value") "CD74HC4067M")
 				(field
 					(name "Footprint") "Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm")
 				(field
-					(name "Datasheet") "https://assets.nexperia.com/documents/data-sheet/HEF4067B.pdf")
+					(name "Datasheet") "http://www.ti.com/lit/ds/symlink/cd74hc4067.pdf")
 				(field
-					(name "Description") "16-channel analog multiplexer / demultiplexer, 3.0..15.0V supply voltage, SOIC-24")
+					(name "Description") "High-Speed CMOS Logic 16-Channel Analog Multiplexer/Demultiplexer, SOIC-24")
 			)
 			(pins
 				(pin
 					(num "1")
-					(name "Z")
+					(name "COM")
 					(type "passive")
 				)
 				(pin
 					(num "2")
-					(name "Y7")
+					(name "I7")
 					(type "passive")
 				)
 				(pin
 					(num "3")
-					(name "Y6")
+					(name "I6")
 					(type "passive")
 				)
 				(pin
 					(num "4")
-					(name "Y5")
+					(name "I5")
 					(type "passive")
 				)
 				(pin
 					(num "5")
-					(name "Y4")
+					(name "I4")
 					(type "passive")
 				)
 				(pin
 					(num "6")
-					(name "Y3")
+					(name "I3")
 					(type "passive")
 				)
 				(pin
 					(num "7")
-					(name "Y2")
+					(name "I2")
 					(type "passive")
 				)
 				(pin
 					(num "8")
-					(name "Y1")
+					(name "I1")
 					(type "passive")
 				)
 				(pin
 					(num "9")
-					(name "Y0")
+					(name "I0")
 					(type "passive")
 				)
 				(pin
 					(num "10")
-					(name "A0")
+					(name "S0")
 					(type "input")
 				)
 				(pin
 					(num "11")
-					(name "A1")
+					(name "S1")
 					(type "input")
 				)
 				(pin
 					(num "12")
-					(name "VSS")
+					(name "GND")
 					(type "power_in")
 				)
 				(pin
 					(num "13")
-					(name "A3")
+					(name "S3")
 					(type "input")
 				)
 				(pin
 					(num "14")
-					(name "A2")
+					(name "S2")
 					(type "input")
 				)
 				(pin
@@ -7386,48 +8668,157 @@
 				)
 				(pin
 					(num "16")
-					(name "Y15")
+					(name "I15")
 					(type "passive")
 				)
 				(pin
 					(num "17")
-					(name "Y14")
+					(name "I14")
 					(type "passive")
 				)
 				(pin
 					(num "18")
-					(name "Y13")
+					(name "I13")
 					(type "passive")
 				)
 				(pin
 					(num "19")
-					(name "Y12")
+					(name "I12")
 					(type "passive")
 				)
 				(pin
 					(num "20")
-					(name "Y11")
+					(name "I11")
 					(type "passive")
 				)
 				(pin
 					(num "21")
-					(name "Y10")
+					(name "I10")
 					(type "passive")
 				)
 				(pin
 					(num "22")
-					(name "Y9")
+					(name "I9")
 					(type "passive")
 				)
 				(pin
 					(num "23")
-					(name "Y8")
+					(name "I8")
 					(type "passive")
 				)
 				(pin
 					(num "24")
-					(name "VDD")
+					(name "VCC")
 					(type "power_in")
+				)
+			)
+		)
+		(libpart
+			(lib "Connector")
+			(part "USB_C_Receptacle_USB2.0_16P")
+			(description "USB 2.0-only 16P Type-C Receptacle connector")
+			(docs "https://www.usb.org/sites/default/files/documents/usb_type-c.zip")
+			(footprints
+				(fp "USB*C*Receptacle*")
+			)
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "USB_C_Receptacle_USB2.0_16P")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet") "https://www.usb.org/sites/default/files/documents/usb_type-c.zip")
+				(field
+					(name "Description") "USB 2.0-only 16P Type-C Receptacle connector")
+			)
+			(pins
+				(pin
+					(num "A1")
+					(name "GND")
+					(type "passive")
+				)
+				(pin
+					(num "A4")
+					(name "VBUS")
+					(type "passive")
+				)
+				(pin
+					(num "A5")
+					(name "CC1")
+					(type "bidirectional")
+				)
+				(pin
+					(num "A6")
+					(name "D+")
+					(type "bidirectional")
+				)
+				(pin
+					(num "A7")
+					(name "D-")
+					(type "bidirectional")
+				)
+				(pin
+					(num "A8")
+					(name "SBU1")
+					(type "bidirectional")
+				)
+				(pin
+					(num "A9")
+					(name "VBUS")
+					(type "passive")
+				)
+				(pin
+					(num "A12")
+					(name "GND")
+					(type "passive")
+				)
+				(pin
+					(num "B1")
+					(name "GND")
+					(type "passive")
+				)
+				(pin
+					(num "B4")
+					(name "VBUS")
+					(type "passive")
+				)
+				(pin
+					(num "B5")
+					(name "CC2")
+					(type "bidirectional")
+				)
+				(pin
+					(num "B6")
+					(name "D+")
+					(type "bidirectional")
+				)
+				(pin
+					(num "B7")
+					(name "D-")
+					(type "bidirectional")
+				)
+				(pin
+					(num "B8")
+					(name "SBU2")
+					(type "bidirectional")
+				)
+				(pin
+					(num "B9")
+					(name "VBUS")
+					(type "passive")
+				)
+				(pin
+					(num "B12")
+					(name "GND")
+					(type "passive")
+				)
+				(pin
+					(num "SH")
+					(name "SHIELD")
+					(type "passive")
 				)
 			)
 		)
@@ -7461,45 +8852,6 @@
 				(pin
 					(num "2")
 					(name "Pin_2")
-					(type "passive")
-				)
-			)
-		)
-		(libpart
-			(lib "Connector_Generic")
-			(part "Conn_01x03")
-			(description "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			(footprints
-				(fp "Connector*:*_1x??_*")
-			)
-			(fields
-				(field
-					(name "Reference") "J")
-				(field
-					(name "Value") "Conn_01x03")
-				(field
-					(name "Footprint")
-				)
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description") "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(pins
-				(pin
-					(num "1")
-					(name "Pin_1")
-					(type "passive")
-				)
-				(pin
-					(num "2")
-					(name "Pin_2")
-					(type "passive")
-				)
-				(pin
-					(num "3")
-					(name "Pin_3")
 					(type "passive")
 				)
 			)
@@ -7618,180 +8970,6 @@
 				(pin
 					(num "8")
 					(name "Pin_8")
-					(type "passive")
-				)
-			)
-		)
-		(libpart
-			(lib "Connector_Generic")
-			(part "Conn_02x15_Odd_Even")
-			(description "Generic connector, double row, 02x15, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)")
-			(footprints
-				(fp "Connector*:*_2x??_*")
-			)
-			(fields
-				(field
-					(name "Reference") "J")
-				(field
-					(name "Value") "Conn_02x15_Odd_Even")
-				(field
-					(name "Footprint")
-				)
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description") "Generic connector, double row, 02x15, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(pins
-				(pin
-					(num "1")
-					(name "Pin_1")
-					(type "passive")
-				)
-				(pin
-					(num "2")
-					(name "Pin_2")
-					(type "passive")
-				)
-				(pin
-					(num "3")
-					(name "Pin_3")
-					(type "passive")
-				)
-				(pin
-					(num "4")
-					(name "Pin_4")
-					(type "passive")
-				)
-				(pin
-					(num "5")
-					(name "Pin_5")
-					(type "passive")
-				)
-				(pin
-					(num "6")
-					(name "Pin_6")
-					(type "passive")
-				)
-				(pin
-					(num "7")
-					(name "Pin_7")
-					(type "passive")
-				)
-				(pin
-					(num "8")
-					(name "Pin_8")
-					(type "passive")
-				)
-				(pin
-					(num "9")
-					(name "Pin_9")
-					(type "passive")
-				)
-				(pin
-					(num "10")
-					(name "Pin_10")
-					(type "passive")
-				)
-				(pin
-					(num "11")
-					(name "Pin_11")
-					(type "passive")
-				)
-				(pin
-					(num "12")
-					(name "Pin_12")
-					(type "passive")
-				)
-				(pin
-					(num "13")
-					(name "Pin_13")
-					(type "passive")
-				)
-				(pin
-					(num "14")
-					(name "Pin_14")
-					(type "passive")
-				)
-				(pin
-					(num "15")
-					(name "Pin_15")
-					(type "passive")
-				)
-				(pin
-					(num "16")
-					(name "Pin_16")
-					(type "passive")
-				)
-				(pin
-					(num "17")
-					(name "Pin_17")
-					(type "passive")
-				)
-				(pin
-					(num "18")
-					(name "Pin_18")
-					(type "passive")
-				)
-				(pin
-					(num "19")
-					(name "Pin_19")
-					(type "passive")
-				)
-				(pin
-					(num "20")
-					(name "Pin_20")
-					(type "passive")
-				)
-				(pin
-					(num "21")
-					(name "Pin_21")
-					(type "passive")
-				)
-				(pin
-					(num "22")
-					(name "Pin_22")
-					(type "passive")
-				)
-				(pin
-					(num "23")
-					(name "Pin_23")
-					(type "passive")
-				)
-				(pin
-					(num "24")
-					(name "Pin_24")
-					(type "passive")
-				)
-				(pin
-					(num "25")
-					(name "Pin_25")
-					(type "passive")
-				)
-				(pin
-					(num "26")
-					(name "Pin_26")
-					(type "passive")
-				)
-				(pin
-					(num "27")
-					(name "Pin_27")
-					(type "passive")
-				)
-				(pin
-					(num "28")
-					(name "Pin_28")
-					(type "passive")
-				)
-				(pin
-					(num "29")
-					(name "Pin_29")
-					(type "passive")
-				)
-				(pin
-					(num "30")
-					(name "Pin_30")
 					(type "passive")
 				)
 			)
@@ -8005,54 +9183,360 @@
 			)
 		)
 		(libpart
-			(lib "Regulator_Switching")
-			(part "AP63200WU")
-			(description "2A, 500kHz Buck DC/DC Converter, adjustable output voltage, TSOT-23-6")
-			(docs "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf")
+			(lib "Power_Protection")
+			(part "USBLC6-2P6")
+			(description "Very low capacitance ESD protection diode, 2 data-line, SOT-666")
+			(docs "https://www.st.com/resource/en/datasheet/usblc6-2.pdf")
 			(footprints
-				(fp "TSOT?23*")
+				(fp "SOT?666*")
 			)
 			(fields
 				(field
 					(name "Reference") "U")
 				(field
-					(name "Value") "AP63200WU")
+					(name "Value") "USBLC6-2P6")
 				(field
-					(name "Footprint") "Package_TO_SOT_SMD:TSOT-23-6")
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-666")
 				(field
-					(name "Datasheet") "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf")
+					(name "Datasheet") "https://www.st.com/resource/en/datasheet/usblc6-2.pdf")
 				(field
-					(name "Description") "2A, 500kHz Buck DC/DC Converter, adjustable output voltage, TSOT-23-6")
+					(name "Description") "Very low capacitance ESD protection diode, 2 data-line, SOT-666")
 			)
 			(pins
 				(pin
 					(num "1")
-					(name "FB")
-					(type "input")
+					(name "I/O1")
+					(type "passive")
 				)
 				(pin
 					(num "2")
-					(name "EN")
-					(type "input")
+					(name "GND")
+					(type "passive")
 				)
 				(pin
 					(num "3")
-					(name "IN")
-					(type "power_in")
+					(name "I/O2")
+					(type "passive")
 				)
 				(pin
 					(num "4")
+					(name "I/O2")
+					(type "passive")
+				)
+				(pin
+					(num "5")
+					(name "VBUS")
+					(type "passive")
+				)
+				(pin
+					(num "6")
+					(name "I/O1")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "RF_Module")
+			(part "ESP32-S3-WROOM-1")
+			(description "RF Module, ESP32-S3 SoC, Wi-Fi 802.11b/g/n, Bluetooth, BLE, 32-bit, 3.3V, onboard antenna, SMD")
+			(docs "https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf")
+			(footprints
+				(fp "ESP32?S3?WROOM?1*")
+			)
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "ESP32-S3-WROOM-1")
+				(field
+					(name "Footprint") "RF_Module:ESP32-S3-WROOM-1")
+				(field
+					(name "Datasheet") "https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf")
+				(field
+					(name "Description") "RF Module, ESP32-S3 SoC, Wi-Fi 802.11b/g/n, Bluetooth, BLE, 32-bit, 3.3V, onboard antenna, SMD")
+			)
+			(pins
+				(pin
+					(num "1")
 					(name "GND")
 					(type "power_in")
 				)
 				(pin
+					(num "2")
+					(name "3V3")
+					(type "power_in")
+				)
+				(pin
+					(num "3")
+					(name "EN")
+					(type "input")
+				)
+				(pin
+					(num "4")
+					(name "IO4")
+					(type "bidirectional")
+				)
+				(pin
 					(num "5")
-					(name "SW")
-					(type "output")
+					(name "IO5")
+					(type "bidirectional")
 				)
 				(pin
 					(num "6")
-					(name "BST")
+					(name "IO6")
+					(type "bidirectional")
+				)
+				(pin
+					(num "7")
+					(name "IO7")
+					(type "bidirectional")
+				)
+				(pin
+					(num "8")
+					(name "IO15")
+					(type "bidirectional")
+				)
+				(pin
+					(num "9")
+					(name "IO16")
+					(type "bidirectional")
+				)
+				(pin
+					(num "10")
+					(name "IO17")
+					(type "bidirectional")
+				)
+				(pin
+					(num "11")
+					(name "IO18")
+					(type "bidirectional")
+				)
+				(pin
+					(num "12")
+					(name "IO8")
+					(type "bidirectional")
+				)
+				(pin
+					(num "13")
+					(name "USB_D-")
+					(type "bidirectional")
+				)
+				(pin
+					(num "14")
+					(name "USB_D+")
+					(type "bidirectional")
+				)
+				(pin
+					(num "15")
+					(name "IO3")
+					(type "bidirectional")
+				)
+				(pin
+					(num "16")
+					(name "IO46")
+					(type "bidirectional")
+				)
+				(pin
+					(num "17")
+					(name "IO9")
+					(type "bidirectional")
+				)
+				(pin
+					(num "18")
+					(name "IO10")
+					(type "bidirectional")
+				)
+				(pin
+					(num "19")
+					(name "IO11")
+					(type "bidirectional")
+				)
+				(pin
+					(num "20")
+					(name "IO12")
+					(type "bidirectional")
+				)
+				(pin
+					(num "21")
+					(name "IO13")
+					(type "bidirectional")
+				)
+				(pin
+					(num "22")
+					(name "IO14")
+					(type "bidirectional")
+				)
+				(pin
+					(num "23")
+					(name "IO21")
+					(type "bidirectional")
+				)
+				(pin
+					(num "24")
+					(name "IO47")
+					(type "bidirectional")
+				)
+				(pin
+					(num "25")
+					(name "IO48")
+					(type "bidirectional")
+				)
+				(pin
+					(num "26")
+					(name "IO45")
+					(type "bidirectional")
+				)
+				(pin
+					(num "27")
+					(name "IO0")
+					(type "bidirectional")
+				)
+				(pin
+					(num "28")
+					(name "IO35")
+					(type "bidirectional")
+				)
+				(pin
+					(num "29")
+					(name "IO36")
+					(type "bidirectional")
+				)
+				(pin
+					(num "30")
+					(name "IO37")
+					(type "bidirectional")
+				)
+				(pin
+					(num "31")
+					(name "IO38")
+					(type "bidirectional")
+				)
+				(pin
+					(num "32")
+					(name "IO39")
+					(type "bidirectional")
+				)
+				(pin
+					(num "33")
+					(name "IO40")
+					(type "bidirectional")
+				)
+				(pin
+					(num "34")
+					(name "IO41")
+					(type "bidirectional")
+				)
+				(pin
+					(num "35")
+					(name "IO42")
+					(type "bidirectional")
+				)
+				(pin
+					(num "36")
+					(name "RXD0")
+					(type "bidirectional")
+				)
+				(pin
+					(num "37")
+					(name "TXD0")
+					(type "bidirectional")
+				)
+				(pin
+					(num "38")
+					(name "IO2")
+					(type "bidirectional")
+				)
+				(pin
+					(num "39")
+					(name "IO1")
+					(type "bidirectional")
+				)
+				(pin
+					(num "40")
+					(name "GND")
+					(type "passive")
+				)
+				(pin
+					(num "41")
+					(name "GND")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Regulator_Switching")
+			(part "TPS63000")
+			(description "Buck-Boost Converter, 1.8-5.5V Input Voltage, 1.8A Switch Current, Adjustable 1.2-5.5V Output Voltage, VSON-10")
+			(docs "http://www.ti.com/lit/ds/symlink/tps63000.pdf")
+			(footprints
+				(fp "Texas*DRC0010J*")
+			)
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "TPS63000")
+				(field
+					(name "Footprint") "Package_SON:Texas_DRC0010J_ThermalVias")
+				(field
+					(name "Datasheet") "http://www.ti.com/lit/ds/symlink/tps63000.pdf")
+				(field
+					(name "Description") "Buck-Boost Converter, 1.8-5.5V Input Voltage, 1.8A Switch Current, Adjustable 1.2-5.5V Output Voltage, VSON-10")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "VOUT")
+					(type "power_out")
+				)
+				(pin
+					(num "2")
+					(name "L2")
+					(type "input")
+				)
+				(pin
+					(num "3")
+					(name "PGND")
+					(type "power_in")
+				)
+				(pin
+					(num "4")
+					(name "L1")
+					(type "input")
+				)
+				(pin
+					(num "5")
+					(name "VIN")
+					(type "power_in")
+				)
+				(pin
+					(num "6")
+					(name "EN")
+					(type "input")
+				)
+				(pin
+					(num "7")
+					(name "PS/SYNC")
+					(type "input")
+				)
+				(pin
+					(num "8")
+					(name "VINA")
+					(type "power_in")
+				)
+				(pin
+					(num "9")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "10")
+					(name "FB")
+					(type "input")
+				)
+				(pin
+					(num "11")
+					(name "PGND")
 					(type "passive")
 				)
 			)
@@ -8160,8 +9644,12 @@
 	)
 	(libraries
 		(library
-			(logical "Analog_Switch")
-			(uri "${KICAD10_SYMBOL_DIR}/Analog_Switch.kicad_sym")
+			(logical "74xx")
+			(uri "${KICAD10_SYMBOL_DIR}/74xx.kicad_sym")
+		)
+		(library
+			(logical "Connector")
+			(uri "${KICAD10_SYMBOL_DIR}/Connector.kicad_sym")
 		)
 		(library
 			(logical "Connector_Generic")
@@ -8174,6 +9662,14 @@
 		(library
 			(logical "LED")
 			(uri "${KICAD10_SYMBOL_DIR}/LED.kicad_sym")
+		)
+		(library
+			(logical "Power_Protection")
+			(uri "${KICAD10_SYMBOL_DIR}/Power_Protection.kicad_sym")
+		)
+		(library
+			(logical "RF_Module")
+			(uri "${KICAD10_SYMBOL_DIR}/RF_Module.kicad_sym")
 		)
 		(library
 			(logical "Regulator_Switching")
@@ -8198,16 +9694,16 @@
 			(name "AIN1")
 			(class "Default")
 			(node
-				(ref "A1")
-				(pin "22")
-				(pinfunction "Pin_22_22")
-				(pintype "passive")
-			)
-			(node
 				(ref "J10")
 				(pin "3")
 				(pinfunction "Pin_3_3")
 				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "17")
+				(pinfunction "IO9_17")
+				(pintype "bidirectional")
 			)
 		)
 		(net
@@ -8215,16 +9711,16 @@
 			(name "AIN2")
 			(class "Default")
 			(node
-				(ref "A1")
-				(pin "23")
-				(pinfunction "Pin_23_23")
-				(pintype "passive")
-			)
-			(node
 				(ref "J10")
 				(pin "4")
 				(pinfunction "Pin_4_4")
 				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "18")
+				(pinfunction "IO10_18")
+				(pintype "bidirectional")
 			)
 		)
 		(net
@@ -8232,16 +9728,16 @@
 			(name "BIN1")
 			(class "Default")
 			(node
-				(ref "A1")
-				(pin "24")
-				(pinfunction "Pin_24_24")
-				(pintype "passive")
-			)
-			(node
 				(ref "J10")
 				(pin "6")
 				(pinfunction "Pin_6_6")
 				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "31")
+				(pinfunction "IO38_31")
+				(pintype "bidirectional")
 			)
 		)
 		(net
@@ -8249,28 +9745,155 @@
 			(name "BIN2")
 			(class "Default")
 			(node
-				(ref "A1")
-				(pin "25")
-				(pinfunction "Pin_25_25")
-				(pintype "passive")
-			)
-			(node
 				(ref "J10")
 				(pin "7")
 				(pinfunction "Pin_7_7")
 				(pintype "passive")
 			)
+			(node
+				(ref "R65")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "26")
+				(pinfunction "IO45_26")
+				(pintype "bidirectional")
+			)
 		)
 		(net
 			(code "5")
-			(name "ENC1_A")
+			(name "EMIT_DIAG_K")
 			(class "Default")
 			(node
-				(ref "A1")
-				(pin "16")
-				(pinfunction "Pin_16_16")
+				(ref "D3")
+				(pin "1")
+				(pinfunction "K_1")
 				(pintype "passive")
 			)
+			(node
+				(ref "D4")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q17")
+				(pin "3")
+				(pinfunction "D_3")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "6")
+			(name "EMIT_FRONT_K")
+			(class "Default")
+			(node
+				(ref "D1")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D2")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q16")
+				(pin "3")
+				(pinfunction "D_3")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "7")
+			(name "EMIT_LINE_K")
+			(class "Default")
+			(node
+				(ref "D10")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D11")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D12")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D13")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D14")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D7")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D8")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D9")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q19")
+				(pin "3")
+				(pinfunction "D_3")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "8")
+			(name "EMIT_SIDE_K")
+			(class "Default")
+			(node
+				(ref "D5")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D6")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q18")
+				(pin "3")
+				(pinfunction "D_3")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "9")
+			(name "ENC1_A")
+			(class "Default")
 			(node
 				(ref "J5")
 				(pin "5")
@@ -8282,17 +9905,17 @@
 				(pin "1")
 				(pintype "passive")
 			)
+			(node
+				(ref "U3")
+				(pin "24")
+				(pinfunction "IO47_24")
+				(pintype "bidirectional")
+			)
 		)
 		(net
-			(code "6")
+			(code "10")
 			(name "ENC1_B")
 			(class "Default")
-			(node
-				(ref "A1")
-				(pin "17")
-				(pinfunction "Pin_17_17")
-				(pintype "passive")
-			)
 			(node
 				(ref "J5")
 				(pin "6")
@@ -8304,21 +9927,26 @@
 				(pin "1")
 				(pintype "passive")
 			)
+			(node
+				(ref "U3")
+				(pin "25")
+				(pinfunction "IO48_25")
+				(pintype "bidirectional")
+			)
 		)
 		(net
-			(code "7")
+			(code "11")
 			(name "ENC2_A")
 			(class "Default")
-			(node
-				(ref "A1")
-				(pin "18")
-				(pinfunction "Pin_18_18")
-				(pintype "passive")
-			)
 			(node
 				(ref "J6")
 				(pin "5")
 				(pinfunction "Pin_5_5")
+				(pintype "passive")
+			)
+			(node
+				(ref "R57")
+				(pin "1")
 				(pintype "passive")
 			)
 			(node
@@ -8328,19 +9956,34 @@
 			)
 		)
 		(net
-			(code "8")
-			(name "ENC2_B")
+			(code "12")
+			(name "ENC2_A_S3")
 			(class "Default")
 			(node
-				(ref "A1")
-				(pin "19")
-				(pinfunction "Pin_19_19")
+				(ref "R57")
+				(pin "2")
 				(pintype "passive")
 			)
+			(node
+				(ref "U3")
+				(pin "36")
+				(pinfunction "RXD0_36")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "13")
+			(name "ENC2_B")
+			(class "Default")
 			(node
 				(ref "J6")
 				(pin "6")
 				(pinfunction "Pin_6_6")
+				(pintype "passive")
+			)
+			(node
+				(ref "R58")
+				(pin "1")
 				(pintype "passive")
 			)
 			(node
@@ -8350,23 +9993,59 @@
 			)
 		)
 		(net
-			(code "9")
+			(code "14")
+			(name "ENC2_B_S3")
+			(class "Default")
+			(node
+				(ref "R58")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "37")
+				(pinfunction "TXD0_37")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "15")
+			(name "ESP_EN")
+			(class "Default")
+			(node
+				(ref "C9")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R11")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "SW2")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "3")
+				(pinfunction "EN_3")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "16")
 			(name "GND")
 			(class "Default")
 			(node
-				(ref "A1")
-				(pin "2")
-				(pinfunction "Pin_2_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "A1")
-				(pin "27")
-				(pinfunction "Pin_27_27")
-				(pintype "passive")
-			)
-			(node
 				(ref "C1")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C10")
 				(pin "2")
 				(pintype "passive")
 			)
@@ -8376,12 +10055,12 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "C14")
+				(ref "C2")
 				(pin "2")
 				(pintype "passive")
 			)
 			(node
-				(ref "C2")
+				(ref "C3")
 				(pin "2")
 				(pintype "passive")
 			)
@@ -8401,13 +10080,49 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "C7")
+				(ref "C8")
 				(pin "2")
 				(pintype "passive")
 			)
 			(node
-				(ref "C8")
+				(ref "C9")
 				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "D23")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D24")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D25")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D26")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D27")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D28")
+				(pin "1")
+				(pinfunction "K_1")
 				(pintype "passive")
 			)
 			(node
@@ -8435,12 +10150,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "J3")
-				(pin "3")
-				(pinfunction "Pin_3_3")
-				(pintype "passive")
-			)
-			(node
 				(ref "J5")
 				(pin "4")
 				(pinfunction "Pin_4_4")
@@ -8453,6 +10162,42 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "J7")
+				(pin "A1")
+				(pinfunction "GND_A1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J7")
+				(pin "A12")
+				(pinfunction "GND_A12")
+				(pintype "passive")
+			)
+			(node
+				(ref "J7")
+				(pin "B1")
+				(pinfunction "GND_B1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J7")
+				(pin "B12")
+				(pinfunction "GND_B12")
+				(pintype "passive")
+			)
+			(node
+				(ref "J7")
+				(pin "SH")
+				(pinfunction "SHIELD_SH")
+				(pintype "passive")
+			)
+			(node
+				(ref "J8")
+				(pin "6")
+				(pinfunction "Pin_6_6")
+				(pintype "passive")
+			)
+			(node
 				(ref "Q10")
 				(pin "2")
 				(pinfunction "E_2")
@@ -8461,7 +10206,7 @@
 			(node
 				(ref "Q11")
 				(pin "2")
-				(pinfunction "S_2")
+				(pinfunction "E_2")
 				(pintype "passive")
 			)
 			(node
@@ -8473,7 +10218,7 @@
 			(node
 				(ref "Q13")
 				(pin "2")
-				(pinfunction "S_2")
+				(pinfunction "E_2")
 				(pintype "passive")
 			)
 			(node
@@ -8485,13 +10230,13 @@
 			(node
 				(ref "Q15")
 				(pin "2")
-				(pinfunction "S_2")
+				(pinfunction "E_2")
 				(pintype "passive")
 			)
 			(node
 				(ref "Q16")
 				(pin "2")
-				(pinfunction "E_2")
+				(pinfunction "S_2")
 				(pintype "passive")
 			)
 			(node
@@ -8503,7 +10248,7 @@
 			(node
 				(ref "Q18")
 				(pin "2")
-				(pinfunction "E_2")
+				(pinfunction "S_2")
 				(pintype "passive")
 			)
 			(node
@@ -8521,7 +10266,7 @@
 			(node
 				(ref "Q20")
 				(pin "2")
-				(pinfunction "E_2")
+				(pinfunction "S_2")
 				(pintype "passive")
 			)
 			(node
@@ -8533,7 +10278,7 @@
 			(node
 				(ref "Q22")
 				(pin "2")
-				(pinfunction "E_2")
+				(pinfunction "S_2")
 				(pintype "passive")
 			)
 			(node
@@ -8545,7 +10290,7 @@
 			(node
 				(ref "Q24")
 				(pin "2")
-				(pinfunction "E_2")
+				(pinfunction "S_2")
 				(pintype "passive")
 			)
 			(node
@@ -8557,7 +10302,7 @@
 			(node
 				(ref "Q26")
 				(pin "2")
-				(pinfunction "E_2")
+				(pinfunction "S_2")
 				(pintype "passive")
 			)
 			(node
@@ -8567,69 +10312,9 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "Q28")
-				(pin "2")
-				(pinfunction "E_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q29")
-				(pin "2")
-				(pinfunction "S_2")
-				(pintype "passive")
-			)
-			(node
 				(ref "Q3")
 				(pin "2")
-				(pinfunction "S_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q30")
-				(pin "2")
-				(pinfunction "S_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q31")
-				(pin "2")
-				(pinfunction "S_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q32")
-				(pin "2")
-				(pinfunction "S_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q33")
-				(pin "2")
-				(pinfunction "S_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q34")
-				(pin "2")
-				(pinfunction "S_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q35")
-				(pin "2")
-				(pinfunction "S_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q36")
-				(pin "2")
-				(pinfunction "S_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q37")
-				(pin "2")
-				(pinfunction "S_2")
+				(pinfunction "E_2")
 				(pintype "passive")
 			)
 			(node
@@ -8641,7 +10326,7 @@
 			(node
 				(ref "Q5")
 				(pin "2")
-				(pinfunction "S_2")
+				(pinfunction "E_2")
 				(pintype "passive")
 			)
 			(node
@@ -8653,7 +10338,7 @@
 			(node
 				(ref "Q7")
 				(pin "2")
-				(pinfunction "S_2")
+				(pinfunction "E_2")
 				(pintype "passive")
 			)
 			(node
@@ -8665,11 +10350,16 @@
 			(node
 				(ref "Q9")
 				(pin "2")
-				(pinfunction "S_2")
+				(pinfunction "E_2")
 				(pintype "passive")
 			)
 			(node
 				(ref "R1")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R12")
 				(pin "2")
 				(pintype "passive")
 			)
@@ -8679,7 +10369,37 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "R5")
+				(ref "R56")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R61")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R62")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R63")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R64")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R65")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R66")
 				(pin "2")
 				(pintype "passive")
 			)
@@ -8690,85 +10410,173 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "SW2")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "SW3")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "SW4")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
 				(ref "U1")
-				(pin "4")
-				(pinfunction "GND_4")
-				(pintype "power_in")
-			)
-			(node
-				(ref "U4")
-				(pin "12")
-				(pinfunction "VSS_12")
-				(pintype "power_in")
-			)
-			(node
-				(ref "U4")
-				(pin "15")
-				(pinfunction "~{E}_15")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "12")
-				(pinfunction "VSS_12")
-				(pintype "power_in")
-			)
-			(node
-				(ref "U5")
-				(pin "15")
-				(pinfunction "~{E}_15")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "10")
-			(name "LED_PULSE")
-			(class "Default")
-			(node
-				(ref "A1")
-				(pin "6")
-				(pinfunction "Pin_6_6")
+				(pin "11")
+				(pinfunction "PGND_11")
 				(pintype "passive")
 			)
 			(node
-				(ref "U5")
-				(pin "1")
-				(pinfunction "Z_1")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "11")
-			(name "LINE1_LED")
-			(class "Default")
-			(node
-				(ref "Q15")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
+				(ref "U1")
 				(pin "3")
-				(pinfunction "Y6_3")
+				(pinfunction "PGND_3")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U1")
+				(pin "7")
+				(pinfunction "PS/SYNC_7")
+				(pintype "input")
+			)
+			(node
+				(ref "U1")
+				(pin "9")
+				(pinfunction "GND_9")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U3")
+				(pin "1")
+				(pinfunction "GND_1")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U3")
+				(pin "40")
+				(pinfunction "GND_40")
+				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "41")
+				(pinfunction "GND_41")
+				(pintype "passive")
+			)
+			(node
+				(ref "U4")
+				(pin "12")
+				(pinfunction "GND_12")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U4")
+				(pin "13")
+				(pinfunction "S3_13")
+				(pintype "input")
+			)
+			(node
+				(ref "U4")
+				(pin "15")
+				(pinfunction "~{E}_15")
+				(pintype "input")
+			)
+			(node
+				(ref "U6")
+				(pin "2")
+				(pinfunction "GND_2")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "12")
+			(code "17")
+			(name "JTAG_TCK")
+			(class "Default")
+			(node
+				(ref "J8")
+				(pin "3")
+				(pinfunction "Pin_3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "32")
+				(pinfunction "IO39_32")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "18")
+			(name "JTAG_TDI")
+			(class "Default")
+			(node
+				(ref "J8")
+				(pin "5")
+				(pinfunction "Pin_5_5")
+				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "34")
+				(pinfunction "IO41_34")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "19")
+			(name "JTAG_TDO")
+			(class "Default")
+			(node
+				(ref "J8")
+				(pin "4")
+				(pinfunction "Pin_4_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "33")
+				(pinfunction "IO40_33")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "20")
+			(name "JTAG_TMS")
+			(class "Default")
+			(node
+				(ref "J8")
+				(pin "2")
+				(pinfunction "Pin_2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "35")
+				(pinfunction "IO42_35")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "21")
 			(name "LINE1_SENSE")
 			(class "Default")
 			(node
-				(ref "Q14")
-				(pin "1")
-				(pinfunction "C_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q30")
+				(ref "Q20")
 				(pin "1")
 				(pinfunction "G_1")
 				(pintype "input")
+			)
+			(node
+				(ref "Q8")
+				(pin "1")
+				(pinfunction "C_1")
+				(pintype "passive")
 			)
 			(node
 				(ref "R25")
@@ -8777,43 +10585,26 @@
 			)
 			(node
 				(ref "U4")
-				(pin "3")
-				(pinfunction "Y6_3")
+				(pin "9")
+				(pinfunction "I0_9")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "13")
-			(name "LINE2_LED")
-			(class "Default")
-			(node
-				(ref "Q17")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "2")
-				(pinfunction "Y7_2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "14")
+			(code "22")
 			(name "LINE2_SENSE")
 			(class "Default")
 			(node
-				(ref "Q16")
-				(pin "1")
-				(pinfunction "C_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q31")
+				(ref "Q21")
 				(pin "1")
 				(pinfunction "G_1")
 				(pintype "input")
+			)
+			(node
+				(ref "Q9")
+				(pin "1")
+				(pinfunction "C_1")
+				(pintype "passive")
 			)
 			(node
 				(ref "R27")
@@ -8822,40 +10613,23 @@
 			)
 			(node
 				(ref "U4")
-				(pin "2")
-				(pinfunction "Y7_2")
+				(pin "8")
+				(pinfunction "I1_8")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "15")
-			(name "LINE3_LED")
-			(class "Default")
-			(node
-				(ref "Q19")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "23")
-				(pinfunction "Y8_23")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "16")
+			(code "23")
 			(name "LINE3_SENSE")
 			(class "Default")
 			(node
-				(ref "Q18")
+				(ref "Q10")
 				(pin "1")
 				(pinfunction "C_1")
 				(pintype "passive")
 			)
 			(node
-				(ref "Q32")
+				(ref "Q22")
 				(pin "1")
 				(pinfunction "G_1")
 				(pintype "input")
@@ -8867,54 +10641,26 @@
 			)
 			(node
 				(ref "U4")
-				(pin "23")
-				(pinfunction "Y8_23")
+				(pin "7")
+				(pinfunction "I2_7")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "17")
-			(name "LINE4_LED")
-			(class "Default")
-			(node
-				(ref "Q21")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "22")
-				(pinfunction "Y9_22")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "18")
+			(code "24")
 			(name "LINE4_SENSE")
 			(class "Default")
 			(node
-				(ref "D9")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q20")
+				(ref "Q11")
 				(pin "1")
 				(pinfunction "C_1")
 				(pintype "passive")
 			)
 			(node
-				(ref "Q33")
+				(ref "Q23")
 				(pin "1")
 				(pinfunction "G_1")
 				(pintype "input")
-			)
-			(node
-				(ref "R30")
-				(pin "2")
-				(pintype "passive")
 			)
 			(node
 				(ref "R31")
@@ -8923,40 +10669,23 @@
 			)
 			(node
 				(ref "U4")
-				(pin "22")
-				(pinfunction "Y9_22")
+				(pin "6")
+				(pinfunction "I3_6")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "19")
-			(name "LINE5_LED")
-			(class "Default")
-			(node
-				(ref "Q23")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "21")
-				(pinfunction "Y10_21")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "20")
+			(code "25")
 			(name "LINE5_SENSE")
 			(class "Default")
 			(node
-				(ref "Q22")
+				(ref "Q12")
 				(pin "1")
 				(pinfunction "C_1")
 				(pintype "passive")
 			)
 			(node
-				(ref "Q34")
+				(ref "Q24")
 				(pin "1")
 				(pinfunction "G_1")
 				(pintype "input")
@@ -8968,58 +10697,23 @@
 			)
 			(node
 				(ref "U4")
-				(pin "21")
-				(pinfunction "Y10_21")
+				(pin "5")
+				(pinfunction "I4_5")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "21")
-			(name "LINE6_LED")
-			(class "Default")
-			(node
-				(ref "Q25")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "20")
-				(pinfunction "Y11_20")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "22")
+			(code "26")
 			(name "LINE6_SENSE")
 			(class "Default")
 			(node
-				(ref "D19")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "D19")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q24")
+				(ref "Q13")
 				(pin "1")
 				(pinfunction "C_1")
 				(pintype "passive")
 			)
 			(node
-				(ref "Q34")
-				(pin "3")
-				(pinfunction "D_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q35")
+				(ref "Q25")
 				(pin "1")
 				(pinfunction "G_1")
 				(pintype "input")
@@ -9030,46 +10724,24 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "R45")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
 				(ref "U4")
-				(pin "20")
-				(pinfunction "Y11_20")
+				(pin "4")
+				(pinfunction "I5_4")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "23")
-			(name "LINE7_LED")
-			(class "Default")
-			(node
-				(ref "Q27")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "19")
-				(pinfunction "Y12_19")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "24")
+			(code "27")
 			(name "LINE7_SENSE")
 			(class "Default")
 			(node
-				(ref "Q26")
+				(ref "Q14")
 				(pin "1")
 				(pinfunction "C_1")
 				(pintype "passive")
 			)
 			(node
-				(ref "Q36")
+				(ref "Q26")
 				(pin "1")
 				(pinfunction "G_1")
 				(pintype "input")
@@ -9081,54 +10753,26 @@
 			)
 			(node
 				(ref "U4")
-				(pin "19")
-				(pinfunction "Y12_19")
+				(pin "3")
+				(pinfunction "I6_3")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "25")
-			(name "LINE8_LED")
-			(class "Default")
-			(node
-				(ref "Q29")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "18")
-				(pinfunction "Y13_18")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "26")
+			(code "28")
 			(name "LINE8_SENSE")
 			(class "Default")
 			(node
-				(ref "D13")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q28")
+				(ref "Q15")
 				(pin "1")
 				(pinfunction "C_1")
 				(pintype "passive")
 			)
 			(node
-				(ref "Q37")
+				(ref "Q27")
 				(pin "1")
 				(pinfunction "G_1")
 				(pintype "input")
-			)
-			(node
-				(ref "R38")
-				(pin "2")
-				(pintype "passive")
 			)
 			(node
 				(ref "R39")
@@ -9137,13 +10781,35 @@
 			)
 			(node
 				(ref "U4")
-				(pin "18")
-				(pinfunction "Y13_18")
+				(pin "2")
+				(pinfunction "I7_2")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "27")
+			(code "29")
+			(name "LINE_EMIT")
+			(class "Default")
+			(node
+				(ref "Q19")
+				(pin "1")
+				(pinfunction "G_1")
+				(pintype "input")
+			)
+			(node
+				(ref "R61")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "22")
+				(pinfunction "IO14_22")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "30")
 			(name "MOTA_N")
 			(class "Default")
 			(node
@@ -9160,7 +10826,7 @@
 			)
 		)
 		(net
-			(code "28")
+			(code "31")
 			(name "MOTA_P")
 			(class "Default")
 			(node
@@ -9177,7 +10843,7 @@
 			)
 		)
 		(net
-			(code "29")
+			(code "32")
 			(name "MOTB_N")
 			(class "Default")
 			(node
@@ -9194,7 +10860,7 @@
 			)
 		)
 		(net
-			(code "30")
+			(code "33")
 			(name "MOTB_P")
 			(class "Default")
 			(node
@@ -9211,116 +10877,75 @@
 			)
 		)
 		(net
-			(code "31")
+			(code "34")
 			(name "MUX_S0")
 			(class "Default")
 			(node
-				(ref "A1")
-				(pin "15")
-				(pinfunction "Pin_15_15")
-				(pintype "passive")
+				(ref "U3")
+				(pin "19")
+				(pinfunction "IO11_19")
+				(pintype "bidirectional")
 			)
 			(node
 				(ref "U4")
 				(pin "10")
-				(pinfunction "A0_10")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "10")
-				(pinfunction "A0_10")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "32")
-			(name "MUX_S1")
-			(class "Default")
-			(node
-				(ref "A1")
-				(pin "9")
-				(pinfunction "Pin_9_9")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "11")
-				(pinfunction "A1_11")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "11")
-				(pinfunction "A1_11")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "33")
-			(name "MUX_S2")
-			(class "Default")
-			(node
-				(ref "A1")
-				(pin "8")
-				(pinfunction "Pin_8_8")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "14")
-				(pinfunction "A2_14")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "14")
-				(pinfunction "A2_14")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "34")
-			(name "MUX_S3")
-			(class "Default")
-			(node
-				(ref "A1")
-				(pin "7")
-				(pinfunction "Pin_7_7")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "13")
-				(pinfunction "A3_13")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "13")
-				(pinfunction "A3_13")
+				(pinfunction "S0_10")
 				(pintype "input")
 			)
 		)
 		(net
 			(code "35")
-			(name "MUX_SENSE")
+			(name "MUX_S1")
 			(class "Default")
 			(node
-				(ref "A1")
-				(pin "12")
-				(pinfunction "Pin_12_12")
-				(pintype "passive")
+				(ref "U3")
+				(pin "20")
+				(pinfunction "IO12_20")
+				(pintype "bidirectional")
 			)
 			(node
 				(ref "U4")
-				(pin "1")
-				(pinfunction "Z_1")
-				(pintype "passive")
+				(pin "11")
+				(pinfunction "S1_11")
+				(pintype "input")
 			)
 		)
 		(net
 			(code "36")
+			(name "MUX_S2")
+			(class "Default")
+			(node
+				(ref "U3")
+				(pin "21")
+				(pinfunction "IO13_21")
+				(pintype "bidirectional")
+			)
+			(node
+				(ref "U4")
+				(pin "14")
+				(pinfunction "S2_14")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "37")
+			(name "MUX_SENSE")
+			(class "Default")
+			(node
+				(ref "U3")
+				(pin "7")
+				(pinfunction "IO7_7")
+				(pintype "bidirectional")
+			)
+			(node
+				(ref "U4")
+				(pin "1")
+				(pinfunction "COM_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "38")
 			(name "Net-(D1-A)")
 			(class "Default")
 			(node
@@ -9336,24 +10961,7 @@
 			)
 		)
 		(net
-			(code "37")
-			(name "Net-(D1-K)")
-			(class "Default")
-			(node
-				(ref "D1")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q3")
-				(pin "3")
-				(pinfunction "D_3")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "38")
+			(code "39")
 			(name "Net-(D2-A)")
 			(class "Default")
 			(node
@@ -9363,37 +10971,8 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "D3")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q7")
-				(pin "3")
-				(pinfunction "D_3")
-				(pintype "passive")
-			)
-			(node
 				(ref "R16")
 				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "39")
-			(name "Net-(D2-K)")
-			(class "Default")
-			(node
-				(ref "D2")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q5")
-				(pin "3")
-				(pinfunction "D_3")
 				(pintype "passive")
 			)
 		)
@@ -9415,35 +10994,33 @@
 		)
 		(net
 			(code "41")
-			(name "Net-(D4-K)")
+			(name "Net-(D4-A)")
 			(class "Default")
 			(node
 				(ref "D4")
-				(pin "1")
-				(pinfunction "K_1")
+				(pin "2")
+				(pinfunction "A_2")
 				(pintype "passive")
 			)
 			(node
-				(ref "Q9")
-				(pin "3")
-				(pinfunction "D_3")
+				(ref "R20")
+				(pin "2")
 				(pintype "passive")
 			)
 		)
 		(net
 			(code "42")
-			(name "Net-(D5-K)")
+			(name "Net-(D5-A)")
 			(class "Default")
 			(node
 				(ref "D5")
-				(pin "1")
-				(pinfunction "K_1")
+				(pin "2")
+				(pinfunction "A_2")
 				(pintype "passive")
 			)
 			(node
-				(ref "Q11")
-				(pin "3")
-				(pinfunction "D_3")
+				(ref "R22")
+				(pin "2")
 				(pintype "passive")
 			)
 		)
@@ -9465,23 +11042,6 @@
 		)
 		(net
 			(code "44")
-			(name "Net-(D6-K)")
-			(class "Default")
-			(node
-				(ref "D6")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q13")
-				(pin "3")
-				(pinfunction "D_3")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "45")
 			(name "Net-(D7-A)")
 			(class "Default")
 			(node
@@ -9497,24 +11057,7 @@
 			)
 		)
 		(net
-			(code "46")
-			(name "Net-(D7-K)")
-			(class "Default")
-			(node
-				(ref "D7")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q15")
-				(pin "3")
-				(pinfunction "D_3")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "47")
+			(code "45")
 			(name "Net-(D8-A)")
 			(class "Default")
 			(node
@@ -9530,41 +11073,23 @@
 			)
 		)
 		(net
-			(code "48")
-			(name "Net-(D8-K)")
-			(class "Default")
-			(node
-				(ref "D8")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q17")
-				(pin "3")
-				(pinfunction "D_3")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "49")
-			(name "Net-(D9-K)")
+			(code "46")
+			(name "Net-(D9-A)")
 			(class "Default")
 			(node
 				(ref "D9")
-				(pin "1")
-				(pinfunction "K_1")
+				(pin "2")
+				(pinfunction "A_2")
 				(pintype "passive")
 			)
 			(node
-				(ref "Q19")
-				(pin "3")
-				(pinfunction "D_3")
+				(ref "R30")
+				(pin "2")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "50")
+			(code "47")
 			(name "Net-(D10-A)")
 			(class "Default")
 			(node
@@ -9574,42 +11099,13 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "D11")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q23")
-				(pin "3")
-				(pinfunction "D_3")
-				(pintype "passive")
-			)
-			(node
 				(ref "R32")
 				(pin "2")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "51")
-			(name "Net-(D10-K)")
-			(class "Default")
-			(node
-				(ref "D10")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q21")
-				(pin "3")
-				(pinfunction "D_3")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "52")
+			(code "48")
 			(name "Net-(D11-A)")
 			(class "Default")
 			(node
@@ -9625,7 +11121,7 @@
 			)
 		)
 		(net
-			(code "53")
+			(code "49")
 			(name "Net-(D12-A)")
 			(class "Default")
 			(node
@@ -9641,41 +11137,23 @@
 			)
 		)
 		(net
-			(code "54")
-			(name "Net-(D12-K)")
-			(class "Default")
-			(node
-				(ref "D12")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q25")
-				(pin "3")
-				(pinfunction "D_3")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "55")
-			(name "Net-(D13-K)")
+			(code "50")
+			(name "Net-(D13-A)")
 			(class "Default")
 			(node
 				(ref "D13")
-				(pin "1")
-				(pinfunction "K_1")
+				(pin "2")
+				(pinfunction "A_2")
 				(pintype "passive")
 			)
 			(node
-				(ref "Q27")
-				(pin "3")
-				(pinfunction "D_3")
+				(ref "R38")
+				(pin "2")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "56")
+			(code "51")
 			(name "Net-(D14-A)")
 			(class "Default")
 			(node
@@ -9691,24 +11169,7 @@
 			)
 		)
 		(net
-			(code "57")
-			(name "Net-(D14-K)")
-			(class "Default")
-			(node
-				(ref "D14")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q29")
-				(pin "3")
-				(pinfunction "D_3")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "58")
+			(code "52")
 			(name "Net-(D15-A)")
 			(class "Default")
 			(node
@@ -9724,7 +11185,7 @@
 			)
 		)
 		(net
-			(code "59")
+			(code "53")
 			(name "Net-(D15-K)")
 			(class "Default")
 			(node
@@ -9734,14 +11195,14 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "Q30")
+				(ref "Q20")
 				(pin "3")
 				(pinfunction "D_3")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "60")
+			(code "54")
 			(name "Net-(D16-A)")
 			(class "Default")
 			(node
@@ -9757,7 +11218,7 @@
 			)
 		)
 		(net
-			(code "61")
+			(code "55")
 			(name "Net-(D16-K)")
 			(class "Default")
 			(node
@@ -9767,14 +11228,14 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "Q31")
+				(ref "Q21")
 				(pin "3")
 				(pinfunction "D_3")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "62")
+			(code "56")
 			(name "Net-(D17-A)")
 			(class "Default")
 			(node
@@ -9790,7 +11251,7 @@
 			)
 		)
 		(net
-			(code "63")
+			(code "57")
 			(name "Net-(D17-K)")
 			(class "Default")
 			(node
@@ -9800,14 +11261,14 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "Q32")
+				(ref "Q22")
 				(pin "3")
 				(pinfunction "D_3")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "64")
+			(code "58")
 			(name "Net-(D18-A)")
 			(class "Default")
 			(node
@@ -9823,7 +11284,7 @@
 			)
 		)
 		(net
-			(code "65")
+			(code "59")
 			(name "Net-(D18-K)")
 			(class "Default")
 			(node
@@ -9833,14 +11294,47 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "Q33")
+				(ref "Q23")
 				(pin "3")
 				(pinfunction "D_3")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "66")
+			(code "60")
+			(name "Net-(D19-A)")
+			(class "Default")
+			(node
+				(ref "D19")
+				(pin "2")
+				(pinfunction "A_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R45")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "61")
+			(name "Net-(D19-K)")
+			(class "Default")
+			(node
+				(ref "D19")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q24")
+				(pin "3")
+				(pinfunction "D_3")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "62")
 			(name "Net-(D20-A)")
 			(class "Default")
 			(node
@@ -9850,25 +11344,13 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "D21")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q36")
-				(pin "3")
-				(pinfunction "D_3")
-				(pintype "passive")
-			)
-			(node
 				(ref "R46")
 				(pin "2")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "67")
+			(code "63")
 			(name "Net-(D20-K)")
 			(class "Default")
 			(node
@@ -9878,14 +11360,14 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "Q35")
+				(ref "Q25")
 				(pin "3")
 				(pinfunction "D_3")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "68")
+			(code "64")
 			(name "Net-(D21-A)")
 			(class "Default")
 			(node
@@ -9901,7 +11383,24 @@
 			)
 		)
 		(net
-			(code "69")
+			(code "65")
+			(name "Net-(D21-K)")
+			(class "Default")
+			(node
+				(ref "D21")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q26")
+				(pin "3")
+				(pinfunction "D_3")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "66")
 			(name "Net-(D22-A)")
 			(class "Default")
 			(node
@@ -9917,7 +11416,7 @@
 			)
 		)
 		(net
-			(code "70")
+			(code "67")
 			(name "Net-(D22-K)")
 			(class "Default")
 			(node
@@ -9927,14 +11426,110 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "Q37")
+				(ref "Q27")
 				(pin "3")
 				(pinfunction "D_3")
 				(pintype "passive")
 			)
 		)
 		(net
+			(code "68")
+			(name "Net-(D23-A)")
+			(class "Default")
+			(node
+				(ref "D23")
+				(pin "2")
+				(pinfunction "A_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R49")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "69")
+			(name "Net-(D24-A)")
+			(class "Default")
+			(node
+				(ref "D24")
+				(pin "2")
+				(pinfunction "A_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R50")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "70")
+			(name "Net-(D25-A)")
+			(class "Default")
+			(node
+				(ref "D25")
+				(pin "2")
+				(pinfunction "A_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R51")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
 			(code "71")
+			(name "Net-(D26-A)")
+			(class "Default")
+			(node
+				(ref "D26")
+				(pin "2")
+				(pinfunction "A_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R52")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "72")
+			(name "Net-(D27-A)")
+			(class "Default")
+			(node
+				(ref "D27")
+				(pin "2")
+				(pinfunction "A_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R53")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "73")
+			(name "Net-(D28-A)")
+			(class "Default")
+			(node
+				(ref "D28")
+				(pin "2")
+				(pinfunction "A_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R54")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "74")
 			(name "Net-(F1-Pad2)")
 			(class "Default")
 			(node
@@ -9950,7 +11545,7 @@
 			)
 		)
 		(net
-			(code "72")
+			(code "75")
 			(name "Net-(J1-Pin_1)")
 			(class "Default")
 			(node
@@ -9967,7 +11562,7 @@
 			)
 		)
 		(net
-			(code "73")
+			(code "76")
 			(name "Net-(J2-Pin_2)")
 			(class "Default")
 			(node
@@ -9983,39 +11578,39 @@
 			)
 		)
 		(net
-			(code "74")
-			(name "Net-(J3-Pin_1)")
+			(code "77")
+			(name "Net-(J7-CC1)")
 			(class "Default")
 			(node
-				(ref "J3")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
+				(ref "J7")
+				(pin "A5")
+				(pinfunction "CC1_A5")
+				(pintype "bidirectional")
 			)
 			(node
-				(ref "R4")
+				(ref "R12")
 				(pin "1")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "75")
-			(name "Net-(J3-Pin_2)")
+			(code "78")
+			(name "Net-(J7-CC2)")
 			(class "Default")
 			(node
-				(ref "J3")
-				(pin "2")
-				(pinfunction "Pin_2_2")
-				(pintype "passive")
+				(ref "J7")
+				(pin "B5")
+				(pinfunction "CC2_B5")
+				(pintype "bidirectional")
 			)
 			(node
-				(ref "R2")
+				(ref "R56")
 				(pin "1")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "76")
+			(code "79")
 			(name "Net-(Q1-PadG)")
 			(class "Default")
 			(node
@@ -10031,30 +11626,137 @@
 			)
 		)
 		(net
-			(code "77")
-			(name "Net-(U1-BST)")
+			(code "80")
+			(name "Net-(Q28-PadD)")
 			(class "Default")
 			(node
-				(ref "C3")
-				(pin "1")
+				(ref "Q28")
+				(pin "D")
+				(pinfunction "D_D")
 				(pintype "passive")
 			)
 			(node
-				(ref "U1")
-				(pin "6")
-				(pinfunction "BST_6")
+				(ref "R49")
+				(pin "1")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "78")
-			(name "Net-(U1-SW)")
+			(code "81")
+			(name "Net-(Q29-PadD)")
 			(class "Default")
 			(node
-				(ref "C3")
-				(pin "2")
+				(ref "Q29")
+				(pin "D")
+				(pinfunction "D_D")
 				(pintype "passive")
 			)
+			(node
+				(ref "R50")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "82")
+			(name "Net-(Q30-PadD)")
+			(class "Default")
+			(node
+				(ref "Q30")
+				(pin "D")
+				(pinfunction "D_D")
+				(pintype "passive")
+			)
+			(node
+				(ref "R51")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "83")
+			(name "Net-(Q31-PadD)")
+			(class "Default")
+			(node
+				(ref "Q31")
+				(pin "D")
+				(pinfunction "D_D")
+				(pintype "passive")
+			)
+			(node
+				(ref "R52")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "84")
+			(name "Net-(Q32-PadD)")
+			(class "Default")
+			(node
+				(ref "Q32")
+				(pin "D")
+				(pinfunction "D_D")
+				(pintype "passive")
+			)
+			(node
+				(ref "R53")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "85")
+			(name "Net-(Q33-PadD)")
+			(class "Default")
+			(node
+				(ref "Q33")
+				(pin "D")
+				(pinfunction "D_D")
+				(pintype "passive")
+			)
+			(node
+				(ref "R54")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "86")
+			(name "Net-(R59-Pad1)")
+			(class "Default")
+			(node
+				(ref "R59")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U6")
+				(pin "6")
+				(pinfunction "I/O1_6")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "87")
+			(name "Net-(R60-Pad1)")
+			(class "Default")
+			(node
+				(ref "R60")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U6")
+				(pin "4")
+				(pinfunction "I/O2_4")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "88")
+			(name "Net-(U1-L1)")
+			(class "Default")
 			(node
 				(ref "L1")
 				(pin "1")
@@ -10063,28 +11765,39 @@
 			)
 			(node
 				(ref "U1")
-				(pin "5")
-				(pinfunction "SW_5")
-				(pintype "output")
+				(pin "4")
+				(pinfunction "L1_4")
+				(pintype "input")
 			)
 		)
 		(net
-			(code "79")
-			(name "PLUS3V3")
+			(code "89")
+			(name "Net-(U1-L2)")
 			(class "Default")
 			(node
-				(ref "A1")
-				(pin "14")
-				(pinfunction "Pin_14_14")
+				(ref "L1")
+				(pin "2")
+				(pinfunction "2_2")
 				(pintype "passive")
 			)
 			(node
-				(ref "C13")
+				(ref "U1")
+				(pin "2")
+				(pinfunction "L2_2")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "90")
+			(name "PLUS3V3")
+			(class "Default")
+			(node
+				(ref "C10")
 				(pin "1")
 				(pintype "passive")
 			)
 			(node
-				(ref "C14")
+				(ref "C13")
 				(pin "1")
 				(pintype "passive")
 			)
@@ -10117,13 +11830,54 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "L1")
-				(pin "2")
-				(pinfunction "2_2")
+				(ref "J8")
+				(pin "1")
+				(pinfunction "Pin_1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q28")
+				(pin "S")
+				(pinfunction "S_S")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q29")
+				(pin "S")
+				(pinfunction "S_S")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q30")
+				(pin "S")
+				(pinfunction "S_S")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q31")
+				(pin "S")
+				(pinfunction "S_S")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q32")
+				(pin "S")
+				(pinfunction "S_S")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q33")
+				(pin "S")
+				(pinfunction "S_S")
 				(pintype "passive")
 			)
 			(node
 				(ref "R10")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R11")
 				(pin "1")
 				(pintype "passive")
 			)
@@ -10330,83 +12084,172 @@
 			(node
 				(ref "U1")
 				(pin "1")
-				(pinfunction "FB_1")
+				(pinfunction "VOUT_1")
+				(pintype "power_out")
+			)
+			(node
+				(ref "U1")
+				(pin "10")
+				(pinfunction "FB_10")
 				(pintype "input")
+			)
+			(node
+				(ref "U3")
+				(pin "2")
+				(pinfunction "3V3_2")
+				(pintype "power_in")
 			)
 			(node
 				(ref "U4")
 				(pin "24")
-				(pinfunction "VDD_24")
+				(pinfunction "VCC_24")
 				(pintype "power_in")
 			)
 			(node
-				(ref "U5")
-				(pin "24")
-				(pinfunction "VDD_24")
-				(pintype "power_in")
+				(ref "U6")
+				(pin "5")
+				(pinfunction "VBUS_5")
+				(pintype "passive")
 			)
 		)
 		(net
-			(code "80")
+			(code "91")
 			(name "PWMA")
 			(class "Default")
-			(node
-				(ref "A1")
-				(pin "20")
-				(pinfunction "Pin_20_20")
-				(pintype "passive")
-			)
 			(node
 				(ref "J10")
 				(pin "2")
 				(pinfunction "Pin_2_2")
 				(pintype "passive")
 			)
+			(node
+				(ref "U3")
+				(pin "11")
+				(pinfunction "IO18_11")
+				(pintype "bidirectional")
+			)
 		)
 		(net
-			(code "81")
+			(code "92")
 			(name "PWMB")
 			(class "Default")
-			(node
-				(ref "A1")
-				(pin "21")
-				(pinfunction "Pin_21_21")
-				(pintype "passive")
-			)
 			(node
 				(ref "J10")
 				(pin "5")
 				(pinfunction "Pin_5_5")
 				(pintype "passive")
 			)
+			(node
+				(ref "U3")
+				(pin "23")
+				(pinfunction "IO21_23")
+				(pintype "bidirectional")
+			)
 		)
 		(net
-			(code "82")
+			(code "93")
 			(name "STBY")
 			(class "Default")
-			(node
-				(ref "A1")
-				(pin "26")
-				(pinfunction "Pin_26_26")
-				(pintype "passive")
-			)
 			(node
 				(ref "J10")
 				(pin "1")
 				(pinfunction "Pin_1_1")
 				(pintype "passive")
 			)
-		)
-		(net
-			(code "83")
-			(name "USER_BTN")
-			(class "Default")
 			(node
-				(ref "A1")
-				(pin "5")
-				(pinfunction "Pin_5_5")
+				(ref "R66")
+				(pin "1")
 				(pintype "passive")
 			)
+			(node
+				(ref "U3")
+				(pin "16")
+				(pinfunction "IO46_16")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "94")
+			(name "USB_DM")
+			(class "Default")
+			(node
+				(ref "R59")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "13")
+				(pinfunction "USB_D-_13")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "95")
+			(name "USB_DM_C")
+			(class "Default")
+			(node
+				(ref "J7")
+				(pin "A7")
+				(pinfunction "D-_A7")
+				(pintype "bidirectional")
+			)
+			(node
+				(ref "J7")
+				(pin "B7")
+				(pinfunction "D-_B7")
+				(pintype "bidirectional")
+			)
+			(node
+				(ref "U6")
+				(pin "1")
+				(pinfunction "I/O1_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "96")
+			(name "USB_DP")
+			(class "Default")
+			(node
+				(ref "R60")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "14")
+				(pinfunction "USB_D+_14")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "97")
+			(name "USB_DP_C")
+			(class "Default")
+			(node
+				(ref "J7")
+				(pin "A6")
+				(pinfunction "D+_A6")
+				(pintype "bidirectional")
+			)
+			(node
+				(ref "J7")
+				(pin "B6")
+				(pinfunction "D+_B6")
+				(pintype "bidirectional")
+			)
+			(node
+				(ref "U6")
+				(pin "3")
+				(pinfunction "I/O2_3")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "98")
+			(name "USER_BTN")
+			(class "Default")
 			(node
 				(ref "R10")
 				(pin "2")
@@ -10418,17 +12261,51 @@
 				(pinfunction "1_1")
 				(pintype "passive")
 			)
+			(node
+				(ref "U3")
+				(pin "27")
+				(pinfunction "IO0_27")
+				(pintype "bidirectional")
+			)
 		)
 		(net
-			(code "84")
-			(name "VBAT_CELL1_SENSE")
+			(code "99")
+			(name "USER_BTN2")
 			(class "Default")
 			(node
-				(ref "A1")
-				(pin "11")
-				(pinfunction "Pin_11_11")
+				(ref "SW3")
+				(pin "1")
+				(pinfunction "1_1")
 				(pintype "passive")
 			)
+			(node
+				(ref "U3")
+				(pin "28")
+				(pinfunction "IO35_28")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "100")
+			(name "USER_BTN3")
+			(class "Default")
+			(node
+				(ref "SW4")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "29")
+				(pinfunction "IO36_29")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "101")
+			(name "VBAT_SENSE")
+			(class "Default")
 			(node
 				(ref "C6")
 				(pin "1")
@@ -10444,35 +12321,15 @@
 				(pin "1")
 				(pintype "passive")
 			)
-		)
-		(net
-			(code "85")
-			(name "VBAT_PACK_SENSE")
-			(class "Default")
 			(node
-				(ref "A1")
-				(pin "10")
-				(pinfunction "Pin_10_10")
-				(pintype "passive")
-			)
-			(node
-				(ref "C7")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R4")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R5")
-				(pin "1")
-				(pintype "passive")
+				(ref "U3")
+				(pin "12")
+				(pinfunction "IO8_12")
+				(pintype "bidirectional")
 			)
 		)
 		(net
-			(code "86")
+			(code "102")
 			(name "VM_BATT")
 			(class "Default")
 			(node
@@ -10482,6 +12339,11 @@
 			)
 			(node
 				(ref "C2")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C3")
 				(pin "1")
 				(pintype "passive")
 			)
@@ -10503,37 +12365,31 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "R2")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
 				(ref "U1")
-				(pin "2")
-				(pinfunction "EN_2")
+				(pin "5")
+				(pinfunction "VIN_5")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U1")
+				(pin "6")
+				(pinfunction "EN_6")
 				(pintype "input")
 			)
 			(node
 				(ref "U1")
-				(pin "3")
-				(pinfunction "IN_3")
+				(pin "8")
+				(pinfunction "VINA_8")
 				(pintype "power_in")
 			)
 		)
 		(net
-			(code "87")
-			(name "WALL1_LED")
-			(class "Default")
-			(node
-				(ref "Q3")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "9")
-				(pinfunction "Y0_9")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "88")
+			(code "103")
 			(name "WALL1_SENSE")
 			(class "Default")
 			(node
@@ -10543,40 +12399,35 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "Q28")
+				(pin "G")
+				(pinfunction "G_G")
+				(pintype "input")
+			)
+			(node
 				(ref "R13")
 				(pin "2")
 				(pintype "passive")
 			)
 			(node
-				(ref "U4")
-				(pin "9")
-				(pinfunction "Y0_9")
-				(pintype "passive")
+				(ref "U3")
+				(pin "39")
+				(pinfunction "IO1_39")
+				(pintype "bidirectional")
 			)
 		)
 		(net
-			(code "89")
-			(name "WALL2_LED")
-			(class "Default")
-			(node
-				(ref "Q5")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "8")
-				(pinfunction "Y1_8")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "90")
+			(code "104")
 			(name "WALL2_SENSE")
 			(class "Default")
 			(node
-				(ref "Q4")
+				(ref "Q29")
+				(pin "G")
+				(pinfunction "G_G")
+				(pintype "input")
+			)
+			(node
+				(ref "Q3")
 				(pin "1")
 				(pinfunction "C_1")
 				(pintype "passive")
@@ -10587,35 +12438,24 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "U4")
-				(pin "8")
-				(pinfunction "Y1_8")
-				(pintype "passive")
+				(ref "U3")
+				(pin "38")
+				(pinfunction "IO2_38")
+				(pintype "bidirectional")
 			)
 		)
 		(net
-			(code "91")
-			(name "WALL3_LED")
-			(class "Default")
-			(node
-				(ref "Q7")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "7")
-				(pinfunction "Y2_7")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "92")
+			(code "105")
 			(name "WALL3_SENSE")
 			(class "Default")
 			(node
-				(ref "Q6")
+				(ref "Q30")
+				(pin "G")
+				(pinfunction "G_G")
+				(pintype "input")
+			)
+			(node
+				(ref "Q4")
 				(pin "1")
 				(pinfunction "C_1")
 				(pintype "passive")
@@ -10626,41 +12466,24 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "U4")
-				(pin "7")
-				(pinfunction "Y2_7")
-				(pintype "passive")
+				(ref "U3")
+				(pin "15")
+				(pinfunction "IO3_15")
+				(pintype "bidirectional")
 			)
 		)
 		(net
-			(code "93")
-			(name "WALL4_LED")
-			(class "Default")
-			(node
-				(ref "Q9")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "6")
-				(pinfunction "Y3_6")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "94")
+			(code "106")
 			(name "WALL4_SENSE")
 			(class "Default")
 			(node
-				(ref "D4")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
+				(ref "Q31")
+				(pin "G")
+				(pinfunction "G_G")
+				(pintype "input")
 			)
 			(node
-				(ref "Q8")
+				(ref "Q5")
 				(pin "1")
 				(pinfunction "C_1")
 				(pintype "passive")
@@ -10671,40 +12494,24 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "R20")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "6")
-				(pinfunction "Y3_6")
-				(pintype "passive")
+				(ref "U3")
+				(pin "4")
+				(pinfunction "IO4_4")
+				(pintype "bidirectional")
 			)
 		)
 		(net
-			(code "95")
-			(name "WALL5_LED")
-			(class "Default")
-			(node
-				(ref "Q11")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "5")
-				(pinfunction "Y4_5")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "96")
+			(code "107")
 			(name "WALL5_SENSE")
 			(class "Default")
 			(node
-				(ref "Q10")
+				(ref "Q32")
+				(pin "G")
+				(pinfunction "G_G")
+				(pintype "input")
+			)
+			(node
+				(ref "Q6")
 				(pin "1")
 				(pinfunction "C_1")
 				(pintype "passive")
@@ -10715,48 +12522,26 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "U4")
+				(ref "U3")
 				(pin "5")
-				(pinfunction "Y4_5")
-				(pintype "passive")
+				(pinfunction "IO5_5")
+				(pintype "bidirectional")
 			)
 		)
 		(net
-			(code "97")
-			(name "WALL6_LED")
-			(class "Default")
-			(node
-				(ref "Q13")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "4")
-				(pinfunction "Y5_4")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "98")
+			(code "108")
 			(name "WALL6_SENSE")
 			(class "Default")
 			(node
-				(ref "D5")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
+				(ref "Q33")
+				(pin "G")
+				(pinfunction "G_G")
+				(pintype "input")
 			)
 			(node
-				(ref "Q12")
+				(ref "Q7")
 				(pin "1")
 				(pinfunction "C_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R22")
-				(pin "2")
 				(pintype "passive")
 			)
 			(node
@@ -10765,130 +12550,225 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "U4")
-				(pin "4")
-				(pinfunction "Y5_4")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "99")
-			(name "unconnected-(A1-Pin_1-Pad1)")
-			(class "Default")
-			(node
-				(ref "A1")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "100")
-			(name "unconnected-(A1-Pin_3-Pad3)")
-			(class "Default")
-			(node
-				(ref "A1")
-				(pin "3")
-				(pinfunction "Pin_3_3")
-				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "101")
-			(name "unconnected-(A1-Pin_4-Pad4)")
-			(class "Default")
-			(node
-				(ref "A1")
-				(pin "4")
-				(pinfunction "Pin_4_4")
-				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "102")
-			(name "unconnected-(A1-Pin_13-Pad13)")
-			(class "Default")
-			(node
-				(ref "A1")
-				(pin "13")
-				(pinfunction "Pin_13_13")
-				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "103")
-			(name "unconnected-(A1-Pin_28-Pad28)")
-			(class "Default")
-			(node
-				(ref "A1")
-				(pin "28")
-				(pinfunction "Pin_28_28")
-				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "104")
-			(name "unconnected-(A1-Pin_29-Pad29)")
-			(class "Default")
-			(node
-				(ref "A1")
-				(pin "29")
-				(pinfunction "Pin_29_29")
-				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "105")
-			(name "unconnected-(A1-Pin_30-Pad30)")
-			(class "Default")
-			(node
-				(ref "A1")
-				(pin "30")
-				(pinfunction "Pin_30_30")
-				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "106")
-			(name "unconnected-(U4-Y14-Pad17)")
-			(class "Default")
-			(node
-				(ref "U4")
-				(pin "17")
-				(pinfunction "Y14_17")
-				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "107")
-			(name "unconnected-(U4-Y15-Pad16)")
-			(class "Default")
-			(node
-				(ref "U4")
-				(pin "16")
-				(pinfunction "Y15_16")
-				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "108")
-			(name "unconnected-(U5-Y14-Pad17)")
-			(class "Default")
-			(node
-				(ref "U5")
-				(pin "17")
-				(pinfunction "Y14_17")
-				(pintype "passive+no_connect")
+				(ref "U3")
+				(pin "6")
+				(pinfunction "IO6_6")
+				(pintype "bidirectional")
 			)
 		)
 		(net
 			(code "109")
-			(name "unconnected-(U5-Y15-Pad16)")
+			(name "WALL_EMIT_DIAG")
 			(class "Default")
 			(node
-				(ref "U5")
+				(ref "Q17")
+				(pin "1")
+				(pinfunction "G_1")
+				(pintype "input")
+			)
+			(node
+				(ref "R63")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "9")
+				(pinfunction "IO16_9")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "110")
+			(name "WALL_EMIT_FRONT")
+			(class "Default")
+			(node
+				(ref "Q16")
+				(pin "1")
+				(pinfunction "G_1")
+				(pintype "input")
+			)
+			(node
+				(ref "R62")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "8")
+				(pinfunction "IO15_8")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "111")
+			(name "WALL_EMIT_SIDE")
+			(class "Default")
+			(node
+				(ref "Q18")
+				(pin "1")
+				(pinfunction "G_1")
+				(pintype "input")
+			)
+			(node
+				(ref "R64")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "10")
+				(pinfunction "IO17_10")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "112")
+			(name "unconnected-(J7-SBU1-PadA8)")
+			(class "Default")
+			(node
+				(ref "J7")
+				(pin "A8")
+				(pinfunction "SBU1_A8")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "113")
+			(name "unconnected-(J7-SBU2-PadB8)")
+			(class "Default")
+			(node
+				(ref "J7")
+				(pin "B8")
+				(pinfunction "SBU2_B8")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "114")
+			(name "unconnected-(J7-VBUS-PadA4)")
+			(class "Default")
+			(node
+				(ref "J7")
+				(pin "A4")
+				(pinfunction "VBUS_A4")
+				(pintype "passive+no_connect")
+			)
+			(node
+				(ref "J7")
+				(pin "A9")
+				(pinfunction "VBUS_A9")
+				(pintype "passive+no_connect")
+			)
+			(node
+				(ref "J7")
+				(pin "B4")
+				(pinfunction "VBUS_B4")
+				(pintype "passive+no_connect")
+			)
+			(node
+				(ref "J7")
+				(pin "B9")
+				(pinfunction "VBUS_B9")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "115")
+			(name "unconnected-(U3-IO37-Pad30)")
+			(class "Default")
+			(node
+				(ref "U3")
+				(pin "30")
+				(pinfunction "IO37_30")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "116")
+			(name "unconnected-(U4-I8-Pad23)")
+			(class "Default")
+			(node
+				(ref "U4")
+				(pin "23")
+				(pinfunction "I8_23")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "117")
+			(name "unconnected-(U4-I9-Pad22)")
+			(class "Default")
+			(node
+				(ref "U4")
+				(pin "22")
+				(pinfunction "I9_22")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "118")
+			(name "unconnected-(U4-I10-Pad21)")
+			(class "Default")
+			(node
+				(ref "U4")
+				(pin "21")
+				(pinfunction "I10_21")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "119")
+			(name "unconnected-(U4-I11-Pad20)")
+			(class "Default")
+			(node
+				(ref "U4")
+				(pin "20")
+				(pinfunction "I11_20")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "120")
+			(name "unconnected-(U4-I12-Pad19)")
+			(class "Default")
+			(node
+				(ref "U4")
+				(pin "19")
+				(pinfunction "I12_19")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "121")
+			(name "unconnected-(U4-I13-Pad18)")
+			(class "Default")
+			(node
+				(ref "U4")
+				(pin "18")
+				(pinfunction "I13_18")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "122")
+			(name "unconnected-(U4-I14-Pad17)")
+			(class "Default")
+			(node
+				(ref "U4")
+				(pin "17")
+				(pinfunction "I14_17")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "123")
+			(name "unconnected-(U4-I15-Pad16)")
+			(class "Default")
+			(node
+				(ref "U4")
 				(pin "16")
-				(pinfunction "Y15_16")
+				(pinfunction "I15_16")
 				(pintype "passive+no_connect")
 			)
 		)

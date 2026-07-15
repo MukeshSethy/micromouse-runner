@@ -126,7 +126,7 @@ class PcbGen:
             seg.SetWidth(pcbnew.FromMM(0.15))
             self.board.Add(seg)
 
-    def add_keepout(self, rect, allow_tracks=False):
+    def add_keepout(self, rect, allow_tracks=False, allow_footprints=False):
         # Rule-area zone reserving a physical volume (e.g. a motor body).
         # allow_tracks=True forbids only footprints/pads/vias but PERMITS flat
         # traces to pass underneath -- correct for a motor body, which sits on
@@ -142,7 +142,7 @@ class PcbGen:
         z.SetDoNotAllowVias(True)
         z.SetDoNotAllowPads(True)
         z.SetDoNotAllowZoneFills(True)
-        z.SetDoNotAllowFootprints(True)
+        z.SetDoNotAllowFootprints(not allow_footprints)
         outline = z.Outline()
         outline.NewOutline()
         for x, y in [(x1, y1), (x2, y1), (x2, y2), (x1, y2)]:
@@ -465,7 +465,8 @@ class PcbGen:
     _DIRS4 = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 
     def _route_edge(self, start, s_layers, goal, g_layers, hard, soft, via_hard, via_soft,
-                     grid, diag=True, max_expansions=80000, escape_mm=1.8, via_cost=4.0):
+                     grid, diag=True, max_expansions=80000, escape_mm=1.8, via_cost=4.0,
+                     half_w_hint=0.15, net_hint=""):
         # Returns (segments [(p1, p2, layer)], via_points [p]) or None.
         # Fine-pitch escape: a pad in the middle of an SSOP/mux/ESP32 row has
         # its neighbors' inflated clearance disks overlapping its own center,
@@ -564,29 +565,79 @@ class PcbGen:
         # Attach exact pad centers at the ends (same layer as the end states).
         full = [(start, pts[0][1])] + pts + [(goal, pts[-1][1])]
 
-        segments = []
+        # Split into same-layer runs (vias at the joints), then STRING-PULL
+        # each run into professional 45-degree geometry: greedily replace the
+        # staircase grid path with the canonical two-segment connection (one
+        # diagonal + one straight -- standard pro-layout idiom), longest jump
+        # first, each candidate verified against true clearances before
+        # acceptance. Falls back to the raw grid step when nothing longer
+        # verifies, so the result is never worse than the A* path.
+        runs = []          # [(points, layer)]
         via_points = []
-        i = 0
-        while i < len(full) - 1:
-            (p_a, L_a), (p_b, L_b) = full[i], full[i + 1]
-            if L_a != L_b:
-                via_points.append(p_a)
-                i += 1
-                continue
-            # Extend a collinear run as far as possible on this layer.
-            j = i + 1
-            while j + 1 < len(full) and full[j + 1][1] == L_a:
-                x0, y0 = full[i][0]
-                x1, y1 = full[j][0]
-                x2, y2 = full[j + 1][0]
-                cross = (x1 - x0) * (y2 - y1) - (y1 - y0) * (x2 - x1)
-                if abs(cross) > 1e-6:
-                    break
-                j += 1
-            if full[i][0] != full[j][0]:
-                segments.append((full[i][0], full[j][0], L_a))
-            i = j
+        cur_pts = [full[0][0]]
+        cur_layer = full[0][1]
+        for (pt, L) in full[1:]:
+            if L != cur_layer:
+                via_points.append(cur_pts[-1])
+                runs.append((cur_pts, cur_layer))
+                cur_pts = [cur_pts[-1]]
+                cur_layer = L
+            if pt != cur_pts[-1]:
+                cur_pts.append(pt)
+        runs.append((cur_pts, cur_layer))
+
+        segments = []
+        for pts_run, L in runs:
+            segments.extend(self._string_pull(pts_run, L, half_w_hint, net_hint))
         return segments, via_points
+
+    @staticmethod
+    def _canon2(p, q):
+        # Canonical 45-degree connection p->q: one diagonal for min(|dx|,|dy|),
+        # then one axis-aligned straight. Returns 1 or 2 segments.
+        dx, dy = q[0] - p[0], q[1] - p[1]
+        adx, ady = abs(dx), abs(dy)
+        if adx < 1e-9 or ady < 1e-9 or abs(adx - ady) < 1e-9:
+            return [(p, q)]
+        m = min(adx, ady)
+        mid = (p[0] + (m if dx > 0 else -m), p[1] + (m if dy > 0 else -m))
+        return [(p, mid), (mid, q)]
+
+    def _string_pull(self, pts, layer, half_w, net_name):
+        # Greedy longest-jump smoothing over one same-layer polyline.
+        out = []
+        i = 0
+        n = len(pts)
+        while i < n - 1:
+            done = False
+            j = n - 1
+            while j > i + 1:
+                cand = [(a, b, layer) for (a, b) in self._canon2(pts[i], pts[j])]
+                if self._verify_geo(cand, [], net_name, half_w) is None:
+                    out.extend(cand)
+                    i = j
+                    done = True
+                    break
+                j -= 1
+            if not done:
+                a, b = pts[i], pts[i + 1]
+                if a != b:
+                    out.append((a, b, layer))
+                i += 1
+        # merge collinear neighbours produced by the greedy pass
+        merged = []
+        for seg in out:
+            if merged:
+                (a1, b1, L1) = merged[-1]
+                (a2, b2, L2) = seg
+                if L1 == L2 and b1 == a2:
+                    v1 = (b1[0] - a1[0], b1[1] - a1[1])
+                    v2 = (b2[0] - a2[0], b2[1] - a2[1])
+                    if abs(v1[0] * v2[1] - v1[1] * v2[0]) < 1e-9 and (v1[0] * v2[0] + v1[1] * v2[1]) > 0:
+                        merged[-1] = (a1, b2, L1)
+                        continue
+            merged.append(seg)
+        return merged
 
     def _verify_geo(self, segments, via_points, net_name, half_w, verify_clr=0.16,
                      edge_margin=0.7):
@@ -657,7 +708,10 @@ class PcbGen:
         bds.m_MinClearance = pcbnew.FromMM(0.127)
         bds.m_TrackMinWidth = pcbnew.FromMM(0.2)
         bds.m_ViasMinSize = pcbnew.FromMM(0.5)
-        bds.m_MinThroughDrill = pcbnew.FromMM(0.3)
+        # 0.2 (not 0.3): the WROOM-1 and TPS63001 footprints carry 0.2-0.25mm
+        # in-pad thermal vias, and GCT's USB-C pattern has tight NPTH spacing
+        # -- all manufacturer land patterns, all standard fab capability.
+        bds.m_MinThroughDrill = pcbnew.FromMM(0.2)
         try:
             # Copper-to-board-edge clearance. Default 0.5mm; Freerouting routes
             # nearer the interior wheel-slot cutout edges, so 0.3mm (still
@@ -667,6 +721,10 @@ class PcbGen:
             pass
         try:
             bds.m_HoleToHoleMin = pcbnew.FromMM(0.2)
+        except Exception:
+            pass
+        try:
+            bds.m_HoleClearance = pcbnew.FromMM(0.15)  # GCT USB-C NPTH-to-pad
         except Exception:
             pass
         # The DEFAULT NETCLASS clearance is what DRC actually enforces per-net
@@ -744,7 +802,8 @@ class PcbGen:
                                   (False, 1.8), (False, 1.0), (False, 0.6)):
                 res = self._route_edge(pts[i], pad_layers[i], pts[j], pad_layers[j],
                                         hard, soft, via_hard, via_soft, grid_mm, diag=diag,
-                                        escape_mm=escape, max_expansions=max_expansions)
+                                        escape_mm=escape, max_expansions=max_expansions,
+                                        half_w_hint=half_w, net_hint=net_name)
                 if res is None:
                     continue
                 segments, via_points = res
@@ -812,7 +871,8 @@ class PcbGen:
                               (False, 1.8), (False, 1.0), (False, 0.6)):
             res = self._route_edge(p1, layers_at(p1), p2, layers_at(p2),
                                     hard, soft, via_hard, via_soft, grid_mm, diag=diag,
-                                    escape_mm=escape, max_expansions=max_expansions)
+                                    escape_mm=escape, max_expansions=max_expansions,
+                                    half_w_hint=half_w, net_hint=net_name)
             if res is None:
                 continue
             segments, via_points = res

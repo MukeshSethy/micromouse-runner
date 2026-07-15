@@ -46,7 +46,10 @@ def extract_symbol_block(lib_name, symbol_name):
                     flags=re.MULTILINE,
                 )
                 block = re.sub(
-                    r'\(extends "([A-Za-z0-9_]+)"\)',
+                    # hyphens/dots are legal in symbol names (USBLC6-2P6 bit us:
+                    # the old [A-Za-z0-9_]+ silently skipped the rewrite and the
+                    # derived symbol resolved to nothing -- no pins, dangling labels)
+                    r'\(extends "([A-Za-z0-9_.-]+)"\)',
                     lambda m: f'(extends "{lib_name}:{m.group(1)}")',
                     block,
                 )

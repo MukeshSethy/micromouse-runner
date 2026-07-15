@@ -1,13 +1,10 @@
 """Generates CONNECTIONS.md -- the per-net, per-pin justification document.
 
 Every net in netlist.net gets an entry: which pins belong to it (annotated
-with the pin's FUNCTION name from the part symbol, not just the number) and
-WHY that connection exists, with the source the justification rests on.
-Coverage is enforced by construction: any net without a rationale aborts
-the build, so the document can never silently drift out of sync with the
-schematic. Regenerate after any schematic change:
+with the pin's FUNCTION name) and WHY that connection exists. Coverage is
+enforced by construction: any net without a rationale aborts the build.
+Regenerate after any schematic change:
 
-    cd tools
     "C:\\msys64\\ucrt64\\bin\\python3.exe" gen_connections.py
 """
 import re
@@ -18,56 +15,50 @@ NETLIST = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "netlis
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "CONNECTIONS.md")
 
 # ---------------------------------------------------------------------------
-# Pin-number -> function-name tables, taken from the exact KiCad library
-# symbols this schematic instantiates (extracted from the installed libs and
-# cross-checked against manufacturer datasheets -- see PROJECT_NOTES.md).
+# Pin-number -> function-name tables (from the exact KiCad symbols used,
+# cross-checked against manufacturer datasheets; see PROJECT_NOTES.md).
 # ---------------------------------------------------------------------------
 
-TB6612_PINS = {
-    "1": "AO1", "2": "AO1", "3": "PGND1", "4": "PGND1", "5": "AO2", "6": "AO2",
-    "7": "BO2", "8": "BO2", "9": "PGND2", "10": "PGND2", "11": "BO1", "12": "BO1",
-    "13": "VM2", "14": "VM3", "15": "PWMB", "16": "BIN2", "17": "BIN1", "18": "GND",
-    "19": "STBY", "20": "VCC", "21": "AIN1", "22": "AIN2", "23": "PWMA", "24": "VM1",
+# ESP32-S3-WROOM-1 module (U3): pad -> module pin name. Pads 1/40/41 = GND.
+U3_PINS = {
+    "1": "GND", "2": "3V3", "3": "EN", "4": "IO4", "5": "IO5", "6": "IO6",
+    "7": "IO7", "8": "IO15", "9": "IO16", "10": "IO17", "11": "IO18",
+    "12": "IO8", "13": "USB_D-(IO19)", "14": "USB_D+(IO20)", "15": "IO3",
+    "16": "IO46", "17": "IO9", "18": "IO10", "19": "IO11", "20": "IO12",
+    "21": "IO13", "22": "IO14", "23": "IO21", "24": "IO47", "25": "IO48",
+    "26": "IO45", "27": "IO0", "28": "IO35", "29": "IO36", "30": "IO37",
+    "31": "IO38", "32": "IO39/MTCK", "33": "IO40/MTDO", "34": "IO41/MTDI",
+    "35": "IO42/MTMS", "36": "RXD0(IO44)", "37": "TXD0(IO43)", "38": "IO2",
+    "39": "IO1", "40": "GND", "41": "GND",
 }
-HEF4067_PINS = {
-    "1": "Z", "2": "Y7", "3": "Y6", "4": "Y5", "5": "Y4", "6": "Y3", "7": "Y2",
-    "8": "Y1", "9": "Y0", "10": "S0", "11": "S1", "12": "VSS", "13": "S3",
-    "14": "S2", "15": "~E", "16": "Y15", "17": "Y14", "18": "Y13", "19": "Y12",
-    "20": "Y11", "21": "Y10", "22": "Y9", "23": "Y8", "24": "VDD",
+# CD74HC4067M (U4): same package/pin order as the old HEF4067BT.
+U4_PINS = {
+    "1": "COM/Z", "2": "I7", "3": "I6", "4": "I5", "5": "I4", "6": "I3",
+    "7": "I2", "8": "I1", "9": "I0", "10": "S0", "11": "S1", "12": "GND",
+    "13": "S3", "14": "S2", "15": "~E", "16": "I15", "17": "I14", "18": "I13",
+    "19": "I12", "20": "I11", "21": "I10", "22": "I9", "23": "I8", "24": "VCC",
 }
-AP63203_PINS = {"1": "FB/VOUT-sense", "2": "EN", "3": "VIN", "4": "GND", "5": "SW", "6": "BST"}
-
-# Sole controller: Arduino Nano ESP32 on the real Module:Arduino_Nano footprint,
-# one 30-pad part (A1). Pad -> Arduino function, locked against the footprint's
-# USB marker at (7.62,35.56): pads 1-15 = analog row VIN..D13, pads 16-30 =
-# digital row D12..D1 (see build_schematic.py A1_MAP for the full net mapping).
-A1_PINS = {
-    "1": "VIN", "2": "GND", "3": "RESET", "4": "5V", "5": "A7", "6": "A6",
-    "7": "A5", "8": "A4", "9": "A3", "10": "A2", "11": "A1", "12": "A0",
-    "13": "AREF", "14": "3V3", "15": "D13", "16": "D12", "17": "D11", "18": "D10",
-    "19": "D9", "20": "D8", "21": "D7", "22": "D6", "23": "D5", "24": "D4",
-    "25": "D3", "26": "D2", "27": "GND", "28": "RESET", "29": "D0", "30": "D1",
-}
-
+TPS63000_PINS = {"1": "VOUT", "2": "L2", "3": "PGND", "4": "L1", "5": "VIN",
+                 "6": "EN", "7": "PS/SYNC", "8": "VINA", "9": "GND", "10": "FB",
+                 "11": "PGND"}
+USBLC6_PINS = {"1": "I/O1", "2": "GND", "3": "I/O2", "4": "I/O2'", "5": "VBUS", "6": "I/O1'"}
 MOTOR_CONN_PINS = {"1": "M+", "2": "M-", "3": "ENC_VCC", "4": "ENC_GND", "5": "ENC_A", "6": "ENC_B"}
-
-# Socketed motor-driver breakout header rows (functional labels; verify order
-# + spacing against the actual TB6612 carrier before fab).
 J10_PINS = {"1": "STBY", "2": "PWMA", "3": "AIN1", "4": "AIN2", "5": "PWMB",
             "6": "BIN1", "7": "BIN2", "8": "GND"}
 J11_PINS = {"1": "VM (batt)", "2": "VCC (+3V3)", "3": "GND", "4": "AO1", "5": "AO2",
             "6": "BO1", "7": "BO2", "8": "GND"}
+J8_PINS = {"1": "VDD33", "2": "TMS", "3": "TCK", "4": "TDO", "5": "TDI", "6": "GND"}
 
 EXACT_PIN_NAMES = {
-    "A1": A1_PINS,
-    "U1": AP63203_PINS,
-    "U4": HEF4067_PINS,
-    "U5": HEF4067_PINS,
+    "U1": TPS63000_PINS,
+    "U3": U3_PINS,
+    "U4": U4_PINS,
+    "U6": USBLC6_PINS,
     "J1": {"1": "BAT+", "2": "BAT-"},
     "J2": {"1": "SW_A", "2": "SW_B"},
-    "J3": {"1": "PACK+ (cell2+)", "2": "CELL_MID (cell1+/cell2-)", "3": "PACK- (GND)"},
     "J5": MOTOR_CONN_PINS,
     "J6": MOTOR_CONN_PINS,
+    "J8": J8_PINS,
     "J10": J10_PINS,
     "J11": J11_PINS,
     "Q1": {"D": "Drain (battery side)", "G": "Gate", "S": "Source (load side)"},
@@ -76,41 +67,48 @@ EXACT_PIN_NAMES = {
 def pin_name(ref, pin):
     if ref in EXACT_PIN_NAMES:
         return EXACT_PIN_NAMES[ref].get(pin, pin)
+    if ref == "J7":
+        return {"A5": "CC1", "B5": "CC2", "A6": "D+", "B6": "D+", "A7": "D-",
+                "B7": "D-", "SH": "SHIELD"}.get(pin, pin)
     if re.fullmatch(r"D\d+", ref):
         return {"1": "K (cathode)", "2": "A (anode)"}.get(pin, pin)
     if re.fullmatch(r"Q\d+", ref):
         n = int(ref[1:])
-        if n >= 30:                  # indicator-LED drivers (BSS138), Q30..Q37
-            return {"1": "G (gate)", "2": "S (source)", "3": "D (drain)"}.get(pin, pin)
-        if n >= 2 and n % 2 == 0:   # SFH309 phototransistors
+        if 2 <= n <= 15:                 # phototransistors
             return {"1": "C (collector)", "2": "E (emitter)"}.get(pin, pin)
-        if n >= 3:                   # BSS138 switches
+        if 16 <= n <= 27:                # BSS138 NMOS (groups + line indicators)
             return {"1": "G (gate)", "2": "S (source)", "3": "D (drain)"}.get(pin, pin)
-    return pin  # passives: bare pin number is fine
+        if 28 <= n <= 33:                # BSS84 PMOS (wall indicators)
+            return {"D": "D (drain)", "G": "G (gate)", "S": "S (source)"}.get(pin, pin)
+    return pin
 
 # ---------------------------------------------------------------------------
-# Sensor indexing (matches build_schematic.py's generation order exactly)
+# Sensor indexing (matches build_schematic.py rev 4 exactly)
 # ---------------------------------------------------------------------------
 SENSOR_NAMES = ["WALL1", "WALL2", "WALL3", "WALL4", "WALL5", "WALL6",
                 "LINE1", "LINE2", "LINE3", "LINE4", "LINE5", "LINE6", "LINE7", "LINE8"]
 
 def sensor_parts(i):
+    grp = ("FRONT" if i < 2 else "DIAG" if i < 4 else "SIDE" if i < 6 else "LINE")
     return {
-        "photo": f"Q{2 + 2*i}", "pullup": f"R{13 + 2*i}", "curr": f"R{14 + 2*i}",
-        "led": f"D{1 + i}", "switch": f"Q{3 + 2*i}", "channel": f"Y{i}",
+        "photo": f"Q{2 + i}", "pullup": f"R{13 + 2*i}", "curr": f"R{14 + 2*i}",
+        "led": f"D{1 + i}", "group": grp,
     }
 
 SENSOR_ROLE = {
-    "WALL1": "front-left diagonal wall sensor (THT, leads bent to aim forward-left ~45 deg)",
-    "WALL2": "front-right diagonal wall sensor (THT, leads bent to aim forward-right ~45 deg)",
-    "WALL3": "left-forward wall sensor (THT, leads bent to aim forward)",
-    "WALL4": "right-forward wall sensor (THT, leads bent to aim forward)",
-    "WALL5": "left side wall sensor (THT, leads bent to aim left, 90 deg)",
-    "WALL6": "right side wall sensor (THT, leads bent to aim right, 90 deg)",
+    "WALL1": "front-left wall sensor (THT, aimed nearly forward, toed slightly outward)",
+    "WALL2": "front-right wall sensor (THT, aimed nearly forward, toed slightly outward)",
+    "WALL3": "left 45-degree diagonal wall sensor (THT, on the chamfered corner)",
+    "WALL4": "right 45-degree diagonal wall sensor (THT, on the chamfered corner)",
+    "WALL5": "left side wall sensor (THT, ~90 degrees, toed slightly forward)",
+    "WALL6": "right side wall sensor (THT, ~90 degrees, toed slightly forward)",
 }
 for _k in range(1, 9):
-    SENSOR_ROLE[f"LINE{_k}"] = (f"line sensor {_k} of 8 (bottom-side mounted, faces the floor; "
-                                 "9.525mm pitch matching the Pololu QTR-8A reference)")
+    SENSOR_ROLE[f"LINE{_k}"] = (f"line sensor {_k} of 8 (bottom-face SMD, faces the floor; "
+                                 "9.525mm QTR pitch)")
+
+# ESP32 pin for each wall sensor (ADC1 channel = GPIO number)
+WALL_ADC = {1: "IO1", 2: "IO2", 3: "IO3", 4: "IO4", 5: "IO5", 6: "IO6"}
 
 # ---------------------------------------------------------------------------
 # Netlist parsing
@@ -128,348 +126,277 @@ def parse(path):
     return comps, nets
 
 comps, nets = parse(NETLIST)
-
-# ---------------------------------------------------------------------------
-# Rationales. Explicit per-net text for the uniquely-named nets; generated
-# text for the patterned families (sensor nets, LED cathodes, no-connects).
-# Any net that ends up with no rationale aborts the script.
-# ---------------------------------------------------------------------------
-
-R = {}
-
-R["GND"] = (
-    "System ground and current return for every subsystem. Both battery-negative terminals "
-    "(J1.2 main lead, J3.3 balance lead) land here; all logic (the ESP32 controller, both muxes), "
-    "all decoupling capacitors, every phototransistor emitter, every LED-switch source, all three "
-    "push buttons, the divider bottoms, and the TB6612's logic GND plus both power grounds (PGND1/"
-    "PGND2) return here. A single unified ground (no split analog/motor ground) is a deliberate "
-    "2-layer-board decision -- GND is poured as a full plane on BOTH copper layers of the PCB, which "
-    "gives motor return currents a wide, low-inductance path without star-grounding complexity. "
-    "TB6612's PGND pins carry the H-bridge return current; keeping them on the same net as logic GND "
-    "matches Toshiba's reference application circuit.")
-
-R["PLUS3V3"] = (
-    "The single regulated 3.3V logic rail, produced by U1 (AP63203WU buck) via L1 and sensed at its "
-    "FB pin. A switching buck (not an LDO) was chosen because the ESP32-S3's WiFi TX bursts reach "
-    "~350-500mA, which an LDO from 8.4V would burn ~2.5W dissipating. Consumers, each justified: "
-    "the Arduino Nano ESP32's 3V3 pin (A1.14 -- the dev board is powered from our regulated rail; "
-    "do NOT power it via its USB while the battery is on, two supplies would fight); both mux VDD "
-    "pins (U4/U5.24 -- HEF4067 supply must match the analog signal range, and phototransistor "
-    "outputs swing 0..3.3V); all 14 phototransistor pull-ups (47k each, QTR-8A-style divider); all "
-    "14 IR-LED current-limit resistors (LED drive current is sized against the REGULATED rail so "
-    "sensor brightness does not drift as the 2S pack discharges 8.4V to 6.0V -- a Peter Harrison "
-    "micromouse design rule); the four encoder pull-ups and both motor-connector ENC_VCC pins "
-    "(Hall encoder boards accept 3.3V, keeping encoder logic levels native to the ESP32); TB6612 "
-    "VCC via the breakout header (logic side, 2.7-5.5V rated); and the USER_BTN pull-up.")
-
-R["VM_BATT"] = (
-    "The protected raw-battery rail (6.0-8.4V from the 2S pack, downstream of the switch J2, fuse "
-    "F1, and reverse-polarity MOSFET Q1 -- entering at Q1's SOURCE, see Net-(F1-Pad2)). Feeds "
-    "exactly three things, each justified: (1) TB6612 motor-power pins VM1/VM2/VM3 (U2.24/13/14) -- "
-    "motors run from raw battery for full torque headroom; VM range 2.5-13.5V easily covers 2S; "
-    "(2) buck regulator input U1.3 VIN plus its enable U1.2 (EN tied to VIN = always-on when "
-    "battery power is present, per AP63203 datasheet practice); (3) bulk + HF decoupling C1 100uF, "
-    "C2 100nF at the battery entry and C4 10uF at the regulator input, plus C9 10uF at the TB6612 "
-    "VM pins -- motor PWM draws fast current steps that must be served locally, not through the "
-    "battery leads' inductance.")
-
-R["VBAT_CELL1_SENSE"] = (
-    "Scaled cell-1 voltage into ESP32 ADC pin A1 (A1.11). R2 (10k, from the "
-    "balance-lead cell-1 tap J3.2) and R3 (22k, to GND) divide 0-4.2V down to 0-2.89V, inside the "
-    "3.3V ADC range with margin. C6 100nF across the bottom leg low-passes the node -- the ADC "
-    "samples a low-impedance-ish source and motor PWM noise is filtered. Firmware computes "
-    "cell2 = pack - cell1 so BOTH cells are monitored for the per-cell 3.0V LiPo cutoff (a pack "
-    "reading alone can hide one weak cell). A0-A2 carry all three analog inputs on this board "
-    "-- confirm the Nano-ESP32 header->GPIO->ADC1-channel mapping in firmware (ADC1, not ADC2, "
-    "must be used while WiFi is active).")
-
-R["VBAT_PACK_SENSE"] = (
-    "Scaled full-pack voltage into ESP32 ADC pin A2 (A1.10). R4 (10k, from the "
-    "balance connector's pack+ pin J3.1) and R5 (6.2k, to GND) divide 0-8.4V down to 0-3.21V. C7 "
-    "100nF filters the node, same reasoning as the cell-1 divider. NOTE (flagged risk, also in "
-    "PROJECT_NOTES): both dividers hang directly on the balance connector, UPSTREAM of switch and "
-    "fuse -- they drain ~0.52mA + ~0.13mA continuously while the balance lead is plugged, which "
-    "will deep-discharge a stored pack over some weeks. Mitigation: unplug the balance connector "
-    "for storage (documented assembly/user rule), or a future revision can add a high-side sense "
-    "switch.")
-
-R["MUX_S0"] = None  # filled by loop below
-R["MUX_S1"] = None
-R["MUX_S2"] = None
-R["MUX_S3"] = None
-for _i, _pin in ((0, "D13 via A1.15"), (1, "A3 via A1.9"), (2, "A4 via A1.8"), (3, "A5 via A1.7")):
-    R[f"MUX_S{_i}"] = (
-        f"Mux channel-select bit {_i} (binary weight {2**_i}), ESP32 GPIO {_pin} driving select "
-        f"input S{_i} on BOTH HEF4067s in parallel (U4.{ {0:'10',1:'11',2:'14',3:'13'}[_i] } and "
-        f"U5.{ {0:'10',1:'11',2:'14',3:'13'}[_i] }). Sharing one 4-bit select bus across the "
-        "read-mux and the write-demux is the core of the sensor architecture: selecting channel N "
-        "simultaneously picks sensor N's phototransistor for reading AND sensor N's LED driver for "
-        "pulsing, enforcing one-emitter-one-receiver lockstep (crosstalk avoidance) while spending "
-        "only 4 GPIOs + 1 ADC pin + 1 pulse pin on 14 sensors. Channel index = S3 S2 S1 S0 binary; "
-        "WALL1..6 = channels 0-5 (Y0-Y5), LINE1..8 = channels 6-13 (Y6-Y13).")
-
-R["MUX_SENSE"] = (
-    "Analog common (Z, U4.1) of the READ mux into ESP32 ADC pin A0 (A1.12). "
-    "Whatever channel S3..S0 selects, that sensor's phototransistor divider node appears here. One "
-    "ADC pin thus reads all 14 sensors -- far fewer than 14 ADC-capable pins exist on the Nano "
-    "header, so muxing is mandatory; it also saves GPIO for the drive side. HEF4067 is a bidirectional ANALOG switch (verified: "
-    "Nexperia datasheet Rev.11 calls it a bidirectional transmission-gate switch), so the divider "
-    "voltage passes through unmodified in DC terms. Verified caveats for firmware (adversarial "
-    "datasheet check, 2 independent agents): the datasheet only characterizes Ron at 5/10/15V "
-    "(350R typ / 2500R MAX at 5V); at our 3.3V, mid-scale Ron rises to ~1k+ typical and plausibly "
-    "several k worst case (metal-gate CMOS, only ~1.65V overdrive at mid-supply). Into the ADC's "
-    "high-Z input this costs NO ratio accuracy (no DC current flows), but the 47k pull-up + ~1k+ "
-    "Ron source impedance is far above the ESP32 ADC's fast-sample limit, so USE A LONG ADC "
-    "SAMPLING TIME (or an op-amp buffer if speed matters). Channel off-leakage (spec'd 1000nA max "
-    "Z-port at 25C) through 47k is a low-tens-of-mV worst-case offset, typically negligible.")
-
-R["LED_PULSE"] = (
-    "ESP32 GPIO A6 (A1.6) into the WRITE demux common (Z, U5.1). Firmware raises this for "
-    "~60-100us to fire the currently-selected sensor's IR LED via its BSS138 gate, samples "
-    "MUX_SENSE ('bright'), lowers it, samples again ('ambient'), and subtracts -- synchronous "
-    "detection that cancels ambient IR (Peter Harrison's method, see PROJECT_NOTES). FIRMWARE "
-    "RULE (flagged): unselected demux outputs are high-impedance, so a BSS138 gate holds its last "
-    "charge when deselected. ALWAYS return LED_PULSE low while the channel is still selected (gate "
-    "discharges through the mux), and on boot walk all 14 channels with LED_PULSE low to discharge "
-    "any power-up gate charge. Otherwise a deselected LED can stay on -- crosstalk + battery drain.")
-
-R["STBY"] = (
-    "TB6612 standby control (active-low) from ESP32 GPIO D2 (A1.26) to the breakout header J10.1. "
-    "GPIO-driven rather than strapped high so firmware can hard-disable both H-bridges (fault "
-    "response, low-power idle) -- an explicit user requirement recorded in PROJECT_NOTES. TB6612 "
-    "outputs are disabled while STBY is low regardless of the IN/PWM pins, so the robot cannot "
-    "drive during MCU reset if the pin idles low.")
-
-for _sig, _pin_lbl, _brk, _desc in (
-        ("AIN1", "D6 via A1.22", "J10.3", "motor A direction bit 1"),
-        ("AIN2", "D5 via A1.23", "J10.4", "motor A direction bit 2"),
-        ("BIN1", "D4 via A1.24", "J10.6", "motor B direction bit 1"),
-        ("BIN2", "D3 via A1.25", "J10.7", "motor B direction bit 2")):
-    R[_sig] = (
-        f"TB6612 {_desc} from ESP32 GPIO {_pin_lbl} to the motor-driver breakout control header "
-        f"({_brk}). The IN1/IN2 pair per channel selects forward / reverse / short-brake / stop "
-        "per the TB6612 truth table while the PWM pin modulates speed. Plain GPIOs suffice -- "
-        "direction changes are slow, and the ESP32's LEDC PWM works on any pin so no special "
-        "pin assignment is needed anywhere on the drive side.")
-
-R["PWMA"] = (
-    "Motor A speed PWM: ESP32 D8 (A1.20) to the breakout's PWMA (J10.2). The ESP32-S3's LEDC "
-    "peripheral generates hardware PWM on any GPIO, typically configured 20-25kHz (above audible). "
-    "Use one LEDC timer for both PWMA and PWMB so the two motors' PWM stays phase-aligned.")
-
-R["PWMB"] = (
-    "Motor B speed PWM: ESP32 D7 (A1.21) to the breakout's PWMB (J10.5). Same LEDC timer as PWMA, "
-    "see PWMA rationale.")
-
-for _sig, _row, _pin_lbl, _conn, _r in (
-        ("ENC1_A", "A1.16", "D12", "J5.5", "R6"),
-        ("ENC1_B", "A1.17", "D11", "J5.6", "R7"),
-        ("ENC2_A", "A1.18", "D10", "J6.5", "R8"),
-        ("ENC2_B", "A1.19", "D9", "J6.6", "R9")):
-    _m = "A" if "1" in _sig else "B"
-    R[_sig] = (
-        f"Motor {_m} quadrature encoder phase {_sig[-1]}: from the N20 motor's Hall encoder via "
-        f"connector {_conn}, into ESP32 {_pin_lbl} ({_row}), with 10k pull-up {_r} to +3V3. "
-        "The ESP32-S3 has 4 PCNT (pulse-counter) units with hardware quadrature decoding, and "
-        "PCNT inputs route through the GPIO matrix from ANY pin -- each motor's phase pair just "
-        "needs two ordinary GPIOs (no special timer-pin pairing as an STM32 would need). The "
-        "pull-up is defensive: the encoder's output stage (open-drain vs push-pull) is unverified "
-        "for the exact unit ordered -- required if open-drain, harmless if push-pull "
-        "(PROJECT_NOTES).")
-
-R["USER_BTN"] = (
-    "Start-run button: ESP32 A7 (A1.5), pulled to +3V3 through R10 10k, switched to GND by SW1 "
-    "(active-low). Standard micromouse UX -- arm the run without touching the robot's power.")
-
-# --- Local (auto-named) power-chain nets ---
-
-R["Net-(J1-Pin_1)"] = (
-    "Battery positive from the main pack lead (J1.1) to one side of the external power switch "
-    "(J2.1). The switch is off-board (a chassis-mounted toggle on a 2-pin header) so the robot can "
-    "be powered off without unplugging the pack; putting it FIRST in the chain means everything "
-    "downstream (fuse, protection FET, both rails) is dead when off.")
-
-R["Net-(J2-Pin_2)"] = (
-    "Switched battery positive from the power switch (J2.2) into the fuse F1 (3A resettable "
-    "polyfuse). The fuse sits after the switch and before everything else so any downstream fault "
-    "(shorted driver, crashed wiring) opens the whole system. 3A covers worst-case dual-motor "
-    "stall plus logic with margin, while still tripping on a hard short.")
-
-R["Net-(F1-Pad2)"] = (
-    "Fused battery positive from F1.2 into Q1's DRAIN. Battery enters the reverse-protection "
-    "P-MOSFET at the drain deliberately: at power-up the body diode (P-FET: anode=drain, "
-    "cathode=source) conducts to the load, the gate (held at GND by R1) then sits ~Vbatt below "
-    "the source, the channel enhances and shorts out the diode drop. With a REVERSED battery the "
-    "body diode is reverse-biased and Vgs is positive: fully blocked. (The first schematic "
-    "revision had source/drain swapped, which would have conducted a reversed battery through the "
-    "body diode -- caught during this document's audit and fixed; see PROJECT_NOTES.)")
-
-R["Net-(Q1-PadG)"] = (
-    "Q1 gate to R1 (100k) whose other leg is GND. Holding the gate at ground keeps Vgs = -Vbatt "
-    "when the battery is correct (FET hard on, ~milliohm path) and Vgs >= 0 when reversed (FET "
-    "off). 100k limits any gate transient current and is small enough that gate leakage cannot "
-    "float the gate.")
-
-R["Net-(U1-SW)"] = (
-    "Buck regulator switch node: U1.5 (SW) to L1.1, plus the bootstrap capacitor's low side "
-    "(C3.2). This node slews between ~VM_BATT and GND at the AP63203's switching frequency; L1 "
-    "integrates it into the DC output. Kept as a compact fat trace on the PCB -- it is the "
-    "noisiest node on the board. VERIFIED against Diodes DS41326 Rev.3-2: 3.3uH is inside the "
-    "recommended 2.2-10uH range (the table's single suggested value for 3.3V/1.1MHz is 3.9uH; "
-    "3.3uH at 8.4V in gives ~28% ripple current, just under the 30-50% guideline -- acceptable, "
-    "swap to 3.9uH at BOM time if convenient).")
-
-R["Net-(U1-BST)"] = (
-    "Bootstrap supply for the buck's high-side gate driver: U1.6 (BST) to C3.1 (100nF), whose "
-    "other side rides the SW node. The cap pumps up each switching cycle to drive the high-side "
-    "FET's gate above its source -- required by the AP63203 datasheet, value from its application "
-    "circuit.")
-
-R["Net-(J3-Pin_1)"] = (
-    "Balance-connector pack+ tap (J3.1) into the top of the pack-voltage divider (R4.1). Carries "
-    "only the divider's ~0.5mA. Runs from the balance lead rather than VM_BATT so the ADC sees "
-    "the battery even with the power switch off (storage-charge checks) -- the flip side is the "
-    "standby-drain risk flagged in VBAT_PACK_SENSE.")
-
-R["Net-(J3-Pin_2)"] = (
-    "Balance-connector cell-1 tap (J3.2, the junction between the two series cells) into the top "
-    "of the cell-1 divider (R2.1). Only path to measure the individual cell; carries ~0.13mA.")
-
-# pin -> actual net name (for looking up KiCad's autogenerated local-net names,
-# which flip between a 2-node net's two pins as the component set changes --
-# so never hardcode "Net-(Dx-K)" etc; resolve it from the real netlist).
 pin2net = {}
 for _nm, _nodes in nets.items():
     for _r, _pp in _nodes:
         pin2net[(_r, _pp)] = _nm
 
-for _mn, _conn, _bo, _breakpin, _pol in (("A", "J5", "AO", "J11.4", "MOTA_P"),
-                                          ("A", "J5", "AO", "J11.5", "MOTA_N"),
-                                          ("B", "J6", "BO", "J11.6", "MOTB_P"),
-                                          ("B", "J6", "BO", "J11.7", "MOTB_N")):
-    plus = _pol.endswith("_P")
-    R[_pol] = (
-        f"Motor {_mn} phase wire ({'M+' if plus else 'M-'}): the socketed TB6612 breakout's "
-        f"{_bo}{'1' if plus else '2'} output (breakout header {_breakpin}) to motor connector "
-        f"{_conn}.{'1' if plus else '2'}. Carries the full motor current (PWM-chopped, "
-        "bidirectional) -- wide 0.5mm trace. Polarity convention: IN1=H, IN2=L, PWM=H drives M+ "
-        "positive; if the motor spins backwards at bring-up, flip it in firmware (direction bits), "
-        "not by rewiring. NOTE the breakout's actual output-pin order varies by vendor -- confirm "
-        "AO1/AO2/BO1/BO2 positions against your board (see the socketing note).")
+# ---------------------------------------------------------------------------
+# Rationales
+# ---------------------------------------------------------------------------
+R = {}
 
-# --- Sensor family nets (generated) ---
+R["GND"] = (
+    "System ground and current return for every subsystem: battery negative (J1.2), all "
+    "decoupling, every phototransistor emitter, all group-switch sources, the indicator LED "
+    "cathodes (wall side) and driver sources (line side), button lows, JTAG grounds, USB "
+    "shield/ground, and the TB6612 breakout grounds. Single unified ground poured on both outer "
+    "copper faces (convert In1 to a plane in the GUI if desired).")
+
+R["PLUS3V3"] = (
+    "The single regulated 3.3V rail from U1 (TPS63001 buck-boost -- a 1S cell sags below a "
+    "buck's dropout, hence buck-boost; 1.2A covers ESP32-S3 WiFi bursts). Consumers: the "
+    "ESP32-S3-WROOM-1 (U3.2), mux VCC (U4.24), all 14 phototransistor pull-ups, all 14 IR-LED "
+    "current limiters (regulated rail = constant sensor brightness across discharge -- Harrison "
+    "rule), wall-indicator PMOS sources (Q28-33), line/wall indicator limiters, encoder supplies "
+    "on both motor connectors, TB6612 VCC (J11.2), the USER_BTN and ESP_EN pull-ups, the JTAG "
+    "header's VDD pin (J8.1) and the USB ESD array's clamp rail (U6.5).")
+
+R["VM_BATT"] = (
+    "Protected raw 1S cell rail (3.0-4.2V), downstream of switch J2, fuse F1, and reverse-"
+    "polarity P-FET Q1 (battery enters at the DRAIN -- body-diode analysis in PROJECT_NOTES). "
+    "Feeds: TB6612 motor power (J11.1, VM min 2.5V -- order 3V-wound N20s, a 6V wind at 3.7V "
+    "runs ~60%), the TPS63001 input pins (VIN + EN tied high + VINA), input caps C1/C2/C4, and "
+    "the battery divider R2 (tapped HERE, downstream of the switch, so a stored pack sees no "
+    "divider drain -- fixes the rev<=3 balance-lead drain risk).")
+
+R["VBAT_SENSE"] = (
+    "Cell voltage divided 22k/33k (4.2V -> 2.52V) into ESP32 ADC1 (IO8, U3.12), C6 filtering "
+    "PWM noise. Rescaled by the adversarial review: the S3's calibrated ADC range tops at "
+    "~2.9V with worst error near the top, so full charge lands at 2.52V with headroom. "
+    "Firmware low-battery cutoff at 3.0V.")
+
+R["Net-(J1-Pin_1)"] = (
+    "Battery positive from the 1S pack (J1.1, JST-PH) to the external power switch (J2.1). "
+    "Switch first in the chain so everything downstream is dead when off.")
+R["Net-(J2-Pin_2)"] = (
+    "Switched battery positive from J2.2 into fuse F1 (2A resettable -- 1S currents; motors + "
+    "logic worst case with margin, trips on a hard short).")
+R["Net-(F1-Pad2)"] = (
+    "Fused battery positive into Q1's DRAIN (reverse-polarity P-FET: at power-up the body "
+    "diode conducts, the channel then enhances; reversed battery blocks both paths. Low-Vth "
+    "part required at 1S -- DMP2035U class, fully enhanced by -2.5V).")
+R["Net-(Q1-PadG)"] = (
+    "Q1 gate to R1 100k to GND: Vgs = -Vbatt when correct (hard on), >= 0 when reversed (off).")
+R["Net-(U1-L1)"] = (
+    "Buck-boost switch node A: TPS63001 L1 pin to the 1.5uH inductor (datasheet value). Fast "
+    "square edges -- keep the loop tight (L1 sits beside U1 on the board).")
+R["Net-(U1-L2)"] = (
+    "Buck-boost switch node B: the inductor's other end into the TPS63001 L2 pin. Same "
+    "fast-edge caveat as L1.")
+
+R["ESP_EN"] = (
+    "ESP32 enable/reset: R11 10k pull-up + C9 1uF RC delay per Espressif hardware design "
+    "guidelines, SW2 pulls it low for manual reset. Hold SW1 (IO0) while tapping SW2 = ROM "
+    "download mode over the rear USB-C.")
+
+R["USER_BTN"] = (
+    "Start-run button SW1 on IO0 (U3.27) with R10 10k pull-up. IO0 is the BOOT strap -- the "
+    "solid external pull-up keeps normal boot default, and holding SW1 through a reset enters "
+    "download mode (deliberate dual use). Note: holding it during any watchdog/brownout reset "
+    "also enters download mode until the next clean reset.")
+R["USER_BTN2"] = (
+    "Menu/select button SW3 on IO35 (U3.28), active-low, firmware enables the internal "
+    "pull-up (no external resistor). On octal-PSRAM (-R8) modules IO35 does not exist -- "
+    "buttons 2/3 are the sacrificial feature; use non-R8 (e.g. N16) modules.")
+R["USER_BTN3"] = (
+    "Third button SW4 on IO36 (U3.29) -- same arrangement and -R8 caveat as USER_BTN2.")
+
+R["USB_DM_C"] = (
+    "USB D- connector side: both B-row and A-row D- pads of the rear USB-C (J7) into the "
+    "USBLC6 ESD array (U6 I/O1). The ESD array sits between the user-handled connector and "
+    "the chip per the review (exposed connector on a robot).")
+R["USB_DP_C"] = (
+    "USB D+ connector side: J7's D+ pad pair into U6 I/O2. See USB_DM_C.")
+R["USB_DM"] = (
+    "USB D- module side: from the ESD array through R59 22R series (Espressif schematic "
+    "checklist) into the module's dedicated USB_D- pad (IO19). Native USB-Serial/JTAG: "
+    "flashing (even from blank flash, via IO0+EN buttons) and the CDC console -- UART0's "
+    "pins were repurposed as encoder inputs.")
+R["USB_DP"] = (
+    "USB D+ module side: ESD array -> R60 22R -> module USB_D+ pad (IO20). See USB_DM.")
+R["Net-(R59-Pad1)"] = (
+    "Intermediate node between the ESD array's I/O1 output and R59's series resistance "
+    "(the D- path's chip-side guard).")
+R["Net-(R60-Pad1)"] = (
+    "Intermediate node between the ESD array's I/O2 output and R60 (D+ path).")
+R["Net-(J7-CC1)"] = (
+    "USB-C CC1 with R12 5.1k pull-down: advertises UFP (device) role so a host supplies "
+    "VBUS/enumeration. VBUS itself is unconnected -- the board is battery-powered; flash "
+    "with the battery on (documented).")
+R["Net-(J7-CC2)"] = (
+    "USB-C CC2 with R56 5.1k pull-down -- required on both CC pins so either cable "
+    "orientation works.")
+
+for _sig, _pin, _pad in (("JTAG_TCK", "IO39/MTCK", "U3.32"), ("JTAG_TDO", "IO40/MTDO", "U3.33"),
+                          ("JTAG_TDI", "IO41/MTDI", "U3.34"), ("JTAG_TMS", "IO42/MTMS", "U3.35")):
+    R[_sig] = (
+        f"JTAG {_sig[-3:]}: {_pin} ({_pad}) to the debug header J8 (2.54mm 1x6: 3V3,TMS,TCK,"
+        "TDO,TDI,GND -- a 1.27mm 2x5 was unroutable at the 0.3mm no-inter-pin clearance). "
+        "IO39-42 are the S3's dedicated JTAG quad, kept exclusively for debugging.")
+
+R["MUX_SENSE"] = (
+    "Line-mux analog common (U4.1 COM) into ESP32 ADC1 IO7 (U3.7). One ADC pin reads all 8 "
+    "line sensors. U4 is a CD74HC4067M -- the HC family is ~70R Ron and fast at 3.3V (the "
+    "CD4000-family HEF4067 is only spec'd from 3V with kR-class Ron; swapped after the "
+    "datasheet review). Budget ADC sampling time for the mux source impedance.")
+for _i in range(3):
+    R[f"MUX_S{_i}"] = (
+        f"Line-mux select bit {_i}: IO1{1+_i} (U3.{19+_i}) to U4 S{_i}. Only 3 select bits: "
+        "the line array uses channels I0-I7 and S3 is tied to GND. Walls no longer mux -- "
+        "they read directly on ADC1 (user decision 2026-07-15).")
+
+R["LINE_EMIT"] = (
+    "Line emitter BANK gate: IO14 (U3.22) drives Q19 (BSS138) which sinks ALL 8 line LEDs "
+    "(each with its own 120R from +3V3, ~15mA). One GPIO replaces the old write-demux. "
+    "R61 100k holds the gate low through boot (IO14 floats until app init -- review fix). "
+    "Line-follow mode latches this ON continuously (~120mA total), which is also what makes "
+    "the top-side indicators live.")
+for _sig, _grp, _pads in (("WALL_EMIT_FRONT", "front pair (WALL1+2)", "IO15/U3.8"),
+                            ("WALL_EMIT_DIAG", "diagonal pair (WALL3+4)", "IO16/U3.9"),
+                            ("WALL_EMIT_SIDE", "side pair (WALL5+6)", "IO17/U3.10")):
+    _q = {"WALL_EMIT_FRONT": "Q16", "WALL_EMIT_DIAG": "Q17", "WALL_EMIT_SIDE": "Q18"}[_sig]
+    _r = {"WALL_EMIT_FRONT": "R62", "WALL_EMIT_DIAG": "R63", "WALL_EMIT_SIDE": "R64"}[_sig]
+    R[_sig] = (
+        f"Wall emitter group gate for the {_grp}: {_pads} drives {_q} (BSS138) sinking both "
+        f"LEDs of the pair (33R each, ~50mA pulses). UKMARS-practice grouping: mutually-"
+        f"staring sensors are on different groups, and firing a pair while reading BOTH its "
+        f"receivers in parallel on ADC1 halves scan time vs the old serial mux walk. "
+        f"{_r} 100k holds the gate low through boot.")
+
+for _k, _knet, _members in ((1, "EMIT_FRONT_K", "D1+D2"), (2, "EMIT_DIAG_K", "D3+D4"),
+                              (3, "EMIT_SIDE_K", "D5+D6"), (4, "EMIT_LINE_K", "D7-D14")):
+    _q = f"Q{15+_k}"
+    R[_knet] = (
+        f"Common cathode net of the {_knet[5:-2]} emitter group ({_members}) into {_q}'s "
+        f"drain. Each LED keeps its own series resistor on the ANODE side, so this switched "
+        f"node carries only the group's summed current and the per-LED currents stay "
+        f"resistor-defined.")
+
+R["PWMA"] = ("Motor A PWM: IO18 (U3.11) to the breakout's PWMA (J10.2). LEDC hardware PWM "
+              "(any-GPIO via the matrix), 20-25kHz; share one LEDC timer with PWMB for "
+              "phase-aligned motors.")
+R["PWMB"] = ("Motor B PWM: IO21 (U3.23) to J10.5. Same LEDC timer as PWMA.")
+R["AIN1"] = ("Motor A direction bit 1: IO9 (U3.17, an ADC-capable pin spent as GPIO) to J10.3.")
+R["AIN2"] = ("Motor A direction bit 2: IO10 (U3.18) to J10.4.")
+R["BIN1"] = ("Motor B direction bit 1: IO38 (U3.31) to J10.6.")
+R["BIN2"] = (
+    "Motor B direction bit 2: IO45 (U3.26) to J10.7. IO45 is the VDD_SPI STRAP -- safe only "
+    "because this net idles low and carries R65 10k to GND (a high at reset would select "
+    "1.8V flash supply and brick the boot; with the breakout unplugged the trace would float "
+    "without R65). NEVER add a pull-up to this net.")
+R["STBY"] = (
+    "TB6612 standby (active low): IO46 (U3.16) to J10.1 with R66 10k pull-down. IO46 is a "
+    "boot strap (must be low at reset when IO0 is held) -- the pull-down guarantees it AND "
+    "holds the motor driver disabled from power-on until firmware acts. Same no-pull-up rule "
+    "as BIN2.")
+
+for _sig, _pin, _pad, _conn, _r in (("ENC1_A", "IO47", "U3.24", "J5.5", "R6"),
+                                      ("ENC1_B", "IO48", "U3.25", "J5.6", "R7")):
+    R[_sig] = (
+        f"Motor A encoder phase {_sig[-1]}: from {_conn} into {_pin} ({_pad}), 10k pull-up "
+        f"{_r} (defensive: encoder output stage unverified -- required if open-drain, "
+        f"harmless if push-pull). Decoded by an S3 PCNT unit (hardware quadrature, any-pin "
+        f"via the GPIO matrix).")
+R["ENC2_A"] = (
+    "Motor B encoder phase A: J6.5 with pull-up R8, then THROUGH R57 1k into the module "
+    "(see ENC2_A_S3). The series guard exists because this pin pair is UART0.")
+R["ENC2_B"] = (
+    "Motor B encoder phase B: J6.6 with pull-up R9, through R58 1k (see ENC2_B_S3).")
+R["ENC2_A_S3"] = (
+    "Module side of the ENC2_A guard: R57 -> RXD0/IO44 (U3.36). IO44 is an input at reset "
+    "(safe); the guard is for symmetry with IO43 and noise robustness. PCNT input is high-Z "
+    "so 1k costs nothing at encoder frequencies.")
+R["ENC2_B_S3"] = (
+    "Module side of the ENC2_B guard: R58 -> TXD0/IO43 (U3.37). BLOCKER FIX from the "
+    "adversarial review: IO43 is U0TXD, actively DRIVEN by the ROM at every boot while a "
+    "push-pull encoder can drive the same node -- the 1k bounds the contention current. "
+    "Firmware must set the console to USB-Serial-JTAG so UART0 never re-enables.")
+
+# --- Sensor nets ---
 for i, name in enumerate(SENSOR_NAMES):
     p = sensor_parts(i)
-    ch = i
-    bits = format(ch, "04b")
-    mux_pad = [k for k, v in HEF4067_PINS.items() if v == p["channel"]][0]
-    R[f"{name}_SENSE"] = (
-        f"Analog output of the {SENSOR_ROLE[name]}. {p['photo']} (SFH309) sits emitter-to-GND, "
-        f"collector pulled to +3V3 by {p['pullup']} (47k, the Pololu QTR-8A reference value): more "
-        f"reflected 940nm IR -> more collector current -> LOWER voltage on this node. The node "
-        f"feeds read-mux channel {p['channel']} (U4 pin {mux_pad}); when firmware sets "
-        f"S3..S0={bits} (channel {ch}) it appears on MUX_SENSE for the ADC. Read 'bright' with the "
-        f"LED pulsed, 'ambient' with it off, subtract in firmware.")
-    R[f"{name}_LED"] = (
-        f"Gate-drive for the {name} emitter switch: write-demux channel {p['channel']} (U5 pin "
-        f"{mux_pad}) to the gate of {p['switch']} (BSS138). With channel {ch} selected and "
-        f"LED_PULSE high, {p['switch']} sinks current through {p['led']} (940nm emitter) from "
-        f"+3V3 via {p['curr']} "
-        + (f"(33R: ~50mA-class pulses for the 60-180mm wall range), "
-           if i < 6 else
-           f"(120R: ~15mA -- deliberately low so firmware can LATCH all 8 line emitters on "
-           f"continuously in line-follow mode, ~120mA total, which is what makes the top-side "
-           f"indicator LEDs live; ample margin at the ~3mm line range), ")
-        + f"tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). "
-        f"A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only "
-        f"ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet "
-        f"check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small "
-        f"logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a "
-        f"60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- "
-        f"a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See "
-        f"LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating "
-        f"deselected gate.")
-
-# LED cathode/anode local nets: key by the ACTUAL autogenerated net name
-# (resolved via pin2net), not a hardcoded "Net-(Dx-K)" which KiCad may name
-# after the transistor/resistor instead. Also collect these names so the
-# GROUPS below reference the real names.
-SENSOR_LOCAL_NETS = {}  # name -> list of (led_local_net_names)
-for i, name in enumerate(SENSOR_NAMES):
-    p = sensor_parts(i)
-    k_net = pin2net.get((p["led"], "1"))   # cathode -> switch drain
-    a_net = pin2net.get((p["led"], "2"))   # anode -> current-limit resistor
-    SENSOR_LOCAL_NETS[name] = [n for n in (k_net, a_net) if n]
-    _rv = "33R" if i < 6 else "120R"
-    if k_net:
-        R[k_net] = (
-            f"{name} LED cathode ({p['led']}.1) to its switch's drain ({p['switch']}.3). Local "
-            f"two-node net inside the {name} driver: +3V3 -> {p['curr']} {_rv} -> LED anode, LED "
-            f"cathode -> {p['switch']} drain, source -> GND. Low-side switching keeps the gate "
-            f"drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).")
-    if a_net:
+    if name.startswith("WALL"):
+        k = int(name[4:])
+        R[f"{name}_SENSE"] = (
+            f"Analog node of the {SENSOR_ROLE[name]}: {p['photo']} collector, pulled to +3V3 "
+            f"by {p['pullup']} 47k, read DIRECTLY on ESP32 ADC1 {WALL_ADC[k]} -- no mux (user "
+            f"decision 2026-07-15; the bare S3 has 10 WiFi-safe ADC1 channels). More reflected "
+            f"IR -> lower voltage. Also drives the gate of Q{27+k} (wall indicator PMOS -- "
+            f"zero-DC-load gate). Fire the sensor's emitter GROUP and sample bright/ambient, "
+            f"subtracting in firmware; both sensors of a fired pair sample in parallel.")
+    else:
+        k = int(name[4:])
+        R[f"{name}_SENSE"] = (
+            f"Analog node of the {SENSOR_ROLE[name]}: {p['photo']} collector + {p['pullup']} "
+            f"47k pull-up, into line-mux channel I{k-1} (U4.{ {1:'9',2:'8',3:'7',4:'6',5:'5',6:'4',7:'3',8:'2'}[k] }); "
+            f"selected by MUX_S0-2 it appears on MUX_SENSE (ADC1 IO7). Also drives the gate "
+            f"of Q{19+k} (line indicator -- zero-DC-load).")
+    a_net = pin2net.get((p["led"], "2"))
+    if a_net and a_net.startswith("Net-"):
+        _rv = "33R" if i < 6 else "120R"
         R[a_net] = (
-            f"{name} LED anode ({p['led']}.2) to the low side of its current-limit resistor "
-            f"({p['curr']}.2, {_rv}): +3V3 -> {p['curr']} -> anode; cathode switched to GND by "
-            f"{p['switch']} sets the drive current. Supply-side resistor placement keeps the "
-            f"switched (fast-edged) node confined to the cathode/drain net.")
+            f"{name} IR-LED anode ({p['led']}.2) to its {_rv} current limiter "
+            f"({p['curr']}.2) from +3V3. Cathode joins the {p['group']} group's switched "
+            f"net -- per-LED current stays resistor-defined within the ganged group.")
 
-# --- Line-sensor indicator LEDs (top side, threshold indication) ---
-# Per LINE sensor k (1..8): Q{29+k} BSS138 gate on LINEk_SENSE, drain sinks
-# D{14+k} (super-red 0603) from +3V3 via R{40+k} 1k. Adversarially reviewed
-# 2026-07-15: zero-DC-load CONFIRMED (gate leakage <=100nA worst case = ~5mV
-# on the 47k divider, typ <<1 LSB); the transition is NEAR-BINARY, not analog
-# (BSS138 subthreshold slope ~100mV/dec puts the whole visible fade inside
-# ~150-300mV around Vth) -- crisp on/off is the better UX for reading line
-# position anyway. Meaningful ONLY while the line emitters are lit (pulsed
-# scanning leaves the node ambient-dominated ~93% of the time) -- hence the
-# 120R line emitters that firmware can latch on continuously.
-INDICATOR_LOCAL_NETS = []
-for _k in range(1, 9):
-    _q, _d, _r = f"Q{29+_k}", f"D{14+_k}", f"R{40+_k}"
-    _kn = pin2net.get((_d, "1"))   # cathode -> FET drain
-    _an = pin2net.get((_d, "2"))   # anode  -> 1k from +3V3
-    if _kn:
-        R[_kn] = (
-            f"LINE{_k} indicator LED cathode ({_d}.1) to its driver's drain ({_q}.3). "
-            f"{_q}'s gate rides the LINE{_k}_SENSE analog node directly: a MOSFET gate is "
-            f"zero DC load (leakage <=100nA worst case = ~5mV across the 47k pull-up; if "
-            f"this channel ever reads pinned, suspect a damaged {_q} gate), so the muxed "
-            f"ADC reading is untouched. Behavior is a crisp threshold around Vgs(th) "
-            f"(0.8-1.5V part spread -- both extremes land safely inside the node's "
-            f"<=0.5V-lit-floor to >=2.5V-dark-line swing): LED ON = dark line under that "
-            f"sensor, WHILE the line emitters are lit (see the 120R latched-emitter "
-            f"scheme on the LINEx_LED nets).")
-        INDICATOR_LOCAL_NETS.append(_kn)
-    if _an:
-        R[_an] = (
-            f"LINE{_k} indicator LED anode ({_d}.2) to its 1k current limiter "
-            f"({_r}.2) from +3V3: ~(3.3 - ~1.85Vf)/1k = ~1.4mA when on -- deliberately "
-            f"modest (8 indicators add ~11mA worst case). BOM: high-efficiency AlInGaP "
-            f"super-red bin REQUIRED (e.g. Kingbright APT1608SURCK) -- a standard-"
-            f"efficiency red is washed out in daylight at this current; do NOT raise the "
-            f"current or switch to InGaN colors (green/blue/white Vf 2.7-3.2V leaves no "
-            f"headroom on 3.3V).")
-        INDICATOR_LOCAL_NETS.append(_an)
+# --- Indicator nets ---
+for k in range(1, 9):   # line indicators: D15-22, Q20-27, R41-48
+    d, q, r = f"D{14+k}", f"Q{19+k}", f"R{40+k}"
+    kn = pin2net.get((d, "1"))
+    an = pin2net.get((d, "2"))
+    if kn and kn.startswith("Net-"):
+        R[kn] = (
+            f"LINE{k} indicator LED cathode ({d}.1) to {q}'s drain. {q}'s gate rides "
+            f"LINE{k}_SENSE (zero DC load; if the channel reads pinned suspect this gate). "
+            f"Threshold behavior around Vgs(th): LED ON = dark line under the sensor, WHILE "
+            f"the line emitters are lit (the 120R latched-bank scheme).")
+    if an and an.startswith("Net-"):
+        R[an] = (
+            f"LINE{k} indicator LED anode ({d}.2) to its 1k limiter ({r}.2) from +3V3 "
+            f"(~1.4mA; high-efficiency AlInGaP super-red bin REQUIRED -- standard red washes "
+            f"out in daylight at this current).")
+for k in range(1, 7):   # wall indicators: D23-28, Q28-33, R49-54
+    d, q, r = f"D{22+k}", f"Q{27+k}", f"R{48+k}"
+    dn = pin2net.get((q, "D"))
+    an = pin2net.get((d, "2"))
+    if dn and dn.startswith("Net-"):
+        R[dn] = (
+            f"WALL{k} indicator drive: {q} (BSS84 PMOS, source at +3V3, gate on WALL{k}_SENSE) "
+            f"drain into {r} 1k. POLARITY INVERTED vs the line indicators: a wall reflection "
+            f"pulls the node LOW -> Vgs negative -> LED ON = wall seen. Zero-DC-load gate, "
+            f"threshold behavior; meaningful while the wall emitter groups are lit (latch a "
+            f"group in debug mode: 2x50mA, inside the SFH4550 continuous rating).")
+    if an and an.startswith("Net-"):
+        R[an] = (
+            f"WALL{k} indicator LED anode ({d}.2) from {r} 1k (drive current ~1.4mA); "
+            f"cathode to GND. Super-red high-efficiency bin, same as the line indicators.")
 
-# --- No-connects: every unconnected-* net, with real reasons ---
+R["MOTA_P"] = ("Motor A M+ : breakout AO1 (J11.4) to J5.1. Full PWM-chopped motor current -- "
+                "0.5mm trace. If the motor runs backwards, flip direction bits in firmware.")
+R["MOTA_N"] = ("Motor A M- : breakout AO2 (J11.5) to J5.2. See MOTA_P.")
+R["MOTB_P"] = ("Motor B M+ : breakout BO1 (J11.6) to J6.1. See MOTA_P.")
+R["MOTB_N"] = ("Motor B M- : breakout BO2 (J11.7) to J6.2. See MOTA_P.")
 
+# ---------------------------------------------------------------------------
+# No-connects
+# ---------------------------------------------------------------------------
 NC_REASONS = {
-    ("A1", "1"):  "VIN -- the dev board is fed regulated 3.3V directly on its 3V3 pin; feeding "
-                   "VIN too would run its onboard regulator in parallel with ours.",
-    ("A1", "3"):  "RESET (analog-row copy) -- nothing on this board needs to hard-reset the "
-                   "ESP32; its own button/auto-reset handle it.",
-    ("A1", "4"):  "5V -- the board is battery-powered at 3.3V throughout; the dev board's 5V "
-                   "USB rail is only alive while its USB is plugged.",
-    ("A1", "13"): "AREF -- the ESP32's ADC uses its internal reference; nothing external supplied.",
-    ("A1", "28"): "RESET (digital-row copy) -- same line as A1.3, see there.",
-    ("A1", "29"): "D0/RX -- kept free for USB-serial debug on the dev board; no on-board UART "
-                   "link exists now that the ESP32 is the sole controller.",
-    ("A1", "30"): "D1/TX -- kept free, same reason as D0/RX.",
-    ("U4", "16"): "Read-mux channel Y15 -- only 14 sensors exist; channels 14/15 unused.",
-    ("U4", "17"): "Read-mux channel Y14 -- unused, see Y15.",
-    ("U5", "16"): "Write-demux channel Y15 -- unused, see U4.",
-    ("U5", "17"): "Write-demux channel Y14 -- unused, see U4.",
+    ("U3", "18"): "IO10 -- the one spare ADC1 channel, reserved for a future analog input.",
+    ("U3", "30"): "IO37 -- spare; also unavailable on octal-PSRAM (-R8) modules, so keeping "
+                   "it unrouted preserves module-variant freedom.",
+    ("U4", "16"): "Line-mux channel I15 -- only 8 line sensors; channels 8-15 unused.",
+    ("U4", "17"): "I14 -- unused, see I15.",
+    ("U4", "18"): "I13 -- unused.",
+    ("U4", "19"): "I12 -- unused.",
+    ("U4", "20"): "I11 -- unused.",
+    ("U4", "21"): "I10 -- unused.",
+    ("U4", "22"): "I9 -- unused.",
+    ("U4", "23"): "I8 -- unused.",
+    ("J7", "A4"): "VBUS -- deliberately unconnected: battery powers the board; feeding 3V3 "
+                   "from 5V VBUS would need a regulator + power mux. Flash with the battery on.",
+    ("J7", "A8"): "SBU1 -- not used in USB 2.0.",
+    ("J7", "B8"): "SBU2 -- not used in USB 2.0.",
 }
 
 def nc_reason(ref, pin):
@@ -480,31 +407,37 @@ def nc_reason(ref, pin):
 # ---------------------------------------------------------------------------
 # Document assembly
 # ---------------------------------------------------------------------------
-
 GROUPS = [
-    ("Power input & protection chain",
+    ("Power input & protection (1S LiPo)",
      ["Net-(J1-Pin_1)", "Net-(J2-Pin_2)", "Net-(F1-Pad2)", "Net-(Q1-PadG)", "VM_BATT"]),
-    ("3.3V regulation",
-     ["Net-(U1-SW)", "Net-(U1-BST)", "PLUS3V3"]),
+    ("3.3V regulation (TPS63001 buck-boost)",
+     ["Net-(U1-L1)", "Net-(U1-L2)", "PLUS3V3"]),
     ("Ground", ["GND"]),
-    ("Battery monitoring",
-     ["Net-(J3-Pin_1)", "Net-(J3-Pin_2)", "VBAT_PACK_SENSE", "VBAT_CELL1_SENSE"]),
+    ("Battery monitoring", ["VBAT_SENSE"]),
+    ("Controller support (EN / USB-C / JTAG / buttons)",
+     ["ESP_EN", "USB_DM_C", "USB_DP_C", "Net-(R59-Pad1)", "Net-(R60-Pad1)",
+      "USB_DM", "USB_DP", "Net-(J7-CC1)", "Net-(J7-CC2)",
+      "JTAG_TCK", "JTAG_TDO", "JTAG_TDI", "JTAG_TMS",
+      "USER_BTN", "USER_BTN2", "USER_BTN3"]),
     ("Motor drive (socketed TB6612 breakout)",
      ["STBY", "PWMA", "AIN1", "AIN2", "MOTA_P", "MOTA_N",
       "PWMB", "BIN1", "BIN2", "MOTB_P", "MOTB_N"]),
-    ("Encoders",
-     ["ENC1_A", "ENC1_B", "ENC2_A", "ENC2_B"]),
-    ("IR sensor matrix -- shared control",
-     ["MUX_S0", "MUX_S1", "MUX_S2", "MUX_S3", "MUX_SENSE", "LED_PULSE"]),
-    ("IR sensor matrix -- wall sensors (THT, bent-lead)",
-     [f"WALL{k}_{s}" for k in range(1, 7) for s in ("SENSE", "LED")] +
-     [n for k in range(6) for n in SENSOR_LOCAL_NETS[SENSOR_NAMES[k]]]),
-    ("IR sensor matrix -- line sensors (SMD, bottom-face)",
-     [f"LINE{k}_{s}" for k in range(1, 9) for s in ("SENSE", "LED")] +
-     [n for k in range(6, 14) for n in SENSOR_LOCAL_NETS[SENSOR_NAMES[k]]]),
-    ("Line-sensor indicator LEDs (top face, analog brightness)",
-     INDICATOR_LOCAL_NETS),
-    ("User interface", ["USER_BTN"]),
+    ("Encoders (PCNT hardware quadrature)",
+     ["ENC1_A", "ENC1_B", "ENC2_A", "ENC2_A_S3", "ENC2_B", "ENC2_B_S3"]),
+    ("IR sensing -- shared control",
+     ["MUX_S0", "MUX_S1", "MUX_S2", "MUX_SENSE",
+      "LINE_EMIT", "WALL_EMIT_FRONT", "WALL_EMIT_DIAG", "WALL_EMIT_SIDE",
+      "EMIT_FRONT_K", "EMIT_DIAG_K", "EMIT_SIDE_K", "EMIT_LINE_K"]),
+    ("Wall sensors (direct ADC1)",
+     [f"WALL{k}_SENSE" for k in range(1, 7)] +
+     [n for i in range(6) for n in [pin2net.get((sensor_parts(i)["led"], "2"))] if n]),
+    ("Line sensors (muxed)",
+     [f"LINE{k}_SENSE" for k in range(1, 9)] +
+     [n for i in range(6, 14) for n in [pin2net.get((sensor_parts(i)["led"], "2"))] if n]),
+    ("Line indicator LEDs (top, threshold)",
+     [n for k in range(1, 9) for n in (pin2net.get((f"D{14+k}", "1")), pin2net.get((f"D{14+k}", "2"))) if n and n.startswith("Net-")]),
+    ("Wall indicator LEDs (top, PMOS -- LED ON = wall seen)",
+     [n for k in range(1, 7) for n in (pin2net.get((f"Q{27+k}", "D")), pin2net.get((f"D{22+k}", "2"))) if n and n.startswith("Net-")]),
 ]
 
 def fmt_pins(nodes):
@@ -517,42 +450,21 @@ def fmt_pins(nodes):
 out = []
 out.append("# CONNECTIONS.md -- every net, every pin, and why\n")
 out.append(
-    "Generated by `tools/gen_connections.py` from `netlist.net` (the schematic's exported netlist, "
-    "itself ERC-clean and net-by-net verified -- see PROJECT_NOTES.md). Pin functions are annotated "
-    "from the exact KiCad library symbols used. **Regenerate this file after any schematic change** "
-    "-- the generator aborts if any net lacks a justification, so this document cannot silently "
-    "drift from the design.\n")
+    "Generated by `tools/gen_connections.py` from `netlist.net` (ERC-clean). **Regenerate "
+    "after any schematic change** -- the generator aborts if any net lacks a justification.\n")
 
-out.append("## How parts attach to this board (sockets vs. solder vs. plugs)\n")
+out.append("## How parts attach (rev 4)\n")
 out.append(
     "| Part | Attachment | Why |\n|---|---|---|\n"
-    "| Arduino Nano ESP32 (A1, SOLE controller) | **Socketed** -- the real Module:Arduino_Nano land pattern (two 1x15 rows, 15.24mm apart; fit female headers) | User decision (2026-07-13): the STM32 was dropped entirely to shrink the board; one ESP32-S3 dev board now does all control AND telemetry. The dev board brings its own USB-C, auto-reset, boot button, regulator and decoupling, and is flashed/debugged over that USB (or WiFi OTA). Pad order locked against the footprint's USB silk marker; identical to KiCad's Arduino Nano reference. |\n"
-    "| Motor driver (TB6612 breakout) | **Socketed** -- two 1x8 female headers (J10 control, J11 power+outputs) | User decision (2026-07-12): a socketed TB6612 carrier (e.g. SparkFun ROB-14451 / Pololu), not a bare SSOP-24. The breakout carries its own decoupling. **Pin order + row spacing vary by vendor -- verify against your actual board before fab.** |\n"
-    "| Motors (2x N20 + encoder) | **Pluggable** -- JST-PH 6-pin (J5, J6) | Motors are mechanical wear parts; JST-PH is the class of connector these motors ship with. Pin order is FUNCTIONAL (M+, M-, ENC_VCC, ENC_GND, ENC_A, ENC_B) -- verify against the real cable at assembly, resellers vary (PROJECT_NOTES). |\n"
-    "| Battery | **Pluggable** -- JST-XH 2-pin (J1) + JST-XH 3-pin balance (J3) | Standard 2S pack interfaces. Balance lead powers the voltage dividers -- unplug for storage (drain risk, see VBAT_PACK_SENSE). |\n"
-    "| Power switch | **Pluggable** -- 2-pin header (J2) | Chassis-mounted toggle, position depends on mechanical build. |\n"
-    "| Line-sensor optics (8x) | **SMD, bottom face** | User decision (2026-07-12): SMD IR LED (e.g. Osram SFH4045N) + SMD phototransistor (e.g. SFH320FA) on the board underside, looking down at the floor (~3mm ride height), 9.525mm QTR pitch. |\n"
-    "| Wall-sensor optics (6x), regulator, muxes, passives, button | **Soldered** | Wall sensors are THT with deliberate lead-forming (bent outward to aim at walls). The rest is permanent circuit fabric. |\n")
-
-out.append("## Reading a net entry\n")
-out.append(
-    "Each net lists its full pin membership as `REF.pin (pin function)`, then the engineering "
-    "justification. Sources referenced: Toshiba TB6612FNG datasheet, Nexperia HEF4067B datasheet, "
-    "Espressif ESP32-S3-MINI-1 datasheet + hardware design guidelines, Diodes AP63203 datasheet, "
-    "the ESP32-S3 datasheet/TRM (LEDC any-GPIO PWM, PCNT quadrature, ADC1-with-WiFi), Pololu QTR-8A documentation, "
-    "Peter Harrison's micromouse sensor writings, and the project research log (PROJECT_NOTES.md).\n")
-
-out.append("## Verification status of the load-bearing claims\n")
-out.append(
-    "The datasheet-dependent claims below were adversarially re-checked against PRIMARY sources by "
-    "independent agents instructed to refute them (2026-07-12). Results:\n\n"
-    "| Claim | Verdict | Primary source |\n|---|---|---|\n"
-    "| TB6612FNG full pinout + STBY active-low + VM/VCC ranges | **CONFIRMED** | Toshiba TB6612FNG datasheet, pin table p.2 / control table p.4 / ratings p.3 |\n"
-    "| HEF4067 active-low enable, 3.3V-capable, bidirectional analog | **CONFIRMED** | Nexperia HEF4067B Rev.11 |\n"
-    "| HEF4067 Ron at 3.3V | **Corrected** -- not \"hundreds of ohms\"; ~1k+ typ at mid-supply, multi-k worst case. Doc updated (see MUX_SENSE/*_LED): immaterial for the ADC divider, drives the choice of small-signal BSS138 over a power FET | Nexperia Rev.11 + TI CD4067B (no 3.3V Ron is published by either; extrapolated from 5V data) |\n"
-        "| AP63203 fixed-3.3V: FB direct to VOUT, 100nF BST cap, 3.3uH in-range, EN-to-VIN, 8.4V < Vin,max | **CONFIRMED** (3.9uH is the table's exact suggestion vs. our 3.3uH -- both in the 2.2-10uH range) | Diodes DS41326 Rev.3-2 |\n"
-    "| P-FET reverse protection: battery->DRAIN, load->SOURCE, gate->GND | Self-verified via body-diode analysis (workflow agent hit session limit); this is the textbook orientation and the doc's Net-(F1-Pad2) entry walks the proof | onsemi/TI reverse-polarity P-FET app notes |\n"
-    "| Nano header row order (D12..D1 digital row; D13,3V3,AREF,A0-A7,5V,RST,GND,VIN analog row; RESET on both) | Self-verified pad-for-pad against KiCad's bundled Arduino Nano reference PCB (workflow agent hit session limit) | `share/kicad/template/Arduino_Nano/Arduino_Nano.kicad_pcb` |\n")
+    "| ESP32-S3-WROOM-1 (U3, SOLE controller) | **SMD, soldered** | User decision 2026-07-15: the only ESP32 in stock KiCad with exact footprint AND 3D model; dual-core 240MHz FreeRTOS; 10 WiFi-safe ADC1 channels let all 6 wall sensors read directly. Antenna overhangs the right board edge (Espressif: interior placement disallowed). Use non-R8 modules or lose IO35/36 (buttons 2/3). |\n"
+    "| Motor driver (TB6612 breakout) | **Socketed** -- 2x 1x8 (J10/J11) | Verify vendor pin order before fab. |\n"
+    "| Motors (2x N20 + encoder) | **Pluggable** -- JST-PH 6-pin (J5/J6) | True-size mechanical footprints + 3D on the board (project n20 lib). Verify wire order at assembly. |\n"
+    "| Battery | **Pluggable** -- JST-PH 2-pin (J1), 1S LiPo | 1S = no balance lead; buck-boost makes 3V3. |\n"
+    "| USB-C (J7, REAR edge) | **SMD** GCT USB4105 | Flash + console via native USB; VBUS unused (battery powers the board). ESD array + 22R series per review. |\n"
+    "| JTAG (J8) | 1.27mm 2x5 header | ESP-Prog pinout on the S3's dedicated JTAG quad IO39-42. |\n"
+    "| Buttons | SW1 start/BOOT, SW3/SW4 menu, SW2 reset | 3 user buttons + reset (user requirement). |\n"
+    "| Line optics (8x) | **SMD, bottom face** | Daylight-filtered receivers REQUIRED (optical feedback from the red indicators). |\n"
+    "| Wall optics (6x), regulator, mux, passives | **Soldered** | Wall sensors THT with bent-lead aiming per Decimus practice. |\n")
 
 documented = set()
 for title, net_list in GROUPS:
@@ -565,24 +477,23 @@ for title, net_list in GROUPS:
             continue
         rationale = R.get(net)
         if not rationale:
-            continue  # caught by coverage check below
+            continue
         out.append(f"### `{net}`\n")
         out.append(f"**Pins:** {fmt_pins(nets[net])}\n")
         out.append(rationale + "\n")
         documented.add(net)
 
-# No-connects section
 nc_nets = sorted(n for n in nets if n.startswith("unconnected-"))
 out.append("\n## Deliberate no-connects\n")
-out.append("Every pin below carries an explicit no-connect flag in the schematic (ERC-checked), "
-           "not an accidental omission.\n\n| Pin | Function | Why unconnected |\n|---|---|---|\n")
+out.append("| Pin | Function | Why unconnected |\n|---|---|---|\n")
 for net in nc_nets:
-    (ref, pin), = nets[net]
+    nodes = nets[net]   # stacked symbol pins (e.g. the 4 VBUS pads) share one NC net
+    ref, pin = nodes[0]
+    pins_str = ", ".join(f"`{r}.{p}`" for r, p in nodes)
     nm = pin_name(ref, pin)
-    out.append(f"| `{ref}.{pin}` | {nm} | {nc_reason(ref, pin)} |\n")
+    out.append(f"| {pins_str} | {nm} | {nc_reason(ref, pin)} |\n")
     documented.add(net)
 
-# Coverage enforcement
 missing = [n for n in nets if n not in documented]
 if missing:
     print("FATAL: nets present in netlist but not documented:")

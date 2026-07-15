@@ -495,3 +495,102 @@ line array's first column; optically irrelevant since leads are bent to aim.
 - Mounting holes are circles on Edge.Cuts that the router's outline check
   does not see -- a VM_BATT track ran inside a hole's edge clearance (real
   DRC error). route_loaded.py now blocks a square around every hole.
+
+
+---
+
+## 2026-07-15 (later): rev 4 -- WROOM-1 module, 1S power, direct wall ADC, full I/O suite
+
+User requests, all in one sweep: (1) mux only for the line array, wall sensors
+on ESP32 analog pins; (2) exact ESP32 library footprint + 3D model; (3) exact
+N20 library; (4) an ESP32 with speed + RTOS; (5) 1S LiPo; (6) at least 3 user
+buttons; (7) USB-C at the rear; (8) JTAG debug outlet; (9) wall indicator LEDs
+on top too; (10) competition-grade emitter/receiver positioning. (Two 7-seg
+displays were requested then withdrawn.)
+
+**Controller: ESP32-S3-WROOM-1 (U3, SMD)**
+- The only ESP32 in stock KiCad with BOTH exact footprint and 3D STEP. Dual-core
+  LX7 @240MHz, FreeRTOS native. Bare module = 10 WiFi-safe ADC1 channels
+  (IO1-10), which is what makes direct wall-sensor reading possible at all
+  (the Nano dev board exposed only 8 analog pins; 6 wall + mux + battery = 8
+  fit exactly with zero spares -- the module gives headroom + the dedicated
+  USB pads + JTAG quad).
+- LOCKED PIN MAP in build_schematic.py (U3_NET). Highlights: IO1-6 walls,
+  IO7 mux common, IO8 battery; IO39-42 = the real JTAG quad -> J8 (2.54mm 1x6: 3V3,TMS,TCK,TDO,TDI,GND
+  -- a 1.27mm 2x5 proved UNROUTABLE at the 0.3mm no-inter-pin clearance); IO43/44 (UART0) = ENC2 via 1k series guards -- ADVERSARIAL-REVIEW
+  BLOCKER: IO43 is U0TXD, actively driven by the ROM at every boot, and would
+  fight a push-pull encoder driver-vs-driver without the guard. Console moves
+  to native USB-CDC (firmware: CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG).
+- Straps: IO0 = SW1 (start button doubles as BOOT -- hold SW1, tap SW2/reset
+  for download mode); IO45=BIN2, IO46=STBY as IDLE-LOW outputs with 10k
+  pull-downs (R65/R66) -- IO45 high at reset selects 1.8V VDD_SPI and bricks
+  the boot; the pull-downs also hold the motor driver disabled through boot.
+  NEVER add pull-ups to those two nets. IO35/36 = buttons 2/3 (gone on
+  octal-PSRAM -R8 modules -- sacrificial; use N16-class modules).
+- Antenna: Espressif guidelines (verified from the official PDF) DISALLOW
+  interior placement. Module sits on the RIGHT edge, rot=270, anchor
+  x=93.25 -> the antenna section AND the footprint's embedded keepout zone
+  land entirely off-board past x=100. Mid-edge overhang (corner is the gold
+  standard; both rear corners are wheels, both front corners are chamfered
+  sensor mounts). WiFi is telemetry-only.
+- Support circuit per Espressif: EN = 10k + 1uF + SW2; USB-C (rear, GCT
+  USB4105) -> USBLC6-2SC6 ESD array -> 22R series -> module USB pads; CC1/CC2
+  5.1k pull-downs; VBUS deliberately NC (battery powers the board -- flash
+  with the battery on, documented).
+
+**1S power (was 2S)**
+- TPS63001 BUCK-BOOST (a buck can't make 3.3V from a cell sagging below
+  ~3.8V); 1.2A covers WiFi bursts. TPS63000 base symbol instantiated (the
+  extends-skips-ERC workaround), 1.5uH between L1/L2, FB tied to VOUT (fixed
+  3.3V part), PS/SYNC low.
+- No balance connector; ONE divider (22k/33k -> 2.52V max: the S3 ADC's
+  calibrated range tops at ~2.9V with worst error near the top -- review
+  fix), tapped DOWNSTREAM of the switch (no storage drain).
+- Motors on raw 1S: TB6612 VM min 2.5V OK; ORDER 3V-WOUND N20s (a 6V wind at
+  3.7V gives ~60% speed). Fuse now 2A.
+
+**Sensor architecture rework**
+- U4 (single mux, line array only): swapped HEF4067BT -> CD74HC4067M -- the
+  CD4000-family part is only spec'd from 3V with kR-class Ron at 3.3V (review
+  catch); HC is ~70R. Pin geometry verified IDENTICAL. S3 tied low (8 ch).
+- U5 (write demux) DELETED. Emitters ganged UKMARS-style: front pair / diag
+  pair / side pair / line bank on four BSS138s (Q16-19, gates IO15/16/17/14,
+  100k boot pull-downs R62/63/64/61). Firing a wall pair + reading BOTH its
+  ADC channels in parallel halves scan time vs the serial mux walk.
+- Ref renumbering (regenerators updated): photos Q2-15, group FETs Q16-19,
+  line indicators Q20-27/D15-22/R41-48, wall indicators Q28-33/D23-28/R49-54.
+- WALL INDICATORS (new): 6 top-side LEDs near the front, PMOS-driven
+  (BSS84-class, Q_PMOS base symbol): wall reflection pulls the node LOW ->
+  PMOS on -> LED ON = wall seen (inverted vs the line indicators' NMOS
+  because the intuitive polarity flips). Same zero-DC-load gate principle.
+- WIRE-COLLISION BUG (real, caught in the netlist audit): the sensor loops'
+  Z-bend wires landed bend columns on unrelated pins every 6th sensor (lane
+  counter period 12 / 2 wires per iteration), folding D3/D9 anodes into
+  cathode nets and shorting two indicator drains into neighboring SENSE
+  nets. FIX: all loop passives are now x-aligned with their pin columns so
+  every generated wire is dead straight (no bends at all). Lesson recorded:
+  never Z-bend inside a repeated loop.
+
+**N20 library (project-local)**
+- Stock KiCad has NO N20 (checked). tools/gen_n20_lib.py generates
+  n20.pretty/N20_Motor_Encoder (pad-less mechanical footprint) +
+  n20.3dshapes/*.wrl (hand-authored VRML, 1 unit = 2.54mm). Dimensions from
+  Pololu's official drawing 0J949: gearbox 12.0x10.0x9.0 (+0.7 faceplate),
+  can dia12 flatted-10 x15.4, 3mm D-shaft x10; encoder extension is VENDOR-
+  DEPENDENT (~5-12mm; modeled 8 -- verify your unit). MOT1/MOT2 placed at
+  true positions; motor keep-outs enlarged to the TRUE 33mm body length --
+  which is also why the module could NOT go rear-center (31+31+18 > 100-24).
+
+**Board: still 100x114.** Rear strip (y>107) = USB-C + ESD + CC + battery +
+divider. Buttons row y=44 front-center. JTAG beside the module. 152
+footprints placed, 0 courtyard overlaps.
+
+
+Rev-4b DRC hardening (same day): min-through-drill 0.2 (WROOM/TPS in-pad
+thermal vias), hole-clearance 0.15 (GCT USB-C NPTH pattern), motor keep-outs
+allow the MOT footprints they represent (width trimmed to 20mm freeing the
+rear strip), J7 pulled to y=109.3 so its pads clear the rear edge rule, power
+rows moved to y=68/74 with the tall inductor + output cap in the inter-motor
+corridor, router mounting-hole keep-outs recomputed from the placement formula
+(they were stale -- tracks hugged the new hole positions), via-vs-keepout test
+now includes the via radius.

@@ -119,10 +119,15 @@ HEF4067_PINS = {
 }
 
 def HEF4067(ref, at, footprint="Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm"):
+    # Rev 4b: CD74HC4067M (HC family) replaces HEF4067BT -- the CD4000-family
+    # part is only specified from VDD=3V with kR-class Ron and slow switching
+    # at 3.3V (adversarial datasheet review); the HC part is ~70R and fast.
+    # Pin geometry verified IDENTICAL to the HEF symbol (pad-for-pad), so the
+    # HEF4067_PINS offsets stay valid.
     base = snap(at)
-    g.add_component("Analog_Switch", "HEF4067BT", ref, "HEF4067BT", base,
+    g.add_component("74xx", "CD74HC4067M", ref, "CD74HC4067M", base,
                      {str(n): "" for n in range(1, 25)}, footprint=footprint,
-                     datasheet="https://assets.nexperia.com/documents/data-sheet/HEF4067B.pdf")
+                     datasheet="https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf")
     return {name: pin_at(base, off) for name, off in HEF4067_PINS.items()}
 
 TB6612_PINS = {
@@ -217,9 +222,17 @@ def ref(prefix):
 # ---------------------------------------------------------------------------
 # POWER SECTION -- unchanged from build_power_mcu.py, battery input chain y=150
 # ---------------------------------------------------------------------------
-TXT("POWER", (10, 190), size=5)
+TXT("POWER  --  1S LiPo -> TPS63001 buck-boost -> 3V3", (10, 190), size=5)
 
-j1p1, j1p2 = CONN2("J1", "BATT_IN_2S", (20, 150), footprint="Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical")
+# 1S LiPo (3.0-4.2V). A plain buck (rev<=3's AP63203) cannot make 3.3V from a
+# cell that sags below ~3.8V, so the regulator is a TPS63001 BUCK-BOOST
+# (1.8-5.5V in, fixed 3.3V out, 1.2A -- covers ESP32-S3 WiFi bursts). Motors
+# run from the raw protected cell rail (TB6612 VM min 2.5V); order 3V-wound
+# N20 motors, a 6V wind at 3.7V gives ~60% speed. Single cell = no balance
+# connector and ONE battery divider, tapped DOWNSTREAM of the switch/fuse/FET
+# so a stored pack is never drained by the divider (fixes the rev<=3 balance-
+# lead storage-drain risk).
+j1p1, j1p2 = CONN2("J1", "BATT_IN_1S", (20, 150), footprint="Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical")
 RAIL("GND", j1p2, rotation=180)
 PWR("PWR_FLAG", j1p2)
 
@@ -227,19 +240,14 @@ j2p1, j2p2 = CONN2("J2", "EXT_SWITCH", (55, 150),
                     footprint="Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical")
 WIRE(j1p1, j2p1)
 
-f1p1, f1p2 = FUSE("F1", "3A_resettable", (90, 150))
+f1p1, f1p2 = FUSE("F1", "2A_resettable", (90, 150))
 WIRE(j2p2, f1p1)
 
-# Reverse-polarity protection P-MOSFET. Orientation matters and is easy to
-# get backwards (the first revision did): battery side must connect to the
-# DRAIN and the load rail to the SOURCE, gate pulled to GND. At power-up the
-# body diode (anode=drain, cathode=source on a P-FET) conducts battery ->
-# load, the gate then sits ~Vbatt below the source and the channel turns on,
-# shorting out the diode drop. With the battery REVERSED, the body diode is
-# reverse-biased and Vgs is positive, so both conduction paths block. The
-# original battery->source wiring would have conducted a reversed battery
-# straight through the body diode -- no protection at all.
-qD, qG, qS = QPMOS("Q1", "Q_PMOS (e.g. DMP2035U-7)", (125, 150))
+# Reverse-polarity P-MOSFET: battery -> DRAIN, load -> SOURCE, gate to GND
+# (see PROJECT_NOTES for the body-diode proof). At 1S the gate sees
+# -3.0..-4.2V -- use a low-threshold P-FET (DMP2035U: Vgs(th) ~-0.7V, fully
+# enhanced by -2.5V).
+qD, qG, qS = QPMOS("Q1", "Q_PMOS low-Vth (e.g. DMP2035U-7)", (125, 150))
 WIRE(f1p2, qD)
 
 r1p1, r1p2 = R("R1", "100k", (125, 115))
@@ -261,63 +269,68 @@ c4p1, c4p2 = C("C4", "10uF", (210, 150))
 RAIL("VM_BATT", c4p1, rotation=90)
 RAIL("GND", c4p2, rotation=270)
 
-U1_BASE = snap((240, 150))
-g.add_component("Regulator_Switching", "AP63200WU", "U1",
-                 "AP63203WU (fixed 3.3V; symbol is pin-compatible AP63200WU base)", U1_BASE,
-                 {"1": "", "2": "", "3": "", "4": "", "5": "", "6": ""},
-                 footprint="Package_TO_SOT_SMD:TSOT-23-6",
-                 datasheet="https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf")
-u1_fb  = pin_at(U1_BASE, (10.16, -2.54))
-u1_en  = pin_at(U1_BASE, (-10.16, -2.54))
-u1_in  = pin_at(U1_BASE, (-10.16, 2.54))
-u1_gnd = pin_at(U1_BASE, (0, -7.62))
-u1_sw  = pin_at(U1_BASE, (10.16, 2.54))
-u1_bst = pin_at(U1_BASE, (10.16, 0))
+# TPS63001 buck-boost. Instantiated as the TPS63000 BASE symbol (TPS63001
+# `extends` it, and extends-symbols silently skip ERC pin checks -- same
+# workaround as the AP63203/LD271/BSS138 cases, real part recorded in Value).
+# Fixed-3.3V version: FB ties directly to VOUT.
+U1_BASE = snap((250, 150))
+g.add_component("Regulator_Switching", "TPS63000", "U1",
+                 "TPS63001 (fixed 3.3V buck-boost; TPS63000 base symbol so ERC checks pins)",
+                 U1_BASE, {str(n): "" for n in range(1, 12)},
+                 footprint="Package_SON:Texas_DRC0010J_ThermalVias",
+                 datasheet="https://www.ti.com/lit/ds/symlink/tps63001.pdf")
+u1_vout = pin_at(U1_BASE, (10.16, 10.16))
+u1_l2   = pin_at(U1_BASE, (-10.16, -10.16))
+u1_pgnd = pin_at(U1_BASE, (0, -15.24))
+u1_l1   = pin_at(U1_BASE, (-10.16, 0))
+u1_vin  = pin_at(U1_BASE, (-10.16, 10.16))
+u1_en   = pin_at(U1_BASE, (-10.16, 5.08))
+u1_ps   = pin_at(U1_BASE, (-10.16, 2.54))
+u1_vina = pin_at(U1_BASE, (-10.16, 7.62))
+u1_gnd  = pin_at(U1_BASE, (-2.54, -15.24))
+u1_fb   = pin_at(U1_BASE, (10.16, 2.54))
 
-RAIL("VM_BATT", u1_en, rotation=180)
-RAIL("VM_BATT", u1_in, rotation=180)
+RAIL("VM_BATT", u1_vin, rotation=180)
+RAIL("VM_BATT", u1_en, rotation=180)     # always-on when battery switched on
+RAIL("VM_BATT", u1_vina, rotation=180)   # analog supply sense
+RAIL("GND", u1_ps, rotation=180)         # PS/SYNC low = power-save enabled
+RAIL("GND", u1_pgnd, rotation=270)
 RAIL("GND", u1_gnd, rotation=270)
-RAIL("PLUS3V3", u1_fb, rotation=0)
-PWR("PWR_FLAG", u1_fb)
+RAIL("PLUS3V3", u1_vout, rotation=0)
+# (no PWR_FLAG here: TPS63000's VOUT pin is already Power-Output typed --
+# adding a flag makes ERC flag two power outputs on one net)
+WIRE(u1_fb, pin_at(U1_BASE, (10.16, 10.16)))  # FB -> VOUT (fixed-voltage part)
 
-bst_p1, bst_p2 = L("L1", "3.3uH", (275, 152.54))
-WIRE(u1_sw, bst_p1)
-c3p1, c3p2 = C("C3", "100nF", (260, 130))
-WIRE(u1_bst, c3p1)
-WIRE(c3p2, u1_sw)
+# Buck-boost inductor between L1 and L2 pins (1.5uH per TPS63001 datasheet).
+bst_p1, bst_p2 = L("L1", "1.5uH", (222, 130))
+WIRE(u1_l1, bst_p1)
+WIRE(u1_l2, bst_p2)
 
-c5p1, c5p2 = C("C5", "22uF", (300, 152.54))
-WIRE(bst_p2, c5p1)
+c3p1, c3p2 = C("C3", "100nF", (238, 118))   # VINA filter (datasheet 0.1uF)
+WIRE(c3p1, u1_vina)
+RAIL("GND", c3p2, rotation=270)
+
+c5p1, c5p2 = C("C5", "22uF", (285, 150))
 RAIL("PLUS3V3", c5p1, rotation=90)
 RAIL("GND", c5p2, rotation=270)
 
-TXT("+3V3 is the single regulated logic rail: the ESP32 dev board, mux logic, encoder VCC,\nphototransistor pull-ups, and IR LED driver current all come from here (not raw VM_BATT).",
+TXT("+3V3 is the single regulated logic rail: the ESP32-S3 module, mux logic, encoder VCC,\nphototransistor pull-ups, indicator drivers and IR LED current all come from here.",
     (200, 100), size=2.2)
 
-j3p1, j3p2, j3p3 = CONN3("J3", "BATT_BALANCE_2S", (20, 60))
-RAIL("GND", j3p3, rotation=180)
-
-r2p1, r2p2 = R("R2", "10k", (60, 65))
-WIRE(j3p2, r2p1)
-r3p1, r3p2 = R("R3", "22k", (60, 40))
+# Battery voltage divider: VM_BATT (protected rail) -> R2/R3 -> VBAT_SENSE.
+# 10k/22k scales 4.2V max to 2.89V (inside the 3.3V ADC range). C6 low-passes
+# motor PWM noise. Tapped downstream of the switch so storage packs see no load.
+r2p1, r2p2 = R("R2", "22k", (60, 65))
+RAIL("VM_BATT", r2p1, rotation=90)
+r3p1, r3p2 = R("R3", "33k", (60, 40))
 WIRE(r2p2, r3p1)
 RAIL("GND", r3p2, rotation=270)
 c6p1, c6p2 = C("C6", "100nF", (80, 52))
 WIRE(r2p2, c6p1)
 RAIL("GND", c6p2, rotation=270)
-RAIL("VBAT_CELL1_SENSE", r2p2, rotation=0)
+RAIL("VBAT_SENSE", r2p2, rotation=0)
 
-r4p1, r4p2 = R("R4", "10k", (110, 65))
-WIRE(j3p1, r4p1)
-r5p1, r5p2 = R("R5", "6.2k", (110, 40))
-WIRE(r4p2, r5p1)
-RAIL("GND", r5p2, rotation=270)
-c7p1, c7p2 = C("C7", "100nF", (130, 52))
-WIRE(r4p2, c7p1)
-RAIL("GND", c7p2, rotation=270)
-RAIL("VBAT_PACK_SENSE", r4p2, rotation=0)
-
-TXT("VBAT_CELL1_SENSE = cell1 voltage (0-4.2V) scaled to <=2.9V.\nVBAT_PACK_SENSE = full pack voltage (0-8.4V) scaled to <=3.3V.\nFirmware computes cell2 = pack - cell1. Both wired to ESP32 ADC pins A2/A1\n(VBAT_PACK_SENSE/VBAT_CELL1_SENSE) -- see GPIO allocation table in PROJECT_NOTES.md.",
+TXT("VBAT_SENSE = cell voltage (0-4.2V) scaled to <=2.52V by 22k/33k (the S3 ADC calibrated\nrange tops at ~2.9V with worst error near the top -- keep headroom). Into ADC1 IO8.\nFirmware low-battery cutoff at 3.0V/cell. Single 1S cell: no balance lead.",
     (20, 20), size=2.2)
 
 # ---------------------------------------------------------------------------
@@ -400,106 +413,214 @@ TXT("10k pull-ups on all 4 encoder lines -- defensive: N20-encoder wire-color-to
     (10, 400), size=2.0)
 
 # ---------------------------------------------------------------------------
-# CONTROLLER -- socketed Arduino Nano ESP32 (ESP32-S3), the SOLE controller
+# CONTROLLER -- ESP32-S3-WROOM-1 SMD module (U3), the SOLE controller
 # ---------------------------------------------------------------------------
-# User decision (2026-07-13): the STM32 is DROPPED entirely. One ESP32-S3
-# (Arduino Nano ESP32) now does all real-time control AND wireless telemetry,
-# saving a whole socketed dev-board footprint plus the old UART flash-relay.
-# Modeled with the REAL KiCad footprint Module:Arduino_Nano (true ~18x45mm
-# board outline/courtyard) driven from ONE 30-pin symbol (Conn_02x15_Odd_Even),
-# whose pin numbers map 1:1 to the footprint pads. Pad->function mapping is
-# locked against the footprint's USB silk marker at (7.62, 35.56): footprint
-# pads 1-15 = analog row VIN..D13, pads 16-30 = digital row D12..D1 (identical
-# ordering to KiCad's Arduino Nano reference, which the old STM32 rows were
-# already verified against).
+# User decisions (2026-07-15): bare ESP32-S3-WROOM-1 module -- the only ESP32
+# in stock KiCad with BOTH an exact footprint AND a shipped 3D STEP model;
+# dual-core LX7 @ 240MHz + FreeRTOS (speed/RTOS requirement); 10 ADC1 channels
+# so all 6 wall sensors read DIRECTLY (mux only for the line array); plus a
+# rear USB-C for flashing, a JTAG header for debugging, and 3 user buttons.
 #
-# The control NET NAMES are unchanged from the STM32 design (STBY, PWMA, ENC1_A,
-# MUX_S0 ...), so every downstream consumer (TB6612 header J10/J11, motor
-# connectors J5/J6, muxes U4/U5, button SW1, battery dividers) is untouched --
-# only the pin that SOURCES each net moved here. ESP32 ADC inputs must be real
-# ADC pins, so the 3 analog nets (MUX_SENSE + both battery senses) sit on
-# A0/A1/A2; everything else is plain GPIO (LEDC PWM works on any pin).
-TXT("CONTROLLER  --  socketed Arduino Nano ESP32 (ESP32-S3): control + sensors + telemetry", (300, 230), size=5)
+# LOCKED PIN MAP (ADC1 = IO1..IO10 is the only WiFi-safe ADC):
+#   IO1-6  WALL1-6_SENSE   IO7 MUX_SENSE   IO8 VBAT_SENSE
+#   IO9/10 AIN1/AIN2 (ADC-capable pins spent as motor GPIOs)
+#   IO11-13 MUX_S0-2   IO14 LINE_EMIT   IO15-17 WALL_EMIT_FRONT/DIAG/SIDE
+#   IO18/21 PWMA/PWMB (LEDC)   IO38 BIN1
+#   IO45 BIN2 / IO46 STBY -- STRAPPING pins used as motor outputs: safe ONLY
+#     because they idle LOW and carry no pull-ups (IO45 high at reset would
+#     select 1.8V flash supply = brick; never add a pull-up to these nets)
+#   IO39-42 JTAG (MTCK/MTDO/MTDI/MTMS) -> J8, dedicated for debugging
+#   IO43(TXD0)/IO44(RXD0) ENC2_B/ENC2_A   IO47/48 ENC1_A/B  (console = USB-CDC)
+#   IO0 BTN1/BOOT   IO35/36 BTN2/BTN3 (internal pull-ups; on octal-PSRAM -R8
+#     modules IO35-37 are unavailable -> buttons 2/3 lost, control unaffected)
+#   IO37 spare (NC)
+TXT("CONTROLLER  --  ESP32-S3-WROOM-1 (dual-core 240MHz, FreeRTOS, WiFi): control + telemetry", (300, 230), size=5)
 
-A1_MAP = {
-    # analog row: footprint pads 1..15 = VIN,GND,RST,5V,A7,A6,A5,A4,A3,A2,A1,A0,AREF,3V3,D13
-    1:  None,               # VIN   -- NC (board powered via 3V3; never back-feed)
-    2:  "GND",              # GND
-    3:  None,               # RESET -- NC
-    4:  None,               # 5V    -- NC
-    5:  "USER_BTN",         # A7
-    6:  "LED_PULSE",        # A6
-    7:  "MUX_S3",           # A5
-    8:  "MUX_S2",           # A4
-    9:  "MUX_S1",           # A3
-    10: "VBAT_PACK_SENSE",  # A2  (ADC)
-    11: "VBAT_CELL1_SENSE", # A1  (ADC)
-    12: "MUX_SENSE",        # A0  (ADC)
-    13: None,               # AREF -- NC
-    14: "PLUS3V3",          # 3V3 -- powers the board from our regulated rail
-    15: "MUX_S0",           # D13
-    # digital row: footprint pads 16..30 = D12,D11,D10,D9,D8,D7,D6,D5,D4,D3,D2,GND,RST,D0,D1
-    16: "ENC1_A",           # D12
-    17: "ENC1_B",           # D11
-    18: "ENC2_A",           # D10
-    19: "ENC2_B",           # D9
-    20: "PWMA",             # D8
-    21: "PWMB",             # D7
-    22: "AIN1",             # D6
-    23: "AIN2",             # D5
-    24: "BIN1",             # D4
-    25: "BIN2",             # D3
-    26: "STBY",             # D2
-    27: "GND",              # GND
-    28: None,               # RESET -- NC
-    29: None,               # D0/RX -- NC (free for USB-serial debug)
-    30: None,               # D1/TX -- NC
+WROOM_PADS = {
+    "1": ("GND", (0, -27.94)),    "2": ("3V3", (0, 27.94)),     "3": ("EN", (-15.24, 22.86)),
+    "4": ("IO4", (-15.24, 7.62)), "5": ("IO5", (-15.24, 5.08)), "6": ("IO6", (-15.24, 2.54)),
+    "7": ("IO7", (-15.24, 0)),    "8": ("IO15", (-15.24, -20.32)), "9": ("IO16", (-15.24, -22.86)),
+    "10": ("IO17", (15.24, 17.78)), "11": ("IO18", (15.24, 15.24)), "12": ("IO8", (-15.24, -2.54)),
+    "13": ("USB_D-", (15.24, 12.7)), "14": ("USB_D+", (15.24, 10.16)), "15": ("IO3", (-15.24, 10.16)),
+    "16": ("IO46", (15.24, -17.78)), "17": ("IO9", (-15.24, -5.08)), "18": ("IO10", (-15.24, -7.62)),
+    "19": ("IO11", (-15.24, -10.16)), "20": ("IO12", (-15.24, -12.7)), "21": ("IO13", (-15.24, -15.24)),
+    "22": ("IO14", (-15.24, -17.78)), "23": ("IO21", (15.24, 7.62)), "24": ("IO47", (15.24, -20.32)),
+    "25": ("IO48", (15.24, -22.86)), "26": ("IO45", (15.24, -15.24)), "27": ("IO0", (-15.24, 17.78)),
+    "28": ("IO35", (15.24, 5.08)), "29": ("IO36", (15.24, 2.54)), "30": ("IO37", (15.24, 0)),
+    "31": ("IO38", (15.24, -2.54)), "32": ("IO39", (15.24, -5.08)), "33": ("IO40", (15.24, -7.62)),
+    "34": ("IO41", (15.24, -10.16)), "35": ("IO42", (15.24, -12.7)), "36": ("RXD0", (15.24, 20.32)),
+    "37": ("TXD0", (15.24, 22.86)), "38": ("IO2", (-15.24, 12.7)), "39": ("IO1", (-15.24, 15.24)),
+    "40": ("GND", (0, -27.94)),   "41": ("GND", (0, -27.94)),
 }
-
-def a1_pin(n):
-    # Conn_02x15_Odd_Even geometry (verified from the KiCad symbol): odd pins on
-    # the left (x=-5.08), even on the right (x=+7.62), rows top->bottom at
-    # y = 17.78 - 2.54*row. Pin number == footprint pad number.
-    if n % 2 == 1:
-        x, row = -5.08, (n - 1) // 2
-    else:
-        x, row = 7.62, (n - 2) // 2
-    return (x, 17.78 - 2.54 * row)
-
-A1_BASE = snap((360, 300))
-g.add_component("Connector_Generic", "Conn_02x15_Odd_Even", "A1",
-                "Arduino Nano ESP32 (ESP32-S3) -- sole controller, socketed",
-                A1_BASE, {str(n): "" for n in range(1, 31)},
-                footprint="Module:Arduino_Nano",
-                datasheet="https://docs.arduino.cc/hardware/nano-esp32")
-for _n in range(1, 31):
-    _pos = pin_at(A1_BASE, a1_pin(_n))
-    _net = A1_MAP[_n]
+U3_NET = {  # module pad -> net (None = explicit no-connect)
+    "2": "PLUS3V3", "3": "ESP_EN",
+    "39": "WALL1_SENSE", "38": "WALL2_SENSE", "15": "WALL3_SENSE",       # IO1-3
+    "4": "WALL4_SENSE", "5": "WALL5_SENSE", "6": "WALL6_SENSE",          # IO4-6
+    "7": "MUX_SENSE", "12": "VBAT_SENSE",                                # IO7/IO8
+    "17": "AIN1", "18": "AIN2",                                          # IO9/IO10
+    "19": "MUX_S0", "20": "MUX_S1", "21": "MUX_S2",                      # IO11-13
+    "22": "LINE_EMIT",                                                   # IO14
+    "8": "WALL_EMIT_FRONT", "9": "WALL_EMIT_DIAG", "10": "WALL_EMIT_SIDE",  # IO15-17
+    "11": "PWMA", "23": "PWMB",                                          # IO18/IO21
+    "28": "USER_BTN2", "29": "USER_BTN3", "30": None,                    # IO35/36, IO37 spare
+    "31": "BIN1",                                                        # IO38
+    "32": "JTAG_TCK", "33": "JTAG_TDO", "34": "JTAG_TDI", "35": "JTAG_TMS",  # IO39-42
+    "36": "ENC2_A_S3", "37": "ENC2_B_S3",   # IO44(RXD0)/IO43(TXD0) via 1k guards
+    "26": "BIN2", "16": "STBY",                                          # IO45/IO46 straps (idle-low outputs)
+    "24": "ENC1_A", "25": "ENC1_B",                                      # IO47/IO48
+    "27": "USER_BTN",                                                    # IO0 (BOOT strap)
+    "13": "USB_DM", "14": "USB_DP",
+    "1": "GND", "40": "GND", "41": "GND",
+}
+U3_BASE = snap((360, 300))
+g.add_component("RF_Module", "ESP32-S3-WROOM-1", "U3",
+                "ESP32-S3-WROOM-1-N16 (non-R8: octal-PSRAM variants lose IO35-37 = buttons 2/3)",
+                U3_BASE, {str(n): "" for n in range(1, 42)},
+                footprint="RF_Module:ESP32-S3-WROOM-1",
+                datasheet="https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf")
+_done_pos = set()
+for _pad, (_nm, _off) in WROOM_PADS.items():
+    _pos = pin_at(U3_BASE, _off)
+    if _pos in _done_pos:
+        continue                       # stacked GND pins (1/40/41) share one position
+    _done_pos.add(_pos)
+    _net = U3_NET[_pad]
     if _net is None:
         NC(_pos)
     elif _net == "GND":
         PWR("GND", _pos)
     else:
-        RAIL(_net, _pos, rotation=(180 if _n % 2 == 1 else 0))
+        RAIL(_net, _pos, rotation=(180 if _off[0] < 0 else 0))
 
-# 3V3 decoupling at the controller (kept as C8 from the old MCU section).
-c8p1, c8p2 = C("C8", "100nF", (A1_BASE[0] + 32, A1_BASE[1] + 12))
+# EN reset circuit per Espressif hardware design guidelines: 10k pull-up +
+# 1uF RC delay + reset button (SW2). Hold SW1 (IO0) + tap SW2 = ROM download.
+r11a, r11b = R("R11", "10k", (415, 258))
+RAIL("PLUS3V3", r11a, rotation=90)
+RAIL("ESP_EN", r11b, rotation=270)
+c9a, c9b = C("C9", "1uF", (430, 258))
+RAIL("ESP_EN", c9a, rotation=90)
+RAIL("GND", c9b, rotation=270)
+sw2a, sw2b = SWPUSH("SW2", (447, 265))
+RAIL("ESP_EN", sw2a, rotation=180)
+RAIL("GND", sw2b, rotation=0)
+
+# Module decoupling: 10uF bulk + 100nF.
+c10a, c10b = C("C10", "10uF", (415, 235))
+RAIL("PLUS3V3", c10a, rotation=90)
+RAIL("GND", c10b, rotation=270)
+c8p1, c8p2 = C("C8", "100nF", (430, 235))
 RAIL("PLUS3V3", c8p1, rotation=90)
 RAIL("GND", c8p2, rotation=270)
 
-TXT("Single ESP32-S3 runs everything: TB6612 (STBY/PWMA/PWMB/AIN*/BIN*), 4 encoder inputs,\n"
-    "the 2x HEF4067 sensor muxes (MUX_S0-S3 select, MUX_SENSE ADC, LED_PULSE), the two\n"
-    "battery-sense ADCs, and USER_BTN. Wi-Fi/BLE telemetry is built in; flashed over the\n"
-    "board's own USB-C -- no separate programmer or UART relay. The 3 analog nets are on\n"
-    "A0-A2 (real ADC pins). The Nano-ESP32 header-to-GPIO map, and which pins are\n"
-    "strapping/input-only, must be confirmed against the Arduino Nano ESP32 pinout in\n"
-    "firmware -- see PROJECT_NOTES.md.",
-    (300, 360), size=2.0)
+# USB-C receptacle (16P, GCT USB4105 class) at the REAR of the robot (user
+# requirement) for flashing + CDC console via the S3's native USB. CC1/CC2 get
+# 5.1k pull-downs (UFP). VBUS deliberately NOT connected: the board is battery
+# powered; back-feeding 3V3 from 5V VBUS would need a regulator + power mux.
+# Flash with the battery connected and switched on.
+J7_BASE = snap((480, 300))
+g.add_component("Connector", "USB_C_Receptacle_USB2.0_16P", "J7",
+                "USB-C rear (GCT USB4105; VBUS unused -- battery powers the board)",
+                J7_BASE, {k: "" for k in ["A1","A4","A5","A6","A7","A8","A9","A12",
+                                           "B1","B4","B5","B6","B7","B8","B9","B12","SH"]},
+                footprint="Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal",
+                datasheet="https://gct.co/files/drawings/usb4105.pdf")
+NC(pin_at(J7_BASE, (15.24, 15.24)))            # VBUS stack (A4/A9/B4/B9)
+NC(pin_at(J7_BASE, (15.24, -12.7)))            # SBU1
+NC(pin_at(J7_BASE, (15.24, -15.24)))           # SBU2
+rcc1a, rcc1b = R("R12", "5.1k", (508, 270))
+WIRE(rcc1a, pin_at(J7_BASE, (15.24, 10.16)))   # CC1
+RAIL("GND", rcc1b, rotation=270)
+rcc2a, rcc2b = R("R56", "5.1k", (518, 264))
+WIRE(rcc2a, pin_at(J7_BASE, (15.24, 7.62)))    # CC2
+RAIL("GND", rcc2b, rotation=270)
+RAIL("USB_DP_C", pin_at(J7_BASE, (15.24, -2.54)), rotation=0)   # D+ (A6)
+RAIL("USB_DP_C", pin_at(J7_BASE, (15.24, -5.08)), rotation=0)   # D+ (B6)
+RAIL("USB_DM_C", pin_at(J7_BASE, (15.24, 2.54)), rotation=0)    # D- (A7)
+RAIL("USB_DM_C", pin_at(J7_BASE, (15.24, 0)), rotation=0)       # D- (B7)
+PWR("GND", pin_at(J7_BASE, (0, -22.86)))                      # GND stack
+RAIL("GND", pin_at(J7_BASE, (-7.62, -22.86)), rotation=180)   # SHIELD
+
+
+# --- Verification-driven guard components (adversarial review 2026-07-15) ---
+# ENC2 series guards: IO43=U0TXD is DRIVEN by the ROM at every boot (prints
+# boot messages) while a push-pull encoder can drive the same node -- 1k in
+# series bounds the contention current; PCNT inputs are high-Z. Firmware must
+# set the console to USB-Serial-JTAG so UART0 is never re-enabled.
+re2a1, re2a2 = R("R57", "1k", (415, 330))
+RAIL("ENC2_A", re2a1, rotation=90)
+RAIL("ENC2_A_S3", re2a2, rotation=270)
+re2b1, re2b2 = R("R58", "1k", (430, 330))
+RAIL("ENC2_B", re2b1, rotation=90)
+RAIL("ENC2_B_S3", re2b2, rotation=270)
+
+# Emitter-gate pull-downs: IO14-17 float from power-on until app init (no
+# internal pulls at reset) -- 100k holds every emitter bank OFF through the
+# boot/brownout window.
+for _ref, _net, _gx in (("R61", "LINE_EMIT", 445), ("R62", "WALL_EMIT_FRONT", 455),
+                         ("R63", "WALL_EMIT_DIAG", 465), ("R64", "WALL_EMIT_SIDE", 475)):
+    _p1, _p2 = R(_ref, "100k", (_gx, 330))
+    RAIL(_net, _p1, rotation=90)
+    RAIL("GND", _p2, rotation=270)
+
+# Strap insurance: IO45 (BIN2) high at reset would switch VDD_SPI to 1.8V and
+# brick the boot; with the TB6612 breakout UNPLUGGED its trace is a floating
+# stub on a strap. 10k pull-downs guarantee both straps read low at reset and
+# double as motor-safety (STBY held low = driver disabled until firmware acts).
+rs45a, rs45b = R("R65", "10k", (490, 330))
+RAIL("BIN2", rs45a, rotation=90)
+RAIL("GND", rs45b, rotation=270)
+rs46a, rs46b = R("R66", "10k", (505, 330))
+RAIL("STBY", rs46a, rotation=90)
+RAIL("GND", rs46b, rotation=270)
+
+# USB ESD array (exposed user-handled connector on a robot) + 22R series
+# resistors near the module (Espressif schematic checklist). USBLC6 rail pin
+# clamps to +3V3 (VBUS is unused on this board).
+U6_BASE = snap((520, 300))
+# Base symbol USBLC6-2P6 instantiated directly (USBLC6-2SC6 `extends` it and
+# extends-symbols skip ERC pin checks -- the standing workaround); real SOT-23-6
+# part recorded in Value + footprint.
+g.add_component("Power_Protection", "USBLC6-2P6", "U6",
+                "USBLC6-2SC6 (SOT-23-6; 2P6 base symbol so ERC checks pins)",
+                U6_BASE, {str(n): "" for n in range(1, 7)},
+                footprint="Package_TO_SOT_SMD:SOT-23-6",
+                datasheet="https://www.st.com/resource/en/datasheet/usblc6-2.pdf")
+RAIL("USB_DM_C", pin_at(U6_BASE, (-5.08, 0)), rotation=180)    # I/O1 conn side
+RAIL("USB_DP_C", pin_at(U6_BASE, (-5.08, -2.54)), rotation=180)  # I/O2 conn side
+RAIL("GND", pin_at(U6_BASE, (0, -7.62)), rotation=270)
+RAIL("PLUS3V3", pin_at(U6_BASE, (0, 5.08)), rotation=90)
+ru1a, ru1b = R("R59", "22", (545, 295))
+WIRE(ru1a, pin_at(U6_BASE, (5.08, 0)))         # I/O1 module side
+RAIL("USB_DM", ru1b, rotation=270)
+ru2a, ru2b = R("R60", "22", (555, 289))
+WIRE(ru2a, pin_at(U6_BASE, (5.08, -2.54)))     # I/O2 module side
+RAIL("USB_DP", ru2b, rotation=270)
+
+# JTAG debug header (J8): 2.54mm 1x6 strip -- a 1.27mm 2x5 is UNROUTABLE at
+# this board's 0.3mm no-inter-pin clearance (0.53mm pad gaps; router-proven).
+# Order: 3V3, TMS, TCK, TDO, TDI, GND -- jumper-wire friendly to ESP-Prog.
+J8_JTAG = ["PLUS3V3", "JTAG_TMS", "JTAG_TCK", "JTAG_TDO", "JTAG_TDI", "GND"]
+j8 = CONN_COL("J8", "JTAG_1x6 (3V3,TMS,TCK,TDO,TDI,GND)", (530, 320), 6,
+              footprint="Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
+for _pos, _net in zip(j8, J8_JTAG):
+    if _net == "GND":
+        PWR("GND", _pos)
+    else:
+        RAIL(_net, _pos, rotation=180)
+
+TXT("ESP32-S3-WROOM-1 on FreeRTOS: 6 wall sensors DIRECT on ADC1 IO1-IO6 (a fired pair is\n"
+    "sampled in parallel), line array via U4 (IO7 + IO11-13), battery IO8, TB6612 on\n"
+    "IO9/10/18/21/38/45/46 (straps 45/46 = idle-low outputs ONLY -- never add pull-ups),\n"
+    "encoders IO43/44/47/48 (PCNT hardware quadrature via GPIO matrix), JTAG on the real\n"
+    "JTAG quad IO39-42 -> J8 (ESP-Prog). Buttons: SW1=IO0 (start/BOOT), SW3=IO35, SW4=IO36\n"
+    "(internal pull-ups). USB-C (rear) on the native USB pads = flash + console; UART0\n"
+    "pins repurposed as encoder inputs. Every analog net sits on ADC1 (IO1-IO8).",
+    (300, 368), size=2.0)
 
 # ---------------------------------------------------------------------------
 # CONNECTORS / DEBUG SECTION
 # ---------------------------------------------------------------------------
-TXT("CONNECTORS / DEBUG", (600, 230), size=5)
+TXT("USER INTERFACE  --  3 buttons", (600, 230), size=5)
 
 btn1, btn2 = SWPUSH("SW1", (620, 300))
 rbtn1, rbtn2 = R("R10", "10k", (640, 300))
@@ -508,7 +629,19 @@ RAIL("PLUS3V3", rbtn1, rotation=90)
 RAIL("USER_BTN", btn1, rotation=180)
 RAIL("GND", btn2, rotation=0)
 
-TXT("USER_BTN (ESP32 A7) -- active-low start-run button, pulled up to +3V3.\nStandard micromouse UX (arm, then start a run). One of the ESP32 analog-capable\npins; the full net/pin allocation is in PROJECT_NOTES.md.\n\nNo separate debug/programming header on this board: the Arduino Nano ESP32 is\nflashed over its own onboard USB-C, and firmware is updated the same way (or\nover-the-air via Wi-Fi). No BOOT0/SWD/UART-relay hardware is needed now that the\nSTM32 is gone -- the ESP32's native USB handles programming and console.",
+sw3a, sw3b = SWPUSH("SW3", (620, 330))
+RAIL("USER_BTN2", sw3a, rotation=180)
+RAIL("GND", sw3b, rotation=0)
+sw4a, sw4b = SWPUSH("SW4", (620, 350))
+RAIL("USER_BTN3", sw4a, rotation=180)
+RAIL("GND", sw4b, rotation=0)
+
+TXT("SW1 = USER_BTN on IO0: start-run button AND the BOOT strap (hold SW1, tap SW2=reset\n"
+    "-> ROM download mode). External 10k pull-up R10 keeps the strap solid.\n"
+    "SW3/SW4 = USER_BTN2/3 on IO35/IO36 (menu/select UX): active-low, firmware enables the\n"
+    "internal pull-ups -- no external resistors. NOTE: on octal-PSRAM (-R8) modules IO35/36\n"
+    "do not exist; buttons 2/3 are the sacrificial feature (control is unaffected).\n"
+    "SW2 (reset) lives in the controller section on ESP_EN.",
     (600, 260), size=2.0)
 
 # ---------------------------------------------------------------------------
@@ -521,8 +654,7 @@ TXT("IR SENSOR ARRAY  --  6 wall + 8 line sensors", (10, 420), size=5)
 # sensor reference numbers, which build_pcb.py and gen_connections.py depend
 # on (Q2..Q29 / R13..R40 / D1..D14). The sensor loop below re-seeds the Q/R/D
 # counters to fixed values to reproduce exactly that numbering.
-U4 = HEF4067("U4", (60, 500))   # read-mux: phototransistor commons -> MUX_SENSE (ADC)
-U5 = HEF4067("U5", (60, 440))   # write-demux: LED_PULSE -> selected emitter driver
+U4 = HEF4067("U4", (60, 500))   # read-mux: LINE phototransistor nodes -> MUX_SENSE (ADC1 IO7)
 
 RAIL("PLUS3V3", U4["VDD"], rotation=270)
 RAIL("GND", U4["VSS"], rotation=90)
@@ -530,29 +662,15 @@ RAIL("GND", U4["E"], rotation=180)   # inhibit tied low -- always enabled
 RAIL("MUX_S0", U4["A0"], rotation=180)
 RAIL("MUX_S1", U4["A1"], rotation=180)
 RAIL("MUX_S2", U4["A2"], rotation=180)
-RAIL("MUX_S3", U4["A3"], rotation=180)
+RAIL("GND", U4["A3"], rotation=180)  # only 8 channels used -> S3 tied low
 RAIL("MUX_SENSE", U4["Z"], rotation=180)
-NC(U4["Y14"])
-NC(U4["Y15"])
+for _ch in range(8, 16):             # Y8-Y15 unused (line array is Y0-Y7)
+    NC(U4[f"Y{_ch}"])
 c11a, c11b = C("C13", "100nF", (30, 470))
 WIRE(c11a, U4["VDD"])
 RAIL("GND", c11b, rotation=270)
 
-RAIL("PLUS3V3", U5["VDD"], rotation=270)
-RAIL("GND", U5["VSS"], rotation=90)
-RAIL("GND", U5["E"], rotation=180)
-RAIL("MUX_S0", U5["A0"], rotation=180)
-RAIL("MUX_S1", U5["A1"], rotation=180)
-RAIL("MUX_S2", U5["A2"], rotation=180)
-RAIL("MUX_S3", U5["A3"], rotation=180)
-RAIL("LED_PULSE", U5["Z"], rotation=180)
-NC(U5["Y14"])
-NC(U5["Y15"])
-c12a, c12b = C("C14", "100nF", (30, 410))
-WIRE(c12a, U5["VDD"])
-RAIL("GND", c12b, rotation=270)
-
-TXT("2x HEF4067BT 16-ch analog mux/demux, sharing select lines MUX_S0-S3.\nEach sensor: SFH309 phototransistor (collector -> 47k pull-up to +3V3 AND to its\nread-mux channel; emitter -> GND) + SFH4550 IR LED (anode -> current-limit resistor\n-> +3V3; cathode -> BSS138 low-side switch drain; switch source -> GND; switch gate\n-> its write-demux channel). Firmware pulses LED_PULSE while stepping MUX_S0-S3\nthrough one channel at a time (crosstalk avoidance), sampling MUX_SENSE 'bright' then\n'ambient' with the LED off, subtracting -- see PROJECT_NOTES.md IR sensor circuit design.\nCurrent-limit: wall 33R (~50mA pulsed) / line 120R (~15mA, latched-capable), sized for ~3.3V rail, SFH4550 Vf~1.35V typ, allowing\n~0.3-0.5V for the BSS138 switch's on-resistance at 3.3V gate drive (not independently\nverified against the BSS138 datasheet's Vgs=3.3V Rds(on) curve in this session --\ntune at bring-up if dimmer/brighter than expected).",
+TXT("ONE HEF4067 (line array only -- user decision 2026-07-15: wall sensors are read\ndirectly on ESP32 ADC1 pins). Each sensor: phototransistor (collector -> 47k pull-up\nto +3V3 AND to its readout node; emitter -> GND) + IR LED (anode -> current-limit\nresistor -> +3V3; cathode -> its GROUP's low-side switch). Emitters are GANGED:\nfront pair / diagonal pair / side pair / all-8 line bank, each on one BSS138 driven\nby its own GPIO (IO15/16/17/14). Firing a wall pair and sampling BOTH its ADC pins\nin the same pulse halves scan time vs the old serial mux walk; read bright, read\nambient (group off), subtract. Current-limit: wall 33R (~50mA pulsed) / line 120R\n(~15mA, latch-capable for line-follow + indicators). UKMARS-practice grouping keeps\nmutually-staring sensors on different groups.",
     (150, 460), size=2.0)
 
 # Re-seed the ref counters so the sensor loop reproduces exactly Q2..Q29,
@@ -606,31 +724,41 @@ for i, name in enumerate(SENSOR_NAMES):
         led_fp = "LED_SMD:LED_1206_3216Metric"
         led_val = "SMD IR LED 940nm (e.g. Osram SFH4045N)"
 
-    # receiver + pull-up, tied to the read-mux channel
+    # receiver + pull-up. WALL sensors: node goes STRAIGHT to an ESP32 ADC1
+    # pin (label only -- no mux). LINE sensors: node feeds read-mux channel
+    # Y0-Y7 (= LINE index).
     rx_c, rx_e = SFH309(ref("Q"), (x, row_y), footprint=photo_fp)
     RAIL("GND", rx_e, rotation=270)
-    rp1, rp2 = R(ref("R"), "47k", (x, row_y + 15))
+    # pull-up x-aligned with the collector pin -> straight vertical wire
+    rp1, rp2 = R(ref("R"), "47k", (x + 2.54, row_y + 15))
     WIRE(rp2, rx_c)
     RAIL("PLUS3V3", rp1, rotation=90)
     RAIL(f"{name}_SENSE", rx_c, rotation=0)
-    RAIL(f"{name}_SENSE", U4[ch], rotation=180 if HEF4067_PINS[ch][0] > 0 else 0)
+    if not is_wall:
+        ch = f"Y{i - 6}"
+        RAIL(f"{name}_SENSE", U4[ch], rotation=180 if HEF4067_PINS[ch][0] > 0 else 0)
 
-    # emitter + current-limit resistor + low-side switch, tied to the write-demux channel.
-    # Wall: 33R (~50mA pulsed, 60-180mm range). Line: 120R (~15mA) -- low enough
-    # for firmware to LATCH all 8 line emitters on continuously in line-follow
-    # mode (~120mA total), which is what makes the top-side indicator LEDs live
-    # (adversarial review: pulsed emitters leave the node ambient-dominated ~93%
-    # of the time; at ~3mm line range 15mA has ample margin, QTR-class boards
-    # run continuous at similar currents).
-    lr1, lr2 = R(ref("R"), "33" if is_wall else "120", (x + 16, row_y + 15))
+    # emitter + current-limit resistor; cathode joins its GROUP's switched
+    # net (one BSS138 per group, below) instead of a per-sensor switch.
+    # limiter x-aligned with the LED anode pin -> straight vertical wire
+    lr1, lr2 = R(ref("R"), "33" if is_wall else "120", (x + 18.54, row_y + 15))
     RAIL("PLUS3V3", lr1, rotation=90)
     led_k, led_a = LED_SFH4550(ref("D"), (x + 16, row_y), footprint=led_fp)
     WIRE(lr2, led_a)
-    sw_g, sw_s, sw_d = QN_BSS138(ref("Q"), (x + 16, row_y - 15))
-    WIRE(led_k, sw_d)
-    RAIL("GND", sw_s, rotation=270)
-    RAIL(f"{name}_LED", sw_g, rotation=180)
-    RAIL(f"{name}_LED", U5[ch], rotation=180 if HEF4067_PINS[ch][0] > 0 else 0)
+    _grp = ("EMIT_FRONT_K" if i < 2 else "EMIT_DIAG_K" if i < 4 else
+            "EMIT_SIDE_K" if i < 6 else "EMIT_LINE_K")
+    RAIL(_grp, led_k, rotation=180)
+
+# Group emitter switches: one BSS138 per group (Q16-Q19), gate driven directly
+# by an ESP32 GPIO (no demux -- U5 deleted in rev 4). Gate nets idle low.
+for _gref, _gate, _knet, _gx in ((None, "WALL_EMIT_FRONT", "EMIT_FRONT_K", 250),
+                                  (None, "WALL_EMIT_DIAG", "EMIT_DIAG_K", 320),
+                                  (None, "WALL_EMIT_SIDE", "EMIT_SIDE_K", 390),
+                                  (None, "LINE_EMIT", "EMIT_LINE_K", 460)):
+    _g, _s, _d = QN_BSS138(ref("Q"), (_gx, 620))
+    RAIL(_gate, _g, rotation=180)
+    RAIL("GND", _s, rotation=270)
+    RAIL(_knet, _d, rotation=0)
 
 # ---------------------------------------------------------------------------
 # LINE-SENSOR INDICATOR LEDs (user request 2026-07-15): one visible top-side
@@ -651,14 +779,15 @@ TXT("BSS138 gate on each LINEx_SENSE node (zero DC load: gate leakage <=100nA wo
 IND_ROW_Y = 700
 for k in range(1, 9):
     x = SENSOR_X0 + (k - 1) * SENSOR_DX
-    ind_g, ind_s, ind_d = QN_BSS138(ref("Q"), (x, IND_ROW_Y))          # Q30..Q37
+    ind_g, ind_s, ind_d = QN_BSS138(ref("Q"), (x, IND_ROW_Y))          # Q20..Q27
     RAIL(f"LINE{k}_SENSE", ind_g, rotation=180)
     RAIL("GND", ind_s, rotation=270)
-    ir1, ir2 = R(ref("R"), "1k", (x + 16, IND_ROW_Y + 15))             # R41..R48
+    ir1, ir2 = R(ref("R"), "1k", (x + 10.16, IND_ROW_Y + 15))          # R41..R48
     RAIL("PLUS3V3", ir1, rotation=90)
     # Same LD271 base symbol trick as the IR emitters (extends-skips-ERC), with
-    # the real intended part recorded in Value.
-    base = snap((x + 16, IND_ROW_Y))
+    # the real intended part recorded in Value. LED cathode x-aligned with the
+    # FET drain, limiter x-aligned with the anode -> straight wires, no bends.
+    base = snap((x + 7.62, IND_ROW_Y))
     g.add_component("LED", "LD271", ref("D"),                          # D15..D22
                      "Indicator LED 0603 super-red AlInGaP, high-efficiency bin REQUIRED at 1.4mA (e.g. Kingbright APT1608SURCK; LD271 base symbol for ERC)",
                      base, {"1": "", "2": ""},
@@ -666,6 +795,35 @@ for k in range(1, 9):
     ind_led_k, ind_led_a = pin_at(base, (-5.08, 0)), pin_at(base, (2.54, 0))
     WIRE(ir2, ind_led_a)
     WIRE(ind_led_k, ind_d)
+
+
+
+# ---------------------------------------------------------------------------
+# WALL-SENSOR INDICATOR LEDs (user request 2026-07-15): 6 top-side LEDs, one
+# per wall receiver. POLARITY IS INVERTED vs the line indicators: a wall
+# REFLECTION pulls the sense node LOW, so these use a P-channel FET (BSS84
+# class; Q_PMOS base symbol) -- source at +3V3, gate on the node, drain
+# sinking the LED through 1k. Node low (wall present) -> Vgs negative -> LED
+# ON = wall seen. Same zero-DC-load gate principle as the line indicators;
+# same threshold (not analog) behavior; meaningful while the wall emitters
+# are lit (latch a group in debug mode: 2x50mA, inside SFH4550 continuous
+# rating).
+TXT("WALL-SENSOR INDICATORS  --  6 top-side LEDs, LED ON = wall seen (PMOS, inverted node)", (10, 760), size=5)
+for k in range(1, 7):
+    x = SENSOR_X0 + (k - 1) * SENSOR_DX
+    wd, wg, ws = QPMOS(ref("Q"), "BSS84 (PMOS indicator driver; Q_PMOS base symbol)", (x, 800))   # Q28..Q33
+    RAIL(f"WALL{k}_SENSE", wg, rotation=180)
+    RAIL("PLUS3V3", ws, rotation=90)
+    wr1, wr2 = R(ref("R"), "1k", (x + 2.54, 815))                                   # R49..R54
+    WIRE(wd, wr1)   # straight vertical (aligned columns)
+    base = snap((x, 830))
+    g.add_component("LED", "LD271", ref("D"),                                       # D23..D28
+                     "Indicator LED 0603 super-red AlInGaP, high-eff bin (e.g. APT1608SURCK)",
+                     base, {"1": "", "2": ""},
+                     footprint="LED_SMD:LED_0603_1608Metric")
+    w_led_k, w_led_a = pin_at(base, (-5.08, 0)), pin_at(base, (2.54, 0))
+    WIRE(wr2, w_led_a)
+    RAIL("GND", w_led_k, rotation=180)
 
 with open(r"D:\Projects\micromouse-pcb\pcb\micromouse-pcb.kicad_sch", "w", encoding="utf-8", newline="\n") as f:
     f.write(g.render(title="Micromouse PCB"))

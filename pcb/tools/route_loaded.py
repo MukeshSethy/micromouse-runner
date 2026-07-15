@@ -45,16 +45,19 @@ for code, ni in g.board.GetNetsByNetcode().items():
 g._outline_pts = [(16, 0), (84, 0), (100, 16), (100, 114), (0, 114), (0, 16)]
 # Interior wheel slots (wheels inside the envelope) as router obstacles.
 AXLE_Y = 92
+# Slot rects padded +0.6: the copper-edge rule is 0.3 + half trace width, and
+# an exact-slot rect let a track legally-per-router hug the slot edge (real
+# DRC edge-clearance error at the slot corner).
 g._extra_keepouts = [
-    (3, AXLE_Y - 16, 12, AXLE_Y + 16),            # left wheel slot
-    (88, AXLE_Y - 16, 97, AXLE_Y + 16),           # right wheel slot
+    (2.4, AXLE_Y - 16.6, 12.6, AXLE_Y + 16.6),    # left wheel slot (+0.6 pad)
+    (87.4, AXLE_Y - 16.6, 97.6, AXLE_Y + 16.6),   # right wheel slot (+0.6 pad)
 ]
 # Mounting holes are circles on Edge.Cuts -- the outline check doesn't see
 # them, so a VM_BATT track once ran inside a hole's edge clearance (real DRC
 # error). Block a small square around each (hole r + copper-edge clearance).
-for (hx, hy, hr) in [(31, AXLE_Y - 12, 1.25), (31, AXLE_Y + 12, 1.25),
-                     (69, AXLE_Y - 12, 1.25), (69, AXLE_Y + 12, 1.25),
-                     (50, 4, 1.5)]:
+for (hx, hy, hr) in [(42, AXLE_Y - 12, 1.25), (42, AXLE_Y + 12, 1.25),
+                     (58, AXLE_Y - 12, 1.25), (58, AXLE_Y + 12, 1.25),
+                     (50, 4, 1.5)]:   # positions = WHEEL_INSET+THK+MOUNT_LEN-3 formula
     m = hr + 0.75
     g._extra_keepouts.append((hx - m, hy - m, hx + m, hy + m))
 
@@ -63,7 +66,9 @@ g._vias = []
 g._pads_geo_cache = None
 
 all_nets = sorted(set(g.pad_to_net.values()))
-skip = {"GND"}
+# GND rides the pours. The USB-C VBUS pads share one no-connect net (stacked
+# symbol pins) -- deliberately unconnected, don't route or count them.
+skip = {"GND"} | {n for n in set(g.pad_to_net.values()) if n.startswith("unconnected-")}
 
 def span(net):
     pads = [p for p in g._pads_geo() if p["net"] == net]
@@ -72,9 +77,18 @@ def span(net):
     xs = [p["cx"] for p in pads]; ys = [p["cy"] for p in pads]
     return math.hypot(max(xs) - min(xs), max(ys) - min(ys))
 
-POWER = {"VM_BATT", "PLUS3V3", "Net-(J1-Pin_1)", "Net-(J2-Pin_2)", "Net-(F1-Pad2)",
-         "MOTA_P", "MOTA_N", "MOTB_P", "MOTB_N", "Net-(U1-SW)"}
-sig = [n for n in all_nets if n not in skip and n not in POWER]
+# Power-class nets (0.5mm): battery chain, rails, motor phases, buck-boost
+# inductor nets, and the ganged emitter cathode nets (up to ~120mA).
+# Two power tiers: 0.5mm for coarse-pad nets (battery chain, motor phases,
+# emitter cathodes), 0.35mm for nets that must land on the TPS63001's 0.5mm-
+# pitch SON pads (a 0.5mm trace physically cannot escape a 0.28mm-wide pad
+# at 0.3mm clearance -- this is what left VM_BATT/PLUS3V3 edges unrouted).
+POWER = {"Net-(J1-Pin_1)", "Net-(J2-Pin_2)", "Net-(F1-Pad2)",
+         "MOTA_P", "MOTA_N", "MOTB_P", "MOTB_N"}
+POWER |= {n for n in set(g.pad_to_net.values()) if n.startswith("EMIT_")}
+FINE_POWER = {"VM_BATT", "PLUS3V3"}
+FINE_POWER |= {n for n in set(g.pad_to_net.values()) if "(U1-L" in n}
+sig = [n for n in all_nets if n not in skip and n not in POWER and n not in FINE_POWER]
 sig.sort(key=span, reverse=True)
 
 t0 = time.time()
@@ -91,14 +105,18 @@ print(f"[{time.time()-t0:.0f}s] signals done, {len(g._unrouted)} fails")
 for n in POWER:
     if n in all_nets:
         g.route_net(n, width_mm=0.5, clearance_mm=CLR, min_edge_mm=2.2, max_expansions=EXP)
+for n in FINE_POWER:
+    if n in all_nets:
+        g.route_net(n, width_mm=0.35, clearance_mm=CLR, min_edge_mm=2.2, max_expansions=EXP)
 print(f"[{time.time()-t0:.0f}s] power done, {len(g._unrouted)} fails")
 
 # ONE retry pass, bounded (no finer grid -- keeps total time sane).
 retry = list(g._unrouted); g._unrouted = []
 still = []
+def width_for(net):
+    return 0.5 if net in POWER else (0.35 if net in FINE_POWER else 0.3)
 for (net, p1, p2, reason) in retry:
-    w = 0.5 if net in POWER else 0.3
-    ok = g.retry_edge(net, p1, p2, width_mm=w, clearance_mm=CLR, max_expansions=400000)
+    ok = g.retry_edge(net, p1, p2, width_mm=width_for(net), clearance_mm=CLR, max_expansions=400000)
     if not ok:
         still.append((net, p1, p2, reason))
 print(f"[{time.time()-t0:.0f}s] retry done, {len(still)} left")
@@ -108,9 +126,8 @@ print(f"[{time.time()-t0:.0f}s] retry done, {len(still)} left")
 # the 0.5mm grid can't represent.
 retry2 = still; still = []
 for (net, p1, p2, reason) in retry2:
-    w = 0.5 if net in POWER else 0.3
-    ok = g.retry_edge(net, p1, p2, width_mm=w, clearance_mm=CLR,
-                      grid_mm=0.25, max_expansions=900000)
+    ok = g.retry_edge(net, p1, p2, width_mm=width_for(net), clearance_mm=CLR,
+                      grid_mm=0.25, max_expansions=1200000)
     if not ok:
         still.append((net, p1, p2, reason))
 print(f"[{time.time()-t0:.0f}s] fine-grid retry done, {len(still)} left")
