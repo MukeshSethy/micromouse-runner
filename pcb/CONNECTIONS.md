@@ -81,7 +81,7 @@ Bootstrap supply for the buck's high-side gate driver: U1.6 (BST) to C3.1 (100nF
 
 ### `PLUS3V3`
 
-**Pins:** `A1.14` (3V3), `C5.1`, `C8.1`, `C13.1`, `C14.1`, `J5.3` (ENC_VCC), `J6.3` (ENC_VCC), `J11.2` (VCC (+3V3)), `L1.2`, `R6.2`, `R7.2`, `R8.2`, `R9.2`, `R10.1`, `R13.1`, `R14.1`, `R15.1`, `R16.1`, `R17.1`, `R18.1`, `R19.1`, `R20.1`, `R21.1`, `R22.1`, `R23.1`, `R24.1`, `R25.1`, `R26.1`, `R27.1`, `R28.1`, `R29.1`, `R30.1`, `R31.1`, `R32.1`, `R33.1`, `R34.1`, `R35.1`, `R36.1`, `R37.1`, `R38.1`, `R39.1`, `R40.1`, `U1.1` (FB/VOUT-sense), `U4.24` (VDD), `U5.24` (VDD)
+**Pins:** `A1.14` (3V3), `C5.1`, `C8.1`, `C13.1`, `C14.1`, `J5.3` (ENC_VCC), `J6.3` (ENC_VCC), `J11.2` (VCC (+3V3)), `L1.2`, `R6.2`, `R7.2`, `R8.2`, `R9.2`, `R10.1`, `R13.1`, `R14.1`, `R15.1`, `R16.1`, `R17.1`, `R18.1`, `R19.1`, `R20.1`, `R21.1`, `R22.1`, `R23.1`, `R24.1`, `R25.1`, `R26.1`, `R27.1`, `R28.1`, `R29.1`, `R30.1`, `R31.1`, `R32.1`, `R33.1`, `R34.1`, `R35.1`, `R36.1`, `R37.1`, `R38.1`, `R39.1`, `R40.1`, `R41.1`, `R42.1`, `R43.1`, `R44.1`, `R45.1`, `R46.1`, `R47.1`, `R48.1`, `U1.1` (FB/VOUT-sense), `U4.24` (VDD), `U5.24` (VDD)
 
 The single regulated 3.3V logic rail, produced by U1 (AP63203WU buck) via L1 and sensed at its FB pin. A switching buck (not an LDO) was chosen because the ESP32-S3's WiFi TX bursts reach ~350-500mA, which an LDO from 8.4V would burn ~2.5W dissipating. Consumers, each justified: the Arduino Nano ESP32's 3V3 pin (A1.14 -- the dev board is powered from our regulated rail; do NOT power it via its USB while the battery is on, two supplies would fight); both mux VDD pins (U4/U5.24 -- HEF4067 supply must match the analog signal range, and phototransistor outputs swing 0..3.3V); all 14 phototransistor pull-ups (47k each, QTR-8A-style divider); all 14 IR-LED current-limit resistors (LED drive current is sized against the REGULATED rail so sensor brightness does not drift as the 2S pack discharges 8.4V to 6.0V -- a Peter Harrison micromouse design rule); the four encoder pull-ups and both motor-connector ENC_VCC pins (Hall encoder boards accept 3.3V, keeping encoder logic levels native to the ESP32); TB6612 VCC via the breakout header (logic side, 2.7-5.5V rated); and the USER_BTN pull-up.
 
@@ -90,7 +90,7 @@ The single regulated 3.3V logic rail, produced by U1 (AP63203WU buck) via L1 and
 
 ### `GND`
 
-**Pins:** `A1.2` (GND), `A1.27` (GND), `C1.2`, `C2.2`, `C4.2`, `C5.2`, `C6.2`, `C7.2`, `C8.2`, `C13.2`, `C14.2`, `J1.2` (BAT-), `J3.3` (PACK- (GND)), `J5.4` (ENC_GND), `J6.4` (ENC_GND), `J10.8` (GND), `J11.3` (GND), `J11.8` (GND), `Q2.2` (E (emitter)), `Q3.2` (S (source)), `Q4.2` (E (emitter)), `Q5.2` (S (source)), `Q6.2` (E (emitter)), `Q7.2` (S (source)), `Q8.2` (E (emitter)), `Q9.2` (S (source)), `Q10.2` (E (emitter)), `Q11.2` (S (source)), `Q12.2` (E (emitter)), `Q13.2` (S (source)), `Q14.2` (E (emitter)), `Q15.2` (S (source)), `Q16.2` (E (emitter)), `Q17.2` (S (source)), `Q18.2` (E (emitter)), `Q19.2` (S (source)), `Q20.2` (E (emitter)), `Q21.2` (S (source)), `Q22.2` (E (emitter)), `Q23.2` (S (source)), `Q24.2` (E (emitter)), `Q25.2` (S (source)), `Q26.2` (E (emitter)), `Q27.2` (S (source)), `Q28.2` (E (emitter)), `Q29.2` (S (source)), `R1.2`, `R3.2`, `R5.2`, `SW1.2`, `U1.4` (GND), `U4.12` (VSS), `U4.15` (~E), `U5.12` (VSS), `U5.15` (~E)
+**Pins:** `A1.2` (GND), `A1.27` (GND), `C1.2`, `C2.2`, `C4.2`, `C5.2`, `C6.2`, `C7.2`, `C8.2`, `C13.2`, `C14.2`, `J1.2` (BAT-), `J3.3` (PACK- (GND)), `J5.4` (ENC_GND), `J6.4` (ENC_GND), `J10.8` (GND), `J11.3` (GND), `J11.8` (GND), `Q2.2` (E (emitter)), `Q3.2` (S (source)), `Q4.2` (E (emitter)), `Q5.2` (S (source)), `Q6.2` (E (emitter)), `Q7.2` (S (source)), `Q8.2` (E (emitter)), `Q9.2` (S (source)), `Q10.2` (E (emitter)), `Q11.2` (S (source)), `Q12.2` (E (emitter)), `Q13.2` (S (source)), `Q14.2` (E (emitter)), `Q15.2` (S (source)), `Q16.2` (E (emitter)), `Q17.2` (S (source)), `Q18.2` (E (emitter)), `Q19.2` (S (source)), `Q20.2` (E (emitter)), `Q21.2` (S (source)), `Q22.2` (E (emitter)), `Q23.2` (S (source)), `Q24.2` (E (emitter)), `Q25.2` (S (source)), `Q26.2` (E (emitter)), `Q27.2` (S (source)), `Q28.2` (E (emitter)), `Q29.2` (S (source)), `Q30.2` (S (source)), `Q31.2` (S (source)), `Q32.2` (S (source)), `Q33.2` (S (source)), `Q34.2` (S (source)), `Q35.2` (S (source)), `Q36.2` (S (source)), `Q37.2` (S (source)), `R1.2`, `R3.2`, `R5.2`, `SW1.2`, `U1.4` (GND), `U4.12` (VSS), `U4.15` (~E), `U5.12` (VSS), `U5.15` (~E)
 
 System ground and current return for every subsystem. Both battery-negative terminals (J1.2 main lead, J3.3 balance lead) land here; all logic (the ESP32 controller, both muxes), all decoupling capacitors, every phototransistor emitter, every LED-switch source, all three push buttons, the divider bottoms, and the TB6612's logic GND plus both power grounds (PGND1/PGND2) return here. A single unified ground (no split analog/motor ground) is a deliberate 2-layer-board decision -- GND is poured as a full plane on BOTH copper layers of the PCB, which gives motor return currents a wide, low-inductance path without star-grounding complexity. TB6612's PGND pins carry the H-bridge return current; keeping them on the same net as logic GND matches Toshiba's reference application circuit.
 
@@ -269,7 +269,7 @@ Analog output of the front-left diagonal wall sensor (THT, leads bent to aim for
 
 **Pins:** `Q3.1` (G (gate)), `U5.9` (Y0)
 
-Gate-drive for the WALL1 emitter switch: write-demux channel Y0 (U5 pin 9) to the gate of Q3 (BSS138). With channel 0 selected and LED_PULSE high, Q3 sinks current through D1 (SFH4550, 940nm) from +3V3 via R14 (33R): roughly (3.3 - ~1.35Vf - Vds) / 33 = ~50mA class pulses, tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
+Gate-drive for the WALL1 emitter switch: write-demux channel Y0 (U5 pin 9) to the gate of Q3 (BSS138). With channel 0 selected and LED_PULSE high, Q3 sinks current through D1 (940nm emitter) from +3V3 via R14 (33R: ~50mA-class pulses for the 60-180mm wall range), tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
 
 ### `WALL2_SENSE`
 
@@ -281,7 +281,7 @@ Analog output of the front-right diagonal wall sensor (THT, leads bent to aim fo
 
 **Pins:** `Q5.1` (G (gate)), `U5.8` (Y1)
 
-Gate-drive for the WALL2 emitter switch: write-demux channel Y1 (U5 pin 8) to the gate of Q5 (BSS138). With channel 1 selected and LED_PULSE high, Q5 sinks current through D2 (SFH4550, 940nm) from +3V3 via R16 (33R): roughly (3.3 - ~1.35Vf - Vds) / 33 = ~50mA class pulses, tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
+Gate-drive for the WALL2 emitter switch: write-demux channel Y1 (U5 pin 8) to the gate of Q5 (BSS138). With channel 1 selected and LED_PULSE high, Q5 sinks current through D2 (940nm emitter) from +3V3 via R16 (33R: ~50mA-class pulses for the 60-180mm wall range), tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
 
 ### `WALL3_SENSE`
 
@@ -293,19 +293,19 @@ Analog output of the left-forward wall sensor (THT, leads bent to aim forward). 
 
 **Pins:** `Q7.1` (G (gate)), `U5.7` (Y2)
 
-Gate-drive for the WALL3 emitter switch: write-demux channel Y2 (U5 pin 7) to the gate of Q7 (BSS138). With channel 2 selected and LED_PULSE high, Q7 sinks current through D3 (SFH4550, 940nm) from +3V3 via R18 (33R): roughly (3.3 - ~1.35Vf - Vds) / 33 = ~50mA class pulses, tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
+Gate-drive for the WALL3 emitter switch: write-demux channel Y2 (U5 pin 7) to the gate of Q7 (BSS138). With channel 2 selected and LED_PULSE high, Q7 sinks current through D3 (940nm emitter) from +3V3 via R18 (33R: ~50mA-class pulses for the 60-180mm wall range), tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
 
 ### `WALL4_SENSE`
 
 **Pins:** `D4.2` (A (anode)), `Q8.1` (C (collector)), `R19.2`, `R20.2`, `U4.6` (Y3)
 
-WALL4 LED anode (D4.2) to the low side of its current-limit resistor (R20.2, 33R): +3V3 -> R20 -> anode; cathode switched to GND by Q9 sets the pulse current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
+WALL4 LED anode (D4.2) to the low side of its current-limit resistor (R20.2, 33R): +3V3 -> R20 -> anode; cathode switched to GND by Q9 sets the drive current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
 
 ### `WALL4_LED`
 
 **Pins:** `Q9.1` (G (gate)), `U5.6` (Y3)
 
-Gate-drive for the WALL4 emitter switch: write-demux channel Y3 (U5 pin 6) to the gate of Q9 (BSS138). With channel 3 selected and LED_PULSE high, Q9 sinks current through D4 (SFH4550, 940nm) from +3V3 via R20 (33R): roughly (3.3 - ~1.35Vf - Vds) / 33 = ~50mA class pulses, tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
+Gate-drive for the WALL4 emitter switch: write-demux channel Y3 (U5 pin 6) to the gate of Q9 (BSS138). With channel 3 selected and LED_PULSE high, Q9 sinks current through D4 (940nm emitter) from +3V3 via R20 (33R: ~50mA-class pulses for the 60-180mm wall range), tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
 
 ### `WALL5_SENSE`
 
@@ -317,19 +317,19 @@ Analog output of the left side wall sensor (THT, leads bent to aim left, 90 deg)
 
 **Pins:** `Q11.1` (G (gate)), `U5.5` (Y4)
 
-Gate-drive for the WALL5 emitter switch: write-demux channel Y4 (U5 pin 5) to the gate of Q11 (BSS138). With channel 4 selected and LED_PULSE high, Q11 sinks current through D5 (SFH4550, 940nm) from +3V3 via R22 (33R): roughly (3.3 - ~1.35Vf - Vds) / 33 = ~50mA class pulses, tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
+Gate-drive for the WALL5 emitter switch: write-demux channel Y4 (U5 pin 5) to the gate of Q11 (BSS138). With channel 4 selected and LED_PULSE high, Q11 sinks current through D5 (940nm emitter) from +3V3 via R22 (33R: ~50mA-class pulses for the 60-180mm wall range), tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
 
 ### `WALL6_SENSE`
 
 **Pins:** `D5.2` (A (anode)), `Q12.1` (C (collector)), `R22.2`, `R23.2`, `U4.4` (Y5)
 
-WALL5 LED anode (D5.2) to the low side of its current-limit resistor (R22.2, 33R): +3V3 -> R22 -> anode; cathode switched to GND by Q11 sets the pulse current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
+WALL5 LED anode (D5.2) to the low side of its current-limit resistor (R22.2, 33R): +3V3 -> R22 -> anode; cathode switched to GND by Q11 sets the drive current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
 
 ### `WALL6_LED`
 
 **Pins:** `Q13.1` (G (gate)), `U5.4` (Y5)
 
-Gate-drive for the WALL6 emitter switch: write-demux channel Y5 (U5 pin 4) to the gate of Q13 (BSS138). With channel 5 selected and LED_PULSE high, Q13 sinks current through D6 (SFH4550, 940nm) from +3V3 via R24 (33R): roughly (3.3 - ~1.35Vf - Vds) / 33 = ~50mA class pulses, tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
+Gate-drive for the WALL6 emitter switch: write-demux channel Y5 (U5 pin 4) to the gate of Q13 (BSS138). With channel 5 selected and LED_PULSE high, Q13 sinks current through D6 (940nm emitter) from +3V3 via R24 (33R: ~50mA-class pulses for the 60-180mm wall range), tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
 
 ### `Net-(D1-K)`
 
@@ -341,7 +341,7 @@ WALL1 LED cathode (D1.1) to its switch's drain (Q3.3). Local two-node net inside
 
 **Pins:** `D1.2` (A (anode)), `R14.2`
 
-WALL1 LED anode (D1.2) to the low side of its current-limit resistor (R14.2, 33R): +3V3 -> R14 -> anode; cathode switched to GND by Q3 sets the pulse current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
+WALL1 LED anode (D1.2) to the low side of its current-limit resistor (R14.2, 33R): +3V3 -> R14 -> anode; cathode switched to GND by Q3 sets the drive current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
 
 ### `Net-(D2-K)`
 
@@ -359,7 +359,7 @@ WALL3 LED cathode (D3.1) to its switch's drain (Q7.3). Local two-node net inside
 
 **Pins:** `D3.2` (A (anode)), `R18.2`
 
-WALL3 LED anode (D3.2) to the low side of its current-limit resistor (R18.2, 33R): +3V3 -> R18 -> anode; cathode switched to GND by Q7 sets the pulse current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
+WALL3 LED anode (D3.2) to the low side of its current-limit resistor (R18.2, 33R): +3V3 -> R18 -> anode; cathode switched to GND by Q7 sets the drive current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
 
 ### `Net-(D4-K)`
 
@@ -383,14 +383,14 @@ WALL6 LED cathode (D6.1) to its switch's drain (Q13.3). Local two-node net insid
 
 **Pins:** `D6.2` (A (anode)), `R24.2`
 
-WALL6 LED anode (D6.2) to the low side of its current-limit resistor (R24.2, 33R): +3V3 -> R24 -> anode; cathode switched to GND by Q13 sets the pulse current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
+WALL6 LED anode (D6.2) to the low side of its current-limit resistor (R24.2, 33R): +3V3 -> R24 -> anode; cathode switched to GND by Q13 sets the drive current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
 
 
 ## IR sensor matrix -- line sensors (SMD, bottom-face)
 
 ### `LINE1_SENSE`
 
-**Pins:** `Q14.1` (C (collector)), `R25.2`, `U4.3` (Y6)
+**Pins:** `Q14.1` (C (collector)), `Q30.1` (G (gate)), `R25.2`, `U4.3` (Y6)
 
 Analog output of the line sensor 1 of 8 (bottom-side mounted, faces the floor; 9.525mm pitch matching the Pololu QTR-8A reference). Q14 (SFH309) sits emitter-to-GND, collector pulled to +3V3 by R25 (47k, the Pololu QTR-8A reference value): more reflected 940nm IR -> more collector current -> LOWER voltage on this node. The node feeds read-mux channel Y6 (U4 pin 3); when firmware sets S3..S0=0110 (channel 6) it appears on MUX_SENSE for the ADC. Read 'bright' with the LED pulsed, 'ambient' with it off, subtract in firmware.
 
@@ -398,11 +398,11 @@ Analog output of the line sensor 1 of 8 (bottom-side mounted, faces the floor; 9
 
 **Pins:** `Q15.1` (G (gate)), `U5.3` (Y6)
 
-Gate-drive for the LINE1 emitter switch: write-demux channel Y6 (U5 pin 3) to the gate of Q15 (BSS138). With channel 6 selected and LED_PULSE high, Q15 sinks current through D7 (SFH4550, 940nm) from +3V3 via R26 (33R): roughly (3.3 - ~1.35Vf - Vds) / 33 = ~50mA class pulses, tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
+Gate-drive for the LINE1 emitter switch: write-demux channel Y6 (U5 pin 3) to the gate of Q15 (BSS138). With channel 6 selected and LED_PULSE high, Q15 sinks current through D7 (940nm emitter) from +3V3 via R26 (120R: ~15mA -- deliberately low so firmware can LATCH all 8 line emitters on continuously in line-follow mode, ~120mA total, which is what makes the top-side indicator LEDs live; ample margin at the ~3mm line range), tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
 
 ### `LINE2_SENSE`
 
-**Pins:** `Q16.1` (C (collector)), `R27.2`, `U4.2` (Y7)
+**Pins:** `Q16.1` (C (collector)), `Q31.1` (G (gate)), `R27.2`, `U4.2` (Y7)
 
 Analog output of the line sensor 2 of 8 (bottom-side mounted, faces the floor; 9.525mm pitch matching the Pololu QTR-8A reference). Q16 (SFH309) sits emitter-to-GND, collector pulled to +3V3 by R27 (47k, the Pololu QTR-8A reference value): more reflected 940nm IR -> more collector current -> LOWER voltage on this node. The node feeds read-mux channel Y7 (U4 pin 2); when firmware sets S3..S0=0111 (channel 7) it appears on MUX_SENSE for the ADC. Read 'bright' with the LED pulsed, 'ambient' with it off, subtract in firmware.
 
@@ -410,11 +410,11 @@ Analog output of the line sensor 2 of 8 (bottom-side mounted, faces the floor; 9
 
 **Pins:** `Q17.1` (G (gate)), `U5.2` (Y7)
 
-Gate-drive for the LINE2 emitter switch: write-demux channel Y7 (U5 pin 2) to the gate of Q17 (BSS138). With channel 7 selected and LED_PULSE high, Q17 sinks current through D8 (SFH4550, 940nm) from +3V3 via R28 (33R): roughly (3.3 - ~1.35Vf - Vds) / 33 = ~50mA class pulses, tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
+Gate-drive for the LINE2 emitter switch: write-demux channel Y7 (U5 pin 2) to the gate of Q17 (BSS138). With channel 7 selected and LED_PULSE high, Q17 sinks current through D8 (940nm emitter) from +3V3 via R28 (120R: ~15mA -- deliberately low so firmware can LATCH all 8 line emitters on continuously in line-follow mode, ~120mA total, which is what makes the top-side indicator LEDs live; ample margin at the ~3mm line range), tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
 
 ### `LINE3_SENSE`
 
-**Pins:** `Q18.1` (C (collector)), `R29.2`, `U4.23` (Y8)
+**Pins:** `Q18.1` (C (collector)), `Q32.1` (G (gate)), `R29.2`, `U4.23` (Y8)
 
 Analog output of the line sensor 3 of 8 (bottom-side mounted, faces the floor; 9.525mm pitch matching the Pololu QTR-8A reference). Q18 (SFH309) sits emitter-to-GND, collector pulled to +3V3 by R29 (47k, the Pololu QTR-8A reference value): more reflected 940nm IR -> more collector current -> LOWER voltage on this node. The node feeds read-mux channel Y8 (U4 pin 23); when firmware sets S3..S0=1000 (channel 8) it appears on MUX_SENSE for the ADC. Read 'bright' with the LED pulsed, 'ambient' with it off, subtract in firmware.
 
@@ -422,23 +422,23 @@ Analog output of the line sensor 3 of 8 (bottom-side mounted, faces the floor; 9
 
 **Pins:** `Q19.1` (G (gate)), `U5.23` (Y8)
 
-Gate-drive for the LINE3 emitter switch: write-demux channel Y8 (U5 pin 23) to the gate of Q19 (BSS138). With channel 8 selected and LED_PULSE high, Q19 sinks current through D9 (SFH4550, 940nm) from +3V3 via R30 (33R): roughly (3.3 - ~1.35Vf - Vds) / 33 = ~50mA class pulses, tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
+Gate-drive for the LINE3 emitter switch: write-demux channel Y8 (U5 pin 23) to the gate of Q19 (BSS138). With channel 8 selected and LED_PULSE high, Q19 sinks current through D9 (940nm emitter) from +3V3 via R30 (120R: ~15mA -- deliberately low so firmware can LATCH all 8 line emitters on continuously in line-follow mode, ~120mA total, which is what makes the top-side indicator LEDs live; ample margin at the ~3mm line range), tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
 
 ### `LINE4_SENSE`
 
-**Pins:** `D9.2` (A (anode)), `Q20.1` (C (collector)), `R30.2`, `R31.2`, `U4.22` (Y9)
+**Pins:** `D9.2` (A (anode)), `Q20.1` (C (collector)), `Q33.1` (G (gate)), `R30.2`, `R31.2`, `U4.22` (Y9)
 
-LINE3 LED anode (D9.2) to the low side of its current-limit resistor (R30.2, 33R): +3V3 -> R30 -> anode; cathode switched to GND by Q19 sets the pulse current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
+LINE3 LED anode (D9.2) to the low side of its current-limit resistor (R30.2, 120R): +3V3 -> R30 -> anode; cathode switched to GND by Q19 sets the drive current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
 
 ### `LINE4_LED`
 
 **Pins:** `Q21.1` (G (gate)), `U5.22` (Y9)
 
-Gate-drive for the LINE4 emitter switch: write-demux channel Y9 (U5 pin 22) to the gate of Q21 (BSS138). With channel 9 selected and LED_PULSE high, Q21 sinks current through D10 (SFH4550, 940nm) from +3V3 via R32 (33R): roughly (3.3 - ~1.35Vf - Vds) / 33 = ~50mA class pulses, tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
+Gate-drive for the LINE4 emitter switch: write-demux channel Y9 (U5 pin 22) to the gate of Q21 (BSS138). With channel 9 selected and LED_PULSE high, Q21 sinks current through D10 (940nm emitter) from +3V3 via R32 (120R: ~15mA -- deliberately low so firmware can LATCH all 8 line emitters on continuously in line-follow mode, ~120mA total, which is what makes the top-side indicator LEDs live; ample margin at the ~3mm line range), tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
 
 ### `LINE5_SENSE`
 
-**Pins:** `Q22.1` (C (collector)), `R33.2`, `U4.21` (Y10)
+**Pins:** `Q22.1` (C (collector)), `Q34.1` (G (gate)), `R33.2`, `U4.21` (Y10)
 
 Analog output of the line sensor 5 of 8 (bottom-side mounted, faces the floor; 9.525mm pitch matching the Pololu QTR-8A reference). Q22 (SFH309) sits emitter-to-GND, collector pulled to +3V3 by R33 (47k, the Pololu QTR-8A reference value): more reflected 940nm IR -> more collector current -> LOWER voltage on this node. The node feeds read-mux channel Y10 (U4 pin 21); when firmware sets S3..S0=1010 (channel 10) it appears on MUX_SENSE for the ADC. Read 'bright' with the LED pulsed, 'ambient' with it off, subtract in firmware.
 
@@ -446,23 +446,23 @@ Analog output of the line sensor 5 of 8 (bottom-side mounted, faces the floor; 9
 
 **Pins:** `Q23.1` (G (gate)), `U5.21` (Y10)
 
-Gate-drive for the LINE5 emitter switch: write-demux channel Y10 (U5 pin 21) to the gate of Q23 (BSS138). With channel 10 selected and LED_PULSE high, Q23 sinks current through D11 (SFH4550, 940nm) from +3V3 via R34 (33R): roughly (3.3 - ~1.35Vf - Vds) / 33 = ~50mA class pulses, tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
+Gate-drive for the LINE5 emitter switch: write-demux channel Y10 (U5 pin 21) to the gate of Q23 (BSS138). With channel 10 selected and LED_PULSE high, Q23 sinks current through D11 (940nm emitter) from +3V3 via R34 (120R: ~15mA -- deliberately low so firmware can LATCH all 8 line emitters on continuously in line-follow mode, ~120mA total, which is what makes the top-side indicator LEDs live; ample margin at the ~3mm line range), tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
 
 ### `LINE6_SENSE`
 
-**Pins:** `Q24.1` (C (collector)), `R35.2`, `U4.20` (Y11)
+**Pins:** `D19.1` (K (cathode)), `D19.2` (A (anode)), `Q24.1` (C (collector)), `Q34.3` (D (drain)), `Q35.1` (G (gate)), `R35.2`, `R45.2`, `U4.20` (Y11)
 
-Analog output of the line sensor 6 of 8 (bottom-side mounted, faces the floor; 9.525mm pitch matching the Pololu QTR-8A reference). Q24 (SFH309) sits emitter-to-GND, collector pulled to +3V3 by R35 (47k, the Pololu QTR-8A reference value): more reflected 940nm IR -> more collector current -> LOWER voltage on this node. The node feeds read-mux channel Y11 (U4 pin 20); when firmware sets S3..S0=1011 (channel 11) it appears on MUX_SENSE for the ADC. Read 'bright' with the LED pulsed, 'ambient' with it off, subtract in firmware.
+LINE5 indicator LED anode (D19.2) to its 1k current limiter (R45.2) from +3V3: ~(3.3 - ~1.85Vf)/1k = ~1.4mA when on -- deliberately modest (8 indicators add ~11mA worst case). BOM: high-efficiency AlInGaP super-red bin REQUIRED (e.g. Kingbright APT1608SURCK) -- a standard-efficiency red is washed out in daylight at this current; do NOT raise the current or switch to InGaN colors (green/blue/white Vf 2.7-3.2V leaves no headroom on 3.3V).
 
 ### `LINE6_LED`
 
 **Pins:** `Q25.1` (G (gate)), `U5.20` (Y11)
 
-Gate-drive for the LINE6 emitter switch: write-demux channel Y11 (U5 pin 20) to the gate of Q25 (BSS138). With channel 11 selected and LED_PULSE high, Q25 sinks current through D12 (SFH4550, 940nm) from +3V3 via R36 (33R): roughly (3.3 - ~1.35Vf - Vds) / 33 = ~50mA class pulses, tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
+Gate-drive for the LINE6 emitter switch: write-demux channel Y11 (U5 pin 20) to the gate of Q25 (BSS138). With channel 11 selected and LED_PULSE high, Q25 sinks current through D12 (940nm emitter) from +3V3 via R36 (120R: ~15mA -- deliberately low so firmware can LATCH all 8 line emitters on continuously in line-follow mode, ~120mA total, which is what makes the top-side indicator LEDs live; ample margin at the ~3mm line range), tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
 
 ### `LINE7_SENSE`
 
-**Pins:** `Q26.1` (C (collector)), `R37.2`, `U4.19` (Y12)
+**Pins:** `Q26.1` (C (collector)), `Q36.1` (G (gate)), `R37.2`, `U4.19` (Y12)
 
 Analog output of the line sensor 7 of 8 (bottom-side mounted, faces the floor; 9.525mm pitch matching the Pololu QTR-8A reference). Q26 (SFH309) sits emitter-to-GND, collector pulled to +3V3 by R37 (47k, the Pololu QTR-8A reference value): more reflected 940nm IR -> more collector current -> LOWER voltage on this node. The node feeds read-mux channel Y12 (U4 pin 19); when firmware sets S3..S0=1100 (channel 12) it appears on MUX_SENSE for the ADC. Read 'bright' with the LED pulsed, 'ambient' with it off, subtract in firmware.
 
@@ -470,97 +470,178 @@ Analog output of the line sensor 7 of 8 (bottom-side mounted, faces the floor; 9
 
 **Pins:** `Q27.1` (G (gate)), `U5.19` (Y12)
 
-Gate-drive for the LINE7 emitter switch: write-demux channel Y12 (U5 pin 19) to the gate of Q27 (BSS138). With channel 12 selected and LED_PULSE high, Q27 sinks current through D13 (SFH4550, 940nm) from +3V3 via R38 (33R): roughly (3.3 - ~1.35Vf - Vds) / 33 = ~50mA class pulses, tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
+Gate-drive for the LINE7 emitter switch: write-demux channel Y12 (U5 pin 19) to the gate of Q27 (BSS138). With channel 12 selected and LED_PULSE high, Q27 sinks current through D13 (940nm emitter) from +3V3 via R38 (120R: ~15mA -- deliberately low so firmware can LATCH all 8 line emitters on continuously in line-follow mode, ~120mA total, which is what makes the top-side indicator LEDs live; ample margin at the ~3mm line range), tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
 
 ### `LINE8_SENSE`
 
-**Pins:** `D13.2` (A (anode)), `Q28.1` (C (collector)), `R38.2`, `R39.2`, `U4.18` (Y13)
+**Pins:** `D13.2` (A (anode)), `Q28.1` (C (collector)), `Q37.1` (G (gate)), `R38.2`, `R39.2`, `U4.18` (Y13)
 
-LINE7 LED anode (D13.2) to the low side of its current-limit resistor (R38.2, 33R): +3V3 -> R38 -> anode; cathode switched to GND by Q27 sets the pulse current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
+LINE7 LED anode (D13.2) to the low side of its current-limit resistor (R38.2, 120R): +3V3 -> R38 -> anode; cathode switched to GND by Q27 sets the drive current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
 
 ### `LINE8_LED`
 
 **Pins:** `Q29.1` (G (gate)), `U5.18` (Y13)
 
-Gate-drive for the LINE8 emitter switch: write-demux channel Y13 (U5 pin 18) to the gate of Q29 (BSS138). With channel 13 selected and LED_PULSE high, Q29 sinks current through D14 (SFH4550, 940nm) from +3V3 via R40 (33R): roughly (3.3 - ~1.35Vf - Vds) / 33 = ~50mA class pulses, tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
+Gate-drive for the LINE8 emitter switch: write-demux channel Y13 (U5 pin 18) to the gate of Q29 (BSS138). With channel 13 selected and LED_PULSE high, Q29 sinks current through D14 (940nm emitter) from +3V3 via R40 (120R: ~15mA -- deliberately low so firmware can LATCH all 8 line emitters on continuously in line-follow mode, ~120mA total, which is what makes the top-side indicator LEDs live; ample margin at the ~3mm line range), tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small logic FET, NOT a power FET) gives sub-microsecond gate settling, comfortably inside a 60-100us LED pulse. (This is why a small-signal BSS138 was chosen over a power MOSFET -- a power FET's nF-class Ciss through the mux Ron would eat 5-30% of the pulse.) See LED_PULSE for the mandatory gate-discharge firmware rule that handles the floating deselected gate.
 
 ### `Net-(D7-K)`
 
 **Pins:** `D7.1` (K (cathode)), `Q15.3` (D (drain))
 
-LINE1 LED cathode (D7.1) to its switch's drain (Q15.3). Local two-node net inside the LINE1 driver: +3V3 -> R26 33R -> LED anode, LED cathode -> Q15 drain, source -> GND. Low-side switching keeps the gate drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).
+LINE1 LED cathode (D7.1) to its switch's drain (Q15.3). Local two-node net inside the LINE1 driver: +3V3 -> R26 120R -> LED anode, LED cathode -> Q15 drain, source -> GND. Low-side switching keeps the gate drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).
 
 ### `Net-(D7-A)`
 
 **Pins:** `D7.2` (A (anode)), `R26.2`
 
-LINE1 LED anode (D7.2) to the low side of its current-limit resistor (R26.2, 33R): +3V3 -> R26 -> anode; cathode switched to GND by Q15 sets the pulse current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
+LINE1 LED anode (D7.2) to the low side of its current-limit resistor (R26.2, 120R): +3V3 -> R26 -> anode; cathode switched to GND by Q15 sets the drive current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
 
 ### `Net-(D8-K)`
 
 **Pins:** `D8.1` (K (cathode)), `Q17.3` (D (drain))
 
-LINE2 LED cathode (D8.1) to its switch's drain (Q17.3). Local two-node net inside the LINE2 driver: +3V3 -> R28 33R -> LED anode, LED cathode -> Q17 drain, source -> GND. Low-side switching keeps the gate drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).
+LINE2 LED cathode (D8.1) to its switch's drain (Q17.3). Local two-node net inside the LINE2 driver: +3V3 -> R28 120R -> LED anode, LED cathode -> Q17 drain, source -> GND. Low-side switching keeps the gate drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).
 
 ### `Net-(D8-A)`
 
 **Pins:** `D8.2` (A (anode)), `R28.2`
 
-LINE2 LED anode (D8.2) to the low side of its current-limit resistor (R28.2, 33R): +3V3 -> R28 -> anode; cathode switched to GND by Q17 sets the pulse current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
+LINE2 LED anode (D8.2) to the low side of its current-limit resistor (R28.2, 120R): +3V3 -> R28 -> anode; cathode switched to GND by Q17 sets the drive current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
 
 ### `Net-(D9-K)`
 
 **Pins:** `D9.1` (K (cathode)), `Q19.3` (D (drain))
 
-LINE3 LED cathode (D9.1) to its switch's drain (Q19.3). Local two-node net inside the LINE3 driver: +3V3 -> R30 33R -> LED anode, LED cathode -> Q19 drain, source -> GND. Low-side switching keeps the gate drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).
+LINE3 LED cathode (D9.1) to its switch's drain (Q19.3). Local two-node net inside the LINE3 driver: +3V3 -> R30 120R -> LED anode, LED cathode -> Q19 drain, source -> GND. Low-side switching keeps the gate drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).
 
 ### `Net-(D10-K)`
 
 **Pins:** `D10.1` (K (cathode)), `Q21.3` (D (drain))
 
-LINE4 LED cathode (D10.1) to its switch's drain (Q21.3). Local two-node net inside the LINE4 driver: +3V3 -> R32 33R -> LED anode, LED cathode -> Q21 drain, source -> GND. Low-side switching keeps the gate drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).
+LINE4 LED cathode (D10.1) to its switch's drain (Q21.3). Local two-node net inside the LINE4 driver: +3V3 -> R32 120R -> LED anode, LED cathode -> Q21 drain, source -> GND. Low-side switching keeps the gate drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).
 
 ### `Net-(D10-A)`
 
 **Pins:** `D10.2` (A (anode)), `D11.1` (K (cathode)), `Q23.3` (D (drain)), `R32.2`
 
-LINE5 LED cathode (D11.1) to its switch's drain (Q23.3). Local two-node net inside the LINE5 driver: +3V3 -> R34 33R -> LED anode, LED cathode -> Q23 drain, source -> GND. Low-side switching keeps the gate drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).
+LINE5 LED cathode (D11.1) to its switch's drain (Q23.3). Local two-node net inside the LINE5 driver: +3V3 -> R34 120R -> LED anode, LED cathode -> Q23 drain, source -> GND. Low-side switching keeps the gate drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).
 
 ### `Net-(D11-A)`
 
 **Pins:** `D11.2` (A (anode)), `R34.2`
 
-LINE5 LED anode (D11.2) to the low side of its current-limit resistor (R34.2, 33R): +3V3 -> R34 -> anode; cathode switched to GND by Q23 sets the pulse current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
+LINE5 LED anode (D11.2) to the low side of its current-limit resistor (R34.2, 120R): +3V3 -> R34 -> anode; cathode switched to GND by Q23 sets the drive current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
 
 ### `Net-(D12-K)`
 
 **Pins:** `D12.1` (K (cathode)), `Q25.3` (D (drain))
 
-LINE6 LED cathode (D12.1) to its switch's drain (Q25.3). Local two-node net inside the LINE6 driver: +3V3 -> R36 33R -> LED anode, LED cathode -> Q25 drain, source -> GND. Low-side switching keeps the gate drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).
+LINE6 LED cathode (D12.1) to its switch's drain (Q25.3). Local two-node net inside the LINE6 driver: +3V3 -> R36 120R -> LED anode, LED cathode -> Q25 drain, source -> GND. Low-side switching keeps the gate drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).
 
 ### `Net-(D12-A)`
 
 **Pins:** `D12.2` (A (anode)), `R36.2`
 
-LINE6 LED anode (D12.2) to the low side of its current-limit resistor (R36.2, 33R): +3V3 -> R36 -> anode; cathode switched to GND by Q25 sets the pulse current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
+LINE6 LED anode (D12.2) to the low side of its current-limit resistor (R36.2, 120R): +3V3 -> R36 -> anode; cathode switched to GND by Q25 sets the drive current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
 
 ### `Net-(D13-K)`
 
 **Pins:** `D13.1` (K (cathode)), `Q27.3` (D (drain))
 
-LINE7 LED cathode (D13.1) to its switch's drain (Q27.3). Local two-node net inside the LINE7 driver: +3V3 -> R38 33R -> LED anode, LED cathode -> Q27 drain, source -> GND. Low-side switching keeps the gate drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).
+LINE7 LED cathode (D13.1) to its switch's drain (Q27.3). Local two-node net inside the LINE7 driver: +3V3 -> R38 120R -> LED anode, LED cathode -> Q27 drain, source -> GND. Low-side switching keeps the gate drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).
 
 ### `Net-(D14-K)`
 
 **Pins:** `D14.1` (K (cathode)), `Q29.3` (D (drain))
 
-LINE8 LED cathode (D14.1) to its switch's drain (Q29.3). Local two-node net inside the LINE8 driver: +3V3 -> R40 33R -> LED anode, LED cathode -> Q29 drain, source -> GND. Low-side switching keeps the gate drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).
+LINE8 LED cathode (D14.1) to its switch's drain (Q29.3). Local two-node net inside the LINE8 driver: +3V3 -> R40 120R -> LED anode, LED cathode -> Q29 drain, source -> GND. Low-side switching keeps the gate drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).
 
 ### `Net-(D14-A)`
 
 **Pins:** `D14.2` (A (anode)), `R40.2`
 
-LINE8 LED anode (D14.2) to the low side of its current-limit resistor (R40.2, 33R): +3V3 -> R40 -> anode; cathode switched to GND by Q29 sets the pulse current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
+LINE8 LED anode (D14.2) to the low side of its current-limit resistor (R40.2, 120R): +3V3 -> R40 -> anode; cathode switched to GND by Q29 sets the drive current. Supply-side resistor placement keeps the switched (fast-edged) node confined to the cathode/drain net.
+
+
+## Line-sensor indicator LEDs (top face, analog brightness)
+
+### `Net-(D15-K)`
+
+**Pins:** `D15.1` (K (cathode)), `Q30.3` (D (drain))
+
+LINE1 indicator LED cathode (D15.1) to its driver's drain (Q30.3). Q30's gate rides the LINE1_SENSE analog node directly: a MOSFET gate is zero DC load (leakage <=100nA worst case = ~5mV across the 47k pull-up; if this channel ever reads pinned, suspect a damaged Q30 gate), so the muxed ADC reading is untouched. Behavior is a crisp threshold around Vgs(th) (0.8-1.5V part spread -- both extremes land safely inside the node's <=0.5V-lit-floor to >=2.5V-dark-line swing): LED ON = dark line under that sensor, WHILE the line emitters are lit (see the 120R latched-emitter scheme on the LINEx_LED nets).
+
+### `Net-(D15-A)`
+
+**Pins:** `D15.2` (A (anode)), `R41.2`
+
+LINE1 indicator LED anode (D15.2) to its 1k current limiter (R41.2) from +3V3: ~(3.3 - ~1.85Vf)/1k = ~1.4mA when on -- deliberately modest (8 indicators add ~11mA worst case). BOM: high-efficiency AlInGaP super-red bin REQUIRED (e.g. Kingbright APT1608SURCK) -- a standard-efficiency red is washed out in daylight at this current; do NOT raise the current or switch to InGaN colors (green/blue/white Vf 2.7-3.2V leaves no headroom on 3.3V).
+
+### `Net-(D16-K)`
+
+**Pins:** `D16.1` (K (cathode)), `Q31.3` (D (drain))
+
+LINE2 indicator LED cathode (D16.1) to its driver's drain (Q31.3). Q31's gate rides the LINE2_SENSE analog node directly: a MOSFET gate is zero DC load (leakage <=100nA worst case = ~5mV across the 47k pull-up; if this channel ever reads pinned, suspect a damaged Q31 gate), so the muxed ADC reading is untouched. Behavior is a crisp threshold around Vgs(th) (0.8-1.5V part spread -- both extremes land safely inside the node's <=0.5V-lit-floor to >=2.5V-dark-line swing): LED ON = dark line under that sensor, WHILE the line emitters are lit (see the 120R latched-emitter scheme on the LINEx_LED nets).
+
+### `Net-(D16-A)`
+
+**Pins:** `D16.2` (A (anode)), `R42.2`
+
+LINE2 indicator LED anode (D16.2) to its 1k current limiter (R42.2) from +3V3: ~(3.3 - ~1.85Vf)/1k = ~1.4mA when on -- deliberately modest (8 indicators add ~11mA worst case). BOM: high-efficiency AlInGaP super-red bin REQUIRED (e.g. Kingbright APT1608SURCK) -- a standard-efficiency red is washed out in daylight at this current; do NOT raise the current or switch to InGaN colors (green/blue/white Vf 2.7-3.2V leaves no headroom on 3.3V).
+
+### `Net-(D17-K)`
+
+**Pins:** `D17.1` (K (cathode)), `Q32.3` (D (drain))
+
+LINE3 indicator LED cathode (D17.1) to its driver's drain (Q32.3). Q32's gate rides the LINE3_SENSE analog node directly: a MOSFET gate is zero DC load (leakage <=100nA worst case = ~5mV across the 47k pull-up; if this channel ever reads pinned, suspect a damaged Q32 gate), so the muxed ADC reading is untouched. Behavior is a crisp threshold around Vgs(th) (0.8-1.5V part spread -- both extremes land safely inside the node's <=0.5V-lit-floor to >=2.5V-dark-line swing): LED ON = dark line under that sensor, WHILE the line emitters are lit (see the 120R latched-emitter scheme on the LINEx_LED nets).
+
+### `Net-(D17-A)`
+
+**Pins:** `D17.2` (A (anode)), `R43.2`
+
+LINE3 indicator LED anode (D17.2) to its 1k current limiter (R43.2) from +3V3: ~(3.3 - ~1.85Vf)/1k = ~1.4mA when on -- deliberately modest (8 indicators add ~11mA worst case). BOM: high-efficiency AlInGaP super-red bin REQUIRED (e.g. Kingbright APT1608SURCK) -- a standard-efficiency red is washed out in daylight at this current; do NOT raise the current or switch to InGaN colors (green/blue/white Vf 2.7-3.2V leaves no headroom on 3.3V).
+
+### `Net-(D18-K)`
+
+**Pins:** `D18.1` (K (cathode)), `Q33.3` (D (drain))
+
+LINE4 indicator LED cathode (D18.1) to its driver's drain (Q33.3). Q33's gate rides the LINE4_SENSE analog node directly: a MOSFET gate is zero DC load (leakage <=100nA worst case = ~5mV across the 47k pull-up; if this channel ever reads pinned, suspect a damaged Q33 gate), so the muxed ADC reading is untouched. Behavior is a crisp threshold around Vgs(th) (0.8-1.5V part spread -- both extremes land safely inside the node's <=0.5V-lit-floor to >=2.5V-dark-line swing): LED ON = dark line under that sensor, WHILE the line emitters are lit (see the 120R latched-emitter scheme on the LINEx_LED nets).
+
+### `Net-(D18-A)`
+
+**Pins:** `D18.2` (A (anode)), `R44.2`
+
+LINE4 indicator LED anode (D18.2) to its 1k current limiter (R44.2) from +3V3: ~(3.3 - ~1.85Vf)/1k = ~1.4mA when on -- deliberately modest (8 indicators add ~11mA worst case). BOM: high-efficiency AlInGaP super-red bin REQUIRED (e.g. Kingbright APT1608SURCK) -- a standard-efficiency red is washed out in daylight at this current; do NOT raise the current or switch to InGaN colors (green/blue/white Vf 2.7-3.2V leaves no headroom on 3.3V).
+
+### `Net-(D20-K)`
+
+**Pins:** `D20.1` (K (cathode)), `Q35.3` (D (drain))
+
+LINE6 indicator LED cathode (D20.1) to its driver's drain (Q35.3). Q35's gate rides the LINE6_SENSE analog node directly: a MOSFET gate is zero DC load (leakage <=100nA worst case = ~5mV across the 47k pull-up; if this channel ever reads pinned, suspect a damaged Q35 gate), so the muxed ADC reading is untouched. Behavior is a crisp threshold around Vgs(th) (0.8-1.5V part spread -- both extremes land safely inside the node's <=0.5V-lit-floor to >=2.5V-dark-line swing): LED ON = dark line under that sensor, WHILE the line emitters are lit (see the 120R latched-emitter scheme on the LINEx_LED nets).
+
+### `Net-(D20-A)`
+
+**Pins:** `D20.2` (A (anode)), `D21.1` (K (cathode)), `Q36.3` (D (drain)), `R46.2`
+
+LINE7 indicator LED cathode (D21.1) to its driver's drain (Q36.3). Q36's gate rides the LINE7_SENSE analog node directly: a MOSFET gate is zero DC load (leakage <=100nA worst case = ~5mV across the 47k pull-up; if this channel ever reads pinned, suspect a damaged Q36 gate), so the muxed ADC reading is untouched. Behavior is a crisp threshold around Vgs(th) (0.8-1.5V part spread -- both extremes land safely inside the node's <=0.5V-lit-floor to >=2.5V-dark-line swing): LED ON = dark line under that sensor, WHILE the line emitters are lit (see the 120R latched-emitter scheme on the LINEx_LED nets).
+
+### `Net-(D21-A)`
+
+**Pins:** `D21.2` (A (anode)), `R47.2`
+
+LINE7 indicator LED anode (D21.2) to its 1k current limiter (R47.2) from +3V3: ~(3.3 - ~1.85Vf)/1k = ~1.4mA when on -- deliberately modest (8 indicators add ~11mA worst case). BOM: high-efficiency AlInGaP super-red bin REQUIRED (e.g. Kingbright APT1608SURCK) -- a standard-efficiency red is washed out in daylight at this current; do NOT raise the current or switch to InGaN colors (green/blue/white Vf 2.7-3.2V leaves no headroom on 3.3V).
+
+### `Net-(D22-K)`
+
+**Pins:** `D22.1` (K (cathode)), `Q37.3` (D (drain))
+
+LINE8 indicator LED cathode (D22.1) to its driver's drain (Q37.3). Q37's gate rides the LINE8_SENSE analog node directly: a MOSFET gate is zero DC load (leakage <=100nA worst case = ~5mV across the 47k pull-up; if this channel ever reads pinned, suspect a damaged Q37 gate), so the muxed ADC reading is untouched. Behavior is a crisp threshold around Vgs(th) (0.8-1.5V part spread -- both extremes land safely inside the node's <=0.5V-lit-floor to >=2.5V-dark-line swing): LED ON = dark line under that sensor, WHILE the line emitters are lit (see the 120R latched-emitter scheme on the LINEx_LED nets).
+
+### `Net-(D22-A)`
+
+**Pins:** `D22.2` (A (anode)), `R48.2`
+
+LINE8 indicator LED anode (D22.2) to its 1k current limiter (R48.2) from +3V3: ~(3.3 - ~1.85Vf)/1k = ~1.4mA when on -- deliberately modest (8 indicators add ~11mA worst case). BOM: high-efficiency AlInGaP super-red bin REQUIRED (e.g. Kingbright APT1608SURCK) -- a standard-efficiency red is washed out in daylight at this current; do NOT raise the current or switch to InGaN colors (green/blue/white Vf 2.7-3.2V leaves no headroom on 3.3V).
 
 
 ## User interface

@@ -403,3 +403,95 @@ shrink the board; (2) use the ACTUAL library footprint so dimensions are real;
   in practice but this is not a hard guarantee. Nano-ESP32 header->GPIO->
   ADC1-channel mapping must be confirmed in firmware. TB6612 breakout pin order
   varies by vendor -- verify before fab.
+
+
+---
+
+## 2026-07-15: rev 3 -- indicator LEDs, research-verified sensor geometry, 100x114
+
+User requests: (1) a top-side indicator LED per line sensor whose brightness
+varies with the IR receiver; (2) wall-sensor positioning per professional
+projects; (3) a smaller, tighter board.
+
+**Indicator LEDs (D15-D22 + R41-R48 + Q30-Q37, top face over each column)**
+- Topology: BSS138 gate directly on each LINEx_SENSE node; drain sinks a
+  visible red 0603 from +3V3 via 1k (~1.3mA). A MOSFET gate draws no DC
+  current, so the 47k divider and the muxed ADC reading are untouched --
+  an NPN follower would have skimmed ~10uA of base current (~0.5V of divider
+  error), and hanging an LED directly on the node (the naive way) is exactly
+  what Pololu's own guidance warns against. Brightness follows the node
+  analogically: dark line under the sensor -> node high -> brighter.
+  Continuous, upstream of the mux, zero firmware.
+- ADVERSARIALLY REVIEWED (2-agent refutation pass + 3-agent primary-source
+  research, 2026-07-15). Confirmed: zero-DC-load (<=100nA worst-case gate
+  leakage = ~5mV on the 47k, typ <<1 LSB), direction (dark line -> LED on),
+  ~1.4mA sizing, thermal non-issue (~0.5mW max in the FET). REFUTED and
+  fixed:
+  (1) "analog brightness" -- the BSS138's ~100mV/decade subthreshold slope
+      compresses the whole visible fade into ~150-300mV, so it is a crisp
+      THRESHOLD indicator (which is the better UX for 8-LED line reading;
+      it's also what all commercial boards build, via comparators). Docs
+      reframed; Vth spread 0.8-1.5V is harmless because the node swings
+      <=0.5V (lit floor) to >=2.5V (dark line), straddling every possible Vth.
+  (2) DUTY-CYCLE BLINDNESS (the big one): emitters are demux-PULSED one at a
+      time, so each node is ambient-dominated ~93% of the time and the
+      indicator would mostly display ambient light. FIX: line-channel
+      current-limit resistors changed 33R -> 120R (~15mA; line range is ~3mm
+      so margin is ample, QTR-class boards run continuous at similar
+      currents), letting firmware LATCH all 8 line emitters on continuously
+      in line-follow mode (~120mA total) -- indicators are then live. Wall
+      channels keep 33R/~50mA pulsed for the 60-180mm range. FIRMWARE RULE
+      recorded in the schematic text.
+  (3) BOM constraints: indicator LEDs must be high-efficiency AlInGaP
+      super-red (e.g. Kingbright APT1608SURCK) -- standard red is washed out
+      in daylight at 1.4mA, and InGaN colors have no Vf headroom on 3.3V.
+      The 8 line receivers must be the DAYLIGHT-FILTERED variant (SFH320FA,
+      not SFH320) or the red indicators feed back optically into the ADC
+      readings. Both requirements are in the Value fields.
+  (4) Sampling detail: the gate adds ~30-150pF (Miller) to LINE nodes only;
+      firmware should tune the post-mux ADC settling delay on a LINE channel
+      mid-transition (the slowest case), not on a WALL channel.
+
+**Wall-sensor geometry -- verified against Harrison/Decimus, UKMARS, Zeetah**
+Primary-source findings (micromouseonline.com, ukmars repo, retrieved 2026-07-15):
+- Decimus ran SIX assemblies, verbatim: "Two face almost sideways, two face
+  diagonally at around 45 degrees ... and two more face nearly forwards".
+  Wall sensors belong "well in front of the driving wheels, or at least, the
+  centre of rotation" -- the forward lever arm makes heading errors visible
+  early; the greater the distance the better.
+- Harrison later found 90-degree side sensors "give the information too late"
+  -- the ~45-degree diagonals became the steering workhorses, and "any future
+  mice will have the sensors pointing significantly farther forwards".
+- Forward sensors are toed OUTWARD a little (post detection on diagonals +
+  never hitting a shiny wall at exactly 90 degrees); side sensors are angled
+  FORWARD a little (earlier edge detection, and a heading error then shows as
+  a left/right difference which perpendicular sensors cannot see).
+- Zeetah VII: emitter-detector centre spacing ~7mm (ours: 7-8mm). UKMARSBOT
+  advanced sensor: forward pairs on CHAMFERED corner edges -- the board
+  outline sets the aim, same trick as our chamfers.
+- Vertical aim: target spot ~20mm above the floor, sensors tilted up a touch
+  (cuts specular reflection off shiny walls). Fit short heat-shrink sleeves
+  over the 5mm emitters ("emitters well shielded from the detectors").
+This board (axle y=92): front pair anchors (30,3)/(70,3) = 89mm ahead of the
+axle, diagonal pair (5,18)/(95,18) ON the chamfered corners = 74mm, side pair
+(5,36)/(95,36) = 56mm -- the Decimus arrangement, everything far forward.
+ASSEMBLY: bend front pair slightly outward, diagonals 45 out (chamfer line),
+side pair 90 out with slight forward toe; all tilted up a little; heat-shrink
+each emitter; epoxy after aiming (Harrison's alignment procedure).
+Diagonal/side clusters stack the LED BEHIND the photo along the edge -- the
+5mm LED's 7.1mm courtyard cannot sit beside the photo without hitting the
+line array's first column; optically irrelevant since leads are bent to aim.
+
+**Board shrink 100x128 -> 100x114 (area -11%)**
+- A1 rotated HORIZONTAL (rot=270; calibrated: analog row runs -x at anchor y,
+  digital row +15.24 toward the rear where the TB6612 lives) -- its 43.6mm
+  length now spends the board's width. Muxes rot=0 vertical on the side edges
+  (measured: rot=90 lays a SOIC-24W HORIZONTAL, 16mm of x). TB6612 header
+  rows horizontal under A1. Axle up at y=92.
+- Width stays 100: pinned by the 76.2mm line array + two side clusters.
+- Courtyard lesson: MEASURE, don't estimate (F.Courtyard bboxes): LED_D5.0 is
+  a 7.1mm circle, LED_0603 is 3.0mm wide, SW_PUSH_6mm is 9.5mm, SOIC-24W is
+  16.0mm long. Guessed sizes cost three placement iterations.
+- Mounting holes are circles on Edge.Cuts that the router's outline check
+  does not see -- a VM_BATT track ran inside a hole's edge clearance (real
+  DRC error). route_loaded.py now blocks a square around every hole.

@@ -80,6 +80,8 @@ def pin_name(ref, pin):
         return {"1": "K (cathode)", "2": "A (anode)"}.get(pin, pin)
     if re.fullmatch(r"Q\d+", ref):
         n = int(ref[1:])
+        if n >= 30:                  # indicator-LED drivers (BSS138), Q30..Q37
+            return {"1": "G (gate)", "2": "S (source)", "3": "D (drain)"}.get(pin, pin)
         if n >= 2 and n % 2 == 0:   # SFH309 phototransistors
             return {"1": "C (collector)", "2": "E (emitter)"}.get(pin, pin)
         if n >= 3:                   # BSS138 switches
@@ -371,9 +373,14 @@ for i, name in enumerate(SENSOR_NAMES):
     R[f"{name}_LED"] = (
         f"Gate-drive for the {name} emitter switch: write-demux channel {p['channel']} (U5 pin "
         f"{mux_pad}) to the gate of {p['switch']} (BSS138). With channel {ch} selected and "
-        f"LED_PULSE high, {p['switch']} sinks current through {p['led']} (SFH4550, 940nm) from "
-        f"+3V3 via {p['curr']} (33R): roughly (3.3 - ~1.35Vf - Vds) / 33 = ~50mA class pulses, "
-        f"tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). "
+        f"LED_PULSE high, {p['switch']} sinks current through {p['led']} (940nm emitter) from "
+        f"+3V3 via {p['curr']} "
+        + (f"(33R: ~50mA-class pulses for the 60-180mm wall range), "
+           if i < 6 else
+           f"(120R: ~15mA -- deliberately low so firmware can LATCH all 8 line emitters on "
+           f"continuously in line-follow mode, ~120mA total, which is what makes the top-side "
+           f"indicator LEDs live; ample margin at the ~3mm line range), ")
+        + f"tune at bring-up (BSS138 Rds(on) at 3.3V gate drive is the soft spot -- PROJECT_NOTES). "
         f"A GPIO cannot source this current, hence the per-sensor low-side switch; the demux only "
         f"ever carries gate charge, never LED current. VERIFIED gate-drive timing (datasheet "
         f"check): the demux's ~1k+ mid-supply Ron into the BSS138's Ciss (~50pF class -- a small "
@@ -393,18 +400,57 @@ for i, name in enumerate(SENSOR_NAMES):
     k_net = pin2net.get((p["led"], "1"))   # cathode -> switch drain
     a_net = pin2net.get((p["led"], "2"))   # anode -> current-limit resistor
     SENSOR_LOCAL_NETS[name] = [n for n in (k_net, a_net) if n]
+    _rv = "33R" if i < 6 else "120R"
     if k_net:
         R[k_net] = (
             f"{name} LED cathode ({p['led']}.1) to its switch's drain ({p['switch']}.3). Local "
-            f"two-node net inside the {name} driver: +3V3 -> {p['curr']} 33R -> LED anode, LED "
+            f"two-node net inside the {name} driver: +3V3 -> {p['curr']} {_rv} -> LED anode, LED "
             f"cathode -> {p['switch']} drain, source -> GND. Low-side switching keeps the gate "
             f"drive ground-referenced (a 3.3V GPIO/demux level fully enhances the FET).")
     if a_net:
         R[a_net] = (
             f"{name} LED anode ({p['led']}.2) to the low side of its current-limit resistor "
-            f"({p['curr']}.2, 33R): +3V3 -> {p['curr']} -> anode; cathode switched to GND by "
-            f"{p['switch']} sets the pulse current. Supply-side resistor placement keeps the "
+            f"({p['curr']}.2, {_rv}): +3V3 -> {p['curr']} -> anode; cathode switched to GND by "
+            f"{p['switch']} sets the drive current. Supply-side resistor placement keeps the "
             f"switched (fast-edged) node confined to the cathode/drain net.")
+
+# --- Line-sensor indicator LEDs (top side, threshold indication) ---
+# Per LINE sensor k (1..8): Q{29+k} BSS138 gate on LINEk_SENSE, drain sinks
+# D{14+k} (super-red 0603) from +3V3 via R{40+k} 1k. Adversarially reviewed
+# 2026-07-15: zero-DC-load CONFIRMED (gate leakage <=100nA worst case = ~5mV
+# on the 47k divider, typ <<1 LSB); the transition is NEAR-BINARY, not analog
+# (BSS138 subthreshold slope ~100mV/dec puts the whole visible fade inside
+# ~150-300mV around Vth) -- crisp on/off is the better UX for reading line
+# position anyway. Meaningful ONLY while the line emitters are lit (pulsed
+# scanning leaves the node ambient-dominated ~93% of the time) -- hence the
+# 120R line emitters that firmware can latch on continuously.
+INDICATOR_LOCAL_NETS = []
+for _k in range(1, 9):
+    _q, _d, _r = f"Q{29+_k}", f"D{14+_k}", f"R{40+_k}"
+    _kn = pin2net.get((_d, "1"))   # cathode -> FET drain
+    _an = pin2net.get((_d, "2"))   # anode  -> 1k from +3V3
+    if _kn:
+        R[_kn] = (
+            f"LINE{_k} indicator LED cathode ({_d}.1) to its driver's drain ({_q}.3). "
+            f"{_q}'s gate rides the LINE{_k}_SENSE analog node directly: a MOSFET gate is "
+            f"zero DC load (leakage <=100nA worst case = ~5mV across the 47k pull-up; if "
+            f"this channel ever reads pinned, suspect a damaged {_q} gate), so the muxed "
+            f"ADC reading is untouched. Behavior is a crisp threshold around Vgs(th) "
+            f"(0.8-1.5V part spread -- both extremes land safely inside the node's "
+            f"<=0.5V-lit-floor to >=2.5V-dark-line swing): LED ON = dark line under that "
+            f"sensor, WHILE the line emitters are lit (see the 120R latched-emitter "
+            f"scheme on the LINEx_LED nets).")
+        INDICATOR_LOCAL_NETS.append(_kn)
+    if _an:
+        R[_an] = (
+            f"LINE{_k} indicator LED anode ({_d}.2) to its 1k current limiter "
+            f"({_r}.2) from +3V3: ~(3.3 - ~1.85Vf)/1k = ~1.4mA when on -- deliberately "
+            f"modest (8 indicators add ~11mA worst case). BOM: high-efficiency AlInGaP "
+            f"super-red bin REQUIRED (e.g. Kingbright APT1608SURCK) -- a standard-"
+            f"efficiency red is washed out in daylight at this current; do NOT raise the "
+            f"current or switch to InGaN colors (green/blue/white Vf 2.7-3.2V leaves no "
+            f"headroom on 3.3V).")
+        INDICATOR_LOCAL_NETS.append(_an)
 
 # --- No-connects: every unconnected-* net, with real reasons ---
 
@@ -456,6 +502,8 @@ GROUPS = [
     ("IR sensor matrix -- line sensors (SMD, bottom-face)",
      [f"LINE{k}_{s}" for k in range(1, 9) for s in ("SENSE", "LED")] +
      [n for k in range(6, 14) for n in SENSOR_LOCAL_NETS[SENSOR_NAMES[k]]]),
+    ("Line-sensor indicator LEDs (top face, analog brightness)",
+     INDICATOR_LOCAL_NETS),
     ("User interface", ["USER_BTN"]),
 ]
 

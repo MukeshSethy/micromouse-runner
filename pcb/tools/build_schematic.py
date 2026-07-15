@@ -552,7 +552,7 @@ c12a, c12b = C("C14", "100nF", (30, 410))
 WIRE(c12a, U5["VDD"])
 RAIL("GND", c12b, rotation=270)
 
-TXT("2x HEF4067BT 16-ch analog mux/demux, sharing select lines MUX_S0-S3.\nEach sensor: SFH309 phototransistor (collector -> 47k pull-up to +3V3 AND to its\nread-mux channel; emitter -> GND) + SFH4550 IR LED (anode -> current-limit resistor\n-> +3V3; cathode -> BSS138 low-side switch drain; switch source -> GND; switch gate\n-> its write-demux channel). Firmware pulses LED_PULSE while stepping MUX_S0-S3\nthrough one channel at a time (crosstalk avoidance), sampling MUX_SENSE 'bright' then\n'ambient' with the LED off, subtracting -- see PROJECT_NOTES.md IR sensor circuit design.\nCurrent-limit resistor: 33ohm, sized for ~3.3V rail, SFH4550 Vf~1.35V typ, allowing\n~0.3-0.5V for the BSS138 switch's on-resistance at 3.3V gate drive (not independently\nverified against the BSS138 datasheet's Vgs=3.3V Rds(on) curve in this session --\ntune at bring-up if dimmer/brighter than expected).",
+TXT("2x HEF4067BT 16-ch analog mux/demux, sharing select lines MUX_S0-S3.\nEach sensor: SFH309 phototransistor (collector -> 47k pull-up to +3V3 AND to its\nread-mux channel; emitter -> GND) + SFH4550 IR LED (anode -> current-limit resistor\n-> +3V3; cathode -> BSS138 low-side switch drain; switch source -> GND; switch gate\n-> its write-demux channel). Firmware pulses LED_PULSE while stepping MUX_S0-S3\nthrough one channel at a time (crosstalk avoidance), sampling MUX_SENSE 'bright' then\n'ambient' with the LED off, subtracting -- see PROJECT_NOTES.md IR sensor circuit design.\nCurrent-limit: wall 33R (~50mA pulsed) / line 120R (~15mA, latched-capable), sized for ~3.3V rail, SFH4550 Vf~1.35V typ, allowing\n~0.3-0.5V for the BSS138 switch's on-resistance at 3.3V gate drive (not independently\nverified against the BSS138 datasheet's Vgs=3.3V Rds(on) curve in this session --\ntune at bring-up if dimmer/brighter than expected).",
     (150, 460), size=2.0)
 
 # Re-seed the ref counters so the sensor loop reproduces exactly Q2..Q29,
@@ -601,7 +601,8 @@ for i, name in enumerate(SENSOR_NAMES):
         # phototransistor like the SFH320FA (PLCC-2) -- confirm the exact land
         # pattern against the chosen phototransistor before fab.
         photo_fp = "LED_SMD:LED_1206_3216Metric"
-        photo_val = "SMD phototransistor 940nm (e.g. Osram SFH320FA)"
+        photo_val = ("SMD phototransistor 940nm, DAYLIGHT-FILTERED REQUIRED (e.g. Osram SFH320FA "
+                     "-- an unfiltered part re-opens optical feedback from the red indicator LEDs)")
         led_fp = "LED_SMD:LED_1206_3216Metric"
         led_val = "SMD IR LED 940nm (e.g. Osram SFH4045N)"
 
@@ -614,8 +615,14 @@ for i, name in enumerate(SENSOR_NAMES):
     RAIL(f"{name}_SENSE", rx_c, rotation=0)
     RAIL(f"{name}_SENSE", U4[ch], rotation=180 if HEF4067_PINS[ch][0] > 0 else 0)
 
-    # emitter + current-limit resistor + low-side switch, tied to the write-demux channel
-    lr1, lr2 = R(ref("R"), "33", (x + 16, row_y + 15))
+    # emitter + current-limit resistor + low-side switch, tied to the write-demux channel.
+    # Wall: 33R (~50mA pulsed, 60-180mm range). Line: 120R (~15mA) -- low enough
+    # for firmware to LATCH all 8 line emitters on continuously in line-follow
+    # mode (~120mA total), which is what makes the top-side indicator LEDs live
+    # (adversarial review: pulsed emitters leave the node ambient-dominated ~93%
+    # of the time; at ~3mm line range 15mA has ample margin, QTR-class boards
+    # run continuous at similar currents).
+    lr1, lr2 = R(ref("R"), "33" if is_wall else "120", (x + 16, row_y + 15))
     RAIL("PLUS3V3", lr1, rotation=90)
     led_k, led_a = LED_SFH4550(ref("D"), (x + 16, row_y), footprint=led_fp)
     WIRE(lr2, led_a)
@@ -624,6 +631,41 @@ for i, name in enumerate(SENSOR_NAMES):
     RAIL("GND", sw_s, rotation=270)
     RAIL(f"{name}_LED", sw_g, rotation=180)
     RAIL(f"{name}_LED", U5[ch], rotation=180 if HEF4067_PINS[ch][0] > 0 else 0)
+
+# ---------------------------------------------------------------------------
+# LINE-SENSOR INDICATOR LEDs (user request 2026-07-15): one visible top-side
+# LED per line sensor whose brightness tracks the IR receiver ANALOGICALLY.
+# Circuit: BSS138 gate tied straight to LINEx_SENSE -- a MOSFET gate draws no
+# DC current, so the 47k analog divider feeding the mux/ADC is completely
+# unloaded (an NPN follower would have skimmed ~10uA base current = ~0.5V of
+# divider error). Drain sinks a visible LED from +3V3 through 1k. More
+# reflection -> phototransistor pulls the node LOW -> FET less enhanced ->
+# dimmer; over a dark line the node rises -> brighter. So: LED BRIGHT = dark
+# line under that sensor, with a true analog transition (BSS138 Vth ~1.3V sits
+# mid-range of the 0-3.3V node swing). No firmware involved -- the indicators
+# live on the per-sensor nodes UPSTREAM of the mux, so all 8 work continuously.
+TXT("LINE-SENSOR INDICATORS  --  8 top-side LEDs, one per line channel", (10, 640), size=5)
+TXT("BSS138 gate on each LINEx_SENSE node (zero DC load: gate leakage <=100nA worst-case = ~5mV\non the 47k divider; if one channel ever reads pinned, suspect its Q30-Q37 gate). Drain sinks\na super-red 0603 from +3V3 via 1k (~1.4mA). In practice a THRESHOLD indicator: the BSS138's\n~150-300mV dark-to-full band makes it crisp on/off around ~1.2V -- ideal for reading line\nposition across 8 LEDs at a glance. LED ON = dark line under that sensor.\nFIRMWARE RULE: indicators are only meaningful while the line emitters are LIT -- pulsed\nscanning leaves the node ambient-dominated ~93% of the time. Line emitters are 120R\n(~15mA), sized so line-follow mode can latch all 8 on continuously (~120mA).",
+    (10, 655), size=2.0)
+
+IND_ROW_Y = 700
+for k in range(1, 9):
+    x = SENSOR_X0 + (k - 1) * SENSOR_DX
+    ind_g, ind_s, ind_d = QN_BSS138(ref("Q"), (x, IND_ROW_Y))          # Q30..Q37
+    RAIL(f"LINE{k}_SENSE", ind_g, rotation=180)
+    RAIL("GND", ind_s, rotation=270)
+    ir1, ir2 = R(ref("R"), "1k", (x + 16, IND_ROW_Y + 15))             # R41..R48
+    RAIL("PLUS3V3", ir1, rotation=90)
+    # Same LD271 base symbol trick as the IR emitters (extends-skips-ERC), with
+    # the real intended part recorded in Value.
+    base = snap((x + 16, IND_ROW_Y))
+    g.add_component("LED", "LD271", ref("D"),                          # D15..D22
+                     "Indicator LED 0603 super-red AlInGaP, high-efficiency bin REQUIRED at 1.4mA (e.g. Kingbright APT1608SURCK; LD271 base symbol for ERC)",
+                     base, {"1": "", "2": ""},
+                     footprint="LED_SMD:LED_0603_1608Metric")
+    ind_led_k, ind_led_a = pin_at(base, (-5.08, 0)), pin_at(base, (2.54, 0))
+    WIRE(ir2, ind_led_a)
+    WIRE(ind_led_k, ind_d)
 
 with open(r"D:\Projects\micromouse-pcb\pcb\micromouse-pcb.kicad_sch", "w", encoding="utf-8", newline="\n") as f:
     f.write(g.render(title="Micromouse PCB"))

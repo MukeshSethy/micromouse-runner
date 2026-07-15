@@ -54,6 +54,12 @@ hard-won KiCad-format notes. Regeneration order:
 ## Status / remaining work
 
 Routed and DRC-clean (0 errors). Finishing work in the KiCad GUI: fill the GND
-pours (one keypress), route the last 5 connections (4 PLUS3V3 spokes + 1
-LED-gate line), and optionally convert the two inner layers to GND/3V3 planes.
-See `pcb/PROJECT_NOTES.md` for the honest open-issues list.
+pours (one keypress), route the last 9 connections (2 PLUS3V3 spokes + a few
+sensor lines), and optionally convert the two inner layers to GND/3V3 planes.
+
+Rev 3 was adversarially reviewed (multi-agent research + refutation pass
+against primary sources — Harrison/Decimus, UKMARS, Zeetah): sensor geometry
+follows verbatim championship practice, and the review caught a real flaw
+(pulsed emitters would have left the indicators reading ambient light — fixed
+with 120R latch-capable line emitters). See `pcb/PROJECT_NOTES.md` for the
+full findings and the honest open-issues list.

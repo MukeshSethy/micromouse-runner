@@ -42,13 +42,21 @@ for code, ni in g.board.GetNetsByNetcode().items():
 
 # Outer board outline (chamfered 100x128, ESP32-only redesign). Interior wheel
 # slots + motor keep-outs are obstacles via _keepout_rects (board zones) + here.
-g._outline_pts = [(16, 0), (84, 0), (100, 16), (100, 128), (0, 128), (0, 16)]
+g._outline_pts = [(16, 0), (84, 0), (100, 16), (100, 114), (0, 114), (0, 16)]
 # Interior wheel slots (wheels inside the envelope) as router obstacles.
-AXLE_Y = 108
+AXLE_Y = 92
 g._extra_keepouts = [
     (3, AXLE_Y - 16, 12, AXLE_Y + 16),            # left wheel slot
     (88, AXLE_Y - 16, 97, AXLE_Y + 16),           # right wheel slot
 ]
+# Mounting holes are circles on Edge.Cuts -- the outline check doesn't see
+# them, so a VM_BATT track once ran inside a hole's edge clearance (real DRC
+# error). Block a small square around each (hole r + copper-edge clearance).
+for (hx, hy, hr) in [(31, AXLE_Y - 12, 1.25), (31, AXLE_Y + 12, 1.25),
+                     (69, AXLE_Y - 12, 1.25), (69, AXLE_Y + 12, 1.25),
+                     (50, 4, 1.5)]:
+    m = hr + 0.75
+    g._extra_keepouts.append((hx - m, hy - m, hx + m, hy + m))
 
 g._track_segs = []
 g._vias = []
