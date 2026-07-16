@@ -20,9 +20,9 @@ erc_report.json
 micromouse-pcb.svg
 
 # Session build artifacts (regenerable)
-pcb_drc.json
-pcb_route.log
-pcb_dbg.png
-render_top.png
-render_bottom.png
+/pcb_drc.json
+/pcb_route.log
+/pcb_dbg.png
+/render_top.png
+/render_bottom.png
 pcb/erc.rpt
