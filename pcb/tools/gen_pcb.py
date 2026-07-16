@@ -126,7 +126,7 @@ class PcbGen:
             seg.SetWidth(pcbnew.FromMM(0.15))
             self.board.Add(seg)
 
-    def add_keepout(self, rect, allow_tracks=False, allow_footprints=False):
+    def add_keepout(self, rect, allow_tracks=False, allow_footprints=False, allow_vias=None):
         # Rule-area zone reserving a physical volume (e.g. a motor body).
         # allow_tracks=True forbids only footprints/pads/vias but PERMITS flat
         # traces to pass underneath -- correct for a motor body, which sits on
@@ -139,7 +139,11 @@ class PcbGen:
         z.SetLayer(pcbnew.F_Cu)
         z.SetIsRuleArea(True)
         z.SetDoNotAllowTracks(not allow_tracks)
-        z.SetDoNotAllowVias(True)
+        # allow_vias defaults to the track policy: a zone that admits tracks
+        # (stand-off bracket / motor body -- copper is fine underneath) admits
+        # vias too. The router treated these zones as fully open; forbidding
+        # only vias produced 33 items_not_allowed hits in rev 5.
+        z.SetDoNotAllowVias(not (allow_tracks if allow_vias is None else allow_vias))
         z.SetDoNotAllowPads(True)
         z.SetDoNotAllowZoneFills(True)
         z.SetDoNotAllowFootprints(not allow_footprints)
@@ -153,7 +157,17 @@ class PcbGen:
             self._extra_keepouts = getattr(self, "_extra_keepouts", [])
             self._extra_keepouts.append((x1, y1, x2, y2))
 
-    def add_zone(self, net_name, layer, points):
+    def add_silk_text(self, text, at, size_mm=2.0, bold=True):
+        # Board-level F.SilkS label (user-facing legends: button names etc.)
+        t = pcbnew.PCB_TEXT(self.board)
+        t.SetText(text)
+        t.SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(at[0]), pcbnew.FromMM(at[1])))
+        t.SetLayer(pcbnew.F_SilkS)
+        t.SetTextSize(pcbnew.VECTOR2I(pcbnew.FromMM(size_mm), pcbnew.FromMM(size_mm)))
+        t.SetTextThickness(pcbnew.FromMM(size_mm * (0.2 if bold else 0.15)))
+        self.board.Add(t)
+
+    def add_zone(self, net_name, layer, points, solid=False):
         zone = pcbnew.ZONE(self.board)
         zone.SetLayer(layer)
         outline = zone.Outline()
@@ -162,8 +176,67 @@ class PcbGen:
             outline.Append(pcbnew.FromMM(x), pcbnew.FromMM(y))
         zone.SetNetCode(self.get_net(net_name).GetNetCode())
         zone.SetZoneName(net_name)
+        # Generous thermal spokes -- the default gap/spoke combination starved
+        # several THT pads when the fill was first verified headless.
+        try:
+            if solid:
+                zone.SetPadConnection(pcbnew.ZONE_CONNECTION_FULL)
+            zone.SetThermalReliefSpokeWidth(pcbnew.FromMM(0.5))
+            zone.SetThermalReliefGap(pcbnew.FromMM(0.3))
+            zone.SetLocalClearance(pcbnew.FromMM(0.3))
+        except Exception:
+            pass
         self.board.Add(zone)
         return zone
+
+    def fill_zones(self):
+        # Headless zone fill -- verified working on KiCad 10.0.4 (the old
+        # segfault lore is stale). Makes plane connectivity DRC-real.
+        filler = pcbnew.ZONE_FILLER(self.board)
+        return filler.Fill(self.board.Zones())
+
+    def stitch_net_to_plane(self, net_name, clearance_mm=0.3, width_mm=0.3):
+        # For every SMD pad on `net_name`, drop a via just outside the pad and
+        # a short stub track to it, so the pad reaches the internal plane.
+        # THT pads pierce the plane and connect via the fill's thermals --
+        # only SMD pads need this. Returns a list of pads that could NOT be
+        # stitched (must be empty for a complete board).
+        via_r = VIA_DIA_MM / 2
+        half_w = width_mm / 2
+        failures = []
+        for pad in self._pads_geo():
+            if pad["net"] != net_name or pad["hole"]:
+                continue
+            cx, cy = pad["cx"], pad["cy"]
+            # skip if an existing same-net via is already adjacent
+            if any(net == net_name and math.hypot(vx - cx, vy - cy) < 2.5
+                   for (vx, vy, net, vr) in self._vias):
+                continue
+            x1, y1, x2, y2 = pad["rect"]
+            done = False
+            for dist_extra in (0.25, 0.45, 0.7, 1.0, 1.5, 2.2, 3.0):
+                import math as _m
+                for _a in range(16):
+                    dx = _m.cos(_a * _m.pi / 8)
+                    dy = _m.sin(_a * _m.pi / 8)
+                    reach_x = (x2 - cx if dx > 0 else cx - x1) * abs(dx)
+                    reach_y = (y2 - cy if dy > 0 else cy - y1) * abs(dy)
+                    off = max(reach_x, reach_y) + via_r + dist_extra
+                    v = (round(cx + dx * off, 3), round(cy + dy * off, 3))
+                    layer = pcbnew.F_Cu if pad["on_f"] else pcbnew.B_Cu
+                    stub = [((cx, cy), v, layer)]
+                    if self._verify_geo(stub, [v], net_name, half_w) is None:
+                        self.add_track((cx, cy), v, layer, net_name, width_mm)
+                        self._track_segs.append(((cx, cy), v, net_name, half_w, layer))
+                        self.add_via(v, net_name)
+                        self._vias.append((v[0], v[1], net_name, via_r))
+                        done = True
+                        break
+                if done:
+                    break
+            if not done:
+                failures.append(f"{pad['ref']}.{pad['num']}")
+        return failures
 
     def add_track(self, p1, p2, layer, net_name, width_mm=0.3):
         t = pcbnew.PCB_TRACK(self.board)
@@ -200,22 +273,42 @@ class PcbGen:
         y2 = max(pcbnew.ToMM(b.GetBottom()) for b in boxes)
         return (x1, y1, x2, y2)
 
-    def check_overlaps(self, margin_mm=0.3):
-        # Same-side courtyard bbox overlap check -- fast placement iteration
-        # without a full kicad-cli DRC round trip. Top vs bottom parts can't
-        # collide (separated by the board substrate).
-        boxes = {ref: self._courtyard_bbox_mm(fp) for ref, fp in self._placed.items()}
+    def _courtyard_boxes_mm(self, fp):
+        # PER-ITEM courtyard rectangles (not the union bbox): a footprint whose
+        # courtyard has disjoint pieces (the WROOM module body + its off-board
+        # antenna clearance rect) must not falsely claim the space between them.
+        layer = "B.Courtyard" if fp.GetLayerName() == "B.Cu" else "F.Courtyard"
+        out = []
+        for gi in fp.GraphicalItems():
+            if gi.GetLayerName() != layer:
+                continue
+            bb = gi.GetBoundingBox()
+            out.append((pcbnew.ToMM(bb.GetLeft()), pcbnew.ToMM(bb.GetTop()),
+                        pcbnew.ToMM(bb.GetRight()), pcbnew.ToMM(bb.GetBottom())))
+        if not out:
+            out = [self._courtyard_bbox_mm(fp)]
+        return out
+
+    def check_overlaps(self, margin_mm=0.3, ignore=()):
+        # Same-side courtyard overlap check, PER courtyard piece.
+        boxes = {ref: self._courtyard_boxes_mm(fp) for ref, fp in self._placed.items()}
         layers = {ref: fp.GetLayerName() for ref, fp in self._placed.items()}
         refs = sorted(boxes)
         problems = []
         for i, r1 in enumerate(refs):
-            x1a, y1a, x2a, y2a = boxes[r1]
             for r2 in refs[i + 1:]:
                 if layers[r1] != layers[r2]:
                     continue
-                x1b, y1b, x2b, y2b = boxes[r2]
-                if (x1a - margin_mm < x2b and x2a + margin_mm > x1b and
-                        y1a - margin_mm < y2b and y2a + margin_mm > y1b):
+                hit = False
+                for (x1a, y1a, x2a, y2a) in boxes[r1]:
+                    for (x1b, y1b, x2b, y2b) in boxes[r2]:
+                        if (x1a - margin_mm < x2b and x2a + margin_mm > x1b and
+                                y1a - margin_mm < y2b and y2a + margin_mm > y1b):
+                            hit = True
+                            break
+                    if hit:
+                        break
+                if hit and frozenset((r1, r2)) not in ignore:
                     problems.append((r1, r2))
         return problems
 
@@ -552,6 +645,10 @@ class PcbGen:
                         heapq.heappush(open_heap, (ng + h, counter, nst))
                         counter += 1
         if goal_state is None:
+            # Termination telemetry: an EMPTY open set means the endpoints are
+            # geometrically jailed; exhausted expansions means budget.
+            self.last_astar_cause = ("open-set-empty" if not open_heap
+                                      else f"budget({expansions})")
             return None
 
         # Reconstruct: list of (point, layer)
@@ -640,7 +737,12 @@ class PcbGen:
         return merged
 
     def _verify_geo(self, segments, via_points, net_name, half_w, verify_clr=0.16,
-                     edge_margin=0.7):
+                     edge_margin=0.7, verify_clr_tht=0.3):
+        # verify_clr_tht (DEFAULT 0.3): THT (holed) pads always keep the full
+        # no-inter-pin clearance -- the hand-solder rule is about THROUGH-HOLE
+        # pins. SMD pads use verify_clr. Enforced on EVERY verification path
+        # including the string-pull smoother (which previously verified
+        # shortcuts at 0.16 uniformly -- a latent hole in the THT guarantee).
         # verify_clr sits just above the 0.15mm netclass clearance this board
         # registers in its design settings (see setup_design_rules) -- and is
         # comfortably within standard fab capability (JLCPCB min 0.127) and is
@@ -663,7 +765,8 @@ class PcbGen:
                     continue
                 if layer not in pad["layers"]:
                     continue
-                if self._seg_rect_dist(p1, p2, pad["rect"]) < half_w + verify_clr:
+                _vc = verify_clr_tht if pad["hole"] else verify_clr
+                if self._seg_rect_dist(p1, p2, pad["rect"]) < half_w + _vc:
                     return f"segment too close to {pad['ref']}.{pad['num']} ({pad['net']})"
             for (t1, t2, net, t_half, t_layer) in self._track_segs:
                 if net == net_name or t_layer != layer:
@@ -844,7 +947,10 @@ class PcbGen:
         if nd < 0.1:
             return
         if nd < 0.85:
-            stitch = [(v, nearest, pcbnew.F_Cu), (v, nearest, pcbnew.B_Cu)]
+            # Stitch on EVERY routing layer: the transition being replaced may
+            # involve an inner layer (F->In2 etc.) -- F/B-only stitching left
+            # inner runs dangling (found as DRC unconnected on LINE3_SENSE).
+            stitch = [(v, nearest, L) for L in self.LAYERS]
             if self._verify_geo(stitch, [], net_name, half_w) is None:
                 for (q1, q2, layer) in stitch:
                     self.add_track(q1, q2, layer, net_name, width_mm)
@@ -874,6 +980,7 @@ class PcbGen:
                                     escape_mm=escape, max_expansions=max_expansions,
                                     half_w_hint=half_w, net_hint=net_name)
             if res is None:
+                reason = f"no path ({getattr(self, 'last_astar_cause', '?')})"
                 continue
             segments, via_points = res
             if self._verify_geo(segments, via_points, net_name, half_w) is not None:

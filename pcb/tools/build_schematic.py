@@ -104,9 +104,9 @@ def QN_BSS138(ref, at, footprint="Package_TO_SOT_SMD:SOT-23"):
                      datasheet="https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
     return pin_at(base, (-5.08, 0)), pin_at(base, (2.54, -5.08)), pin_at(base, (2.54, 5.08))  # G, S, D
 
-def SWPUSH(ref, at, footprint="Button_Switch_THT:SW_PUSH_6mm"):
+def SWPUSH(ref, at, value="SW_Push", footprint="Button_Switch_THT:SW_PUSH_6mm"):
     base = snap(at)
-    g.add_component("Switch", "SW_Push", ref, "SW_Push", base, {"1": "", "2": ""}, footprint=footprint)
+    g.add_component("Switch", "SW_Push", ref, value, base, {"1": "", "2": ""}, footprint=footprint)
     return pin_at(base, (-5.08, 0)), pin_at(base, (5.08, 0))
 
 HEF4067_PINS = {
@@ -340,45 +340,50 @@ TXT("VBAT_SENSE = cell voltage (0-4.2V) scaled to <=2.52V by 22k/33k (the S3 ADC
 # ---------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------
-# MOTOR DRIVER (SOCKETED BREAKOUT) + ENCODERS SECTION
+# MOTOR DRIVER (BARE SMD TB6612FNG) + ENCODERS SECTION
 # ---------------------------------------------------------------------------
-# User decision (2026-07-12): the TB6612FNG goes on a SOCKETED breakout board
-# (e.g. SparkFun ROB-14451 / Pololu carrier), not a bare SSOP-24 SMD chip --
-# plugged into female headers on this carrier PCB, same modular philosophy as
-# the socketed STM32 and ESP32 boards. Modeled here as TWO 1x8 female-socket
-# rows (J10 control, J11 power+outputs) with FUNCTIONAL pin labels. The exact
-# pin order and the spacing between the two rows VARIES by breakout vendor
-# (SparkFun and Pololu differ) -- treat this footprint as the reference
-# arrangement and VERIFY/adjust the header spacing against your actual board
-# before ordering the PCB (same class of assembly-time check as the motor
-# connector pinout). The breakout carries its own VM/VCC decoupling, so no
-# on-carrier decoupling caps are placed here (unlike the bare-chip version).
-TXT("MOTOR DRIVER (socketed TB6612 breakout) + ENCODERS  --  2x N20-with-encoder motors", (10, 230), size=5)
+# User decision (2026-07-16): back to the bare SSOP-24 chip (U2) -- the
+# socketed breakout ate board area and its vendor-variable pinout was a
+# standing fab risk. The stock SSOP-24 footprint ships with a real 3D model,
+# so representation is exact. On-carrier decoupling returns (the breakout's
+# own caps are gone): 10uF + 100nF on VM at the chip, 100nF on VCC, per the
+# Toshiba application circuit.
+TXT("MOTOR DRIVER (TB6612FNG, SMD)  --  2x N20-with-encoder motors", (10, 230), size=5)
 
-# J10 = control-side header (ESP32 -> driver logic inputs)
-J10_MAP = ["STBY", "PWMA", "AIN1", "AIN2", "PWMB", "BIN1", "BIN2", "GND"]
-j10 = CONN_COL("J10", "TB6612_BREAKOUT_CTRL", (95, 320), 8,
-               footprint="Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical")
-for pos, net in zip(j10, J10_MAP):
-    if net == "GND":
-        PWR("GND", pos)
-    else:
-        RAIL(net, pos, rotation=180)
+U2 = TB6612("U2", (95, 310))
+RAIL("VM_BATT", U2["VM1"], rotation=90)
+RAIL("VM_BATT", U2["VM2"], rotation=90)
+RAIL("VM_BATT", U2["VM3"], rotation=90)
+RAIL("PLUS3V3", U2["VCC"], rotation=90)
+RAIL("GND", U2["GND"], rotation=270)
+RAIL("GND", U2["PGND1"], rotation=270)
+RAIL("GND", U2["PGND2"], rotation=270)
+RAIL("STBY", U2["STBY"], rotation=180)
+RAIL("PWMA", U2["PWMA"], rotation=180)
+RAIL("AIN1", U2["AIN1"], rotation=180)
+RAIL("AIN2", U2["AIN2"], rotation=180)
+RAIL("PWMB", U2["PWMB"], rotation=180)
+RAIL("BIN1", U2["BIN1"], rotation=180)
+RAIL("BIN2", U2["BIN2"], rotation=180)
+RAIL("MOTA_P", U2["AO1"], rotation=0)
+RAIL("MOTA_N", U2["AO2"], rotation=0)
+RAIL("MOTB_P", U2["BO1"], rotation=0)
+RAIL("MOTB_N", U2["BO2"], rotation=0)
 
-# J11 = power + motor-output header
-J11_MAP = ["VM_BATT", "PLUS3V3", "GND", "MOTA_P", "MOTA_N", "MOTB_P", "MOTB_N", "GND"]
-j11 = CONN_COL("J11", "TB6612_BREAKOUT_PWR_OUT", (120, 320), 8,
-               footprint="Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical")
-for pos, net in zip(j11, J11_MAP):
-    if net == "GND":
-        PWR("GND", pos)
-    else:
-        RAIL(net, pos, rotation=0)
+c11a, c11b = C("C11", "10uF", (130, 335))
+RAIL("VM_BATT", c11a, rotation=90)
+RAIL("GND", c11b, rotation=270)
+c12a, c12b = C("C12", "100nF", (142, 335))
+RAIL("VM_BATT", c12a, rotation=90)
+RAIL("GND", c12b, rotation=270)
+c14a, c14b = C("C14", "100nF", (154, 335))
+RAIL("PLUS3V3", c14a, rotation=90)
+RAIL("GND", c14b, rotation=270)
 
-TXT("Breakout logic inputs: STBY, AIN1/AIN2, BIN1/BIN2 are plain ESP32 GPIO; PWMA/PWMB are\nESP32 LEDC PWM outputs (firmware configures PWM). VM=raw battery, VCC=+3V3 logic, GND common.\nAO1/AO2 -> motor A (MOTA_P/N), BO1/BO2 -> motor B (MOTB_P/N). The breakout's own board\ncarries VM/VCC decoupling. VERIFY the breakout's real pin order + row spacing before fab.",
+TXT("Bare TB6612FNG (U2, SSOP-24): STBY/AIN/BIN plain GPIO, PWMA/PWMB = LEDC.\nVM = raw 1S cell (2.5V min OK), VCC = +3V3. Doubled pins (AO1/AO2/BO1/BO2 pairs,\nPGND pairs, VM triple) are bridged by the router's micro-bridge pass.\nDecoupling at the chip: C11 10uF + C12 100nF on VM, C14 100nF on VCC.",
     (10, 258), size=2.0)
 
-# Motor A connector: M+/M- come from the breakout outputs (MOTA_P/N), plus
+# Motor A connector: M+/M- come from U2's AO outputs (MOTA_P/N), plus
 # encoder VCC/GND/A/B with defensive pull-ups.
 jA = CONN6("J5", "MOTOR_A_N20_ENCODER", (200, 330))
 RAIL("MOTA_P", jA[0], rotation=0)
@@ -462,7 +467,7 @@ U3_NET = {  # module pad -> net (None = explicit no-connect)
     "22": "LINE_EMIT",                                                   # IO14
     "8": "WALL_EMIT_FRONT", "9": "WALL_EMIT_DIAG", "10": "WALL_EMIT_SIDE",  # IO15-17
     "11": "PWMA", "23": "PWMB",                                          # IO18/IO21
-    "28": "USER_BTN2", "29": "USER_BTN3", "30": None,                    # IO35/36, IO37 spare
+    "28": "USER_BTN2", "29": "USER_BTN3", "30": "VBUS_SENSE",            # IO35/36; IO37 = USB cable detect
     "31": "BIN1",                                                        # IO38
     "32": "JTAG_TCK", "33": "JTAG_TDO", "34": "JTAG_TDI", "35": "JTAG_TMS",  # IO39-42
     "36": "ENC2_A_S3", "37": "ENC2_B_S3",   # IO44(RXD0)/IO43(TXD0) via 1k guards
@@ -500,7 +505,7 @@ RAIL("ESP_EN", r11b, rotation=270)
 c9a, c9b = C("C9", "1uF", (430, 258))
 RAIL("ESP_EN", c9a, rotation=90)
 RAIL("GND", c9b, rotation=270)
-sw2a, sw2b = SWPUSH("SW2", (447, 265))
+sw2a, sw2b = SWPUSH("SW2", (447, 265), value="RESET")
 RAIL("ESP_EN", sw2a, rotation=180)
 RAIL("GND", sw2b, rotation=0)
 
@@ -524,12 +529,22 @@ g.add_component("Connector", "USB_C_Receptacle_USB2.0_16P", "J7",
                                            "B1","B4","B5","B6","B7","B8","B9","B12","SH"]},
                 footprint="Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal",
                 datasheet="https://gct.co/files/drawings/usb4105.pdf")
-NC(pin_at(J7_BASE, (15.24, 15.24)))            # VBUS stack (A4/A9/B4/B9)
+RAIL("USB_VBUS", pin_at(J7_BASE, (15.24, 15.24)), rotation=0)  # VBUS stack -> sense divider
 NC(pin_at(J7_BASE, (15.24, -12.7)))            # SBU1
 NC(pin_at(J7_BASE, (15.24, -15.24)))           # SBU2
 rcc1a, rcc1b = R("R12", "5.1k", (508, 270))
 WIRE(rcc1a, pin_at(J7_BASE, (15.24, 10.16)))   # CC1
 RAIL("GND", rcc1b, rotation=270)
+# VBUS presence divider: 10k/15k, 5V -> 3.0V into IO37 (digital read = solid
+# high; <=3.6V abs max respected). Firmware detects a plugged USB cable.
+# Also gives the 4-pad VBUS stack a real routed net instead of a dangling NC.
+# (-R8 modules lose IO37 -> cable detect is sacrificial there, like buttons B/C.)
+rv1a, rv1b = R("R67", "10k", (533, 268))
+RAIL("USB_VBUS", rv1a, rotation=90)
+RAIL("VBUS_SENSE", rv1b, rotation=270)
+rv2a, rv2b = R("R68", "15k", (543, 268))
+RAIL("VBUS_SENSE", rv2a, rotation=90)
+RAIL("GND", rv2b, rotation=270)
 rcc2a, rcc2b = R("R56", "5.1k", (518, 264))
 WIRE(rcc2a, pin_at(J7_BASE, (15.24, 7.62)))    # CC2
 RAIL("GND", rcc2b, rotation=270)
@@ -622,21 +637,22 @@ TXT("ESP32-S3-WROOM-1 on FreeRTOS: 6 wall sensors DIRECT on ADC1 IO1-IO6 (a fire
 # ---------------------------------------------------------------------------
 TXT("USER INTERFACE  --  3 buttons", (600, 230), size=5)
 
-btn1, btn2 = SWPUSH("SW1", (620, 300))
+btn1, btn2 = SWPUSH("SW1", (620, 300), value="BTN_A (start / BOOT)")
 rbtn1, rbtn2 = R("R10", "10k", (640, 300))
 WIRE(rbtn2, btn1)
 RAIL("PLUS3V3", rbtn1, rotation=90)
 RAIL("USER_BTN", btn1, rotation=180)
 RAIL("GND", btn2, rotation=0)
 
-sw3a, sw3b = SWPUSH("SW3", (620, 330))
+sw3a, sw3b = SWPUSH("SW3", (620, 330), value="BTN_B")
 RAIL("USER_BTN2", sw3a, rotation=180)
 RAIL("GND", sw3b, rotation=0)
-sw4a, sw4b = SWPUSH("SW4", (620, 350))
+sw4a, sw4b = SWPUSH("SW4", (620, 350), value="BTN_C")
 RAIL("USER_BTN3", sw4a, rotation=180)
 RAIL("GND", sw4b, rotation=0)
 
-TXT("SW1 = USER_BTN on IO0: start-run button AND the BOOT strap (hold SW1, tap SW2=reset\n"
+TXT("Buttons are lettered on the silkscreen: A=SW1, B=SW3, C=SW4, RST=SW2.\n"
+    "SW1/A = USER_BTN on IO0: start-run button AND the BOOT strap (hold A, tap RST\n"
     "-> ROM download mode). External 10k pull-up R10 keeps the strap solid.\n"
     "SW3/SW4 = USER_BTN2/3 on IO35/IO36 (menu/select UX): active-low, firmware enables the\n"
     "internal pull-ups -- no external resistors. NOTE: on octal-PSRAM (-R8) modules IO35/36\n"

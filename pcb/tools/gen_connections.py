@@ -43,10 +43,12 @@ TPS63000_PINS = {"1": "VOUT", "2": "L2", "3": "PGND", "4": "L1", "5": "VIN",
                  "11": "PGND"}
 USBLC6_PINS = {"1": "I/O1", "2": "GND", "3": "I/O2", "4": "I/O2'", "5": "VBUS", "6": "I/O1'"}
 MOTOR_CONN_PINS = {"1": "M+", "2": "M-", "3": "ENC_VCC", "4": "ENC_GND", "5": "ENC_A", "6": "ENC_B"}
-J10_PINS = {"1": "STBY", "2": "PWMA", "3": "AIN1", "4": "AIN2", "5": "PWMB",
-            "6": "BIN1", "7": "BIN2", "8": "GND"}
-J11_PINS = {"1": "VM (batt)", "2": "VCC (+3V3)", "3": "GND", "4": "AO1", "5": "AO2",
-            "6": "BO1", "7": "BO2", "8": "GND"}
+TB6612_PINS = {
+    "1": "AO1", "2": "AO1", "3": "PGND1", "4": "PGND1", "5": "AO2", "6": "AO2",
+    "7": "BO2", "8": "BO2", "9": "PGND2", "10": "PGND2", "11": "BO1", "12": "BO1",
+    "13": "VM2", "14": "VM3", "15": "PWMB", "16": "BIN2", "17": "BIN1", "18": "GND",
+    "19": "STBY", "20": "VCC", "21": "AIN1", "22": "AIN2", "23": "PWMA", "24": "VM1",
+}
 J8_PINS = {"1": "VDD33", "2": "TMS", "3": "TCK", "4": "TDO", "5": "TDI", "6": "GND"}
 
 EXACT_PIN_NAMES = {
@@ -59,8 +61,7 @@ EXACT_PIN_NAMES = {
     "J5": MOTOR_CONN_PINS,
     "J6": MOTOR_CONN_PINS,
     "J8": J8_PINS,
-    "J10": J10_PINS,
-    "J11": J11_PINS,
+    "U2": TB6612_PINS,
     "Q1": {"D": "Drain (battery side)", "G": "Gate", "S": "Source (load side)"},
 }
 
@@ -140,7 +141,7 @@ R["GND"] = (
     "System ground and current return for every subsystem: battery negative (J1.2), all "
     "decoupling, every phototransistor emitter, all group-switch sources, the indicator LED "
     "cathodes (wall side) and driver sources (line side), button lows, JTAG grounds, USB "
-    "shield/ground, and the TB6612 breakout grounds. Single unified ground poured on both outer "
+    "shield/ground, and the TB6612's logic + power grounds. Single unified ground poured on both outer "
     "copper faces (convert In1 to a plane in the GUI if desired).")
 
 R["PLUS3V3"] = (
@@ -149,13 +150,13 @@ R["PLUS3V3"] = (
     "ESP32-S3-WROOM-1 (U3.2), mux VCC (U4.24), all 14 phototransistor pull-ups, all 14 IR-LED "
     "current limiters (regulated rail = constant sensor brightness across discharge -- Harrison "
     "rule), wall-indicator PMOS sources (Q28-33), line/wall indicator limiters, encoder supplies "
-    "on both motor connectors, TB6612 VCC (J11.2), the USER_BTN and ESP_EN pull-ups, the JTAG "
+    "on both motor connectors, TB6612 VCC (U2.20), the USER_BTN and ESP_EN pull-ups, the JTAG "
     "header's VDD pin (J8.1) and the USB ESD array's clamp rail (U6.5).")
 
 R["VM_BATT"] = (
     "Protected raw 1S cell rail (3.0-4.2V), downstream of switch J2, fuse F1, and reverse-"
     "polarity P-FET Q1 (battery enters at the DRAIN -- body-diode analysis in PROJECT_NOTES). "
-    "Feeds: TB6612 motor power (J11.1, VM min 2.5V -- order 3V-wound N20s, a 6V wind at 3.7V "
+    "Feeds: TB6612 motor power (U2 VM1/2/3, min 2.5V; C11 10uF + C12 100nF at the chip -- 3V-wound N20s, 6V wind "
     "runs ~60%), the TPS63001 input pins (VIN + EN tied high + VINA), input caps C1/C2/C4, and "
     "the battery divider R2 (tapped HERE, downstream of the switch, so a stored pack sees no "
     "divider drain -- fixes the rev<=3 balance-lead drain risk).")
@@ -220,6 +221,14 @@ R["Net-(R59-Pad1)"] = (
     "(the D- path's chip-side guard).")
 R["Net-(R60-Pad1)"] = (
     "Intermediate node between the ESD array's I/O2 output and R60 (D+ path).")
+R["USB_VBUS"] = (
+    "The USB-C VBUS pads (all four, bridged) into the R67/R68 sense divider. VBUS does NOT "
+    "power the board (battery does; a 5V feed would need a regulator + power mux) -- it is "
+    "used purely as cable-presence detection.")
+R["VBUS_SENSE"] = (
+    "VBUS divided 10k/15k (5V -> 3.0V, a solid digital high) into IO37 (U3.30) -- firmware "
+    "detects a plugged USB cable (e.g. auto-enable CDC logging). On -R8 modules IO37 does "
+    "not exist; cable detect is the sacrificial feature there, same policy as buttons B/C.")
 R["Net-(J7-CC1)"] = (
     "USB-C CC1 with R12 5.1k pull-down: advertises UFP (device) role so a host supplies "
     "VBUS/enumeration. VBUS itself is unconnected -- the board is battery-powered; flash "
@@ -273,20 +282,19 @@ for _k, _knet, _members in ((1, "EMIT_FRONT_K", "D1+D2"), (2, "EMIT_DIAG_K", "D3
         f"node carries only the group's summed current and the per-LED currents stay "
         f"resistor-defined.")
 
-R["PWMA"] = ("Motor A PWM: IO18 (U3.11) to the breakout's PWMA (J10.2). LEDC hardware PWM "
+R["PWMA"] = ("Motor A PWM: IO18 (U3.11) to U2.23. LEDC hardware PWM "
               "(any-GPIO via the matrix), 20-25kHz; share one LEDC timer with PWMB for "
               "phase-aligned motors.")
-R["PWMB"] = ("Motor B PWM: IO21 (U3.23) to J10.5. Same LEDC timer as PWMA.")
-R["AIN1"] = ("Motor A direction bit 1: IO9 (U3.17, an ADC-capable pin spent as GPIO) to J10.3.")
-R["AIN2"] = ("Motor A direction bit 2: IO10 (U3.18) to J10.4.")
-R["BIN1"] = ("Motor B direction bit 1: IO38 (U3.31) to J10.6.")
+R["PWMB"] = ("Motor B PWM: IO21 (U3.23) to U2.15. Same LEDC timer as PWMA.")
+R["AIN1"] = ("Motor A direction bit 1: IO9 (U3.17, an ADC-capable pin spent as GPIO) to U2.21.")
+R["AIN2"] = ("Motor A direction bit 2: IO10 (U3.18) to U2.22.")
+R["BIN1"] = ("Motor B direction bit 1: IO38 (U3.31) to U2.17.")
 R["BIN2"] = (
-    "Motor B direction bit 2: IO45 (U3.26) to J10.7. IO45 is the VDD_SPI STRAP -- safe only "
+    "Motor B direction bit 2: IO45 (U3.26) to U2.16. IO45 is the VDD_SPI STRAP -- safe only "
     "because this net idles low and carries R65 10k to GND (a high at reset would select "
-    "1.8V flash supply and brick the boot; with the breakout unplugged the trace would float "
-    "without R65). NEVER add a pull-up to this net.")
+    "1.8V flash supply and brick the boot). NEVER add a pull-up to this net.")
 R["STBY"] = (
-    "TB6612 standby (active low): IO46 (U3.16) to J10.1 with R66 10k pull-down. IO46 is a "
+    "TB6612 standby (active low): IO46 (U3.16) to U2.19 with R66 10k pull-down. IO46 is a "
     "boot strap (must be low at reset when IO0 is held) -- the pull-down guarantees it AND "
     "holds the motor driver disabled from power-on until firmware acts. Same no-pull-up rule "
     "as BIN2.")
@@ -372,19 +380,17 @@ for k in range(1, 7):   # wall indicators: D23-28, Q28-33, R49-54
             f"WALL{k} indicator LED anode ({d}.2) from {r} 1k (drive current ~1.4mA); "
             f"cathode to GND. Super-red high-efficiency bin, same as the line indicators.")
 
-R["MOTA_P"] = ("Motor A M+ : breakout AO1 (J11.4) to J5.1. Full PWM-chopped motor current -- "
+R["MOTA_P"] = ("Motor A M+ : U2 AO1 (doubled pins 1+2, micro-bridged) to J5.1. Full PWM-chopped motor current -- "
                 "0.5mm trace. If the motor runs backwards, flip direction bits in firmware.")
-R["MOTA_N"] = ("Motor A M- : breakout AO2 (J11.5) to J5.2. See MOTA_P.")
-R["MOTB_P"] = ("Motor B M+ : breakout BO1 (J11.6) to J6.1. See MOTA_P.")
-R["MOTB_N"] = ("Motor B M- : breakout BO2 (J11.7) to J6.2. See MOTA_P.")
+R["MOTA_N"] = ("Motor A M- : U2 AO2 (pins 5+6) to J5.2. See MOTA_P.")
+R["MOTB_P"] = ("Motor B M+ : U2 BO1 (pins 11+12) to J6.1. See MOTA_P.")
+R["MOTB_N"] = ("Motor B M- : U2 BO2 (pins 7+8) to J6.2. See MOTA_P.")
 
 # ---------------------------------------------------------------------------
 # No-connects
 # ---------------------------------------------------------------------------
 NC_REASONS = {
     ("U3", "18"): "IO10 -- the one spare ADC1 channel, reserved for a future analog input.",
-    ("U3", "30"): "IO37 -- spare; also unavailable on octal-PSRAM (-R8) modules, so keeping "
-                   "it unrouted preserves module-variant freedom.",
     ("U4", "16"): "Line-mux channel I15 -- only 8 line sensors; channels 8-15 unused.",
     ("U4", "17"): "I14 -- unused, see I15.",
     ("U4", "18"): "I13 -- unused.",
@@ -393,8 +399,6 @@ NC_REASONS = {
     ("U4", "21"): "I10 -- unused.",
     ("U4", "22"): "I9 -- unused.",
     ("U4", "23"): "I8 -- unused.",
-    ("J7", "A4"): "VBUS -- deliberately unconnected: battery powers the board; feeding 3V3 "
-                   "from 5V VBUS would need a regulator + power mux. Flash with the battery on.",
     ("J7", "A8"): "SBU1 -- not used in USB 2.0.",
     ("J7", "B8"): "SBU2 -- not used in USB 2.0.",
 }
@@ -416,7 +420,7 @@ GROUPS = [
     ("Battery monitoring", ["VBAT_SENSE"]),
     ("Controller support (EN / USB-C / JTAG / buttons)",
      ["ESP_EN", "USB_DM_C", "USB_DP_C", "Net-(R59-Pad1)", "Net-(R60-Pad1)",
-      "USB_DM", "USB_DP", "Net-(J7-CC1)", "Net-(J7-CC2)",
+      "USB_DM", "USB_DP", "Net-(J7-CC1)", "Net-(J7-CC2)", "USB_VBUS", "VBUS_SENSE",
       "JTAG_TCK", "JTAG_TDO", "JTAG_TDI", "JTAG_TMS",
       "USER_BTN", "USER_BTN2", "USER_BTN3"]),
     ("Motor drive (socketed TB6612 breakout)",
@@ -457,12 +461,12 @@ out.append("## How parts attach (rev 4)\n")
 out.append(
     "| Part | Attachment | Why |\n|---|---|---|\n"
     "| ESP32-S3-WROOM-1 (U3, SOLE controller) | **SMD, soldered** | User decision 2026-07-15: the only ESP32 in stock KiCad with exact footprint AND 3D model; dual-core 240MHz FreeRTOS; 10 WiFi-safe ADC1 channels let all 6 wall sensors read directly. Antenna overhangs the right board edge (Espressif: interior placement disallowed). Use non-R8 modules or lose IO35/36 (buttons 2/3). |\n"
-    "| Motor driver (TB6612 breakout) | **Socketed** -- 2x 1x8 (J10/J11) | Verify vendor pin order before fab. |\n"
+    "| Motor driver (TB6612FNG) | **SMD, soldered** (U2, SSOP-24, stock 3D model) | Rev 5: bare chip saves the socket area + kills the vendor-pinout risk; C11/C12/C14 decouple at the chip. |\n"
     "| Motors (2x N20 + encoder) | **Pluggable** -- JST-PH 6-pin (J5/J6) | True-size mechanical footprints + 3D on the board (project n20 lib). Verify wire order at assembly. |\n"
     "| Battery | **Pluggable** -- JST-PH 2-pin (J1), 1S LiPo | 1S = no balance lead; buck-boost makes 3V3. |\n"
     "| USB-C (J7, REAR edge) | **SMD** GCT USB4105 | Flash + console via native USB; VBUS unused (battery powers the board). ESD array + 22R series per review. |\n"
     "| JTAG (J8) | 1.27mm 2x5 header | ESP-Prog pinout on the S3's dedicated JTAG quad IO39-42. |\n"
-    "| Buttons | SW1 start/BOOT, SW3/SW4 menu, SW2 reset | 3 user buttons + reset (user requirement). |\n"
+    "| Buttons | A=SW1 (start/BOOT), B=SW3, C=SW4, RST=SW2 -- lettered on the silkscreen | 3 user buttons + reset. |\n"
     "| Line optics (8x) | **SMD, bottom face** | Daylight-filtered receivers REQUIRED (optical feedback from the red indicators). |\n"
     "| Wall optics (6x), regulator, mux, passives | **Soldered** | Wall sensors THT with bent-lead aiming per Decimus practice. |\n")
 

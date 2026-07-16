@@ -594,3 +594,104 @@ rows moved to y=68/74 with the tall inductor + output cap in the inter-motor
 corridor, router mounting-hole keep-outs recomputed from the placement formula
 (they were stale -- tracks hugged the new hole positions), via-vs-keepout test
 now includes the via radius.
+
+
+---
+
+## 2026-07-16: rev 5 -- SMD driver, rear service panel, research-exact sensors, route-to-zero
+
+User directives: TB6612 as SMD; ESP32 at the rear with the antenna outside the
+chassis; USB-C + JTAG near it; motor driver + motor connectors also near it;
+switches at the rear, lettered A/B/C (+RST) on silk; motors a little forward;
+PCB holes for a downloadable 3D-printable N20 bracket (with link); bottom-side
+SMD allowed; EVERYTHING routed, nothing left behind.
+
+**N20 mounting bracket (research, STL-measured -- print this):**
+- WINNER: UKMARSBot printable Pololu-pattern bracket (MIT licence):
+  https://github.com/ukmars/ukmarsbot -> mechanical/pololu-gear-motor-bracket-standard.stl
+  (raw: https://raw.githubusercontent.com/ukmars/ukmarsbot/master/mechanical/pololu-gear-motor-bracket-standard.stl)
+  12.0 x 26.6 x 12.0mm saddle clamping the N20 gearbox to the board; screws
+  from the underside into nuts captured in the bracket tabs; M2/M2.5/M3 all fit.
+- PCB pattern drilled on this board (per motor): 2x D3.2mm NPTH, 18.0mm c-c,
+  perpendicular to the motor axis, symmetric about the axle line, 4.25mm
+  inboard of the gearbox faceplate -> holes at (17.25, 75)/(17.25, 93) and
+  (82.75, 75)/(82.75, 93) with the axle at y=84.
+- Runner-up (also fits M2, holes ALONG the axis -- NOT drilled here):
+  thingiverse.com/thing:6895505. Extended-wheel variant of the winner:
+  pololu-gear-motor-bracket-extended.stl (same pattern, 13.75mm setback).
+
+**Wall sensors -- research-exact geometry (UKMARSBOT advanced V1.2 parsed
+from its .kicad_pcb + Decimus/Zeetah doctrine):**
+| pair | detector | emitter | aim |
+|---|---|---|---|
+| FRONT-L/R | (33.8,3.5)/(66.2,3.5) | (26.2,3.5)/(73.8,3.5) | 10 deg toe-out |
+| DIAG-L/R | (12,9.5)/(88,9.5) | (7,14.5)/(93,14.5) | 45 deg (chamfer normal) |
+| SIDE-L/R | (5,24)/(95,24) | (5,31.5)/(95,31.5) | 75 deg (15 fwd of perp) |
+Arrangement: detector FORWARD, emitter ~7.5mm BEHIND, in-line along the local
+edge, both co-aimed (Zeetah ~7mm / UKMARSBOT 7.6mm pair spacing). The earlier
+side-by-side-across-the-aim layout was wrong -- this replaces it. ASSEMBLY:
+bend up ~5 deg (spot ~20mm above floor), heat-shrink every emitter, epoxy
+after optical alignment. Angles follow Harrison's parsed 10-deg front toe-out
+and the never-90-to-a-shiny-wall rule (side = 75 not 90); 45 diag per Decimus.
+
+**Rear service/drive panel (final, board grown 114 -> 100x120mm for a real
+rear fan-out band after 9 routing iterations proved the panel density-bound):**
+ESP32 (U3) rear-center-left, rot 180, anchor (35.25,107.5) -- ANTENNA
+OVERHANGS THE REAR EDGE (Espressif-preferred placement; the interior-slot
+option was dropped when the user chose the rear). USB-C J7 (54,114.3), mouth
+out the rear, recessed 1mm to widen the pad-row strip its nets live in;
+USBLC6 ESD U6 (54,106,B). JTAG J8 = 2.54mm 1x6 at (76,55) mid-band (the
+1.27mm 2x5 was unroutable at 0.3 clearance, and the first rear spot sat on
+the motor). Buttons SW1/SW3/SW4 at (71/81/91,114) with silk letters A/B/C
+BELOW each button (y118.6 -- the first offset hid A under J6's housing);
+RST SW2 (64,102). TB6612 U2 (64,66) mid-band (its first canyon between the
+motor courtyards defeated even micro-bridges). J5 (8,107) / J6 (76,107);
+battery J1 (8,116). CC pulldowns R12=CC1 (62,110,B) / R56=CC2 (46,110,B) --
+initially crossed (east pad to west resistor and vice versa), which forced an
+X inside the USB pocket; uncrossing them was one of the route-to-zero keys.
+VBUS divider R67/R68 (20/14,111,B) -> IO37 cable detect. Bottom face carries
+the support passives (EN RC, decoupling, CC, encoder pull-ups/guards, strap
+pull-downs, dividers, wall-sensor pull-ups/limiters).
+
+**Route-to-zero machinery (final: 0 unrouted, DRC 0/0/0, ERC 0):**
+- In1 = GND plane, In2 = +3V3 plane (solid-connect), VM_BATT partial B.Cu
+  pour (16,44)-(99,113). Headless ZONE_FILLER works on KiCad 10.0.4 (the old
+  segfault lore is STALE -- retested). Signals are ALLOWED on inner layers;
+  fill flows around them (island removal = ALWAYS, else inner-layer traffic
+  strands slivers).
+- route_loaded.py pipeline (each stage earned by a failure class):
+  hand-bridges (J7 D+ pair on F.Cu; VBUS stack link on In1 -- the two VBUS
+  stacks flank the D/CC field so no F.Cu path exists, and B.Cu/behind-row
+  placements blocked the CC escape vias) -> fan-out stubs (U1/U2/U3) ->
+  pre-stitch of jail-prone pour pads (U6.2, U2.9/10/18/20; direction ladder
+  aims UNDER THE BODY -- free real estate signals never fight over) ->
+  JAILED-first nets (USB pocket + whole U2 control cluster + junction nets),
+  each getting its FULL retry ladder immediately while the board is empty --
+  the single biggest win; letting failures wait for the global ladders on a
+  full board is what kept the pockets in whack-a-mole for seven iterations ->
+  plane stitching -> priority nets (wall/line/mux sense, encoders BEFORE
+  motor sweeps, chip-attached long nets) -> micro-bridges -> signals
+  (span-sorted) -> power -> retry ladder (400k -> WIDE 0.4-clearance rung ->
+  0.25/1.2M -> 0.2/2M -> SMD-relief 0.18 with THT pads always keeping 0.3).
+- The WIDE rung fixes a pathology: A*'s cost-optimal path hugs a pad,
+  verification rejects it, and every rung then finds the SAME path -- forcing
+  0.4 obstacle clearance makes the planner keep verify-proof distance.
+- THT-vs-SMD clearance split: _verify_geo now enforces 0.3mm against any
+  holed pad on EVERY verification path (including the string-pull smoother,
+  which previously verified shortcuts at 0.16 uniformly -- latent hole) while
+  SMD may relax to 0.16. The user's hand-solder rule is structural now.
+- _commit_via near-duplicate replacement stitches on ALL routing layers (was
+  F/B only -- an F->In2 transition left its inner run dangling; found as a
+  DRC unconnected on LINE3_SENSE).
+- heal_all.py: convergent post-pass. Loops DRC -> heal -> refill -> DRC:
+  copper-pair gaps get A* micro-routes (retry_edge doglegs through
+  fine-pitch fields); pour-net items get stitch vias laddered to their
+  plane; zone fragments (anchored by a stitch via, walled off by inner-layer
+  tracks, so island removal keeps them) get a via dropped where same-net F/B
+  copper overlies the fragment polygon. Converged in 4 rounds from 8
+  unconnected to zero.
+- check_overlaps upgraded to per-courtyard-piece testing (the module's
+  off-board antenna rectangle no longer falsely claims the rear panel), with
+  a justified-whitelist for rotated-part bbox over-flags.
+- Final numbers: ~1240 tracks, ~310 vias, 4 layers, ERC 0, DRC 0 violations /
+  0 unconnected / 0 schematic-parity issues.
