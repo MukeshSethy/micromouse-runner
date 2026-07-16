@@ -171,6 +171,7 @@ for (_ref, _num, _pn) in (("U6", "2", "GND"),
 JAILED = ["Net-(J7-CC1)", "Net-(J7-CC2)", "USB_DM_C", "USB_DP_C",
           "USB_DM", "USB_DP", "Net-(R59-Pad1)", "Net-(R60-Pad1)",
           "USB_VBUS", "VBUS_SENSE",
+          "Net-(U1-L1)", "Net-(U1-L2)", "ENC1_B", "ENC1_A",
           "AIN1", "AIN2", "BIN2", "BIN1", "STBY", "PWMB", "PWMA"]
 
 def drain_jailed_ladder():
@@ -229,7 +230,7 @@ print(f"[{time.time()-t0:.0f}s] priority done, {len(g._unrouted)} fails")
 skip |= set(PRIORITY)
 
 # ---- 5-7. remaining nets ---------------------------------------------------
-POWER = {"Net-(J1-Pin_1)", "Net-(J2-Pin_2)", "Net-(F1-Pad2)"}
+POWER = {"Net-(J1-Pin_1)", "Net-(J2-Pin_2)", "Net-(Q1-D)"}  # fuse->P-FET drain (was Net-(F1-Pad2) pre pin-number fix)
 POWER |= {n for n in all_net_names if n.startswith("EMIT_")}
 
 def span(net):

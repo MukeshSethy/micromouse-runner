@@ -102,16 +102,56 @@ class PcbGen:
             seg.SetWidth(pcbnew.FromMM(width_mm))
             self.board.Add(seg)
 
+    _n_holes = 0
+
     def add_mounting_hole(self, center, drill_mm):
-        # Unplated round hole cut from the board -- a closed circle on
-        # Edge.Cuts. Used for motor-bracket and castor screws (M2.5/M3).
-        c = pcbnew.PCB_SHAPE(self.board, pcbnew.SHAPE_T_CIRCLE)
-        c.SetCenter(self._mm(*center))
-        c.SetStart(self._mm(*center))
-        c.SetEnd(self._mm(center[0] + drill_mm / 2, center[1]))
-        c.SetLayer(pcbnew.Edge_Cuts)
-        c.SetWidth(pcbnew.FromMM(0.15))
-        self.board.Add(c)
+        # REAL NPTH pad (drilled, appears in the fab hole table). The first
+        # implementation drew an Edge.Cuts circle: routed instead of drilled,
+        # absent from the drill file, while the docs promised NPTH (rev-5
+        # audit finding). Used for motor-bracket and castor screws.
+        PcbGen._n_holes += 1
+        fp = pcbnew.FOOTPRINT(self.board)
+        fp.SetFPID(pcbnew.LIB_ID("", "MountingHole_NPTH"))
+        fp.SetReference("H%d" % PcbGen._n_holes)
+        fp.Reference().SetVisible(False)
+        attrs = pcbnew.FP_EXCLUDE_FROM_BOM | pcbnew.FP_EXCLUDE_FROM_POS_FILES
+        if hasattr(pcbnew, "FP_BOARD_ONLY"):
+            attrs |= pcbnew.FP_BOARD_ONLY
+        fp.SetAttributes(attrs)
+        fp.SetPosition(self._mm(*center))
+        pad = pcbnew.PAD(fp)
+        pad.SetAttribute(pcbnew.PAD_ATTRIB_NPTH)
+        pad.SetShape(pcbnew.PAD_SHAPE_CIRCLE)
+        pad.SetSize(pcbnew.VECTOR2I(pcbnew.FromMM(drill_mm), pcbnew.FromMM(drill_mm)))
+        pad.SetDrillShape(pcbnew.PAD_DRILL_SHAPE_CIRCLE)
+        pad.SetDrillSize(pcbnew.VECTOR2I(pcbnew.FromMM(drill_mm), pcbnew.FromMM(drill_mm)))
+        pad.SetPosition(self._mm(*center))
+        pad.SetLayerSet(pad.UnplatedHoleMask())
+        fp.Add(pad)
+        self.board.Add(fp)
+
+    def assert_netlist_pads_mapped(self):
+        # Every netlist (ref, pin) must exist as a board pad carrying that
+        # net. Guards the silent skip in load-time SetNet(): a symbol whose
+        # pin NUMBERS don't match the footprint's pad names otherwise loads
+        # netless -- invisible to BOTH routing and DRC connectivity (rev-5:
+        # Q1/Q28-33 shipped floating).
+        pads = {}
+        for fp in self.board.GetFootprints():
+            for pad in fp.Pads():
+                num = pad.GetNumber() if hasattr(pad, "GetNumber") else pad.GetName()
+                pads[(fp.GetReference(), str(num))] = pad.GetNetname()
+        bad = []
+        for (ref, pin), net in sorted(self.pad_to_net.items()):
+            got = pads.get((ref, str(pin)))
+            if got is None:
+                bad.append(f"{ref}.{pin} ({net}): netlist pin has NO matching pad name on the footprint")
+            elif got != net:
+                bad.append(f"{ref}.{pin}: net mismatch board={got!r} netlist={net!r}")
+        if bad:
+            raise SystemExit("NETLIST->PAD MAPPING FAILURES (%d):\n  " % len(bad)
+                             + "\n  ".join(bad))
+        print(f"netlist->pad mapping: all {len(self.pad_to_net)} pins mapped")
 
     def add_edge_slot(self, rect):
         # Rectangular cutout in the board (closed rectangle on Edge.Cuts) --
@@ -144,7 +184,11 @@ class PcbGen:
         # vias too. The router treated these zones as fully open; forbidding
         # only vias produced 33 items_not_allowed hits in rev 5.
         z.SetDoNotAllowVias(not (allow_tracks if allow_vias is None else allow_vias))
-        z.SetDoNotAllowPads(True)
+        # Pads follow the footprint policy: a keepout that admits footprints
+        # must admit their pads too -- the NPTH bracket-hole footprints live
+        # INSIDE the bracket keepouts by definition (rev-5.1: DoNotAllowPads
+        # was unconditional and flagged H1-H4 as items_not_allowed).
+        z.SetDoNotAllowPads(not allow_footprints)
         z.SetDoNotAllowZoneFills(True)
         z.SetDoNotAllowFootprints(not allow_footprints)
         outline = z.Outline()

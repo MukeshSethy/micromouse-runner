@@ -1,79 +1,102 @@
-import re, sys
+"""Netlist gate for the rev-5 design. Exits 1 on any failure.
+
+Verifies net-level integrity of pcb/netlist.net: distinct power rails, the
+complete battery power path (J2 -> fuse -> reverse-polarity P-FET -> VM_BATT),
+motor/encoder/USB/JTAG nets, and that every sensor SENSE net reaches both its
+reader (U3 ADC or U4 mux) and its indicator FET gate.
+
+History: the original script checked the rev-1 STM32-era names and always
+exited 0, so it silently stopped gating anything around rev 2. Board-level
+pad mapping is separately gated by PcbGen.assert_netlist_pads_mapped()
+(build_pcb.py) -- THAT is the check which catches symbol-pin vs footprint-pad
+naming mismatches (the rev-5 floating-FET defect); this file checks the
+netlist's own topology.
+"""
+import re
+import sys
 
 text = open(r"D:\Projects\micromouse-pcb\pcb\netlist.net", encoding="utf-8").read()
 
-# Parse each (net (code N) (name "...") (node (ref "X") (pin "Y") ...)...) block.
-nets = []  # list of (name, [(ref,pin), ...])
-for m in re.finditer(r'\(net\s*\(code "\d+"\)\s*\(name "([^"]*)"\)(.*?)\n\t\t\)', text, re.S):
-    name = m.group(1)
-    body = m.group(2)
-    nodes = re.findall(r'\(ref "([^"]+)"\)\s*\(pin "([^"]+)"\)', body)
-    nets.append((name, nodes))
-
-print(f"Total nets: {len(nets)}")
-
 by_name = {}
-for name, nodes in nets:
-    by_name.setdefault(name, []).extend(nodes)
+for m in re.finditer(r'\(net\s*\(code "\d+"\)\s*\(name "([^"]*)"\)(.*?)\n\t\t\)', text, re.S):
+    nodes = re.findall(r'\(ref "([^"]+)"\)\s*\(pin "([^"]+)"\)', m.group(2))
+    by_name.setdefault(m.group(1), []).extend(nodes)
 
-def show(name):
-    nodes = by_name.get(name)
+fails = []
+
+def need(net, min_pins=2, must_have=()):
+    nodes = by_name.get(net)
     if nodes is None:
-        print(f"  {name}: MISSING")
-    else:
-        print(f"  {name} ({len(nodes)} pins): {nodes}")
+        fails.append(f"{net}: MISSING")
+        return
+    if len(nodes) < min_pins:
+        fails.append(f"{net}: only {len(nodes)} pins (need >= {min_pins}): {nodes}")
+    for want in must_have:
+        if want not in nodes:
+            fails.append(f"{net}: expected node {want} not present: {nodes}")
 
-print("\n--- Power rails (must be 3 DISTINCT nets) ---")
-for n in ["GND", "VM_BATT", "PLUS3V3"]:
-    show(n)
+print(f"Total distinct nets: {len(by_name)}")
 
-print("\n--- Motor driver outputs (must be 4 DISTINCT nets, one per connector pin) ---")
-motor_out_nets = [name for name, nodes in nets if any(r == "U2" and p in ("1","2","5","6","7","8","11","12") for r, p in nodes)]
-for name in motor_out_nets:
-    show(name)
+# Power rails -- three distinct nets with realistic fanout
+need("GND", 60)
+need("PLUS3V3", 40)
+need("VM_BATT", 10, must_have=[("Q1", "2")])   # P-FET source feeds the rail
 
-print("\n--- Encoder nets (must be 4 DISTINCT nets) ---")
-for n in ["ENC1_A", "ENC1_B", "ENC2_A", "ENC2_B"]:
-    show(n)
+# Battery power path, pin by pin: J2 -> F1 -> Q1(D->S) -> VM_BATT; gate held
+# low through R1. This exact chain was broken in shipped rev 5 (floating Q1).
+need("Net-(J2-Pin_2)", 2, must_have=[("J2", "2"), ("F1", "1")])
+need("Net-(Q1-D)", 2, must_have=[("F1", "2"), ("Q1", "3")])
+need("Net-(Q1-G)", 2, must_have=[("Q1", "1"), ("R1", "1")])
+if ("R1", "2") not in by_name.get("GND", []):
+    fails.append("GND: R1.2 (Q1 gate pulldown) not on GND")
 
-print("\n--- ESP32 support nets (EN and IO0 must be DISTINCT, not shorted) ---")
-for n in ["ESP_EN_NET", "ESP_IO0_NET", "NRST", "USART1_TX", "USART1_RX"]:
-    show(n)
+# Motor driver / encoders
+for n in ("MOTA_P", "MOTA_N", "MOTB_P", "MOTB_N"):
+    need(n, 2)
+for n in ("ENC1_A", "ENC1_B", "ENC2_A", "ENC2_B"):
+    need(n, 2)
+for n in ("PWMA", "PWMB", "AIN1", "AIN2", "BIN1", "BIN2", "STBY"):
+    need(n, 2)
 
-print("\n--- Sensor nets: all 28 (14 _SENSE + 14 _LED) must be DISTINCT ---")
-sensor_names = ["WALL1","WALL2","WALL3","WALL4","WALL5","WALL6",
-                "LINE1","LINE2","LINE3","LINE4","LINE5","LINE6","LINE7","LINE8"]
-missing = []
-sizes = {}
-for nm in sensor_names:
-    for suffix in ("_SENSE", "_LED"):
-        key = nm + suffix
-        nodes = by_name.get(key)
-        if nodes is None:
-            missing.append(key)
-        else:
-            sizes[key] = len(nodes)
-print("Missing nets:", missing if missing else "none")
-print("Pin counts (expect 2 each -- one sensor-side pin + one mux-channel pin):")
-for k, v in sizes.items():
-    flag = "" if v == 2 else "  <-- UNEXPECTED COUNT"
-    print(f"  {k}: {v}{flag}")
+# ESP32 module support / USB / JTAG
+need("ESP_EN", 2)
+for n in ("USB_DM", "USB_DP", "USB_DM_C", "USB_DP_C", "USB_VBUS", "VBUS_SENSE",
+          "JTAG_TMS", "JTAG_TCK", "JTAG_TDO", "JTAG_TDI"):
+    need(n, 2)
 
-# Cross-net collision check: no two DIFFERENT intended net names should share
-# any (ref,pin) tuple, and more importantly no two DIFFERENT names should
-# resolve to sets with >0 overlap (that would mean KiCad actually merged them
-# under one canonical name already, which show() above would reveal as
-# "MISSING" for one of the pair -- but double check explicitly here too).
-all_expected = ["GND", "VM_BATT", "PLUS3V3", "ENC1_A", "ENC1_B", "ENC2_A", "ENC2_B",
-                "ESP_EN_NET", "ESP_IO0_NET", "NRST", "USART1_TX", "USART1_RX",
-                "MUX_S0", "MUX_S1", "MUX_S2", "MUX_S3", "MUX_SENSE", "LED_PULSE",
-                "STBY", "AIN1", "AIN2", "BIN1", "BIN2", "USER_BTN",
-                "VBAT_CELL1_SENSE", "VBAT_PACK_SENSE", "PWMA", "PWMB",
-                "ESP_PROG_TX", "ESP_PROG_RX"] + [nm + s for nm in sensor_names for s in ("_SENSE", "_LED")]
+# Mux + emitter rails
+for n in ("MUX_S0", "MUX_S1", "MUX_S2", "MUX_SENSE"):
+    need(n, 2)
+for n in ("WALL_EMIT_FRONT", "WALL_EMIT_DIAG", "WALL_EMIT_SIDE", "LINE_EMIT"):
+    need(n, 2)
 
-print("\n--- Any expected net name entirely absent from the netlist? ---")
-absent = [n for n in all_expected if n not in by_name]
-print(absent if absent else "none -- all present")
+# Every SENSE net must reach its reader AND its indicator FET gate (pin 1 on
+# both the BSS138 line drivers and the Q_PMOS_GSD wall drivers).
+for i in range(1, 7):
+    net = f"WALL{i}_SENSE"
+    nodes = by_name.get(net, [])
+    if not any(r == "U3" for r, p in nodes):
+        fails.append(f"{net}: no U3 (ADC) node: {nodes}")
+    if not any(r.startswith("Q") and p == "1" for r, p in nodes):
+        fails.append(f"{net}: no indicator FET gate node: {nodes}")
+for i in range(1, 9):
+    net = f"LINE{i}_SENSE"
+    nodes = by_name.get(net, [])
+    if not any(r == "U4" for r, p in nodes):
+        fails.append(f"{net}: no U4 (mux) node: {nodes}")
+    if not any(r.startswith("Q") and p == "1" for r, p in nodes):
+        fails.append(f"{net}: no indicator FET gate node: {nodes}")
 
-print("\n--- Total distinct net names vs expected minimum ---")
-print(f"{len(by_name)} distinct net names in netlist; {len(all_expected)} explicitly checked above (plus unnamed local nets like motor outputs, decoupling, etc.)")
+# No expected-distinct pair may have merged: spot-check a few likely shorts
+for a, b in (("USB_DM", "USB_DP"), ("ENC1_A", "ENC1_B"), ("MOTA_P", "MOTA_N"),
+             ("GND", "PLUS3V3"), ("GND", "VM_BATT")):
+    na, nb = set(by_name.get(a, [])), set(by_name.get(b, []))
+    if na and na == nb:
+        fails.append(f"{a} and {b} resolve to the SAME node set -- merged/shorted")
+
+if fails:
+    print(f"\nVERIFY FAILED ({len(fails)}):")
+    for f in fails:
+        print("  -", f)
+    sys.exit(1)
+print("verify_netlist: ALL CHECKS PASSED")

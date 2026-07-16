@@ -71,8 +71,14 @@ def CONN6(ref, value, at, footprint="Connector_JST:JST_PH_B6B-PH-K_1x06_P2.00mm_
     return [pin_at(base, (-5.08, 5.08 - 2.54 * i)) for i in range(6)]
 
 def QPMOS(ref, value, at, footprint="Package_TO_SOT_SMD:SOT-23"):
+    # Q_PMOS_GSD: pins NUMBERED 1/2/3 (G/S/D) matching the SOT-23 pads. The
+    # old Device:Q_PMOS numbers its pins literally "D"/"G"/"S" -- no SOT-23
+    # pad carries those names, so every QPMOS pad loaded NETLESS and both the
+    # router and DRC connectivity were structurally blind to it (rev-5 audit:
+    # Q1 + Q28..Q33 floating, battery power path broken). Same pin geometry.
     base = snap(at)
-    g.add_component("Device", "Q_PMOS", ref, value, base, {"D": "", "G": "", "S": ""}, footprint=footprint)
+    g.add_component("Transistor_FET", "Q_PMOS_GSD", ref, value, base,
+                     {"1": "", "2": "", "3": ""}, footprint=footprint)
     return pin_at(base, (2.54, 5.08)), pin_at(base, (-5.08, 0)), pin_at(base, (2.54, -5.08))  # D, G, S
 
 def LED_SFH4550(ref, at, footprint="LED_THT:LED_D5.0mm_IRGrey"):

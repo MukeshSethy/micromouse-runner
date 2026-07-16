@@ -636,7 +636,7 @@ and the never-90-to-a-shiny-wall rule (side = 75 not 90); 45 diag per Decimus.
 
 **Rear service/drive panel (final, board grown 114 -> 100x120mm for a real
 rear fan-out band after 9 routing iterations proved the panel density-bound):**
-ESP32 (U3) rear-center-left, rot 180, anchor (35.25,107.5) -- ANTENNA
+ESP32 (U3) rear-center-left, rot 180, anchor (35.25,113.5) -- ANTENNA
 OVERHANGS THE REAR EDGE (Espressif-preferred placement; the interior-slot
 option was dropped when the user chose the rear). USB-C J7 (54,114.3), mouth
 out the rear, recessed 1mm to widen the pad-row strip its nets live in;
@@ -695,3 +695,41 @@ pull-downs, dividers, wall-sensor pull-ups/limiters).
   a justified-whitelist for rotated-part bbox over-flags.
 - Final numbers: ~1240 tracks, ~310 vias, 4 layers, ERC 0, DRC 0 violations /
   0 unconnected / 0 schematic-parity issues.
+
+
+## 2026-07-16: rev 5.1 -- audit postmortem: the floating-FET defect
+
+An adversarial done-ness audit of the pushed rev 5 found a CRITICAL defect
+that had passed EVERY gate (0 unrouted, ERC 0, DRC 0/0/0):
+
+**Q1 and Q28..Q33 (all 7 QPMOS parts) were electrically floating.** The
+Device:Q_PMOS symbol numbers its pins literally "D"/"G"/"S"; the SOT-23
+footprint's pads are named "1"/"2"/"3". PcbGen.place() looks pads up by
+(ref, pad-number) and SILENTLY skips pads with no netlist entry -- so all 21
+pads loaded netless. Netless pads produce no ratsnest: the router had nothing
+to route, and DRC's connectivity check cannot see them either. Consequence:
+the battery power path (J2 -> F1 -> Q1 -> VM_BATT) was open -- the board
+could never power on -- and all six wall-indicator drivers were dead. The
+only symptom anywhere was 21 schematic-parity "net_conflict" items sitting at
+WARNING severity.
+
+Fixes (all structural, not just the instance):
+1. QPMOS now instantiates Transistor_FET:Q_PMOS_GSD (pins numbered 1/2/3 =
+   G/S/D, identical pin geometry) -- same pattern as QN_BSS138.
+2. build_pcb.py now runs PcbGen.assert_netlist_pads_mapped() before saving:
+   every netlist (ref,pin) must exist as a board pad carrying that net, else
+   hard exit. This makes the whole defect class impossible to ship.
+3. .kicad_pro: net_conflict severity raised warning -> error, so the parity
+   check also gates it.
+4. verify_netlist.py rewritten for the rev-5 topology (was still checking
+   STM32-era net names from rev 1 and always exited 0); it now verifies the
+   battery path pin-by-pin and that every SENSE net reaches its reader AND
+   its indicator gate, and exits 1 on failure.
+
+Also from the audit: mounting holes were Edge.Cuts circles (routed, absent
+from the drill file) while the docs promised NPTH -- add_mounting_hole() now
+emits real NPTH pads in board-only footprints (H1..H5), so the holes are
+drilled and appear in the fab hole table. Stale rev-3/4 renders removed from
+images/. Known remaining nice-to-haves (deliberately deferred): STEP models
+for U1/L1/N20 (VRML-only), MPN fields for a one-click BOM, and a scripted
+gerber export pass.

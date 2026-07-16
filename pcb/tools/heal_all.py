@@ -129,6 +129,13 @@ def bridge_fragments(g, net, zlayer):
                 pv = pcbnew.VECTOR2I(pcbnew.FromMM(p[0]), pcbnew.FromMM(p[1]))
                 if not chain.PointInside(pv, 0, True):
                     continue
+                # a same-net via already here means a previous round tried
+                # this exact bridge and it did NOT join the clusters -- do not
+                # stack another (this looped for 6 rounds once); leave the
+                # fragment for the micro-route path instead
+                if any(vn == net and abs(vx - p[0]) < 0.2 and abs(vy - p[1]) < 0.2
+                       for (vx, vy, vn, vr) in g._vias):
+                    continue
                 if g._verify_geo([], [p], net, 0.125) is None:
                     g.add_via(p, net)
                     print(f"  fragment({net}/{fi}) bridge via @ {p}")

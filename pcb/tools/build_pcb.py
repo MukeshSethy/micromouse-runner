@@ -230,5 +230,6 @@ g.add_zone("PLUS3V3", pcbnew.In2_Cu, plane, solid=True)  # solid: thermal spokes
 # same-pitch neighbors, and a pour beats a trace for motor current anyway.
 g.add_zone("VM_BATT", pcbnew.B_Cu, [(16, 44), (99, 44), (99, 113), (16, 113)])
 
+g.assert_netlist_pads_mapped()   # hard gate: no netlist pin may load netless
 g.save(r"D:\Projects\micromouse-pcb\pcb\micromouse-pcb.kicad_pcb")
 print(f"Saved {BOARD_W}x{BOARD_H}mm PCB with {len(g._placed)} footprints, {len(remaining)} unplaced.")
