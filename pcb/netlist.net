@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "D:\\Projects\\micromouse-pcb\\pcb\\micromouse-pcb.kicad_sch")
-		(date "2026-07-16T10:49:00")
+		(date "2026-07-16T12:10:22")
 		(tool "Eeschema 10.0.4")
 		(sheet
 			(number "1")
@@ -60,6 +60,10 @@
 			(footprint "Capacitor_SMD:C_1210_3225Metric")
 			(fields
 				(field
+					(name "MPN") "CL32A107MQVNNNE")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_1210_3225Metric")
 				(field
 					(name "Datasheet")
@@ -72,6 +76,14 @@
 				(lib "Device")
 				(part "C")
 				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL32A107MQVNNNE")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
 			)
 			(property
 				(name "Sheetname")
@@ -93,7 +105,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ba759dce-1ed2-47cf-99db-a44de0dda02a")
+			(tstamps "cdded19f-3b84-4717-884d-cd4ce5bc8135")
 			(units
 				(unit
 					(name "A")
@@ -114,6 +126,10 @@
 			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "CL21B104KBCNNNC")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -126,6 +142,14 @@
 				(lib "Device")
 				(part "C")
 				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B104KBCNNNC")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
 			)
 			(property
 				(name "Sheetname")
@@ -147,7 +171,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "da2f9cb4-fb78-431c-8399-a84b8dbaacc0")
+			(tstamps "a4245a64-4a2a-482f-9e0a-a354021bda26")
 			(units
 				(unit
 					(name "A")
@@ -168,6 +192,10 @@
 			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "CL21B104KBCNNNC")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -180,6 +208,14 @@
 				(lib "Device")
 				(part "C")
 				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B104KBCNNNC")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
 			)
 			(property
 				(name "Sheetname")
@@ -201,7 +237,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ff11b589-b540-4779-bc33-9174fff29c61")
+			(tstamps "73ac473f-a3d6-4f79-91c6-de07deba8cae")
 			(units
 				(unit
 					(name "A")
@@ -222,6 +258,10 @@
 			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "CL21A106KPFNNNE")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -234,6 +274,14 @@
 				(lib "Device")
 				(part "C")
 				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21A106KPFNNNE")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
 			)
 			(property
 				(name "Sheetname")
@@ -255,7 +303,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1ada416f-f91a-4e74-8cc3-8fb869fc8255")
+			(tstamps "cd82a63b-ed65-4129-8bc4-fc18e6646d03")
 			(units
 				(unit
 					(name "A")
@@ -276,6 +324,10 @@
 			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "CL21A226KPCLRNC")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -288,6 +340,14 @@
 				(lib "Device")
 				(part "C")
 				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21A226KPCLRNC")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
 			)
 			(property
 				(name "Sheetname")
@@ -309,7 +369,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e462d546-7013-46e2-aeca-6db837a75e61")
+			(tstamps "f65b608e-db3e-4c1b-8631-fb4fdc91d228")
 			(units
 				(unit
 					(name "A")
@@ -330,6 +390,10 @@
 			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "CL21B104KBCNNNC")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -342,6 +406,14 @@
 				(lib "Device")
 				(part "C")
 				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B104KBCNNNC")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
 			)
 			(property
 				(name "Sheetname")
@@ -363,7 +435,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "897b37b1-e7a4-46b0-a7c9-b75400bb44cb")
+			(tstamps "1b942cad-4a4c-4d37-88fc-65c7ee3a1b69")
 			(units
 				(unit
 					(name "A")
@@ -384,6 +456,10 @@
 			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "CL21B104KBCNNNC")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -396,6 +472,14 @@
 				(lib "Device")
 				(part "C")
 				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B104KBCNNNC")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
 			)
 			(property
 				(name "Sheetname")
@@ -417,7 +501,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bcdf93f4-558d-47d9-bee3-c0a7c82e89b5")
+			(tstamps "51ec7b01-ded6-4c9c-999d-7504c81c08a2")
 			(units
 				(unit
 					(name "A")
@@ -438,6 +522,10 @@
 			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "CL21B105KAFNNNE")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -450,6 +538,14 @@
 				(lib "Device")
 				(part "C")
 				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B105KAFNNNE")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
 			)
 			(property
 				(name "Sheetname")
@@ -471,7 +567,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f6194840-a010-4797-8bbf-78a1fb9171d4")
+			(tstamps "4063054d-3c02-4051-a260-3507bb039bbb")
 			(units
 				(unit
 					(name "A")
@@ -492,6 +588,10 @@
 			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "CL21A106KPFNNNE")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -504,6 +604,14 @@
 				(lib "Device")
 				(part "C")
 				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21A106KPFNNNE")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
 			)
 			(property
 				(name "Sheetname")
@@ -525,7 +633,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a65d65f1-7da9-4355-a473-30114d4a08c7")
+			(tstamps "0583ab75-58be-4423-93de-4b9f25b19573")
 			(units
 				(unit
 					(name "A")
@@ -546,6 +654,10 @@
 			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "CL21A106KPFNNNE")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -558,6 +670,14 @@
 				(lib "Device")
 				(part "C")
 				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21A106KPFNNNE")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
 			)
 			(property
 				(name "Sheetname")
@@ -579,7 +699,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "25607b99-c7a2-4084-b761-9a6e3e9dd613")
+			(tstamps "9f9ffb98-a3fe-4e8d-b38c-d6e0d7133a7e")
 			(units
 				(unit
 					(name "A")
@@ -600,6 +720,10 @@
 			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "CL21B104KBCNNNC")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -612,6 +736,14 @@
 				(lib "Device")
 				(part "C")
 				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B104KBCNNNC")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
 			)
 			(property
 				(name "Sheetname")
@@ -633,7 +765,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "76c3ce1a-7e12-4c7b-b382-734a475d1b2a")
+			(tstamps "0e6e0a41-90c8-471b-9701-4fbef050a965")
 			(units
 				(unit
 					(name "A")
@@ -654,6 +786,10 @@
 			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "CL21B104KBCNNNC")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -666,6 +802,14 @@
 				(lib "Device")
 				(part "C")
 				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B104KBCNNNC")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
 			)
 			(property
 				(name "Sheetname")
@@ -687,7 +831,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3d126432-a2ca-4993-9b30-e6a24826210d")
+			(tstamps "f5ad7f36-874c-4886-84bf-d836f157c69f")
 			(units
 				(unit
 					(name "A")
@@ -708,6 +852,10 @@
 			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "CL21B104KBCNNNC")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -720,6 +868,14 @@
 				(lib "Device")
 				(part "C")
 				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B104KBCNNNC")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
 			)
 			(property
 				(name "Sheetname")
@@ -741,7 +897,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "50e70b17-de90-4ea8-a462-45a83c09e5e2")
+			(tstamps "ace5250d-f292-4cec-b94e-fcfc3fd5b978")
 			(units
 				(unit
 					(name "A")
@@ -758,10 +914,14 @@
 		)
 		(comp
 			(ref "D1")
-			(value "SFH4550 (real part; LD271 base symbol used so ERC checks pins)")
+			(value "SFH4550 (THT, LD271 base symbol)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
+				(field
+					(name "MPN") "SFH 4550")
+				(field
+					(name "Manufacturer") "ams-OSRAM")
 				(field
 					(name "Footprint") "LED_THT:LED_D5.0mm_IRGrey")
 				(field
@@ -774,6 +934,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "SFH 4550")
+			)
+			(property
+				(name "Manufacturer")
+				(value "ams-OSRAM")
 			)
 			(property
 				(name "Sheetname")
@@ -795,7 +963,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "36db0859-4ce6-45db-9740-823db5a2f6ab")
+			(tstamps "08f13fcc-4378-42d3-9545-a0705e027c5a")
 			(units
 				(unit
 					(name "A")
@@ -812,10 +980,14 @@
 		)
 		(comp
 			(ref "D2")
-			(value "SFH4550 (real part; LD271 base symbol used so ERC checks pins)")
+			(value "SFH4550 (THT, LD271 base symbol)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
+				(field
+					(name "MPN") "SFH 4550")
+				(field
+					(name "Manufacturer") "ams-OSRAM")
 				(field
 					(name "Footprint") "LED_THT:LED_D5.0mm_IRGrey")
 				(field
@@ -828,6 +1000,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "SFH 4550")
+			)
+			(property
+				(name "Manufacturer")
+				(value "ams-OSRAM")
 			)
 			(property
 				(name "Sheetname")
@@ -849,7 +1029,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a27045f6-be04-476b-94a1-e2fbcbcd74c6")
+			(tstamps "510a31ee-d1af-4dbc-9839-4cd7d8870416")
 			(units
 				(unit
 					(name "A")
@@ -866,10 +1046,14 @@
 		)
 		(comp
 			(ref "D3")
-			(value "SFH4550 (real part; LD271 base symbol used so ERC checks pins)")
+			(value "SFH4550 (THT, LD271 base symbol)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
+				(field
+					(name "MPN") "SFH 4550")
+				(field
+					(name "Manufacturer") "ams-OSRAM")
 				(field
 					(name "Footprint") "LED_THT:LED_D5.0mm_IRGrey")
 				(field
@@ -882,6 +1066,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "SFH 4550")
+			)
+			(property
+				(name "Manufacturer")
+				(value "ams-OSRAM")
 			)
 			(property
 				(name "Sheetname")
@@ -903,7 +1095,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0111bd49-8ea2-4e67-b841-3cdbde685d79")
+			(tstamps "c3c6cc7c-70ed-4733-a724-cac5e6657dc8")
 			(units
 				(unit
 					(name "A")
@@ -920,10 +1112,14 @@
 		)
 		(comp
 			(ref "D4")
-			(value "SFH4550 (real part; LD271 base symbol used so ERC checks pins)")
+			(value "SFH4550 (THT, LD271 base symbol)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
+				(field
+					(name "MPN") "SFH 4550")
+				(field
+					(name "Manufacturer") "ams-OSRAM")
 				(field
 					(name "Footprint") "LED_THT:LED_D5.0mm_IRGrey")
 				(field
@@ -936,6 +1132,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "SFH 4550")
+			)
+			(property
+				(name "Manufacturer")
+				(value "ams-OSRAM")
 			)
 			(property
 				(name "Sheetname")
@@ -957,7 +1161,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5d6215c9-091e-4ef6-a93a-a7b04fe7eae3")
+			(tstamps "c87f29c0-00a5-4b94-bdc0-7acba40e7e6d")
 			(units
 				(unit
 					(name "A")
@@ -974,10 +1178,14 @@
 		)
 		(comp
 			(ref "D5")
-			(value "SFH4550 (real part; LD271 base symbol used so ERC checks pins)")
+			(value "SFH4550 (THT, LD271 base symbol)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
+				(field
+					(name "MPN") "SFH 4550")
+				(field
+					(name "Manufacturer") "ams-OSRAM")
 				(field
 					(name "Footprint") "LED_THT:LED_D5.0mm_IRGrey")
 				(field
@@ -990,6 +1198,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "SFH 4550")
+			)
+			(property
+				(name "Manufacturer")
+				(value "ams-OSRAM")
 			)
 			(property
 				(name "Sheetname")
@@ -1011,7 +1227,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "819d82ce-13c5-48f7-912b-00ad676b56e1")
+			(tstamps "f94f66c8-b6a9-46aa-a7fc-9cee5ba9a640")
 			(units
 				(unit
 					(name "A")
@@ -1028,10 +1244,14 @@
 		)
 		(comp
 			(ref "D6")
-			(value "SFH4550 (real part; LD271 base symbol used so ERC checks pins)")
+			(value "SFH4550 (THT, LD271 base symbol)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
+				(field
+					(name "MPN") "SFH 4550")
+				(field
+					(name "Manufacturer") "ams-OSRAM")
 				(field
 					(name "Footprint") "LED_THT:LED_D5.0mm_IRGrey")
 				(field
@@ -1044,6 +1264,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "SFH 4550")
+			)
+			(property
+				(name "Manufacturer")
+				(value "ams-OSRAM")
 			)
 			(property
 				(name "Sheetname")
@@ -1065,7 +1293,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b971c2a8-6429-47fc-8585-6ed566c2ad3b")
+			(tstamps "5faf724c-e4f4-466d-bf11-8ac3ea4aa312")
 			(units
 				(unit
 					(name "A")
@@ -1082,10 +1310,14 @@
 		)
 		(comp
 			(ref "D7")
-			(value "SFH4550 (real part; LD271 base symbol used so ERC checks pins)")
+			(value "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)")
 			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
+				(field
+					(name "MPN") "IR11-21C/TR8")
+				(field
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
@@ -1098,6 +1330,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "IR11-21C/TR8")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -1119,7 +1359,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "700ee111-6f64-49ee-962f-7a3a469ddbc0")
+			(tstamps "8c5cf4a7-52bd-4ba4-a77f-63d5a2095434")
 			(units
 				(unit
 					(name "A")
@@ -1136,10 +1376,14 @@
 		)
 		(comp
 			(ref "D8")
-			(value "SFH4550 (real part; LD271 base symbol used so ERC checks pins)")
+			(value "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)")
 			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
+				(field
+					(name "MPN") "IR11-21C/TR8")
+				(field
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
@@ -1152,6 +1396,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "IR11-21C/TR8")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -1173,7 +1425,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4696dd3f-6c40-4ef8-9a25-ba3c6f868bd8")
+			(tstamps "4b52c0a8-f7bd-4a03-83fe-7d04e7a474ca")
 			(units
 				(unit
 					(name "A")
@@ -1190,10 +1442,14 @@
 		)
 		(comp
 			(ref "D9")
-			(value "SFH4550 (real part; LD271 base symbol used so ERC checks pins)")
+			(value "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)")
 			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
+				(field
+					(name "MPN") "IR11-21C/TR8")
+				(field
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
@@ -1206,6 +1462,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "IR11-21C/TR8")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -1227,7 +1491,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "70151d51-3341-4fc3-8d56-307cd140780d")
+			(tstamps "ae044747-a736-4db8-8176-fc40023ccbc5")
 			(units
 				(unit
 					(name "A")
@@ -1244,10 +1508,14 @@
 		)
 		(comp
 			(ref "D10")
-			(value "SFH4550 (real part; LD271 base symbol used so ERC checks pins)")
+			(value "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)")
 			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
+				(field
+					(name "MPN") "IR11-21C/TR8")
+				(field
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
@@ -1260,6 +1528,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "IR11-21C/TR8")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -1281,7 +1557,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "30b03ddd-0bdd-4594-adbd-ea7b6ff55bde")
+			(tstamps "e7f732b2-8e8d-432a-8c9a-bef2d61043ad")
 			(units
 				(unit
 					(name "A")
@@ -1298,10 +1574,14 @@
 		)
 		(comp
 			(ref "D11")
-			(value "SFH4550 (real part; LD271 base symbol used so ERC checks pins)")
+			(value "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)")
 			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
+				(field
+					(name "MPN") "IR11-21C/TR8")
+				(field
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
@@ -1314,6 +1594,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "IR11-21C/TR8")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -1335,7 +1623,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2991bf7b-75b6-4f50-b42e-382043f8d7d8")
+			(tstamps "8cd2eb69-0e46-40e2-9170-56dadb6f5651")
 			(units
 				(unit
 					(name "A")
@@ -1352,10 +1640,14 @@
 		)
 		(comp
 			(ref "D12")
-			(value "SFH4550 (real part; LD271 base symbol used so ERC checks pins)")
+			(value "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)")
 			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
+				(field
+					(name "MPN") "IR11-21C/TR8")
+				(field
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
@@ -1368,6 +1660,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "IR11-21C/TR8")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -1389,7 +1689,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "49ec8e14-d671-40df-8a33-1f46e8704ae4")
+			(tstamps "176f3a91-e3bf-4d66-abbd-a561867dc84f")
 			(units
 				(unit
 					(name "A")
@@ -1406,10 +1706,14 @@
 		)
 		(comp
 			(ref "D13")
-			(value "SFH4550 (real part; LD271 base symbol used so ERC checks pins)")
+			(value "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)")
 			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
+				(field
+					(name "MPN") "IR11-21C/TR8")
+				(field
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
@@ -1422,6 +1726,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "IR11-21C/TR8")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -1443,7 +1755,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "90dd1601-907b-4aad-88fb-843b71cbea64")
+			(tstamps "9d43a0d5-f19f-4eae-bad8-d94e78882bab")
 			(units
 				(unit
 					(name "A")
@@ -1460,10 +1772,14 @@
 		)
 		(comp
 			(ref "D14")
-			(value "SFH4550 (real part; LD271 base symbol used so ERC checks pins)")
+			(value "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)")
 			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
+				(field
+					(name "MPN") "IR11-21C/TR8")
+				(field
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
@@ -1476,6 +1792,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "IR11-21C/TR8")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -1497,7 +1821,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "eadf1481-c654-4e74-91de-accc71a6d84c")
+			(tstamps "511cd47d-6a87-459e-8d7d-1da5f3a045a5")
 			(units
 				(unit
 					(name "A")
@@ -1518,6 +1842,10 @@
 			(footprint "LED_SMD:LED_0603_1608Metric")
 			(fields
 				(field
+					(name "MPN") "APT1608SURCK")
+				(field
+					(name "Manufacturer") "Kingbright")
+				(field
 					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -1530,6 +1858,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "APT1608SURCK")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Kingbright")
 			)
 			(property
 				(name "Sheetname")
@@ -1551,7 +1887,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b9a6b284-5edc-4b02-b088-cdd3af439e46")
+			(tstamps "af543f7f-09e7-49ca-ae89-51885f50a72f")
 			(units
 				(unit
 					(name "A")
@@ -1572,6 +1908,10 @@
 			(footprint "LED_SMD:LED_0603_1608Metric")
 			(fields
 				(field
+					(name "MPN") "APT1608SURCK")
+				(field
+					(name "Manufacturer") "Kingbright")
+				(field
 					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -1584,6 +1924,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "APT1608SURCK")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Kingbright")
 			)
 			(property
 				(name "Sheetname")
@@ -1605,7 +1953,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "fb8b1791-a11f-4de5-a79d-f5a9ec0a2868")
+			(tstamps "3a554764-0620-4203-b1cf-31c5d83dba9e")
 			(units
 				(unit
 					(name "A")
@@ -1626,6 +1974,10 @@
 			(footprint "LED_SMD:LED_0603_1608Metric")
 			(fields
 				(field
+					(name "MPN") "APT1608SURCK")
+				(field
+					(name "Manufacturer") "Kingbright")
+				(field
 					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -1638,6 +1990,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "APT1608SURCK")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Kingbright")
 			)
 			(property
 				(name "Sheetname")
@@ -1659,7 +2019,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6734c0dc-b68c-4ac1-b8b4-71d800157017")
+			(tstamps "8d91c15f-c83c-489a-ada9-f41a1f7b5052")
 			(units
 				(unit
 					(name "A")
@@ -1680,6 +2040,10 @@
 			(footprint "LED_SMD:LED_0603_1608Metric")
 			(fields
 				(field
+					(name "MPN") "APT1608SURCK")
+				(field
+					(name "Manufacturer") "Kingbright")
+				(field
 					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -1692,6 +2056,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "APT1608SURCK")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Kingbright")
 			)
 			(property
 				(name "Sheetname")
@@ -1713,7 +2085,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "22aa810a-ec4b-49b9-80c1-b9863f9c173e")
+			(tstamps "7342e5a5-7af8-4a5c-9148-d1c35028c2f7")
 			(units
 				(unit
 					(name "A")
@@ -1734,6 +2106,10 @@
 			(footprint "LED_SMD:LED_0603_1608Metric")
 			(fields
 				(field
+					(name "MPN") "APT1608SURCK")
+				(field
+					(name "Manufacturer") "Kingbright")
+				(field
 					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -1746,6 +2122,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "APT1608SURCK")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Kingbright")
 			)
 			(property
 				(name "Sheetname")
@@ -1767,7 +2151,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "75063320-cff3-4bfb-82e5-87fe92442ab9")
+			(tstamps "a81135c6-bcf2-429b-9d51-220aaa5fbdca")
 			(units
 				(unit
 					(name "A")
@@ -1788,6 +2172,10 @@
 			(footprint "LED_SMD:LED_0603_1608Metric")
 			(fields
 				(field
+					(name "MPN") "APT1608SURCK")
+				(field
+					(name "Manufacturer") "Kingbright")
+				(field
 					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -1800,6 +2188,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "APT1608SURCK")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Kingbright")
 			)
 			(property
 				(name "Sheetname")
@@ -1821,7 +2217,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "af51ff03-eb13-451d-aee4-9d1ae6e32550")
+			(tstamps "eeb54803-fc1b-4e86-aeb4-2878752ff519")
 			(units
 				(unit
 					(name "A")
@@ -1842,6 +2238,10 @@
 			(footprint "LED_SMD:LED_0603_1608Metric")
 			(fields
 				(field
+					(name "MPN") "APT1608SURCK")
+				(field
+					(name "Manufacturer") "Kingbright")
+				(field
 					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -1854,6 +2254,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "APT1608SURCK")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Kingbright")
 			)
 			(property
 				(name "Sheetname")
@@ -1875,7 +2283,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "09171ae5-077d-49e7-87ef-7cc7ccb89021")
+			(tstamps "a38ce065-821e-4b65-98a5-14fac819a06b")
 			(units
 				(unit
 					(name "A")
@@ -1896,6 +2304,10 @@
 			(footprint "LED_SMD:LED_0603_1608Metric")
 			(fields
 				(field
+					(name "MPN") "APT1608SURCK")
+				(field
+					(name "Manufacturer") "Kingbright")
+				(field
 					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -1908,6 +2320,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "APT1608SURCK")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Kingbright")
 			)
 			(property
 				(name "Sheetname")
@@ -1929,7 +2349,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f887ba0c-1116-4735-9d9b-35a7bfe579ad")
+			(tstamps "c9841fc4-0eac-4410-a7d5-c9744e0bdef1")
 			(units
 				(unit
 					(name "A")
@@ -1950,6 +2370,10 @@
 			(footprint "LED_SMD:LED_0603_1608Metric")
 			(fields
 				(field
+					(name "MPN") "APT1608SURCK")
+				(field
+					(name "Manufacturer") "Kingbright")
+				(field
 					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -1962,6 +2386,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "APT1608SURCK")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Kingbright")
 			)
 			(property
 				(name "Sheetname")
@@ -1983,7 +2415,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5028aa82-b247-4354-bcc8-fb7fca510d02")
+			(tstamps "529c0d6b-75c3-4e87-b6e7-59c1b28d5abb")
 			(units
 				(unit
 					(name "A")
@@ -2004,6 +2436,10 @@
 			(footprint "LED_SMD:LED_0603_1608Metric")
 			(fields
 				(field
+					(name "MPN") "APT1608SURCK")
+				(field
+					(name "Manufacturer") "Kingbright")
+				(field
 					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -2016,6 +2452,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "APT1608SURCK")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Kingbright")
 			)
 			(property
 				(name "Sheetname")
@@ -2037,7 +2481,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3a59ad1c-bc26-461b-b22d-1d5dc8fae17d")
+			(tstamps "e8f79b89-9392-4496-aa0e-743cf8dce1df")
 			(units
 				(unit
 					(name "A")
@@ -2058,6 +2502,10 @@
 			(footprint "LED_SMD:LED_0603_1608Metric")
 			(fields
 				(field
+					(name "MPN") "APT1608SURCK")
+				(field
+					(name "Manufacturer") "Kingbright")
+				(field
 					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -2070,6 +2518,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "APT1608SURCK")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Kingbright")
 			)
 			(property
 				(name "Sheetname")
@@ -2091,7 +2547,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ca56ff03-d4f6-4b2a-a1f1-0638b948aeb9")
+			(tstamps "cc8408ad-8834-40e3-9efa-0647ebde871e")
 			(units
 				(unit
 					(name "A")
@@ -2112,6 +2568,10 @@
 			(footprint "LED_SMD:LED_0603_1608Metric")
 			(fields
 				(field
+					(name "MPN") "APT1608SURCK")
+				(field
+					(name "Manufacturer") "Kingbright")
+				(field
 					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -2124,6 +2584,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "APT1608SURCK")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Kingbright")
 			)
 			(property
 				(name "Sheetname")
@@ -2145,7 +2613,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a0148ef6-6fde-49f0-a0e7-a53bfd788450")
+			(tstamps "9447a3cb-bfb9-4142-b348-a1cd7d403155")
 			(units
 				(unit
 					(name "A")
@@ -2166,6 +2634,10 @@
 			(footprint "LED_SMD:LED_0603_1608Metric")
 			(fields
 				(field
+					(name "MPN") "APT1608SURCK")
+				(field
+					(name "Manufacturer") "Kingbright")
+				(field
 					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -2178,6 +2650,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "APT1608SURCK")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Kingbright")
 			)
 			(property
 				(name "Sheetname")
@@ -2199,7 +2679,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "42a3893f-314f-419d-99f1-93aba8dc5f4e")
+			(tstamps "685ee4c3-6789-4d6b-95d9-186f94bd2c44")
 			(units
 				(unit
 					(name "A")
@@ -2220,6 +2700,10 @@
 			(footprint "LED_SMD:LED_0603_1608Metric")
 			(fields
 				(field
+					(name "MPN") "APT1608SURCK")
+				(field
+					(name "Manufacturer") "Kingbright")
+				(field
 					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -2232,6 +2716,14 @@
 				(lib "LED")
 				(part "LD271")
 				(description "940nm IR-LED, 5mm")
+			)
+			(property
+				(name "MPN")
+				(value "APT1608SURCK")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Kingbright")
 			)
 			(property
 				(name "Sheetname")
@@ -2253,7 +2745,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0f2ebe5f-90fa-457d-8b44-0bcdce445021")
+			(tstamps "184176fb-8326-493d-952c-cde9e02a7615")
 			(units
 				(unit
 					(name "A")
@@ -2274,6 +2766,10 @@
 			(footprint "Fuse:Fuse_1206_3216Metric")
 			(fields
 				(field
+					(name "MPN") "0ZCJ0200FF2C")
+				(field
+					(name "Manufacturer") "Bel Fuse")
+				(field
 					(name "Footprint") "Fuse:Fuse_1206_3216Metric")
 				(field
 					(name "Datasheet")
@@ -2286,6 +2782,14 @@
 				(lib "Device")
 				(part "Fuse")
 				(description "Fuse")
+			)
+			(property
+				(name "MPN")
+				(value "0ZCJ0200FF2C")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Bel Fuse")
 			)
 			(property
 				(name "Sheetname")
@@ -2307,7 +2811,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b4a86c16-f71c-4880-a39a-1c6063091fc3")
+			(tstamps "6d66f93b-4ffd-4d19-a8b6-8c8f31cf0bef")
 			(units
 				(unit
 					(name "A")
@@ -2328,6 +2832,10 @@
 			(footprint "Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical")
 			(fields
 				(field
+					(name "MPN") "B2B-PH-K-S(LF)(SN)")
+				(field
+					(name "Manufacturer") "JST")
+				(field
 					(name "Footprint") "Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical")
 				(field
 					(name "Datasheet")
@@ -2340,6 +2848,14 @@
 				(lib "Connector_Generic")
 				(part "Conn_01x02")
 				(description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "MPN")
+				(value "B2B-PH-K-S(LF)(SN)")
+			)
+			(property
+				(name "Manufacturer")
+				(value "JST")
 			)
 			(property
 				(name "Sheetname")
@@ -2361,7 +2877,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "14f3c448-c6af-434a-a967-99241d56d658")
+			(tstamps "0fd653b1-570c-4903-a4cf-501a0142c8a2")
 			(units
 				(unit
 					(name "A")
@@ -2382,6 +2898,10 @@
 			(footprint "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical")
 			(fields
 				(field
+					(name "MPN") "61300211121")
+				(field
+					(name "Manufacturer") "Wurth Elektronik")
+				(field
 					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical")
 				(field
 					(name "Datasheet")
@@ -2394,6 +2914,14 @@
 				(lib "Connector_Generic")
 				(part "Conn_01x02")
 				(description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "MPN")
+				(value "61300211121")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Wurth Elektronik")
 			)
 			(property
 				(name "Sheetname")
@@ -2415,7 +2943,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "18b035a3-42cf-457c-938d-ca770ebb5bb0")
+			(tstamps "5a6ecc20-f2d5-49f5-abb5-971deca73fcc")
 			(units
 				(unit
 					(name "A")
@@ -2436,6 +2964,10 @@
 			(footprint "Connector_JST:JST_PH_B6B-PH-K_1x06_P2.00mm_Vertical")
 			(fields
 				(field
+					(name "MPN") "B6B-PH-K-S(LF)(SN)")
+				(field
+					(name "Manufacturer") "JST")
+				(field
 					(name "Footprint") "Connector_JST:JST_PH_B6B-PH-K_1x06_P2.00mm_Vertical")
 				(field
 					(name "Datasheet")
@@ -2448,6 +2980,14 @@
 				(lib "Connector_Generic")
 				(part "Conn_01x06")
 				(description "Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "MPN")
+				(value "B6B-PH-K-S(LF)(SN)")
+			)
+			(property
+				(name "Manufacturer")
+				(value "JST")
 			)
 			(property
 				(name "Sheetname")
@@ -2469,7 +3009,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4da315c0-9588-4636-b62e-d38613ce1f33")
+			(tstamps "77ba51db-6d94-4688-8d50-262c14904aae")
 			(units
 				(unit
 					(name "A")
@@ -2502,6 +3042,10 @@
 			(footprint "Connector_JST:JST_PH_B6B-PH-K_1x06_P2.00mm_Vertical")
 			(fields
 				(field
+					(name "MPN") "B6B-PH-K-S(LF)(SN)")
+				(field
+					(name "Manufacturer") "JST")
+				(field
 					(name "Footprint") "Connector_JST:JST_PH_B6B-PH-K_1x06_P2.00mm_Vertical")
 				(field
 					(name "Datasheet")
@@ -2514,6 +3058,14 @@
 				(lib "Connector_Generic")
 				(part "Conn_01x06")
 				(description "Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "MPN")
+				(value "B6B-PH-K-S(LF)(SN)")
+			)
+			(property
+				(name "Manufacturer")
+				(value "JST")
 			)
 			(property
 				(name "Sheetname")
@@ -2535,7 +3087,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a0ea3248-8ad8-4f4b-a0b7-b68950ae7928")
+			(tstamps "9d763d0e-a1a1-4beb-ad91-d9cc8908afa0")
 			(units
 				(unit
 					(name "A")
@@ -2569,6 +3121,10 @@
 			(datasheet "https://gct.co/files/drawings/usb4105.pdf")
 			(fields
 				(field
+					(name "MPN") "USB4105-GF-A")
+				(field
+					(name "Manufacturer") "GCT")
+				(field
 					(name "Footprint") "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal")
 				(field
 					(name "Datasheet") "https://gct.co/files/drawings/usb4105.pdf")
@@ -2580,6 +3136,14 @@
 				(lib "Connector")
 				(part "USB_C_Receptacle_USB2.0_16P")
 				(description "USB 2.0-only 16P Type-C Receptacle connector")
+			)
+			(property
+				(name "MPN")
+				(value "USB4105-GF-A")
+			)
+			(property
+				(name "Manufacturer")
+				(value "GCT")
 			)
 			(property
 				(name "Sheetname")
@@ -2601,7 +3165,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "983e7bb3-800d-4fbd-8872-2a2db1014024")
+			(tstamps "7d31ba21-acff-48ec-996f-83a972719681")
 			(units
 				(unit
 					(name "A")
@@ -2667,6 +3231,10 @@
 			(footprint "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
 			(fields
 				(field
+					(name "MPN") "61300611121")
+				(field
+					(name "Manufacturer") "Wurth Elektronik")
+				(field
 					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
 				(field
 					(name "Datasheet")
@@ -2679,6 +3247,14 @@
 				(lib "Connector_Generic")
 				(part "Conn_01x06")
 				(description "Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "MPN")
+				(value "61300611121")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Wurth Elektronik")
 			)
 			(property
 				(name "Sheetname")
@@ -2700,7 +3276,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e8776dca-47b6-42ce-99e2-358cb2f9dd4c")
+			(tstamps "d9fea686-f2f5-40bc-8bf8-bcbd55e2f8e7")
 			(units
 				(unit
 					(name "A")
@@ -2733,6 +3309,10 @@
 			(footprint "Inductor_SMD:L_Bourns_SRP7028A_7.3x6.6mm")
 			(fields
 				(field
+					(name "MPN") "SRP7028A-1R5M")
+				(field
+					(name "Manufacturer") "Bourns")
+				(field
 					(name "Footprint") "Inductor_SMD:L_Bourns_SRP7028A_7.3x6.6mm")
 				(field
 					(name "Datasheet")
@@ -2745,6 +3325,14 @@
 				(lib "Device")
 				(part "L")
 				(description "Inductor")
+			)
+			(property
+				(name "MPN")
+				(value "SRP7028A-1R5M")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Bourns")
 			)
 			(property
 				(name "Sheetname")
@@ -2766,7 +3354,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "682f09f4-02c7-4481-98f9-e7884fa3257a")
+			(tstamps "04b7b0a5-0570-4b4b-a809-3f35843c31bb")
 			(units
 				(unit
 					(name "A")
@@ -2787,6 +3375,10 @@
 			(footprint "Package_TO_SOT_SMD:SOT-23")
 			(fields
 				(field
+					(name "MPN") "DMP2035U-7")
+				(field
+					(name "Manufacturer") "Diodes Incorporated")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet")
@@ -2799,6 +3391,14 @@
 				(lib "Transistor_FET")
 				(part "Q_PMOS_GSD")
 				(description "P-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "DMP2035U-7")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Diodes Incorporated")
 			)
 			(property
 				(name "Sheetname")
@@ -2816,7 +3416,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7c42b1b0-879a-4197-ac04-dc973d13623e")
+			(tstamps "a6839e3a-8a82-45cf-ae2d-375c69e41ed0")
 			(units
 				(unit
 					(name "A")
@@ -2841,6 +3441,10 @@
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
 				(field
+					(name "MPN") "SFH 309 FA")
+				(field
+					(name "Manufacturer") "ams-OSRAM")
+				(field
 					(name "Footprint") "LED_THT:LED_D3.0mm_Clear")
 				(field
 					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
@@ -2852,6 +3456,14 @@
 				(lib "Sensor_Optical")
 				(part "SFH309")
 				(description "Phototransistor NPN")
+			)
+			(property
+				(name "MPN")
+				(value "SFH 309 FA")
+			)
+			(property
+				(name "Manufacturer")
+				(value "ams-OSRAM")
 			)
 			(property
 				(name "Sheetname")
@@ -2873,7 +3485,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d136bfeb-3cc6-4ce7-b4d6-c8eea5f04a00")
+			(tstamps "b9d17a3e-0293-4714-8794-e2c42a46bac1")
 			(units
 				(unit
 					(name "A")
@@ -2895,6 +3507,10 @@
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
 				(field
+					(name "MPN") "SFH 309 FA")
+				(field
+					(name "Manufacturer") "ams-OSRAM")
+				(field
 					(name "Footprint") "LED_THT:LED_D3.0mm_Clear")
 				(field
 					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
@@ -2906,6 +3522,14 @@
 				(lib "Sensor_Optical")
 				(part "SFH309")
 				(description "Phototransistor NPN")
+			)
+			(property
+				(name "MPN")
+				(value "SFH 309 FA")
+			)
+			(property
+				(name "Manufacturer")
+				(value "ams-OSRAM")
 			)
 			(property
 				(name "Sheetname")
@@ -2927,7 +3551,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3c470b61-af30-48b5-8795-5a80a83dbf7e")
+			(tstamps "ea18e4a5-8fca-4e0e-9fb3-bfab30bf1584")
 			(units
 				(unit
 					(name "A")
@@ -2949,6 +3573,10 @@
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
 				(field
+					(name "MPN") "SFH 309 FA")
+				(field
+					(name "Manufacturer") "ams-OSRAM")
+				(field
 					(name "Footprint") "LED_THT:LED_D3.0mm_Clear")
 				(field
 					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
@@ -2960,6 +3588,14 @@
 				(lib "Sensor_Optical")
 				(part "SFH309")
 				(description "Phototransistor NPN")
+			)
+			(property
+				(name "MPN")
+				(value "SFH 309 FA")
+			)
+			(property
+				(name "Manufacturer")
+				(value "ams-OSRAM")
 			)
 			(property
 				(name "Sheetname")
@@ -2981,7 +3617,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9a56cc4a-4bb2-485e-8663-b44a4b66bc11")
+			(tstamps "238d60ca-0232-427a-a0b8-587832845d4b")
 			(units
 				(unit
 					(name "A")
@@ -3003,6 +3639,10 @@
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
 				(field
+					(name "MPN") "SFH 309 FA")
+				(field
+					(name "Manufacturer") "ams-OSRAM")
+				(field
 					(name "Footprint") "LED_THT:LED_D3.0mm_Clear")
 				(field
 					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
@@ -3014,6 +3654,14 @@
 				(lib "Sensor_Optical")
 				(part "SFH309")
 				(description "Phototransistor NPN")
+			)
+			(property
+				(name "MPN")
+				(value "SFH 309 FA")
+			)
+			(property
+				(name "Manufacturer")
+				(value "ams-OSRAM")
 			)
 			(property
 				(name "Sheetname")
@@ -3035,7 +3683,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e5043727-0a9d-4d48-b470-0542891fb3e2")
+			(tstamps "f2dcca66-6257-4ac4-9e94-d44c8cf4b790")
 			(units
 				(unit
 					(name "A")
@@ -3057,6 +3705,10 @@
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
 				(field
+					(name "MPN") "SFH 309 FA")
+				(field
+					(name "Manufacturer") "ams-OSRAM")
+				(field
 					(name "Footprint") "LED_THT:LED_D3.0mm_Clear")
 				(field
 					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
@@ -3068,6 +3720,14 @@
 				(lib "Sensor_Optical")
 				(part "SFH309")
 				(description "Phototransistor NPN")
+			)
+			(property
+				(name "MPN")
+				(value "SFH 309 FA")
+			)
+			(property
+				(name "Manufacturer")
+				(value "ams-OSRAM")
 			)
 			(property
 				(name "Sheetname")
@@ -3089,7 +3749,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "175b42eb-2219-4cb6-8b01-c5e8b491cd63")
+			(tstamps "09df0b49-1012-4f1b-abd7-251dda31b46a")
 			(units
 				(unit
 					(name "A")
@@ -3111,6 +3771,10 @@
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
 				(field
+					(name "MPN") "SFH 309 FA")
+				(field
+					(name "Manufacturer") "ams-OSRAM")
+				(field
 					(name "Footprint") "LED_THT:LED_D3.0mm_Clear")
 				(field
 					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
@@ -3122,6 +3786,14 @@
 				(lib "Sensor_Optical")
 				(part "SFH309")
 				(description "Phototransistor NPN")
+			)
+			(property
+				(name "MPN")
+				(value "SFH 309 FA")
+			)
+			(property
+				(name "Manufacturer")
+				(value "ams-OSRAM")
 			)
 			(property
 				(name "Sheetname")
@@ -3143,7 +3815,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0cfda849-3ccc-4cb7-863b-f1fdb73b093a")
+			(tstamps "8e941b69-e7e4-4514-9878-74c7e0c8e455")
 			(units
 				(unit
 					(name "A")
@@ -3160,10 +3832,14 @@
 		)
 		(comp
 			(ref "Q8")
-			(value "SFH309")
+			(value "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)")
 			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
+				(field
+					(name "MPN") "PT11-21B/L41/TR8")
+				(field
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
@@ -3176,6 +3852,14 @@
 				(lib "Sensor_Optical")
 				(part "SFH309")
 				(description "Phototransistor NPN")
+			)
+			(property
+				(name "MPN")
+				(value "PT11-21B/L41/TR8")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -3197,7 +3881,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ecc786b6-4f33-46d2-9eee-a77a57b860a1")
+			(tstamps "900969b5-e3f3-4796-870f-3ed0da7e6547")
 			(units
 				(unit
 					(name "A")
@@ -3214,10 +3898,14 @@
 		)
 		(comp
 			(ref "Q9")
-			(value "SFH309")
+			(value "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)")
 			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
+				(field
+					(name "MPN") "PT11-21B/L41/TR8")
+				(field
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
@@ -3230,6 +3918,14 @@
 				(lib "Sensor_Optical")
 				(part "SFH309")
 				(description "Phototransistor NPN")
+			)
+			(property
+				(name "MPN")
+				(value "PT11-21B/L41/TR8")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -3251,7 +3947,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d813f7fa-9ba9-43a3-bb7c-d9803d4890df")
+			(tstamps "13bc6217-eedb-4e28-8532-4f597760c648")
 			(units
 				(unit
 					(name "A")
@@ -3268,10 +3964,14 @@
 		)
 		(comp
 			(ref "Q10")
-			(value "SFH309")
+			(value "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)")
 			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
+				(field
+					(name "MPN") "PT11-21B/L41/TR8")
+				(field
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
@@ -3284,6 +3984,14 @@
 				(lib "Sensor_Optical")
 				(part "SFH309")
 				(description "Phototransistor NPN")
+			)
+			(property
+				(name "MPN")
+				(value "PT11-21B/L41/TR8")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -3305,7 +4013,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "14ae2259-9c0d-4d99-adc6-a1d3bfd6c2e9")
+			(tstamps "1fd0b5c2-1db7-4358-b9eb-b056be7958fa")
 			(units
 				(unit
 					(name "A")
@@ -3322,10 +4030,14 @@
 		)
 		(comp
 			(ref "Q11")
-			(value "SFH309")
+			(value "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)")
 			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
+				(field
+					(name "MPN") "PT11-21B/L41/TR8")
+				(field
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
@@ -3338,6 +4050,14 @@
 				(lib "Sensor_Optical")
 				(part "SFH309")
 				(description "Phototransistor NPN")
+			)
+			(property
+				(name "MPN")
+				(value "PT11-21B/L41/TR8")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -3359,7 +4079,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "937285e2-2cff-4f16-bf3c-a6353874f00f")
+			(tstamps "9df238a7-72d4-4e58-9858-1d2c9982ec76")
 			(units
 				(unit
 					(name "A")
@@ -3376,10 +4096,14 @@
 		)
 		(comp
 			(ref "Q12")
-			(value "SFH309")
+			(value "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)")
 			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
+				(field
+					(name "MPN") "PT11-21B/L41/TR8")
+				(field
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
@@ -3392,6 +4116,14 @@
 				(lib "Sensor_Optical")
 				(part "SFH309")
 				(description "Phototransistor NPN")
+			)
+			(property
+				(name "MPN")
+				(value "PT11-21B/L41/TR8")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -3413,7 +4145,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2f342b8b-925b-47f3-8e67-4c46af5d8dbb")
+			(tstamps "8a6eb061-d8fe-4e22-8715-f86bbe0ed805")
 			(units
 				(unit
 					(name "A")
@@ -3430,10 +4162,14 @@
 		)
 		(comp
 			(ref "Q13")
-			(value "SFH309")
+			(value "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)")
 			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
+				(field
+					(name "MPN") "PT11-21B/L41/TR8")
+				(field
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
@@ -3446,6 +4182,14 @@
 				(lib "Sensor_Optical")
 				(part "SFH309")
 				(description "Phototransistor NPN")
+			)
+			(property
+				(name "MPN")
+				(value "PT11-21B/L41/TR8")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -3467,7 +4211,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "eaf965b4-0c55-4478-994b-dfb351e73047")
+			(tstamps "7ea08fbe-25f3-440a-8018-d2183883b1c4")
 			(units
 				(unit
 					(name "A")
@@ -3484,10 +4228,14 @@
 		)
 		(comp
 			(ref "Q14")
-			(value "SFH309")
+			(value "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)")
 			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
+				(field
+					(name "MPN") "PT11-21B/L41/TR8")
+				(field
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
@@ -3500,6 +4248,14 @@
 				(lib "Sensor_Optical")
 				(part "SFH309")
 				(description "Phototransistor NPN")
+			)
+			(property
+				(name "MPN")
+				(value "PT11-21B/L41/TR8")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -3521,7 +4277,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "99b0dad3-c063-4c72-afbf-fd906b50ca25")
+			(tstamps "e2297ae9-2a0e-432a-9750-85f1950271c6")
 			(units
 				(unit
 					(name "A")
@@ -3538,10 +4294,14 @@
 		)
 		(comp
 			(ref "Q15")
-			(value "SFH309")
+			(value "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)")
 			(footprint "LED_SMD:LED_1206_3216Metric")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
+				(field
+					(name "MPN") "PT11-21B/L41/TR8")
+				(field
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
 				(field
@@ -3554,6 +4314,14 @@
 				(lib "Sensor_Optical")
 				(part "SFH309")
 				(description "Phototransistor NPN")
+			)
+			(property
+				(name "MPN")
+				(value "PT11-21B/L41/TR8")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -3575,7 +4343,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "549bb3df-0403-4660-ae06-ea405450d7b6")
+			(tstamps "50fd4957-af52-46c9-b82b-ba6165234d62")
 			(units
 				(unit
 					(name "A")
@@ -3597,6 +4365,10 @@
 			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
+					(name "MPN") "BSS138LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
@@ -3608,6 +4380,14 @@
 				(lib "Transistor_FET")
 				(part "Q_NMOS_GSD")
 				(description "N-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS138LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -3625,7 +4405,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "34855a8e-7ad4-49f5-b0b3-26c83bf6cb78")
+			(tstamps "764bf99e-c4fc-4428-9388-543e4825286d")
 			(units
 				(unit
 					(name "A")
@@ -3650,6 +4430,10 @@
 			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
+					(name "MPN") "BSS138LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
@@ -3661,6 +4445,14 @@
 				(lib "Transistor_FET")
 				(part "Q_NMOS_GSD")
 				(description "N-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS138LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -3678,7 +4470,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0c126260-30c2-4ec5-9374-8c425125a24a")
+			(tstamps "95950a44-1195-439c-92b8-99128e19fdfc")
 			(units
 				(unit
 					(name "A")
@@ -3703,6 +4495,10 @@
 			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
+					(name "MPN") "BSS138LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
@@ -3714,6 +4510,14 @@
 				(lib "Transistor_FET")
 				(part "Q_NMOS_GSD")
 				(description "N-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS138LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -3731,7 +4535,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "728a76bb-e4e5-4af2-873a-f2f1134f5846")
+			(tstamps "10d00e2c-840f-4c58-b972-7ae4be9dcd4b")
 			(units
 				(unit
 					(name "A")
@@ -3756,6 +4560,10 @@
 			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
+					(name "MPN") "BSS138LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
@@ -3767,6 +4575,14 @@
 				(lib "Transistor_FET")
 				(part "Q_NMOS_GSD")
 				(description "N-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS138LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -3784,7 +4600,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4b942bd5-6a24-4f06-a77f-bd2ce7441882")
+			(tstamps "3e991402-ecbf-4800-a443-cb524ab0aa6f")
 			(units
 				(unit
 					(name "A")
@@ -3809,6 +4625,10 @@
 			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
+					(name "MPN") "BSS138LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
@@ -3820,6 +4640,14 @@
 				(lib "Transistor_FET")
 				(part "Q_NMOS_GSD")
 				(description "N-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS138LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -3837,7 +4665,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a81b5abf-074b-4d6d-814a-f116db5304d2")
+			(tstamps "8c9a143b-e23c-41d5-bb95-0caf69aed868")
 			(units
 				(unit
 					(name "A")
@@ -3862,6 +4690,10 @@
 			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
+					(name "MPN") "BSS138LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
@@ -3873,6 +4705,14 @@
 				(lib "Transistor_FET")
 				(part "Q_NMOS_GSD")
 				(description "N-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS138LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -3890,7 +4730,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "27cedd29-2a44-434c-9928-1160289260ba")
+			(tstamps "9826db20-1b4b-4178-b7c3-a81ac22ae2f6")
 			(units
 				(unit
 					(name "A")
@@ -3915,6 +4755,10 @@
 			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
+					(name "MPN") "BSS138LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
@@ -3926,6 +4770,14 @@
 				(lib "Transistor_FET")
 				(part "Q_NMOS_GSD")
 				(description "N-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS138LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -3943,7 +4795,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e11a7556-6457-4b8c-b7b8-117c8af63fad")
+			(tstamps "49b0b26c-57a5-4a4a-ac71-bfbbf4eb376d")
 			(units
 				(unit
 					(name "A")
@@ -3968,6 +4820,10 @@
 			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
+					(name "MPN") "BSS138LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
@@ -3979,6 +4835,14 @@
 				(lib "Transistor_FET")
 				(part "Q_NMOS_GSD")
 				(description "N-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS138LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -3996,7 +4860,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "46f1aaf4-f5ee-4021-963a-96aaf77605fb")
+			(tstamps "a4a2b551-28bc-472d-a15e-9dd8b0a66720")
 			(units
 				(unit
 					(name "A")
@@ -4021,6 +4885,10 @@
 			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
+					(name "MPN") "BSS138LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
@@ -4032,6 +4900,14 @@
 				(lib "Transistor_FET")
 				(part "Q_NMOS_GSD")
 				(description "N-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS138LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -4049,7 +4925,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2529cbef-206a-4fa9-bb72-c4f15e389cba")
+			(tstamps "311523c4-b992-47c5-a6a8-dfc18d4fc275")
 			(units
 				(unit
 					(name "A")
@@ -4074,6 +4950,10 @@
 			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
+					(name "MPN") "BSS138LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
@@ -4085,6 +4965,14 @@
 				(lib "Transistor_FET")
 				(part "Q_NMOS_GSD")
 				(description "N-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS138LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -4102,7 +4990,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "eb4c0729-4d68-40c6-934d-f9f3be64ac8f")
+			(tstamps "cd677df4-ba0d-465a-803f-48a4f7aca95a")
 			(units
 				(unit
 					(name "A")
@@ -4127,6 +5015,10 @@
 			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
+					(name "MPN") "BSS138LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
@@ -4138,6 +5030,14 @@
 				(lib "Transistor_FET")
 				(part "Q_NMOS_GSD")
 				(description "N-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS138LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -4155,7 +5055,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3347b0e0-7661-43e1-ade6-613edabae690")
+			(tstamps "6a0ebb8c-1d23-4d35-a938-94ed31fbbb03")
 			(units
 				(unit
 					(name "A")
@@ -4180,6 +5080,10 @@
 			(datasheet "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
 			(fields
 				(field
+					(name "MPN") "BSS138LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet") "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
@@ -4191,6 +5095,14 @@
 				(lib "Transistor_FET")
 				(part "Q_NMOS_GSD")
 				(description "N-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS138LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -4208,7 +5120,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e6a0d8c2-4762-40c5-b806-37bf6fec7528")
+			(tstamps "486e4b64-9b24-4d19-9af1-9e027e46a5b3")
 			(units
 				(unit
 					(name "A")
@@ -4232,6 +5144,10 @@
 			(footprint "Package_TO_SOT_SMD:SOT-23")
 			(fields
 				(field
+					(name "MPN") "BSS84LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet")
@@ -4244,6 +5160,14 @@
 				(lib "Transistor_FET")
 				(part "Q_PMOS_GSD")
 				(description "P-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS84LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -4261,7 +5185,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9cd786d5-b4e6-4d7c-850e-4bd66f6fc2f8")
+			(tstamps "d18dfe1a-a8c9-4f1c-998a-e61771555b61")
 			(units
 				(unit
 					(name "A")
@@ -4285,6 +5209,10 @@
 			(footprint "Package_TO_SOT_SMD:SOT-23")
 			(fields
 				(field
+					(name "MPN") "BSS84LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet")
@@ -4297,6 +5225,14 @@
 				(lib "Transistor_FET")
 				(part "Q_PMOS_GSD")
 				(description "P-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS84LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -4314,7 +5250,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "20eda5e6-d6dd-46a5-b1b5-b1d7eee783d0")
+			(tstamps "b770222a-1e54-45f7-ae08-fea407138a06")
 			(units
 				(unit
 					(name "A")
@@ -4338,6 +5274,10 @@
 			(footprint "Package_TO_SOT_SMD:SOT-23")
 			(fields
 				(field
+					(name "MPN") "BSS84LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet")
@@ -4350,6 +5290,14 @@
 				(lib "Transistor_FET")
 				(part "Q_PMOS_GSD")
 				(description "P-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS84LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -4367,7 +5315,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "55f2ff1f-9bf3-459a-b6fb-bdf39a8c8803")
+			(tstamps "81900669-f09d-4140-884f-b1b37b3f5ef2")
 			(units
 				(unit
 					(name "A")
@@ -4391,6 +5339,10 @@
 			(footprint "Package_TO_SOT_SMD:SOT-23")
 			(fields
 				(field
+					(name "MPN") "BSS84LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet")
@@ -4403,6 +5355,14 @@
 				(lib "Transistor_FET")
 				(part "Q_PMOS_GSD")
 				(description "P-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS84LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -4420,7 +5380,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "48b90d83-5a89-4087-beaa-bbfff621eb5a")
+			(tstamps "53d0efdf-c529-4ade-8420-3b722a9be376")
 			(units
 				(unit
 					(name "A")
@@ -4444,6 +5404,10 @@
 			(footprint "Package_TO_SOT_SMD:SOT-23")
 			(fields
 				(field
+					(name "MPN") "BSS84LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet")
@@ -4456,6 +5420,14 @@
 				(lib "Transistor_FET")
 				(part "Q_PMOS_GSD")
 				(description "P-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS84LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -4473,7 +5445,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "397551c8-be3d-40c2-a42f-9814324e84af")
+			(tstamps "59b9cac0-8485-43cc-bbf8-0d7120f9a2ec")
 			(units
 				(unit
 					(name "A")
@@ -4497,6 +5469,10 @@
 			(footprint "Package_TO_SOT_SMD:SOT-23")
 			(fields
 				(field
+					(name "MPN") "BSS84LT1G")
+				(field
+					(name "Manufacturer") "onsemi")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
 				(field
 					(name "Datasheet")
@@ -4509,6 +5485,14 @@
 				(lib "Transistor_FET")
 				(part "Q_PMOS_GSD")
 				(description "P-MOSFET transistor, gate/source/drain")
+			)
+			(property
+				(name "MPN")
+				(value "BSS84LT1G")
+			)
+			(property
+				(name "Manufacturer")
+				(value "onsemi")
 			)
 			(property
 				(name "Sheetname")
@@ -4526,7 +5510,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8bb81a2f-7493-4ddf-a433-1eaa421578ea")
+			(tstamps "1df82fb9-97a3-41fd-8112-8395a6bef64c")
 			(units
 				(unit
 					(name "A")
@@ -4550,6 +5534,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-07100KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -4562,6 +5550,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07100KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -4583,7 +5579,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "13f05973-b2fe-441f-ab0e-cbc1768dc6a7")
+			(tstamps "d4f91e1c-1f36-4470-a74b-9249558d0076")
 			(units
 				(unit
 					(name "A")
@@ -4604,6 +5600,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0722KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -4616,6 +5616,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0722KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -4637,7 +5645,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "673b3128-9e9b-4770-8967-58f8970f2d71")
+			(tstamps "810362db-064b-48c1-ba4f-fd652dcbef64")
 			(units
 				(unit
 					(name "A")
@@ -4658,6 +5666,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0733KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -4670,6 +5682,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0733KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -4691,7 +5711,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "155902ec-1cc0-480a-b0cc-aed683fd8a5c")
+			(tstamps "bb041a00-e0c8-4901-b66a-6fb40fec3f71")
 			(units
 				(unit
 					(name "A")
@@ -4712,6 +5732,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0710KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -4724,6 +5748,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0710KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -4745,7 +5777,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1cce0447-bdab-42c7-af8f-5b6ce56b35f9")
+			(tstamps "30f39842-303b-4fdc-87d9-11bf23c49d4a")
 			(units
 				(unit
 					(name "A")
@@ -4766,6 +5798,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0710KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -4778,6 +5814,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0710KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -4799,7 +5843,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0f360d57-8ff8-40f0-afd3-63cb7a71b184")
+			(tstamps "a675b3b9-4245-45c4-9081-0936a66a91c4")
 			(units
 				(unit
 					(name "A")
@@ -4820,6 +5864,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0710KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -4832,6 +5880,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0710KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -4853,7 +5909,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a29ccd78-1956-4da2-a623-22d5c951cd11")
+			(tstamps "5e2de390-ce70-4655-885b-7819fcf9770c")
 			(units
 				(unit
 					(name "A")
@@ -4874,6 +5930,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0710KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -4886,6 +5946,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0710KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -4907,7 +5975,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9f46f304-c62e-4acd-a3bb-b072769f2909")
+			(tstamps "daa5ffc0-0c4c-4a25-ac07-c34e03a28a84")
 			(units
 				(unit
 					(name "A")
@@ -4928,6 +5996,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0710KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -4940,6 +6012,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0710KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -4961,7 +6041,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a3ed43bc-872d-43e4-ba9d-d5e268dd776f")
+			(tstamps "ee249688-4c97-47fd-95b4-3af8972e107f")
 			(units
 				(unit
 					(name "A")
@@ -4982,6 +6062,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0710KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -4994,6 +6078,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0710KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5015,7 +6107,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4ae2d40e-204a-4971-8801-cab8b2428289")
+			(tstamps "824f7f71-3755-4236-a8ae-f3b6bf181d2d")
 			(units
 				(unit
 					(name "A")
@@ -5036,6 +6128,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-075K1L")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5048,6 +6144,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-075K1L")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5069,7 +6173,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e46d9a22-9f6b-4979-8138-7e2159b4b52a")
+			(tstamps "55fee2d6-daf7-4135-8711-d470f97e6a0d")
 			(units
 				(unit
 					(name "A")
@@ -5090,6 +6194,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0747KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5102,6 +6210,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0747KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5123,7 +6239,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b8466c19-fc44-4871-bfff-d3661e425ce7")
+			(tstamps "9410cccc-3145-44f7-b1aa-f9c8318c46da")
 			(units
 				(unit
 					(name "A")
@@ -5144,6 +6260,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0733RL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5156,6 +6276,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0733RL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5177,7 +6305,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f4ac75b7-d709-45d1-b03f-cadd9d72f58c")
+			(tstamps "82c33fe3-206d-471e-ba7a-3ca63dac1d38")
 			(units
 				(unit
 					(name "A")
@@ -5198,6 +6326,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0747KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5210,6 +6342,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0747KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5231,7 +6371,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cc5689d3-6d9a-477a-9a34-9a0f3def68e8")
+			(tstamps "a3fcae02-d681-4624-a4c2-0bc2b58fc06e")
 			(units
 				(unit
 					(name "A")
@@ -5252,6 +6392,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0733RL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5264,6 +6408,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0733RL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5285,7 +6437,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5676fd95-cce1-4b14-a039-8f555ca8969c")
+			(tstamps "8ecd8173-b965-4a5d-9086-62b97e6a1107")
 			(units
 				(unit
 					(name "A")
@@ -5306,6 +6458,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0747KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5318,6 +6474,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0747KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5339,7 +6503,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f87a551f-d359-4839-8e11-7cec174dc35e")
+			(tstamps "4ccab9ab-330b-45e6-8126-15439de0f44f")
 			(units
 				(unit
 					(name "A")
@@ -5360,6 +6524,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0733RL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5372,6 +6540,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0733RL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5393,7 +6569,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "392a758e-9067-4c06-a6bc-332b52071aab")
+			(tstamps "30f77bd2-6e6e-415a-8a60-098c3b1a4ee7")
 			(units
 				(unit
 					(name "A")
@@ -5414,6 +6590,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0747KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5426,6 +6606,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0747KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5447,7 +6635,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "abf4e8ff-5513-4195-b0b4-91f5192680cd")
+			(tstamps "5a94c375-441c-4d78-9856-9e3ba38a6584")
 			(units
 				(unit
 					(name "A")
@@ -5468,6 +6656,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0733RL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5480,6 +6672,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0733RL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5501,7 +6701,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f952868c-2579-4c3f-a568-a91c205a4fa7")
+			(tstamps "79ed0bf4-b1e9-4854-abe1-442d3977ba17")
 			(units
 				(unit
 					(name "A")
@@ -5522,6 +6722,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0747KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5534,6 +6738,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0747KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5555,7 +6767,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b02e033b-e246-422c-a986-c800f3c87dd5")
+			(tstamps "88b77179-2cfe-4bb1-b1e5-5ada5785ea5c")
 			(units
 				(unit
 					(name "A")
@@ -5576,6 +6788,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0733RL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5588,6 +6804,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0733RL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5609,7 +6833,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "dc340eb9-fa45-4a18-8203-9db482ec9751")
+			(tstamps "09a7dbed-41a3-419f-bdf3-4f06525140f4")
 			(units
 				(unit
 					(name "A")
@@ -5630,6 +6854,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0747KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5642,6 +6870,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0747KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5663,7 +6899,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "37823be3-ef27-44fe-95e2-3d477938c436")
+			(tstamps "f33d2c25-4a08-474a-8291-6243e20067f3")
 			(units
 				(unit
 					(name "A")
@@ -5684,6 +6920,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0733RL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5696,6 +6936,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0733RL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5717,7 +6965,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1a1bbe21-38e2-4d4e-a780-dbba9ee8317c")
+			(tstamps "e0b4fbb3-7901-46db-a8f6-45395a7b6151")
 			(units
 				(unit
 					(name "A")
@@ -5738,6 +6986,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0747KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5750,6 +7002,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0747KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5771,7 +7031,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "287f2e33-27b7-4717-bf7f-0529afe400bc")
+			(tstamps "304375d2-f0a4-4bec-8c2d-b84f2f7b8d37")
 			(units
 				(unit
 					(name "A")
@@ -5792,6 +7052,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-07120RL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5804,6 +7068,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07120RL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5825,7 +7097,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c02ff71a-ed85-4ecc-9912-558e74b06fea")
+			(tstamps "93e665f7-4dfc-4e76-aa9c-ce9548fcc85c")
 			(units
 				(unit
 					(name "A")
@@ -5846,6 +7118,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0747KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5858,6 +7134,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0747KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5879,7 +7163,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "582e9785-1918-430d-b5d9-520116871cc3")
+			(tstamps "e10dca3b-c7d8-4a23-b556-3c523615b145")
 			(units
 				(unit
 					(name "A")
@@ -5900,6 +7184,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-07120RL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5912,6 +7200,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07120RL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5933,7 +7229,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "67e78752-a227-40c7-924e-9782fad31b4c")
+			(tstamps "72d8e5bf-83aa-4e50-9060-57f237b671ff")
 			(units
 				(unit
 					(name "A")
@@ -5954,6 +7250,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0747KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -5966,6 +7266,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0747KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -5987,7 +7295,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "390ccb98-a75e-4398-8291-833ef0d7b346")
+			(tstamps "7496c41a-d335-450d-8ec9-dcaa462e8ee2")
 			(units
 				(unit
 					(name "A")
@@ -6008,6 +7316,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-07120RL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6020,6 +7332,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07120RL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6041,7 +7361,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "fed3510d-ded7-408b-9b38-07f2f57ea431")
+			(tstamps "2c438cb6-bac6-4927-8de9-74bae47a5e3d")
 			(units
 				(unit
 					(name "A")
@@ -6062,6 +7382,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0747KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6074,6 +7398,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0747KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6095,7 +7427,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5101cfed-5e82-4149-b1f2-0df1dad17586")
+			(tstamps "45dc4a9e-8343-4410-a07f-659cca608a41")
 			(units
 				(unit
 					(name "A")
@@ -6116,6 +7448,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-07120RL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6128,6 +7464,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07120RL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6149,7 +7493,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2c6d470d-9302-466c-a0be-4faa0695eb2a")
+			(tstamps "b2f34ad3-a21b-44b1-b942-c49711d38fab")
 			(units
 				(unit
 					(name "A")
@@ -6170,6 +7514,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0747KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6182,6 +7530,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0747KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6203,7 +7559,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "296cd879-589b-4a4c-9e62-21f3e89beca1")
+			(tstamps "30688e13-6103-439d-baad-88d400bc66bc")
 			(units
 				(unit
 					(name "A")
@@ -6224,6 +7580,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-07120RL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6236,6 +7596,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07120RL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6257,7 +7625,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8d89ee07-70ac-4f4b-b6b8-a6ce6931927b")
+			(tstamps "03676fc1-eeae-44c2-9c28-57465903567b")
 			(units
 				(unit
 					(name "A")
@@ -6278,6 +7646,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0747KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6290,6 +7662,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0747KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6311,7 +7691,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "edea7f22-612d-46e6-8e63-456d8b2f4b28")
+			(tstamps "78a83530-1381-4a48-8b65-a358bcbdadb3")
 			(units
 				(unit
 					(name "A")
@@ -6332,6 +7712,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-07120RL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6344,6 +7728,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07120RL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6365,7 +7757,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d9604620-a5d5-4537-a0a4-5c02e04ae827")
+			(tstamps "de895fc6-be4c-4b2b-88e4-6f10fe6c464c")
 			(units
 				(unit
 					(name "A")
@@ -6386,6 +7778,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0747KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6398,6 +7794,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0747KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6419,7 +7823,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "661b37e2-5259-41e1-9082-b61b50c1e2ab")
+			(tstamps "fa6647bd-8613-42f2-bfb9-7f55609a998c")
 			(units
 				(unit
 					(name "A")
@@ -6440,6 +7844,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-07120RL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6452,6 +7860,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07120RL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6473,7 +7889,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cbfe678a-0644-4b60-aa9c-074c2c09760a")
+			(tstamps "6ed082bb-ea40-4636-b198-9b10ab37d574")
 			(units
 				(unit
 					(name "A")
@@ -6494,6 +7910,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0747KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6506,6 +7926,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0747KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6527,7 +7955,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3d525d09-6e03-4bfa-81c9-2382c6d65849")
+			(tstamps "0ab94473-ff28-4c94-bf3b-1c2ec5ec8946")
 			(units
 				(unit
 					(name "A")
@@ -6548,6 +7976,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-07120RL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6560,6 +7992,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07120RL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6581,7 +8021,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "02068c61-a4cf-4c8b-9010-6300ba6d84fc")
+			(tstamps "53d5e291-eb9a-43cb-be38-22f5df3255a7")
 			(units
 				(unit
 					(name "A")
@@ -6602,6 +8042,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-071KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6614,6 +8058,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-071KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6635,7 +8087,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ab8f89fb-a5de-43f3-98c7-2e3571383ddc")
+			(tstamps "4b207ff8-91fc-48b8-8983-416be4f6dd05")
 			(units
 				(unit
 					(name "A")
@@ -6656,6 +8108,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-071KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6668,6 +8124,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-071KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6689,7 +8153,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "da5be2f8-7727-43ff-9766-099a49b240e7")
+			(tstamps "518c10a9-c2cd-44ef-a006-e32be2d29dad")
 			(units
 				(unit
 					(name "A")
@@ -6710,6 +8174,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-071KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6722,6 +8190,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-071KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6743,7 +8219,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "36bb4eae-4ea4-49f3-87fc-96ada6606d39")
+			(tstamps "9ffd6fda-b2be-4698-8f57-b7797c45cda3")
 			(units
 				(unit
 					(name "A")
@@ -6764,6 +8240,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-071KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6776,6 +8256,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-071KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6797,7 +8285,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "65a09fa7-c102-48c2-acd7-6a79153d3bf9")
+			(tstamps "096d140f-78e9-40bd-9d5d-0de9efa15dd2")
 			(units
 				(unit
 					(name "A")
@@ -6818,6 +8306,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-071KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6830,6 +8322,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-071KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6851,7 +8351,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f4faa1a3-c00b-4ff1-b825-a66ac0cddd09")
+			(tstamps "a3b8b11f-f82a-479c-b4be-8ee52bdf40e9")
 			(units
 				(unit
 					(name "A")
@@ -6872,6 +8372,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-071KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6884,6 +8388,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-071KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6905,7 +8417,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "79652a06-ba72-472b-8785-f5f10d5942a3")
+			(tstamps "2dece5f6-d133-4c57-8b19-b1412e197ba0")
 			(units
 				(unit
 					(name "A")
@@ -6926,6 +8438,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-071KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6938,6 +8454,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-071KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -6959,7 +8483,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6831c95a-f101-4172-9911-54fea2eae7c1")
+			(tstamps "af9449f5-b7d6-4a84-9d3d-3fac9f8ad92d")
 			(units
 				(unit
 					(name "A")
@@ -6980,6 +8504,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-071KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -6992,6 +8520,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-071KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7013,7 +8549,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0a50cec1-538a-493d-846e-0d921a483d03")
+			(tstamps "879bc563-876b-4dd7-9803-da591f69361d")
 			(units
 				(unit
 					(name "A")
@@ -7034,6 +8570,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-071KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7046,6 +8586,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-071KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7067,7 +8615,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "321c0d51-2722-444c-99c0-b318972d8cd2")
+			(tstamps "0a3e6379-bb58-408d-9c62-64629e9dfc17")
 			(units
 				(unit
 					(name "A")
@@ -7088,6 +8636,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-071KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7100,6 +8652,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-071KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7121,7 +8681,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "79765248-b10e-4e15-9bfb-7b170171c95e")
+			(tstamps "8409cacc-b3b5-42f2-a794-459a5130d041")
 			(units
 				(unit
 					(name "A")
@@ -7142,6 +8702,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-071KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7154,6 +8718,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-071KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7175,7 +8747,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9815ff9b-df34-46e1-9847-51b63cf9e80d")
+			(tstamps "0c0d91da-da25-4ff9-808c-c5a46b83de80")
 			(units
 				(unit
 					(name "A")
@@ -7196,6 +8768,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-071KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7208,6 +8784,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-071KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7229,7 +8813,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "559978c5-2f47-417b-bbff-a676229227d0")
+			(tstamps "72aa452e-1435-427b-bd40-fa25e5b9769c")
 			(units
 				(unit
 					(name "A")
@@ -7250,6 +8834,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-071KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7262,6 +8850,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-071KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7283,7 +8879,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "97212471-868d-4418-aa60-68dd0d3f4e04")
+			(tstamps "76dcaf3e-8b23-4ca1-9317-b714f4a0486a")
 			(units
 				(unit
 					(name "A")
@@ -7304,6 +8900,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-071KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7316,6 +8916,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-071KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7337,7 +8945,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "fdf70026-2268-4b6a-bdb7-8c387b4910e0")
+			(tstamps "f3d51bd0-336e-4047-b50c-5370badb597a")
 			(units
 				(unit
 					(name "A")
@@ -7358,6 +8966,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-075K1L")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7370,6 +8982,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-075K1L")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7391,7 +9011,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "11c74845-c55d-4a5b-b9b6-e5ea3dfab370")
+			(tstamps "b175a5c5-9d78-43fb-adbf-2e36ce0db386")
 			(units
 				(unit
 					(name "A")
@@ -7412,6 +9032,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-071KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7424,6 +9048,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-071KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7445,7 +9077,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ea6ae809-79b3-46f6-8a92-c99816f110a3")
+			(tstamps "a0811335-69c8-4f2c-858b-ab4345b48feb")
 			(units
 				(unit
 					(name "A")
@@ -7466,6 +9098,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-071KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7478,6 +9114,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-071KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7499,7 +9143,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "80fba075-0a4e-437d-ac2e-f56c03fff19c")
+			(tstamps "6e37b8b5-d0b1-459c-b4c9-bfd75cd0eb04")
 			(units
 				(unit
 					(name "A")
@@ -7520,6 +9164,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0722RL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7532,6 +9180,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0722RL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7553,7 +9209,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5f994bb7-39a9-4b26-b205-6a1e40427115")
+			(tstamps "b04b3286-3872-4a43-a117-85347be8f456")
 			(units
 				(unit
 					(name "A")
@@ -7574,6 +9230,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0722RL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7586,6 +9246,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0722RL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7607,7 +9275,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7d1f5e4e-b96d-4454-a7f9-7cb969d8ebba")
+			(tstamps "b0106501-a71f-4e5d-ae56-9f78c3786d5c")
 			(units
 				(unit
 					(name "A")
@@ -7628,6 +9296,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-07100KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7640,6 +9312,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07100KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7661,7 +9341,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f02aa9b9-dcd8-4b55-97a2-6b338adc8256")
+			(tstamps "b7312d89-5e2d-4d38-ba09-9abbe8d15b56")
 			(units
 				(unit
 					(name "A")
@@ -7682,6 +9362,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-07100KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7694,6 +9378,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07100KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7715,7 +9407,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "fcc5ffe4-ac6a-408b-a3c4-b7305d8090f1")
+			(tstamps "4d0fb651-117c-4c32-946f-6c83748853bb")
 			(units
 				(unit
 					(name "A")
@@ -7736,6 +9428,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-07100KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7748,6 +9444,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07100KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7769,7 +9473,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "15008d87-40f8-4066-a266-6742bd923190")
+			(tstamps "b058fcd8-e186-4497-9fd4-16ef7d6a1aab")
 			(units
 				(unit
 					(name "A")
@@ -7790,6 +9494,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-07100KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7802,6 +9510,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07100KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7823,7 +9539,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a3dffd5f-6710-4146-aafe-096f78aa0564")
+			(tstamps "b99d0872-8d5a-436c-b556-fb7d41039e42")
 			(units
 				(unit
 					(name "A")
@@ -7844,6 +9560,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0710KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7856,6 +9576,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0710KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7877,7 +9605,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "16ee17ad-9dfc-4e0c-9637-e83baafcf17f")
+			(tstamps "e52ea408-fc74-4c4a-9c69-197c0adc5503")
 			(units
 				(unit
 					(name "A")
@@ -7898,6 +9626,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0710KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7910,6 +9642,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0710KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7931,7 +9671,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f7b7d670-578e-41f8-a48f-4d12ffd06d44")
+			(tstamps "66b0454e-7cc9-4c18-b68c-42c9673e3f8f")
 			(units
 				(unit
 					(name "A")
@@ -7952,6 +9692,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0710KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -7964,6 +9708,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0710KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -7985,7 +9737,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "65f3d191-d4a5-43a5-a20f-9e69adbcc4a9")
+			(tstamps "039ae307-45e3-4ecf-b128-4bffef494245")
 			(units
 				(unit
 					(name "A")
@@ -8006,6 +9758,10 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
+					(name "MPN") "RC0805FR-0715KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
 					(name "Datasheet")
@@ -8018,6 +9774,14 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0715KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -8039,7 +9803,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8603e112-64e1-47c1-8520-370baf5fd7b1")
+			(tstamps "bdb612ea-44af-4f88-a338-1ea471ca49a5")
 			(units
 				(unit
 					(name "A")
@@ -8060,6 +9824,10 @@
 			(footprint "Button_Switch_THT:SW_PUSH_6mm")
 			(fields
 				(field
+					(name "MPN") "B3F-1000")
+				(field
+					(name "Manufacturer") "Omron")
+				(field
 					(name "Footprint") "Button_Switch_THT:SW_PUSH_6mm")
 				(field
 					(name "Datasheet")
@@ -8072,6 +9840,14 @@
 				(lib "Switch")
 				(part "SW_Push")
 				(description "Push button switch, generic, two pins")
+			)
+			(property
+				(name "MPN")
+				(value "B3F-1000")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Omron")
 			)
 			(property
 				(name "Sheetname")
@@ -8089,7 +9865,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "18501a8b-dd7d-450b-bfd7-9312002d2e52")
+			(tstamps "3f5ec500-f054-4b9e-9ef0-8384c3ddf9cc")
 			(units
 				(unit
 					(name "A")
@@ -8110,6 +9886,10 @@
 			(footprint "Button_Switch_THT:SW_PUSH_6mm")
 			(fields
 				(field
+					(name "MPN") "B3F-1000")
+				(field
+					(name "Manufacturer") "Omron")
+				(field
 					(name "Footprint") "Button_Switch_THT:SW_PUSH_6mm")
 				(field
 					(name "Datasheet")
@@ -8122,6 +9902,14 @@
 				(lib "Switch")
 				(part "SW_Push")
 				(description "Push button switch, generic, two pins")
+			)
+			(property
+				(name "MPN")
+				(value "B3F-1000")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Omron")
 			)
 			(property
 				(name "Sheetname")
@@ -8139,7 +9927,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6a9cf3cb-4f74-4585-ac2a-35801d6c2b58")
+			(tstamps "26c1f8ef-82c1-4189-a0d8-cc551c591d19")
 			(units
 				(unit
 					(name "A")
@@ -8160,6 +9948,10 @@
 			(footprint "Button_Switch_THT:SW_PUSH_6mm")
 			(fields
 				(field
+					(name "MPN") "B3F-1000")
+				(field
+					(name "Manufacturer") "Omron")
+				(field
 					(name "Footprint") "Button_Switch_THT:SW_PUSH_6mm")
 				(field
 					(name "Datasheet")
@@ -8172,6 +9964,14 @@
 				(lib "Switch")
 				(part "SW_Push")
 				(description "Push button switch, generic, two pins")
+			)
+			(property
+				(name "MPN")
+				(value "B3F-1000")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Omron")
 			)
 			(property
 				(name "Sheetname")
@@ -8189,7 +9989,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6afdedc5-829a-4a50-8b07-2f26729cbbbc")
+			(tstamps "d0e691b2-1ac0-49cc-af3c-09d715ff2cd8")
 			(units
 				(unit
 					(name "A")
@@ -8210,6 +10010,10 @@
 			(footprint "Button_Switch_THT:SW_PUSH_6mm")
 			(fields
 				(field
+					(name "MPN") "B3F-1000")
+				(field
+					(name "Manufacturer") "Omron")
+				(field
 					(name "Footprint") "Button_Switch_THT:SW_PUSH_6mm")
 				(field
 					(name "Datasheet")
@@ -8222,6 +10026,14 @@
 				(lib "Switch")
 				(part "SW_Push")
 				(description "Push button switch, generic, two pins")
+			)
+			(property
+				(name "MPN")
+				(value "B3F-1000")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Omron")
 			)
 			(property
 				(name "Sheetname")
@@ -8239,7 +10051,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a24f2a0d-6220-445f-9bc7-bc079ff1217c")
+			(tstamps "0b63fcad-c5a3-41fd-9654-f9c8bd928ef7")
 			(units
 				(unit
 					(name "A")
@@ -8261,6 +10073,10 @@
 			(datasheet "https://www.ti.com/lit/ds/symlink/tps63001.pdf")
 			(fields
 				(field
+					(name "MPN") "TPS63001DRCR")
+				(field
+					(name "Manufacturer") "Texas Instruments")
+				(field
 					(name "Footprint") "Package_SON:Texas_DRC0010J_ThermalVias")
 				(field
 					(name "Datasheet") "https://www.ti.com/lit/ds/symlink/tps63001.pdf")
@@ -8272,6 +10088,14 @@
 				(lib "Regulator_Switching")
 				(part "TPS63000")
 				(description "Buck-Boost Converter, 1.8-5.5V Input Voltage, 1.8A Switch Current, Adjustable 1.2-5.5V Output Voltage, VSON-10")
+			)
+			(property
+				(name "MPN")
+				(value "TPS63001DRCR")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Texas Instruments")
 			)
 			(property
 				(name "Sheetname")
@@ -8293,7 +10117,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0a87cbdb-9db2-4fb4-8c1d-405de8327eb3")
+			(tstamps "314bbf2f-a410-485e-8ebf-17088c2678a3")
 			(units
 				(unit
 					(name "A")
@@ -8342,6 +10166,10 @@
 			(datasheet "https://toshiba.semicon-storage.com/us/product/linear/motordriver/detail.TB6612FNG.html")
 			(fields
 				(field
+					(name "MPN") "TB6612FNG,C,8,EL")
+				(field
+					(name "Manufacturer") "Toshiba")
+				(field
 					(name "Footprint") "Package_SO:SSOP-24_5.3x8.2mm_P0.65mm")
 				(field
 					(name "Datasheet") "https://toshiba.semicon-storage.com/us/product/linear/motordriver/detail.TB6612FNG.html")
@@ -8353,6 +10181,14 @@
 				(lib "Driver_Motor")
 				(part "TB6612FNG")
 				(description "Driver IC for Dual DC motor, SSOP-24")
+			)
+			(property
+				(name "MPN")
+				(value "TB6612FNG,C,8,EL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Toshiba")
 			)
 			(property
 				(name "Sheetname")
@@ -8374,7 +10210,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "62ebc120-5db5-4124-886d-82de586ec04b")
+			(tstamps "5042751f-b438-41de-8b96-6bfd9529041a")
 			(units
 				(unit
 					(name "A")
@@ -8462,6 +10298,10 @@
 			(datasheet "https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf")
 			(fields
 				(field
+					(name "MPN") "ESP32-S3-WROOM-1-N16")
+				(field
+					(name "Manufacturer") "Espressif Systems")
+				(field
 					(name "Footprint") "RF_Module:ESP32-S3-WROOM-1")
 				(field
 					(name "Datasheet") "https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf")
@@ -8473,6 +10313,14 @@
 				(lib "RF_Module")
 				(part "ESP32-S3-WROOM-1")
 				(description "RF Module, ESP32-S3 SoC, Wi-Fi 802.11b/g/n, Bluetooth, BLE, 32-bit, 3.3V, onboard antenna, SMD")
+			)
+			(property
+				(name "MPN")
+				(value "ESP32-S3-WROOM-1-N16")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Espressif Systems")
 			)
 			(property
 				(name "Sheetname")
@@ -8494,7 +10342,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f3f2837c-1547-4a89-8410-943c0351ba95")
+			(tstamps "ec6b01a8-e78a-4b9f-98a4-00f2503fb32f")
 			(units
 				(unit
 					(name "A")
@@ -8633,6 +10481,10 @@
 			(datasheet "https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf")
 			(fields
 				(field
+					(name "MPN") "CD74HC4067M96")
+				(field
+					(name "Manufacturer") "Texas Instruments")
+				(field
 					(name "Footprint") "Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm")
 				(field
 					(name "Datasheet") "https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf")
@@ -8644,6 +10496,14 @@
 				(lib "74xx")
 				(part "CD74HC4067M")
 				(description "High-Speed CMOS Logic 16-Channel Analog Multiplexer/Demultiplexer, SOIC-24")
+			)
+			(property
+				(name "MPN")
+				(value "CD74HC4067M96")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Texas Instruments")
 			)
 			(property
 				(name "Sheetname")
@@ -8665,7 +10525,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e1531203-7436-49fe-ad8f-73c08e7d21b8")
+			(tstamps "11f014d0-08e2-44cb-8372-20c4af4603a5")
 			(units
 				(unit
 					(name "A")
@@ -8753,6 +10613,10 @@
 			(datasheet "https://www.st.com/resource/en/datasheet/usblc6-2.pdf")
 			(fields
 				(field
+					(name "MPN") "USBLC6-2SC6")
+				(field
+					(name "Manufacturer") "STMicroelectronics")
+				(field
 					(name "Footprint") "Package_TO_SOT_SMD:SOT-23-6")
 				(field
 					(name "Datasheet") "https://www.st.com/resource/en/datasheet/usblc6-2.pdf")
@@ -8764,6 +10628,14 @@
 				(lib "Power_Protection")
 				(part "USBLC6-2P6")
 				(description "Very low capacitance ESD protection diode, 2 data-line, SOT-666")
+			)
+			(property
+				(name "MPN")
+				(value "USBLC6-2SC6")
+			)
+			(property
+				(name "Manufacturer")
+				(value "STMicroelectronics")
 			)
 			(property
 				(name "Sheetname")
@@ -8785,7 +10657,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7d85580e-71e6-4715-a33f-1ebfb9e81db7")
+			(tstamps "cb646d51-7e57-4cbf-8da5-e5c54c1fda43")
 			(units
 				(unit
 					(name "A")

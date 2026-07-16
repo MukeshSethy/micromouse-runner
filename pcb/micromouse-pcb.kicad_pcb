@@ -106,7 +106,7 @@
 				)
 			)
 		)
-		(property "Value" "PinHeader_1x02_P2.54mm_Vertical"
+		(property "Value" "EXT_SWITCH"
 			(at 0 4.92 0)
 			(layer "F.Fab")
 			(uuid "50216970-0025-42c5-bdd9-b341e8b1b163")
@@ -333,7 +333,7 @@
 				)
 			)
 		)
-		(property "Value" "Texas_DRC0010J_ThermalVias"
+		(property "Value" "TPS63001 (fixed 3.3V buck-boost; TPS63000 base symbol so ERC checks pins)"
 			(at 0.02032 2.8 0)
 			(layer "F.Fab")
 			(uuid "b57fb2ae-a116-4f3d-a6f5-61f6b84a6a2d")
@@ -743,7 +743,7 @@
 			(uuid "25414865-61ba-43c2-98f6-d68e4698120d")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Package_SON.3dshapes/Texas_DRC0010J.step"
+		(model "${KIPRJMOD}/3d/Texas_DRC0010J.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -772,7 +772,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "1k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "90560923-e2db-4782-a4a0-4b13648c6dca")
@@ -918,7 +918,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_D5.0mm_IRGrey"
+		(property "Value" "SFH4550 (THT, LD271 base symbol)"
 			(at 1.27 3.96 0)
 			(layer "F.Fab")
 			(uuid "35f4e50e-6359-45c2-a5c6-01fbf1ed865f")
@@ -1116,7 +1116,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "100k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "2db179ae-bb62-4e58-9747-7324f597fb86")
@@ -1262,7 +1262,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_D3.0mm_Clear"
+		(property "Value" "SFH309"
 			(at 1.27 2.96 90)
 			(layer "F.Fab")
 			(uuid "4707b6e4-91bc-4f6f-90f8-9f28db1f3d81")
@@ -1481,7 +1481,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_0603_1608Metric"
+		(property "Value" "Indicator LED 0603 super-red AlInGaP, high-efficiency bin REQUIRED at 1.4mA (e.g. Kingbright APT1608SURCK; LD271 base symbol for ERC)"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "1637cc2b-2a37-4e69-9fab-8a9e74a9d8a5")
@@ -1676,7 +1676,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "100k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "cb21f4e5-aee1-419e-826a-47ddef718c4b")
@@ -1822,7 +1822,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_0603_1608Metric"
+		(property "Value" "Indicator LED 0603 super-red AlInGaP, high-eff bin (e.g. APT1608SURCK)"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "466e0977-deb3-44e9-8c6e-20d300f967ca")
@@ -2017,7 +2017,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "1k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "e2f5c98d-6a88-44b5-9526-e0ea4f66b384")
@@ -2163,7 +2163,7 @@
 				)
 			)
 		)
-		(property "Value" "JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical"
+		(property "Value" "BATT_IN_1S"
 			(at 1 4 0)
 			(layer "F.Fab")
 			(uuid "f690becd-ff7b-467a-845a-d5c90a0e8692")
@@ -2533,7 +2533,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "5c9b1f0e-c869-483e-910b-15c91eb9d07b")
@@ -2899,7 +2899,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_D3.0mm_Clear"
+		(property "Value" "SFH309"
 			(at 1.27 2.96 270)
 			(layer "F.Fab")
 			(uuid "fac92f16-f54a-450b-a351-7e19c149239b")
@@ -3118,7 +3118,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_0603_1608Metric"
+		(property "Value" "Indicator LED 0603 super-red AlInGaP, high-eff bin (e.g. APT1608SURCK)"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "2f992e24-51b3-455e-bdce-62c5ef498240")
@@ -3459,7 +3459,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_0603_1608Metric"
+		(property "Value" "Indicator LED 0603 super-red AlInGaP, high-efficiency bin REQUIRED at 1.4mA (e.g. Kingbright APT1608SURCK; LD271 base symbol for ERC)"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "1b550f1f-d31c-44e6-aec1-0144ed74db40")
@@ -3654,7 +3654,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_D3.0mm_Clear"
+		(property "Value" "SFH309"
 			(at 1.270001 2.96 315)
 			(layer "F.Fab")
 			(uuid "7db79a31-88e1-4eb1-ad85-9a2f59adb91a")
@@ -3932,7 +3932,7 @@
 				)
 			)
 		)
-		(property "Value" "Fuse_1206_3216Metric"
+		(property "Value" "2A_resettable"
 			(at 0 1.83 0)
 			(layer "F.Fab")
 			(uuid "4653eab0-1b43-47e1-9d5f-fe1d3793deac")
@@ -4224,7 +4224,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "1k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "43c5ffc8-3eeb-463a-841f-a36a0a2b8e00")
@@ -4743,7 +4743,7 @@
 			(uuid "64f0c45d-3e37-48dc-ac3c-49ab2534adcc")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Inductor_SMD.3dshapes/L_Bourns_SRP7028A_7.3x6.6mm.step"
+		(model "${KIPRJMOD}/3d/L_Bourns_SRP7028A_7.3x6.6mm.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -4772,7 +4772,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_D5.0mm_IRGrey"
+		(property "Value" "SFH4550 (THT, LD271 base symbol)"
 			(at 1.27 3.96 90)
 			(layer "F.Fab")
 			(uuid "8dea7684-823d-4f69-9c00-2c63d0c52563")
@@ -4970,7 +4970,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "1k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "e8f94b62-770e-45ee-9a1f-95e21a317a95")
@@ -5116,7 +5116,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "084bad46-cd7e-4a5b-8251-948621d3526b")
@@ -5482,7 +5482,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "1k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "a9ce8f3f-1197-4fe7-9bbb-6b934bd95d39")
@@ -5628,7 +5628,7 @@
 				)
 			)
 		)
-		(property "Value" "PinHeader_1x06_P2.54mm_Vertical"
+		(property "Value" "JTAG_1x6 (3V3,TMS,TCK,TDO,TDI,GND)"
 			(at 0 15.08 0)
 			(layer "F.Fab")
 			(uuid "72c9a24f-8eb9-49ba-b3a8-ad7f446e71b9")
@@ -5891,7 +5891,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "10k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "401f7e9d-7087-43ac-b1fa-ac88eb6f1391")
@@ -6037,7 +6037,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "ad2296c0-3630-43eb-bab2-9dbffe0091d4")
@@ -6403,7 +6403,7 @@
 				)
 			)
 		)
-		(property "Value" "JST_PH_B6B-PH-K_1x06_P2.00mm_Vertical"
+		(property "Value" "MOTOR_A_N20_ENCODER"
 			(at 5 4 0)
 			(layer "F.Fab")
 			(uuid "20ea8f8e-77eb-4ea9-b083-ae0a51ea11ed")
@@ -6969,7 +6969,7 @@
 				)
 			)
 		)
-		(property "Value" "SSOP-24_5.3x8.2mm_P0.65mm"
+		(property "Value" "TB6612FNG"
 			(at 0 5.05 0)
 			(layer "F.Fab")
 			(uuid "01acdff7-a3e7-4634-bd02-0f95f61b2ee4")
@@ -7453,7 +7453,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_0603_1608Metric"
+		(property "Value" "Indicator LED 0603 super-red AlInGaP, high-efficiency bin REQUIRED at 1.4mA (e.g. Kingbright APT1608SURCK; LD271 base symbol for ERC)"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "303bf231-739d-472e-81cf-23996867b0f9")
@@ -7648,7 +7648,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "48e0cca8-46ed-47c4-9c7f-ed71914690b2")
@@ -8014,7 +8014,7 @@
 				)
 			)
 		)
-		(property "Value" "SW_PUSH_6mm"
+		(property "Value" "BTN_A (start / BOOT)"
 			(at 3.75 6.7 0)
 			(layer "F.Fab")
 			(uuid "6b233f45-8c2e-404d-acc9-2ef449c33278")
@@ -8459,7 +8459,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS84 (PMOS indicator driver; Q_PMOS base symbol)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "381a230e-9edb-4952-a089-4a845d265f73")
@@ -8825,7 +8825,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_D5.0mm_IRGrey"
+		(property "Value" "SFH4550 (THT, LD271 base symbol)"
 			(at 1.27 3.96 315)
 			(layer "F.Fab")
 			(uuid "a38120d0-130e-4d54-8963-48067fa015ec")
@@ -9024,7 +9024,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "10k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "cc718438-a3d6-49df-8430-84506d4534f2")
@@ -9170,7 +9170,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "100k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "38e5817e-6453-4115-840c-6deb42cf2b48")
@@ -9317,7 +9317,7 @@
 				)
 			)
 		)
-		(property "Value" "ESP32-S3-WROOM-1"
+		(property "Value" "ESP32-S3-WROOM-1-N16 (non-R8: octal-PSRAM variants lose IO35-37 = buttons 2/3)"
 			(at 0 14.6 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10138,7 +10138,7 @@
 				)
 			)
 		)
-		(property "Value" "C_0805_2012Metric"
+		(property "Value" "100nF"
 			(at 0 1.68 0)
 			(layer "F.Fab")
 			(uuid "7b9bb91b-22c9-44c6-8079-33505128808c")
@@ -10284,7 +10284,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "1k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "4c31adb6-3a75-4da5-8520-e187839da7ba")
@@ -10430,7 +10430,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "4e64f31e-e3b3-4b4c-8b2b-1a183fb56cf2")
@@ -11020,7 +11020,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_D5.0mm_IRGrey"
+		(property "Value" "SFH4550 (THT, LD271 base symbol)"
 			(at 1.27 3.96 270)
 			(layer "F.Fab")
 			(uuid "f74554ff-17a1-4eb0-ae9d-bf982eba9b0c")
@@ -11218,7 +11218,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_0603_1608Metric"
+		(property "Value" "Indicator LED 0603 super-red AlInGaP, high-efficiency bin REQUIRED at 1.4mA (e.g. Kingbright APT1608SURCK; LD271 base symbol for ERC)"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "23612146-4bae-4c0f-8942-a4a92e0a5136")
@@ -11413,7 +11413,7 @@
 				)
 			)
 		)
-		(property "Value" "SW_PUSH_6mm"
+		(property "Value" "BTN_B"
 			(at 3.75 6.7 0)
 			(layer "F.Fab")
 			(uuid "3a0f0c26-c21d-4dc9-9253-c40f5340aa32")
@@ -11750,7 +11750,7 @@
 				)
 			)
 		)
-		(property "Value" "C_0805_2012Metric"
+		(property "Value" "100nF"
 			(at 0 1.68 0)
 			(layer "F.Fab")
 			(uuid "4562774d-bc5c-4c3c-98ed-77ddf5d9b46f")
@@ -11896,7 +11896,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "1k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "8e97e969-9bb1-48ef-ab5c-8a12a031354a")
@@ -12042,7 +12042,7 @@
 				)
 			)
 		)
-		(property "Value" "SW_PUSH_6mm"
+		(property "Value" "BTN_C"
 			(at 3.75 6.7 0)
 			(layer "F.Fab")
 			(uuid "fdcc82d6-459e-445e-8227-ed229c58f069")
@@ -12525,7 +12525,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_D5.0mm_IRGrey"
+		(property "Value" "SFH4550 (THT, LD271 base symbol)"
 			(at 1.27 3.96 0)
 			(layer "F.Fab")
 			(uuid "d89726a0-01f4-4b02-a358-2bfcab0c8fdc")
@@ -12723,7 +12723,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_0603_1608Metric"
+		(property "Value" "Indicator LED 0603 super-red AlInGaP, high-efficiency bin REQUIRED at 1.4mA (e.g. Kingbright APT1608SURCK; LD271 base symbol for ERC)"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "b02230da-9330-4286-bb60-ef93e4ce4cf7")
@@ -12918,7 +12918,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS84 (PMOS indicator driver; Q_PMOS base symbol)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "85dfe511-b942-4f8c-b755-8e06049ec6a5")
@@ -13284,7 +13284,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "b25a5f6b-7bd4-4bb8-963c-b4d0be32577d")
@@ -13650,7 +13650,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "1k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "c18f0d02-087e-4ed7-8194-a49fa7d19de7")
@@ -13796,7 +13796,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_0603_1608Metric"
+		(property "Value" "Indicator LED 0603 super-red AlInGaP, high-efficiency bin REQUIRED at 1.4mA (e.g. Kingbright APT1608SURCK; LD271 base symbol for ERC)"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "2e5b6e75-6b23-4837-8dd9-4d63cec88565")
@@ -13991,7 +13991,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS84 (PMOS indicator driver; Q_PMOS base symbol)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "950373f3-d3db-48db-9ed8-6e5f05722309")
@@ -14357,7 +14357,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "10k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "d31f9325-b701-4791-9c70-893c05213d3c")
@@ -14503,7 +14503,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_0603_1608Metric"
+		(property "Value" "Indicator LED 0603 super-red AlInGaP, high-eff bin (e.g. APT1608SURCK)"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "eb5e4f0c-868b-4ae5-9f18-e948e8a7d2af")
@@ -14698,7 +14698,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_D3.0mm_Clear"
+		(property "Value" "SFH309"
 			(at 1.27 2.96 0)
 			(layer "F.Fab")
 			(uuid "f1d1026b-73f2-4e89-bdc7-2914834c66a7")
@@ -14917,7 +14917,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "1k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "580cd3cd-e08e-469a-a462-9bf3d200fab9")
@@ -15063,7 +15063,7 @@
 				)
 			)
 		)
-		(property "Value" "JST_PH_B6B-PH-K_1x06_P2.00mm_Vertical"
+		(property "Value" "MOTOR_B_N20_ENCODER"
 			(at 5 4 0)
 			(layer "F.Fab")
 			(uuid "3d54e995-a5ba-4d88-99a6-836a323079b5")
@@ -15775,7 +15775,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "100k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "0f48b485-6bbc-4264-a379-5b617daaf239")
@@ -15921,7 +15921,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "7c84ae64-f13b-431d-8ad8-02ba5b64bbeb")
@@ -16287,7 +16287,7 @@
 				)
 			)
 		)
-		(property "Value" "C_0805_2012Metric"
+		(property "Value" "1uF"
 			(at 0 1.68 0)
 			(layer "F.Fab")
 			(uuid "0767c71c-75eb-480b-b1b4-526b6faafd1c")
@@ -16433,7 +16433,7 @@
 				)
 			)
 		)
-		(property "Value" "SOIC-24W_7.5x15.4mm_P1.27mm"
+		(property "Value" "CD74HC4067M"
 			(at 0 8.65 0)
 			(layer "F.Fab")
 			(uuid "08090d74-15ac-4891-8475-d656462dca1c")
@@ -16917,7 +16917,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "1k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "95b0d260-5ee5-4977-8247-8d893bd37301")
@@ -17063,7 +17063,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "10k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "fddb8b65-29e0-4969-bf9e-2d6565b0beb7")
@@ -17209,7 +17209,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_0603_1608Metric"
+		(property "Value" "Indicator LED 0603 super-red AlInGaP, high-eff bin (e.g. APT1608SURCK)"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "827fb1d2-d277-41c2-9167-bc00f079fb3b")
@@ -17551,7 +17551,7 @@
 				)
 			)
 		)
-		(property "Value" "USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+		(property "Value" "USB-C rear (GCT USB4105; VBUS unused -- battery powers the board)"
 			(at 0 5 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -17879,7 +17879,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "1k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "350a60a1-f093-4e7b-aff3-6fa6b2b337b5")
@@ -18025,7 +18025,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "ee7d28ef-395f-4796-86f1-51eba01e58c2")
@@ -18391,7 +18391,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "1k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "6043184b-b08c-4cd8-8c6d-c542b4634e03")
@@ -18537,7 +18537,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "1k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "349365cd-1060-41eb-854c-b117940d74de")
@@ -18683,7 +18683,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "ca97db92-1e75-4b35-a047-affe92e7a3cf")
@@ -19049,7 +19049,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "1k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "b2f1a66d-254d-4f7e-8384-07c3e59afb93")
@@ -19195,7 +19195,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_D3.0mm_Clear"
+		(property "Value" "SFH309"
 			(at 1.270001 2.96 45)
 			(layer "F.Fab")
 			(uuid "4f2035e8-4823-464f-9023-3b0497bb5975")
@@ -19415,7 +19415,7 @@
 				)
 			)
 		)
-		(property "Value" "SW_PUSH_6mm"
+		(property "Value" "RESET"
 			(at 3.75 6.7 0)
 			(layer "F.Fab")
 			(uuid "c3589f44-0274-4c3e-b6ce-f63bf51b89d8")
@@ -19752,7 +19752,7 @@
 				)
 			)
 		)
-		(property "Value" "C_0805_2012Metric"
+		(property "Value" "10uF"
 			(at 0 1.68 0)
 			(layer "F.Fab")
 			(uuid "1106c4c0-4699-4ddf-8422-8f2aea9ca1ee")
@@ -20014,7 +20014,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "1k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "65d82a14-d4f4-4afb-955e-55ec1ed90995")
@@ -20160,7 +20160,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_0603_1608Metric"
+		(property "Value" "Indicator LED 0603 super-red AlInGaP, high-eff bin (e.g. APT1608SURCK)"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "3b51d896-a5ef-4cb6-bd0a-507bdf044854")
@@ -20355,7 +20355,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS84 (PMOS indicator driver; Q_PMOS base symbol)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "a2a2ca47-d666-4480-af09-25340086b697")
@@ -20721,7 +20721,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "Q_PMOS low-Vth (e.g. DMP2035U-7)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "82c992ee-131f-49f0-aa53-76353a1227d6")
@@ -21087,7 +21087,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "28f352df-42fa-4eef-bcc3-faa81f918c12")
@@ -21453,7 +21453,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_D5.0mm_IRGrey"
+		(property "Value" "SFH4550 (THT, LD271 base symbol)"
 			(at 1.27 3.96 45)
 			(layer "F.Fab")
 			(uuid "81ad5e05-77cf-4a7e-b679-44a0c3d6d519")
@@ -21652,7 +21652,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "1k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "f438513b-f6ce-4caf-ad55-08c90f4e256a")
@@ -21798,7 +21798,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_0603_1608Metric"
+		(property "Value" "Indicator LED 0603 super-red AlInGaP, high-efficiency bin REQUIRED at 1.4mA (e.g. Kingbright APT1608SURCK; LD271 base symbol for ERC)"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "30d38d2d-c507-44c0-96de-6da6ae153f22")
@@ -21993,7 +21993,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS84 (PMOS indicator driver; Q_PMOS base symbol)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "8ead44c1-81e0-4d2d-aacd-1f2d7d771a16")
@@ -22359,7 +22359,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "10k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "60e7f0ad-f824-43d2-ac5e-d94e644e516d")
@@ -22505,7 +22505,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS84 (PMOS indicator driver; Q_PMOS base symbol)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "219596ab-c98b-4d66-a22b-53bd47952a32")
@@ -22871,7 +22871,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "e818159e-117d-4ee4-bbae-51fcee14af65")
@@ -23237,7 +23237,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_D3.0mm_Clear"
+		(property "Value" "SFH309"
 			(at 1.27 2.96 0)
 			(layer "F.Fab")
 			(uuid "b5b6176d-ef26-4499-b8df-f263489cee08")
@@ -23456,7 +23456,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "10k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "ab0e6e5f-c31b-4a99-a5f8-82789f16ba9e")
@@ -23602,7 +23602,7 @@
 				)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "10k"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "3b1488af-e9f4-433f-a41b-aeb5bcca68ac")
@@ -23748,7 +23748,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_0603_1608Metric"
+		(property "Value" "Indicator LED 0603 super-red AlInGaP, high-eff bin (e.g. APT1608SURCK)"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "0652c9ed-be0e-4e3a-9114-5c1e9812e308")
@@ -23943,7 +23943,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_0603_1608Metric"
+		(property "Value" "Indicator LED 0603 super-red AlInGaP, high-efficiency bin REQUIRED at 1.4mA (e.g. Kingbright APT1608SURCK; LD271 base symbol for ERC)"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "a7eb77b8-6095-4084-8dec-829829ec57e4")
@@ -24138,7 +24138,7 @@
 				)
 			)
 		)
-		(property "Value" "SOT-23"
+		(property "Value" "BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins)"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "f621fdeb-ccf7-4ff5-932a-73db28fd9ab5")
@@ -24505,7 +24505,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "47k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "8b90fdaa-ba5b-4d56-997f-39b3302a1227")
@@ -24657,7 +24657,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "LED_1206_3216Metric"
+		(property "Value" "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)"
 			(at 0 -1.83 0)
 			(layer "B.Fab")
 			(uuid "3f087f62-c352-44a3-b705-af28e5e4aded")
@@ -24858,7 +24858,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "100k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "4b46d211-19cd-4a45-8c7d-9b9c78edc948")
@@ -25010,7 +25010,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "120"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "3cb3c14f-ee00-481d-b99b-940a073b6c78")
@@ -25162,7 +25162,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "LED_1206_3216Metric"
+		(property "Value" "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)"
 			(at 0 -1.83 0)
 			(layer "B.Fab")
 			(uuid "6fbc9513-50ae-4fb5-b879-4fd182a58bf1")
@@ -25363,7 +25363,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "LED_1206_3216Metric"
+		(property "Value" "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)"
 			(at 0 -1.83 0)
 			(layer "B.Fab")
 			(uuid "89257b58-48dc-45e5-b0b6-239dd3a16ad0")
@@ -25564,7 +25564,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "47k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "fbc3070d-d2a3-41c4-9fb5-78d061e75cbd")
@@ -25716,7 +25716,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "22"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "31251f37-b7e2-45a1-bcf7-b9a5c02a24ee")
@@ -25868,7 +25868,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "LED_1206_3216Metric"
+		(property "Value" "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)"
 			(at 0 -1.83 0)
 			(layer "B.Fab")
 			(uuid "7510cf63-d157-4d95-b1bc-8c5f389798ad")
@@ -26069,7 +26069,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "47k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "0ddabcad-f282-4788-88c8-accbba418dbe")
@@ -26221,7 +26221,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "120"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "bc70c3d2-1348-4e01-af26-26fdd795d60c")
@@ -26373,7 +26373,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "33"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "6d8a4ecb-6f4c-4c26-ae7e-e88eb3cee793")
@@ -26525,7 +26525,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "120"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "3aa0bbae-7e0e-4008-ad89-ab7e4aaeac8d")
@@ -26677,7 +26677,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "47k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "f13f3acc-c46a-4524-9001-b6fae65a8ddd")
@@ -26829,7 +26829,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "47k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "64e5de3c-ab46-4c6f-846b-a31cf86e62d3")
@@ -26981,7 +26981,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "5.1k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "b329c409-e3cc-4a2f-a23a-261b33513a00")
@@ -27133,7 +27133,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "33"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "8e76efa8-4063-4d13-bf19-20a6007853cc")
@@ -27285,7 +27285,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "47k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "c822a403-090f-489e-a6b4-9743626e3260")
@@ -27437,7 +27437,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "LED_1206_3216Metric"
+		(property "Value" "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)"
 			(at 0 -1.83 0)
 			(layer "B.Fab")
 			(uuid "2c24ef46-883d-42e6-9a3d-b35d9c2d812d")
@@ -27638,7 +27638,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "47k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "5625227d-821f-4e16-94b9-8267e04ab206")
@@ -27942,7 +27942,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "22k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "3898c42a-b6c7-4ca0-a794-d0fc3e565b3c")
@@ -28094,7 +28094,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "33"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "40e0dbec-a26a-4d22-939a-5ea8dc30815b")
@@ -28246,7 +28246,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "120"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "43cdb500-fc00-4e19-b5cf-2ae1f7eef8b9")
@@ -28398,7 +28398,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "5.1k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "4d937f35-7d3e-484b-9bae-8b01156ec460")
@@ -28550,7 +28550,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "47k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "1776c60f-af23-4fd9-8601-53ae2818eb07")
@@ -28702,7 +28702,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "120"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "3845a1be-6799-4770-b700-2c2f8bb46a66")
@@ -28854,7 +28854,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "C_0805_2012Metric"
+		(property "Value" "100nF"
 			(at 0 -1.68 0)
 			(layer "B.Fab")
 			(uuid "a9407fe3-4531-411b-9144-ed50fdc36310")
@@ -29006,7 +29006,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "LED_1206_3216Metric"
+		(property "Value" "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)"
 			(at 0 -1.83 0)
 			(layer "B.Fab")
 			(uuid "87e06e93-2032-4aa7-b3c3-6420b8d2c44c")
@@ -29207,7 +29207,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "LED_1206_3216Metric"
+		(property "Value" "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)"
 			(at 0 -1.83 0)
 			(layer "B.Fab")
 			(uuid "30fa3e9d-82d0-4df5-8bff-bf5c0de08a79")
@@ -29408,7 +29408,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "15k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "cfe944cb-6138-4dcd-be5e-91d54b76f648")
@@ -29560,7 +29560,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "47k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "41e816d1-8d3b-4e13-a97b-ebbc60359328")
@@ -29712,7 +29712,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "LED_1206_3216Metric"
+		(property "Value" "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)"
 			(at 0 -1.83 0)
 			(layer "B.Fab")
 			(uuid "c51f5091-44ee-430e-a24a-5a59afdf10ab")
@@ -29913,7 +29913,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "120"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "bc3f4f7c-6452-41a7-9ef8-c9357fb1c123")
@@ -30065,7 +30065,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "47k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "0e0a7cd2-9974-4713-b500-aa9e057266cd")
@@ -30369,7 +30369,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "LED_1206_3216Metric"
+		(property "Value" "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)"
 			(at 0 -1.83 0)
 			(layer "B.Fab")
 			(uuid "c238b0a9-23d1-4818-9910-8e37e49a5b2c")
@@ -30570,7 +30570,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "LED_1206_3216Metric"
+		(property "Value" "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)"
 			(at 0 -1.83 0)
 			(layer "B.Fab")
 			(uuid "6799000a-6d7d-4f41-91c8-a231438b897a")
@@ -30771,7 +30771,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "120"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "d1c220af-e3ee-44df-9693-79aae5539003")
@@ -31075,7 +31075,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "120"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "49fe5e72-d52a-4c0e-bdcc-1b32ac4a650f")
@@ -31227,7 +31227,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "10k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "71cbdc09-45bb-4c92-b072-4d5df7950ae0")
@@ -31379,7 +31379,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "LED_1206_3216Metric"
+		(property "Value" "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)"
 			(at 0 -1.83 0)
 			(layer "B.Fab")
 			(uuid "8f6d02c6-802b-43da-be82-9ab1e32a02aa")
@@ -31580,7 +31580,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "47k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "32d8ffc6-d8ac-4d12-bd81-8e4cb8a6d893")
@@ -31732,7 +31732,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "SOT-23-6"
+		(property "Value" "USBLC6-2SC6 (SOT-23-6; 2P6 base symbol so ERC checks pins)"
 			(at 0 -2.4 0)
 			(layer "B.Fab")
 			(uuid "04c3376c-19c2-4eac-8cd3-8daa7a062187")
@@ -32078,7 +32078,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "LED_1206_3216Metric"
+		(property "Value" "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)"
 			(at 0 -1.83 0)
 			(layer "B.Fab")
 			(uuid "43aec561-1384-41d3-8ffc-f02ed3b669e9")
@@ -32279,7 +32279,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "10k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "d642a462-0f0b-4237-a438-b37cc2d2c515")
@@ -32431,7 +32431,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "33k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "3022ff7f-090e-426e-8dc5-c6b918b64d9b")
@@ -32583,7 +32583,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "LED_1206_3216Metric"
+		(property "Value" "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)"
 			(at 0 -1.83 0)
 			(layer "B.Fab")
 			(uuid "b3cc7984-e7ea-4838-b670-ce0b8a08449c")
@@ -32784,7 +32784,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "33"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "4a758cfb-c4cb-4994-9adc-d5135c476947")
@@ -32936,7 +32936,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "33"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "f486baa9-fafc-4c83-89aa-e237c838d6a3")
@@ -33088,7 +33088,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "LED_1206_3216Metric"
+		(property "Value" "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)"
 			(at 0 -1.83 0)
 			(layer "B.Fab")
 			(uuid "9481198f-0c9a-4bc7-9c7c-6a31d0488a15")
@@ -33289,7 +33289,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "47k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "08261666-b011-49de-970b-873df410e28e")
@@ -33441,7 +33441,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "47k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "79458b5f-5d85-4386-b67b-16489cdc2e8a")
@@ -33593,7 +33593,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "LED_1206_3216Metric"
+		(property "Value" "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)"
 			(at 0 -1.83 0)
 			(layer "B.Fab")
 			(uuid "a54368bc-524a-477a-8305-832e02098e10")
@@ -33794,7 +33794,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "47k"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "9dbd6e24-803d-4b9e-b5ea-b1281c014265")
@@ -33946,7 +33946,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "22"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "11fd476d-e584-427d-b573-c447d6ae858a")
@@ -34098,7 +34098,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "R_0805_2012Metric"
+		(property "Value" "33"
 			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "f6a19dc5-1751-465a-8e5c-fe30a3ad085c")
@@ -34250,7 +34250,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "LED_1206_3216Metric"
+		(property "Value" "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)"
 			(at 0 -1.83 0)
 			(layer "B.Fab")
 			(uuid "2e22cafe-a44e-4e6a-9b95-6e824c0d6d76")

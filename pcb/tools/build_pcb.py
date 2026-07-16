@@ -232,4 +232,16 @@ g.add_zone("VM_BATT", pcbnew.B_Cu, [(16, 44), (99, 44), (99, 113), (16, 113)])
 
 g.assert_netlist_pads_mapped()   # hard gate: no netlist pin may load netless
 g.save(r"D:\Projects\micromouse-pcb\pcb\micromouse-pcb.kicad_pcb")
+# Repoint U1/L1 3D models to project-local models: the KiCad install ships NO
+# .step (or even .wrl) for DRC0010J / SRP7028A, so STEP fit-check exports
+# silently omitted the regulator and the tallest part. gen_step_models.py
+# authors box-true substitutes; --subst-models picks the sibling .step.
+# Text-level because pcbnew's fp.Models() returns a SWIG copy.
+_pcbp = r"D:\Projects\micromouse-pcb\pcb\micromouse-pcb.kicad_pcb"
+_txt = open(_pcbp, encoding="utf-8", newline="").read()
+_txt = _txt.replace("${KICAD10_3DMODEL_DIR}/Package_SON.3dshapes/Texas_DRC0010J.step",
+                    "${KIPRJMOD}/3d/Texas_DRC0010J.wrl")
+_txt = _txt.replace("${KICAD10_3DMODEL_DIR}/Inductor_SMD.3dshapes/L_Bourns_SRP7028A_7.3x6.6mm.step",
+                    "${KIPRJMOD}/3d/L_Bourns_SRP7028A_7.3x6.6mm.wrl")
+open(_pcbp, "w", encoding="utf-8", newline="").write(_txt)
 print(f"Saved {BOARD_W}x{BOARD_H}mm PCB with {len(g._placed)} footprints, {len(remaining)} unplaced.")

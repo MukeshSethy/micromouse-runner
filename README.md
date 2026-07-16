@@ -69,12 +69,25 @@ micromouse-runner/
 └── images/         renders
 ```
 
+## Ordering / fabrication
+
+- `pcb/BOM.csv` — 42 line items, every row with a verified MPN (packages and
+  FET pinouts checked against datasheets + distributor stock).
+  **Sourcing alarm:** the SFH 309 FA wall phototransistors are on ams-OSRAM
+  Last-Time-Buy until **2026-12-01** — order lifetime quantity up front.
+- `pcb/tools/export_fab.py` regenerates `pcb/fab/`: gerbers (11 layers),
+  Excellon drill (bracket/castor NPTH tools asserted present), placement
+  CSV, and a fit-check STEP that loads **every** 3D model (project-local
+  box-true models for the N20 motors, TPS63001 and the power inductor).
+
 ## Build / regenerate
 
 The PCB tooling runs from `pcb/` using the KiCad-bundled Python (`pcbnew`);
 see `pcb/PROJECT_NOTES.md` for exact commands and the many hard-won
 KiCad-format notes. Regeneration order: `build_schematic.py` → export
-netlist → `build_pcb.py` → `route_loaded.py` → `heal_all.py`.
+netlist → `build_pcb.py` → `route_loaded.py` → `heal_all.py` →
+`export_fab.py` (gates: `verify_netlist.py`, ERC, DRC, drill/STEP/BOM
+assertions run inside the chain).
 
 ## Status
 

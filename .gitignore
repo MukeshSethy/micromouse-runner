@@ -26,3 +26,6 @@ micromouse-pcb.svg
 /render_top.png
 /render_bottom.png
 pcb/erc.rpt
+
+# Fab outputs (regenerate with pcb/tools/export_fab.py)
+pcb/fab/

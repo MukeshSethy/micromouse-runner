@@ -11,6 +11,86 @@ from gen_sch import SchGen, snap, pin_at
 g = SchGen("micromouse-pcb", paper="A1")
 
 # ---------------------------------------------------------------------------
+# BOM part numbers, emitted as hidden MPN/Manufacturer properties on every
+# symbol (gen_sch field_provider). Every MPN below was adversarially verified
+# against manufacturer datasheets + live distributor listings (2026-07-16):
+# packages match the design footprints, and every SOT-23 FET was checked for
+# pin1=G/pin2=S/pin3=D. Notes:
+#  - SFH 309 FA: ams-OSRAM LAST TIME BUY 2026-12-01 -- order lifetime qty.
+#  - PT11-21B/L41/TR8: real Everlight MPN (datasheet DPT-0000132) but big
+#    distributors stock only the UNFILTERED -C variant, which this design
+#    must NOT use; source the B from Everlight/brokers, or use SFH 320 FA.
+#  - TB6612FNG: Toshiba body is 5.6mm vs the 5.3mm KiCad SSOP-24 footprint
+#    body -- same 0.65 pitch and lead span, solderable; noted for review.
+# ---------------------------------------------------------------------------
+_MPN_STATIC = {
+    "U1": ("TPS63001DRCR", "Texas Instruments"),
+    "U2": ("TB6612FNG,C,8,EL", "Toshiba"),
+    "U3": ("ESP32-S3-WROOM-1-N16", "Espressif Systems"),
+    "U4": ("CD74HC4067M96", "Texas Instruments"),
+    "U6": ("USBLC6-2SC6", "STMicroelectronics"),
+    "Q1": ("DMP2035U-7", "Diodes Incorporated"),
+    "L1": ("SRP7028A-1R5M", "Bourns"),
+    "F1": ("0ZCJ0200FF2C", "Bel Fuse"),
+    "J1": ("B2B-PH-K-S(LF)(SN)", "JST"),
+    "J2": ("61300211121", "Wurth Elektronik"),
+    "J5": ("B6B-PH-K-S(LF)(SN)", "JST"),
+    "J6": ("B6B-PH-K-S(LF)(SN)", "JST"),
+    "J7": ("USB4105-GF-A", "GCT"),
+    "J8": ("61300611121", "Wurth Elektronik"),
+    "SW1": ("B3F-1000", "Omron"), "SW2": ("B3F-1000", "Omron"),
+    "SW3": ("B3F-1000", "Omron"), "SW4": ("B3F-1000", "Omron"),
+}
+_CAP_MPN = {
+    "100nF": ("CL21B104KBCNNNC", "Samsung Electro-Mechanics"),
+    "1uF":   ("CL21B105KAFNNNE", "Samsung Electro-Mechanics"),
+    "10uF":  ("CL21A106KPFNNNE", "Samsung Electro-Mechanics"),
+    "22uF":  ("CL21A226KPCLRNC", "Samsung Electro-Mechanics"),
+    "100uF": ("CL32A107MQVNNNE", "Samsung Electro-Mechanics"),
+}
+
+def _res_code(v):
+    # Yageo value code: "5.1k"->5K1, "10k"->10K, "33"->33R, "120"->120R
+    v = v.strip()
+    if "." in v:
+        a, b = v.split(".", 1)
+        unit = b[-1].upper() if b and b[-1] in "kKmM" else "R"
+        return f"{a}{unit}{b.rstrip('kKmMrR')}"
+    if v and v[-1] in "kKmM":
+        return v[:-1] + v[-1].upper()
+    return v + "R"
+
+def _bom_fields(ref, value, footprint):
+    if ref in _MPN_STATIC:
+        mpn, mfr = _MPN_STATIC[ref]
+        return {"MPN": mpn, "Manufacturer": mfr}
+    fp = footprint.rsplit(":", 1)[-1]
+    if fp == "SOT-23":
+        if "BSS138" in value:
+            return {"MPN": "BSS138LT1G", "Manufacturer": "onsemi"}
+        if "BSS84" in value:
+            return {"MPN": "BSS84LT1G", "Manufacturer": "onsemi"}
+    if fp.startswith("LED_D5.0mm"):
+        return {"MPN": "SFH 4550", "Manufacturer": "ams-OSRAM"}
+    if fp.startswith("LED_D3.0mm"):
+        return {"MPN": "SFH 309 FA", "Manufacturer": "ams-OSRAM"}
+    if fp.startswith("LED_1206"):
+        if "IR11-21C" in value:
+            return {"MPN": "IR11-21C/TR8", "Manufacturer": "Everlight"}
+        if "PT11-21B" in value:
+            return {"MPN": "PT11-21B/L41/TR8", "Manufacturer": "Everlight"}
+    if fp.startswith("LED_0603"):
+        return {"MPN": "APT1608SURCK", "Manufacturer": "Kingbright"}
+    if fp.startswith("R_0805") and value and value[0].isdigit():
+        return {"MPN": f"RC0805FR-07{_res_code(value)}L", "Manufacturer": "Yageo"}
+    if fp.startswith("C_") and value in _CAP_MPN:
+        mpn, mfr = _CAP_MPN[value]
+        return {"MPN": mpn, "Manufacturer": mfr}
+    return None
+
+g.field_provider = _bom_fields
+
+# ---------------------------------------------------------------------------
 # Generic component helpers (same pin-transform convention as build_power_mcu.py:
 # pin_at(base, local_offset) = (base_x+lx, base_y-ly), KiCad negates local Y).
 # ---------------------------------------------------------------------------
@@ -81,7 +161,7 @@ def QPMOS(ref, value, at, footprint="Package_TO_SOT_SMD:SOT-23"):
                      {"1": "", "2": "", "3": ""}, footprint=footprint)
     return pin_at(base, (2.54, 5.08)), pin_at(base, (-5.08, 0)), pin_at(base, (2.54, -5.08))  # D, G, S
 
-def LED_SFH4550(ref, at, footprint="LED_THT:LED_D5.0mm_IRGrey"):
+def LED_SFH4550(ref, at, footprint="LED_THT:LED_D5.0mm_IRGrey", value=None):
     # SFH4550's own symbol uses `extends "LD271"`, which silently skips ERC
     # pin-connectivity checking (PROJECT_NOTES facts #2/#8: confirmed empirically
     # that AP63203WU-extends-AP63200WU produced zero pin_not_connected errors with
@@ -89,14 +169,15 @@ def LED_SFH4550(ref, at, footprint="LED_THT:LED_D5.0mm_IRGrey"):
     # -- same physical pinout, footprint, and datasheet part -- with the actual
     # part name (SFH4550) recorded in Value.
     base = snap(at)
-    g.add_component("LED", "LD271", ref, "SFH4550 (real part; LD271 base symbol used so ERC checks pins)",
+    g.add_component("LED", "LD271", ref,
+                     value or "SFH4550 (real part; LD271 base symbol used so ERC checks pins)",
                      base, {"1": "", "2": ""}, footprint=footprint,
                      datasheet="http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
     return pin_at(base, (-5.08, 0)), pin_at(base, (2.54, 0))  # K (cathode), A (anode)
 
-def SFH309(ref, at, footprint="LED_THT:LED_D3.0mm_Clear"):
+def SFH309(ref, at, footprint="LED_THT:LED_D3.0mm_Clear", value=None):
     base = snap(at)
-    g.add_component("Sensor_Optical", "SFH309", ref, "SFH309", base, {"1": "", "2": ""}, footprint=footprint,
+    g.add_component("Sensor_Optical", "SFH309", ref, value or "SFH309", base, {"1": "", "2": ""}, footprint=footprint,
                      datasheet="http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
     return pin_at(base, (2.54, 5.08)), pin_at(base, (2.54, -5.08))  # C (collector), E (emitter)
 
@@ -307,7 +388,8 @@ RAIL("PLUS3V3", u1_vout, rotation=0)
 # adding a flag makes ERC flag two power outputs on one net)
 WIRE(u1_fb, pin_at(U1_BASE, (10.16, 10.16)))  # FB -> VOUT (fixed-voltage part)
 
-# Buck-boost inductor between L1 and L2 pins (1.5uH per TPS63001 datasheet).
+# Buck-boost inductor between L1 and L2 pins (1.5uH = TPS63001 datasheet
+# typical; SRP7028A-1R5M verified orderable, 18A Isat).
 bst_p1, bst_p2 = L("L1", "1.5uH", (222, 130))
 WIRE(u1_l1, bst_p1)
 WIRE(u1_l2, bst_p2)
@@ -741,15 +823,16 @@ for i, name in enumerate(SENSOR_NAMES):
         # phototransistor like the SFH320FA (PLCC-2) -- confirm the exact land
         # pattern against the chosen phototransistor before fab.
         photo_fp = "LED_SMD:LED_1206_3216Metric"
-        photo_val = ("SMD phototransistor 940nm, DAYLIGHT-FILTERED REQUIRED (e.g. Osram SFH320FA "
-                     "-- an unfiltered part re-opens optical feedback from the red indicator LEDs)")
+        photo_val = ("PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) "
+                     "REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback "
+                     "from the red indicator LEDs (SFH309 sym for ERC)")
         led_fp = "LED_SMD:LED_1206_3216Metric"
-        led_val = "SMD IR LED 940nm (e.g. Osram SFH4045N)"
+        led_val = "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)"
 
     # receiver + pull-up. WALL sensors: node goes STRAIGHT to an ESP32 ADC1
     # pin (label only -- no mux). LINE sensors: node feeds read-mux channel
     # Y0-Y7 (= LINE index).
-    rx_c, rx_e = SFH309(ref("Q"), (x, row_y), footprint=photo_fp)
+    rx_c, rx_e = SFH309(ref("Q"), (x, row_y), footprint=photo_fp, value=photo_val)
     RAIL("GND", rx_e, rotation=270)
     # pull-up x-aligned with the collector pin -> straight vertical wire
     rp1, rp2 = R(ref("R"), "47k", (x + 2.54, row_y + 15))
@@ -765,7 +848,7 @@ for i, name in enumerate(SENSOR_NAMES):
     # limiter x-aligned with the LED anode pin -> straight vertical wire
     lr1, lr2 = R(ref("R"), "33" if is_wall else "120", (x + 18.54, row_y + 15))
     RAIL("PLUS3V3", lr1, rotation=90)
-    led_k, led_a = LED_SFH4550(ref("D"), (x + 16, row_y), footprint=led_fp)
+    led_k, led_a = LED_SFH4550(ref("D"), (x + 16, row_y), footprint=led_fp, value=led_val)
     WIRE(lr2, led_a)
     _grp = ("EMIT_FRONT_K" if i < 2 else "EMIT_DIAG_K" if i < 4 else
             "EMIT_SIDE_K" if i < 6 else "EMIT_LINE_K")

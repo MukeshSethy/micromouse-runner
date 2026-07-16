@@ -128,6 +128,14 @@ class SchGen:
         s.append(f'\t(property "Value" "{value}"\n\t\t(at {val_x} {val_y} 0)\n\t\t(effects (font (size 1.27 1.27)){hide})\n\t)')
         s.append(f'\t(property "Footprint" "{footprint}"\n\t\t(at {x} {y} 0)\n\t\t(effects (font (size 1.27 1.27)) (hide yes))\n\t)')
         s.append(f'\t(property "Datasheet" "{datasheet}"\n\t\t(at {x} {y} 0)\n\t\t(effects (font (size 1.27 1.27)) (hide yes))\n\t)')
+        # Extra BOM fields (MPN, Manufacturer, ...): an optional provider
+        # callable set by the build script maps (ref, value, footprint) to a
+        # dict of extra hidden properties -- keeps part-number policy in
+        # build_schematic.py, not here.
+        extra = getattr(self, "field_provider", None)
+        if extra:
+            for fname, fval in (extra(ref, value, footprint) or {}).items():
+                s.append(f'\t(property "{fname}" "{fval}"\n\t\t(at {x} {y} 0)\n\t\t(effects (font (size 1.27 1.27)) (hide yes))\n\t)')
         for pin_num, net in pin_offsets.items():
             s.append(f'\t(pin "{pin_num}" (uuid "{new_uuid()}"))')
         s.append(f'\t(instances\n\t\t(project "{self.project_name}"\n\t\t\t(path "/{self.root_uuid}"\n\t\t\t\t(reference "{ref}")\n\t\t\t\t(unit 1)\n\t\t\t)\n\t\t)\n\t)')
