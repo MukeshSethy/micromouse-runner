@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "D:\\Projects\\micromouse-pcb\\pcb\\micromouse-pcb.kicad_sch")
-		(date "2026-07-16T12:10:22")
+		(date "2026-07-16T13:05:34")
 		(tool "Eeschema 10.0.4")
 		(sheet
 			(number "1")
@@ -105,7 +105,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cdded19f-3b84-4717-884d-cd4ce5bc8135")
+			(tstamps "09c24d2c-01fb-4d54-97bf-985479c9154a")
 			(units
 				(unit
 					(name "A")
@@ -171,7 +171,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a4245a64-4a2a-482f-9e0a-a354021bda26")
+			(tstamps "d0716df4-707e-4b32-9694-c20034c0a950")
 			(units
 				(unit
 					(name "A")
@@ -237,7 +237,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "73ac473f-a3d6-4f79-91c6-de07deba8cae")
+			(tstamps "062c1e20-eb3a-4aac-8284-0682dbb70df6")
 			(units
 				(unit
 					(name "A")
@@ -303,7 +303,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cd82a63b-ed65-4129-8bc4-fc18e6646d03")
+			(tstamps "126605b9-ba30-4ad4-94a8-894167c46299")
 			(units
 				(unit
 					(name "A")
@@ -369,7 +369,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f65b608e-db3e-4c1b-8631-fb4fdc91d228")
+			(tstamps "a8d0858f-32ca-4473-b4cf-cd64aa7c9fce")
 			(units
 				(unit
 					(name "A")
@@ -435,7 +435,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1b942cad-4a4c-4d37-88fc-65c7ee3a1b69")
+			(tstamps "221943d1-3c9f-4881-8a36-a3118dae027d")
 			(units
 				(unit
 					(name "A")
@@ -501,7 +501,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "51ec7b01-ded6-4c9c-999d-7504c81c08a2")
+			(tstamps "a377e2f3-f983-4a5a-a480-9e1c8a2d3096")
 			(units
 				(unit
 					(name "A")
@@ -567,7 +567,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4063054d-3c02-4051-a260-3507bb039bbb")
+			(tstamps "43f8040e-5c32-40c9-99d8-5c52d22a944a")
 			(units
 				(unit
 					(name "A")
@@ -633,7 +633,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0583ab75-58be-4423-93de-4b9f25b19573")
+			(tstamps "4ef6af33-0861-4211-a4ac-419516243e12")
 			(units
 				(unit
 					(name "A")
@@ -699,7 +699,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9f9ffb98-a3fe-4e8d-b38c-d6e0d7133a7e")
+			(tstamps "9d2cf334-1a52-43b8-959a-46f76effc049")
 			(units
 				(unit
 					(name "A")
@@ -765,7 +765,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0e6e0a41-90c8-471b-9701-4fbef050a965")
+			(tstamps "7f9e17ed-c392-4b21-bf04-687f4250c183")
 			(units
 				(unit
 					(name "A")
@@ -831,7 +831,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f5ad7f36-874c-4886-84bf-d836f157c69f")
+			(tstamps "a3ea4905-63e1-45d1-8041-8a2b7ab544bb")
 			(units
 				(unit
 					(name "A")
@@ -897,7 +897,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ace5250d-f292-4cec-b94e-fcfc3fd5b978")
+			(tstamps "5b35564b-b346-4120-9aff-003b57084472")
 			(units
 				(unit
 					(name "A")
@@ -914,7 +914,7 @@
 		)
 		(comp
 			(ref "D1")
-			(value "SFH4550 (THT, LD271 base symbol)")
+			(value "SFH4550 (THT, LD271 base symbol; India alternate: TSAL6100)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
@@ -963,7 +963,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "08f13fcc-4378-42d3-9545-a0705e027c5a")
+			(tstamps "3b6f2390-3d84-4fff-8b5e-f3a61bc78af2")
 			(units
 				(unit
 					(name "A")
@@ -980,7 +980,7 @@
 		)
 		(comp
 			(ref "D2")
-			(value "SFH4550 (THT, LD271 base symbol)")
+			(value "SFH4550 (THT, LD271 base symbol; India alternate: TSAL6100)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
@@ -1029,7 +1029,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "510a31ee-d1af-4dbc-9839-4cd7d8870416")
+			(tstamps "d1463d0a-f39e-4bf3-981f-ed09f46df926")
 			(units
 				(unit
 					(name "A")
@@ -1046,7 +1046,7 @@
 		)
 		(comp
 			(ref "D3")
-			(value "SFH4550 (THT, LD271 base symbol)")
+			(value "SFH4550 (THT, LD271 base symbol; India alternate: TSAL6100)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
@@ -1095,7 +1095,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c3c6cc7c-70ed-4733-a724-cac5e6657dc8")
+			(tstamps "1a750810-7ad0-4b65-a15f-c2dd0464f4b9")
 			(units
 				(unit
 					(name "A")
@@ -1112,7 +1112,7 @@
 		)
 		(comp
 			(ref "D4")
-			(value "SFH4550 (THT, LD271 base symbol)")
+			(value "SFH4550 (THT, LD271 base symbol; India alternate: TSAL6100)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
@@ -1161,7 +1161,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c87f29c0-00a5-4b94-bdc0-7acba40e7e6d")
+			(tstamps "6f2bddab-4550-427c-b57d-14fbb649c9ca")
 			(units
 				(unit
 					(name "A")
@@ -1178,7 +1178,7 @@
 		)
 		(comp
 			(ref "D5")
-			(value "SFH4550 (THT, LD271 base symbol)")
+			(value "SFH4550 (THT, LD271 base symbol; India alternate: TSAL6100)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
@@ -1227,7 +1227,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f94f66c8-b6a9-46aa-a7fc-9cee5ba9a640")
+			(tstamps "62578cd6-c79b-4d56-bc93-a395d4378c1c")
 			(units
 				(unit
 					(name "A")
@@ -1244,7 +1244,7 @@
 		)
 		(comp
 			(ref "D6")
-			(value "SFH4550 (THT, LD271 base symbol)")
+			(value "SFH4550 (THT, LD271 base symbol; India alternate: TSAL6100)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
@@ -1293,535 +1293,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5faf724c-e4f4-466d-bf11-8ac3ea4aa312")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D7")
-			(value "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
-			(fields
-				(field
-					(name "MPN") "IR11-21C/TR8")
-				(field
-					(name "Manufacturer") "Everlight")
-				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
-				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "IR11-21C/TR8")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Everlight")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "8c5cf4a7-52bd-4ba4-a77f-63d5a2095434")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D8")
-			(value "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
-			(fields
-				(field
-					(name "MPN") "IR11-21C/TR8")
-				(field
-					(name "Manufacturer") "Everlight")
-				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
-				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "IR11-21C/TR8")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Everlight")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "4b52c0a8-f7bd-4a03-83fe-7d04e7a474ca")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D9")
-			(value "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
-			(fields
-				(field
-					(name "MPN") "IR11-21C/TR8")
-				(field
-					(name "Manufacturer") "Everlight")
-				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
-				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "IR11-21C/TR8")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Everlight")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "ae044747-a736-4db8-8176-fc40023ccbc5")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D10")
-			(value "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
-			(fields
-				(field
-					(name "MPN") "IR11-21C/TR8")
-				(field
-					(name "Manufacturer") "Everlight")
-				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
-				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "IR11-21C/TR8")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Everlight")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "e7f732b2-8e8d-432a-8c9a-bef2d61043ad")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D11")
-			(value "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
-			(fields
-				(field
-					(name "MPN") "IR11-21C/TR8")
-				(field
-					(name "Manufacturer") "Everlight")
-				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
-				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "IR11-21C/TR8")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Everlight")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "8cd2eb69-0e46-40e2-9170-56dadb6f5651")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D12")
-			(value "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
-			(fields
-				(field
-					(name "MPN") "IR11-21C/TR8")
-				(field
-					(name "Manufacturer") "Everlight")
-				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
-				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "IR11-21C/TR8")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Everlight")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "176f3a91-e3bf-4d66-abbd-a561867dc84f")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D13")
-			(value "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
-			(fields
-				(field
-					(name "MPN") "IR11-21C/TR8")
-				(field
-					(name "Manufacturer") "Everlight")
-				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
-				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "IR11-21C/TR8")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Everlight")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "9d43a0d5-f19f-4eae-bad8-d94e78882bab")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D14")
-			(value "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
-			(fields
-				(field
-					(name "MPN") "IR11-21C/TR8")
-				(field
-					(name "Manufacturer") "Everlight")
-				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
-				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "IR11-21C/TR8")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Everlight")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "511cd47d-6a87-459e-8d7d-1da5f3a045a5")
+			(tstamps "bf18ff42-6dd2-42de-baa7-c007f64d6feb")
 			(units
 				(unit
 					(name "A")
@@ -1887,7 +1359,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "af543f7f-09e7-49ca-ae89-51885f50a72f")
+			(tstamps "7288157f-a475-469e-aa96-50cb6f586aa4")
 			(units
 				(unit
 					(name "A")
@@ -1953,7 +1425,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3a554764-0620-4203-b1cf-31c5d83dba9e")
+			(tstamps "a59a9e2a-32d9-4c4a-af8a-3c4c82d7ce93")
 			(units
 				(unit
 					(name "A")
@@ -2019,7 +1491,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8d91c15f-c83c-489a-ada9-f41a1f7b5052")
+			(tstamps "cbc37605-0e07-4b29-b92a-ff0c3847a686")
 			(units
 				(unit
 					(name "A")
@@ -2085,7 +1557,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7342e5a5-7af8-4a5c-9148-d1c35028c2f7")
+			(tstamps "120da696-878d-4b5d-97dd-79c30faf073f")
 			(units
 				(unit
 					(name "A")
@@ -2151,7 +1623,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a81135c6-bcf2-429b-9d51-220aaa5fbdca")
+			(tstamps "b0950e71-1f92-4962-9f84-75bb4e47cd6a")
 			(units
 				(unit
 					(name "A")
@@ -2217,7 +1689,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "eeb54803-fc1b-4e86-aeb4-2878752ff519")
+			(tstamps "a75aae8c-1328-49bc-8b16-ed45a086e033")
 			(units
 				(unit
 					(name "A")
@@ -2283,7 +1755,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a38ce065-821e-4b65-98a5-14fac819a06b")
+			(tstamps "8c560cd0-7d85-4ceb-8620-fac4cd160edc")
 			(units
 				(unit
 					(name "A")
@@ -2349,7 +1821,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c9841fc4-0eac-4410-a7d5-c9744e0bdef1")
+			(tstamps "2a00d982-273f-4c2d-a311-120a1216b26e")
 			(units
 				(unit
 					(name "A")
@@ -2415,7 +1887,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "529c0d6b-75c3-4e87-b6e7-59c1b28d5abb")
+			(tstamps "ff002f0e-4fe4-4381-b266-267529c879a2")
 			(units
 				(unit
 					(name "A")
@@ -2481,7 +1953,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e8f79b89-9392-4496-aa0e-743cf8dce1df")
+			(tstamps "2ac7974f-8880-472f-8a1f-962ac4dc2eaf")
 			(units
 				(unit
 					(name "A")
@@ -2547,7 +2019,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cc8408ad-8834-40e3-9efa-0647ebde871e")
+			(tstamps "36c5b9e2-bca3-422d-b32c-0dc3b0752cfe")
 			(units
 				(unit
 					(name "A")
@@ -2613,7 +2085,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9447a3cb-bfb9-4142-b348-a1cd7d403155")
+			(tstamps "3bca83fc-51cd-4766-8f03-e6743d0e9881")
 			(units
 				(unit
 					(name "A")
@@ -2679,7 +2151,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "685ee4c3-6789-4d6b-95d9-186f94bd2c44")
+			(tstamps "81e0af38-052c-443d-bdd4-a2b5f73bf457")
 			(units
 				(unit
 					(name "A")
@@ -2745,7 +2217,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "184176fb-8326-493d-952c-cde9e02a7615")
+			(tstamps "3830a873-b56f-4cf6-ae4a-68908456aedc")
 			(units
 				(unit
 					(name "A")
@@ -2811,7 +2283,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6d66f93b-4ffd-4d19-a8b6-8c8f31cf0bef")
+			(tstamps "90ffefda-207a-45fd-8b59-b0a94f4b350b")
 			(units
 				(unit
 					(name "A")
@@ -2877,73 +2349,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0fd653b1-570c-4903-a4cf-501a0142c8a2")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "J2")
-			(value "EXT_SWITCH")
-			(footprint "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical")
-			(fields
-				(field
-					(name "MPN") "61300211121")
-				(field
-					(name "Manufacturer") "Wurth Elektronik")
-				(field
-					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x02")
-				(description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "MPN")
-				(value "61300211121")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Wurth Elektronik")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "5a6ecc20-f2d5-49f5-abb5-971deca73fcc")
+			(tstamps "e0dce1f6-97ec-4b99-ad53-c3e75a2c3ff4")
 			(units
 				(unit
 					(name "A")
@@ -3009,7 +2415,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "77ba51db-6d94-4688-8d50-262c14904aae")
+			(tstamps "3ef8f4ab-7a76-4822-954b-c6034c760494")
 			(units
 				(unit
 					(name "A")
@@ -3087,7 +2493,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9d763d0e-a1a1-4beb-ad91-d9cc8908afa0")
+			(tstamps "452e232e-c499-458c-92b4-8b2c473b80fc")
 			(units
 				(unit
 					(name "A")
@@ -3165,7 +2571,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7d31ba21-acff-48ec-996f-83a972719681")
+			(tstamps "b3af0544-1cee-470b-86d9-c10c6d02d016")
 			(units
 				(unit
 					(name "A")
@@ -3276,7 +2682,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d9fea686-f2f5-40bc-8bf8-bcbd55e2f8e7")
+			(tstamps "b56d64bb-af5a-4fd1-b4b2-c1436bad67d5")
 			(units
 				(unit
 					(name "A")
@@ -3354,7 +2760,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "04b7b0a5-0570-4b4b-a809-3f35843c31bb")
+			(tstamps "6381f1dc-ef2a-44ec-b3f6-5d65251bd8e0")
 			(units
 				(unit
 					(name "A")
@@ -3364,6 +2770,582 @@
 						)
 						(pin
 							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "LS1")
+			(value "TCRT5000 (reflective sensor, filtered PT; PC817 base symbol so ERC checks pins)")
+			(footprint "n20:TCRT5000")
+			(fields
+				(field
+					(name "MPN") "TCRT5000")
+				(field
+					(name "Manufacturer") "Vishay")
+				(field
+					(name "Footprint") "n20:TCRT5000")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Isolator")
+				(part "PC817")
+				(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
+			)
+			(property
+				(name "MPN")
+				(value "TCRT5000")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Vishay")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "NPN DC Optocoupler")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "DIP*W7.62mm*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "1197e0b7-690e-4302-8455-de056ef0445e")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "LS2")
+			(value "TCRT5000 (reflective sensor, filtered PT; PC817 base symbol so ERC checks pins)")
+			(footprint "n20:TCRT5000")
+			(fields
+				(field
+					(name "MPN") "TCRT5000")
+				(field
+					(name "Manufacturer") "Vishay")
+				(field
+					(name "Footprint") "n20:TCRT5000")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Isolator")
+				(part "PC817")
+				(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
+			)
+			(property
+				(name "MPN")
+				(value "TCRT5000")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Vishay")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "NPN DC Optocoupler")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "DIP*W7.62mm*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "11bc2984-227c-40be-a9a4-8b8d0f1ccc59")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "LS3")
+			(value "TCRT5000 (reflective sensor, filtered PT; PC817 base symbol so ERC checks pins)")
+			(footprint "n20:TCRT5000")
+			(fields
+				(field
+					(name "MPN") "TCRT5000")
+				(field
+					(name "Manufacturer") "Vishay")
+				(field
+					(name "Footprint") "n20:TCRT5000")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Isolator")
+				(part "PC817")
+				(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
+			)
+			(property
+				(name "MPN")
+				(value "TCRT5000")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Vishay")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "NPN DC Optocoupler")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "DIP*W7.62mm*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "61b20fd1-9e8b-4581-81f2-f673921bda94")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "LS4")
+			(value "TCRT5000 (reflective sensor, filtered PT; PC817 base symbol so ERC checks pins)")
+			(footprint "n20:TCRT5000")
+			(fields
+				(field
+					(name "MPN") "TCRT5000")
+				(field
+					(name "Manufacturer") "Vishay")
+				(field
+					(name "Footprint") "n20:TCRT5000")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Isolator")
+				(part "PC817")
+				(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
+			)
+			(property
+				(name "MPN")
+				(value "TCRT5000")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Vishay")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "NPN DC Optocoupler")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "DIP*W7.62mm*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "4af399ef-e7ae-45e0-8486-6e321e0d4482")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "LS5")
+			(value "TCRT5000 (reflective sensor, filtered PT; PC817 base symbol so ERC checks pins)")
+			(footprint "n20:TCRT5000")
+			(fields
+				(field
+					(name "MPN") "TCRT5000")
+				(field
+					(name "Manufacturer") "Vishay")
+				(field
+					(name "Footprint") "n20:TCRT5000")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Isolator")
+				(part "PC817")
+				(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
+			)
+			(property
+				(name "MPN")
+				(value "TCRT5000")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Vishay")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "NPN DC Optocoupler")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "DIP*W7.62mm*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "0cb30274-329e-4e05-a8d0-cffbb0f5ab04")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "LS6")
+			(value "TCRT5000 (reflective sensor, filtered PT; PC817 base symbol so ERC checks pins)")
+			(footprint "n20:TCRT5000")
+			(fields
+				(field
+					(name "MPN") "TCRT5000")
+				(field
+					(name "Manufacturer") "Vishay")
+				(field
+					(name "Footprint") "n20:TCRT5000")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Isolator")
+				(part "PC817")
+				(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
+			)
+			(property
+				(name "MPN")
+				(value "TCRT5000")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Vishay")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "NPN DC Optocoupler")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "DIP*W7.62mm*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "341d6ef4-cd94-4b47-88cb-d1adf4f8be07")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "LS7")
+			(value "TCRT5000 (reflective sensor, filtered PT; PC817 base symbol so ERC checks pins)")
+			(footprint "n20:TCRT5000")
+			(fields
+				(field
+					(name "MPN") "TCRT5000")
+				(field
+					(name "Manufacturer") "Vishay")
+				(field
+					(name "Footprint") "n20:TCRT5000")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Isolator")
+				(part "PC817")
+				(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
+			)
+			(property
+				(name "MPN")
+				(value "TCRT5000")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Vishay")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "NPN DC Optocoupler")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "DIP*W7.62mm*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "00b012ea-029d-4ab4-84d7-31cb15259f39")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "LS8")
+			(value "TCRT5000 (reflective sensor, filtered PT; PC817 base symbol so ERC checks pins)")
+			(footprint "n20:TCRT5000")
+			(fields
+				(field
+					(name "MPN") "TCRT5000")
+				(field
+					(name "Manufacturer") "Vishay")
+				(field
+					(name "Footprint") "n20:TCRT5000")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Isolator")
+				(part "PC817")
+				(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
+			)
+			(property
+				(name "MPN")
+				(value "TCRT5000")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Vishay")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "NPN DC Optocoupler")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "DIP*W7.62mm*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "704b636b-f8ea-4a15-a335-9fc2f955ea0d")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "3")
 						)
 					)
 				)
@@ -3416,7 +3398,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a6839e3a-8a82-45cf-ae2d-375c69e41ed0")
+			(tstamps "5f6fb1a7-53ae-400b-aa4b-3e25fb116f07")
 			(units
 				(unit
 					(name "A")
@@ -3436,16 +3418,16 @@
 		)
 		(comp
 			(ref "Q2")
-			(value "SFH309")
-			(footprint "LED_THT:LED_D3.0mm_Clear")
+			(value "PT334-6B (5mm filtered PT; LONG LEAD = EMITTER; SFH309 base symbol so ERC checks pins)")
+			(footprint "LED_THT:LED_D5.0mm_IRBlack")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
 				(field
-					(name "MPN") "SFH 309 FA")
+					(name "MPN") "PT334-6B")
 				(field
-					(name "Manufacturer") "ams-OSRAM")
+					(name "Manufacturer") "Everlight")
 				(field
-					(name "Footprint") "LED_THT:LED_D3.0mm_Clear")
+					(name "Footprint") "LED_THT:LED_D5.0mm_IRBlack")
 				(field
 					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 				(field
@@ -3459,11 +3441,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "SFH 309 FA")
+				(value "PT334-6B")
 			)
 			(property
 				(name "Manufacturer")
-				(value "ams-OSRAM")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -3485,7 +3467,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b9d17a3e-0293-4714-8794-e2c42a46bac1")
+			(tstamps "1be5788d-6c8b-497b-a306-4e2dcd20ec39")
 			(units
 				(unit
 					(name "A")
@@ -3502,16 +3484,16 @@
 		)
 		(comp
 			(ref "Q3")
-			(value "SFH309")
-			(footprint "LED_THT:LED_D3.0mm_Clear")
+			(value "PT334-6B (5mm filtered PT; LONG LEAD = EMITTER; SFH309 base symbol so ERC checks pins)")
+			(footprint "LED_THT:LED_D5.0mm_IRBlack")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
 				(field
-					(name "MPN") "SFH 309 FA")
+					(name "MPN") "PT334-6B")
 				(field
-					(name "Manufacturer") "ams-OSRAM")
+					(name "Manufacturer") "Everlight")
 				(field
-					(name "Footprint") "LED_THT:LED_D3.0mm_Clear")
+					(name "Footprint") "LED_THT:LED_D5.0mm_IRBlack")
 				(field
 					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 				(field
@@ -3525,11 +3507,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "SFH 309 FA")
+				(value "PT334-6B")
 			)
 			(property
 				(name "Manufacturer")
-				(value "ams-OSRAM")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -3551,7 +3533,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ea18e4a5-8fca-4e0e-9fb3-bfab30bf1584")
+			(tstamps "bb1780ca-7fba-4004-a8ea-6477b3e50061")
 			(units
 				(unit
 					(name "A")
@@ -3568,16 +3550,16 @@
 		)
 		(comp
 			(ref "Q4")
-			(value "SFH309")
-			(footprint "LED_THT:LED_D3.0mm_Clear")
+			(value "PT334-6B (5mm filtered PT; LONG LEAD = EMITTER; SFH309 base symbol so ERC checks pins)")
+			(footprint "LED_THT:LED_D5.0mm_IRBlack")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
 				(field
-					(name "MPN") "SFH 309 FA")
+					(name "MPN") "PT334-6B")
 				(field
-					(name "Manufacturer") "ams-OSRAM")
+					(name "Manufacturer") "Everlight")
 				(field
-					(name "Footprint") "LED_THT:LED_D3.0mm_Clear")
+					(name "Footprint") "LED_THT:LED_D5.0mm_IRBlack")
 				(field
 					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 				(field
@@ -3591,11 +3573,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "SFH 309 FA")
+				(value "PT334-6B")
 			)
 			(property
 				(name "Manufacturer")
-				(value "ams-OSRAM")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -3617,7 +3599,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "238d60ca-0232-427a-a0b8-587832845d4b")
+			(tstamps "2599ce43-3ba1-4d4f-927c-7b2ec26d70cb")
 			(units
 				(unit
 					(name "A")
@@ -3634,16 +3616,16 @@
 		)
 		(comp
 			(ref "Q5")
-			(value "SFH309")
-			(footprint "LED_THT:LED_D3.0mm_Clear")
+			(value "PT334-6B (5mm filtered PT; LONG LEAD = EMITTER; SFH309 base symbol so ERC checks pins)")
+			(footprint "LED_THT:LED_D5.0mm_IRBlack")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
 				(field
-					(name "MPN") "SFH 309 FA")
+					(name "MPN") "PT334-6B")
 				(field
-					(name "Manufacturer") "ams-OSRAM")
+					(name "Manufacturer") "Everlight")
 				(field
-					(name "Footprint") "LED_THT:LED_D3.0mm_Clear")
+					(name "Footprint") "LED_THT:LED_D5.0mm_IRBlack")
 				(field
 					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 				(field
@@ -3657,11 +3639,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "SFH 309 FA")
+				(value "PT334-6B")
 			)
 			(property
 				(name "Manufacturer")
-				(value "ams-OSRAM")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -3683,7 +3665,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f2dcca66-6257-4ac4-9e94-d44c8cf4b790")
+			(tstamps "3b054afa-448c-4da7-9fa4-676f17367f07")
 			(units
 				(unit
 					(name "A")
@@ -3700,16 +3682,16 @@
 		)
 		(comp
 			(ref "Q6")
-			(value "SFH309")
-			(footprint "LED_THT:LED_D3.0mm_Clear")
+			(value "PT334-6B (5mm filtered PT; LONG LEAD = EMITTER; SFH309 base symbol so ERC checks pins)")
+			(footprint "LED_THT:LED_D5.0mm_IRBlack")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
 				(field
-					(name "MPN") "SFH 309 FA")
+					(name "MPN") "PT334-6B")
 				(field
-					(name "Manufacturer") "ams-OSRAM")
+					(name "Manufacturer") "Everlight")
 				(field
-					(name "Footprint") "LED_THT:LED_D3.0mm_Clear")
+					(name "Footprint") "LED_THT:LED_D5.0mm_IRBlack")
 				(field
 					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 				(field
@@ -3723,11 +3705,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "SFH 309 FA")
+				(value "PT334-6B")
 			)
 			(property
 				(name "Manufacturer")
-				(value "ams-OSRAM")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -3749,7 +3731,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "09df0b49-1012-4f1b-abd7-251dda31b46a")
+			(tstamps "ebe0cf26-fbf0-470f-9036-695a9864ce26")
 			(units
 				(unit
 					(name "A")
@@ -3766,82 +3748,16 @@
 		)
 		(comp
 			(ref "Q7")
-			(value "SFH309")
-			(footprint "LED_THT:LED_D3.0mm_Clear")
+			(value "PT334-6B (5mm filtered PT; LONG LEAD = EMITTER; SFH309 base symbol so ERC checks pins)")
+			(footprint "LED_THT:LED_D5.0mm_IRBlack")
 			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 			(fields
 				(field
-					(name "MPN") "SFH 309 FA")
-				(field
-					(name "Manufacturer") "ams-OSRAM")
-				(field
-					(name "Footprint") "LED_THT:LED_D3.0mm_Clear")
-				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Sensor_Optical")
-				(part "SFH309")
-				(description "Phototransistor NPN")
-			)
-			(property
-				(name "MPN")
-				(value "SFH 309 FA")
-			)
-			(property
-				(name "Manufacturer")
-				(value "ams-OSRAM")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "npn phototransistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*3.0mm*Clear*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "8e941b69-e7e4-4514-9878-74c7e0c8e455")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q8")
-			(value "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
-			(fields
-				(field
-					(name "MPN") "PT11-21B/L41/TR8")
+					(name "MPN") "PT334-6B")
 				(field
 					(name "Manufacturer") "Everlight")
 				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
+					(name "Footprint") "LED_THT:LED_D5.0mm_IRBlack")
 				(field
 					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
 				(field
@@ -3855,7 +3771,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "PT11-21B/L41/TR8")
+				(value "PT334-6B")
 			)
 			(property
 				(name "Manufacturer")
@@ -3881,469 +3797,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "900969b5-e3f3-4796-870f-3ed0da7e6547")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q9")
-			(value "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
-			(fields
-				(field
-					(name "MPN") "PT11-21B/L41/TR8")
-				(field
-					(name "Manufacturer") "Everlight")
-				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
-				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Sensor_Optical")
-				(part "SFH309")
-				(description "Phototransistor NPN")
-			)
-			(property
-				(name "MPN")
-				(value "PT11-21B/L41/TR8")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Everlight")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "npn phototransistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*3.0mm*Clear*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "13bc6217-eedb-4e28-8532-4f597760c648")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q10")
-			(value "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
-			(fields
-				(field
-					(name "MPN") "PT11-21B/L41/TR8")
-				(field
-					(name "Manufacturer") "Everlight")
-				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
-				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Sensor_Optical")
-				(part "SFH309")
-				(description "Phototransistor NPN")
-			)
-			(property
-				(name "MPN")
-				(value "PT11-21B/L41/TR8")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Everlight")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "npn phototransistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*3.0mm*Clear*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "1fd0b5c2-1db7-4358-b9eb-b056be7958fa")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q11")
-			(value "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
-			(fields
-				(field
-					(name "MPN") "PT11-21B/L41/TR8")
-				(field
-					(name "Manufacturer") "Everlight")
-				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
-				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Sensor_Optical")
-				(part "SFH309")
-				(description "Phototransistor NPN")
-			)
-			(property
-				(name "MPN")
-				(value "PT11-21B/L41/TR8")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Everlight")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "npn phototransistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*3.0mm*Clear*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "9df238a7-72d4-4e58-9858-1d2c9982ec76")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q12")
-			(value "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
-			(fields
-				(field
-					(name "MPN") "PT11-21B/L41/TR8")
-				(field
-					(name "Manufacturer") "Everlight")
-				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
-				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Sensor_Optical")
-				(part "SFH309")
-				(description "Phototransistor NPN")
-			)
-			(property
-				(name "MPN")
-				(value "PT11-21B/L41/TR8")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Everlight")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "npn phototransistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*3.0mm*Clear*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "8a6eb061-d8fe-4e22-8715-f86bbe0ed805")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q13")
-			(value "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
-			(fields
-				(field
-					(name "MPN") "PT11-21B/L41/TR8")
-				(field
-					(name "Manufacturer") "Everlight")
-				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
-				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Sensor_Optical")
-				(part "SFH309")
-				(description "Phototransistor NPN")
-			)
-			(property
-				(name "MPN")
-				(value "PT11-21B/L41/TR8")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Everlight")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "npn phototransistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*3.0mm*Clear*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "7ea08fbe-25f3-440a-8018-d2183883b1c4")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q14")
-			(value "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
-			(fields
-				(field
-					(name "MPN") "PT11-21B/L41/TR8")
-				(field
-					(name "Manufacturer") "Everlight")
-				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
-				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Sensor_Optical")
-				(part "SFH309")
-				(description "Phototransistor NPN")
-			)
-			(property
-				(name "MPN")
-				(value "PT11-21B/L41/TR8")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Everlight")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "npn phototransistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*3.0mm*Clear*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "e2297ae9-2a0e-432a-9750-85f1950271c6")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q15")
-			(value "PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback from the red indicator LEDs (SFH309 sym for ERC)")
-			(footprint "LED_SMD:LED_1206_3216Metric")
-			(datasheet "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
-			(fields
-				(field
-					(name "MPN") "PT11-21B/L41/TR8")
-				(field
-					(name "Manufacturer") "Everlight")
-				(field
-					(name "Footprint") "LED_SMD:LED_1206_3216Metric")
-				(field
-					(name "Datasheet") "http://www.osram-os.com/Graphics/XPic2/00101811_0.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Sensor_Optical")
-				(part "SFH309")
-				(description "Phototransistor NPN")
-			)
-			(property
-				(name "MPN")
-				(value "PT11-21B/L41/TR8")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Everlight")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "npn phototransistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*3.0mm*Clear*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "50fd4957-af52-46c9-b82b-ba6165234d62")
+			(tstamps "77c32092-b2e9-41fe-8a07-e6dd2c95e5b9")
 			(units
 				(unit
 					(name "A")
@@ -4405,7 +3859,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "764bf99e-c4fc-4428-9388-543e4825286d")
+			(tstamps "df7d2fa0-394f-4fe5-a8a6-488d24ead93b")
 			(units
 				(unit
 					(name "A")
@@ -4470,7 +3924,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "95950a44-1195-439c-92b8-99128e19fdfc")
+			(tstamps "cefd4066-b80a-4188-a0ec-1a2690b434ea")
 			(units
 				(unit
 					(name "A")
@@ -4535,7 +3989,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "10d00e2c-840f-4c58-b972-7ae4be9dcd4b")
+			(tstamps "cbe3b0a6-610d-4d4b-a4cc-915cc5394d97")
 			(units
 				(unit
 					(name "A")
@@ -4600,7 +4054,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3e991402-ecbf-4800-a443-cb524ab0aa6f")
+			(tstamps "0690e565-c773-43d5-a36e-d5682ec34387")
 			(units
 				(unit
 					(name "A")
@@ -4665,7 +4119,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8c9a143b-e23c-41d5-bb95-0caf69aed868")
+			(tstamps "b4526936-7f94-480d-90c0-fa0b3effb5af")
 			(units
 				(unit
 					(name "A")
@@ -4730,7 +4184,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9826db20-1b4b-4178-b7c3-a81ac22ae2f6")
+			(tstamps "fbb5e32c-e165-41df-a5f9-09c71552fd9e")
 			(units
 				(unit
 					(name "A")
@@ -4795,7 +4249,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "49b0b26c-57a5-4a4a-ac71-bfbbf4eb376d")
+			(tstamps "9e88d81b-ecaf-465f-890b-60abb10c2b25")
 			(units
 				(unit
 					(name "A")
@@ -4860,7 +4314,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a4a2b551-28bc-472d-a15e-9dd8b0a66720")
+			(tstamps "0392b078-25d1-4edb-bf3d-eb86c09028af")
 			(units
 				(unit
 					(name "A")
@@ -4925,7 +4379,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "311523c4-b992-47c5-a6a8-dfc18d4fc275")
+			(tstamps "1d511f31-e85a-4c7a-b11c-47dffc7a1871")
 			(units
 				(unit
 					(name "A")
@@ -4990,7 +4444,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cd677df4-ba0d-465a-803f-48a4f7aca95a")
+			(tstamps "6434a097-55c1-45fb-b3cc-d1d22f24b067")
 			(units
 				(unit
 					(name "A")
@@ -5055,7 +4509,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6a0ebb8c-1d23-4d35-a938-94ed31fbbb03")
+			(tstamps "a98c5108-741b-4012-aac7-14fba4152f11")
 			(units
 				(unit
 					(name "A")
@@ -5120,7 +4574,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "486e4b64-9b24-4d19-9af1-9e027e46a5b3")
+			(tstamps "0e1d636b-b01d-495c-8e8d-1efc36ea4d23")
 			(units
 				(unit
 					(name "A")
@@ -5185,7 +4639,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d18dfe1a-a8c9-4f1c-998a-e61771555b61")
+			(tstamps "dfbec168-9b7b-44f5-81d8-1f3c99a09b78")
 			(units
 				(unit
 					(name "A")
@@ -5250,7 +4704,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b770222a-1e54-45f7-ae08-fea407138a06")
+			(tstamps "59da7b39-c3ab-4252-9830-f04a0b4c2b4c")
 			(units
 				(unit
 					(name "A")
@@ -5315,7 +4769,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "81900669-f09d-4140-884f-b1b37b3f5ef2")
+			(tstamps "60196905-f9ec-4132-8b2e-116a67636143")
 			(units
 				(unit
 					(name "A")
@@ -5380,7 +4834,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "53d0efdf-c529-4ade-8420-3b722a9be376")
+			(tstamps "8763a41c-22e6-41dc-be7c-7ad6176a7766")
 			(units
 				(unit
 					(name "A")
@@ -5445,7 +4899,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "59b9cac0-8485-43cc-bbf8-0d7120f9a2ec")
+			(tstamps "bf08c8d9-aa64-4630-b712-f3f402a4e443")
 			(units
 				(unit
 					(name "A")
@@ -5510,7 +4964,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1df82fb9-97a3-41fd-8112-8395a6bef64c")
+			(tstamps "0fd72dbf-db1f-472c-868a-776ea06f533e")
 			(units
 				(unit
 					(name "A")
@@ -5579,7 +5033,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d4f91e1c-1f36-4470-a74b-9249558d0076")
+			(tstamps "4ecff9af-2a91-4c27-a21a-231a5a1c1c1b")
 			(units
 				(unit
 					(name "A")
@@ -5645,7 +5099,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "810362db-064b-48c1-ba4f-fd652dcbef64")
+			(tstamps "45d9eef3-f202-4a8f-824e-4e2c12d11197")
 			(units
 				(unit
 					(name "A")
@@ -5711,7 +5165,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bb041a00-e0c8-4901-b66a-6fb40fec3f71")
+			(tstamps "0072099f-ef94-4302-ab7a-97e52ac2e49a")
 			(units
 				(unit
 					(name "A")
@@ -5777,7 +5231,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "30f39842-303b-4fdc-87d9-11bf23c49d4a")
+			(tstamps "12a5f2a5-b899-41d8-9f84-7733bc7fba90")
 			(units
 				(unit
 					(name "A")
@@ -5843,7 +5297,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a675b3b9-4245-45c4-9081-0936a66a91c4")
+			(tstamps "056e6e3c-1af4-4b80-9a81-3d6b2de367db")
 			(units
 				(unit
 					(name "A")
@@ -5909,7 +5363,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5e2de390-ce70-4655-885b-7819fcf9770c")
+			(tstamps "56f2729b-f051-4aa2-9e03-e267ecdfd622")
 			(units
 				(unit
 					(name "A")
@@ -5975,7 +5429,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "daa5ffc0-0c4c-4a25-ac07-c34e03a28a84")
+			(tstamps "04caa3f5-a9ec-42ab-b808-f1029eb684f2")
 			(units
 				(unit
 					(name "A")
@@ -6041,7 +5495,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ee249688-4c97-47fd-95b4-3af8972e107f")
+			(tstamps "12590187-5b30-4fcd-9b6a-6dbdacf975b3")
 			(units
 				(unit
 					(name "A")
@@ -6107,7 +5561,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "824f7f71-3755-4236-a8ae-f3b6bf181d2d")
+			(tstamps "0b2d8bfa-e1b6-4b4d-8441-13bde5790996")
 			(units
 				(unit
 					(name "A")
@@ -6173,7 +5627,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "55fee2d6-daf7-4135-8711-d470f97e6a0d")
+			(tstamps "edc9fb41-8b77-4eb1-adc7-2cabd7200e96")
 			(units
 				(unit
 					(name "A")
@@ -6239,7 +5693,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9410cccc-3145-44f7-b1aa-f9c8318c46da")
+			(tstamps "d367212d-177d-4ce5-92c6-b79a4b841c40")
 			(units
 				(unit
 					(name "A")
@@ -6305,7 +5759,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "82c33fe3-206d-471e-ba7a-3ca63dac1d38")
+			(tstamps "d248e246-1d2d-41d3-b0c5-4abc7de3475c")
 			(units
 				(unit
 					(name "A")
@@ -6371,7 +5825,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a3fcae02-d681-4624-a4c2-0bc2b58fc06e")
+			(tstamps "c53557f7-f753-4d0b-9021-899db68a2c74")
 			(units
 				(unit
 					(name "A")
@@ -6437,7 +5891,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8ecd8173-b965-4a5d-9086-62b97e6a1107")
+			(tstamps "67cd202c-4a3d-4899-84c6-5c3a3bfa21fb")
 			(units
 				(unit
 					(name "A")
@@ -6503,7 +5957,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4ccab9ab-330b-45e6-8126-15439de0f44f")
+			(tstamps "1c38143c-f659-45a2-be69-0e8f95a98ac6")
 			(units
 				(unit
 					(name "A")
@@ -6569,7 +6023,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "30f77bd2-6e6e-415a-8a60-098c3b1a4ee7")
+			(tstamps "800305b3-3566-429a-94ed-256ffb81ac5e")
 			(units
 				(unit
 					(name "A")
@@ -6635,7 +6089,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5a94c375-441c-4d78-9856-9e3ba38a6584")
+			(tstamps "befe6b0c-5fc4-4041-b81c-c6b9d789f501")
 			(units
 				(unit
 					(name "A")
@@ -6701,7 +6155,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "79ed0bf4-b1e9-4854-abe1-442d3977ba17")
+			(tstamps "fed60c4c-ad95-4222-ac5b-9ab582893352")
 			(units
 				(unit
 					(name "A")
@@ -6767,7 +6221,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "88b77179-2cfe-4bb1-b1e5-5ada5785ea5c")
+			(tstamps "be982965-9152-46dd-b26c-0ad45d039307")
 			(units
 				(unit
 					(name "A")
@@ -6833,7 +6287,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "09a7dbed-41a3-419f-bdf3-4f06525140f4")
+			(tstamps "303c5056-9df9-4da6-a8a8-d2c662d10045")
 			(units
 				(unit
 					(name "A")
@@ -6899,7 +6353,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f33d2c25-4a08-474a-8291-6243e20067f3")
+			(tstamps "d4c8720c-4c57-41ab-abe3-3039e82a03f9")
 			(units
 				(unit
 					(name "A")
@@ -6965,7 +6419,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e0b4fbb3-7901-46db-a8f6-45395a7b6151")
+			(tstamps "6e68eb38-0187-4703-ae96-3618cb4807c2")
 			(units
 				(unit
 					(name "A")
@@ -7031,7 +6485,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "304375d2-f0a4-4bec-8c2d-b84f2f7b8d37")
+			(tstamps "46bfa79b-eeba-4c3e-a701-c75a50ee3703")
 			(units
 				(unit
 					(name "A")
@@ -7097,7 +6551,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "93e665f7-4dfc-4e76-aa9c-ce9548fcc85c")
+			(tstamps "7e972cd4-54eb-4e97-b241-ba1c20435307")
 			(units
 				(unit
 					(name "A")
@@ -7163,7 +6617,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e10dca3b-c7d8-4a23-b556-3c523615b145")
+			(tstamps "3675d8c8-472f-4fc4-b8a1-00b39d7967e0")
 			(units
 				(unit
 					(name "A")
@@ -7229,7 +6683,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "72d8e5bf-83aa-4e50-9060-57f237b671ff")
+			(tstamps "78198623-4f6c-4829-8213-adb3d986046e")
 			(units
 				(unit
 					(name "A")
@@ -7295,7 +6749,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7496c41a-d335-450d-8ec9-dcaa462e8ee2")
+			(tstamps "98ca8000-202b-4fda-be61-14cbd72322ba")
 			(units
 				(unit
 					(name "A")
@@ -7361,7 +6815,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2c438cb6-bac6-4927-8de9-74bae47a5e3d")
+			(tstamps "ce0ef22b-18c8-419f-82d8-e4703e0c97bf")
 			(units
 				(unit
 					(name "A")
@@ -7427,7 +6881,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "45dc4a9e-8343-4410-a07f-659cca608a41")
+			(tstamps "8f801985-d45b-4051-b771-a74eaded84a4")
 			(units
 				(unit
 					(name "A")
@@ -7493,7 +6947,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b2f34ad3-a21b-44b1-b942-c49711d38fab")
+			(tstamps "2fc60593-ccb1-426f-bcb2-f6ead5fdf07d")
 			(units
 				(unit
 					(name "A")
@@ -7559,7 +7013,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "30688e13-6103-439d-baad-88d400bc66bc")
+			(tstamps "8b0a9b70-e8e6-4ac8-8bd5-1627c10144fc")
 			(units
 				(unit
 					(name "A")
@@ -7625,7 +7079,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "03676fc1-eeae-44c2-9c28-57465903567b")
+			(tstamps "bf4c3ef9-c9c3-4e8c-afd9-c4baa6d6c8de")
 			(units
 				(unit
 					(name "A")
@@ -7691,7 +7145,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "78a83530-1381-4a48-8b65-a358bcbdadb3")
+			(tstamps "a8726cd0-38eb-4fb8-803b-874a25ee647c")
 			(units
 				(unit
 					(name "A")
@@ -7757,7 +7211,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "de895fc6-be4c-4b2b-88e4-6f10fe6c464c")
+			(tstamps "49a4379c-4d58-426d-9b74-7dae5b72d6bd")
 			(units
 				(unit
 					(name "A")
@@ -7823,7 +7277,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "fa6647bd-8613-42f2-bfb9-7f55609a998c")
+			(tstamps "ffedd284-7df9-438d-8df5-e9e086e4d3db")
 			(units
 				(unit
 					(name "A")
@@ -7889,7 +7343,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6ed082bb-ea40-4636-b198-9b10ab37d574")
+			(tstamps "99bd1382-d674-43e7-ac7f-4adff749a13b")
 			(units
 				(unit
 					(name "A")
@@ -7955,7 +7409,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0ab94473-ff28-4c94-bf3b-1c2ec5ec8946")
+			(tstamps "784782c3-4fa6-41aa-a312-059862bf1adb")
 			(units
 				(unit
 					(name "A")
@@ -8021,7 +7475,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "53d5e291-eb9a-43cb-be38-22f5df3255a7")
+			(tstamps "3dbb6973-dc74-4ef0-96ed-2d4b1f69eaec")
 			(units
 				(unit
 					(name "A")
@@ -8087,7 +7541,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4b207ff8-91fc-48b8-8983-416be4f6dd05")
+			(tstamps "4939ef24-aff3-4073-92f5-77c85d35761e")
 			(units
 				(unit
 					(name "A")
@@ -8153,7 +7607,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "518c10a9-c2cd-44ef-a006-e32be2d29dad")
+			(tstamps "6c3dee8c-e1da-4050-829c-b66e0fb5b943")
 			(units
 				(unit
 					(name "A")
@@ -8219,7 +7673,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9ffd6fda-b2be-4698-8f57-b7797c45cda3")
+			(tstamps "425f6cc6-3aa2-401b-be76-77db61b4eedb")
 			(units
 				(unit
 					(name "A")
@@ -8285,7 +7739,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "096d140f-78e9-40bd-9d5d-0de9efa15dd2")
+			(tstamps "20770602-f1ec-4a6b-833a-8d2c28dbb25c")
 			(units
 				(unit
 					(name "A")
@@ -8351,7 +7805,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a3b8b11f-f82a-479c-b4be-8ee52bdf40e9")
+			(tstamps "5d7573c5-f42e-48a0-9789-a9e23c87ce92")
 			(units
 				(unit
 					(name "A")
@@ -8417,7 +7871,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2dece5f6-d133-4c57-8b19-b1412e197ba0")
+			(tstamps "04b8a23c-c28b-4a90-ad5e-a0886a6d2df2")
 			(units
 				(unit
 					(name "A")
@@ -8483,7 +7937,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "af9449f5-b7d6-4a84-9d3d-3fac9f8ad92d")
+			(tstamps "684e6131-d2a4-402f-92dc-4d6ca17394e3")
 			(units
 				(unit
 					(name "A")
@@ -8549,7 +8003,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "879bc563-876b-4dd7-9803-da591f69361d")
+			(tstamps "dd82618c-1204-401b-aa8e-574d2e92af1c")
 			(units
 				(unit
 					(name "A")
@@ -8615,7 +8069,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0a3e6379-bb58-408d-9c62-64629e9dfc17")
+			(tstamps "c0ddcb8f-8077-4bd8-83f0-77c3b1708c43")
 			(units
 				(unit
 					(name "A")
@@ -8681,7 +8135,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8409cacc-b3b5-42f2-a794-459a5130d041")
+			(tstamps "c8c57d4a-2aee-4783-a745-8b1428b818d0")
 			(units
 				(unit
 					(name "A")
@@ -8747,7 +8201,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0c0d91da-da25-4ff9-808c-c5a46b83de80")
+			(tstamps "37c58a01-7231-4199-aa5d-779deee15070")
 			(units
 				(unit
 					(name "A")
@@ -8813,7 +8267,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "72aa452e-1435-427b-bd40-fa25e5b9769c")
+			(tstamps "ab8584cc-47a5-4035-b9cf-23620a118fa8")
 			(units
 				(unit
 					(name "A")
@@ -8879,7 +8333,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "76dcaf3e-8b23-4ca1-9317-b714f4a0486a")
+			(tstamps "ec255455-8d19-4c7a-a479-ba091cf3050f")
 			(units
 				(unit
 					(name "A")
@@ -8945,7 +8399,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f3d51bd0-336e-4047-b50c-5370badb597a")
+			(tstamps "538289e6-5aef-41b0-962f-32e91cccc626")
 			(units
 				(unit
 					(name "A")
@@ -9011,7 +8465,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b175a5c5-9d78-43fb-adbf-2e36ce0db386")
+			(tstamps "bf2a080f-f383-4439-b50e-9d95dd442cf3")
 			(units
 				(unit
 					(name "A")
@@ -9077,7 +8531,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a0811335-69c8-4f2c-858b-ab4345b48feb")
+			(tstamps "8be4797a-c191-4dda-b80c-4192d169a6ca")
 			(units
 				(unit
 					(name "A")
@@ -9143,7 +8597,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6e37b8b5-d0b1-459c-b4c9-bfd75cd0eb04")
+			(tstamps "259b3091-db36-4c87-a818-6b14d2888b21")
 			(units
 				(unit
 					(name "A")
@@ -9209,7 +8663,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b04b3286-3872-4a43-a117-85347be8f456")
+			(tstamps "95d0223f-a2f2-4d5d-acb6-d961a29b519c")
 			(units
 				(unit
 					(name "A")
@@ -9275,7 +8729,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b0106501-a71f-4e5d-ae56-9f78c3786d5c")
+			(tstamps "39263b90-e4b3-4cbd-b1b6-5a15e0f76823")
 			(units
 				(unit
 					(name "A")
@@ -9341,7 +8795,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b7312d89-5e2d-4d38-ba09-9abbe8d15b56")
+			(tstamps "5ea9ed1a-4076-4e2f-b0ce-b5efe133619c")
 			(units
 				(unit
 					(name "A")
@@ -9407,7 +8861,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4d0fb651-117c-4c32-946f-6c83748853bb")
+			(tstamps "aef52c23-01e1-4f5b-b129-3247e1a117e9")
 			(units
 				(unit
 					(name "A")
@@ -9473,7 +8927,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b058fcd8-e186-4497-9fd4-16ef7d6a1aab")
+			(tstamps "d67fe505-85da-493b-a542-c0c81ef036ef")
 			(units
 				(unit
 					(name "A")
@@ -9539,7 +8993,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b99d0872-8d5a-436c-b556-fb7d41039e42")
+			(tstamps "fa935189-aa1a-46e1-99da-6851f5417b56")
 			(units
 				(unit
 					(name "A")
@@ -9605,7 +9059,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e52ea408-fc74-4c4a-9c69-197c0adc5503")
+			(tstamps "57fe166d-d99e-42b0-9dfa-9a6aa0fd6ae7")
 			(units
 				(unit
 					(name "A")
@@ -9671,7 +9125,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "66b0454e-7cc9-4c18-b68c-42c9673e3f8f")
+			(tstamps "98d0d1ec-e8e8-4ac7-81ad-3d3cf96192e9")
 			(units
 				(unit
 					(name "A")
@@ -9737,7 +9191,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "039ae307-45e3-4ecf-b128-4bffef494245")
+			(tstamps "79d8798b-fe38-45ef-9862-a662db2e166f")
 			(units
 				(unit
 					(name "A")
@@ -9803,7 +9257,73 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bdb612ea-44af-4f88-a338-1ea471ca49a5")
+			(tstamps "4c42975a-7093-46d7-936e-0a9eb8b61d93")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R69")
+			(value "1M")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "RC0805FR-071ML")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-071ML")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "ac8a5b05-a3ed-47ed-8f0e-10ff9687e4de")
 			(units
 				(unit
 					(name "A")
@@ -9865,7 +9385,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3f5ec500-f054-4b9e-9ef0-8384c3ddf9cc")
+			(tstamps "0fd580df-aec4-45e9-8859-e774b53b569d")
 			(units
 				(unit
 					(name "A")
@@ -9927,7 +9447,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "26c1f8ef-82c1-4189-a0d8-cc551c591d19")
+			(tstamps "8736a9e7-085a-438f-b5a1-14fde4d2167f")
 			(units
 				(unit
 					(name "A")
@@ -9989,7 +9509,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d0e691b2-1ac0-49cc-af3c-09d715ff2cd8")
+			(tstamps "b9d68bcf-0e06-4740-8020-5fb70538960c")
 			(units
 				(unit
 					(name "A")
@@ -10051,7 +9571,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0b63fcad-c5a3-41fd-9654-f9c8bd928ef7")
+			(tstamps "bb05bc89-0186-4274-9b1c-e1b7a48165da")
 			(units
 				(unit
 					(name "A")
@@ -10061,6 +9581,71 @@
 						)
 						(pin
 							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "SW5")
+			(value "PWR (OS102011MS2QN1 slide; slide-to-GND = OFF)")
+			(footprint "Button_Switch_THT:SW_Slide_SPDT_Straight_CK_OS102011MS2Q")
+			(fields
+				(field
+					(name "MPN") "OS102011MS2QN1")
+				(field
+					(name "Manufacturer") "C&K")
+				(field
+					(name "Footprint") "Button_Switch_THT:SW_Slide_SPDT_Straight_CK_OS102011MS2Q")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Switch")
+				(part "SW_SPDT")
+				(description "Switch, single pole double throw")
+			)
+			(property
+				(name "MPN")
+				(value "OS102011MS2QN1")
+			)
+			(property
+				(name "Manufacturer")
+				(value "C&K")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "switch single-pole double-throw spdt ON-ON")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "368f1aa7-59ce-41e0-ae2c-238a8633080f")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "3")
 						)
 					)
 				)
@@ -10117,7 +9702,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "314bbf2f-a410-485e-8ebf-17088c2678a3")
+			(tstamps "97ad0cba-39a1-4743-9e81-642f00af5da7")
 			(units
 				(unit
 					(name "A")
@@ -10210,7 +9795,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5042751f-b438-41de-8b96-6bfd9529041a")
+			(tstamps "4ece19d2-9482-4e1c-a917-457e96e2d6df")
 			(units
 				(unit
 					(name "A")
@@ -10342,7 +9927,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ec6b01a8-e78a-4b9f-98a4-00f2503fb32f")
+			(tstamps "909575ec-7d95-4db8-88e2-894e804e5c97")
 			(units
 				(unit
 					(name "A")
@@ -10525,7 +10110,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "11f014d0-08e2-44cb-8372-20c4af4603a5")
+			(tstamps "e75fb3fb-21f0-44b6-a7c8-467ae3d6e200")
 			(units
 				(unit
 					(name "A")
@@ -10657,7 +10242,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cb646d51-7e57-4cbf-8da5-e5c54c1fda43")
+			(tstamps "5f0b4e1b-20ff-4061-b2b0-233c93f8808b")
 			(units
 				(unit
 					(name "A")
@@ -11311,6 +10896,49 @@
 			)
 		)
 		(libpart
+			(lib "Isolator")
+			(part "PC817")
+			(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
+			(docs "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf")
+			(footprints
+				(fp "DIP*W7.62mm*")
+			)
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "PC817")
+				(field
+					(name "Footprint") "Package_DIP:DIP-4_W7.62mm")
+				(field
+					(name "Datasheet") "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf")
+				(field
+					(name "Description") "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
 			(lib "LED")
 			(part "LD271")
 			(description "940nm IR-LED, 5mm")
@@ -11767,6 +11395,42 @@
 			)
 		)
 		(libpart
+			(lib "Switch")
+			(part "SW_SPDT")
+			(description "Switch, single pole double throw")
+			(fields
+				(field
+					(name "Reference") "SW")
+				(field
+					(name "Value") "SW_SPDT")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description") "Switch, single pole double throw")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "A")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "B")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "C")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
 			(lib "Transistor_FET")
 			(part "Q_NMOS_GSD")
 			(description "N-MOSFET transistor, gate/source/drain")
@@ -11859,6 +11523,10 @@
 		(library
 			(logical "Driver_Motor")
 			(uri "${KICAD10_SYMBOL_DIR}/Driver_Motor.kicad_sym")
+		)
+		(library
+			(logical "Isolator")
+			(uri "${KICAD10_SYMBOL_DIR}/Isolator.kicad_sym")
 		)
 		(library
 			(logical "LED")
@@ -12014,51 +11682,43 @@
 			(name "EMIT_LINE_K")
 			(class "Default")
 			(node
-				(ref "D10")
-				(pin "1")
-				(pinfunction "K_1")
+				(ref "LS1")
+				(pin "2")
 				(pintype "passive")
 			)
 			(node
-				(ref "D11")
-				(pin "1")
-				(pinfunction "K_1")
+				(ref "LS2")
+				(pin "2")
 				(pintype "passive")
 			)
 			(node
-				(ref "D12")
-				(pin "1")
-				(pinfunction "K_1")
+				(ref "LS3")
+				(pin "2")
 				(pintype "passive")
 			)
 			(node
-				(ref "D13")
-				(pin "1")
-				(pinfunction "K_1")
+				(ref "LS4")
+				(pin "2")
 				(pintype "passive")
 			)
 			(node
-				(ref "D14")
-				(pin "1")
-				(pinfunction "K_1")
+				(ref "LS5")
+				(pin "2")
 				(pintype "passive")
 			)
 			(node
-				(ref "D7")
-				(pin "1")
-				(pinfunction "K_1")
+				(ref "LS6")
+				(pin "2")
 				(pintype "passive")
 			)
 			(node
-				(ref "D8")
-				(pin "1")
-				(pinfunction "K_1")
+				(ref "LS7")
+				(pin "2")
 				(pintype "passive")
 			)
 			(node
-				(ref "D9")
-				(pin "1")
-				(pinfunction "K_1")
+				(ref "LS8")
+				(pin "2")
 				(pintype "passive")
 			)
 			(node
@@ -12396,39 +12056,43 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "Q10")
-				(pin "2")
-				(pinfunction "E_2")
+				(ref "LS1")
+				(pin "3")
 				(pintype "passive")
 			)
 			(node
-				(ref "Q11")
-				(pin "2")
-				(pinfunction "E_2")
+				(ref "LS2")
+				(pin "3")
 				(pintype "passive")
 			)
 			(node
-				(ref "Q12")
-				(pin "2")
-				(pinfunction "E_2")
+				(ref "LS3")
+				(pin "3")
 				(pintype "passive")
 			)
 			(node
-				(ref "Q13")
-				(pin "2")
-				(pinfunction "E_2")
+				(ref "LS4")
+				(pin "3")
 				(pintype "passive")
 			)
 			(node
-				(ref "Q14")
-				(pin "2")
-				(pinfunction "E_2")
+				(ref "LS5")
+				(pin "3")
 				(pintype "passive")
 			)
 			(node
-				(ref "Q15")
-				(pin "2")
-				(pinfunction "E_2")
+				(ref "LS6")
+				(pin "3")
+				(pintype "passive")
+			)
+			(node
+				(ref "LS7")
+				(pin "3")
+				(pintype "passive")
+			)
+			(node
+				(ref "LS8")
+				(pin "3")
 				(pintype "passive")
 			)
 			(node
@@ -12540,18 +12204,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "Q8")
-				(pin "2")
-				(pinfunction "E_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q9")
-				(pin "2")
-				(pinfunction "E_2")
-				(pintype "passive")
-			)
-			(node
 				(ref "R1")
 				(pin "2")
 				(pintype "passive")
@@ -12628,6 +12280,12 @@
 				(ref "SW4")
 				(pin "2")
 				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "SW5")
+				(pin "1")
+				(pinfunction "A_1")
 				(pintype "passive")
 			)
 			(node
@@ -12800,16 +12458,15 @@
 			(name "LINE1_SENSE")
 			(class "Default")
 			(node
+				(ref "LS1")
+				(pin "4")
+				(pintype "passive")
+			)
+			(node
 				(ref "Q20")
 				(pin "1")
 				(pinfunction "G_1")
 				(pintype "input")
-			)
-			(node
-				(ref "Q8")
-				(pin "1")
-				(pinfunction "C_1")
-				(pintype "passive")
 			)
 			(node
 				(ref "R25")
@@ -12828,16 +12485,15 @@
 			(name "LINE2_SENSE")
 			(class "Default")
 			(node
+				(ref "LS2")
+				(pin "4")
+				(pintype "passive")
+			)
+			(node
 				(ref "Q21")
 				(pin "1")
 				(pinfunction "G_1")
 				(pintype "input")
-			)
-			(node
-				(ref "Q9")
-				(pin "1")
-				(pinfunction "C_1")
-				(pintype "passive")
 			)
 			(node
 				(ref "R27")
@@ -12856,9 +12512,8 @@
 			(name "LINE3_SENSE")
 			(class "Default")
 			(node
-				(ref "Q10")
-				(pin "1")
-				(pinfunction "C_1")
+				(ref "LS3")
+				(pin "4")
 				(pintype "passive")
 			)
 			(node
@@ -12884,9 +12539,8 @@
 			(name "LINE4_SENSE")
 			(class "Default")
 			(node
-				(ref "Q11")
-				(pin "1")
-				(pinfunction "C_1")
+				(ref "LS4")
+				(pin "4")
 				(pintype "passive")
 			)
 			(node
@@ -12912,9 +12566,8 @@
 			(name "LINE5_SENSE")
 			(class "Default")
 			(node
-				(ref "Q12")
-				(pin "1")
-				(pinfunction "C_1")
+				(ref "LS5")
+				(pin "4")
 				(pintype "passive")
 			)
 			(node
@@ -12940,9 +12593,8 @@
 			(name "LINE6_SENSE")
 			(class "Default")
 			(node
-				(ref "Q13")
-				(pin "1")
-				(pinfunction "C_1")
+				(ref "LS6")
+				(pin "4")
 				(pintype "passive")
 			)
 			(node
@@ -12968,9 +12620,8 @@
 			(name "LINE7_SENSE")
 			(class "Default")
 			(node
-				(ref "Q14")
-				(pin "1")
-				(pinfunction "C_1")
+				(ref "LS7")
+				(pin "4")
 				(pintype "passive")
 			)
 			(node
@@ -12996,9 +12647,8 @@
 			(name "LINE8_SENSE")
 			(class "Default")
 			(node
-				(ref "Q15")
-				(pin "1")
-				(pinfunction "C_1")
+				(ref "LS8")
+				(pin "4")
 				(pintype "passive")
 			)
 			(node
@@ -13299,134 +12949,6 @@
 		)
 		(net
 			(code "44")
-			(name "Net-(D7-A)")
-			(class "Default")
-			(node
-				(ref "D7")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R26")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "45")
-			(name "Net-(D8-A)")
-			(class "Default")
-			(node
-				(ref "D8")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R28")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "46")
-			(name "Net-(D9-A)")
-			(class "Default")
-			(node
-				(ref "D9")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R30")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "47")
-			(name "Net-(D10-A)")
-			(class "Default")
-			(node
-				(ref "D10")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R32")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "48")
-			(name "Net-(D11-A)")
-			(class "Default")
-			(node
-				(ref "D11")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R34")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "49")
-			(name "Net-(D12-A)")
-			(class "Default")
-			(node
-				(ref "D12")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R36")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "50")
-			(name "Net-(D13-A)")
-			(class "Default")
-			(node
-				(ref "D13")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R38")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "51")
-			(name "Net-(D14-A)")
-			(class "Default")
-			(node
-				(ref "D14")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R40")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "52")
 			(name "Net-(D15-A)")
 			(class "Default")
 			(node
@@ -13442,7 +12964,7 @@
 			)
 		)
 		(net
-			(code "53")
+			(code "45")
 			(name "Net-(D15-K)")
 			(class "Default")
 			(node
@@ -13459,7 +12981,7 @@
 			)
 		)
 		(net
-			(code "54")
+			(code "46")
 			(name "Net-(D16-A)")
 			(class "Default")
 			(node
@@ -13475,7 +12997,7 @@
 			)
 		)
 		(net
-			(code "55")
+			(code "47")
 			(name "Net-(D16-K)")
 			(class "Default")
 			(node
@@ -13492,7 +13014,7 @@
 			)
 		)
 		(net
-			(code "56")
+			(code "48")
 			(name "Net-(D17-A)")
 			(class "Default")
 			(node
@@ -13508,7 +13030,7 @@
 			)
 		)
 		(net
-			(code "57")
+			(code "49")
 			(name "Net-(D17-K)")
 			(class "Default")
 			(node
@@ -13525,7 +13047,7 @@
 			)
 		)
 		(net
-			(code "58")
+			(code "50")
 			(name "Net-(D18-A)")
 			(class "Default")
 			(node
@@ -13541,7 +13063,7 @@
 			)
 		)
 		(net
-			(code "59")
+			(code "51")
 			(name "Net-(D18-K)")
 			(class "Default")
 			(node
@@ -13558,7 +13080,7 @@
 			)
 		)
 		(net
-			(code "60")
+			(code "52")
 			(name "Net-(D19-A)")
 			(class "Default")
 			(node
@@ -13574,7 +13096,7 @@
 			)
 		)
 		(net
-			(code "61")
+			(code "53")
 			(name "Net-(D19-K)")
 			(class "Default")
 			(node
@@ -13591,7 +13113,7 @@
 			)
 		)
 		(net
-			(code "62")
+			(code "54")
 			(name "Net-(D20-A)")
 			(class "Default")
 			(node
@@ -13607,7 +13129,7 @@
 			)
 		)
 		(net
-			(code "63")
+			(code "55")
 			(name "Net-(D20-K)")
 			(class "Default")
 			(node
@@ -13624,7 +13146,7 @@
 			)
 		)
 		(net
-			(code "64")
+			(code "56")
 			(name "Net-(D21-A)")
 			(class "Default")
 			(node
@@ -13640,7 +13162,7 @@
 			)
 		)
 		(net
-			(code "65")
+			(code "57")
 			(name "Net-(D21-K)")
 			(class "Default")
 			(node
@@ -13657,7 +13179,7 @@
 			)
 		)
 		(net
-			(code "66")
+			(code "58")
 			(name "Net-(D22-A)")
 			(class "Default")
 			(node
@@ -13673,7 +13195,7 @@
 			)
 		)
 		(net
-			(code "67")
+			(code "59")
 			(name "Net-(D22-K)")
 			(class "Default")
 			(node
@@ -13690,7 +13212,7 @@
 			)
 		)
 		(net
-			(code "68")
+			(code "60")
 			(name "Net-(D23-A)")
 			(class "Default")
 			(node
@@ -13706,7 +13228,7 @@
 			)
 		)
 		(net
-			(code "69")
+			(code "61")
 			(name "Net-(D24-A)")
 			(class "Default")
 			(node
@@ -13722,7 +13244,7 @@
 			)
 		)
 		(net
-			(code "70")
+			(code "62")
 			(name "Net-(D25-A)")
 			(class "Default")
 			(node
@@ -13738,7 +13260,7 @@
 			)
 		)
 		(net
-			(code "71")
+			(code "63")
 			(name "Net-(D26-A)")
 			(class "Default")
 			(node
@@ -13754,7 +13276,7 @@
 			)
 		)
 		(net
-			(code "72")
+			(code "64")
 			(name "Net-(D27-A)")
 			(class "Default")
 			(node
@@ -13770,7 +13292,7 @@
 			)
 		)
 		(net
-			(code "73")
+			(code "65")
 			(name "Net-(D28-A)")
 			(class "Default")
 			(node
@@ -13786,25 +13308,8 @@
 			)
 		)
 		(net
-			(code "74")
+			(code "66")
 			(name "Net-(J1-Pin_1)")
-			(class "Default")
-			(node
-				(ref "J1")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "J2")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "75")
-			(name "Net-(J2-Pin_2)")
 			(class "Default")
 			(node
 				(ref "F1")
@@ -13812,14 +13317,14 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "J2")
-				(pin "2")
-				(pinfunction "Pin_2_2")
+				(ref "J1")
+				(pin "1")
+				(pinfunction "Pin_1_1")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "76")
+			(code "67")
 			(name "Net-(J7-CC1)")
 			(class "Default")
 			(node
@@ -13835,7 +13340,7 @@
 			)
 		)
 		(net
-			(code "77")
+			(code "68")
 			(name "Net-(J7-CC2)")
 			(class "Default")
 			(node
@@ -13851,7 +13356,127 @@
 			)
 		)
 		(net
-			(code "78")
+			(code "69")
+			(name "Net-(LS1-Pad1)")
+			(class "Default")
+			(node
+				(ref "LS1")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R26")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "70")
+			(name "Net-(LS2-Pad1)")
+			(class "Default")
+			(node
+				(ref "LS2")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R28")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "71")
+			(name "Net-(LS3-Pad1)")
+			(class "Default")
+			(node
+				(ref "LS3")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R30")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "72")
+			(name "Net-(LS4-Pad1)")
+			(class "Default")
+			(node
+				(ref "LS4")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R32")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "73")
+			(name "Net-(LS5-Pad1)")
+			(class "Default")
+			(node
+				(ref "LS5")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R34")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "74")
+			(name "Net-(LS6-Pad1)")
+			(class "Default")
+			(node
+				(ref "LS6")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R36")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "75")
+			(name "Net-(LS7-Pad1)")
+			(class "Default")
+			(node
+				(ref "LS7")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R38")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "76")
+			(name "Net-(LS8-Pad1)")
+			(class "Default")
+			(node
+				(ref "LS8")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R40")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "77")
 			(name "Net-(Q1-D)")
 			(class "Default")
 			(node
@@ -13867,7 +13492,7 @@
 			)
 		)
 		(net
-			(code "79")
+			(code "78")
 			(name "Net-(Q1-G)")
 			(class "Default")
 			(node
@@ -13883,7 +13508,7 @@
 			)
 		)
 		(net
-			(code "80")
+			(code "79")
 			(name "Net-(Q28-D)")
 			(class "Default")
 			(node
@@ -13899,7 +13524,7 @@
 			)
 		)
 		(net
-			(code "81")
+			(code "80")
 			(name "Net-(Q29-D)")
 			(class "Default")
 			(node
@@ -13915,7 +13540,7 @@
 			)
 		)
 		(net
-			(code "82")
+			(code "81")
 			(name "Net-(Q30-D)")
 			(class "Default")
 			(node
@@ -13931,7 +13556,7 @@
 			)
 		)
 		(net
-			(code "83")
+			(code "82")
 			(name "Net-(Q31-D)")
 			(class "Default")
 			(node
@@ -13947,7 +13572,7 @@
 			)
 		)
 		(net
-			(code "84")
+			(code "83")
 			(name "Net-(Q32-D)")
 			(class "Default")
 			(node
@@ -13963,7 +13588,7 @@
 			)
 		)
 		(net
-			(code "85")
+			(code "84")
 			(name "Net-(Q33-D)")
 			(class "Default")
 			(node
@@ -13979,7 +13604,7 @@
 			)
 		)
 		(net
-			(code "86")
+			(code "85")
 			(name "Net-(R59-Pad1)")
 			(class "Default")
 			(node
@@ -13995,7 +13620,7 @@
 			)
 		)
 		(net
-			(code "87")
+			(code "86")
 			(name "Net-(R60-Pad1)")
 			(class "Default")
 			(node
@@ -14011,7 +13636,7 @@
 			)
 		)
 		(net
-			(code "88")
+			(code "87")
 			(name "Net-(U1-L1)")
 			(class "Default")
 			(node
@@ -14028,7 +13653,7 @@
 			)
 		)
 		(net
-			(code "89")
+			(code "88")
 			(name "Net-(U1-L2)")
 			(class "Default")
 			(node
@@ -14045,7 +13670,7 @@
 			)
 		)
 		(net
-			(code "90")
+			(code "89")
 			(name "PLUS3V3")
 			(class "Default")
 			(node
@@ -14375,7 +14000,7 @@
 			)
 		)
 		(net
-			(code "91")
+			(code "90")
 			(name "PWMA")
 			(class "Default")
 			(node
@@ -14392,7 +14017,7 @@
 			)
 		)
 		(net
-			(code "92")
+			(code "91")
 			(name "PWMB")
 			(class "Default")
 			(node
@@ -14406,6 +14031,28 @@
 				(pin "23")
 				(pinfunction "IO21_23")
 				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "92")
+			(name "PWR_EN")
+			(class "Default")
+			(node
+				(ref "R69")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "SW5")
+				(pin "2")
+				(pinfunction "B_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "6")
+				(pinfunction "EN_6")
+				(pintype "input")
 			)
 		)
 		(net
@@ -14691,16 +14338,15 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "R69")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
 				(ref "U1")
 				(pin "5")
 				(pinfunction "VIN_5")
 				(pintype "power_in")
-			)
-			(node
-				(ref "U1")
-				(pin "6")
-				(pinfunction "EN_6")
-				(pintype "input")
 			)
 			(node
 				(ref "U1")
@@ -14985,6 +14631,17 @@
 		)
 		(net
 			(code "116")
+			(name "unconnected-(SW5-C-Pad3)")
+			(class "Default")
+			(node
+				(ref "SW5")
+				(pin "3")
+				(pinfunction "C_3")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "117")
 			(name "unconnected-(U4-I8-Pad23)")
 			(class "Default")
 			(node
@@ -14995,7 +14652,7 @@
 			)
 		)
 		(net
-			(code "117")
+			(code "118")
 			(name "unconnected-(U4-I9-Pad22)")
 			(class "Default")
 			(node
@@ -15006,7 +14663,7 @@
 			)
 		)
 		(net
-			(code "118")
+			(code "119")
 			(name "unconnected-(U4-I10-Pad21)")
 			(class "Default")
 			(node
@@ -15017,7 +14674,7 @@
 			)
 		)
 		(net
-			(code "119")
+			(code "120")
 			(name "unconnected-(U4-I11-Pad20)")
 			(class "Default")
 			(node
@@ -15028,7 +14685,7 @@
 			)
 		)
 		(net
-			(code "120")
+			(code "121")
 			(name "unconnected-(U4-I12-Pad19)")
 			(class "Default")
 			(node
@@ -15039,7 +14696,7 @@
 			)
 		)
 		(net
-			(code "121")
+			(code "122")
 			(name "unconnected-(U4-I13-Pad18)")
 			(class "Default")
 			(node
@@ -15050,7 +14707,7 @@
 			)
 		)
 		(net
-			(code "122")
+			(code "123")
 			(name "unconnected-(U4-I14-Pad17)")
 			(class "Default")
 			(node
@@ -15061,7 +14718,7 @@
 			)
 		)
 		(net
-			(code "123")
+			(code "124")
 			(name "unconnected-(U4-I15-Pad16)")
 			(class "Default")
 			(node

@@ -21,15 +21,26 @@ CHAMF = 16
 FACE_L = WHEEL_INSET + WHEEL_THK              # 13  (left gearbox faceplate x)
 FACE_R = BOARD_W - WHEEL_INSET - WHEEL_THK    # 87
 
+NOTCH_Y1 = AXLE_Y - WHEEL_DIA / 2      # 68
+NOTCH_Y2 = AXLE_Y + WHEEL_DIA / 2      # 100
+
+# Rev-5.3: the wheel openings are EDGE NOTCHES, not interior slots -- the
+# 4mm outboard strips were removed (user request) so wheel/tyre width is no
+# longer constrained by the board. Notch floors sit at the gearbox
+# faceplates (x=13 / x=87).
 BOARD_OUTLINE = [
     (CHAMF, 0), (BOARD_W - CHAMF, 0), (BOARD_W, CHAMF),
-    (BOARD_W, BOARD_H), (0, BOARD_H), (0, CHAMF),
+    (BOARD_W, NOTCH_Y1), (FACE_R, NOTCH_Y1), (FACE_R, NOTCH_Y2), (BOARD_W, NOTCH_Y2),
+    (BOARD_W, BOARD_H), (0, BOARD_H),
+    (0, NOTCH_Y2), (FACE_L, NOTCH_Y2), (FACE_L, NOTCH_Y1), (0, NOTCH_Y1),
+    (0, CHAMF),
 ]
 
-# Interior wheel slots (Edge.Cuts rectangles)
-WHEEL_SLOTS = [
-    (WHEEL_INSET, AXLE_Y - WHEEL_DIA / 2, WHEEL_INSET + WHEEL_THK, AXLE_Y + WHEEL_DIA / 2),
-    (FACE_R, AXLE_Y - WHEEL_DIA / 2, BOARD_W - WHEEL_INSET, AXLE_Y + WHEEL_DIA / 2),
+# Keep-out rectangles covering the notch volumes (router margin source);
+# same shape the old interior slots protected, extended to the board edge.
+WHEEL_NOTCHES = [
+    (0, NOTCH_Y1, FACE_L, NOTCH_Y2),
+    (FACE_R, NOTCH_Y1, BOARD_W, NOTCH_Y2),
 ]
 
 # Motor body + bracket keep-out rectangles (components stay out; tracks OK)

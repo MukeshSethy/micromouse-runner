@@ -15,15 +15,15 @@ fully autorouted design — ERC 0, DRC 0 errors, 0 unconnected as shipped.
 | Motor driver | TB6612FNG bare SSOP-24 | Mid-band, between the wheel slots |
 | Motors | 2× N20 gearmotors + quadrature encoders (PCNT hardware decode) | JST-PH; project-local exact footprint + 3D model |
 | Motor mounting | 2× Ø3.2 mm holes per motor, 18.0 mm c-c | Fits the printable UKMARSBot Pololu-pattern bracket (below) |
-| Wall sensors | 6× IR pairs: front 10° toe-out, diagonal 45°, side 75° | Detector forward / emitter 7.6 mm behind, in-line, co-aimed — parsed from UKMARSBOT/Decimus/Zeetah practice |
-| Line sensors | 8× SMD IR pairs, 9.525 mm QTR pitch, bottom face | Read through a CD74HC4067 mux; wall sensors go **direct to ADC1** |
+| Wall sensors | 6× SFH 4550 + PT334-6B pairs: front 10° toe-out, diagonal 45°, side 75° | Bent flat over the board (silk outlines mark each body); holes ~10 mm inboard so the bent tips stay inside the outline |
+| Line sensors | 8× Vishay TCRT5000, 9.525 mm QTR pitch, bottom face (~2.4 mm off the floor = datasheet-optimal) | Read through a CD74HC4067 mux; wall sensors go **direct to ADC1** |
 | Indicators | Per-sensor LEDs on top for all 8 line + 6 wall channels | Wall LED ON = wall seen |
-| User I/O | Buttons **A / B / C** (+ RST) lettered on silk, rear edge | A doubles as BOOT |
+| User I/O | Buttons **A / B / C** (+ RST) lettered on silk, rear edge; power slide switch | A doubles as BOOT; switch gates the regulator EN (soft power) |
 | USB | USB-C at the rear (flash/debug), ESD-protected, VBUS cable-detect divider on IO37 | Plus 1×6 JTAG header |
 | Power | 1S LiPo → TPS63001 buck-boost 3V3 | Fuse, reverse-polarity P-FET, VBAT sense divider |
 
-Drive wheels sit inside the outline via interior slots; front castor hole at
-the nose. Chamfered nose for the diagonal sensor pair.
+Drive wheels run in open edge notches (wheel/tyre width unconstrained);
+front castor hole at the nose. Chamfered nose for the diagonal sensor pair.
 
 ### 3D-printable motor bracket
 
@@ -64,17 +64,36 @@ micromouse-runner/
 │       ├── route_loaded.py                     routing pipeline (run build_pcb.py first)
 │       ├── heal_all.py                         convergent DRC-unconnected healer
 │       └── gen_connections.py / verify_netlist.py   docs + connectivity checks
-├── fw/             ESP32 firmware — planned
+├── fw/             sample firmware + host simulation
+│   ├── micromouse/     pins.h (netlist-gated) + control_core + .ino (line following)
+│   ├── sim/            gcc host sim of the EXACT control core (scenarios asserted)
+│   └── check_pins.py   gate: every firmware pin verified against the netlist
 ├── simulation/     maze-solving / motion simulation — planned
 └── images/         renders
 ```
+
+## Verification
+
+- `pcb/TEST_REPORT.md` — 28 analytical circuit tests computed from the
+  netlist (operating points + datasheet margins for power, flashing, straps,
+  JTAG, buttons, motors, encoders, every IR chain, mux), adversarially
+  audited by independent datasheet re-derivation. Coverage metrics included.
+- `pcb/TRACE_REPORT.md` — trace-level copper analysis of the routed board:
+  per-net path resistance (every segment/via walked), IR drops at operating
+  currents, via ampacity, USB pair skew.
+- `fw/sim/` — the shipped control core runs against board-derived physics;
+  the sim caught two real control bugs before hardware (weak steering, a
+  D-term spike on line loss). All scenarios pass.
+- `pcb/CONNECTIONS.md` — the per-trace justification document: every net,
+  every pin, and why (generated, coverage-enforced).
 
 ## Ordering / fabrication
 
 - `pcb/BOM.csv` — 42 line items, every row with a verified MPN (packages and
   FET pinouts checked against datasheets + distributor stock).
-  **Sourcing alarm:** the SFH 309 FA wall phototransistors are on ams-OSRAM
-  Last-Time-Buy until **2026-12-01** — order lifetime quantity up front.
+  Optos are chosen for Indian marketplace availability: TCRT5000 line
+  sensors (robu.in / ElectronicsComp / Robocraze) and PT334-6B wall
+  phototransistors (hubtronics / rarecomponents; robu's black-lens pack).
 - `pcb/tools/export_fab.py` regenerates `pcb/fab/`: gerbers (11 layers),
   Excellon drill (bracket/castor NPTH tools asserted present), placement
   CSV, and a fit-check STEP that loads **every** 3D model (project-local

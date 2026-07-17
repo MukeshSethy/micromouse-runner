@@ -139,30 +139,31 @@ def wrl_box_file(path, boxes):
     print(f"wrote {path}")
 
 
-# ---- N20 motor: box-approximated version of the WRL in gen_n20_lib.py ------
-# origin = faceplate center, +X = shaft, axis height z=5
-n20 = Step("N20_Motor_Encoder")
-n20.box(0.0, -1.5, 3.5, 10.0, 1.5, 6.5)            # shaft (3mm sq approx)
-n20.box(-0.7, -6.0, 0.0, 0.0, 6.0, 10.0)           # faceplate
-n20.box(-9.7, -6.0, 0.0, -0.7, 6.0, 10.0)          # gearbox 9 long
-n20.box(-25.1, -6.0, 0.0, -9.7, 6.0, 10.0)         # motor can 15.4 (flatted)
-n20.box(-26.1, -2.5, 2.5, -25.1, 2.5, 7.5)         # rear boss
-n20.box(-27.7, -7.0, -1.0, -26.1, 7.0, 11.0)       # encoder PCB
-n20.box(-32.7, -4.5, 0.5, -27.7, 4.5, 9.5)         # magnet disc
-n20.write(os.path.join(BASE, "n20.3dshapes", "N20_Motor_Encoder.step"))
+if __name__ == "__main__":
+    # ---- N20 motor: box-approximated version of the WRL in gen_n20_lib.py ------
+    # origin = faceplate center, +X = shaft, axis height z=5
+    n20 = Step("N20_Motor_Encoder")
+    n20.box(0.0, -1.5, 3.5, 10.0, 1.5, 6.5)            # shaft (3mm sq approx)
+    n20.box(-0.7, -6.0, 0.0, 0.0, 6.0, 10.0)           # faceplate
+    n20.box(-9.7, -6.0, 0.0, -0.7, 6.0, 10.0)          # gearbox 9 long
+    n20.box(-25.1, -6.0, 0.0, -9.7, 6.0, 10.0)         # motor can 15.4 (flatted)
+    n20.box(-26.1, -2.5, 2.5, -25.1, 2.5, 7.5)         # rear boss
+    n20.box(-27.7, -7.0, -1.0, -26.1, 7.0, 11.0)       # encoder PCB
+    n20.box(-32.7, -4.5, 0.5, -27.7, 4.5, 9.5)         # magnet disc
+    n20.write(os.path.join(BASE, "n20.3dshapes", "N20_Motor_Encoder.step"))
 
-# ---- U1 TPS63001 (SON-10 3x3x1) + L1 Bourns SRP7028A (7.3x6.6x3.0) ---------
-d3 = os.path.join(BASE, "3d")
-os.makedirs(d3, exist_ok=True)
+    # ---- U1 TPS63001 (SON-10 3x3x1) + L1 Bourns SRP7028A (7.3x6.6x3.0) ---------
+    d3 = os.path.join(BASE, "3d")
+    os.makedirs(d3, exist_ok=True)
 
-u1 = Step("Texas_DRC0010J")
-u1.box(-1.5, -1.5, 0.02, 1.5, 1.5, 1.0)
-u1.write(os.path.join(d3, "Texas_DRC0010J.step"))
-wrl_box_file(os.path.join(d3, "Texas_DRC0010J.wrl"),
-             [(-1.5, -1.5, 0.02, 1.5, 1.5, 1.0, "0.15 0.15 0.15")])
+    u1 = Step("Texas_DRC0010J")
+    u1.box(-1.5, -1.5, 0.02, 1.5, 1.5, 1.0)
+    u1.write(os.path.join(d3, "Texas_DRC0010J.step"))
+    wrl_box_file(os.path.join(d3, "Texas_DRC0010J.wrl"),
+                 [(-1.5, -1.5, 0.02, 1.5, 1.5, 1.0, "0.15 0.15 0.15")])
 
-l1 = Step("L_Bourns_SRP7028A_7.3x6.6mm")
-l1.box(-3.65, -3.3, 0.02, 3.65, 3.3, 3.0)
-l1.write(os.path.join(d3, "L_Bourns_SRP7028A_7.3x6.6mm.step"))
-wrl_box_file(os.path.join(d3, "L_Bourns_SRP7028A_7.3x6.6mm.wrl"),
-             [(-3.65, -3.3, 0.02, 3.65, 3.3, 3.0, "0.25 0.25 0.28")])
+    l1 = Step("L_Bourns_SRP7028A_7.3x6.6mm")
+    l1.box(-3.65, -3.3, 0.02, 3.65, 3.3, 3.0)
+    l1.write(os.path.join(d3, "L_Bourns_SRP7028A_7.3x6.6mm.step"))
+    wrl_box_file(os.path.join(d3, "L_Bourns_SRP7028A_7.3x6.6mm.wrl"),
+                 [(-3.65, -3.3, 0.02, 3.65, 3.3, 3.0, "0.25 0.25 0.28")])

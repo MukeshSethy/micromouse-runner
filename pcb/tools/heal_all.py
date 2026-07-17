@@ -18,7 +18,7 @@ import sys, os, re, json, math, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import pcbnew
 from gen_pcb import PcbGen
-from board_geom import BOARD_OUTLINE, WHEEL_SLOTS, MOUNT_HOLES
+from board_geom import BOARD_OUTLINE, WHEEL_NOTCHES, MOUNT_HOLES
 
 BOARD = r"D:\Projects\micromouse-pcb\pcb\micromouse-pcb.kicad_pcb"
 NETLIST = r"D:\Projects\micromouse-pcb\pcb\netlist.net"
@@ -42,7 +42,7 @@ def load():
             g._nets[ni.GetNetname()] = ni
     g._outline_pts = list(BOARD_OUTLINE)
     g._extra_keepouts = []
-    for (sx1, sy1, sx2, sy2) in WHEEL_SLOTS:
+    for (sx1, sy1, sx2, sy2) in WHEEL_NOTCHES:
         g._extra_keepouts.append((sx1 - 0.6, sy1 - 0.6, sx2 + 0.6, sy2 + 0.6))
     for (hx, hy, hr) in MOUNT_HOLES:
         m = hr + 0.75
@@ -81,6 +81,11 @@ def parse(raw):
 
 
 def via_stitch(g, net, pos, layer):
+    # a same-net via already here means a previous round tried this and it
+    # did NOT fix connectivity -- another one just stacks duplicates
+    if any(vn == net and abs(vx - pos[0]) < 0.3 and abs(vy - pos[1]) < 0.3
+           for (vx, vy, vn, vr) in g._vias):
+        return False
     for d in (0.0, 0.35, 0.5, 0.7, 1.0, 1.3):
         for k in range(16 if d else 1):
             th = k * math.pi / 8
@@ -143,10 +148,45 @@ def bridge_fragments(g, net, zlayer):
                     n += 1
                     break
         if not done:
+            # fallback: drop a via INSIDE the island and micro-route from it
+            # to the nearest same-net pad (the TCRT hole clusters shred In1
+            # into pad-anchored islands with no overlying same-net track)
             bb = chain.BBox()
-            print(f"  fragment({net}/{fi}) NO bridge -- bbox "
-                  f"({pcbnew.ToMM(bb.GetLeft()):.1f},{pcbnew.ToMM(bb.GetTop()):.1f})-"
-                  f"({pcbnew.ToMM(bb.GetRight()):.1f},{pcbnew.ToMM(bb.GetBottom()):.1f})")
+            cx = (pcbnew.ToMM(bb.GetLeft()) + pcbnew.ToMM(bb.GetRight())) / 2
+            cy = (pcbnew.ToMM(bb.GetTop()) + pcbnew.ToMM(bb.GetBottom())) / 2
+            best = None
+            for pad in g._pads_geo():
+                if pad["net"] != net:
+                    continue
+                dd = math.hypot(pad["cx"] - cx, pad["cy"] - cy)
+                if dd > 0.5 and (best is None or dd < best[0]):
+                    best = (dd, (pad["cx"], pad["cy"]))
+            placed = None
+            for ddx in (0.0, 0.6, -0.6, 1.2, -1.2):
+                if placed:
+                    break
+                for ddy in (0.0, 0.6, -0.6, 1.2, -1.2):
+                    v = (round(cx + ddx, 3), round(cy + ddy, 3))
+                    pv2 = pcbnew.VECTOR2I(pcbnew.FromMM(v[0]), pcbnew.FromMM(v[1]))
+                    if not chain.PointInside(pv2, 0, True):
+                        continue
+                    if any(vn == net and abs(vx - v[0]) < 0.3 and abs(vy - v[1]) < 0.3
+                           for (vx, vy, vn, vr) in g._vias):
+                        continue
+                    if g._verify_geo([], [v], net, 0.125) is None:
+                        g.add_via(v, net)
+                        placed = v
+                        break
+            if placed and best and g.retry_edge(net, placed, best[1], width_mm=0.25,
+                                                clearance_mm=0.18, grid_mm=0.1,
+                                                max_expansions=600000):
+                print(f"  fragment({net}/{fi}) island via {placed} -> routed to {best[1]}")
+                done = True
+                n += 1
+            else:
+                print(f"  fragment({net}/{fi}) NO bridge -- bbox "
+                      f"({pcbnew.ToMM(bb.GetLeft()):.1f},{pcbnew.ToMM(bb.GetTop()):.1f})-"
+                      f"({pcbnew.ToMM(bb.GetRight()):.1f},{pcbnew.ToMM(bb.GetBottom()):.1f})")
     return n
 
 

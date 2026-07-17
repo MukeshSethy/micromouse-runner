@@ -33,7 +33,7 @@ _MPN_STATIC = {
     "L1": ("SRP7028A-1R5M", "Bourns"),
     "F1": ("0ZCJ0200FF2C", "Bel Fuse"),
     "J1": ("B2B-PH-K-S(LF)(SN)", "JST"),
-    "J2": ("61300211121", "Wurth Elektronik"),
+    "SW5": ("OS102011MS2QN1", "C&K"),
     "J5": ("B6B-PH-K-S(LF)(SN)", "JST"),
     "J6": ("B6B-PH-K-S(LF)(SN)", "JST"),
     "J7": ("USB4105-GF-A", "GCT"),
@@ -70,15 +70,12 @@ def _bom_fields(ref, value, footprint):
             return {"MPN": "BSS138LT1G", "Manufacturer": "onsemi"}
         if "BSS84" in value:
             return {"MPN": "BSS84LT1G", "Manufacturer": "onsemi"}
+    if fp.startswith("LED_D5.0mm_IRBlack"):
+        return {"MPN": "PT334-6B", "Manufacturer": "Everlight"}
     if fp.startswith("LED_D5.0mm"):
         return {"MPN": "SFH 4550", "Manufacturer": "ams-OSRAM"}
-    if fp.startswith("LED_D3.0mm"):
-        return {"MPN": "SFH 309 FA", "Manufacturer": "ams-OSRAM"}
-    if fp.startswith("LED_1206"):
-        if "IR11-21C" in value:
-            return {"MPN": "IR11-21C/TR8", "Manufacturer": "Everlight"}
-        if "PT11-21B" in value:
-            return {"MPN": "PT11-21B/L41/TR8", "Manufacturer": "Everlight"}
+    if fp == "TCRT5000":
+        return {"MPN": "TCRT5000", "Manufacturer": "Vishay"}
     if fp.startswith("LED_0603"):
         return {"MPN": "APT1608SURCK", "Manufacturer": "Kingbright"}
     if fp.startswith("R_0805") and value and value[0].isdigit():
@@ -301,7 +298,7 @@ def WIRE(p1, p2):
 # headers), Q1, U1, F1, L1) so new parts never collide. J8 is deliberately
 # skipped by the "J" counter below (still seeded at 4, so ref("J") produces
 # J5, J6, J7, ... -- never reaching J8) since it's assigned directly above.
-_ctr = {"R": 5, "C": 8, "Q": 1, "D": 0, "J": 4, "U": 1, "SW": 0}
+_ctr = {"R": 5, "C": 8, "Q": 1, "D": 0, "J": 4, "U": 1, "SW": 0, "LS": 0}
 def ref(prefix):
     _ctr[prefix] = _ctr.get(prefix, 0) + 1
     return f"{prefix}{_ctr[prefix]}"
@@ -323,12 +320,8 @@ j1p1, j1p2 = CONN2("J1", "BATT_IN_1S", (20, 150), footprint="Connector_JST:JST_P
 RAIL("GND", j1p2, rotation=180)
 PWR("PWR_FLAG", j1p2)
 
-j2p1, j2p2 = CONN2("J2", "EXT_SWITCH", (55, 150),
-                    footprint="Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical")
-WIRE(j1p1, j2p1)
-
 f1p1, f1p2 = FUSE("F1", "2A_resettable", (90, 150))
-WIRE(j2p2, f1p1)
+WIRE(j1p1, f1p1)   # J2 removed (rev 5.3): power on/off is SW5 on U1's EN
 
 # Reverse-polarity P-MOSFET: battery -> DRAIN, load -> SOURCE, gate to GND
 # (see PROJECT_NOTES for the body-diode proof). At 1S the gate sees
@@ -378,7 +371,7 @@ u1_gnd  = pin_at(U1_BASE, (-2.54, -15.24))
 u1_fb   = pin_at(U1_BASE, (10.16, 2.54))
 
 RAIL("VM_BATT", u1_vin, rotation=180)
-RAIL("VM_BATT", u1_en, rotation=180)     # always-on when battery switched on
+RAIL("PWR_EN", u1_en, rotation=180)      # soft power switch node (R69 + SW5)
 RAIL("VM_BATT", u1_vina, rotation=180)   # analog supply sense
 RAIL("GND", u1_ps, rotation=180)         # PS/SYNC low = power-save enabled
 RAIL("GND", u1_pgnd, rotation=270)
@@ -393,6 +386,29 @@ WIRE(u1_fb, pin_at(U1_BASE, (10.16, 10.16)))  # FB -> VOUT (fixed-voltage part)
 bst_p1, bst_p2 = L("L1", "1.5uH", (222, 130))
 WIRE(u1_l1, bst_p1)
 WIRE(u1_l2, bst_p2)
+
+# Soft power switch: R69 pulls EN to the battery rail; SW5 (signal-level
+# slide, C&K OS102011MS2QN1) grounds EN to shut the whole 3V3 domain down.
+# With 3V3 dead the ESP32 is off, STBY sits in R66's pulldown, and the
+# TB6612 outputs are Hi-Z -- motors cannot run. VM_BATT itself stays wired
+# (Q1 cannot be gate-switched: its body diode conducts battery->load by
+# design of the reverse-protection topology). OFF-state drain is the two
+# always-on dividers (~120uA total) -- unplug for storage.
+# 1M (not 100k): with SW5 holding EN low the pull-up drains VIN/R
+# continuously -- 100k would leak 42uA against the TPS63001's 0.1uA
+# shutdown; 1M is ~4uA. EN input current is 0.1uA max, so 1M still gives a
+# rock-solid high.
+r69a, r69b = R("R69", "1M", (232, 143))
+RAIL("VM_BATT", r69a, rotation=90)
+RAIL("PWR_EN", r69b, rotation=270)
+SW5_BASE = snap((243, 155))
+g.add_component("Switch", "SW_SPDT", "SW5",
+                 "PWR (OS102011MS2QN1 slide; slide-to-GND = OFF)", SW5_BASE,
+                 {"1": "", "2": "", "3": ""},
+                 footprint="Button_Switch_THT:SW_Slide_SPDT_Straight_CK_OS102011MS2Q")
+RAIL("GND", pin_at(SW5_BASE, (5.08, 2.54)), rotation=0)      # throw A -> GND
+RAIL("PWR_EN", pin_at(SW5_BASE, (-5.08, 0)), rotation=180)   # common -> EN node
+NC(pin_at(SW5_BASE, (5.08, -2.54)))                          # throw B unused
 
 c3p1, c3p2 = C("C3", "100nF", (238, 118))   # VINA filter (datasheet 0.1uF)
 WIRE(c3p1, u1_vina)
@@ -810,32 +826,42 @@ for i, name in enumerate(SENSOR_NAMES):
     # pattern) -- confirm against the exact chosen part before fab, same as
     # any footprint on this board.
     if is_wall:
-        photo_fp = "LED_THT:LED_D3.0mm_Clear"
-        photo_val = "SFH309"
+        # PT334-6B: 5mm filtered (black-lens) phototransistor, stocked by
+        # Indian marketplaces (hubtronics/rarecomponents/robu black-lens
+        # pack) -- replaces SFH 309 FA (ams-OSRAM Last-Time-Buy 2026-12-01).
+        # ASSEMBLY TRAP: PT334's LONG lead is the EMITTER (opposite of the
+        # long-lead=anode LED instinct).
+        photo_fp = "LED_THT:LED_D5.0mm_IRBlack"
+        photo_val = "PT334-6B (5mm filtered PT; LONG LEAD = EMITTER; SFH309 base symbol so ERC checks pins)"
         led_fp = "LED_THT:LED_D5.0mm_IRGrey"
-        led_val = "SFH4550 (THT, LD271 base symbol)"
+        led_val = "SFH4550 (THT, LD271 base symbol; India alternate: TSAL6100)"
     else:
-        # Both optics on a compact 1206 land pattern: the 9.525mm QTR pitch is
-        # a hard mechanical constraint, so the phototransistor footprint must
-        # stay small (the Osram_LPT80A land pattern is ~11mm wide and would
-        # overlap its neighbours at this pitch). A 1206 2-pad SMD pattern fits
-        # with margin and suits both the SFH4045N emitter and a small SMD
-        # phototransistor like the SFH320FA (PLCC-2) -- confirm the exact land
-        # pattern against the chosen phototransistor before fab.
-        photo_fp = "LED_SMD:LED_1206_3216Metric"
-        photo_val = ("PT11-21B/L41 940nm 1206 phototransistor, DAYLIGHT-FILTERED (black lens) "
-                     "REQUIRED -- an unfiltered part (PT11-21C) re-opens optical feedback "
-                     "from the red indicator LEDs (SFH309 sym for ERC)")
-        led_fp = "LED_SMD:LED_1206_3216Metric"
-        led_val = "IR11-21C 940nm 1206 IR emitter (LD271 sym for ERC)"
+        photo_fp = photo_val = led_fp = led_val = None  # line: single TCRT5000
 
     # receiver + pull-up. WALL sensors: node goes STRAIGHT to an ESP32 ADC1
     # pin (label only -- no mux). LINE sensors: node feeds read-mux channel
     # Y0-Y7 (= LINE index).
-    rx_c, rx_e = SFH309(ref("Q"), (x, row_y), footprint=photo_fp, value=photo_val)
+    if is_wall:
+        rx_c, rx_e = SFH309(ref("Q"), (x, row_y), footprint=photo_fp, value=photo_val)
+    else:
+        # Rev 5.3 (India sourcing): one Vishay TCRT5000 reflective sensor per
+        # line channel -- integrated 940nm emitter + DAYLIGHT-FILTERED
+        # phototransistor, the commodity part of Indian robotics shops
+        # (electronicscomp/robu/robocraze), replacing the hard-to-source
+        # 1206 IR pair. With 32mm wheels the underside rides ~9mm off the
+        # floor, putting the TCRT face at ~2.4mm -- its datasheet-optimal
+        # sensing distance. PC817 base symbol: pins 1=A 2=K 3=E 4=C match
+        # the project TCRT5000 footprint.
+        LS_BASE = snap((x, row_y))
+        g.add_component("Isolator", "PC817", ref("LS"),
+                         "TCRT5000 (reflective sensor, filtered PT; PC817 base symbol so ERC checks pins)",
+                         LS_BASE, {"1": "", "2": "", "3": "", "4": ""},
+                         footprint="n20:TCRT5000")
+        rx_c = pin_at(LS_BASE, (7.62, 2.54))     # pin 4 = PT collector
+        rx_e = pin_at(LS_BASE, (7.62, -2.54))    # pin 3 = PT emitter
     RAIL("GND", rx_e, rotation=270)
     # pull-up x-aligned with the collector pin -> straight vertical wire
-    rp1, rp2 = R(ref("R"), "47k", (x + 2.54, row_y + 15))
+    rp1, rp2 = R(ref("R"), "47k", (rx_c[0], row_y + 15))
     WIRE(rp2, rx_c)
     RAIL("PLUS3V3", rp1, rotation=90)
     RAIL(f"{name}_SENSE", rx_c, rotation=0)
@@ -846,13 +872,23 @@ for i, name in enumerate(SENSOR_NAMES):
     # emitter + current-limit resistor; cathode joins its GROUP's switched
     # net (one BSS138 per group, below) instead of a per-sensor switch.
     # limiter x-aligned with the LED anode pin -> straight vertical wire
-    lr1, lr2 = R(ref("R"), "33" if is_wall else "120", (x + 18.54, row_y + 15))
+    if is_wall:
+        led_k, led_a = LED_SFH4550(ref("D"), (x + 16, row_y), footprint=led_fp, value=led_val)
+    else:
+        led_a = pin_at(LS_BASE, (-7.62, 2.54))   # pin 1 = LED anode
+        led_k = pin_at(LS_BASE, (-7.62, -2.54))  # pin 2 = LED cathode
+    lr1, lr2 = R(ref("R"), "33" if is_wall else "120", (led_a[0], row_y + 15))
     RAIL("PLUS3V3", lr1, rotation=90)
-    led_k, led_a = LED_SFH4550(ref("D"), (x + 16, row_y), footprint=led_fp, value=led_val)
     WIRE(lr2, led_a)
     _grp = ("EMIT_FRONT_K" if i < 2 else "EMIT_DIAG_K" if i < 4 else
             "EMIT_SIDE_K" if i < 6 else "EMIT_LINE_K")
     RAIL(_grp, led_k, rotation=180)
+
+# Line channels no longer consume Q8-15/D7-14 (single TCRT5000 each, LS1-8).
+# Re-seed the counters so every later ref keeps its historical number
+# (Q16.. group FETs, Q20.. indicator drivers, D15.. indicator LEDs).
+_ctr["Q"] = 15
+_ctr["D"] = 14
 
 # Group emitter switches: one BSS138 per group (Q16-Q19), gate driven directly
 # by an ESP32 GPIO (no demux -- U5 deleted in rev 4). Gate nets idle low.

@@ -42,11 +42,15 @@ need("GND", 60)
 need("PLUS3V3", 40)
 need("VM_BATT", 10, must_have=[("Q1", "2")])   # P-FET source feeds the rail
 
-# Battery power path, pin by pin: J2 -> F1 -> Q1(D->S) -> VM_BATT; gate held
+# Battery power path, pin by pin: J1 -> F1 -> Q1(D->S) -> VM_BATT; gate held
 # low through R1. This exact chain was broken in shipped rev 5 (floating Q1).
-need("Net-(J2-Pin_2)", 2, must_have=[("J2", "2"), ("F1", "1")])
+need("Net-(J1-Pin_1)", 2, must_have=[("J1", "1"), ("F1", "1")])
 need("Net-(Q1-D)", 2, must_have=[("F1", "2"), ("Q1", "3")])
 need("Net-(Q1-G)", 2, must_have=[("Q1", "1"), ("R1", "1")])
+# Soft power switch (rev 5.3): R69 pull-up + SW5-to-GND on the regulator EN
+need("PWR_EN", 3, must_have=[("R69", "2"), ("SW5", "2"), ("U1", "6")])
+if ("SW5", "1") not in by_name.get("GND", []):
+    fails.append("GND: SW5.1 (power-off throw) not on GND")
 if ("R1", "2") not in by_name.get("GND", []):
     fails.append("GND: R1.2 (Q1 gate pulldown) not on GND")
 
@@ -86,6 +90,8 @@ for i in range(1, 9):
         fails.append(f"{net}: no U4 (mux) node: {nodes}")
     if not any(r.startswith("Q") and p == "1" for r, p in nodes):
         fails.append(f"{net}: no indicator FET gate node: {nodes}")
+    if not any(r == f"LS{i}" and p == "4" for r, p in nodes):
+        fails.append(f"{net}: no LS{i}.4 (TCRT5000 collector) node: {nodes}")
 
 # No expected-distinct pair may have merged: spot-check a few likely shorts
 for a, b in (("USB_DM", "USB_DP"), ("ENC1_A", "ENC1_B"), ("MOTA_P", "MOTA_N"),

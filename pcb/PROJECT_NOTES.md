@@ -778,3 +778,181 @@ picks the sibling .step next to each .wrl. Export now loads EVERY model.
 with hard gates: the drill data must contain the 3.2mm bracket and 3.0mm
 castor NPTH tools, the STEP export must load every model, all layers
 non-trivial. ALL GATES PASSED; exits 1 otherwise.
+
+
+## 2026-07-16: rev 5.3 -- user review round + India sourcing
+
+Six user directives from a 3D-render review, plus a sourcing constraint:
+
+1. **USB-C faced the wrong way.** The GCT footprint's "PCB Edge" reference
+   sits at local y+3.1 with the mouth beyond it; the rot=180 placement aimed
+   the mouth INTO the board. Now rot=0 anchored at y = 120-3.1 = 116.9: the
+   mouth overhangs the rear edge properly. (The USB pocket hand-bridges look
+   pads up at runtime, so they adapted unchanged.)
+2. **J2 header replaced by an onboard power switch -- as a SOFT switch.** No
+   compact verified slide switch survives the 2-3A motor-stall current of the
+   main battery path, and Q1 cannot be gate-switched (its body diode conducts
+   battery->load by design of the reverse-protection topology). So SW5 (C&K
+   OS102011MS2QN1, signal-level, stock KiCad footprint) grounds the
+   TPS63001's EN through the new R69 1M pull-up: 3V3 domain dies, ESP32 off,
+   STBY falls into R66's pulldown, TB6612 outputs Hi-Z. Verified from
+   datasheets: EN VIH 1.2V (solid at 3.0-4.2V), shutdown 0.1uA, EN input
+   leakage 0.1uA max (1M drops <0.1mV); TB6612 IM(STB) 1uA max with VM live.
+   R69 is 1M, not 100k: the pull-up leaks VIN/R continuously while OFF
+   (100k = 42uA; 1M = 4uA). OFF-state drain is dominated by the always-on
+   VBAT divider (~75uA) -- unplug for storage. Also noted: TB6612 caps IOUT
+   at 0.4A "without PWM" below VM 4.5V (normal PWM drive unaffected).
+3. **JTAG (J8) rear-left at (10.5,100.5)**, pins along +x, right beside the
+   module's west edge, clear of the bracket keep-out and J5.
+4. **THT solder-access is now a build gate** (check_tht_solder_margin): no
+   solder-side SMD pad within 2.5mm of any plated hole. Its first run caught
+   exactly the pair the user reported from the render -- D6's pin 1.96mm
+   from R15 on the bottom face -- fixed by dropping the right wall-support
+   column 2mm. Also found during this: the OS102011 slide switch's library
+   footprint draws its courtyard on B.Courtyard for an F-side part; the
+   overlap checker now falls back to the opposite courtyard layer before
+   using a padded bbox.
+5. **Wall indicator LEDs moved from the central dashboards to sit beside
+   their sensors** (like the line array): D23 (41,1), D24 (60,1) at the
+   nose; D25 (11.5,21), D26 (88.7,22.5) inside the chamfers; D27 (10.5,31.5),
+   D28 (89.5,31.5) inboard of the side pairs. Drivers R49-54/Q28-33 stay in
+   the two central columns; only copper runs to the LEDs. Netlist unchanged.
+6. **Wheel slots became open EDGE NOTCHES** (the 4mm outboard strips are
+   gone, user request): BOARD_OUTLINE now carries notches x 0..13 / 87..100
+   over y 68..100, so wheel/tyre width is no longer constrained by the
+   board. WHEEL_SLOTS -> WHEEL_NOTCHES in board_geom; zone fills clip at the
+   new edge automatically.
+
+**India-sourcing replacements (user: 'generally available in Indian online
+marketplaces'):**
+- **Line array: 8x Vishay TCRT5000** (LS1-8) replace the 1206 IR pairs
+  (D7-14/Q8-15 retired; counters re-seeded so all later refs keep their
+  numbers). The commodity reflective sensor of Indian robotics shops
+  (electronicscomp Rs.14, robu.in, robocraze) with an INTEGRATED
+  daylight-filtered PT -- which also closes the red-indicator optical
+  feedback concern. Mechanically ideal: with 32mm wheels the underside
+  rides ~9.4mm off the floor; the 7mm body puts the sensor face at ~2.4mm =
+  its datasheet-optimal distance. Custom footprint (n20.pretty/TCRT5000)
+  authored from the Vishay drawing: trapezoid lead grid C/A row 5.5 apart,
+  E/K row 4.65, rows 2.54 apart, D1.1 drills + 2x D2.5 NPTH snap-peg holes;
+  pads numbered per the Isolator:PC817 base symbol (1=A 2=K 3=E 4=C).
+  Body long-axis is fore-aft (10.2mm > the 9.525mm QTR pitch); top-face
+  indicator stack shifted rear of the lead field for solder access.
+- **Wall phototransistors: Everlight PT334-6B** (5mm filtered/black lens,
+  LED_D5.0mm_IRBlack footprint) replace SFH 309 FA (ams-OSRAM Last-Time-Buy
+  2026-12-01). India: hubtronics, rarecomponents, TME-India; robu.in sells
+  the black-lens pack (titled -6C -- order the BLACK one specifically).
+  ASSEMBLY TRAP on silk+docs: PT334's LONG lead is the EMITTER (opposite of
+  the LED long-lead=anode instinct).
+- Wall emitters stay SFH 4550 (still Active; same THT-opto phase-out track
+  though) -- documented India-reachable alternate: Vishay TSAL6100
+  (Amazon.in / DigiKey-India; +/-10 deg vs +/-3 deg beam).
+
+
+## 2026-07-17: rev 5.3 -- user review round 2, India sourcing, verification suite
+
+**User directives (3D-render review + photo sample):**
+1. USB-C faced the wrong way -> rot 0 anchored at y=116.9 (footprint's own
+   "PCB Edge" line at local +3.1); mouth now overhangs the rear edge. The
+   flip mirrored the 0.5mm pad field and invalidated every rev-5 hand bridge
+   -- rebuilt orientation-aware (DP loop flips toward the nearest edge, DM
+   pair gets an In2 dive bridge since staggered pairs cannot share F.Cu).
+2. J2 header -> onboard SOFT power switch SW5 (C&K OS102011MS2QN1) grounding
+   the TPS63001 EN through R69 1M (datasheet-verified: EN VIH 1.2V, shutdown
+   0.1uA, EN leakage 0.1uA max; TB6612 VM standby 1uA with STBY low). No
+   compact verified slide switch survives the 2-3A stall current of a
+   main-path switch, and Q1 cannot be gate-switched (body diode). OFF drain
+   ~120uA, dominated by the always-on dividers.
+3. JTAG J8 rear-left at (10.5,102) rot 90, beside the module.
+4. THT solder-access GATE (check_tht_solder_margin, 2.5mm): generalized from
+   the user's D6-vs-R15 catch (1.96mm). Also fixed: the OS102011 library
+   footprint draws its courtyard on B.CrtYd for an F-side part (checker now
+   falls back to the opposite courtyard layer).
+5. Wall indicator LEDs beside their sensors; drivers stay central.
+6. Wheel slots -> OPEN EDGE NOTCHES (outboard strips removed; wheel width
+   unconstrained). Killed the left/right edge corridors the router used --
+   see routing notes below.
+7. Wall pairs INBOARD ~10mm along their aim (greenye-style bent-flat
+   mounting, photo sample): bent 5mm bodies (tip ~9-10mm from the hole) stay
+   INSIDE the outline. Silkscreen U-outlines mark each bent body's envelope
+   (assembly/aiming guide, like the sample photo).
+8. India-marketplace optos: line array -> 8x TCRT5000 (custom footprint from
+   the Vishay drawing: trapezoid grid 5.5/4.65 x 2.54 + 2x D2.5 pegs; PC817
+   base symbol 1=A 2=K 3=E 4=C; robu/electronicscomp/robocraze, ~Rs.14).
+   Face sits ~2.4mm off the floor with 32mm wheels = datasheet-optimal.
+   Wall PTs -> PT334-6B (5mm filtered; hubtronics/rarecomponents/TME-India;
+   robu's black-lens pack). ASSEMBLY TRAP: PT334 LONG lead = EMITTER.
+   Wall emitters stay SFH 4550 (TSAL6100 = India-reachable alternate).
+
+**Verification suite (user: 'detailed test simulations... wire trace level'
++ 'sample ESP32 script with line following... run simulations'):**
+- pcb/tools/circuit_tests.py: 28 analytical tests computed from the netlist
+  (operating points + datasheet margins; battery path pin-by-pin, straps,
+  USB, JTAG, buttons, motor truth table, encoders, all IR chains, mux, rails)
+  -> pcb/TEST_REPORT.md with net/component coverage. Adversarially audited
+  by independent agents re-deriving every number from datasheets: all 28
+  conclusions survived; the audit REFUTED one claim (the PTC never reliably
+  trips at a 2.4A double-stall -- protection is the firmware PWM constraint;
+  PTC covers hard shorts) and corrected 10 figures (5.5V Type-C VBUS worst
+  case, real 0.3mm motor trace widths + IPC-2221 margin, honest converter
+  headroom, computed emitter currents). All folded into the report.
+- pcb/tools/trace_report.py: TRACE-LEVEL copper analysis of the routed board
+  (resistance graph of every segment/via at 0.492 mOhm/sq; Dijkstra
+  terminal-to-terminal path R; IR drops at operating currents; via ampacity;
+  USB D+/D- length skew) -> pcb/TRACE_REPORT.md.
+- fw/: sample firmware. pins.h (30 assignments GATED against the netlist by
+  fw/check_pins.py), control_core.c/h (pure logic shared verbatim with the
+  host sim), micromouse.ino (LEDC 20kHz drive, PCNT hardware quadrature,
+  mux scan, pulsed wall banks with ambient subtraction, buttons A=run
+  B=calibrate C=telemetry, VBUS-detect logging, low-battery cutoff).
+- fw/sim/sim_linefollow.c: host simulation (gcc) of the EXACT control core
+  against board-derived physics (sensor bar 70.5mm ahead, 83mm track, TCRT
+  response from the measured swing, 500Hz loop). Scenarios: straight, 25mm
+  step, R800 curve, s-curve, 80mm line gap. THE SIM CAUGHT TWO REAL CONTROL
+  BUGS pre-hardware: steering authority ~50x too weak (lost any curve), and
+  a D-term spike at line-loss (discontinuous rail value) that pirouetted the
+  robot backwards through gaps -- fixed by holding the last valid position.
+  Final: ALL SCENARIOS PASS (straight 0.3mm settle, curve 3.2mm rms, gap
+  crossed dead-straight).
+
+**Routing (the notches changed the game):** deleting the outboard strips
+removed the left/right edge corridors ~10 nets used; the inboard optics
+turned y8-17 into a through-hole picket wall (12x 5mm THT + 32 TCRT leads +
+16 pegs). Fix: the whole front-band family (wall senses, emitter anodes,
+TCRT LED links, all four emitter bank nets) joined the jailed-first group
+with immediate retry ladders. U3's off-board antenna keepout/courtyard
+pieces (the WROOM library flares them past the edge) are stripped at build
+time: the physical antenna overhangs air by design and the only object in
+the flare is J7's mouth 5.5mm lateral of the radiator -- standard devkit
+geometry. pth_inside_courtyard severity -> warning (bottom-face TCRT leads
+under top-face bent-lead sensor circles; opposite faces, both solderable).
+
+**Endgame -- the last six nets (routed to 0/0/0):** after the front-band
+reroute converged, six connections stayed jailed and every one fell to the
+same discipline: dump the REAL copper in a 2mm box (segment-box sampling,
+not endpoint filters -- pass-through tracks hide from endpoint dumps), read
+the verifier's exact rejection, then either compute a legal spot by hand or
+grid-scan candidates against the verifier itself. Lessons that stuck:
+- The SSOP-24 pad TAILS (1.75mm long) push the via-legal band past where an
+  adjacent vertical track sits: the east window at U2 was mathematically
+  NEGATIVE. The under-body region between pad columns was open -- STBY and
+  BIN1/BIN2 all escaped inward, between their own pad rows.
+- A GND C-hook (pins 7/9 linked around pin 8's east side) sealed VM_BATT's
+  VINA pin completely. The hook's job moved to two 0.5mm pin->EP links on
+  the exposed pad (same net, trivially verified) and the freed pocket took
+  the escape via.
+- WALL_EMIT_SIDE's pad pocket at the WROOM east column was walled by FIVE
+  unrelated layers of copper (R60 on B, USER_BTN2+USB_VBUS on In2,
+  ENC2_A_S3 on In1, sibling emitter stubs on F). A 46x56-point reason
+  histogram of the verifier found the only legal via land: x+y > 155, past
+  the far shadow of PWR_EN's In1 diagonal. Order mattered: strip the
+  sibling's wall, commit the crossing FIRST, re-route the sibling last
+  (the reverse order let the machine rebuild the identical wall).
+- trace_report.py gained the physics the graph was missing: THT barrels and
+  pad copper are multi-layer junctions (LS cathode returns join F/In1/B
+  through the pads, zero tracks touching), and segments must split at
+  mid-span vias / T-junctions before Dijkstra sees the true topology.
+Final battery on the shipped board: ERC 0, DRC 0 violations / 0 unconnected
+/ 0 parity, netlist verify PASS, 28/28 circuit tests, 30/30 firmware pins,
+host sim ALL SCENARIOS PASS, fab gates ALL PASSED (42-line MPN BOM),
+TRACE_REPORT clean (worst case: 159mV motor stall IR drop, documented).

@@ -15,7 +15,7 @@ import sys, os, time, math
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import pcbnew
 from gen_pcb import PcbGen
-from board_geom import BOARD_OUTLINE, WHEEL_SLOTS, MOUNT_HOLES
+from board_geom import BOARD_OUTLINE, WHEEL_NOTCHES, MOUNT_HOLES
 
 BOARD = r"D:\Projects\micromouse-pcb\pcb\micromouse-pcb.kicad_pcb"
 NETLIST = r"D:\Projects\micromouse-pcb\pcb\netlist.net"
@@ -36,7 +36,7 @@ for code, ni in g.board.GetNetsByNetcode().items():
 
 g._outline_pts = list(BOARD_OUTLINE)
 g._extra_keepouts = []
-for (sx1, sy1, sx2, sy2) in WHEEL_SLOTS:
+for (sx1, sy1, sx2, sy2) in WHEEL_NOTCHES:
     g._extra_keepouts.append((sx1 - 0.6, sy1 - 0.6, sx2 + 0.6, sy2 + 0.6))
 for (hx, hy, hr) in MOUNT_HOLES:
     m = hr + 0.75
@@ -48,8 +48,10 @@ g._pads_geo_cache = None
 
 CLR = 0.3            # no-inter-pin clearance (hand-solder rule)
 POUR_NETS = ("GND", "PLUS3V3", "VM_BATT")
-PRIORITY = ["WALL5_SENSE", "WALL4_SENSE", "WALL2_SENSE", "WALL3_SENSE",
-            "WALL0_SENSE", "WALL1_SENSE",
+PRIORITY = ["VBAT_SENSE", "PWR_EN", "USER_BTN2", "USER_BTN3", "MOTB_N",
+            "MUX_S1", "MUX_S2", "MUX_S0",
+            "WALL5_SENSE", "WALL6_SENSE", "WALL3_SENSE", "WALL4_SENSE",
+            "WALL1_SENSE", "WALL2_SENSE",
             "LINE8_SENSE", "LINE7_SENSE", "MUX_SENSE", "LINE2_SENSE", "Net-(U1-L1)", "Net-(U1-L2)",
             "STBY", "PWMA", "PWMB", "AIN1", "AIN2", "BIN1", "BIN2",
             "ENC1_A", "ENC1_B", "ENC2_A", "ENC2_B",
@@ -69,7 +71,10 @@ for _net, (_pa, _pb) in (("USB_DP_C", ("A6", "B6")),):
     if len(_ps) != 2:
         continue
     _p1 = (_ps[0]["cx"], _ps[0]["cy"]); _p2 = (_ps[1]["cx"], _ps[1]["cy"])
-    _yl = min(_p1[1], _p2[1]) - 2.6
+    if (120 - max(_p1[1], _p2[1])) < min(_p1[1], _p2[1]):
+        _yl = max(_p1[1], _p2[1]) + 2.6   # rear connector: loop toward the edge
+    else:
+        _yl = min(_p1[1], _p2[1]) - 2.6
     _cand = [(_p1, (_p1[0], _yl), pcbnew.F_Cu),
              ((_p1[0], _yl), (_p2[0], _yl), pcbnew.F_Cu),
              ((_p2[0], _yl), _p2, pcbnew.F_Cu)]
@@ -82,34 +87,22 @@ for _net, (_pa, _pb) in (("USB_DP_C", ("A6", "B6")),):
     else:
         print(f"hand-bridge {_net}: verify failed -- {fail}")
 
-# ---- 1b. VBUS stack bridge: the two VBUS pad stacks flank the D/CC field,
-# so no F.Cu path can exist between them. Drop a via at each stack and run
-# B.Cu past the pad row -- depth ladder, first verified geometry wins.
-_jx = pcbnew.ToMM(g._placed["J7"].GetPosition().x)
-_stk = []
-for _nums in (("A4", "B9"), ("A9", "B4")):
-    _ps = [pp for pp in g._pads_geo() if pp["ref"] == "J7" and pp["num"] in _nums]
-    if len(_ps) == 2:
-        _stk.append(min(_ps, key=lambda p: abs(p["cx"] - _jx)))  # inner pad of stack
-if len(_stk) == 2:
-    _done = _fail = None
-    for _dy in (-1.1, -1.4, 0.85, 1.05):
-        _y = round(_stk[0]["cy"] + _dy, 3)
-        _c1 = (_stk[0]["cx"], _stk[0]["cy"]); _c2 = (_stk[1]["cx"], _stk[1]["cy"])
-        _v1 = (_c1[0], _y); _v2 = (_c2[0], _y)
-        _segs = [(_c1, _v1, pcbnew.F_Cu), (_v1, _v2, pcbnew.In1_Cu), (_v2, _c2, pcbnew.F_Cu)]
-        _fail = g._verify_geo(_segs, [_v1, _v2], "USB_VBUS", 0.125)
-        if _fail is None:
-            for (_a, _b, _l) in _segs:
-                g.add_track(_a, _b, _l, "USB_VBUS", 0.25)
-                g._track_segs.append((_a, _b, "USB_VBUS", 0.125, _l))
-            g.add_via(_v1, "USB_VBUS"); g.add_via(_v2, "USB_VBUS")
-            _done = _dy
-            break
-    if _done is not None:
-        print(f"hand-bridge USB_VBUS: OK (In1, dy={_done})")
+# ---- 1c. DM pair dive bridge (staggered pairs cannot share F.Cu loops) ----
+_ps = [pp for pp in g._pads_geo() if pp["ref"] == "J7" and pp["num"] in ("A7", "B7")]
+if len(_ps) == 2:
+    _p1 = (_ps[0]["cx"], _ps[0]["cy"]); _p2 = (_ps[1]["cx"], _ps[1]["cy"])
+    _yd = round(min(_p1[1], _p2[1]) - 1.1, 3)
+    _v1 = (_p1[0], _yd); _v2 = (_p2[0], _yd)
+    _segs = [(_p1, _v1, pcbnew.F_Cu), (_v1, _v2, pcbnew.In2_Cu), (_v2, _p2, pcbnew.F_Cu)]
+    _fail = g._verify_geo(_segs, [_v1, _v2], "USB_DM_C", 0.125)
+    if _fail is None:
+        for (_a, _b, _l) in _segs:
+            g.add_track(_a, _b, _l, "USB_DM_C", 0.25)
+            g._track_segs.append((_a, _b, "USB_DM_C", 0.125, _l))
+        g.add_via(_v1, "USB_DM_C"); g.add_via(_v2, "USB_DM_C")
+        print("hand-bridge USB_DM_C: OK (In2 dive)")
     else:
-        print(f"hand-bridge USB_VBUS: no depth verified -- {_fail}")
+        print(f"hand-bridge USB_DM_C: verify failed -- {_fail}")
 
 # ---- 2. fan-out stubs for fine-pitch signal pads ---------------------------
 n_fan, fan_bad = 0, []
@@ -171,8 +164,16 @@ for (_ref, _num, _pn) in (("U6", "2", "GND"),
 JAILED = ["Net-(J7-CC1)", "Net-(J7-CC2)", "USB_DM_C", "USB_DP_C",
           "USB_DM", "USB_DP", "Net-(R59-Pad1)", "Net-(R60-Pad1)",
           "USB_VBUS", "VBUS_SENSE",
+          "WALL1_SENSE", "WALL2_SENSE", "WALL3_SENSE", "WALL4_SENSE",
+          "WALL5_SENSE", "WALL6_SENSE",
+          "Net-(D1-A)", "Net-(D2-A)", "Net-(D3-A)", "Net-(D4-A)",
+          "Net-(D5-A)", "Net-(D6-A)",
+          "Net-(LS1-Pad1)", "Net-(LS2-Pad1)", "Net-(LS3-Pad1)", "Net-(LS4-Pad1)",
+          "Net-(LS5-Pad1)", "Net-(LS6-Pad1)", "Net-(LS7-Pad1)", "Net-(LS8-Pad1)",
+          "EMIT_FRONT_K", "EMIT_DIAG_K", "EMIT_SIDE_K", "EMIT_LINE_K",
           "Net-(U1-L1)", "Net-(U1-L2)", "ENC1_B", "ENC1_A",
-          "AIN1", "AIN2", "BIN2", "BIN1", "STBY", "PWMB", "PWMA"]
+          "JTAG_TMS", "JTAG_TCK", "JTAG_TDO", "JTAG_TDI",
+          "PWMB", "AIN1", "AIN2", "BIN2", "BIN1", "STBY", "PWMA"]
 
 def drain_jailed_ladder():
     # A jailed net that fails the cheap first try gets its FULL retry ladder
@@ -181,25 +182,37 @@ def drain_jailed_ladder():
     # in whack-a-mole for seven iterations.
     prev, g._unrouted[:] = list(g._unrouted), []
     for (net, p1, p2, reason) in prev:
+        _short = math.hypot(p2[0] - p1[0], p2[1] - p1[1]) < 24.0
         if (g.retry_edge(net, p1, p2, width_mm=0.3, clearance_mm=CLR,
                          max_expansions=400000)
+                # short edges (the front-band hole-picket hops) resolve at
+                # 0.1 grid quickly -- try it SECOND, not sixth: this cut the
+                # jailed stage from hours to minutes
+                or (_short and g.retry_edge(net, p1, p2, width_mm=0.25,
+                                            clearance_mm=0.18, grid_mm=0.1,
+                                            max_expansions=800000))
                 or g.retry_edge(net, p1, p2, width_mm=0.3, clearance_mm=0.4,
-                                grid_mm=0.25, max_expansions=1200000)
+                                grid_mm=0.25, max_expansions=500000)
                 or g.retry_edge(net, p1, p2, width_mm=0.3, clearance_mm=CLR,
-                                grid_mm=0.25, max_expansions=1200000)
-                or g.retry_edge(net, p1, p2, width_mm=0.3, clearance_mm=CLR,
-                                grid_mm=0.2, max_expansions=2000000)
+                                grid_mm=0.25, max_expansions=500000)
                 or g.retry_edge(net, p1, p2, width_mm=0.3, clearance_mm=0.18,
-                                grid_mm=0.2, max_expansions=2000000)):
+                                grid_mm=0.2, max_expansions=800000)
+                or (math.hypot(p2[0] - p1[0], p2[1] - p1[1]) < 24.0
+                    and g.retry_edge(net, p1, p2, width_mm=0.25, clearance_mm=0.18,
+                                     grid_mm=0.1, max_expansions=2500000))):
             continue
         g._unrouted.append((net, p1, p2, reason))
 
 for _n in JAILED:
     if _n in all_net_names:
+        _tn = time.time()
         _before = len(g._unrouted)
         g.route_net(_n, width_mm=0.3, clearance_mm=CLR, max_expansions=400000)
+        _drained = ""
         if len(g._unrouted) > _before:
             drain_jailed_ladder()
+            _drained = " (drained)"
+        print(f"  jailed {_n}: {time.time()-_tn:.0f}s{_drained}, {len(g._unrouted)} fails so far")
 print(f"[{time.time()-t0:.0f}s] jailed-first done, {len(g._unrouted)} fails")
 skip |= set(JAILED)
 
@@ -222,6 +235,16 @@ for _pn in POUR_NETS:
         _fails = _still
     print(f"stitch {_pn}: {'OK' if not _fails else 'FAILED for ' + ', '.join(_fails)}")
 
+# ---- 3b. power nets first at full width: the battery feed's only corridor
+# past the wheel notch + bracket holes is ~1.4mm wide -- it must claim it
+# before the signal crowd does.
+POWER = {"Net-(J1-Pin_1)", "Net-(Q1-D)"}
+for _n in sorted(POWER):
+    if _n in all_net_names:
+        g.route_net(_n, width_mm=0.5, clearance_mm=CLR, max_expansions=400000)
+print(f"[{time.time()-t0:.0f}s] early power done, {len(g._unrouted)} fails")
+skip |= POWER
+
 # ---- 4. priority nets (chip-attached, corridor-hungry) ---------------------
 for _n in PRIORITY:
     if _n in all_net_names and _n not in skip:
@@ -230,8 +253,6 @@ print(f"[{time.time()-t0:.0f}s] priority done, {len(g._unrouted)} fails")
 skip |= set(PRIORITY)
 
 # ---- 5-7. remaining nets ---------------------------------------------------
-POWER = {"Net-(J1-Pin_1)", "Net-(J2-Pin_2)", "Net-(Q1-D)"}  # fuse->P-FET drain (was Net-(F1-Pad2) pre pin-number fix)
-POWER |= {n for n in all_net_names if n.startswith("EMIT_")}
 
 def span(net):
     pads = [p for p in g._pads_geo() if p["net"] == net]
@@ -247,10 +268,7 @@ print(f"[{time.time()-t0:.0f}s] micro-bridges done, {len(g._unrouted)} fails")
 for n in sorted(rest, key=span, reverse=True):
     g.route_net(n, width_mm=0.3, clearance_mm=CLR, min_edge_mm=2.2, max_expansions=80000)
 print(f"[{time.time()-t0:.0f}s] signals done, {len(g._unrouted)} fails")
-for n in POWER:
-    if n in all_net_names:
-        g.route_net(n, width_mm=0.5, clearance_mm=CLR, min_edge_mm=2.2, max_expansions=80000)
-print(f"[{time.time()-t0:.0f}s] power done, {len(g._unrouted)} fails")
+print(f"[{time.time()-t0:.0f}s] power done earlier (stage 3b)")
 
 # ---- 8. retry ladder -------------------------------------------------------
 def width_for(net):
@@ -289,6 +307,16 @@ for (net, p1, p2, reason) in prev:
                         grid_mm=0.2, max_expansions=2000000):
         still.append((net, p1, p2, reason))
 print(f"[{time.time()-t0:.0f}s] SMD-relief retry done, {len(still)} left")
+prev, still = still, []
+for (net, p1, p2, reason) in prev:
+    # 0.1-grid micro rung, short edges only (fine-pitch weaves need it; long
+    # edges would blow the expansion budget)
+    if (math.hypot(p2[0] - p1[0], p2[1] - p1[1]) < 24.0
+            and g.retry_edge(net, p1, p2, width_mm=0.25, clearance_mm=0.18,
+                             grid_mm=0.1, max_expansions=2500000)):
+        continue
+    still.append((net, p1, p2, reason))
+print(f"[{time.time()-t0:.0f}s] micro retry done, {len(still)} left")
 
 # ---- 9. fill + save + report -----------------------------------------------
 print("zone fill:", g.fill_zones())

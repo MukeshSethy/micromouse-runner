@@ -1,3 +1,4 @@
+import os
 import re
 import math
 import heapq
@@ -67,7 +68,13 @@ class PcbGen:
         # line sensors on the underside of the main PCB -- see PROJECT_NOTES.md).
         fp_id = self.footprints[ref]
         lib, name = fp_id.split(":", 1)
-        fp = pcbnew.FootprintLoad(f"{FP_DIR}\\{lib}.pretty", name)
+        lib_dir = f"{FP_DIR}\\{lib}.pretty"
+        if not os.path.isdir(lib_dir):
+            # project-local library (n20.pretty holds the N20 motor and the
+            # TCRT5000 line sensors)
+            lib_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                   "..", f"{lib}.pretty")
+        fp = pcbnew.FootprintLoad(lib_dir, name)
         if fp is None:
             raise ValueError(f"footprint not found: {fp_id} (ref {ref})")
         fp.SetReference(ref)
@@ -129,6 +136,70 @@ class PcbGen:
         pad.SetLayerSet(pad.UnplatedHoleMask())
         fp.Add(pad)
         self.board.Add(fp)
+
+    def check_tht_solder_margin(self, min_mm=2.5, ignore=frozenset()):
+        # Hand-soldering a THT pin needs iron access on its SOLDER side (the
+        # face opposite the part body). Flag every SMD pad mounted on that
+        # face within min_mm of a plated hole (rev-5.3 user request after a
+        # bottom-side resistor crowded a sensor's solder fillet). `ignore`
+        # holds frozenset({refA, refB}) pairs accepted after review.
+        tht, smd = [], []
+        for fp in self.board.GetFootprints():
+            ref = fp.GetReference()
+            flip = fp.IsFlipped()
+            for pad in fp.Pads():
+                num = pad.GetNumber() if hasattr(pad, "GetNumber") else pad.GetName()
+                pos = (pcbnew.ToMM(pad.GetPosition().x), pcbnew.ToMM(pad.GetPosition().y))
+                if pad.GetAttribute() == pcbnew.PAD_ATTRIB_NPTH:
+                    continue
+                if pad.GetDrillSize().x > 0:
+                    tht.append((ref, num, pos, flip))
+                else:
+                    smd.append((ref, num, pos, flip))
+        bad = []
+        for (tr, tn, tp, tflip) in tht:
+            solder_face_flip = not tflip    # top-mounted THT solders on B side
+            for (sr, sn, sp, sflip) in smd:
+                if sr == tr or sflip != solder_face_flip:
+                    continue
+                if frozenset((tr, sr)) in ignore:
+                    continue
+                d = math.hypot(tp[0] - sp[0], tp[1] - sp[1])
+                if d < min_mm:
+                    bad.append(f"{tr}.{tn} <-> {sr}.{sn} ({'B' if sflip else 'F'}): {d:.2f}mm")
+        return sorted(set(bad))
+
+    def check_tht_ring_clearance(self, min_gap=0.2):
+        # Any two PLATED holes of DIFFERENT nets must keep their copper rings
+        # apart -- rings live on EVERY layer, so face-aware courtyard checks
+        # never see this class (rev-5.3 finding: front detector rings overlap
+        # TCRT lead rings; the router saw impossible geometry).
+        pads = []
+        for fp in self.board.GetFootprints():
+            for pad in fp.Pads():
+                if pad.GetDrillSize().x <= 0:
+                    continue
+                if pad.GetAttribute() == pcbnew.PAD_ATTRIB_NPTH:
+                    r = pcbnew.ToMM(pad.GetDrillSize().x) / 2  # bare hole
+                else:
+                    r = pcbnew.ToMM(max(pad.GetSize(pcbnew.F_Cu).x,
+                                        pad.GetSize(pcbnew.F_Cu).y)) / 2
+                pos = pad.GetPosition()
+                num = pad.GetNumber() if hasattr(pad, "GetNumber") else "?"
+                pads.append((fp.GetReference(), num, pad.GetNetname(),
+                             pcbnew.ToMM(pos.x), pcbnew.ToMM(pos.y), r))
+        bad = []
+        for i in range(len(pads)):
+            r1, n1, net1, x1, y1, rad1 = pads[i]
+            for j in range(i + 1, len(pads)):
+                r2, n2, net2, x2, y2, rad2 = pads[j]
+                if r1 == r2 or (net1 and net1 == net2):
+                    continue
+                gap = math.hypot(x2 - x1, y2 - y1) - rad1 - rad2
+                if gap < min_gap:
+                    bad.append(f"{r1}.{n1}({net1 or 'NPTH'}) <-> {r2}.{n2}"
+                               f"({net2 or 'NPTH'}): ring gap {gap:.2f}mm")
+        return sorted(set(bad))
 
     def assert_netlist_pads_mapped(self):
         # Every netlist (ref, pin) must exist as a board pad carrying that
@@ -322,13 +393,22 @@ class PcbGen:
         # courtyard has disjoint pieces (the WROOM module body + its off-board
         # antenna clearance rect) must not falsely claim the space between them.
         layer = "B.Courtyard" if fp.GetLayerName() == "B.Cu" else "F.Courtyard"
-        out = []
-        for gi in fp.GraphicalItems():
-            if gi.GetLayerName() != layer:
-                continue
-            bb = gi.GetBoundingBox()
-            out.append((pcbnew.ToMM(bb.GetLeft()), pcbnew.ToMM(bb.GetTop()),
-                        pcbnew.ToMM(bb.GetRight()), pcbnew.ToMM(bb.GetBottom())))
+        other = "F.Courtyard" if layer == "B.Courtyard" else "B.Courtyard"
+        def pieces(lname):
+            got = []
+            for gi in fp.GraphicalItems():
+                if gi.GetLayerName() != lname:
+                    continue
+                bb = gi.GetBoundingBox()
+                got.append((pcbnew.ToMM(bb.GetLeft()), pcbnew.ToMM(bb.GetTop()),
+                            pcbnew.ToMM(bb.GetRight()), pcbnew.ToMM(bb.GetBottom())))
+            return got
+        out = pieces(layer)
+        if not out:
+            # some library parts author the courtyard on the WRONG side (the
+            # C&K OS102011 slide switch draws B.Courtyard on an F.Cu part);
+            # an opposite-side courtyard still beats the padded-bbox fallback
+            out = pieces(other)
         if not out:
             out = [self._courtyard_bbox_mm(fp)]
         return out
@@ -1014,7 +1094,21 @@ class PcbGen:
             for pad in pads:
                 if pad["net"] == net_name and abs(pad["cx"] - p[0]) < 0.01 and abs(pad["cy"] - p[1]) < 0.01:
                     return list(pad["layers"])
-            return list(self.LAYERS)
+            # Non-pad anchor: it must ride EXISTING copper. Starting on a
+            # layer with no copper at the point silently creates a layer
+            # change with no via (rev-5.3 finding: stub-end routes began on
+            # In1/In2 and left same-point different-layer splits for DRC).
+            found = set()
+            for (vx, vy, vn, vr) in self._vias:
+                if vn == net_name and abs(vx - p[0]) < 0.05 and abs(vy - p[1]) < 0.05:
+                    return list(self.LAYERS)          # via: all layers legal
+            for (a, b, n, hw, layer) in self._track_segs:
+                if n != net_name:
+                    continue
+                if (abs(a[0] - p[0]) < 0.05 and abs(a[1] - p[1]) < 0.05) or \
+                   (abs(b[0] - p[0]) < 0.05 and abs(b[1] - p[1]) < 0.05):
+                    found.add(layer)
+            return sorted(found) if found else list(self.LAYERS)
         half_w = width_mm / 2
         hard, soft, via_hard, via_soft = self._net_obstacles(net_name, half_w, clearance_mm, grid_mm)
         for diag, escape in ((True, 1.8), (True, 1.0), (True, 0.6),
