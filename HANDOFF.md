@@ -78,28 +78,54 @@ the board is not already ratsnest-0, so run the closure BEFORE finalize.
 5. `Date.now()`/`random` are fine here (plain python), only banned inside the
    Workflow sandbox.
 
+## 3a. HOW THE USER WANTS HARDWARE WORK DONE (standing working-style)
+
+- ERC/DRC validate netlists, not physical reality. Every bug that mattered on
+  this project (header shape, header pin order, PMOS orientation, sensor
+  facing, the motor-EN divider) was invisible to ERC/DRC and only caught by
+  comparing against datasheets / manufacturer photos / reference designs, or
+  by writing per-connection justifications. So: **verify footprints & pinouts
+  against datasheets/photos before trusting library defaults; when you find
+  one instance of an error class, sweep the WHOLE design for it; keep
+  `CONNECTIONS.md` coverage-enforced.**
+- The user works long offline stretches — **keep going autonomously** through
+  token/time limits, make reasonable calls, and document flagged risks in
+  `PROJECT_NOTES.md` rather than stopping to ask.
+
 ## 4. THE DESIGN (rev 6.1) — what this board is
 
 100×120 mm, 4-layer (F.Cu sig / In1 GND plane / In2 +3V3 plane / B.Cu
 sig+pours). Fully SCRIPT-GENERATED — the schematic and PCB are emitted by
 Python, so everything is auditable and regeneratable.
 
-**All 10 rev-6 user requirements (each satisfied + gated):**
-1. Sensor silk outlines fully INSIDE the board, 3–5 mm edge gap
-   (`_outline_gap_check` gate in build_pcb.py).
-2. Exact wall-sensor aims: front **0°**, diagonal **45.0°**, side **90.0°**,
+**All 10 rev-6 user requirements — 8 DONE, 2 (marked ⏳) finished by the §6
+closure:**
+1. ✅ Sensor silk outlines fully INSIDE the board, 3–5 mm edge gap
+   (`_outline_gap_check` gate in build_pcb.py; enforces ≥3.0, actual 4.2–4.7).
+2. ✅ Exact wall-sensor aims: front **0°**, diagonal **45.0°**, side **90.0°**,
    with silk angle-number callouts.
-3. DRC **0 errors AND 0 warnings** (full `--severity-warning` incl. parity).
-4. **2S LiPo**, motors on a **regulated 6.0 V** rail (TPS54302 buck).
-5. **BNO055 9-axis IMU** on the board centerline (I2C IO18/21, INT IO37).
-6. Impedance / IPC / Espressif standards — `pcb/STANDARDS.md`.
-7. **Two switches**: SW5 = PWR ALL (3V3 EN), SW6 = PWR MOTORS (6V EN);
-   motors require both on.
-8. Nothing outside the board outline except the motor shafts; the WROOM
+3. ⏳ DRC **0 errors AND 0 warnings** — the mechanism is in place (full
+   `--severity-warning` incl. parity; `finalize.py` + `sync_board_meta.py`
+   produced 0/0/0 on the rev-6.0 board). NOT yet true on the current board:
+   it has 5 unconnected + ~220 pre-finalize silk/dangling warnings. Achieved
+   after §6 closure → finalize → sync_board_meta.
+4. ✅ **2S LiPo**, motors on a **regulated 6.0 V** rail (TPS54302 buck, steady
+   V + 3 A current limit + C30 220 µF bulk).
+5. ✅ **BNO055 9-axis IMU** on the board centerline (x=CX; I2C IO18/21, INT IO37).
+6. ✅ Impedance / IPC / Espressif standards — `pcb/STANDARDS.md`.
+7. ✅ **Two switches**: SW5 = PWR ALL (3V3 EN, everything-except-motors),
+   SW6 = PWR MOTORS (6V EN); motors require both on.
+8. ✅ Nothing outside the board outline except the motor shafts; the WROOM
    antenna spans a rear-edge U-notch (Espressif fallback), tip inside.
-9. All prior (rev ≤5) requirements retained.
-10. BOM only from **Lion Circuits** in-stock parts (turnkey: Digi-Key/Mouser/
-    Element14/Arrow/Avnet/RS — **NOT LCSC**).
+9. ⏳/✅ All prior (rev ≤5) requirements retained (buttons A/B/C+RST lettered,
+   rear USB-C, JTAG, wall+line indicator LEDs with "wall LED ON = wall seen",
+   mux for the line array only + walls direct to ADC1, 0.3 mm THT clearance,
+   UKMARS bracket + STL link, exact WROOM-1/N20 libs). The one rev-5 rule
+   still pending is "all lines routed, nothing left behind" = the same §6
+   5-edge closure as #3.
+10. ✅ BOM only from **Lion Circuits** in-stock parts (turnkey: Digi-Key/Mouser/
+    Element14/Arrow/Avnet/RS — **NOT LCSC**). `pcb/BOM.csv` regenerated with
+    the rev-6 parts (49 rows).
 
 **Power tree:** 2S pack (JST-XH) → F1 (MINISMDC260F/16, 2.6A/16V PPTC) → Q1
 (DMP3098L reverse P-FET, Vgs ±20V) → VM_BATT → **AP63203** (3.3V/2A logic) +
@@ -172,17 +198,36 @@ build_pcb should let that stage succeed on a fresh reroute. **Preferred path:
 put the R56/R12 relocation into build_pcb.py, rebuild, reroute** (clean +
 reproducible) rather than hand-editing the board.
 
-### 6.2 Closure loop (whichever path)
+### 6.2 Closure loop + the escape-via technique (self-contained; memory does NOT travel)
 
-Run closure, then ALWAYS re-check the ratsnest (§2). A scratch closure script
-skeleton (`scratchpad/close5.py`, `close7.py`) is in the session temp but not
-committed; recreate from the PcbGen boilerplate: load board, set
-`g._nets/_placed/_outline_pts/_extra_keepouts/_track_segs/_vias/_pads_geo_cache`
-(copy the header from any `close*.py` idea or from `heal_all.py:load()`),
-then `retry_edge` / hand `_verify_geo`+`add_track`+`add_via`, `fill_zones()`,
-`SaveBoard`, re-check ratsnest. Cap `max_expansions` at ≤1M to avoid the
-multi-hour A* stalls seen in dense areas (kill and use hand escape-vias
-instead if it stalls).
+**Boilerplate:** the committed `pcb/tools/heal_all.py` function `load()` is the
+exact PcbGen setup you need — it loads the board and populates
+`g._nets/_placed/_outline_pts/_extra_keepouts/_track_segs/_vias/_pads_geo_cache`.
+Import/copy it, then route with `g.retry_edge(net, a, b, width_mm=, clearance_mm=,
+grid_mm=, max_expansions=)` and/or hand copper:
+`g._verify_geo(segs, vias, net, 0.125)` returns `None` if clear (else the exact
+reason string), then `g.add_track(a,b,layer,net,0.25)` /
+`g.add_via((x,y),net)` and append to `g._track_segs`/`g._vias`. Finish with
+`g.fill_zones()` / `pcbnew.SaveBoard`, then **re-check the ratsnest (§2)**.
+Cap `max_expansions` at ≤1M — higher budgets STALL for hours in dense areas;
+kill and hand-route instead.
+
+**Escape-via technique (the proven method for a boxed pad — "open-set-empty"):**
+1. Dump copper in a ~2 mm box around the pad using SEGMENT-BOX SAMPLING (walk
+   each track and sample points along it — endpoint-only filters miss
+   pass-through tracks), plus every nearby pad rect with its size.
+2. Ask `g._verify_geo([(pad, via, F_Cu)], [via], net, 0.125)` for the exact
+   rejection, then GRID-SCAN candidate via positions (step 0.05–0.12) against
+   the verifier and build a reason HISTOGRAM — the scan finds the legal spot
+   when hand geometry is wrong (it was wrong twice, the scan never was).
+3. Order matters when a sibling net's track blocks you: strip that track,
+   commit YOUR crossing FIRST, machine-reroute the sibling LAST.
+
+**Verifier clearance floors** (track half-width 0.125, obstacle clr 0.16):
+via↔other-net-pad-edge ≥0.46; via↔other-net-track ≥0.725 (LAYER-BLIND — an
+inner-layer track still blocks a via!); via↔via ≥0.76; track↔track same-layer
+≥0.41; track↔pad-edge ≥0.285. SSOP-24 tails are 1.75 mm — escape BETWEEN pad
+rows under the body, not outside.
 
 ### 6.3 Text-level track strip (safe; use instead of board.Remove)
 
@@ -269,8 +314,15 @@ mount holes, antenna notch) — never duplicate its numbers.
 - Board: placed clean (all build gates pass: outline-gap, body-inside,
   silk-vs-pad, ring-clearance, THT-margin, 530 pins mapped), routed to 5
   unconnected.
+- `pcb/BOM.csv` regenerated with the rev-6 parts (49 rows, no rev-5 leftovers).
+- Renders `renders/rev6-{top,bottom}.png` + `images/render_{top,bottom}.png`
+  regenerated from the crystal-free board (pre-finalize state).
 - `finalize.py` (ratsnest-gated) + `sync_board_meta.py` are written & tested
   (they produced 0/0/0 on the rev-6.0 board before the crystal-drop rework).
+  NOTE: finalize's `ANGLE_POS`/`LETTER_POS` silk targets were scanned on the
+  rev-6.0 layout; sensor positions are unchanged in 6.1, but if silk_over_copper
+  warnings persist after finalize, re-scan clear spots (see the scanner idea in
+  PROJECT_NOTES) and update those two lists in `finalize.py`.
 
 ## 10. FILE INVENTORY
 
