@@ -6,9 +6,14 @@ then `pcb/PROJECT_NOTES.md` (full design log) and `pcb/CONNECTIONS.md`
 (every net, every pin, why).
 
 **Status in one line:** design + firmware + verification are COMPLETE and
-passing; the PCB is routed to **5 remaining unconnected edges** (exact list
-in §6). Finishing = close those 5, run `finalize.py` + `sync_board_meta.py`,
-regenerate fab + docs. Est. 1–3 h of routing-closure work.
+passing; **every BOM part is verified In-Stock at Lion Circuits** (see §4a).
+The one part that was Out of Stock (the JST-PH motor connector) was swapped to
+the In-Stock **B6B-XH-A** — which is a wider 2.5 mm connector, so J5/J6 were
+relocated (J5→(33,72.5), J6→(83,64)) and the board is being **rerouted from
+scratch** (the previous route was for the 2.0 mm PH connectors). Finishing =
+let the reroute complete → `heal_all.py` → close any remaining unconnected
+(§6 technique) → `finalize.py` → `sync_board_meta.py` → fab. The
+`pcb/micromouse-pcb.kicad_pcb` in this commit reflects the B6B-XH-A placement.
 
 ---
 
@@ -136,9 +141,27 @@ series R). External IMU crystal was DROPPED (§5).
 **Key part numbers (all Lion-Circuits In-Stock, verified 2026-07):**
 U1 AP63203WU-7, U7 TPS54302DDCR, U2 TB6612FNG, U3 ESP32-S3-WROOM-1-N8R2,
 U4 CD74HC4067M96, U6 USBLC6-2SC6, U8 BNO055, Q1 DMP3098L-7, L1/L2
-SRP4020TA-4R7M, F1 MINISMDC260F/16-2, J1/J9 JST-XH, J7 USB4105-GF-A,
+SRP4020TA-4R7M, F1 MINISMDC260F/16-2, J1/J9 JST-XH, **J5/J6 B6B-XH-A** (motor
+connectors — NOT B6B-PH-K-S, which is OOS at Lion), J7 USB4105-GF-A,
 SW5/SW6 PCM12SMTR, SW1-4 PTS645VL582LFS, C30 EEE-FT1C221AP, wall emitters
 IR333-A, wall PT PT334-6B, line TCRT5000.
+
+## 4a. BOM AVAILABILITY — every part verified on lioncircuits.com (2026-07)
+
+All 43 distinct MPNs were individually checked. **42 have an In-Stock Lion
+page**; the only OOS part was the motor connector and it was swapped:
+- Resistors: all 13 Yageo RC0805FR-07xxx values — In Stock.
+- Capacitors: all 6 Samsung CL21/CL32 values — In Stock.
+- FETs BSS138LT1G / BSS84LT1G, LED APT1608SURCK, Würth JTAG header
+  61300611121 — In Stock.
+- ICs / connectors / switches / optics (U1/U2/U4/U6/U7/U8/U3, J1/J7/J8/J9,
+  SW1-6, IR333-A, PT334-6B, TCRT5000, DMP3098L, F1, L1/L2, C30) — In Stock.
+- **SWAPPED:** J5/J6 motor connectors were `B6B-PH-K-S(LF)(SN)` (top-entry
+  THT JST-PH) which is **Out of Stock** at Lion (the whole `B*B-PH-K-S`
+  top-entry PH line is un-stocked). Replaced with **B6B-XH-A** (JST-XH,
+  In Stock ₹24.34, top-entry THT, 2.5 mm pitch — more robust for the ~1.6 A
+  motor-stall current). This is the reason for the reroute (see the status
+  line): XH's 2.5 mm pitch + wider body forced J5/J6 to move.
 
 ## 5. DESIGN DECISIONS the next machine must NOT undo
 

@@ -41,8 +41,13 @@ _MPN_STATIC = {
     "J1": ("B2B-XH-A", "JST"),                             # 2S battery main (XH: 3A/contact)
     "J9": ("B3B-XH-A(LF)(SN)", "JST"),                     # 2S balance tap (standard XH-3)
     "SW5": ("PCM12SMTR", "C&K"), "SW6": ("PCM12SMTR", "C&K"),
-    "J5": ("B6B-PH-K-S(LF)(SN)", "JST"),
-    "J6": ("B6B-PH-K-S(LF)(SN)", "JST"),
+    # J5/J6 (motor connectors): B6B-XH-A, NOT the original B6B-PH-K-S -- the
+    # whole top-entry THT JST-PH line is OUT OF STOCK at Lion Circuits.
+    # B6B-XH-A is In Stock (verified 2026-07), same XH family as J1/J9,
+    # top-entry THT (fits the placement), and 2.5mm pitch is more robust for
+    # the ~1.6A motor-stall current than 2.0mm PH.
+    "J5": ("B6B-XH-A", "JST"),
+    "J6": ("B6B-XH-A", "JST"),
     "J7": ("USB4105-GF-A", "GCT"),
     "J8": ("61300611121", "Wurth Elektronik"),
     "SW1": ("PTS645VL582LFS", "C&K"), "SW2": ("PTS645VL582LFS", "C&K"),
@@ -607,7 +612,8 @@ TXT("Bare TB6612FNG (U2, SSOP-24) in IN/IN PWM mode: PWMA/PWMB tied 3V3, AIN/BIN
 
 # Motor A connector: M+/M- come from U2's AO outputs (MOTA_P/N), plus
 # encoder VCC/GND/A/B with defensive pull-ups.
-jA = CONN6("J5", "MOTOR_A_N20_ENCODER", (200, 330))
+jA = CONN6("J5", "MOTOR_A_N20_ENCODER", (200, 330),
+           footprint="Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical")
 RAIL("MOTA_P", jA[0], rotation=0)
 RAIL("MOTA_N", jA[1], rotation=0)
 RAIL("PLUS3V3", jA[2], rotation=0)
@@ -622,7 +628,8 @@ RAIL("PLUS3V3", reb2, rotation=90)
 RAIL("ENC1_B", jA[5], rotation=0)
 
 # Motor B connector
-jB = CONN6("J6", "MOTOR_B_N20_ENCODER", (200, 260))
+jB = CONN6("J6", "MOTOR_B_N20_ENCODER", (200, 260),
+           footprint="Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical")
 RAIL("MOTB_P", jB[0], rotation=0)
 RAIL("MOTB_N", jB[1], rotation=0)
 RAIL("PLUS3V3", jB[2], rotation=0)

@@ -370,8 +370,8 @@ g.place("C30", 74.5, 66, value="220uF/16V")        # alu bulk, top, at VM entry
 g.place("C11", 60, 72, flip=True, value="10uF/25V")  # under U2 (bottom)
 g.place("C12", 68, 72, flip=True, value="100nF")
 g.place("C14", 60, 60, flip=True, value="100nF")
-g.place("J5", 33, 74, rot=0)                   # motor A connector (inter-motor corridor, beside its motor)
-g.place("J6", 67, 75, rot=0)                   # motor B connector (inter-motor corridor)
+g.place("J5", 33, 72.5, rot=0)               # motor A (B6B-XH-A 2.5mm; nudged up to clear MOT1)
+g.place("J6", 83, 64, rot=0)                 # motor B (B6B-XH-A; right of U2/above MOT2 -- the wider XH connector will not fit the corridor beside U2/C30)
 # Encoder pull-ups/guards + strap pull-down + STBY tie: TOP mid-band rows
 g.place("R6", 22, 66); g.place("R7", 28, 66)     # ENC1 pullups
 g.place("R8", 40, 47); g.place("R9", 44, 47)     # ENC2 pullups (moved: IMU owns y54-66 center)
