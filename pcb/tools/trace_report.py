@@ -149,21 +149,23 @@ def net_stats(net):
 
 # (net, operating current A, terminal refs (from, to), description)
 ANALYSES = [
-    ("Net-(J1-Pin_1)", 2.4, ("J1", "F1"), "battery feed: connector to fuse"),
-    ("Net-(Q1-D)", 2.4, ("F1", "Q1"), "fuse to reverse-protection FET"),
-    ("MOTA_P", 1.05, ("U2", "J5"), "motor A + (stall)"),
-    ("MOTA_N", 1.05, ("U2", "J5"), "motor A - (stall)"),
-    ("MOTB_P", 1.05, ("U2", "J6"), "motor B + (stall)"),
-    ("MOTB_N", 1.05, ("U2", "J6"), "motor B - (stall)"),
+    ("BATT_RAW", 2.6, ("J1", "F1"), "2S battery feed: connector to fuse"),
+    ("Net-(Q1-D)", 2.6, ("F1", "Q1"), "fuse to reverse-protection FET"),
+    ("MOTA_P", 1.6, ("U2", "J5"), "motor A + (6V stall)"),
+    ("MOTA_N", 1.6, ("U2", "J5"), "motor A - (6V stall)"),
+    ("MOTB_P", 1.6, ("U2", "J6"), "motor B + (6V stall)"),
+    ("MOTB_N", 1.6, ("U2", "J6"), "motor B - (6V stall)"),
     ("EMIT_LINE_K", 0.12, ("LS1", "Q19"), "line emitter bank return"),
     ("EMIT_FRONT_K", 0.09, ("D1", "Q16"), "front wall emitter bank return"),
     ("EMIT_DIAG_K", 0.09, ("D3", "Q17"), "diag wall emitter bank return"),
     ("EMIT_SIDE_K", 0.09, ("D5", "Q18"), "side wall emitter bank return"),
     ("PWR_EN", 0.000005, ("SW5", "U1"), "soft-switch EN (signal)"),
+    ("MOT_EN", 0.000005, ("SW6", "U7"), "motor-rail EN (signal)"),
+    ("IMU_SDA", 0.0007, ("U8", "U3"), "I2C data (400kHz, 4.7k pull-up)"),
     ("MUX_SENSE", 0.0001, ("U4", "U3"), "line ADC (signal, 47k source)"),
 ]
 
-L = ["# Trace-Level Copper Analysis -- micromouse-pcb rev 5.3\n",
+L = ["# Trace-Level Copper Analysis -- micromouse-pcb rev 6\n",
      "Computed from the routed board file (every segment/via walked; 1 oz Cu",
      "0.492 mOhm/sq, 0.5 mOhm per via). Companion to TEST_REPORT.md (circuit",
      "level) and CONNECTIONS.md (per-net rationale).\n"]
@@ -209,7 +211,8 @@ L.append("| Net | stitch vias | trace len (mm) | note |")
 L.append("|---|---|---|---|")
 for net, note in (("GND", "In1 solid plane + both outer faces"),
                   ("PLUS3V3", "In2 solid plane"),
-                  ("VM_BATT", "partial B.Cu pour over the power/drive region")):
+                  ("VM_BATT", "B.Cu pour, battery -> both buck inputs"),
+                  ("VM_6V", "B.Cu pour, 6V buck -> TB6612/motors")):
     total, widths, nsegs, nvias = net_stats(net)
     L.append(f"| `{net}` | {nvias} | {total:.0f} | {note}; plane R << trace paths |")
 

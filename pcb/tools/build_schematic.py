@@ -24,29 +24,41 @@ g = SchGen("micromouse-pcb", paper="A1")
 #    body -- same 0.65 pitch and lead span, solderable; noted for review.
 # ---------------------------------------------------------------------------
 _MPN_STATIC = {
-    "U1": ("TPS63001DRCR", "Texas Instruments"),
+    # Rev 6 sourcing rule (user): every line verifiably IN STOCK on
+    # lioncircuits.com/parts/{MPN} (checked 2026-07-17; Lion sources turnkey
+    # from Digi-Key/Mouser/Element14/Arrow/Avnet/RS -- NOT LCSC).
+    "U1": ("AP63203WU-7", "Diodes Incorporated"),          # 3V3 buck, 2A, 3.8-32V in
     "U2": ("TB6612FNG,C,8,EL", "Toshiba"),
-    "U3": ("ESP32-S3-WROOM-1-N16", "Espressif Systems"),
+    "U3": ("ESP32-S3-WROOM-1-N8R2", "Espressif Systems"),  # quad-PSRAM: IO35-37 usable
     "U4": ("CD74HC4067M96", "Texas Instruments"),
     "U6": ("USBLC6-2SC6", "STMicroelectronics"),
-    "Q1": ("DMP2035U-7", "Diodes Incorporated"),
-    "L1": ("SRP7028A-1R5M", "Bourns"),
-    "F1": ("0ZCJ0200FF2C", "Bel Fuse"),
-    "J1": ("B2B-PH-K-S(LF)(SN)", "JST"),
-    "SW5": ("OS102011MS2QN1", "C&K"),
+    "U7": ("TPS54302DDCR", "Texas Instruments"),           # 6V motor buck, 3A, 28V in
+    "U8": ("BNO055", "Bosch Sensortec"),                   # 9-axis IMU, 3.3V native I2C
+    "Q1": ("DMP3098L-7", "Diodes Incorporated"),           # -30V/-3.8A/Vgs +/-20V (2S-safe gate)
+    "L1": ("SRP4020TA-4R7M", "Bourns"),
+    "L2": ("SRP4020TA-4R7M", "Bourns"),
+    "F1": ("MINISMDC260F/16-2", "Littelfuse"),             # PPTC 2.6A hold, 16V (2S-rated)
+    "J1": ("B2B-XH-A", "JST"),                             # 2S battery main (XH: 3A/contact)
+    "J9": ("B3B-XH-A(LF)(SN)", "JST"),                     # 2S balance tap (standard XH-3)
+    "SW5": ("PCM12SMTR", "C&K"), "SW6": ("PCM12SMTR", "C&K"),
     "J5": ("B6B-PH-K-S(LF)(SN)", "JST"),
     "J6": ("B6B-PH-K-S(LF)(SN)", "JST"),
     "J7": ("USB4105-GF-A", "GCT"),
     "J8": ("61300611121", "Wurth Elektronik"),
-    "SW1": ("B3F-1000", "Omron"), "SW2": ("B3F-1000", "Omron"),
-    "SW3": ("B3F-1000", "Omron"), "SW4": ("B3F-1000", "Omron"),
+    "SW1": ("PTS645VL582LFS", "C&K"), "SW2": ("PTS645VL582LFS", "C&K"),
+    "SW3": ("PTS645VL582LFS", "C&K"), "SW4": ("PTS645VL582LFS", "C&K"),
+    "C30": ("EEE-FT1C221AP", "Panasonic"),                 # 220uF/16V SMD alu (motor bulk)
 }
 _CAP_MPN = {
-    "100nF": ("CL21B104KBCNNNC", "Samsung Electro-Mechanics"),
-    "1uF":   ("CL21B105KAFNNNE", "Samsung Electro-Mechanics"),
-    "10uF":  ("CL21A106KPFNNNE", "Samsung Electro-Mechanics"),
-    "22uF":  ("CL21A226KPCLRNC", "Samsung Electro-Mechanics"),
-    "100uF": ("CL32A107MQVNNNE", "Samsung Electro-Mechanics"),
+    # 0805 X7R/X5R unless noted. 2S rails (VM_BATT 8.4V max / VM_6V) must use
+    # the 25V-class parts -- the old 6.3/10V bulk parts are 1S-only.
+    "100nF": ("CL21B104KBCNNNC", "Samsung Electro-Mechanics"),   # 50V
+    "1uF":   ("CL21B105KAFNNNE", "Samsung Electro-Mechanics"),   # 25V
+    "10uF":  ("CL21A106KPFNNNE", "Samsung Electro-Mechanics"),   # 10V: 3V3 rail only
+    "22uF":  ("CL21A226KPCLRNC", "Samsung Electro-Mechanics"),   # 10V: 3V3 rail only
+    "10uF/25V": ("CL32B106KBJNNNE", "Samsung Electro-Mechanics"),  # 1210 25V
+    "22uF/25V": ("CL32A226KAJNNNE", "Samsung Electro-Mechanics"),  # 1210 25V
+    "22pF":  ("CL21C220JBANNNC", "Samsung Electro-Mechanics"),   # 50V C0G
 }
 
 def _res_code(v):
@@ -73,7 +85,9 @@ def _bom_fields(ref, value, footprint):
     if fp.startswith("LED_D5.0mm_IRBlack"):
         return {"MPN": "PT334-6B", "Manufacturer": "Everlight"}
     if fp.startswith("LED_D5.0mm"):
-        return {"MPN": "SFH 4550", "Manufacturer": "ams-OSRAM"}
+        # Rev 6: IR333-A replaces SFH4550/TSAL6400 (TSAL6400 shows lifecycle
+        # "Obsolete" on Lion Circuits' own page; IR333-A is In Stock, no flag)
+        return {"MPN": "IR333-A", "Manufacturer": "Everlight"}
     if fp == "TCRT5000":
         return {"MPN": "TCRT5000", "Manufacturer": "Vishay"}
     if fp.startswith("LED_0603"):
@@ -167,7 +181,7 @@ def LED_SFH4550(ref, at, footprint="LED_THT:LED_D5.0mm_IRGrey", value=None):
     # part name (SFH4550) recorded in Value.
     base = snap(at)
     g.add_component("LED", "LD271", ref,
-                     value or "SFH4550 (real part; LD271 base symbol used so ERC checks pins)",
+                     value or "IR333-A (real part; LD271 base symbol used so ERC checks pins)",
                      base, {"1": "", "2": ""}, footprint=footprint,
                      datasheet="http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
     return pin_at(base, (-5.08, 0)), pin_at(base, (2.54, 0))  # K (cathode), A (anode)
@@ -304,30 +318,41 @@ def ref(prefix):
     return f"{prefix}{_ctr[prefix]}"
 
 # ---------------------------------------------------------------------------
-# POWER SECTION -- unchanged from build_power_mcu.py, battery input chain y=150
+# POWER SECTION -- rev 6: 2S LiPo -> AP63203 (3V3, 2A) + TPS54302 (6.0V motor
+# rail, 3A). Two slide switches: SW5 enables everything EXCEPT motors (3V3
+# buck EN); SW6 additionally enables the motor rail (6V buck EN, pulled from
+# the SW5-gated node so motors require BOTH switches on). No onboard charger:
+# a 2S pack charges on an external balance charger; J9 receives the pack's
+# balance plug for per-cell monitoring while driving.
 # ---------------------------------------------------------------------------
-TXT("POWER  --  1S LiPo -> TPS63001 buck-boost -> 3V3", (10, 190), size=5)
+TXT("POWER  --  2S LiPo -> AP63203 3V3 (2A) + TPS54302 6V motor rail (3A); SW5=logic, SW6=motors", (10, 190), size=5)
 
-# 1S LiPo (3.0-4.2V). A plain buck (rev<=3's AP63203) cannot make 3.3V from a
-# cell that sags below ~3.8V, so the regulator is a TPS63001 BUCK-BOOST
-# (1.8-5.5V in, fixed 3.3V out, 1.2A -- covers ESP32-S3 WiFi bursts). Motors
-# run from the raw protected cell rail (TB6612 VM min 2.5V); order 3V-wound
-# N20 motors, a 6V wind at 3.7V gives ~60% speed. Single cell = no balance
-# connector and ONE battery divider, tapped DOWNSTREAM of the switch/fuse/FET
-# so a stored pack is never drained by the divider (fixes the rev<=3 balance-
-# lead storage-drain risk).
-j1p1, j1p2 = CONN2("J1", "BATT_IN_1S", (20, 150), footprint="Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical")
+# 2S LiPo (6.0-8.4V) on JST-XH (3A/contact -- rated for the twin-N20 stall
+# peak). Usable pack window 6.6-8.4V (3.3V/cell firmware cutoff): above 6.6V
+# the 6V buck regulates; in the last few hundred mV of dropout it degrades
+# gracefully toward ~Vbat (documented competition practice -- firmware also
+# feeds Vbat forward into the PWM scale).
+j1p1, j1p2 = CONN2("J1", "BATT_IN_2S", (20, 150), footprint="Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical")
 RAIL("GND", j1p2, rotation=180)
 PWR("PWR_FLAG", j1p2)
+RAIL("BATT_RAW", j1p1, rotation=0)
 
-f1p1, f1p2 = FUSE("F1", "2A_resettable", (90, 150))
-WIRE(j1p1, f1p1)   # J2 removed (rev 5.3): power on/off is SW5 on U1's EN
+# Balance tap (JST-XH 3-pin = the standard 2S balance plug): pin1 GND (B-),
+# pin2 pack midpoint (B1+), pin3 pack + (B2+, same wire pair as J1 pin 1).
+# Monitoring only -- charge current never flows through this board.
+j9p1, j9p2, j9p3 = CONN3("J9", "BALANCE_2S", (20, 110))
+RAIL("GND", j9p1, rotation=180)
+RAIL("BAT_MID", j9p2, rotation=180)
+RAIL("BATT_RAW", j9p3, rotation=180)
+
+f1p1, f1p2 = FUSE("F1", "2.6A/16V PPTC", (90, 150), footprint="Fuse:Fuse_1812_4532Metric")
+RAIL("BATT_RAW", f1p1, rotation=90)
 
 # Reverse-polarity P-MOSFET: battery -> DRAIN, load -> SOURCE, gate to GND
-# (see PROJECT_NOTES for the body-diode proof). At 1S the gate sees
-# -3.0..-4.2V -- use a low-threshold P-FET (DMP2035U: Vgs(th) ~-0.7V, fully
-# enhanced by -2.5V).
-qD, qG, qS = QPMOS("Q1", "Q_PMOS low-Vth (e.g. DMP2035U-7)", (125, 150))
+# (body-diode proof in PROJECT_NOTES). At 2S the gate sees -6.0..-8.4V --
+# DMP3098L-7 is Vgs +/-20V rated (the rev<=5 DMP2035U was +/-8V: 2S-unsafe),
+# -30V/-3.8A, Rds(on) well-enhanced by -4.5V.
+qD, qG, qS = QPMOS("Q1", "Q_PMOS reverse guard (DMP3098L-7: Vgs +/-20V, 2S-safe)", (125, 150))
 WIRE(f1p2, qD)
 
 r1p1, r1p2 = R("R1", "100k", (125, 115))
@@ -337,7 +362,9 @@ RAIL("GND", r1p2, rotation=270)
 RAIL("VM_BATT", qS, rotation=90)
 PWR("PWR_FLAG", qS)
 
-c1p1, c1p2 = C("C1", "100uF", (155, 150), footprint="Capacitor_SMD:C_1210_3225Metric")
+# Input bulk: 10uF/25V ceramics (X5R 1210 -- 25V class holds real capacitance
+# at 8.4V bias; the old 6.3-10V parts were 1S-only) + 100nF HF.
+c1p1, c1p2 = C("C1", "10uF/25V", (155, 150), footprint="Capacitor_SMD:C_1210_3225Metric")
 RAIL("VM_BATT", c1p1, rotation=90)
 RAIL("GND", c1p2, rotation=270)
 
@@ -345,88 +372,156 @@ c2p1, c2p2 = C("C2", "100nF", (175, 150))
 RAIL("VM_BATT", c2p1, rotation=90)
 RAIL("GND", c2p2, rotation=270)
 
-c4p1, c4p2 = C("C4", "10uF", (210, 150))
+c4p1, c4p2 = C("C4", "10uF/25V", (210, 150), footprint="Capacitor_SMD:C_1210_3225Metric")
 RAIL("VM_BATT", c4p1, rotation=90)
 RAIL("GND", c4p2, rotation=270)
 
-# TPS63001 buck-boost. Instantiated as the TPS63000 BASE symbol (TPS63001
-# `extends` it, and extends-symbols silently skip ERC pin checks -- same
-# workaround as the AP63203/LD271/BSS138 cases, real part recorded in Value).
-# Fixed-3.3V version: FB ties directly to VOUT.
+# --- 3V3 logic buck: AP63203WU-7 (TSOT-26, fixed 3.3V, 2A, 3.8-32V in,
+# 1.1MHz). Base symbol AP63200WU instantiated (AP63203WU `extends` it and
+# extends-symbols skip ERC pin checks -- standing workaround), real part in
+# Value. Pinout (TSOT-26): 1 FB / 2 EN / 3 VIN / 4 GND / 5 SW / 6 BST.
 U1_BASE = snap((250, 150))
-g.add_component("Regulator_Switching", "TPS63000", "U1",
-                 "TPS63001 (fixed 3.3V buck-boost; TPS63000 base symbol so ERC checks pins)",
-                 U1_BASE, {str(n): "" for n in range(1, 12)},
-                 footprint="Package_SON:Texas_DRC0010J_ThermalVias",
-                 datasheet="https://www.ti.com/lit/ds/symlink/tps63001.pdf")
-u1_vout = pin_at(U1_BASE, (10.16, 10.16))
-u1_l2   = pin_at(U1_BASE, (-10.16, -10.16))
-u1_pgnd = pin_at(U1_BASE, (0, -15.24))
-u1_l1   = pin_at(U1_BASE, (-10.16, 0))
-u1_vin  = pin_at(U1_BASE, (-10.16, 10.16))
-u1_en   = pin_at(U1_BASE, (-10.16, 5.08))
-u1_ps   = pin_at(U1_BASE, (-10.16, 2.54))
-u1_vina = pin_at(U1_BASE, (-10.16, 7.62))
-u1_gnd  = pin_at(U1_BASE, (-2.54, -15.24))
-u1_fb   = pin_at(U1_BASE, (10.16, 2.54))
+g.add_component("Regulator_Switching", "AP63200WU", "U1",
+                 "AP63203WU-7 (fixed 3.3V 2A buck; AP63200WU base symbol so ERC checks pins)",
+                 U1_BASE, {str(n): "" for n in range(1, 7)},
+                 footprint="Package_TO_SOT_SMD:TSOT-23-6",
+                 datasheet="https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf")
+u1_fb  = pin_at(U1_BASE, (10.16, -2.54))
+u1_en  = pin_at(U1_BASE, (-10.16, -2.54))
+u1_vin = pin_at(U1_BASE, (-10.16, 2.54))
+u1_gnd = pin_at(U1_BASE, (0, -7.62))
+u1_sw  = pin_at(U1_BASE, (10.16, 2.54))
+u1_bst = pin_at(U1_BASE, (10.16, 0))
 
 RAIL("VM_BATT", u1_vin, rotation=180)
 RAIL("PWR_EN", u1_en, rotation=180)      # soft power switch node (R69 + SW5)
-RAIL("VM_BATT", u1_vina, rotation=180)   # analog supply sense
-RAIL("GND", u1_ps, rotation=180)         # PS/SYNC low = power-save enabled
-RAIL("GND", u1_pgnd, rotation=270)
 RAIL("GND", u1_gnd, rotation=270)
-RAIL("PLUS3V3", u1_vout, rotation=0)
-# (no PWR_FLAG here: TPS63000's VOUT pin is already Power-Output typed --
-# adding a flag makes ERC flag two power outputs on one net)
-WIRE(u1_fb, pin_at(U1_BASE, (10.16, 10.16)))  # FB -> VOUT (fixed-voltage part)
+RAIL("SW_3V3", u1_sw, rotation=0)
+# AP63203 (fixed): FB pin is the VOUT sense -- tie to the output rail.
+RAIL("PLUS3V3", u1_fb, rotation=0)
+PWR("PWR_FLAG", pin_at(U1_BASE, (10.16, -2.54)))
 
-# Buck-boost inductor between L1 and L2 pins (1.5uH = TPS63001 datasheet
-# typical; SRP7028A-1R5M verified orderable, 18A Isat).
-bst_p1, bst_p2 = L("L1", "1.5uH", (222, 130))
-WIRE(u1_l1, bst_p1)
-WIRE(u1_l2, bst_p2)
+# Bootstrap cap BST->SW (datasheet 0.1uF) + power inductor SW -> 3V3.
+cb1a, cb1b = C("C3", "100nF", (238, 118))
+RAIL("SW_3V3", cb1a, rotation=90)
+WIRE(cb1b, u1_bst)
+l1p1, l1p2 = L("L1", "4.7uH", (272, 150), footprint="n20:L_Bourns_SRP4020TA")
+RAIL("SW_3V3", l1p1, rotation=90)
+RAIL("PLUS3V3", l1p2, rotation=270)
 
-# Soft power switch: R69 pulls EN to the battery rail; SW5 (signal-level
-# slide, C&K OS102011MS2QN1) grounds EN to shut the whole 3V3 domain down.
-# With 3V3 dead the ESP32 is off, STBY sits in R66's pulldown, and the
-# TB6612 outputs are Hi-Z -- motors cannot run. VM_BATT itself stays wired
-# (Q1 cannot be gate-switched: its body diode conducts battery->load by
-# design of the reverse-protection topology). OFF-state drain is the two
-# always-on dividers (~120uA total) -- unplug for storage.
-# 1M (not 100k): with SW5 holding EN low the pull-up drains VIN/R
-# continuously -- 100k would leak 42uA against the TPS63001's 0.1uA
-# shutdown; 1M is ~4uA. EN input current is 0.1uA max, so 1M still gives a
-# rock-solid high.
-r69a, r69b = R("R69", "1M", (232, 143))
+# Output caps: 2x 22uF (10V class is fine on the 3.3V rail).
+c5p1, c5p2 = C("C5", "22uF", (285, 150))
+RAIL("PLUS3V3", c5p1, rotation=90)
+RAIL("GND", c5p2, rotation=270)
+c7p1, c7p2 = C("C7", "22uF", (295, 150))
+RAIL("PLUS3V3", c7p1, rotation=90)
+RAIL("GND", c7p2, rotation=270)
+
+# SW5 = master soft switch: R69 pulls PWR_EN to the battery rail (AP63203 EN
+# is VIN-tolerant); PCM12SMTR slide grounds it = everything off.
+# R69 = 100k, NOT the rev-5 1M: PWR_EN also SOURCES the R70/R71 MOT_EN
+# divider, and with a 1M source impedance the whole string computed to
+# MOT_EN = 0.64V -- BELOW the TPS54302's 1.21V enable threshold: the motor
+# rail could never turn on (caught by circuit_tests P10, 2026-07-17). With
+# 100k/220k/110k the string gives MOT_EN = 0.256*VBAT = 1.69V at the 6.6V
+# pack floor (worst-case threshold 1.31V: real margin) and 2.15V at 8.4V.
+# Off-state drain through the string: ~20uA (acceptable; unplug for storage).
+r69a, r69b = R("R69", "100k", (232, 143))
 RAIL("VM_BATT", r69a, rotation=90)
 RAIL("PWR_EN", r69b, rotation=270)
 SW5_BASE = snap((243, 155))
 g.add_component("Switch", "SW_SPDT", "SW5",
-                 "PWR (OS102011MS2QN1 slide; slide-to-GND = OFF)", SW5_BASE,
+                 "PWR ALL (PCM12SMTR slide; slide-to-GND = OFF)", SW5_BASE,
                  {"1": "", "2": "", "3": ""},
-                 footprint="Button_Switch_THT:SW_Slide_SPDT_Straight_CK_OS102011MS2Q")
+                 footprint="Button_Switch_SMD:SW_SPDT_PCM12")
 RAIL("GND", pin_at(SW5_BASE, (5.08, 2.54)), rotation=0)      # throw A -> GND
 RAIL("PWR_EN", pin_at(SW5_BASE, (-5.08, 0)), rotation=180)   # common -> EN node
 NC(pin_at(SW5_BASE, (5.08, -2.54)))                          # throw B unused
 
-c3p1, c3p2 = C("C3", "100nF", (238, 118))   # VINA filter (datasheet 0.1uF)
-WIRE(c3p1, u1_vina)
-RAIL("GND", c3p2, rotation=270)
-
-c5p1, c5p2 = C("C5", "22uF", (285, 150))
-RAIL("PLUS3V3", c5p1, rotation=90)
-RAIL("GND", c5p2, rotation=270)
-
-TXT("+3V3 is the single regulated logic rail: the ESP32-S3 module, mux logic, encoder VCC,\nphototransistor pull-ups, indicator drivers and IR LED current all come from here.",
+TXT("+3V3 is the regulated logic rail: ESP32-S3, mux, IMU, encoder VCC, PT pull-ups,\nindicator drivers and IR LED current. VM_6V feeds ONLY the TB6612 VM pins.",
     (200, 100), size=2.2)
 
-# Battery voltage divider: VM_BATT (protected rail) -> R2/R3 -> VBAT_SENSE.
-# 10k/22k scales 4.2V max to 2.89V (inside the 3.3V ADC range). C6 low-passes
-# motor PWM noise. Tapped downstream of the switch so storage packs see no load.
-r2p1, r2p2 = R("R2", "22k", (60, 65))
+# --- 6V MOTOR RAIL: TPS54302 (SOT-23-6, 3A, 4.5-28V in, 400kHz). FB divider
+# 100k/11k -> 0.596V x (1+100/11) = 6.01V. Motors therefore see a REGULATED
+# 6.0V with the buck's 3A current limit as a hard supply-side ceiling
+# (per-channel limits are TB6612's own). Pinout: 1 GND / 2 SW / 3 VIN /
+# 4 FB / 5 EN / 6 BOOT.
+U7_BASE = snap((250, 230))
+g.add_component("Regulator_Switching", "TPS54302", "U7",
+                 "TPS54302DDCR (6.0V/3A motor buck; FB=100k/11k)",
+                 U7_BASE, {str(n): "" for n in range(1, 7)},
+                 footprint="Package_TO_SOT_SMD:SOT-23-6",
+                 datasheet="https://www.ti.com/lit/ds/symlink/tps54302.pdf")
+u7_gnd = pin_at(U7_BASE, (0, -7.62))
+u7_sw  = pin_at(U7_BASE, (10.16, 0))
+u7_vin = pin_at(U7_BASE, (-10.16, 2.54))
+u7_fb  = pin_at(U7_BASE, (10.16, -2.54))
+u7_en  = pin_at(U7_BASE, (-10.16, -2.54))
+u7_bst = pin_at(U7_BASE, (10.16, 2.54))
+
+RAIL("VM_BATT", u7_vin, rotation=180)
+RAIL("GND", u7_gnd, rotation=270)
+RAIL("MOT_EN", u7_en, rotation=180)
+RAIL("SW_6V", u7_sw, rotation=0)
+RAIL("FB_6V", u7_fb, rotation=0)
+
+cb2a, cb2b = C("C15", "100nF", (238, 205))
+RAIL("SW_6V", cb2a, rotation=90)
+WIRE(cb2b, u7_bst)
+l2p1, l2p2 = L("L2", "4.7uH", (272, 230), footprint="n20:L_Bourns_SRP4020TA")
+RAIL("SW_6V", l2p1, rotation=90)
+RAIL("VM_6V", l2p2, rotation=270)
+PWR("PWR_FLAG", l2p2)
+
+# 6V rail caps: 2x 22uF/25V 1210 at the buck + the 220uF/16V alu bulk (C30)
+# lives at the TB6612 VM entry (motor hot-loop, standards item).
+c16a, c16b = C("C16", "22uF/25V", (285, 230), footprint="Capacitor_SMD:C_1210_3225Metric")
+RAIL("VM_6V", c16a, rotation=90)
+RAIL("GND", c16b, rotation=270)
+c17a, c17b = C("C17", "22uF/25V", (295, 230), footprint="Capacitor_SMD:C_1210_3225Metric")
+RAIL("VM_6V", c17a, rotation=90)
+RAIL("GND", c17b, rotation=270)
+c18a, c18b = C("C18", "10uF/25V", (305, 230), footprint="Capacitor_SMD:C_1210_3225Metric")
+RAIL("VM_BATT", c18a, rotation=90)
+RAIL("GND", c18b, rotation=270)
+
+# FB divider (6.01V)
+r73a, r73b = R("R73", "100k", (315, 230))
+RAIL("VM_6V", r73a, rotation=90)
+RAIL("FB_6V", r73b, rotation=270)
+r74a, r74b = R("R74", "11k", (325, 230))
+RAIL("FB_6V", r74a, rotation=90)
+RAIL("GND", r74b, rotation=270)
+
+# SW6 = motor enable. The pull-up feeds from PWR_EN (NOT VM_BATT): motors can
+# only be enabled when SW5 is already on -- "SW6 enables supply to motors
+# ALSO". The R69/R70/R71 string (100k/220k/110k) puts the TPS54302 EN at
+# 1.69-2.15V across the pack window: above the worst-case 1.31V rising
+# threshold, far below any absolute limit. SW6 shorts MOT_EN to GND = off.
+r70a, r70b = R("R70", "220k", (232, 250))
+RAIL("PWR_EN", r70a, rotation=90)
+RAIL("MOT_EN", r70b, rotation=270)
+r71a, r71b = R("R71", "110k", (222, 250))
+RAIL("MOT_EN", r71a, rotation=90)
+RAIL("GND", r71b, rotation=270)
+SW6_BASE = snap((243, 262))
+g.add_component("Switch", "SW_SPDT", "SW6",
+                 "PWR MOTORS (PCM12SMTR slide; slide-to-GND = motors OFF)", SW6_BASE,
+                 {"1": "", "2": "", "3": ""},
+                 footprint="Button_Switch_SMD:SW_SPDT_PCM12")
+RAIL("GND", pin_at(SW6_BASE, (5.08, 2.54)), rotation=0)
+RAIL("MOT_EN", pin_at(SW6_BASE, (-5.08, 0)), rotation=180)
+NC(pin_at(SW6_BASE, (5.08, -2.54)))
+
+# Battery telemetry dividers -> MUX channels (rev 6: IO8/IO37 were reclaimed
+# for MUX_S3/IMU_INT; VBAT, the pack midpoint and VBUS all read through the
+# 4067's spare channels). Pack: 100k/39k -> 8.4V => 2.36V. Midpoint:
+# 100k/100k -> 4.2V => 2.1V. Tapped DOWNSTREAM of Q1 (VBAT) so a stored pack
+# sees only J9's 200k midpoint path (~21uA) -- acceptable for a pack that is
+# unplugged for storage anyway (documented).
+r2p1, r2p2 = R("R2", "100k", (60, 65))
 RAIL("VM_BATT", r2p1, rotation=90)
-r3p1, r3p2 = R("R3", "33k", (60, 40))
+r3p1, r3p2 = R("R3", "39k", (60, 40))
 WIRE(r2p2, r3p1)
 RAIL("GND", r3p2, rotation=270)
 c6p1, c6p2 = C("C6", "100nF", (80, 52))
@@ -434,7 +529,17 @@ WIRE(r2p2, c6p1)
 RAIL("GND", c6p2, rotation=270)
 RAIL("VBAT_SENSE", r2p2, rotation=0)
 
-TXT("VBAT_SENSE = cell voltage (0-4.2V) scaled to <=2.52V by 22k/33k (the S3 ADC calibrated\nrange tops at ~2.9V with worst error near the top -- keep headroom). Into ADC1 IO8.\nFirmware low-battery cutoff at 3.0V/cell. Single 1S cell: no balance lead.",
+r75a, r75b = R("R75", "100k", (100, 65))
+RAIL("BAT_MID", r75a, rotation=90)
+r76a, r76b = R("R76", "100k", (100, 40))
+WIRE(r75b, r76a)
+RAIL("GND", r76b, rotation=270)
+c19a, c19b = C("C19", "100nF", (118, 52))
+WIRE(r75b, c19a)
+RAIL("GND", c19b, rotation=270)
+RAIL("BAT_MID_SENSE", r75b, rotation=0)
+
+TXT("VBAT_SENSE = pack (0-8.4V) x 39/139 <= 2.36V; BAT_MID_SENSE = cell-1 (0-4.2V) x 1/2 <= 2.1V.\nBoth + VBUS_SENSE read through mux channels Y8/Y9/Y10 (ADC1 IO7). Firmware cutoff:\n3.3V/cell (either cell) = 6.6V pack floor; the 6V rail is in regulation across that window.",
     (20, 20), size=2.2)
 
 # ---------------------------------------------------------------------------
@@ -455,18 +560,26 @@ TXT("VBAT_SENSE = cell voltage (0-4.2V) scaled to <=2.52V by 22k/33k (the S3 ADC
 TXT("MOTOR DRIVER (TB6612FNG, SMD)  --  2x N20-with-encoder motors", (10, 230), size=5)
 
 U2 = TB6612("U2", (95, 310))
-RAIL("VM_BATT", U2["VM1"], rotation=90)
-RAIL("VM_BATT", U2["VM2"], rotation=90)
-RAIL("VM_BATT", U2["VM3"], rotation=90)
+RAIL("VM_6V", U2["VM1"], rotation=90)
+RAIL("VM_6V", U2["VM2"], rotation=90)
+RAIL("VM_6V", U2["VM3"], rotation=90)
 RAIL("PLUS3V3", U2["VCC"], rotation=90)
 RAIL("GND", U2["GND"], rotation=270)
 RAIL("GND", U2["PGND1"], rotation=270)
 RAIL("GND", U2["PGND2"], rotation=270)
-RAIL("STBY", U2["STBY"], rotation=180)
-RAIL("PWMA", U2["PWMA"], rotation=180)
+# Rev 6 IN/IN PWM mode: PWMA/PWMB tied HIGH (permanent), the four IN pins
+# carry LEDC PWM (Toshiba-documented drive mode; frees two GPIOs for I2C).
+# STBY tied HIGH through R55: the hardware motor kill is now SW6 (VM_6V buck
+# EN) and TB6612's IN pins have internal pull-downs, so a held-in-reset MCU
+# leaves the outputs off. IO46 (the old STBY strap risk) is freed to a clean
+# no-connect.
+RAIL("PLUS3V3", U2["PWMA"], rotation=180)
+RAIL("PLUS3V3", U2["PWMB"], rotation=180)
+r55a, r55b = R("R55", "10k", (60, 285))
+RAIL("PLUS3V3", r55a, rotation=90)
+WIRE(r55b, U2["STBY"])
 RAIL("AIN1", U2["AIN1"], rotation=180)
 RAIL("AIN2", U2["AIN2"], rotation=180)
-RAIL("PWMB", U2["PWMB"], rotation=180)
 RAIL("BIN1", U2["BIN1"], rotation=180)
 RAIL("BIN2", U2["BIN2"], rotation=180)
 RAIL("MOTA_P", U2["AO1"], rotation=0)
@@ -474,17 +587,22 @@ RAIL("MOTA_N", U2["AO2"], rotation=0)
 RAIL("MOTB_P", U2["BO1"], rotation=0)
 RAIL("MOTB_N", U2["BO2"], rotation=0)
 
-c11a, c11b = C("C11", "10uF", (130, 335))
-RAIL("VM_BATT", c11a, rotation=90)
+# VM decoupling for 2S/6V: C30 220uF/16V alu bulk (hot-loop, standards item)
+# + 10uF/25V + 100nF ceramics at the pins.
+c30a, c30b = C("C30", "220uF/16V", (118, 335), footprint="Capacitor_SMD:CP_Elec_6.3x7.7")
+RAIL("VM_6V", c30a, rotation=90)
+RAIL("GND", c30b, rotation=270)
+c11a, c11b = C("C11", "10uF/25V", (130, 335), footprint="Capacitor_SMD:C_1210_3225Metric")
+RAIL("VM_6V", c11a, rotation=90)
 RAIL("GND", c11b, rotation=270)
 c12a, c12b = C("C12", "100nF", (142, 335))
-RAIL("VM_BATT", c12a, rotation=90)
+RAIL("VM_6V", c12a, rotation=90)
 RAIL("GND", c12b, rotation=270)
 c14a, c14b = C("C14", "100nF", (154, 335))
 RAIL("PLUS3V3", c14a, rotation=90)
 RAIL("GND", c14b, rotation=270)
 
-TXT("Bare TB6612FNG (U2, SSOP-24): STBY/AIN/BIN plain GPIO, PWMA/PWMB = LEDC.\nVM = raw 1S cell (2.5V min OK), VCC = +3V3. Doubled pins (AO1/AO2/BO1/BO2 pairs,\nPGND pairs, VM triple) are bridged by the router's micro-bridge pass.\nDecoupling at the chip: C11 10uF + C12 100nF on VM, C14 100nF on VCC.",
+TXT("Bare TB6612FNG (U2, SSOP-24) in IN/IN PWM mode: PWMA/PWMB tied 3V3, AIN/BIN = LEDC\n(IN1=PWM,IN2=0 fwd-coast; IN1=PWM,IN2=1 rev-brake). VM = regulated 6.0V rail (TPS54302,\n3A limit) gated by SW6; STBY pulled high (R55) -- motor kill = SW6 + IN pins' internal\npull-downs. Decoupling: C30 220uF/16V alu + C11 10uF/25V + C12 100nF on VM, C14 on VCC.",
     (10, 258), size=2.0)
 
 # Motor A connector: M+/M- come from U2's AO outputs (MOTA_P/N), plus
@@ -530,19 +648,21 @@ TXT("10k pull-ups on all 4 encoder lines -- defensive: N20-encoder wire-color-to
 # so all 6 wall sensors read DIRECTLY (mux only for the line array); plus a
 # rear USB-C for flashing, a JTAG header for debugging, and 3 user buttons.
 #
-# LOCKED PIN MAP (ADC1 = IO1..IO10 is the only WiFi-safe ADC):
-#   IO1-6  WALL1-6_SENSE   IO7 MUX_SENSE   IO8 VBAT_SENSE
-#   IO9/10 AIN1/AIN2 (ADC-capable pins spent as motor GPIOs)
-#   IO11-13 MUX_S0-2   IO14 LINE_EMIT   IO15-17 WALL_EMIT_FRONT/DIAG/SIDE
-#   IO18/21 PWMA/PWMB (LEDC)   IO38 BIN1
-#   IO45 BIN2 / IO46 STBY -- STRAPPING pins used as motor outputs: safe ONLY
-#     because they idle LOW and carry no pull-ups (IO45 high at reset would
-#     select 1.8V flash supply = brick; never add a pull-up to these nets)
+# LOCKED PIN MAP rev 6 (ADC1 = IO1..IO10 is the only WiFi-safe ADC):
+#   IO1-6  WALL1-6_SENSE   IO7 MUX_SENSE (line array + battery telemetry)
+#   IO8 MUX_S3 (4067 high select -- VBAT/BAT_MID/VBUS moved onto mux Y8/9/10)
+#   IO9/10 AIN1/AIN2 (LEDC PWM, IN/IN mode)   IO11-13 MUX_S0-2
+#   IO14 LINE_EMIT   IO15-17 WALL_EMIT_FRONT/DIAG/SIDE
+#   IO18 IMU_SDA / IO21 IMU_SCL (I2C to BNO055; freed by IN/IN motor mode)
+#   IO37 IMU_INT   IO38 BIN1
+#   IO45 BIN2 -- STRAPPING pin as motor output: safe ONLY because it idles
+#     LOW and carries only R65's pull-DOWN (IO45 high at reset selects 1.8V
+#     flash supply = brick; never add a pull-up to this net)
+#   IO46 NC (rev 6: STBY tied high at U2 -- the strap risk is GONE)
 #   IO39-42 JTAG (MTCK/MTDO/MTDI/MTMS) -> J8, dedicated for debugging
 #   IO43(TXD0)/IO44(RXD0) ENC2_B/ENC2_A   IO47/48 ENC1_A/B  (console = USB-CDC)
-#   IO0 BTN1/BOOT   IO35/36 BTN2/BTN3 (internal pull-ups; on octal-PSRAM -R8
-#     modules IO35-37 are unavailable -> buttons 2/3 lost, control unaffected)
-#   IO37 spare (NC)
+#   IO0 BTN1/BOOT   IO35/36 BTN2/BTN3 (internal pull-ups; N8R2 = quad PSRAM,
+#     so IO35-37 exist -- only octal -R8 modules lose them)
 TXT("CONTROLLER  --  ESP32-S3-WROOM-1 (dual-core 240MHz, FreeRTOS, WiFi): control + telemetry", (300, 230), size=5)
 
 WROOM_PADS = {
@@ -565,17 +685,17 @@ U3_NET = {  # module pad -> net (None = explicit no-connect)
     "2": "PLUS3V3", "3": "ESP_EN",
     "39": "WALL1_SENSE", "38": "WALL2_SENSE", "15": "WALL3_SENSE",       # IO1-3
     "4": "WALL4_SENSE", "5": "WALL5_SENSE", "6": "WALL6_SENSE",          # IO4-6
-    "7": "MUX_SENSE", "12": "VBAT_SENSE",                                # IO7/IO8
-    "17": "AIN1", "18": "AIN2",                                          # IO9/IO10
+    "7": "MUX_SENSE", "12": "MUX_S3",                                    # IO7/IO8
+    "17": "AIN1", "18": "AIN2",                                          # IO9/IO10 (LEDC PWM)
     "19": "MUX_S0", "20": "MUX_S1", "21": "MUX_S2",                      # IO11-13
     "22": "LINE_EMIT",                                                   # IO14
     "8": "WALL_EMIT_FRONT", "9": "WALL_EMIT_DIAG", "10": "WALL_EMIT_SIDE",  # IO15-17
-    "11": "PWMA", "23": "PWMB",                                          # IO18/IO21
-    "28": "USER_BTN2", "29": "USER_BTN3", "30": "VBUS_SENSE",            # IO35/36; IO37 = USB cable detect
+    "11": "IMU_SDA", "23": "IMU_SCL",                                    # IO18/IO21 (I2C, BNO055)
+    "28": "USER_BTN2", "29": "USER_BTN3", "30": "IMU_INT",               # IO35/36; IO37 = BNO055 interrupt
     "31": "BIN1",                                                        # IO38
     "32": "JTAG_TCK", "33": "JTAG_TDO", "34": "JTAG_TDI", "35": "JTAG_TMS",  # IO39-42
     "36": "ENC2_A_S3", "37": "ENC2_B_S3",   # IO44(RXD0)/IO43(TXD0) via 1k guards
-    "26": "BIN2", "16": "STBY",                                          # IO45/IO46 straps (idle-low outputs)
+    "26": "BIN2", "16": None,                    # IO45 strap (idle-low output); IO46 NC (STBY tied high)
     "24": "ENC1_A", "25": "ENC1_B",                                      # IO47/IO48
     "27": "USER_BTN",                                                    # IO0 (BOOT strap)
     "13": "USB_DM", "14": "USB_DP",
@@ -583,7 +703,7 @@ U3_NET = {  # module pad -> net (None = explicit no-connect)
 }
 U3_BASE = snap((360, 300))
 g.add_component("RF_Module", "ESP32-S3-WROOM-1", "U3",
-                "ESP32-S3-WROOM-1-N16 (non-R8: octal-PSRAM variants lose IO35-37 = buttons 2/3)",
+                "ESP32-S3-WROOM-1-N8R2 (quad PSRAM: IO35-37 usable; octal -R8 would lose them)",
                 U3_BASE, {str(n): "" for n in range(1, 42)},
                 footprint="RF_Module:ESP32-S3-WROOM-1",
                 datasheet="https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf")
@@ -682,19 +802,19 @@ for _ref, _net, _gx in (("R61", "LINE_EMIT", 445), ("R62", "WALL_EMIT_FRONT", 45
     RAIL("GND", _p2, rotation=270)
 
 # Strap insurance: IO45 (BIN2) high at reset would switch VDD_SPI to 1.8V and
-# brick the boot; with the TB6612 breakout UNPLUGGED its trace is a floating
-# stub on a strap. 10k pull-downs guarantee both straps read low at reset and
-# double as motor-safety (STBY held low = driver disabled until firmware acts).
+# brick the boot. A 10k pull-down guarantees the strap reads low at reset.
+# (Rev 6: R66 deleted -- STBY is tied high at U2 and IO46 is a clean NC, so
+# the second strap risk no longer exists.)
 rs45a, rs45b = R("R65", "10k", (490, 330))
 RAIL("BIN2", rs45a, rotation=90)
 RAIL("GND", rs45b, rotation=270)
-rs46a, rs46b = R("R66", "10k", (505, 330))
-RAIL("STBY", rs46a, rotation=90)
-RAIL("GND", rs46b, rotation=270)
 
-# USB ESD array (exposed user-handled connector on a robot) + 22R series
-# resistors near the module (Espressif schematic checklist). USBLC6 rail pin
-# clamps to +3V3 (VBUS is unused on this board).
+# USB ESD array (exposed user-handled connector on a robot). USBLC6 rail pin
+# clamps to +3V3 (VBUS is unused on this board). Rev 6: NO 22R series
+# resistors -- the ESP32-S3's integrated FS PHY meets the USB driver-impedance
+# window internally and every Espressif S3 devkit routes GPIO19/20 directly
+# to the connector (standards review 2026-07-17); dropping R59/R60 also
+# removes two parts from the most congested routing pocket on the board.
 U6_BASE = snap((520, 300))
 # Base symbol USBLC6-2P6 instantiated directly (USBLC6-2SC6 `extends` it and
 # extends-symbols skip ERC pin checks -- the standing workaround); real SOT-23-6
@@ -708,12 +828,8 @@ RAIL("USB_DM_C", pin_at(U6_BASE, (-5.08, 0)), rotation=180)    # I/O1 conn side
 RAIL("USB_DP_C", pin_at(U6_BASE, (-5.08, -2.54)), rotation=180)  # I/O2 conn side
 RAIL("GND", pin_at(U6_BASE, (0, -7.62)), rotation=270)
 RAIL("PLUS3V3", pin_at(U6_BASE, (0, 5.08)), rotation=90)
-ru1a, ru1b = R("R59", "22", (545, 295))
-WIRE(ru1a, pin_at(U6_BASE, (5.08, 0)))         # I/O1 module side
-RAIL("USB_DM", ru1b, rotation=270)
-ru2a, ru2b = R("R60", "22", (555, 289))
-WIRE(ru2a, pin_at(U6_BASE, (5.08, -2.54)))     # I/O2 module side
-RAIL("USB_DP", ru2b, rotation=270)
+RAIL("USB_DM", pin_at(U6_BASE, (5.08, 0)), rotation=0)        # I/O1 module side (direct)
+RAIL("USB_DP", pin_at(U6_BASE, (5.08, -2.54)), rotation=0)    # I/O2 module side (direct)
 
 # JTAG debug header (J8): 2.54mm 1x6 strip -- a 1.27mm 2x5 is UNROUTABLE at
 # this board's 0.3mm no-inter-pin clearance (0.53mm pad gaps; router-proven).
@@ -765,6 +881,76 @@ TXT("Buttons are lettered on the silkscreen: A=SW1, B=SW3, C=SW4, RST=SW2.\n"
     (600, 260), size=2.0)
 
 # ---------------------------------------------------------------------------
+# IMU -- BNO055 9-axis (accel+gyro+mag, on-chip fusion), rev-6 user request.
+# 3.3V-native (VDD and VDDIO both 3V3 -- the ICM-20948 alternative was
+# rejected: its VDDIO is 1.8V-only and would force level shifters). I2C mode:
+# PS0=PS1=GND; COM0=SDA, COM1=SCL, COM2=GND, COM3=addr select (GND = 0x28).
+# Wiring cross-checked against the Adafruit breakout reference netlist.
+# INTERNAL 32.768kHz oscillator (rev 6.1): the external crystal was dropped.
+# It is a Bosch RECOMMENDATION for best fusion time-base accuracy, not a
+# requirement -- the BNO055 has a built-in oscillator (Adafruit's default
+# configuration runs internal, CLK_SEL=0). Fitting the crystal 3.2mm from a
+# 0.5mm-pitch LGA-28 in this dense cluster made XIN32/XOUT32 (both north-row
+# LGA pads) unroutable; internal-clock removes X1/C21/C22 and the two hardest
+# nets on the board. Firmware leaves SYS_TRIGGER.CLK_SEL at 0. INT -> IO37.
+# ---------------------------------------------------------------------------
+TXT("IMU  --  BNO055 9-axis on I2C (IO18=SDA, IO21=SCL, IO37=INT), addr 0x28; internal osc", (600, 420), size=5)
+U8_BASE = snap((650, 480))
+g.add_component("Sensor_Motion", "BNO055", "U8",
+                 "BNO055 (9-axis IMU + fusion; 3.3V native; I2C 0x28)",
+                 U8_BASE, {str(n): "" for n in range(1, 29)},
+                 footprint="n20:BNO055",
+                 datasheet="https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bno055-ds000.pdf")
+RAIL("GND", pin_at(U8_BASE, (-2.54, -17.78)), rotation=270)     # GND (2)
+RAIL("PLUS3V3", pin_at(U8_BASE, (-2.54, 17.78)), rotation=90)   # VDD (3)
+RAIL("PLUS3V3", pin_at(U8_BASE, (2.54, 17.78)), rotation=90)    # VDDIO (28)
+RAIL("GND", pin_at(U8_BASE, (2.54, -17.78)), rotation=270)      # GNDIO (25)
+RAIL("GND", pin_at(U8_BASE, (15.24, -10.16)), rotation=0)       # PS1 (5) -> I2C mode
+RAIL("GND", pin_at(U8_BASE, (15.24, -7.62)), rotation=0)        # PS0 (6) -> I2C mode
+RAIL("GND", pin_at(U8_BASE, (-15.24, -12.7)), rotation=180)     # COM3 (17) addr = 0x28
+RAIL("GND", pin_at(U8_BASE, (-15.24, -10.16)), rotation=180)    # COM2 (18) unused in I2C
+RAIL("IMU_SCL", pin_at(U8_BASE, (-15.24, -7.62)), rotation=180)  # COM1 (19)
+RAIL("IMU_SDA", pin_at(U8_BASE, (-15.24, -5.08)), rotation=180)  # COM0 (20)
+RAIL("IMU_INT", pin_at(U8_BASE, (-15.24, 7.62)), rotation=180)   # INT (14)
+NC(pin_at(U8_BASE, (-15.24, 0)))                                 # BL_IND (10) unused
+
+# nBOOT_LOAD_PIN + nRESET pull-ups (10k)
+r79a, r79b = R("R79", "10k", (615, 445))
+WIRE(r79b, pin_at(U8_BASE, (-15.24, 2.54)))                      # nBOOT (4)
+RAIL("PLUS3V3", r79a, rotation=90)
+r80a, r80b = R("R80", "10k", (602, 445))
+WIRE(r80b, pin_at(U8_BASE, (-15.24, 12.7)))                      # nRESET (11)
+RAIL("PLUS3V3", r80a, rotation=90)
+
+# CAP pin: internal LDO bypass (Adafruit reference: 100nF to GND)
+c20a, c20b = C("C20", "100nF", (690, 445))
+WIRE(c20a, pin_at(U8_BASE, (15.24, -12.7)))                      # CAP (9)
+RAIL("GND", c20b, rotation=270)
+
+# Internal oscillator: XIN32/XOUT32 unused. Per the BNO055 datasheet, leave
+# them open in internal-clock mode (no external load). Explicit no-connects
+# keep ERC clean.
+NC(pin_at(U8_BASE, (15.24, 0)))                                  # XIN32 (27) -- internal osc
+NC(pin_at(U8_BASE, (15.24, 12.7)))                              # XOUT32 (26) -- internal osc
+
+# Supply decoupling (VDD + VDDIO) + I2C pull-ups (4.7k, 400kHz)
+c23a, c23b = C("C23", "100nF", (640, 445))
+RAIL("PLUS3V3", c23a, rotation=90)
+RAIL("GND", c23b, rotation=270)
+c24a, c24b = C("C24", "10uF", (652, 445))
+RAIL("PLUS3V3", c24a, rotation=90)
+RAIL("GND", c24b, rotation=270)
+r77a, r77b = R("R77", "4.7k", (585, 500))
+RAIL("PLUS3V3", r77a, rotation=90)
+RAIL("IMU_SDA", r77b, rotation=270)
+r78a, r78b = R("R78", "4.7k", (572, 500))
+RAIL("PLUS3V3", r78a, rotation=90)
+RAIL("IMU_SCL", r78b, rotation=270)
+
+TXT("BNO055 mid-line placement (user requirement): geometric center of rotation sensing.\nMag data is calibration-grade only on a motor robot (1A at 5mm ~ Earth field); the\nyaw-rate loop uses the gyro. Fusion runs on-chip (100Hz NDOF) or raw gyro at 523Hz.",
+    (600, 560), size=2.0)
+
+# ---------------------------------------------------------------------------
 # IR SENSOR ARRAY -- 6 wall + 8 line sensors via 2x HEF4067BT mux/demux
 # ---------------------------------------------------------------------------
 TXT("IR SENSOR ARRAY  --  6 wall + 8 line sensors", (10, 420), size=5)
@@ -782,9 +968,14 @@ RAIL("GND", U4["E"], rotation=180)   # inhibit tied low -- always enabled
 RAIL("MUX_S0", U4["A0"], rotation=180)
 RAIL("MUX_S1", U4["A1"], rotation=180)
 RAIL("MUX_S2", U4["A2"], rotation=180)
-RAIL("GND", U4["A3"], rotation=180)  # only 8 channels used -> S3 tied low
+RAIL("MUX_S3", U4["A3"], rotation=180)  # rev 6: IO8 drives the high select
 RAIL("MUX_SENSE", U4["Z"], rotation=180)
-for _ch in range(8, 16):             # Y8-Y15 unused (line array is Y0-Y7)
+# Rev 6: battery/system telemetry rides the spare channels -- Y8 pack
+# voltage, Y9 pack midpoint (cell 1), Y10 VBUS presence. Y11-15 spare.
+RAIL("VBAT_SENSE", U4["Y8"], rotation=180)
+RAIL("BAT_MID_SENSE", U4["Y9"], rotation=180)
+RAIL("VBUS_SENSE", U4["Y10"], rotation=180)
+for _ch in range(11, 16):            # Y11-Y15 spare
     NC(U4[f"Y{_ch}"])
 c11a, c11b = C("C13", "100nF", (30, 470))
 WIRE(c11a, U4["VDD"])
@@ -834,7 +1025,7 @@ for i, name in enumerate(SENSOR_NAMES):
         photo_fp = "LED_THT:LED_D5.0mm_IRBlack"
         photo_val = "PT334-6B (5mm filtered PT; LONG LEAD = EMITTER; SFH309 base symbol so ERC checks pins)"
         led_fp = "LED_THT:LED_D5.0mm_IRGrey"
-        led_val = "SFH4550 (THT, LD271 base symbol; India alternate: TSAL6100)"
+        led_val = "IR333-A (Everlight 5mm 940nm 20deg; LD271 base symbol; TSAL6400 is lifecycle-Obsolete at Lion)"
     else:
         photo_fp = photo_val = led_fp = led_val = None  # line: single TCRT5000
 
@@ -947,7 +1138,7 @@ for k in range(1, 9):
 # sinking the LED through 1k. Node low (wall present) -> Vgs negative -> LED
 # ON = wall seen. Same zero-DC-load gate principle as the line indicators;
 # same threshold (not analog) behavior; meaningful while the wall emitters
-# are lit (latch a group in debug mode: 2x50mA, inside SFH4550 continuous
+# are lit (latch a group in debug mode: 2x50mA, inside IR333-A continuous
 # rating).
 TXT("WALL-SENSOR INDICATORS  --  6 top-side LEDs, LED ON = wall seen (PMOS, inverted node)", (10, 760), size=5)
 for k in range(1, 7):

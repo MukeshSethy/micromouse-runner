@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "D:\\Projects\\micromouse-pcb\\pcb\\micromouse-pcb.kicad_sch")
-		(date "2026-07-16T13:05:34")
+		(date "2026-07-18T07:40:06")
 		(tool "Eeschema 10.0.4")
 		(sheet
 			(number "1")
@@ -56,11 +56,11 @@
 	(components
 		(comp
 			(ref "C1")
-			(value "100uF")
+			(value "10uF/25V")
 			(footprint "Capacitor_SMD:C_1210_3225Metric")
 			(fields
 				(field
-					(name "MPN") "CL32A107MQVNNNE")
+					(name "MPN") "CL32B106KBJNNNE")
 				(field
 					(name "Manufacturer") "Samsung Electro-Mechanics")
 				(field
@@ -79,7 +79,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "CL32A107MQVNNNE")
+				(value "CL32B106KBJNNNE")
 			)
 			(property
 				(name "Manufacturer")
@@ -105,7 +105,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "09c24d2c-01fb-4d54-97bf-985479c9154a")
+			(tstamps "4b2a4645-90f4-43c5-a03e-618f909ea172")
 			(units
 				(unit
 					(name "A")
@@ -171,7 +171,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d0716df4-707e-4b32-9694-c20034c0a950")
+			(tstamps "dbec9ad0-b31c-45d9-9248-484b2e5a2826")
 			(units
 				(unit
 					(name "A")
@@ -237,7 +237,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "062c1e20-eb3a-4aac-8284-0682dbb70df6")
+			(tstamps "c5844aa6-8b8f-40ca-ad3b-4674daf4eef8")
 			(units
 				(unit
 					(name "A")
@@ -254,15 +254,15 @@
 		)
 		(comp
 			(ref "C4")
-			(value "10uF")
-			(footprint "Capacitor_SMD:C_0805_2012Metric")
+			(value "10uF/25V")
+			(footprint "Capacitor_SMD:C_1210_3225Metric")
 			(fields
 				(field
-					(name "MPN") "CL21A106KPFNNNE")
+					(name "MPN") "CL32B106KBJNNNE")
 				(field
 					(name "Manufacturer") "Samsung Electro-Mechanics")
 				(field
-					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
+					(name "Footprint") "Capacitor_SMD:C_1210_3225Metric")
 				(field
 					(name "Datasheet")
 				)
@@ -277,7 +277,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "CL21A106KPFNNNE")
+				(value "CL32B106KBJNNNE")
 			)
 			(property
 				(name "Manufacturer")
@@ -303,7 +303,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "126605b9-ba30-4ad4-94a8-894167c46299")
+			(tstamps "8f33adf8-9548-468d-882c-bb2722866fe0")
 			(units
 				(unit
 					(name "A")
@@ -369,7 +369,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a8d0858f-32ca-4473-b4cf-cd64aa7c9fce")
+			(tstamps "ffd09fab-33b2-4919-9ef5-6d8cd5a2d850")
 			(units
 				(unit
 					(name "A")
@@ -435,7 +435,73 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "221943d1-3c9f-4881-8a36-a3118dae027d")
+			(tstamps "6e27d211-c3c8-4071-9b80-0f226f1bbd34")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C7")
+			(value "22uF")
+			(footprint "Capacitor_SMD:C_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "CL21A226KPCLRNC")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21A226KPCLRNC")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "62b8644c-9ded-4f12-8887-b8c7c23aaf1a")
 			(units
 				(unit
 					(name "A")
@@ -501,7 +567,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a377e2f3-f983-4a5a-a480-9e1c8a2d3096")
+			(tstamps "f4c137eb-fce0-459f-bc23-10fd44ae21a4")
 			(units
 				(unit
 					(name "A")
@@ -567,7 +633,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "43f8040e-5c32-40c9-99d8-5c52d22a944a")
+			(tstamps "587014af-bb28-42f2-a4bb-baf4eef7c313")
 			(units
 				(unit
 					(name "A")
@@ -633,7 +699,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4ef6af33-0861-4211-a4ac-419516243e12")
+			(tstamps "aaf62df4-e929-441c-a151-3c72605ca9db")
 			(units
 				(unit
 					(name "A")
@@ -650,15 +716,15 @@
 		)
 		(comp
 			(ref "C11")
-			(value "10uF")
-			(footprint "Capacitor_SMD:C_0805_2012Metric")
+			(value "10uF/25V")
+			(footprint "Capacitor_SMD:C_1210_3225Metric")
 			(fields
 				(field
-					(name "MPN") "CL21A106KPFNNNE")
+					(name "MPN") "CL32B106KBJNNNE")
 				(field
 					(name "Manufacturer") "Samsung Electro-Mechanics")
 				(field
-					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
+					(name "Footprint") "Capacitor_SMD:C_1210_3225Metric")
 				(field
 					(name "Datasheet")
 				)
@@ -673,7 +739,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "CL21A106KPFNNNE")
+				(value "CL32B106KBJNNNE")
 			)
 			(property
 				(name "Manufacturer")
@@ -699,7 +765,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9d2cf334-1a52-43b8-959a-46f76effc049")
+			(tstamps "b83e02e0-0540-48b3-928b-b1cf78b7ab39")
 			(units
 				(unit
 					(name "A")
@@ -765,7 +831,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7f9e17ed-c392-4b21-bf04-687f4250c183")
+			(tstamps "ad62e3c4-4aa0-4c41-9523-760b4a1f9a36")
 			(units
 				(unit
 					(name "A")
@@ -831,7 +897,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a3ea4905-63e1-45d1-8041-8a2b7ab544bb")
+			(tstamps "7f3160e8-7704-48ad-88f8-a9a8e85364bc")
 			(units
 				(unit
 					(name "A")
@@ -897,7 +963,601 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5b35564b-b346-4120-9aff-003b57084472")
+			(tstamps "29bad7d8-46ac-4e79-a39e-3a6402a0674a")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C15")
+			(value "100nF")
+			(footprint "Capacitor_SMD:C_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "CL21B104KBCNNNC")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B104KBCNNNC")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "9ba6fbc0-ef68-43d3-8d84-632d6fafeeaa")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C16")
+			(value "22uF/25V")
+			(footprint "Capacitor_SMD:C_1210_3225Metric")
+			(fields
+				(field
+					(name "MPN") "CL32A226KAJNNNE")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_1210_3225Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL32A226KAJNNNE")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "98ed6aca-c98d-4562-9cb2-578e0c0b52d9")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C17")
+			(value "22uF/25V")
+			(footprint "Capacitor_SMD:C_1210_3225Metric")
+			(fields
+				(field
+					(name "MPN") "CL32A226KAJNNNE")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_1210_3225Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL32A226KAJNNNE")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "02390fc0-8549-408a-83c5-1dce62bd9b03")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C18")
+			(value "10uF/25V")
+			(footprint "Capacitor_SMD:C_1210_3225Metric")
+			(fields
+				(field
+					(name "MPN") "CL32B106KBJNNNE")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_1210_3225Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL32B106KBJNNNE")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "8b89a80a-ebf7-45fa-af5d-a6ec21b195b1")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C19")
+			(value "100nF")
+			(footprint "Capacitor_SMD:C_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "CL21B104KBCNNNC")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B104KBCNNNC")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "c00a8a3a-b0b0-4008-98bf-59108bde222c")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C20")
+			(value "100nF")
+			(footprint "Capacitor_SMD:C_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "CL21B104KBCNNNC")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B104KBCNNNC")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "780fa162-ae79-48c7-884a-b2837847e096")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C23")
+			(value "100nF")
+			(footprint "Capacitor_SMD:C_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "CL21B104KBCNNNC")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B104KBCNNNC")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "f4cbcf91-dea2-40be-9d5d-4aa32720430b")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C24")
+			(value "10uF")
+			(footprint "Capacitor_SMD:C_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "CL21A106KPFNNNE")
+				(field
+					(name "Manufacturer") "Samsung Electro-Mechanics")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "CL21A106KPFNNNE")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Samsung Electro-Mechanics")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "bb26eb9e-58aa-4d4e-ab87-48c709785603")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C30")
+			(value "220uF/16V")
+			(footprint "Capacitor_SMD:CP_Elec_6.3x7.7")
+			(fields
+				(field
+					(name "MPN") "EEE-FT1C221AP")
+				(field
+					(name "Manufacturer") "Panasonic")
+				(field
+					(name "Footprint") "Capacitor_SMD:CP_Elec_6.3x7.7")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "EEE-FT1C221AP")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Panasonic")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "5b1037be-82f2-4977-ac7f-9f23c163a3e7")
 			(units
 				(unit
 					(name "A")
@@ -914,14 +1574,14 @@
 		)
 		(comp
 			(ref "D1")
-			(value "SFH4550 (THT, LD271 base symbol; India alternate: TSAL6100)")
+			(value "IR333-A (Everlight 5mm 940nm 20deg; LD271 base symbol; TSAL6400 is lifecycle-Obsolete at Lion)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
 				(field
-					(name "MPN") "SFH 4550")
+					(name "MPN") "IR333-A")
 				(field
-					(name "Manufacturer") "ams-OSRAM")
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_THT:LED_D5.0mm_IRGrey")
 				(field
@@ -937,11 +1597,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "SFH 4550")
+				(value "IR333-A")
 			)
 			(property
 				(name "Manufacturer")
-				(value "ams-OSRAM")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -963,7 +1623,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3b6f2390-3d84-4fff-8b5e-f3a61bc78af2")
+			(tstamps "54935b73-c55d-4f8e-b394-6e30ff01e20f")
 			(units
 				(unit
 					(name "A")
@@ -980,14 +1640,14 @@
 		)
 		(comp
 			(ref "D2")
-			(value "SFH4550 (THT, LD271 base symbol; India alternate: TSAL6100)")
+			(value "IR333-A (Everlight 5mm 940nm 20deg; LD271 base symbol; TSAL6400 is lifecycle-Obsolete at Lion)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
 				(field
-					(name "MPN") "SFH 4550")
+					(name "MPN") "IR333-A")
 				(field
-					(name "Manufacturer") "ams-OSRAM")
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_THT:LED_D5.0mm_IRGrey")
 				(field
@@ -1003,11 +1663,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "SFH 4550")
+				(value "IR333-A")
 			)
 			(property
 				(name "Manufacturer")
-				(value "ams-OSRAM")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -1029,7 +1689,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d1463d0a-f39e-4bf3-981f-ed09f46df926")
+			(tstamps "a41ab84a-584b-4061-9706-9073ba0a0755")
 			(units
 				(unit
 					(name "A")
@@ -1046,14 +1706,14 @@
 		)
 		(comp
 			(ref "D3")
-			(value "SFH4550 (THT, LD271 base symbol; India alternate: TSAL6100)")
+			(value "IR333-A (Everlight 5mm 940nm 20deg; LD271 base symbol; TSAL6400 is lifecycle-Obsolete at Lion)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
 				(field
-					(name "MPN") "SFH 4550")
+					(name "MPN") "IR333-A")
 				(field
-					(name "Manufacturer") "ams-OSRAM")
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_THT:LED_D5.0mm_IRGrey")
 				(field
@@ -1069,11 +1729,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "SFH 4550")
+				(value "IR333-A")
 			)
 			(property
 				(name "Manufacturer")
-				(value "ams-OSRAM")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -1095,7 +1755,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1a750810-7ad0-4b65-a15f-c2dd0464f4b9")
+			(tstamps "967fe2d2-436f-4bbc-bcb4-d3db4f7b0b90")
 			(units
 				(unit
 					(name "A")
@@ -1112,14 +1772,14 @@
 		)
 		(comp
 			(ref "D4")
-			(value "SFH4550 (THT, LD271 base symbol; India alternate: TSAL6100)")
+			(value "IR333-A (Everlight 5mm 940nm 20deg; LD271 base symbol; TSAL6400 is lifecycle-Obsolete at Lion)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
 				(field
-					(name "MPN") "SFH 4550")
+					(name "MPN") "IR333-A")
 				(field
-					(name "Manufacturer") "ams-OSRAM")
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_THT:LED_D5.0mm_IRGrey")
 				(field
@@ -1135,11 +1795,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "SFH 4550")
+				(value "IR333-A")
 			)
 			(property
 				(name "Manufacturer")
-				(value "ams-OSRAM")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -1161,7 +1821,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6f2bddab-4550-427c-b57d-14fbb649c9ca")
+			(tstamps "1d5a80bf-8bf6-4673-8eb8-1fb7a8963f67")
 			(units
 				(unit
 					(name "A")
@@ -1178,14 +1838,14 @@
 		)
 		(comp
 			(ref "D5")
-			(value "SFH4550 (THT, LD271 base symbol; India alternate: TSAL6100)")
+			(value "IR333-A (Everlight 5mm 940nm 20deg; LD271 base symbol; TSAL6400 is lifecycle-Obsolete at Lion)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
 				(field
-					(name "MPN") "SFH 4550")
+					(name "MPN") "IR333-A")
 				(field
-					(name "Manufacturer") "ams-OSRAM")
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_THT:LED_D5.0mm_IRGrey")
 				(field
@@ -1201,11 +1861,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "SFH 4550")
+				(value "IR333-A")
 			)
 			(property
 				(name "Manufacturer")
-				(value "ams-OSRAM")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -1227,7 +1887,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "62578cd6-c79b-4d56-bc93-a395d4378c1c")
+			(tstamps "7955673d-68d7-4fcd-bcc8-eaff719c0f3d")
 			(units
 				(unit
 					(name "A")
@@ -1244,14 +1904,14 @@
 		)
 		(comp
 			(ref "D6")
-			(value "SFH4550 (THT, LD271 base symbol; India alternate: TSAL6100)")
+			(value "IR333-A (Everlight 5mm 940nm 20deg; LD271 base symbol; TSAL6400 is lifecycle-Obsolete at Lion)")
 			(footprint "LED_THT:LED_D5.0mm_IRGrey")
 			(datasheet "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf")
 			(fields
 				(field
-					(name "MPN") "SFH 4550")
+					(name "MPN") "IR333-A")
 				(field
-					(name "Manufacturer") "ams-OSRAM")
+					(name "Manufacturer") "Everlight")
 				(field
 					(name "Footprint") "LED_THT:LED_D5.0mm_IRGrey")
 				(field
@@ -1267,11 +1927,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "SFH 4550")
+				(value "IR333-A")
 			)
 			(property
 				(name "Manufacturer")
-				(value "ams-OSRAM")
+				(value "Everlight")
 			)
 			(property
 				(name "Sheetname")
@@ -1293,7 +1953,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bf18ff42-6dd2-42de-baa7-c007f64d6feb")
+			(tstamps "33be9b00-1f44-4ce7-86e7-1dfc3d462330")
 			(units
 				(unit
 					(name "A")
@@ -1359,7 +2019,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7288157f-a475-469e-aa96-50cb6f586aa4")
+			(tstamps "bc24c43f-d684-4aa7-b573-8d1318383a36")
 			(units
 				(unit
 					(name "A")
@@ -1425,7 +2085,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a59a9e2a-32d9-4c4a-af8a-3c4c82d7ce93")
+			(tstamps "ab47ce54-9795-4bf3-89ac-2f2474421ff1")
 			(units
 				(unit
 					(name "A")
@@ -1491,7 +2151,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cbc37605-0e07-4b29-b92a-ff0c3847a686")
+			(tstamps "8dce188d-f33f-4fcf-9993-25db922ce69f")
 			(units
 				(unit
 					(name "A")
@@ -1557,7 +2217,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "120da696-878d-4b5d-97dd-79c30faf073f")
+			(tstamps "d506dffb-8cf8-49d2-8126-be1bd510410c")
 			(units
 				(unit
 					(name "A")
@@ -1623,7 +2283,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b0950e71-1f92-4962-9f84-75bb4e47cd6a")
+			(tstamps "55fd4689-0ec6-4eed-abff-efeebdc605ea")
 			(units
 				(unit
 					(name "A")
@@ -1689,7 +2349,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a75aae8c-1328-49bc-8b16-ed45a086e033")
+			(tstamps "aa4e8318-dbd7-4f40-9d4f-620893c45bbb")
 			(units
 				(unit
 					(name "A")
@@ -1755,7 +2415,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8c560cd0-7d85-4ceb-8620-fac4cd160edc")
+			(tstamps "2b3a98c1-7042-4e5b-b852-e0e44ffcdd24")
 			(units
 				(unit
 					(name "A")
@@ -1821,7 +2481,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2a00d982-273f-4c2d-a311-120a1216b26e")
+			(tstamps "57f10973-77b9-4c40-8127-60da446cafe5")
 			(units
 				(unit
 					(name "A")
@@ -1887,7 +2547,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ff002f0e-4fe4-4381-b266-267529c879a2")
+			(tstamps "12616ca6-bd6f-40b8-b510-849aad658de6")
 			(units
 				(unit
 					(name "A")
@@ -1953,7 +2613,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2ac7974f-8880-472f-8a1f-962ac4dc2eaf")
+			(tstamps "a905d90f-e4b3-4552-b316-3d13799d0989")
 			(units
 				(unit
 					(name "A")
@@ -2019,7 +2679,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "36c5b9e2-bca3-422d-b32c-0dc3b0752cfe")
+			(tstamps "36c53733-5942-4e47-8bde-da0ae526e33f")
 			(units
 				(unit
 					(name "A")
@@ -2085,7 +2745,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3bca83fc-51cd-4766-8f03-e6743d0e9881")
+			(tstamps "988664c0-8de4-4a53-b7e0-903402b829c5")
 			(units
 				(unit
 					(name "A")
@@ -2151,7 +2811,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "81e0af38-052c-443d-bdd4-a2b5f73bf457")
+			(tstamps "2f1292df-293a-4c18-a13c-af62d0a7786e")
 			(units
 				(unit
 					(name "A")
@@ -2217,7 +2877,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3830a873-b56f-4cf6-ae4a-68908456aedc")
+			(tstamps "25d497ff-f703-46e3-8d9d-4789a6f985cc")
 			(units
 				(unit
 					(name "A")
@@ -2234,15 +2894,15 @@
 		)
 		(comp
 			(ref "F1")
-			(value "2A_resettable")
-			(footprint "Fuse:Fuse_1206_3216Metric")
+			(value "2.6A/16V PPTC")
+			(footprint "Fuse:Fuse_1812_4532Metric")
 			(fields
 				(field
-					(name "MPN") "0ZCJ0200FF2C")
+					(name "MPN") "MINISMDC260F/16-2")
 				(field
-					(name "Manufacturer") "Bel Fuse")
+					(name "Manufacturer") "Littelfuse")
 				(field
-					(name "Footprint") "Fuse:Fuse_1206_3216Metric")
+					(name "Footprint") "Fuse:Fuse_1812_4532Metric")
 				(field
 					(name "Datasheet")
 				)
@@ -2257,11 +2917,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "0ZCJ0200FF2C")
+				(value "MINISMDC260F/16-2")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Bel Fuse")
+				(value "Littelfuse")
 			)
 			(property
 				(name "Sheetname")
@@ -2283,7 +2943,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "90ffefda-207a-45fd-8b59-b0a94f4b350b")
+			(tstamps "40195559-97a3-4f8b-9f40-25ba657f722e")
 			(units
 				(unit
 					(name "A")
@@ -2300,15 +2960,15 @@
 		)
 		(comp
 			(ref "J1")
-			(value "BATT_IN_1S")
-			(footprint "Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical")
+			(value "BATT_IN_2S")
+			(footprint "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical")
 			(fields
 				(field
-					(name "MPN") "B2B-PH-K-S(LF)(SN)")
+					(name "MPN") "B2B-XH-A")
 				(field
 					(name "Manufacturer") "JST")
 				(field
-					(name "Footprint") "Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical")
+					(name "Footprint") "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical")
 				(field
 					(name "Datasheet")
 				)
@@ -2323,7 +2983,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "B2B-PH-K-S(LF)(SN)")
+				(value "B2B-XH-A")
 			)
 			(property
 				(name "Manufacturer")
@@ -2349,7 +3009,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e0dce1f6-97ec-4b99-ad53-c3e75a2c3ff4")
+			(tstamps "d303f382-f5c5-4088-9c13-8d282a16eed1")
 			(units
 				(unit
 					(name "A")
@@ -2415,7 +3075,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3ef8f4ab-7a76-4822-954b-c6034c760494")
+			(tstamps "0d187b26-ec30-45cc-a089-303905c5fc61")
 			(units
 				(unit
 					(name "A")
@@ -2493,7 +3153,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "452e232e-c499-458c-92b4-8b2c473b80fc")
+			(tstamps "8f0825ae-8d38-48fc-bbe2-02e2bf6ef5d8")
 			(units
 				(unit
 					(name "A")
@@ -2571,7 +3231,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b3af0544-1cee-470b-86d9-c10c6d02d016")
+			(tstamps "557321cb-a061-438f-8691-e47e494da41e")
 			(units
 				(unit
 					(name "A")
@@ -2682,7 +3342,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b56d64bb-af5a-4fd1-b4b2-c1436bad67d5")
+			(tstamps "96a4a252-29dc-47f3-8972-745ba8069f25")
 			(units
 				(unit
 					(name "A")
@@ -2710,16 +3370,85 @@
 			)
 		)
 		(comp
-			(ref "L1")
-			(value "1.5uH")
-			(footprint "Inductor_SMD:L_Bourns_SRP7028A_7.3x6.6mm")
+			(ref "J9")
+			(value "BALANCE_2S")
+			(footprint "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical")
 			(fields
 				(field
-					(name "MPN") "SRP7028A-1R5M")
+					(name "MPN") "B3B-XH-A(LF)(SN)")
+				(field
+					(name "Manufacturer") "JST")
+				(field
+					(name "Footprint") "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector_Generic")
+				(part "Conn_01x03")
+				(description "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "MPN")
+				(value "B3B-XH-A(LF)(SN)")
+			)
+			(property
+				(name "Manufacturer")
+				(value "JST")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "9aca2090-0a1c-46d1-ab89-ee28248e362e")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "L1")
+			(value "4.7uH")
+			(footprint "n20:L_Bourns_SRP4020TA")
+			(fields
+				(field
+					(name "MPN") "SRP4020TA-4R7M")
 				(field
 					(name "Manufacturer") "Bourns")
 				(field
-					(name "Footprint") "Inductor_SMD:L_Bourns_SRP7028A_7.3x6.6mm")
+					(name "Footprint") "n20:L_Bourns_SRP4020TA")
 				(field
 					(name "Datasheet")
 				)
@@ -2734,7 +3463,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "SRP7028A-1R5M")
+				(value "SRP4020TA-4R7M")
 			)
 			(property
 				(name "Manufacturer")
@@ -2760,7 +3489,73 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6381f1dc-ef2a-44ec-b3f6-5d65251bd8e0")
+			(tstamps "7ccbebce-8226-4bab-9c82-94f274c8992e")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "L2")
+			(value "4.7uH")
+			(footprint "n20:L_Bourns_SRP4020TA")
+			(fields
+				(field
+					(name "MPN") "SRP4020TA-4R7M")
+				(field
+					(name "Manufacturer") "Bourns")
+				(field
+					(name "Footprint") "n20:L_Bourns_SRP4020TA")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "L")
+				(description "Inductor")
+			)
+			(property
+				(name "MPN")
+				(value "SRP4020TA-4R7M")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Bourns")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "inductor choke coil reactor magnetic")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Choke_* *Coil* Inductor_* L_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "734d058d-1573-4dba-9404-cb47a113fcde")
 			(units
 				(unit
 					(name "A")
@@ -2826,7 +3621,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1197e0b7-690e-4302-8455-de056ef0445e")
+			(tstamps "a969a87a-cdd8-4aeb-b91a-b78e689dc617")
 			(units
 				(unit
 					(name "A")
@@ -2898,7 +3693,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "11bc2984-227c-40be-a9a4-8b8d0f1ccc59")
+			(tstamps "b023770d-ca63-4e0d-9bdc-701c383579bf")
 			(units
 				(unit
 					(name "A")
@@ -2970,7 +3765,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "61b20fd1-9e8b-4581-81f2-f673921bda94")
+			(tstamps "95594d6a-6ed8-4a21-87ae-db94877216cd")
 			(units
 				(unit
 					(name "A")
@@ -3042,7 +3837,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4af399ef-e7ae-45e0-8486-6e321e0d4482")
+			(tstamps "f4e7e467-9735-44f5-9b7d-ea983a0ecbe5")
 			(units
 				(unit
 					(name "A")
@@ -3114,7 +3909,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0cb30274-329e-4e05-a8d0-cffbb0f5ab04")
+			(tstamps "f5f05e3e-2f51-44fa-909b-48d12f3396c7")
 			(units
 				(unit
 					(name "A")
@@ -3186,7 +3981,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "341d6ef4-cd94-4b47-88cb-d1adf4f8be07")
+			(tstamps "09b8b084-b3ba-4fc0-b46f-55303e4472f5")
 			(units
 				(unit
 					(name "A")
@@ -3258,7 +4053,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "00b012ea-029d-4ab4-84d7-31cb15259f39")
+			(tstamps "cc6ad86e-b3d9-4c5a-843c-4a425d031b70")
 			(units
 				(unit
 					(name "A")
@@ -3330,7 +4125,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "704b636b-f8ea-4a15-a335-9fc2f955ea0d")
+			(tstamps "c7e06bac-143e-438b-8dd3-e8dcfca30246")
 			(units
 				(unit
 					(name "A")
@@ -3353,11 +4148,11 @@
 		)
 		(comp
 			(ref "Q1")
-			(value "Q_PMOS low-Vth (e.g. DMP2035U-7)")
+			(value "Q_PMOS reverse guard (DMP3098L-7: Vgs +/-20V, 2S-safe)")
 			(footprint "Package_TO_SOT_SMD:SOT-23")
 			(fields
 				(field
-					(name "MPN") "DMP2035U-7")
+					(name "MPN") "DMP3098L-7")
 				(field
 					(name "Manufacturer") "Diodes Incorporated")
 				(field
@@ -3376,7 +4171,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "DMP2035U-7")
+				(value "DMP3098L-7")
 			)
 			(property
 				(name "Manufacturer")
@@ -3398,7 +4193,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5f6fb1a7-53ae-400b-aa4b-3e25fb116f07")
+			(tstamps "8810901e-2456-454e-9135-be8478da9500")
 			(units
 				(unit
 					(name "A")
@@ -3467,7 +4262,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1be5788d-6c8b-497b-a306-4e2dcd20ec39")
+			(tstamps "e57e2711-4d50-419b-a1ee-0b85294a683e")
 			(units
 				(unit
 					(name "A")
@@ -3533,7 +4328,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bb1780ca-7fba-4004-a8ea-6477b3e50061")
+			(tstamps "1e37260e-232f-4426-a042-86241d8afda8")
 			(units
 				(unit
 					(name "A")
@@ -3599,7 +4394,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2599ce43-3ba1-4d4f-927c-7b2ec26d70cb")
+			(tstamps "a356a9ca-31ae-4cc3-84c6-fe691be0aaee")
 			(units
 				(unit
 					(name "A")
@@ -3665,7 +4460,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3b054afa-448c-4da7-9fa4-676f17367f07")
+			(tstamps "f7a754a1-c5e6-4453-ae29-69eaf3395e47")
 			(units
 				(unit
 					(name "A")
@@ -3731,7 +4526,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ebe0cf26-fbf0-470f-9036-695a9864ce26")
+			(tstamps "6045e32d-1101-4a50-90fd-6e45563785b7")
 			(units
 				(unit
 					(name "A")
@@ -3797,7 +4592,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "77c32092-b2e9-41fe-8a07-e6dd2c95e5b9")
+			(tstamps "c22ee5f7-4e44-4692-b2a9-05f42c95a1a3")
 			(units
 				(unit
 					(name "A")
@@ -3859,7 +4654,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "df7d2fa0-394f-4fe5-a8a6-488d24ead93b")
+			(tstamps "8e22943f-36a6-4592-8ee1-e20c4e62d72c")
 			(units
 				(unit
 					(name "A")
@@ -3924,7 +4719,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cefd4066-b80a-4188-a0ec-1a2690b434ea")
+			(tstamps "0761dcc4-7f21-4215-a85d-c9df7f9a4c76")
 			(units
 				(unit
 					(name "A")
@@ -3989,7 +4784,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cbe3b0a6-610d-4d4b-a4cc-915cc5394d97")
+			(tstamps "467f71a8-1794-4f15-8e80-00e2cdeb0451")
 			(units
 				(unit
 					(name "A")
@@ -4054,7 +4849,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0690e565-c773-43d5-a36e-d5682ec34387")
+			(tstamps "5f9d1899-e101-4ad7-9335-a1ea96480f26")
 			(units
 				(unit
 					(name "A")
@@ -4119,7 +4914,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b4526936-7f94-480d-90c0-fa0b3effb5af")
+			(tstamps "27e08fe3-515a-4d5f-8077-7837abec8592")
 			(units
 				(unit
 					(name "A")
@@ -4184,7 +4979,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "fbb5e32c-e165-41df-a5f9-09c71552fd9e")
+			(tstamps "c7e37511-e5b9-4531-b421-6311d54acd4f")
 			(units
 				(unit
 					(name "A")
@@ -4249,7 +5044,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9e88d81b-ecaf-465f-890b-60abb10c2b25")
+			(tstamps "622644a5-12cc-4cd6-9987-67a87f61d750")
 			(units
 				(unit
 					(name "A")
@@ -4314,7 +5109,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0392b078-25d1-4edb-bf3d-eb86c09028af")
+			(tstamps "b16b7204-9513-450e-b845-4585ebaf02ef")
 			(units
 				(unit
 					(name "A")
@@ -4379,7 +5174,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1d511f31-e85a-4c7a-b11c-47dffc7a1871")
+			(tstamps "2c92641c-bd73-4306-86d5-bb75387c23cb")
 			(units
 				(unit
 					(name "A")
@@ -4444,7 +5239,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6434a097-55c1-45fb-b3cc-d1d22f24b067")
+			(tstamps "26bb2cfc-0fc8-4fb5-bda1-5f701f253f73")
 			(units
 				(unit
 					(name "A")
@@ -4509,7 +5304,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a98c5108-741b-4012-aac7-14fba4152f11")
+			(tstamps "6572f930-5899-4db7-bc07-7b3a20bbc4cc")
 			(units
 				(unit
 					(name "A")
@@ -4574,7 +5369,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0e1d636b-b01d-495c-8e8d-1efc36ea4d23")
+			(tstamps "2388a22b-92c8-497f-aa4a-ba7e02d76c3d")
 			(units
 				(unit
 					(name "A")
@@ -4639,7 +5434,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "dfbec168-9b7b-44f5-81d8-1f3c99a09b78")
+			(tstamps "62d7b966-9c9b-40f1-aebb-36fde32d649e")
 			(units
 				(unit
 					(name "A")
@@ -4704,7 +5499,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "59da7b39-c3ab-4252-9830-f04a0b4c2b4c")
+			(tstamps "8e7d80ef-9a5d-4f30-9075-fe8a161cccd6")
 			(units
 				(unit
 					(name "A")
@@ -4769,7 +5564,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "60196905-f9ec-4132-8b2e-116a67636143")
+			(tstamps "941ac3ba-8eaf-4a4c-a287-df62075671a4")
 			(units
 				(unit
 					(name "A")
@@ -4834,7 +5629,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8763a41c-22e6-41dc-be7c-7ad6176a7766")
+			(tstamps "5aecc531-dbaf-4da5-9d86-ba2148d50b9a")
 			(units
 				(unit
 					(name "A")
@@ -4899,7 +5694,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bf08c8d9-aa64-4630-b712-f3f402a4e443")
+			(tstamps "a1f57470-d6a2-4690-ad07-44830a71b2e6")
 			(units
 				(unit
 					(name "A")
@@ -4964,7 +5759,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0fd72dbf-db1f-472c-868a-776ea06f533e")
+			(tstamps "f717b10b-6082-4b7c-bfa3-32a5aa3332e9")
 			(units
 				(unit
 					(name "A")
@@ -5033,7 +5828,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4ecff9af-2a91-4c27-a21a-231a5a1c1c1b")
+			(tstamps "91fe2231-e4bd-4c10-9a86-0663897e3446")
 			(units
 				(unit
 					(name "A")
@@ -5050,11 +5845,11 @@
 		)
 		(comp
 			(ref "R2")
-			(value "22k")
+			(value "100k")
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0722KL")
+					(name "MPN") "RC0805FR-07100KL")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
@@ -5073,7 +5868,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0722KL")
+				(value "RC0805FR-07100KL")
 			)
 			(property
 				(name "Manufacturer")
@@ -5099,7 +5894,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "45d9eef3-f202-4a8f-824e-4e2c12d11197")
+			(tstamps "13310a3c-4512-4f4d-936b-d56ec1fa54b7")
 			(units
 				(unit
 					(name "A")
@@ -5116,11 +5911,11 @@
 		)
 		(comp
 			(ref "R3")
-			(value "33k")
+			(value "39k")
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0733KL")
+					(name "MPN") "RC0805FR-0739KL")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
@@ -5139,7 +5934,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0733KL")
+				(value "RC0805FR-0739KL")
 			)
 			(property
 				(name "Manufacturer")
@@ -5165,7 +5960,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0072099f-ef94-4302-ab7a-97e52ac2e49a")
+			(tstamps "d2646039-1e2b-4f85-8628-6b6253f04a4b")
 			(units
 				(unit
 					(name "A")
@@ -5231,7 +6026,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "12a5f2a5-b899-41d8-9f84-7733bc7fba90")
+			(tstamps "2ad8d2db-4f48-4d36-abc7-84a0e6d7d77e")
 			(units
 				(unit
 					(name "A")
@@ -5297,7 +6092,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "056e6e3c-1af4-4b80-9a81-3d6b2de367db")
+			(tstamps "9d8df35b-dd91-4c1c-8fd9-740fd6b3dff8")
 			(units
 				(unit
 					(name "A")
@@ -5363,7 +6158,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "56f2729b-f051-4aa2-9e03-e267ecdfd622")
+			(tstamps "89c10536-5a4e-4a3b-8613-122742fa2394")
 			(units
 				(unit
 					(name "A")
@@ -5429,7 +6224,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "04caa3f5-a9ec-42ab-b808-f1029eb684f2")
+			(tstamps "46a5087f-d25b-45e2-bc47-48753085f0aa")
 			(units
 				(unit
 					(name "A")
@@ -5495,7 +6290,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "12590187-5b30-4fcd-9b6a-6dbdacf975b3")
+			(tstamps "e964bdac-79f4-4123-bfed-767643d2b071")
 			(units
 				(unit
 					(name "A")
@@ -5561,7 +6356,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0b2d8bfa-e1b6-4b4d-8441-13bde5790996")
+			(tstamps "03fc7d01-b401-41e8-b2cb-ed0ddb41cffe")
 			(units
 				(unit
 					(name "A")
@@ -5627,7 +6422,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "edc9fb41-8b77-4eb1-adc7-2cabd7200e96")
+			(tstamps "a36de434-d087-4225-b0b5-f35a612270bd")
 			(units
 				(unit
 					(name "A")
@@ -5693,7 +6488,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d367212d-177d-4ce5-92c6-b79a4b841c40")
+			(tstamps "1dd35930-8264-42ef-b09c-cdcb1dbd36c6")
 			(units
 				(unit
 					(name "A")
@@ -5759,7 +6554,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d248e246-1d2d-41d3-b0c5-4abc7de3475c")
+			(tstamps "00c6d77e-0a15-4d03-affc-a344a8aeb52c")
 			(units
 				(unit
 					(name "A")
@@ -5825,7 +6620,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c53557f7-f753-4d0b-9021-899db68a2c74")
+			(tstamps "0e97c59d-b258-46c9-a321-8f0abf1e7217")
 			(units
 				(unit
 					(name "A")
@@ -5891,7 +6686,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "67cd202c-4a3d-4899-84c6-5c3a3bfa21fb")
+			(tstamps "e39bf5db-237b-4242-9fe8-215cbc1377d2")
 			(units
 				(unit
 					(name "A")
@@ -5957,7 +6752,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1c38143c-f659-45a2-be69-0e8f95a98ac6")
+			(tstamps "a9b59320-a3c9-4df6-92f1-ef4c286cec5b")
 			(units
 				(unit
 					(name "A")
@@ -6023,7 +6818,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "800305b3-3566-429a-94ed-256ffb81ac5e")
+			(tstamps "7593395e-fb5f-4f8d-a5fd-88bf92fddf38")
 			(units
 				(unit
 					(name "A")
@@ -6089,7 +6884,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "befe6b0c-5fc4-4041-b81c-c6b9d789f501")
+			(tstamps "e781e066-4967-4f84-ac6e-52683e933a5a")
 			(units
 				(unit
 					(name "A")
@@ -6155,7 +6950,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "fed60c4c-ad95-4222-ac5b-9ab582893352")
+			(tstamps "e61202da-a197-4aec-b068-5523fc973f06")
 			(units
 				(unit
 					(name "A")
@@ -6221,7 +7016,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "be982965-9152-46dd-b26c-0ad45d039307")
+			(tstamps "a2ee4ccb-07d7-4522-a73f-8ada4fa7896f")
 			(units
 				(unit
 					(name "A")
@@ -6287,7 +7082,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "303c5056-9df9-4da6-a8a8-d2c662d10045")
+			(tstamps "32033ccb-4fa4-441b-99fb-38d9a02d1148")
 			(units
 				(unit
 					(name "A")
@@ -6353,7 +7148,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d4c8720c-4c57-41ab-abe3-3039e82a03f9")
+			(tstamps "0f46dae7-d04d-415a-b6da-62c92d9c8108")
 			(units
 				(unit
 					(name "A")
@@ -6419,7 +7214,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6e68eb38-0187-4703-ae96-3618cb4807c2")
+			(tstamps "92fb57d9-f2fd-4f9b-a91e-f569c0d076f5")
 			(units
 				(unit
 					(name "A")
@@ -6485,7 +7280,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "46bfa79b-eeba-4c3e-a701-c75a50ee3703")
+			(tstamps "195b4ff0-9d00-4269-8887-69f71ea32308")
 			(units
 				(unit
 					(name "A")
@@ -6551,7 +7346,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7e972cd4-54eb-4e97-b241-ba1c20435307")
+			(tstamps "aac7d7f6-1f3b-444e-bd26-58776ceec4f5")
 			(units
 				(unit
 					(name "A")
@@ -6617,7 +7412,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3675d8c8-472f-4fc4-b8a1-00b39d7967e0")
+			(tstamps "72fc7fbe-cefe-45ea-9016-37105c8755ea")
 			(units
 				(unit
 					(name "A")
@@ -6683,7 +7478,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "78198623-4f6c-4829-8213-adb3d986046e")
+			(tstamps "427faaab-1b02-4150-8b8d-87f0a97c4d01")
 			(units
 				(unit
 					(name "A")
@@ -6749,7 +7544,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "98ca8000-202b-4fda-be61-14cbd72322ba")
+			(tstamps "3d547f51-148b-4ff3-99c3-36ec69e61c71")
 			(units
 				(unit
 					(name "A")
@@ -6815,7 +7610,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ce0ef22b-18c8-419f-82d8-e4703e0c97bf")
+			(tstamps "32e4a602-946c-4bb6-ad78-13386cf82f21")
 			(units
 				(unit
 					(name "A")
@@ -6881,7 +7676,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8f801985-d45b-4051-b771-a74eaded84a4")
+			(tstamps "fc3ed024-c78f-4518-af1b-28c1e6273375")
 			(units
 				(unit
 					(name "A")
@@ -6947,7 +7742,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2fc60593-ccb1-426f-bcb2-f6ead5fdf07d")
+			(tstamps "c2c18f65-0f73-4186-8255-67770a9ad226")
 			(units
 				(unit
 					(name "A")
@@ -7013,7 +7808,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8b0a9b70-e8e6-4ac8-8bd5-1627c10144fc")
+			(tstamps "d29996e3-62c2-4727-bbc3-0656a219e2b2")
 			(units
 				(unit
 					(name "A")
@@ -7079,7 +7874,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bf4c3ef9-c9c3-4e8c-afd9-c4baa6d6c8de")
+			(tstamps "c6ceb267-d738-4a5d-aaac-882ce084dfd1")
 			(units
 				(unit
 					(name "A")
@@ -7145,7 +7940,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a8726cd0-38eb-4fb8-803b-874a25ee647c")
+			(tstamps "c2f0e704-4934-417a-aad6-d5c2ac5e7efe")
 			(units
 				(unit
 					(name "A")
@@ -7211,7 +8006,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "49a4379c-4d58-426d-9b74-7dae5b72d6bd")
+			(tstamps "8a3f70a3-ff4a-4c3b-a9f2-5af851e50dfb")
 			(units
 				(unit
 					(name "A")
@@ -7277,7 +8072,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ffedd284-7df9-438d-8df5-e9e086e4d3db")
+			(tstamps "5facc427-f651-49a8-9446-717c3e511dbb")
 			(units
 				(unit
 					(name "A")
@@ -7343,7 +8138,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "99bd1382-d674-43e7-ac7f-4adff749a13b")
+			(tstamps "e3234bb7-6b7b-4616-904d-c804e67f539b")
 			(units
 				(unit
 					(name "A")
@@ -7409,7 +8204,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "784782c3-4fa6-41aa-a312-059862bf1adb")
+			(tstamps "0efc6ff6-57d7-4d28-b10c-e8ea263e59ca")
 			(units
 				(unit
 					(name "A")
@@ -7475,7 +8270,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3dbb6973-dc74-4ef0-96ed-2d4b1f69eaec")
+			(tstamps "f9a01f59-2e41-476b-9624-5330925e90fa")
 			(units
 				(unit
 					(name "A")
@@ -7541,7 +8336,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4939ef24-aff3-4073-92f5-77c85d35761e")
+			(tstamps "d796768c-0f65-418a-81b8-c473c8a822e7")
 			(units
 				(unit
 					(name "A")
@@ -7607,7 +8402,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6c3dee8c-e1da-4050-829c-b66e0fb5b943")
+			(tstamps "673e2169-cd59-4330-a6c0-70b12d3c7225")
 			(units
 				(unit
 					(name "A")
@@ -7673,7 +8468,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "425f6cc6-3aa2-401b-be76-77db61b4eedb")
+			(tstamps "5856d10a-2719-4113-a84a-6197af09c337")
 			(units
 				(unit
 					(name "A")
@@ -7739,7 +8534,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "20770602-f1ec-4a6b-833a-8d2c28dbb25c")
+			(tstamps "cf6479ba-4319-44dd-85b2-397dae3dc8b6")
 			(units
 				(unit
 					(name "A")
@@ -7805,7 +8600,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5d7573c5-f42e-48a0-9789-a9e23c87ce92")
+			(tstamps "a9c3ad1d-8342-4109-a4d8-d9335386e52d")
 			(units
 				(unit
 					(name "A")
@@ -7871,7 +8666,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "04b8a23c-c28b-4a90-ad5e-a0886a6d2df2")
+			(tstamps "310b0fbd-47d2-48c3-be63-2366fd3f1611")
 			(units
 				(unit
 					(name "A")
@@ -7937,7 +8732,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "684e6131-d2a4-402f-92dc-4d6ca17394e3")
+			(tstamps "429529d8-1223-4e8f-88e2-a6d1b80cd893")
 			(units
 				(unit
 					(name "A")
@@ -8003,7 +8798,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "dd82618c-1204-401b-aa8e-574d2e92af1c")
+			(tstamps "04e5bdeb-478a-402d-8f4c-b8e52d68939a")
 			(units
 				(unit
 					(name "A")
@@ -8069,7 +8864,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c0ddcb8f-8077-4bd8-83f0-77c3b1708c43")
+			(tstamps "fb3a0965-c650-466a-8446-43a947407f24")
 			(units
 				(unit
 					(name "A")
@@ -8135,7 +8930,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c8c57d4a-2aee-4783-a745-8b1428b818d0")
+			(tstamps "ce45f89e-ddce-4eb0-9f8d-6458b6302b5b")
 			(units
 				(unit
 					(name "A")
@@ -8201,7 +8996,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "37c58a01-7231-4199-aa5d-779deee15070")
+			(tstamps "ebfc25ee-8dc7-4e8f-8755-5c0fdd58eb04")
 			(units
 				(unit
 					(name "A")
@@ -8267,7 +9062,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ab8584cc-47a5-4035-b9cf-23620a118fa8")
+			(tstamps "de5ac48d-26a8-4c03-8727-85e722803d3f")
 			(units
 				(unit
 					(name "A")
@@ -8333,7 +9128,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ec255455-8d19-4c7a-a479-ba091cf3050f")
+			(tstamps "454ff89b-8936-43f2-ae6f-738ee6edc048")
 			(units
 				(unit
 					(name "A")
@@ -8399,7 +9194,73 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "538289e6-5aef-41b0-962f-32e91cccc626")
+			(tstamps "07026fdf-df19-4682-a31a-adf4dd87bd65")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R55")
+			(value "10k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "RC0805FR-0710KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0710KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "3795f64d-2c26-46d2-b00d-0a40a6f88a00")
 			(units
 				(unit
 					(name "A")
@@ -8465,7 +9326,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bf2a080f-f383-4439-b50e-9d95dd442cf3")
+			(tstamps "daaee215-e4a7-4587-a59c-e0d26ae2e11a")
 			(units
 				(unit
 					(name "A")
@@ -8531,7 +9392,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8be4797a-c191-4dda-b80c-4192d169a6ca")
+			(tstamps "e535092b-379c-4255-b2d6-9d1cacc76857")
 			(units
 				(unit
 					(name "A")
@@ -8597,139 +9458,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "259b3091-db36-4c87-a818-6b14d2888b21")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R59")
-			(value "22")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-0722RL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-0722RL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "95d0223f-a2f2-4d5d-acb6-d961a29b519c")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R60")
-			(value "22")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-0722RL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-0722RL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "39263b90-e4b3-4cbd-b1b6-5a15e0f76823")
+			(tstamps "172584eb-47ad-474c-85ea-b9f516333a15")
 			(units
 				(unit
 					(name "A")
@@ -8795,7 +9524,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5ea9ed1a-4076-4e2f-b0ce-b5efe133619c")
+			(tstamps "5de5d2ee-5142-4337-91f7-b6c27dd1cdf9")
 			(units
 				(unit
 					(name "A")
@@ -8861,7 +9590,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "aef52c23-01e1-4f5b-b129-3247e1a117e9")
+			(tstamps "bf32d66c-66fa-4e02-864e-56cfca477de1")
 			(units
 				(unit
 					(name "A")
@@ -8927,7 +9656,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d67fe505-85da-493b-a542-c0c81ef036ef")
+			(tstamps "e514510d-20a6-443c-9ebf-e72f3b3a1bef")
 			(units
 				(unit
 					(name "A")
@@ -8993,7 +9722,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "fa935189-aa1a-46e1-99da-6851f5417b56")
+			(tstamps "714a8c3b-e2a3-4470-b54b-a3791ad87ef0")
 			(units
 				(unit
 					(name "A")
@@ -9059,73 +9788,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "57fe166d-d99e-42b0-9dfa-9a6aa0fd6ae7")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R66")
-			(value "10k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-0710KL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-0710KL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "98d0d1ec-e8e8-4ac7-81ad-3d3cf96192e9")
+			(tstamps "df7e2f79-42fc-481d-84da-19dec50b8bdc")
 			(units
 				(unit
 					(name "A")
@@ -9191,7 +9854,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "79d8798b-fe38-45ef-9862-a662db2e166f")
+			(tstamps "d9c41eb8-fe48-477e-9a44-3d09f15b0f58")
 			(units
 				(unit
 					(name "A")
@@ -9257,7 +9920,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4c42975a-7093-46d7-936e-0a9eb8b61d93")
+			(tstamps "c193e358-62a3-45b9-afac-bdaa5e79c8c3")
 			(units
 				(unit
 					(name "A")
@@ -9274,11 +9937,11 @@
 		)
 		(comp
 			(ref "R69")
-			(value "1M")
+			(value "100k")
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-071ML")
+					(name "MPN") "RC0805FR-07100KL")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
@@ -9297,7 +9960,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-071ML")
+				(value "RC0805FR-07100KL")
 			)
 			(property
 				(name "Manufacturer")
@@ -9323,7 +9986,667 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ac8a5b05-a3ed-47ed-8f0e-10ff9687e4de")
+			(tstamps "c2b82e32-4d5d-4927-b288-349f7f03f4bd")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R70")
+			(value "220k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "RC0805FR-07220KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07220KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "281e783d-1e06-4a27-a7ac-6df4389dfe75")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R71")
+			(value "110k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "RC0805FR-07110KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07110KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "ce598dde-e5e5-4d2f-afce-61cb9f0d18e9")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R73")
+			(value "100k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "RC0805FR-07100KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07100KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "8d990c3e-7170-43d1-8a80-cce83d1e3f3f")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R74")
+			(value "11k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "RC0805FR-0711KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0711KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "b27105bb-fd6e-4eb9-b590-0a824765994d")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R75")
+			(value "100k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "RC0805FR-07100KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07100KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "bd055f3c-b4d3-49a6-aef7-9dfccb3b5302")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R76")
+			(value "100k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "RC0805FR-07100KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-07100KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "8cb0f1a8-88b9-49d9-963e-f58a1a0262a8")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R77")
+			(value "4.7k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "RC0805FR-074K7L")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-074K7L")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "b18b7ade-a92f-4743-bb8b-b3187eefaa77")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R78")
+			(value "4.7k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "RC0805FR-074K7L")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-074K7L")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "bd443ce3-cbe6-46fd-98bc-6c0acead2005")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R79")
+			(value "10k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "RC0805FR-0710KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0710KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "f9dabb33-1fcc-4fbb-ba44-a9499144fef4")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R80")
+			(value "10k")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "MPN") "RC0805FR-0710KL")
+				(field
+					(name "Manufacturer") "Yageo")
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "RC0805FR-0710KL")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Yageo")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "49e3e7de-1e3f-4564-aa8c-534039c9cee0")
 			(units
 				(unit
 					(name "A")
@@ -9344,9 +10667,9 @@
 			(footprint "Button_Switch_THT:SW_PUSH_6mm")
 			(fields
 				(field
-					(name "MPN") "B3F-1000")
+					(name "MPN") "PTS645VL582LFS")
 				(field
-					(name "Manufacturer") "Omron")
+					(name "Manufacturer") "C&K")
 				(field
 					(name "Footprint") "Button_Switch_THT:SW_PUSH_6mm")
 				(field
@@ -9363,11 +10686,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "B3F-1000")
+				(value "PTS645VL582LFS")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Omron")
+				(value "C&K")
 			)
 			(property
 				(name "Sheetname")
@@ -9385,7 +10708,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0fd580df-aec4-45e9-8859-e774b53b569d")
+			(tstamps "e1f165fe-3022-4b3c-bf68-d676b5dd0450")
 			(units
 				(unit
 					(name "A")
@@ -9406,9 +10729,9 @@
 			(footprint "Button_Switch_THT:SW_PUSH_6mm")
 			(fields
 				(field
-					(name "MPN") "B3F-1000")
+					(name "MPN") "PTS645VL582LFS")
 				(field
-					(name "Manufacturer") "Omron")
+					(name "Manufacturer") "C&K")
 				(field
 					(name "Footprint") "Button_Switch_THT:SW_PUSH_6mm")
 				(field
@@ -9425,11 +10748,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "B3F-1000")
+				(value "PTS645VL582LFS")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Omron")
+				(value "C&K")
 			)
 			(property
 				(name "Sheetname")
@@ -9447,7 +10770,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8736a9e7-085a-438f-b5a1-14fde4d2167f")
+			(tstamps "a037b8c5-cfd1-4acc-803a-c7018fa56cbd")
 			(units
 				(unit
 					(name "A")
@@ -9468,9 +10791,9 @@
 			(footprint "Button_Switch_THT:SW_PUSH_6mm")
 			(fields
 				(field
-					(name "MPN") "B3F-1000")
+					(name "MPN") "PTS645VL582LFS")
 				(field
-					(name "Manufacturer") "Omron")
+					(name "Manufacturer") "C&K")
 				(field
 					(name "Footprint") "Button_Switch_THT:SW_PUSH_6mm")
 				(field
@@ -9487,11 +10810,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "B3F-1000")
+				(value "PTS645VL582LFS")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Omron")
+				(value "C&K")
 			)
 			(property
 				(name "Sheetname")
@@ -9509,7 +10832,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b9d68bcf-0e06-4740-8020-5fb70538960c")
+			(tstamps "0aa90ced-5f54-4ce9-be63-d1b68d2998a6")
 			(units
 				(unit
 					(name "A")
@@ -9530,9 +10853,9 @@
 			(footprint "Button_Switch_THT:SW_PUSH_6mm")
 			(fields
 				(field
-					(name "MPN") "B3F-1000")
+					(name "MPN") "PTS645VL582LFS")
 				(field
-					(name "Manufacturer") "Omron")
+					(name "Manufacturer") "C&K")
 				(field
 					(name "Footprint") "Button_Switch_THT:SW_PUSH_6mm")
 				(field
@@ -9549,11 +10872,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "B3F-1000")
+				(value "PTS645VL582LFS")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Omron")
+				(value "C&K")
 			)
 			(property
 				(name "Sheetname")
@@ -9571,7 +10894,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bb05bc89-0186-4274-9b1c-e1b7a48165da")
+			(tstamps "008a7063-de8e-4bdd-98cb-95e610909ec3")
 			(units
 				(unit
 					(name "A")
@@ -9588,15 +10911,15 @@
 		)
 		(comp
 			(ref "SW5")
-			(value "PWR (OS102011MS2QN1 slide; slide-to-GND = OFF)")
-			(footprint "Button_Switch_THT:SW_Slide_SPDT_Straight_CK_OS102011MS2Q")
+			(value "PWR ALL (PCM12SMTR slide; slide-to-GND = OFF)")
+			(footprint "Button_Switch_SMD:SW_SPDT_PCM12")
 			(fields
 				(field
-					(name "MPN") "OS102011MS2QN1")
+					(name "MPN") "PCM12SMTR")
 				(field
 					(name "Manufacturer") "C&K")
 				(field
-					(name "Footprint") "Button_Switch_THT:SW_Slide_SPDT_Straight_CK_OS102011MS2Q")
+					(name "Footprint") "Button_Switch_SMD:SW_SPDT_PCM12")
 				(field
 					(name "Datasheet")
 				)
@@ -9611,7 +10934,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "OS102011MS2QN1")
+				(value "PCM12SMTR")
 			)
 			(property
 				(name "Manufacturer")
@@ -9633,7 +10956,72 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "368f1aa7-59ce-41e0-ae2c-238a8633080f")
+			(tstamps "c595a450-7451-4931-abe8-a922234ca720")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "SW6")
+			(value "PWR MOTORS (PCM12SMTR slide; slide-to-GND = motors OFF)")
+			(footprint "Button_Switch_SMD:SW_SPDT_PCM12")
+			(fields
+				(field
+					(name "MPN") "PCM12SMTR")
+				(field
+					(name "Manufacturer") "C&K")
+				(field
+					(name "Footprint") "Button_Switch_SMD:SW_SPDT_PCM12")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Switch")
+				(part "SW_SPDT")
+				(description "Switch, single pole double throw")
+			)
+			(property
+				(name "MPN")
+				(value "PCM12SMTR")
+			)
+			(property
+				(name "Manufacturer")
+				(value "C&K")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "switch single-pole double-throw spdt ON-ON")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "7c1cfce5-b859-4dbb-b870-d97f324bd859")
 			(units
 				(unit
 					(name "A")
@@ -9653,34 +11041,34 @@
 		)
 		(comp
 			(ref "U1")
-			(value "TPS63001 (fixed 3.3V buck-boost; TPS63000 base symbol so ERC checks pins)")
-			(footprint "Package_SON:Texas_DRC0010J_ThermalVias")
-			(datasheet "https://www.ti.com/lit/ds/symlink/tps63001.pdf")
+			(value "AP63203WU-7 (fixed 3.3V 2A buck; AP63200WU base symbol so ERC checks pins)")
+			(footprint "Package_TO_SOT_SMD:TSOT-23-6")
+			(datasheet "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf")
 			(fields
 				(field
-					(name "MPN") "TPS63001DRCR")
+					(name "MPN") "AP63203WU-7")
 				(field
-					(name "Manufacturer") "Texas Instruments")
+					(name "Manufacturer") "Diodes Incorporated")
 				(field
-					(name "Footprint") "Package_SON:Texas_DRC0010J_ThermalVias")
+					(name "Footprint") "Package_TO_SOT_SMD:TSOT-23-6")
 				(field
-					(name "Datasheet") "https://www.ti.com/lit/ds/symlink/tps63001.pdf")
+					(name "Datasheet") "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf")
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
 				(lib "Regulator_Switching")
-				(part "TPS63000")
-				(description "Buck-Boost Converter, 1.8-5.5V Input Voltage, 1.8A Switch Current, Adjustable 1.2-5.5V Output Voltage, VSON-10")
+				(part "AP63200WU")
+				(description "2A, 500kHz Buck DC/DC Converter, adjustable output voltage, TSOT-23-6")
 			)
 			(property
 				(name "MPN")
-				(value "TPS63001DRCR")
+				(value "AP63203WU-7")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Texas Instruments")
+				(value "Diodes Incorporated")
 			)
 			(property
 				(name "Sheetname")
@@ -9692,53 +11080,38 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "Buck-Boost adjustable converter")
+				(value "2A Buck DC/DC")
 			)
 			(property
 				(name "ki_fp_filters")
-				(value "Texas*DRC0010J*")
+				(value "TSOT?23*")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "97ad0cba-39a1-4743-9e81-642f00af5da7")
+			(tstamps "44b6ce55-1af7-47ee-b01c-2934e34683c1")
 			(units
 				(unit
 					(name "A")
 					(pins
 						(pin
-							(num "5")
-						)
-						(pin
-							(num "8")
-						)
-						(pin
-							(num "6")
-						)
-						(pin
-							(num "7")
-						)
-						(pin
-							(num "4")
+							(num "3")
 						)
 						(pin
 							(num "2")
 						)
 						(pin
-							(num "9")
+							(num "4")
 						)
 						(pin
-							(num "3")
+							(num "5")
 						)
 						(pin
-							(num "11")
+							(num "6")
 						)
 						(pin
 							(num "1")
-						)
-						(pin
-							(num "10")
 						)
 					)
 				)
@@ -9795,7 +11168,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4ece19d2-9482-4e1c-a917-457e96e2d6df")
+			(tstamps "ad69e1dc-f19a-463d-a878-587c29ca048a")
 			(units
 				(unit
 					(name "A")
@@ -9878,12 +11251,12 @@
 		)
 		(comp
 			(ref "U3")
-			(value "ESP32-S3-WROOM-1-N16 (non-R8: octal-PSRAM variants lose IO35-37 = buttons 2/3)")
+			(value "ESP32-S3-WROOM-1-N8R2 (quad PSRAM: IO35-37 usable; octal -R8 would lose them)")
 			(footprint "RF_Module:ESP32-S3-WROOM-1")
 			(datasheet "https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf")
 			(fields
 				(field
-					(name "MPN") "ESP32-S3-WROOM-1-N16")
+					(name "MPN") "ESP32-S3-WROOM-1-N8R2")
 				(field
 					(name "Manufacturer") "Espressif Systems")
 				(field
@@ -9901,7 +11274,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "ESP32-S3-WROOM-1-N16")
+				(value "ESP32-S3-WROOM-1-N8R2")
 			)
 			(property
 				(name "Manufacturer")
@@ -9927,7 +11300,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "909575ec-7d95-4db8-88e2-894e804e5c97")
+			(tstamps "f1ebba58-c681-4316-9783-a783e99d03d1")
 			(units
 				(unit
 					(name "A")
@@ -10110,7 +11483,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e75fb3fb-21f0-44b6-a7c8-467ae3d6e200")
+			(tstamps "e47eb908-808a-4538-b92f-620ee9654445")
 			(units
 				(unit
 					(name "A")
@@ -10242,7 +11615,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5f0b4e1b-20ff-4061-b2b0-233c93f8808b")
+			(tstamps "0fb2b485-3576-4ef1-ac91-bf337be4cda6")
 			(units
 				(unit
 					(name "A")
@@ -10264,6 +11637,228 @@
 						)
 						(pin
 							(num "4")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U7")
+			(value "TPS54302DDCR (6.0V/3A motor buck; FB=100k/11k)")
+			(footprint "Package_TO_SOT_SMD:SOT-23-6")
+			(datasheet "https://www.ti.com/lit/ds/symlink/tps54302.pdf")
+			(fields
+				(field
+					(name "MPN") "TPS54302DDCR")
+				(field
+					(name "Manufacturer") "Texas Instruments")
+				(field
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-23-6")
+				(field
+					(name "Datasheet") "https://www.ti.com/lit/ds/symlink/tps54302.pdf")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Regulator_Switching")
+				(part "TPS54302")
+				(description "3A, 4.5 to 28V Input, EMI Friendly integrated switch synchronous step-down regulator, pulse-skipping, SOT-23-6")
+			)
+			(property
+				(name "MPN")
+				(value "TPS54302DDCR")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Texas Instruments")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "switching buck converter power-supply voltage regulator emi spread spectrum")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "SOT?23*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "3be5acab-2ea8-41ad-92ad-728e38b32580")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "4")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U8")
+			(value "BNO055 (9-axis IMU + fusion; 3.3V native; I2C 0x28)")
+			(footprint "n20:BNO055")
+			(datasheet "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bno055-ds000.pdf")
+			(fields
+				(field
+					(name "MPN") "BNO055")
+				(field
+					(name "Manufacturer") "Bosch Sensortec")
+				(field
+					(name "Footprint") "n20:BNO055")
+				(field
+					(name "Datasheet") "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bno055-ds000.pdf")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Sensor_Motion")
+				(part "BNO055")
+				(description "Intelligent 9-axis absolute orientation sensor, LGA-28")
+			)
+			(property
+				(name "MPN")
+				(value "BNO055")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Bosch Sensortec")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-pcb")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-pcb.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "IMU Fusion I2C UART")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "LGA*5.2x3.8mm*P0.5mm*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "1e001cdb-742b-4ff8-a070-991e74fd8d16")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "11")
+						)
+						(pin
+							(num "14")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "10")
+						)
+						(pin
+							(num "20")
+						)
+						(pin
+							(num "19")
+						)
+						(pin
+							(num "18")
+						)
+						(pin
+							(num "17")
+						)
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "28")
+						)
+						(pin
+							(num "25")
+						)
+						(pin
+							(num "15")
+						)
+						(pin
+							(num "16")
+						)
+						(pin
+							(num "12")
+						)
+						(pin
+							(num "13")
+						)
+						(pin
+							(num "21")
+						)
+						(pin
+							(num "22")
+						)
+						(pin
+							(num "23")
+						)
+						(pin
+							(num "24")
+						)
+						(pin
+							(num "26")
+						)
+						(pin
+							(num "27")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "9")
 						)
 					)
 				)
@@ -10555,6 +12150,45 @@
 				(pin
 					(num "2")
 					(name "Pin_2")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Connector_Generic")
+			(part "Conn_01x03")
+			(description "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			(footprints
+				(fp "Connector*:*_1x??_*")
+			)
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "Conn_01x03")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description") "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "Pin_1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "Pin_2")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "Pin_3")
 					(type "passive")
 				)
 			)
@@ -11254,79 +12888,270 @@
 		)
 		(libpart
 			(lib "Regulator_Switching")
-			(part "TPS63000")
-			(description "Buck-Boost Converter, 1.8-5.5V Input Voltage, 1.8A Switch Current, Adjustable 1.2-5.5V Output Voltage, VSON-10")
-			(docs "http://www.ti.com/lit/ds/symlink/tps63000.pdf")
+			(part "AP63200WU")
+			(description "2A, 500kHz Buck DC/DC Converter, adjustable output voltage, TSOT-23-6")
+			(docs "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf")
 			(footprints
-				(fp "Texas*DRC0010J*")
+				(fp "TSOT?23*")
 			)
 			(fields
 				(field
 					(name "Reference") "U")
 				(field
-					(name "Value") "TPS63000")
+					(name "Value") "AP63200WU")
 				(field
-					(name "Footprint") "Package_SON:Texas_DRC0010J_ThermalVias")
+					(name "Footprint") "Package_TO_SOT_SMD:TSOT-23-6")
 				(field
-					(name "Datasheet") "http://www.ti.com/lit/ds/symlink/tps63000.pdf")
+					(name "Datasheet") "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf")
 				(field
-					(name "Description") "Buck-Boost Converter, 1.8-5.5V Input Voltage, 1.8A Switch Current, Adjustable 1.2-5.5V Output Voltage, VSON-10")
+					(name "Description") "2A, 500kHz Buck DC/DC Converter, adjustable output voltage, TSOT-23-6")
 			)
 			(pins
 				(pin
 					(num "1")
-					(name "VOUT")
-					(type "power_out")
-				)
-				(pin
-					(num "2")
-					(name "L2")
-					(type "input")
-				)
-				(pin
-					(num "3")
-					(name "PGND")
-					(type "power_in")
-				)
-				(pin
-					(num "4")
-					(name "L1")
-					(type "input")
-				)
-				(pin
-					(num "5")
-					(name "VIN")
-					(type "power_in")
-				)
-				(pin
-					(num "6")
-					(name "EN")
-					(type "input")
-				)
-				(pin
-					(num "7")
-					(name "PS/SYNC")
-					(type "input")
-				)
-				(pin
-					(num "8")
-					(name "VINA")
-					(type "power_in")
-				)
-				(pin
-					(num "9")
-					(name "GND")
-					(type "power_in")
-				)
-				(pin
-					(num "10")
 					(name "FB")
 					(type "input")
 				)
 				(pin
-					(num "11")
-					(name "PGND")
+					(num "2")
+					(name "EN")
+					(type "input")
+				)
+				(pin
+					(num "3")
+					(name "IN")
+					(type "power_in")
+				)
+				(pin
+					(num "4")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "5")
+					(name "SW")
+					(type "output")
+				)
+				(pin
+					(num "6")
+					(name "BST")
 					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Regulator_Switching")
+			(part "TPS54302")
+			(description "3A, 4.5 to 28V Input, EMI Friendly integrated switch synchronous step-down regulator, pulse-skipping, SOT-23-6")
+			(docs "http://www.ti.com/lit/ds/symlink/tps54302.pdf")
+			(footprints
+				(fp "SOT?23*")
+			)
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "TPS54302")
+				(field
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-23-6")
+				(field
+					(name "Datasheet") "http://www.ti.com/lit/ds/symlink/tps54302.pdf")
+				(field
+					(name "Description") "3A, 4.5 to 28V Input, EMI Friendly integrated switch synchronous step-down regulator, pulse-skipping, SOT-23-6")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "2")
+					(name "SW")
+					(type "power_out")
+				)
+				(pin
+					(num "3")
+					(name "VIN")
+					(type "power_in")
+				)
+				(pin
+					(num "4")
+					(name "FB")
+					(type "input")
+				)
+				(pin
+					(num "5")
+					(name "EN")
+					(type "input")
+				)
+				(pin
+					(num "6")
+					(name "BOOT")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Sensor_Motion")
+			(part "BNO055")
+			(description "Intelligent 9-axis absolute orientation sensor, LGA-28")
+			(docs "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bno055-ds000.pdf")
+			(footprints
+				(fp "LGA*5.2x3.8mm*P0.5mm*")
+			)
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "BNO055")
+				(field
+					(name "Footprint") "Package_LGA:LGA-28_5.2x3.8mm_P0.5mm")
+				(field
+					(name "Datasheet") "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bno055-ds000.pdf")
+				(field
+					(name "Description") "Intelligent 9-axis absolute orientation sensor, LGA-28")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "PIN1")
+					(type "no_connect")
+				)
+				(pin
+					(num "2")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "3")
+					(name "VDD")
+					(type "power_in")
+				)
+				(pin
+					(num "4")
+					(name "~{BOOT_LOAD_PIN}")
+					(type "input")
+				)
+				(pin
+					(num "5")
+					(name "PS1")
+					(type "input")
+				)
+				(pin
+					(num "6")
+					(name "PS0")
+					(type "input")
+				)
+				(pin
+					(num "7")
+					(name "PIN7")
+					(type "no_connect")
+				)
+				(pin
+					(num "8")
+					(name "PIN8")
+					(type "no_connect")
+				)
+				(pin
+					(num "9")
+					(name "CAP")
+					(type "passive")
+				)
+				(pin
+					(num "10")
+					(name "BL_IND")
+					(type "output")
+				)
+				(pin
+					(num "11")
+					(name "~{RESET}")
+					(type "input")
+				)
+				(pin
+					(num "12")
+					(name "PIN12")
+					(type "no_connect")
+				)
+				(pin
+					(num "13")
+					(name "PIN13")
+					(type "no_connect")
+				)
+				(pin
+					(num "14")
+					(name "INT")
+					(type "output")
+				)
+				(pin
+					(num "15")
+					(name "PIN15")
+					(type "no_connect")
+				)
+				(pin
+					(num "16")
+					(name "PIN16")
+					(type "no_connect")
+				)
+				(pin
+					(num "17")
+					(name "COM3")
+					(type "input")
+				)
+				(pin
+					(num "18")
+					(name "COM2")
+					(type "passive")
+				)
+				(pin
+					(num "19")
+					(name "COM1")
+					(type "bidirectional")
+				)
+				(pin
+					(num "20")
+					(name "COM0")
+					(type "bidirectional")
+				)
+				(pin
+					(num "21")
+					(name "PIN21")
+					(type "no_connect")
+				)
+				(pin
+					(num "22")
+					(name "PIN22")
+					(type "no_connect")
+				)
+				(pin
+					(num "23")
+					(name "PIN23")
+					(type "no_connect")
+				)
+				(pin
+					(num "24")
+					(name "PIN24")
+					(type "no_connect")
+				)
+				(pin
+					(num "25")
+					(name "GNDIO")
+					(type "power_in")
+				)
+				(pin
+					(num "26")
+					(name "XOUT32")
+					(type "output")
+				)
+				(pin
+					(num "27")
+					(name "XIN32")
+					(type "input")
+				)
+				(pin
+					(num "28")
+					(name "VDDIO")
+					(type "power_in")
 				)
 			)
 		)
@@ -11545,6 +13370,10 @@
 			(uri "${KICAD10_SYMBOL_DIR}/Regulator_Switching.kicad_sym")
 		)
 		(library
+			(logical "Sensor_Motion")
+			(uri "${KICAD10_SYMBOL_DIR}/Sensor_Motion.kicad_sym")
+		)
+		(library
 			(logical "Sensor_Optical")
 			(uri "${KICAD10_SYMBOL_DIR}/Sensor_Optical.kicad_sym")
 		)
@@ -11594,6 +13423,70 @@
 		)
 		(net
 			(code "3")
+			(name "BATT_RAW")
+			(class "Default")
+			(node
+				(ref "F1")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J1")
+				(pin "1")
+				(pinfunction "Pin_1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J9")
+				(pin "3")
+				(pinfunction "Pin_3_3")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "4")
+			(name "BAT_MID")
+			(class "Default")
+			(node
+				(ref "J9")
+				(pin "2")
+				(pinfunction "Pin_2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R75")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "5")
+			(name "BAT_MID_SENSE")
+			(class "Default")
+			(node
+				(ref "C19")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R75")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R76")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U4")
+				(pin "22")
+				(pinfunction "I9_22")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "6")
 			(name "BIN1")
 			(class "Default")
 			(node
@@ -11610,7 +13503,7 @@
 			)
 		)
 		(net
-			(code "4")
+			(code "7")
 			(name "BIN2")
 			(class "Default")
 			(node
@@ -11632,7 +13525,7 @@
 			)
 		)
 		(net
-			(code "5")
+			(code "8")
 			(name "EMIT_DIAG_K")
 			(class "Default")
 			(node
@@ -11655,7 +13548,7 @@
 			)
 		)
 		(net
-			(code "6")
+			(code "9")
 			(name "EMIT_FRONT_K")
 			(class "Default")
 			(node
@@ -11678,7 +13571,7 @@
 			)
 		)
 		(net
-			(code "7")
+			(code "10")
 			(name "EMIT_LINE_K")
 			(class "Default")
 			(node
@@ -11729,7 +13622,7 @@
 			)
 		)
 		(net
-			(code "8")
+			(code "11")
 			(name "EMIT_SIDE_K")
 			(class "Default")
 			(node
@@ -11752,7 +13645,7 @@
 			)
 		)
 		(net
-			(code "9")
+			(code "12")
 			(name "ENC1_A")
 			(class "Default")
 			(node
@@ -11774,7 +13667,7 @@
 			)
 		)
 		(net
-			(code "10")
+			(code "13")
 			(name "ENC1_B")
 			(class "Default")
 			(node
@@ -11796,7 +13689,7 @@
 			)
 		)
 		(net
-			(code "11")
+			(code "14")
 			(name "ENC2_A")
 			(class "Default")
 			(node
@@ -11817,7 +13710,7 @@
 			)
 		)
 		(net
-			(code "12")
+			(code "15")
 			(name "ENC2_A_S3")
 			(class "Default")
 			(node
@@ -11833,7 +13726,7 @@
 			)
 		)
 		(net
-			(code "13")
+			(code "16")
 			(name "ENC2_B")
 			(class "Default")
 			(node
@@ -11854,7 +13747,7 @@
 			)
 		)
 		(net
-			(code "14")
+			(code "17")
 			(name "ENC2_B_S3")
 			(class "Default")
 			(node
@@ -11870,7 +13763,7 @@
 			)
 		)
 		(net
-			(code "15")
+			(code "18")
 			(name "ESP_EN")
 			(class "Default")
 			(node
@@ -11897,7 +13790,28 @@
 			)
 		)
 		(net
-			(code "16")
+			(code "19")
+			(name "FB_6V")
+			(class "Default")
+			(node
+				(ref "R73")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R74")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U7")
+				(pin "4")
+				(pinfunction "FB_4")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "20")
 			(name "GND")
 			(class "Default")
 			(node
@@ -11931,12 +13845,47 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "C16")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C17")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C18")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C19")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
 				(ref "C2")
 				(pin "2")
 				(pintype "passive")
 			)
 			(node
-				(ref "C3")
+				(ref "C20")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C23")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C24")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C30")
 				(pin "2")
 				(pintype "passive")
 			)
@@ -11952,6 +13901,11 @@
 			)
 			(node
 				(ref "C6")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C7")
 				(pin "2")
 				(pintype "passive")
 			)
@@ -12056,6 +14010,12 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "J9")
+				(pin "1")
+				(pinfunction "Pin_1_1")
+				(pintype "passive")
+			)
+			(node
 				(ref "LS1")
 				(pin "3")
 				(pintype "passive")
@@ -12249,12 +14209,22 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "R66")
+				(ref "R68")
 				(pin "2")
 				(pintype "passive")
 			)
 			(node
-				(ref "R68")
+				(ref "R71")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R74")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R76")
 				(pin "2")
 				(pintype "passive")
 			)
@@ -12289,27 +14259,15 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "U1")
-				(pin "11")
-				(pinfunction "PGND_11")
+				(ref "SW6")
+				(pin "1")
+				(pinfunction "A_1")
 				(pintype "passive")
 			)
 			(node
 				(ref "U1")
-				(pin "3")
-				(pinfunction "PGND_3")
-				(pintype "power_in")
-			)
-			(node
-				(ref "U1")
-				(pin "7")
-				(pinfunction "PS/SYNC_7")
-				(pintype "input")
-			)
-			(node
-				(ref "U1")
-				(pin "9")
-				(pinfunction "GND_9")
+				(pin "4")
+				(pinfunction "GND_4")
 				(pintype "power_in")
 			)
 			(node
@@ -12368,12 +14326,6 @@
 			)
 			(node
 				(ref "U4")
-				(pin "13")
-				(pinfunction "S3_13")
-				(pintype "input")
-			)
-			(node
-				(ref "U4")
 				(pin "15")
 				(pinfunction "~{E}_15")
 				(pintype "input")
@@ -12384,9 +14336,112 @@
 				(pinfunction "GND_2")
 				(pintype "passive")
 			)
+			(node
+				(ref "U7")
+				(pin "1")
+				(pinfunction "GND_1")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U8")
+				(pin "17")
+				(pinfunction "COM3_17")
+				(pintype "input")
+			)
+			(node
+				(ref "U8")
+				(pin "18")
+				(pinfunction "COM2_18")
+				(pintype "passive")
+			)
+			(node
+				(ref "U8")
+				(pin "2")
+				(pinfunction "GND_2")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U8")
+				(pin "25")
+				(pinfunction "GNDIO_25")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U8")
+				(pin "5")
+				(pinfunction "PS1_5")
+				(pintype "input")
+			)
+			(node
+				(ref "U8")
+				(pin "6")
+				(pinfunction "PS0_6")
+				(pintype "input")
+			)
 		)
 		(net
-			(code "17")
+			(code "21")
+			(name "IMU_INT")
+			(class "Default")
+			(node
+				(ref "U3")
+				(pin "30")
+				(pinfunction "IO37_30")
+				(pintype "bidirectional")
+			)
+			(node
+				(ref "U8")
+				(pin "14")
+				(pinfunction "INT_14")
+				(pintype "output")
+			)
+		)
+		(net
+			(code "22")
+			(name "IMU_SCL")
+			(class "Default")
+			(node
+				(ref "R78")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "23")
+				(pinfunction "IO21_23")
+				(pintype "bidirectional")
+			)
+			(node
+				(ref "U8")
+				(pin "19")
+				(pinfunction "COM1_19")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "23")
+			(name "IMU_SDA")
+			(class "Default")
+			(node
+				(ref "R77")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U3")
+				(pin "11")
+				(pinfunction "IO18_11")
+				(pintype "bidirectional")
+			)
+			(node
+				(ref "U8")
+				(pin "20")
+				(pinfunction "COM0_20")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "24")
 			(name "JTAG_TCK")
 			(class "Default")
 			(node
@@ -12403,7 +14458,7 @@
 			)
 		)
 		(net
-			(code "18")
+			(code "25")
 			(name "JTAG_TDI")
 			(class "Default")
 			(node
@@ -12420,7 +14475,7 @@
 			)
 		)
 		(net
-			(code "19")
+			(code "26")
 			(name "JTAG_TDO")
 			(class "Default")
 			(node
@@ -12437,7 +14492,7 @@
 			)
 		)
 		(net
-			(code "20")
+			(code "27")
 			(name "JTAG_TMS")
 			(class "Default")
 			(node
@@ -12454,7 +14509,7 @@
 			)
 		)
 		(net
-			(code "21")
+			(code "28")
 			(name "LINE1_SENSE")
 			(class "Default")
 			(node
@@ -12481,7 +14536,7 @@
 			)
 		)
 		(net
-			(code "22")
+			(code "29")
 			(name "LINE2_SENSE")
 			(class "Default")
 			(node
@@ -12508,7 +14563,7 @@
 			)
 		)
 		(net
-			(code "23")
+			(code "30")
 			(name "LINE3_SENSE")
 			(class "Default")
 			(node
@@ -12535,7 +14590,7 @@
 			)
 		)
 		(net
-			(code "24")
+			(code "31")
 			(name "LINE4_SENSE")
 			(class "Default")
 			(node
@@ -12562,7 +14617,7 @@
 			)
 		)
 		(net
-			(code "25")
+			(code "32")
 			(name "LINE5_SENSE")
 			(class "Default")
 			(node
@@ -12589,7 +14644,7 @@
 			)
 		)
 		(net
-			(code "26")
+			(code "33")
 			(name "LINE6_SENSE")
 			(class "Default")
 			(node
@@ -12616,7 +14671,7 @@
 			)
 		)
 		(net
-			(code "27")
+			(code "34")
 			(name "LINE7_SENSE")
 			(class "Default")
 			(node
@@ -12643,7 +14698,7 @@
 			)
 		)
 		(net
-			(code "28")
+			(code "35")
 			(name "LINE8_SENSE")
 			(class "Default")
 			(node
@@ -12670,7 +14725,7 @@
 			)
 		)
 		(net
-			(code "29")
+			(code "36")
 			(name "LINE_EMIT")
 			(class "Default")
 			(node
@@ -12692,7 +14747,7 @@
 			)
 		)
 		(net
-			(code "30")
+			(code "37")
 			(name "MOTA_N")
 			(class "Default")
 			(node
@@ -12715,7 +14770,7 @@
 			)
 		)
 		(net
-			(code "31")
+			(code "38")
 			(name "MOTA_P")
 			(class "Default")
 			(node
@@ -12738,7 +14793,7 @@
 			)
 		)
 		(net
-			(code "32")
+			(code "39")
 			(name "MOTB_N")
 			(class "Default")
 			(node
@@ -12761,7 +14816,7 @@
 			)
 		)
 		(net
-			(code "33")
+			(code "40")
 			(name "MOTB_P")
 			(class "Default")
 			(node
@@ -12784,7 +14839,34 @@
 			)
 		)
 		(net
-			(code "34")
+			(code "41")
+			(name "MOT_EN")
+			(class "Default")
+			(node
+				(ref "R70")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R71")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "SW6")
+				(pin "2")
+				(pinfunction "B_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U7")
+				(pin "5")
+				(pinfunction "EN_5")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "42")
 			(name "MUX_S0")
 			(class "Default")
 			(node
@@ -12801,7 +14883,7 @@
 			)
 		)
 		(net
-			(code "35")
+			(code "43")
 			(name "MUX_S1")
 			(class "Default")
 			(node
@@ -12818,7 +14900,7 @@
 			)
 		)
 		(net
-			(code "36")
+			(code "44")
 			(name "MUX_S2")
 			(class "Default")
 			(node
@@ -12835,7 +14917,24 @@
 			)
 		)
 		(net
-			(code "37")
+			(code "45")
+			(name "MUX_S3")
+			(class "Default")
+			(node
+				(ref "U3")
+				(pin "12")
+				(pinfunction "IO8_12")
+				(pintype "bidirectional")
+			)
+			(node
+				(ref "U4")
+				(pin "13")
+				(pinfunction "S3_13")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "46")
 			(name "MUX_SENSE")
 			(class "Default")
 			(node
@@ -12852,7 +14951,7 @@
 			)
 		)
 		(net
-			(code "38")
+			(code "47")
 			(name "Net-(D1-A)")
 			(class "Default")
 			(node
@@ -12868,7 +14967,7 @@
 			)
 		)
 		(net
-			(code "39")
+			(code "48")
 			(name "Net-(D2-A)")
 			(class "Default")
 			(node
@@ -12884,7 +14983,7 @@
 			)
 		)
 		(net
-			(code "40")
+			(code "49")
 			(name "Net-(D3-A)")
 			(class "Default")
 			(node
@@ -12900,7 +14999,7 @@
 			)
 		)
 		(net
-			(code "41")
+			(code "50")
 			(name "Net-(D4-A)")
 			(class "Default")
 			(node
@@ -12916,7 +15015,7 @@
 			)
 		)
 		(net
-			(code "42")
+			(code "51")
 			(name "Net-(D5-A)")
 			(class "Default")
 			(node
@@ -12932,7 +15031,7 @@
 			)
 		)
 		(net
-			(code "43")
+			(code "52")
 			(name "Net-(D6-A)")
 			(class "Default")
 			(node
@@ -12948,7 +15047,7 @@
 			)
 		)
 		(net
-			(code "44")
+			(code "53")
 			(name "Net-(D15-A)")
 			(class "Default")
 			(node
@@ -12964,7 +15063,7 @@
 			)
 		)
 		(net
-			(code "45")
+			(code "54")
 			(name "Net-(D15-K)")
 			(class "Default")
 			(node
@@ -12981,7 +15080,7 @@
 			)
 		)
 		(net
-			(code "46")
+			(code "55")
 			(name "Net-(D16-A)")
 			(class "Default")
 			(node
@@ -12997,7 +15096,7 @@
 			)
 		)
 		(net
-			(code "47")
+			(code "56")
 			(name "Net-(D16-K)")
 			(class "Default")
 			(node
@@ -13014,7 +15113,7 @@
 			)
 		)
 		(net
-			(code "48")
+			(code "57")
 			(name "Net-(D17-A)")
 			(class "Default")
 			(node
@@ -13030,7 +15129,7 @@
 			)
 		)
 		(net
-			(code "49")
+			(code "58")
 			(name "Net-(D17-K)")
 			(class "Default")
 			(node
@@ -13047,7 +15146,7 @@
 			)
 		)
 		(net
-			(code "50")
+			(code "59")
 			(name "Net-(D18-A)")
 			(class "Default")
 			(node
@@ -13063,7 +15162,7 @@
 			)
 		)
 		(net
-			(code "51")
+			(code "60")
 			(name "Net-(D18-K)")
 			(class "Default")
 			(node
@@ -13080,7 +15179,7 @@
 			)
 		)
 		(net
-			(code "52")
+			(code "61")
 			(name "Net-(D19-A)")
 			(class "Default")
 			(node
@@ -13096,7 +15195,7 @@
 			)
 		)
 		(net
-			(code "53")
+			(code "62")
 			(name "Net-(D19-K)")
 			(class "Default")
 			(node
@@ -13113,7 +15212,7 @@
 			)
 		)
 		(net
-			(code "54")
+			(code "63")
 			(name "Net-(D20-A)")
 			(class "Default")
 			(node
@@ -13129,7 +15228,7 @@
 			)
 		)
 		(net
-			(code "55")
+			(code "64")
 			(name "Net-(D20-K)")
 			(class "Default")
 			(node
@@ -13146,7 +15245,7 @@
 			)
 		)
 		(net
-			(code "56")
+			(code "65")
 			(name "Net-(D21-A)")
 			(class "Default")
 			(node
@@ -13162,7 +15261,7 @@
 			)
 		)
 		(net
-			(code "57")
+			(code "66")
 			(name "Net-(D21-K)")
 			(class "Default")
 			(node
@@ -13179,7 +15278,7 @@
 			)
 		)
 		(net
-			(code "58")
+			(code "67")
 			(name "Net-(D22-A)")
 			(class "Default")
 			(node
@@ -13195,7 +15294,7 @@
 			)
 		)
 		(net
-			(code "59")
+			(code "68")
 			(name "Net-(D22-K)")
 			(class "Default")
 			(node
@@ -13212,7 +15311,7 @@
 			)
 		)
 		(net
-			(code "60")
+			(code "69")
 			(name "Net-(D23-A)")
 			(class "Default")
 			(node
@@ -13228,7 +15327,7 @@
 			)
 		)
 		(net
-			(code "61")
+			(code "70")
 			(name "Net-(D24-A)")
 			(class "Default")
 			(node
@@ -13244,7 +15343,7 @@
 			)
 		)
 		(net
-			(code "62")
+			(code "71")
 			(name "Net-(D25-A)")
 			(class "Default")
 			(node
@@ -13260,7 +15359,7 @@
 			)
 		)
 		(net
-			(code "63")
+			(code "72")
 			(name "Net-(D26-A)")
 			(class "Default")
 			(node
@@ -13276,7 +15375,7 @@
 			)
 		)
 		(net
-			(code "64")
+			(code "73")
 			(name "Net-(D27-A)")
 			(class "Default")
 			(node
@@ -13292,7 +15391,7 @@
 			)
 		)
 		(net
-			(code "65")
+			(code "74")
 			(name "Net-(D28-A)")
 			(class "Default")
 			(node
@@ -13308,23 +15407,7 @@
 			)
 		)
 		(net
-			(code "66")
-			(name "Net-(J1-Pin_1)")
-			(class "Default")
-			(node
-				(ref "F1")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "J1")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "67")
+			(code "75")
 			(name "Net-(J7-CC1)")
 			(class "Default")
 			(node
@@ -13340,7 +15423,7 @@
 			)
 		)
 		(net
-			(code "68")
+			(code "76")
 			(name "Net-(J7-CC2)")
 			(class "Default")
 			(node
@@ -13356,7 +15439,7 @@
 			)
 		)
 		(net
-			(code "69")
+			(code "77")
 			(name "Net-(LS1-Pad1)")
 			(class "Default")
 			(node
@@ -13371,7 +15454,7 @@
 			)
 		)
 		(net
-			(code "70")
+			(code "78")
 			(name "Net-(LS2-Pad1)")
 			(class "Default")
 			(node
@@ -13386,7 +15469,7 @@
 			)
 		)
 		(net
-			(code "71")
+			(code "79")
 			(name "Net-(LS3-Pad1)")
 			(class "Default")
 			(node
@@ -13401,7 +15484,7 @@
 			)
 		)
 		(net
-			(code "72")
+			(code "80")
 			(name "Net-(LS4-Pad1)")
 			(class "Default")
 			(node
@@ -13416,7 +15499,7 @@
 			)
 		)
 		(net
-			(code "73")
+			(code "81")
 			(name "Net-(LS5-Pad1)")
 			(class "Default")
 			(node
@@ -13431,7 +15514,7 @@
 			)
 		)
 		(net
-			(code "74")
+			(code "82")
 			(name "Net-(LS6-Pad1)")
 			(class "Default")
 			(node
@@ -13446,7 +15529,7 @@
 			)
 		)
 		(net
-			(code "75")
+			(code "83")
 			(name "Net-(LS7-Pad1)")
 			(class "Default")
 			(node
@@ -13461,7 +15544,7 @@
 			)
 		)
 		(net
-			(code "76")
+			(code "84")
 			(name "Net-(LS8-Pad1)")
 			(class "Default")
 			(node
@@ -13476,7 +15559,7 @@
 			)
 		)
 		(net
-			(code "77")
+			(code "85")
 			(name "Net-(Q1-D)")
 			(class "Default")
 			(node
@@ -13492,7 +15575,7 @@
 			)
 		)
 		(net
-			(code "78")
+			(code "86")
 			(name "Net-(Q1-G)")
 			(class "Default")
 			(node
@@ -13508,7 +15591,7 @@
 			)
 		)
 		(net
-			(code "79")
+			(code "87")
 			(name "Net-(Q28-D)")
 			(class "Default")
 			(node
@@ -13524,7 +15607,7 @@
 			)
 		)
 		(net
-			(code "80")
+			(code "88")
 			(name "Net-(Q29-D)")
 			(class "Default")
 			(node
@@ -13540,7 +15623,7 @@
 			)
 		)
 		(net
-			(code "81")
+			(code "89")
 			(name "Net-(Q30-D)")
 			(class "Default")
 			(node
@@ -13556,7 +15639,7 @@
 			)
 		)
 		(net
-			(code "82")
+			(code "90")
 			(name "Net-(Q31-D)")
 			(class "Default")
 			(node
@@ -13572,7 +15655,7 @@
 			)
 		)
 		(net
-			(code "83")
+			(code "91")
 			(name "Net-(Q32-D)")
 			(class "Default")
 			(node
@@ -13588,7 +15671,7 @@
 			)
 		)
 		(net
-			(code "84")
+			(code "92")
 			(name "Net-(Q33-D)")
 			(class "Default")
 			(node
@@ -13604,73 +15687,103 @@
 			)
 		)
 		(net
-			(code "85")
-			(name "Net-(R59-Pad1)")
+			(code "93")
+			(name "Net-(U1-BST)")
 			(class "Default")
 			(node
-				(ref "R59")
-				(pin "1")
+				(ref "C3")
+				(pin "2")
 				(pintype "passive")
 			)
 			(node
-				(ref "U6")
+				(ref "U1")
 				(pin "6")
-				(pinfunction "I/O1_6")
+				(pinfunction "BST_6")
 				(pintype "passive")
 			)
 		)
 		(net
-			(code "86")
-			(name "Net-(R60-Pad1)")
+			(code "94")
+			(name "Net-(U2-STBY)")
 			(class "Default")
 			(node
-				(ref "R60")
-				(pin "1")
+				(ref "R55")
+				(pin "2")
 				(pintype "passive")
 			)
 			(node
-				(ref "U6")
-				(pin "4")
-				(pinfunction "I/O2_4")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "87")
-			(name "Net-(U1-L1)")
-			(class "Default")
-			(node
-				(ref "L1")
-				(pin "1")
-				(pinfunction "1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U1")
-				(pin "4")
-				(pinfunction "L1_4")
+				(ref "U2")
+				(pin "19")
+				(pinfunction "STBY_19")
 				(pintype "input")
 			)
 		)
 		(net
-			(code "88")
-			(name "Net-(U1-L2)")
+			(code "95")
+			(name "Net-(U7-BOOT)")
 			(class "Default")
 			(node
-				(ref "L1")
+				(ref "C15")
 				(pin "2")
-				(pinfunction "2_2")
 				(pintype "passive")
 			)
 			(node
-				(ref "U1")
+				(ref "U7")
+				(pin "6")
+				(pinfunction "BOOT_6")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "96")
+			(name "Net-(U8-CAP)")
+			(class "Default")
+			(node
+				(ref "C20")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U8")
+				(pin "9")
+				(pinfunction "CAP_9")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "97")
+			(name "Net-(U8-~{BOOT_LOAD_PIN})")
+			(class "Default")
+			(node
+				(ref "R79")
 				(pin "2")
-				(pinfunction "L2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U8")
+				(pin "4")
+				(pinfunction "~{BOOT_LOAD_PIN}_4")
 				(pintype "input")
 			)
 		)
 		(net
-			(code "89")
+			(code "98")
+			(name "Net-(U8-~{RESET})")
+			(class "Default")
+			(node
+				(ref "R80")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U8")
+				(pin "11")
+				(pinfunction "~{RESET}_11")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "99")
 			(name "PLUS3V3")
 			(class "Default")
 			(node
@@ -13689,7 +15802,22 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "C23")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C24")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
 				(ref "C5")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C7")
 				(pin "1")
 				(pintype "passive")
 			)
@@ -13714,6 +15842,12 @@
 				(ref "J8")
 				(pin "1")
 				(pinfunction "Pin_1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "L1")
+				(pin "2")
+				(pinfunction "2_2")
 				(pintype "passive")
 			)
 			(node
@@ -13943,6 +16077,11 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "R55")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
 				(ref "R6")
 				(pin "2")
 				(pintype "passive")
@@ -13953,8 +16092,28 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "R77")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R78")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R79")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
 				(ref "R8")
 				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R80")
+				(pin "1")
 				(pintype "passive")
 			)
 			(node
@@ -13965,13 +16124,13 @@
 			(node
 				(ref "U1")
 				(pin "1")
-				(pinfunction "VOUT_1")
-				(pintype "power_out")
+				(pinfunction "FB_1")
+				(pintype "input")
 			)
 			(node
-				(ref "U1")
-				(pin "10")
-				(pinfunction "FB_10")
+				(ref "U2")
+				(pin "15")
+				(pinfunction "PWMB_15")
 				(pintype "input")
 			)
 			(node
@@ -13979,6 +16138,12 @@
 				(pin "20")
 				(pinfunction "VCC_20")
 				(pintype "power_in")
+			)
+			(node
+				(ref "U2")
+				(pin "23")
+				(pinfunction "PWMA_23")
+				(pintype "input")
 			)
 			(node
 				(ref "U3")
@@ -13998,48 +16163,31 @@
 				(pinfunction "VBUS_5")
 				(pintype "passive")
 			)
-		)
-		(net
-			(code "90")
-			(name "PWMA")
-			(class "Default")
 			(node
-				(ref "U2")
-				(pin "23")
-				(pinfunction "PWMA_23")
-				(pintype "input")
+				(ref "U8")
+				(pin "28")
+				(pinfunction "VDDIO_28")
+				(pintype "power_in")
 			)
 			(node
-				(ref "U3")
-				(pin "11")
-				(pinfunction "IO18_11")
-				(pintype "bidirectional")
+				(ref "U8")
+				(pin "3")
+				(pinfunction "VDD_3")
+				(pintype "power_in")
 			)
 		)
 		(net
-			(code "91")
-			(name "PWMB")
-			(class "Default")
-			(node
-				(ref "U2")
-				(pin "15")
-				(pinfunction "PWMB_15")
-				(pintype "input")
-			)
-			(node
-				(ref "U3")
-				(pin "23")
-				(pinfunction "IO21_23")
-				(pintype "bidirectional")
-			)
-		)
-		(net
-			(code "92")
+			(code "100")
 			(name "PWR_EN")
 			(class "Default")
 			(node
 				(ref "R69")
 				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R70")
+				(pin "1")
 				(pintype "passive")
 			)
 			(node
@@ -14050,51 +16198,74 @@
 			)
 			(node
 				(ref "U1")
-				(pin "6")
-				(pinfunction "EN_6")
+				(pin "2")
+				(pinfunction "EN_2")
 				(pintype "input")
 			)
 		)
 		(net
-			(code "93")
-			(name "STBY")
+			(code "101")
+			(name "SW_3V3")
 			(class "Default")
 			(node
-				(ref "R66")
+				(ref "C3")
 				(pin "1")
 				(pintype "passive")
 			)
 			(node
-				(ref "U2")
-				(pin "19")
-				(pinfunction "STBY_19")
-				(pintype "input")
+				(ref "L1")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
 			)
 			(node
-				(ref "U3")
-				(pin "16")
-				(pinfunction "IO46_16")
-				(pintype "bidirectional")
+				(ref "U1")
+				(pin "5")
+				(pinfunction "SW_5")
+				(pintype "output")
 			)
 		)
 		(net
-			(code "94")
-			(name "USB_DM")
+			(code "102")
+			(name "SW_6V")
 			(class "Default")
 			(node
-				(ref "R59")
-				(pin "2")
+				(ref "C15")
+				(pin "1")
 				(pintype "passive")
 			)
+			(node
+				(ref "L2")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U7")
+				(pin "2")
+				(pinfunction "SW_2")
+				(pintype "power_out")
+			)
+		)
+		(net
+			(code "103")
+			(name "USB_DM")
+			(class "Default")
 			(node
 				(ref "U3")
 				(pin "13")
 				(pinfunction "USB_D-_13")
 				(pintype "bidirectional")
 			)
+			(node
+				(ref "U6")
+				(pin "6")
+				(pinfunction "I/O1_6")
+				(pintype "passive")
+			)
 		)
 		(net
-			(code "95")
+			(code "104")
 			(name "USB_DM_C")
 			(class "Default")
 			(node
@@ -14117,23 +16288,24 @@
 			)
 		)
 		(net
-			(code "96")
+			(code "105")
 			(name "USB_DP")
 			(class "Default")
-			(node
-				(ref "R60")
-				(pin "2")
-				(pintype "passive")
-			)
 			(node
 				(ref "U3")
 				(pin "14")
 				(pinfunction "USB_D+_14")
 				(pintype "bidirectional")
 			)
+			(node
+				(ref "U6")
+				(pin "4")
+				(pinfunction "I/O2_4")
+				(pintype "passive")
+			)
 		)
 		(net
-			(code "97")
+			(code "106")
 			(name "USB_DP_C")
 			(class "Default")
 			(node
@@ -14156,7 +16328,7 @@
 			)
 		)
 		(net
-			(code "98")
+			(code "107")
 			(name "USB_VBUS")
 			(class "Default")
 			(node
@@ -14190,7 +16362,7 @@
 			)
 		)
 		(net
-			(code "99")
+			(code "108")
 			(name "USER_BTN")
 			(class "Default")
 			(node
@@ -14212,7 +16384,7 @@
 			)
 		)
 		(net
-			(code "100")
+			(code "109")
 			(name "USER_BTN2")
 			(class "Default")
 			(node
@@ -14229,7 +16401,7 @@
 			)
 		)
 		(net
-			(code "101")
+			(code "110")
 			(name "USER_BTN3")
 			(class "Default")
 			(node
@@ -14246,7 +16418,7 @@
 			)
 		)
 		(net
-			(code "102")
+			(code "111")
 			(name "VBAT_SENSE")
 			(class "Default")
 			(node
@@ -14265,14 +16437,14 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "U3")
-				(pin "12")
-				(pinfunction "IO8_12")
-				(pintype "bidirectional")
+				(ref "U4")
+				(pin "23")
+				(pinfunction "I8_23")
+				(pintype "passive")
 			)
 		)
 		(net
-			(code "103")
+			(code "112")
 			(name "VBUS_SENSE")
 			(class "Default")
 			(node
@@ -14286,21 +16458,16 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "U3")
-				(pin "30")
-				(pinfunction "IO37_30")
-				(pintype "bidirectional")
+				(ref "U4")
+				(pin "21")
+				(pinfunction "I10_21")
+				(pintype "passive")
 			)
 		)
 		(net
-			(code "104")
-			(name "VM_BATT")
+			(code "113")
+			(name "VM_6V")
 			(class "Default")
-			(node
-				(ref "C1")
-				(pin "1")
-				(pintype "passive")
-			)
 			(node
 				(ref "C11")
 				(pin "1")
@@ -14312,12 +16479,66 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "C2")
+				(ref "C16")
 				(pin "1")
 				(pintype "passive")
 			)
 			(node
-				(ref "C3")
+				(ref "C17")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C30")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "L2")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R73")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U2")
+				(pin "13")
+				(pinfunction "VM2_13")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U2")
+				(pin "14")
+				(pinfunction "VM3_14")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U2")
+				(pin "24")
+				(pinfunction "VM1_24")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "114")
+			(name "VM_BATT")
+			(class "Default")
+			(node
+				(ref "C1")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C18")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C2")
 				(pin "1")
 				(pintype "passive")
 			)
@@ -14344,37 +16565,19 @@
 			)
 			(node
 				(ref "U1")
-				(pin "5")
-				(pinfunction "VIN_5")
+				(pin "3")
+				(pinfunction "IN_3")
 				(pintype "power_in")
 			)
 			(node
-				(ref "U1")
-				(pin "8")
-				(pinfunction "VINA_8")
-				(pintype "power_in")
-			)
-			(node
-				(ref "U2")
-				(pin "13")
-				(pinfunction "VM2_13")
-				(pintype "power_in")
-			)
-			(node
-				(ref "U2")
-				(pin "14")
-				(pinfunction "VM3_14")
-				(pintype "power_in")
-			)
-			(node
-				(ref "U2")
-				(pin "24")
-				(pinfunction "VM1_24")
+				(ref "U7")
+				(pin "3")
+				(pinfunction "VIN_3")
 				(pintype "power_in")
 			)
 		)
 		(net
-			(code "105")
+			(code "115")
 			(name "WALL1_SENSE")
 			(class "Default")
 			(node
@@ -14402,7 +16605,7 @@
 			)
 		)
 		(net
-			(code "106")
+			(code "116")
 			(name "WALL2_SENSE")
 			(class "Default")
 			(node
@@ -14430,7 +16633,7 @@
 			)
 		)
 		(net
-			(code "107")
+			(code "117")
 			(name "WALL3_SENSE")
 			(class "Default")
 			(node
@@ -14458,7 +16661,7 @@
 			)
 		)
 		(net
-			(code "108")
+			(code "118")
 			(name "WALL4_SENSE")
 			(class "Default")
 			(node
@@ -14486,7 +16689,7 @@
 			)
 		)
 		(net
-			(code "109")
+			(code "119")
 			(name "WALL5_SENSE")
 			(class "Default")
 			(node
@@ -14514,7 +16717,7 @@
 			)
 		)
 		(net
-			(code "110")
+			(code "120")
 			(name "WALL6_SENSE")
 			(class "Default")
 			(node
@@ -14542,7 +16745,7 @@
 			)
 		)
 		(net
-			(code "111")
+			(code "121")
 			(name "WALL_EMIT_DIAG")
 			(class "Default")
 			(node
@@ -14564,7 +16767,7 @@
 			)
 		)
 		(net
-			(code "112")
+			(code "122")
 			(name "WALL_EMIT_FRONT")
 			(class "Default")
 			(node
@@ -14586,7 +16789,7 @@
 			)
 		)
 		(net
-			(code "113")
+			(code "123")
 			(name "WALL_EMIT_SIDE")
 			(class "Default")
 			(node
@@ -14608,7 +16811,7 @@
 			)
 		)
 		(net
-			(code "114")
+			(code "124")
 			(name "unconnected-(J7-SBU1-PadA8)")
 			(class "Default")
 			(node
@@ -14619,7 +16822,7 @@
 			)
 		)
 		(net
-			(code "115")
+			(code "125")
 			(name "unconnected-(J7-SBU2-PadB8)")
 			(class "Default")
 			(node
@@ -14630,7 +16833,7 @@
 			)
 		)
 		(net
-			(code "116")
+			(code "126")
 			(name "unconnected-(SW5-C-Pad3)")
 			(class "Default")
 			(node
@@ -14641,40 +16844,29 @@
 			)
 		)
 		(net
-			(code "117")
-			(name "unconnected-(U4-I8-Pad23)")
+			(code "127")
+			(name "unconnected-(SW6-C-Pad3)")
 			(class "Default")
 			(node
-				(ref "U4")
-				(pin "23")
-				(pinfunction "I8_23")
+				(ref "SW6")
+				(pin "3")
+				(pinfunction "C_3")
 				(pintype "passive+no_connect")
 			)
 		)
 		(net
-			(code "118")
-			(name "unconnected-(U4-I9-Pad22)")
+			(code "128")
+			(name "unconnected-(U3-IO46-Pad16)")
 			(class "Default")
 			(node
-				(ref "U4")
-				(pin "22")
-				(pinfunction "I9_22")
-				(pintype "passive+no_connect")
+				(ref "U3")
+				(pin "16")
+				(pinfunction "IO46_16")
+				(pintype "bidirectional+no_connect")
 			)
 		)
 		(net
-			(code "119")
-			(name "unconnected-(U4-I10-Pad21)")
-			(class "Default")
-			(node
-				(ref "U4")
-				(pin "21")
-				(pinfunction "I10_21")
-				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "120")
+			(code "129")
 			(name "unconnected-(U4-I11-Pad20)")
 			(class "Default")
 			(node
@@ -14685,7 +16877,7 @@
 			)
 		)
 		(net
-			(code "121")
+			(code "130")
 			(name "unconnected-(U4-I12-Pad19)")
 			(class "Default")
 			(node
@@ -14696,7 +16888,7 @@
 			)
 		)
 		(net
-			(code "122")
+			(code "131")
 			(name "unconnected-(U4-I13-Pad18)")
 			(class "Default")
 			(node
@@ -14707,7 +16899,7 @@
 			)
 		)
 		(net
-			(code "123")
+			(code "132")
 			(name "unconnected-(U4-I14-Pad17)")
 			(class "Default")
 			(node
@@ -14718,7 +16910,7 @@
 			)
 		)
 		(net
-			(code "124")
+			(code "133")
 			(name "unconnected-(U4-I15-Pad16)")
 			(class "Default")
 			(node
@@ -14726,6 +16918,160 @@
 				(pin "16")
 				(pinfunction "I15_16")
 				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "134")
+			(name "unconnected-(U8-BL_IND-Pad10)")
+			(class "Default")
+			(node
+				(ref "U8")
+				(pin "10")
+				(pinfunction "BL_IND_10")
+				(pintype "output+no_connect")
+			)
+		)
+		(net
+			(code "135")
+			(name "unconnected-(U8-PIN1-Pad1)")
+			(class "Default")
+			(node
+				(ref "U8")
+				(pin "1")
+				(pinfunction "PIN1_1")
+				(pintype "no_connect")
+			)
+		)
+		(net
+			(code "136")
+			(name "unconnected-(U8-PIN7-Pad7)")
+			(class "Default")
+			(node
+				(ref "U8")
+				(pin "7")
+				(pinfunction "PIN7_7")
+				(pintype "no_connect")
+			)
+		)
+		(net
+			(code "137")
+			(name "unconnected-(U8-PIN8-Pad8)")
+			(class "Default")
+			(node
+				(ref "U8")
+				(pin "8")
+				(pinfunction "PIN8_8")
+				(pintype "no_connect")
+			)
+		)
+		(net
+			(code "138")
+			(name "unconnected-(U8-PIN12-Pad12)")
+			(class "Default")
+			(node
+				(ref "U8")
+				(pin "12")
+				(pinfunction "PIN12_12")
+				(pintype "no_connect")
+			)
+		)
+		(net
+			(code "139")
+			(name "unconnected-(U8-PIN13-Pad13)")
+			(class "Default")
+			(node
+				(ref "U8")
+				(pin "13")
+				(pinfunction "PIN13_13")
+				(pintype "no_connect")
+			)
+		)
+		(net
+			(code "140")
+			(name "unconnected-(U8-PIN15-Pad15)")
+			(class "Default")
+			(node
+				(ref "U8")
+				(pin "15")
+				(pinfunction "PIN15_15")
+				(pintype "no_connect")
+			)
+		)
+		(net
+			(code "141")
+			(name "unconnected-(U8-PIN16-Pad16)")
+			(class "Default")
+			(node
+				(ref "U8")
+				(pin "16")
+				(pinfunction "PIN16_16")
+				(pintype "no_connect")
+			)
+		)
+		(net
+			(code "142")
+			(name "unconnected-(U8-PIN21-Pad21)")
+			(class "Default")
+			(node
+				(ref "U8")
+				(pin "21")
+				(pinfunction "PIN21_21")
+				(pintype "no_connect")
+			)
+		)
+		(net
+			(code "143")
+			(name "unconnected-(U8-PIN22-Pad22)")
+			(class "Default")
+			(node
+				(ref "U8")
+				(pin "22")
+				(pinfunction "PIN22_22")
+				(pintype "no_connect")
+			)
+		)
+		(net
+			(code "144")
+			(name "unconnected-(U8-PIN23-Pad23)")
+			(class "Default")
+			(node
+				(ref "U8")
+				(pin "23")
+				(pinfunction "PIN23_23")
+				(pintype "no_connect")
+			)
+		)
+		(net
+			(code "145")
+			(name "unconnected-(U8-PIN24-Pad24)")
+			(class "Default")
+			(node
+				(ref "U8")
+				(pin "24")
+				(pinfunction "PIN24_24")
+				(pintype "no_connect")
+			)
+		)
+		(net
+			(code "146")
+			(name "unconnected-(U8-XIN32-Pad27)")
+			(class "Default")
+			(node
+				(ref "U8")
+				(pin "27")
+				(pinfunction "XIN32_27")
+				(pintype "input+no_connect")
+			)
+		)
+		(net
+			(code "147")
+			(name "unconnected-(U8-XOUT32-Pad26)")
+			(class "Default")
+			(node
+				(ref "U8")
+				(pin "26")
+				(pinfunction "XOUT32_26")
+				(pintype "output+no_connect")
 			)
 		)
 	)

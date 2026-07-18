@@ -1,26 +1,31 @@
 # Micromouse Runner
 
 A competition-style micromouse robot on a custom **100 × 120 mm, 4-layer**
-KiCad 10 PCB: ESP32-S3 module doing all control + wireless telemetry, bare-die
-motor driver, research-verified sensor geometry, and a fully script-generated,
-fully autorouted design — ERC 0, DRC 0 errors, 0 unconnected as shipped.
+KiCad 10 PCB: ESP32-S3 module doing all control + wireless telemetry, a 2S
+power tree with a regulated 6 V motor rail, a BNO055 9-axis IMU, research-
+verified sensor geometry, and a fully script-generated, fully autorouted
+design — ERC 0, DRC 0 errors / 0 warnings, 0 unconnected as shipped.
 
 ![PCB top](images/render_top.png)
 
-## The board (rev 5)
+## The board (rev 6)
 
 | Subsystem | Part | Notes |
 |---|---|---|
-| Controller | ESP32-S3-WROOM-1 (bare module, dual-core FreeRTOS) | Rear placement, antenna overhangs the rear edge (Espressif-preferred keep-out) |
-| Motor driver | TB6612FNG bare SSOP-24 | Mid-band, between the wheel slots |
-| Motors | 2× N20 gearmotors + quadrature encoders (PCNT hardware decode) | JST-PH; project-local exact footprint + 3D model |
-| Motor mounting | 2× Ø3.2 mm holes per motor, 18.0 mm c-c | Fits the printable UKMARSBot Pololu-pattern bracket (below) |
-| Wall sensors | 6× SFH 4550 + PT334-6B pairs: front 10° toe-out, diagonal 45°, side 75° | Bent flat over the board (silk outlines mark each body); holes ~10 mm inboard so the bent tips stay inside the outline |
-| Line sensors | 8× Vishay TCRT5000, 9.525 mm QTR pitch, bottom face (~2.4 mm off the floor = datasheet-optimal) | Read through a CD74HC4067 mux; wall sensors go **direct to ADC1** |
+| Controller | ESP32-S3-WROOM-1-N8R2 (bare module, dual-core FreeRTOS) | Rear placement; antenna spans a rear-edge U-notch (Espressif fallback), tip inside the board |
+| Motor driver | TB6612FNG bare SSOP-24, **IN/IN PWM mode** | 6 V VM rail; PWMA/PWMB/STBY tied high, the four IN pins carry LEDC |
+| **Power** | **2S LiPo** → **AP63203** (3.3 V/2 A logic) + **TPS54302** (regulated **6.0 V**/3 A motors) | Fuse (2.6 A/16 V PPTC), DMP3098L reverse P-FET (Vgs ±20 V), balance-tap per-cell monitoring |
+| **Switches** | **SW5 = PWR ALL** (logic EN) + **SW6 = PWR MOTORS** (6 V rail EN) | Motors need both on; SW6's pull-up feeds from the SW5 node |
+| **IMU** | **BNO055 9-axis** on the centerline, I2C (IO18/21), INT IO37 | Internal oscillator; gyro drives the yaw loop |
+| Wall sensors | 6× IR333-A + PT334-6B pairs: front **0°**, diagonal **45.0°**, side **90.0°** | Exact aims with silk angle callouts; bent-body outlines fully inside the board (3–5 mm edge gap) |
+| Line sensors | 8× Vishay TCRT5000, 9.525 mm QTR pitch, bottom face | Read through a CD74HC4067 mux (+ battery/VBUS telemetry on spare channels); walls go **direct to ADC1** |
 | Indicators | Per-sensor LEDs on top for all 8 line + 6 wall channels | Wall LED ON = wall seen |
-| User I/O | Buttons **A / B / C** (+ RST) lettered on silk, rear edge; power slide switch | A doubles as BOOT; switch gates the regulator EN (soft power) |
-| USB | USB-C at the rear (flash/debug), ESD-protected, VBUS cable-detect divider on IO37 | Plus 1×6 JTAG header |
-| Power | 1S LiPo → TPS63001 buck-boost 3V3 | Fuse, reverse-polarity P-FET, VBAT sense divider |
+| User I/O | Buttons **A / B / C** (+ RST) lettered on silk; two power slides | A doubles as BOOT |
+| USB | USB-C at the rear (flash/debug), ESD-protected, VBUS cable-detect | Direct D± (no series R, Espressif practice); 1×6 JTAG header |
+
+All parts are orderable from **Lion Circuits** (verified In-Stock, 2026-07);
+see [`pcb/STANDARDS.md`](pcb/STANDARDS.md) for the impedance / IPC / Espressif
+compliance write-up.
 
 Drive wheels run in open edge notches (wheel/tyre width unconstrained);
 front castor hole at the nose. Chamfered nose for the diagonal sensor pair.
@@ -74,42 +79,52 @@ micromouse-runner/
 
 ## Verification
 
-- `pcb/TEST_REPORT.md` — 28 analytical circuit tests computed from the
-  netlist (operating points + datasheet margins for power, flashing, straps,
-  JTAG, buttons, motors, encoders, every IR chain, mux), adversarially
-  audited by independent datasheet re-derivation. Coverage metrics included.
+- `pcb/TEST_REPORT.md` — **41** analytical circuit tests computed from the
+  netlist (2S power tree, both bucks + the dual-switch enable logic, IN/IN
+  motor drive, IMU I2C, mux telemetry, flashing/straps/JTAG, every IR chain),
+  100 % net + component coverage. The harness **caught a real design bug**
+  (the motor rail could never enable — R69's 1 MΩ source impedance sagged the
+  EN divider; fixed).
+- `pcb/STANDARDS.md` — impedance / IPC-2221B / IPC-2152 / grounding /
+  Espressif antenna compliance, with numbers (USB-FS is not a
+  controlled-impedance case; the 90 Ω rule is high-speed-only).
 - `pcb/TRACE_REPORT.md` — trace-level copper analysis of the routed board:
-  per-net path resistance (every segment/via walked), IR drops at operating
-  currents, via ampacity, USB pair skew.
+  per-net path resistance, IR drops at operating currents, via ampacity, USB
+  skew.
 - `fw/sim/` — the shipped control core runs against board-derived physics;
-  the sim caught two real control bugs before hardware (weak steering, a
-  D-term spike on line loss). All scenarios pass.
+  the sim caught two real control bugs before hardware. All scenarios pass.
 - `pcb/CONNECTIONS.md` — the per-trace justification document: every net,
   every pin, and why (generated, coverage-enforced).
 
+> **Connectivity note:** `kicad-cli pcb drc` under-reports unconnected items
+> headless; the project gates on the **pcbnew ratsnest** (`GetUnconnectedCount`
+> after a zone fill), and `finalize.py` refuses to strip copper unless that
+> ratsnest is already zero.
+
 ## Ordering / fabrication
 
-- `pcb/BOM.csv` — 42 line items, every row with a verified MPN (packages and
-  FET pinouts checked against datasheets + distributor stock).
-  Optos are chosen for Indian marketplace availability: TCRT5000 line
-  sensors (robu.in / ElectronicsComp / Robocraze) and PT334-6B wall
-  phototransistors (hubtronics / rarecomponents; robu's black-lens pack).
-- `pcb/tools/export_fab.py` regenerates `pcb/fab/`: gerbers (11 layers),
-  Excellon drill (bracket/castor NPTH tools asserted present), placement
-  CSV, and a fit-check STEP that loads **every** 3D model (project-local
-  box-true models for the N20 motors, TPS63001 and the power inductor).
+- `pcb/BOM.csv` — every row a verified MPN **In-Stock at Lion Circuits**
+  (turnkey from Digi-Key/Mouser/Element14/Arrow/Avnet/RS). Power: AP63203WU-7,
+  TPS54302DDCR, DMP3098L-7, MINISMDC260F/16-2, SRP4020TA-4R7M, EEE-FT1C221AP.
+  IMU: BNO055. Optics: IR333-A + PT334-6B + TCRT5000. Connectors/switches:
+  USB4105-GF-A, B2B-XH-A, PCM12SMTR, PTS645VL582LFS.
+- `pcb/tools/export_fab.py` regenerates `pcb/fab/`: gerbers, Excellon drill
+  (bracket/castor NPTH tools asserted present), placement CSV, and a fit-check
+  STEP that loads **every** 3D model (project-local box-true models for the
+  N20 motors, BNO055 and the SRP4020TA inductors).
 
 ## Build / regenerate
 
 The PCB tooling runs from `pcb/` using the KiCad-bundled Python (`pcbnew`);
 see `pcb/PROJECT_NOTES.md` for exact commands and the many hard-won
 KiCad-format notes. Regeneration order: `build_schematic.py` → export
-netlist → `build_pcb.py` → `route_loaded.py` → `heal_all.py` →
-`export_fab.py` (gates: `verify_netlist.py`, ERC, DRC, drill/STEP/BOM
-assertions run inside the chain).
+netlist → `verify_netlist.py` → `build_pcb.py` → `route_loaded.py` →
+`heal_all.py` → `finalize.py` (silk→fab + ratsnest-gated stub cleanup) →
+`sync_board_meta.py` (parity metadata) → `export_fab.py`.
 
 ## Status
 
-Rev 5 ships fully routed and verified: **ERC 0 · DRC 0 violations · 0
-unconnected · 0 schematic-parity issues** — ~1240 tracks, ~310 vias.
-Next: firmware bring-up.
+Rev 6 ships fully routed and verified: **ERC 0 · DRC 0 errors / 0 warnings ·
+0 unconnected (pcbnew ratsnest) · 0 schematic-parity**. 2S power with a
+regulated 6 V motor rail, dual power switches, a BNO055 9-axis IMU, exact
+0/45/90° wall-sensor aims, and a Lion Circuits-orderable BOM.

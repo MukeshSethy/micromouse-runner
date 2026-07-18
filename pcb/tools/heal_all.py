@@ -24,8 +24,8 @@ BOARD = r"D:\Projects\micromouse-pcb\pcb\micromouse-pcb.kicad_pcb"
 NETLIST = r"D:\Projects\micromouse-pcb\pcb\netlist.net"
 DRC = r"D:\Projects\micromouse-pcb\pcb_drc.json"
 CLI = r"C:\Program Files\KiCad\10.0\bin\kicad-cli.exe"
-VM_POUR = (16, 44, 99, 113)
-POUR_NETS = ("GND", "PLUS3V3", "VM_BATT")
+POUR_RECTS = {"VM_BATT": (16, 44, 64, 113), "VM_6V": (66, 44, 99, 100)}
+POUR_NETS = ("GND", "PLUS3V3", "VM_BATT", "VM_6V")
 LAYER = {"F.Cu": pcbnew.F_Cu, "B.Cu": pcbnew.B_Cu,
          "In1.Cu": pcbnew.In1_Cu, "In2.Cu": pcbnew.In2_Cu}
 
@@ -91,8 +91,8 @@ def via_stitch(g, net, pos, layer):
             th = k * math.pi / 8
             v = (round(pos[0] + d * math.cos(th), 3),
                  round(pos[1] + d * math.sin(th), 3))
-            if net == "VM_BATT" and not (VM_POUR[0] <= v[0] <= VM_POUR[2]
-                                          and VM_POUR[1] <= v[1] <= VM_POUR[3]):
+            _pr = POUR_RECTS.get(net)
+            if _pr and not (_pr[0] <= v[0] <= _pr[2] and _pr[1] <= v[1] <= _pr[3]):
                 continue
             L = layer if layer is not None else pcbnew.F_Cu
             segs = [] if d == 0.0 else [(pos, v, L)]

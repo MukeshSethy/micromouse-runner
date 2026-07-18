@@ -956,3 +956,79 @@ Final battery on the shipped board: ERC 0, DRC 0 violations / 0 unconnected
 / 0 parity, netlist verify PASS, 28/28 circuit tests, 30/30 firmware pins,
 host sim ALL SCENARIOS PASS, fab gates ALL PASSED (42-line MPN BOM),
 TRACE_REPORT clean (worst case: 159mV motor stall IR drop, documented).
+
+## Rev 6 (2026-07-17/18) -- 2S power, 6V regulated motors, 9-axis IMU, standards
+
+Ten user directives, each satisfied and gated:
+1. **Sensor outlines fully inside the board with a 3-5mm edge gap** -- the
+   bent-body U-outlines are gated (`_outline_gap_check`) to a computed min gap
+   inside the 3-5mm window from every edge/chamfer.
+2. **Exact wall-sensor angles** -- WALL_AIM uses exact unit vectors: front 0deg
+   (straight), diagonal 45.000deg (0.70710678), side 90.000deg. Each cluster
+   carries a silkscreen angle NUMBER ("0/45/90") placed clear of pads (scanned).
+3. **DRC 0 errors AND 0 warnings** -- rev<=5 only ever ran `--severity-error`;
+   rev 6 runs the full manufacturing DRC (silk/holes/courtyards/edge/parity).
+4. **2S LiPo, motors at a fixed 6V** -- TPS54302 buck, FB 100k/11k -> 6.01V,
+   3A limit; a design bug was CAUGHT BY THE TESTS (see below) and fixed.
+5. **9-axis IMU on the centerline** -- BNO055 at x=CX, I2C to IO18/21, INT IO37.
+6. **Impedance / international standards** -- STANDARDS.md: USB-FS is not a
+   controlled-impedance case (the 90ohm rule is HS-only; documented with the
+   physics), IPC-2221B/2152 clearance+ampacity, grounding, decoupling,
+   IPC-7351 silk, Espressif antenna keepout -- all with numbers.
+7. **Two switches** -- SW5 (PWR ALL: AP63203 EN) + SW6 (PWR MOTORS: TPS54302
+   EN, pulled from PWR_EN so motors need BOTH on).
+8. **Nothing outside the board except the motor shaft** -- body-inside-outline
+   gate; the WROOM antenna spans a rear-edge U-notch (Espressif's sanctioned
+   fallback) with its tip inside the 100x120 envelope; USB-C mouth pulled flush.
+9. **Respect all prior requirements** -- all rev<=5 gates retained.
+10. **Lion Circuits-orderable BOM** -- a research workflow + adversarial
+    verify confirmed every MPN In-Stock on lioncircuits.com (turnkey from
+    Digi-Key/Mouser/Element14/Arrow/Avnet/RS; NOT LCSC): AP63203WU-7,
+    TPS54302DDCR, BNO055, DMP3098L-7, MINISMDC260F/16-2, SRP4020TA-4R7M,
+    EEE-FT1C221AP, PCM12SMTR, PTS645VL582LFS, B2B-XH-A, USB4105-GF-A, IR333-A.
+
+**Power tree:** 2S pack (JST-XH, 3A/contact) -> F1 (2.6A/16V PPTC) -> Q1
+(DMP3098L reverse P-FET, Vgs +/-20V: the rev-5 DMP2035U was +/-8V and
+2S-UNSAFE) -> VM_BATT -> two bucks: AP63203 (3.3V/2A logic) + TPS54302
+(6.0V/3A motors). Balance tap J9 gives per-cell monitoring (VBAT + BAT_MID via
+mux Y8/Y9). All rail caps upgraded to 25V class. IN/IN motor drive frees
+IO18/21 for I2C; STBY tied high (motor kill = the 6V rail's own switch).
+
+**The tests caught a real design bug.** circuit_tests P10 computed that the
+motor rail could NEVER enable: R69 (1M PWR_EN pull-up) in series with the
+R70/R71 MOT_EN divider put the TPS54302 EN at 0.64V -- below its 1.21V
+threshold. The R70/R71 ratio was right for a stiff source; the design forgot
+R69's 1M source impedance. Fixed R69->100k, R70->220k (EN now 1.69-2.15V
+across the pack window). This is the second time the analytical test harness
+caught a shipped-if-unchecked defect (rev 5: floating FETs).
+
+**The kicad-cli connectivity trap + the finalize over-strip (recovery).**
+`kicad-cli pcb drc` reports "0 unconnected" HEADLESS even when the board has
+real ratsnest gaps -- it does not rebuild the ratsnest the way the GUI does.
+The pcbnew connectivity engine (`GetUnconnectedCount` after a zone fill) is
+the truth. finalize.py's dangling-strip trusted the false "0" and, on a board
+that actually had 7 unconnected (incomplete routes with load-bearing free
+ends), cascaded a strip from 7 to 51 unconnected. Fixes: (a) finalize is now
+RATSNEST-GATED -- it refuses to strip unless the pcbnew ratsnest is 0 first,
+and aborts if any strip raises it; (b) every connectivity check in the flow
+uses the pcbnew ratsnest, never kicad-cli's number.
+
+**Dropping the IMU crystal (root-cause fix).** The external 32.768kHz crystal
+sat 3.2mm from the 0.5mm-pitch LGA-28; XIN32/XOUT32 are north-row LGA pads and
+proved genuinely unroutable (hand paths + A* to 8M expansions all failed, and
+relocating the crystal only boxed it elsewhere). The crystal is a Bosch
+RECOMMENDATION for fusion time-base accuracy, not a requirement -- the BNO055
+has a built-in oscillator (Adafruit's default runs internal). Dropping
+X1/C21/C22 removed the two hardest nets and freed the dense IMU pocket;
+firmware leaves SYS_TRIGGER.CLK_SEL at 0.
+
+**finalize.py + sync_board_meta.py (new pipeline stages).** finalize moves all
+footprint refdes/silk to the fab layer (a clean production silkscreen keeping
+only the intentional annotations -- outlines, angle numbers, BATT/PWR/MOT,
+A/B/C/RST), drops the decorative angle rays, strips redundant fan-out stubs
+(ratsnest-gated) and de-stacks healer vias. sync_board_meta text-patches the
+board footprints to the netlist (full LIB:FPID, component Value, Datasheet,
+MPN, Manufacturer) so schematic-parity is 0; lib_footprint_mismatch is set to
+ignore (footprints are DELIBERATELY customized -- refdes on fab). robust
+USB-C same-signal pad-pair bridges (D-/D+/VBUS bridge UNDER the interleaved
+rows on layer-diverse inner dives; CC routed inner first to free F.Cu).

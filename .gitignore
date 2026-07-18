@@ -29,3 +29,6 @@ pcb/erc.rpt
 
 # Fab outputs (regenerate with pcb/tools/export_fab.py)
 pcb/fab/
+erc.json
+pcb_drc.json
+*.rpt

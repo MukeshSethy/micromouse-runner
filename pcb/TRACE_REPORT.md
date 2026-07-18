@@ -1,4 +1,4 @@
-# Trace-Level Copper Analysis -- micromouse-pcb rev 5.3
+# Trace-Level Copper Analysis -- micromouse-pcb rev 6
 
 Computed from the routed board file (every segment/via walked; 1 oz Cu
 0.492 mOhm/sq, 0.5 mOhm per via). Companion to TEST_REPORT.md (circuit
@@ -8,18 +8,20 @@ level) and CONNECTIONS.md (per-net rationale).
 
 | Net | purpose | len (mm) | widths (mm) | vias | path R (mOhm) | I (A) | drop (mV) | verdict |
 |---|---|---|---|---|---|---|---|---|
-| `Net-(J1-Pin_1)` | battery feed: connector to fuse | 81 | [0.5] | 2 | 79.6 | 2.4 | 191.1 | HIGH |
-| `Net-(Q1-D)` | fuse to reverse-protection FET | 21 | [0.5] | 0 | 21.1 | 2.4 | 50.7 | REVIEW |
-| `MOTA_P` | motor A + (stall) | 93 | [0.25, 0.3] | 3 | 145.3 | 1.05 | 152.6 | HIGH |
-| `MOTA_N` | motor A - (stall) | 97 | [0.25, 0.3] | 1 | 151.5 | 1.05 | 159.1 | HIGH |
-| `MOTB_P` | motor B + (stall) | 52 | [0.25, 0.3] | 2 | 80.5 | 1.05 | 84.6 | REVIEW |
-| `MOTB_N` | motor B - (stall) | 113 | [0.25, 0.3] | 3 | 85.5 | 1.05 | 89.8 | REVIEW |
-| `EMIT_LINE_K` | line emitter bank return | 130 | [0.3] | 1 | 126.4 | 0.12 | 15.2 | OK |
-| `EMIT_FRONT_K` | front wall emitter bank return | 89 | [0.3] | 0 | 61.2 | 0.09 | 5.5 | OK |
-| `EMIT_DIAG_K` | diag wall emitter bank return | 93 | [0.3] | 1 | 77.4 | 0.09 | 7.0 | OK |
-| `EMIT_SIDE_K` | side wall emitter bank return | 86 | [0.3] | 1 | 55.6 | 0.09 | 5.0 | OK |
-| `PWR_EN` | soft-switch EN (signal) | 110 | [0.25, 0.3] | 2 | 156.1 | 5e-06 | 0.0 | OK |
-| `MUX_SENSE` | line ADC (signal, 47k source) | 106 | [0.25, 0.3] | 3 | 171.0 | 0.0001 | 0.0 | OK |
+| `BATT_RAW` | 2S battery feed: connector to fuse | 75 | [0.8] | 1 | 46.8 | 2.6 | 121.6 | HIGH |
+| `Net-(Q1-D)` | fuse to reverse-protection FET | 14 | [0.8] | 0 | 8.1 | 2.6 | 21.0 | OK |
+| `MOTA_P` | motor A + (6V stall) | 37 | [0.5] | 1 | 33.9 | 1.6 | 54.2 | REVIEW |
+| `MOTA_N` | motor A - (6V stall) | 0 | [] | 0 | no path? | 1.6 | - | CHECK |
+| `MOTB_P` | motor B + (6V stall) | 11 | [0.5, 0.8] | 2 | 6.2 | 1.6 | 9.9 | OK |
+| `MOTB_N` | motor B - (6V stall) | 18 | [0.25] | 2 | 28.8 | 1.6 | 46.1 | OK |
+| `EMIT_LINE_K` | line emitter bank return | 124 | [0.3] | 1 | 118.1 | 0.12 | 14.2 | OK |
+| `EMIT_FRONT_K` | front wall emitter bank return | 84 | [0.3] | 1 | 53.0 | 0.09 | 4.8 | OK |
+| `EMIT_DIAG_K` | diag wall emitter bank return | 75 | [0.3] | 1 | 60.3 | 0.09 | 5.4 | OK |
+| `EMIT_SIDE_K` | side wall emitter bank return | 75 | [0.3] | 0 | 45.9 | 0.09 | 4.1 | OK |
+| `PWR_EN` | soft-switch EN (signal) | 124 | [0.3] | 8 | 154.9 | 5e-06 | 0.0 | OK |
+| `MOT_EN` | motor-rail EN (signal) | 135 | [0.3] | 3 | 193.2 | 5e-06 | 0.0 | OK |
+| `IMU_SDA` | I2C data (400kHz, 4.7k pull-up) | 51 | [0.25, 0.3] | 2 | 84.2 | 0.0007 | 0.1 | OK |
+| `MUX_SENSE` | line ADC (signal, 47k source) | 0 | [] | 0 | no path? | 0.0001 | - | CHECK |
 
 Reading the verdicts: currents are worst-case (fuse rating for the battery
 feed, motor STALL for the drive nets -- N20 nominal draw is ~0.36 A). The
@@ -34,10 +36,18 @@ robot; widen the drive traces only if rev 6 frees routing room.
 
 | Net | stitch vias | trace len (mm) | note |
 |---|---|---|---|
-| `GND` | 59 | 83 | In1 solid plane + both outer faces; plane R << trace paths |
-| `PLUS3V3` | 60 | 81 | In2 solid plane; plane R << trace paths |
-| `VM_BATT` | 13 | 42 | partial B.Cu pour over the power/drive region; plane R << trace paths |
+| `GND` | 64 | 86 | In1 solid plane + both outer faces; plane R << trace paths |
+| `PLUS3V3` | 61 | 96 | In2 solid plane; plane R << trace paths |
+| `VM_BATT` | 8 | 53 | B.Cu pour, battery -> both buck inputs; plane R << trace paths |
+| `VM_6V` | 8 | 17 | B.Cu pour, 6V buck -> TB6612/motors; plane R << trace paths |
 
 ## USB 2.0 full-speed differential pair
 
-- D+ routed length 27.6 mm, D- 21.3 mm -> skew 6.2 mm (41 ps). Full-speed tolerance is ~4 ns -> margin > 97x. Impedance is uncontrolled (FS allows it).
+- D+ routed length 18.5 mm, D- 22.7 mm -> skew 4.3 mm (28 ps). Full-speed tolerance is ~4 ns -> margin > 142x. Impedance is uncontrolled (FS allows it).
+
+## Review notes
+
+- BATT_RAW: only 1 via(s) for 2.6 A (want >= 2)
+- MOTA_P: only 1 via(s) for 1.6 A (want >= 2)
+- MOTA_N: graph path not resolved (pour-fed or terminal >1.2mm from copper)
+- MUX_SENSE: graph path not resolved (pour-fed or terminal >1.2mm from copper)

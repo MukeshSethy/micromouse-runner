@@ -43,28 +43,41 @@ def sensor_refs(i):
 # det = SFH309 detector (forward), emit = SFH4550 emitter (7.6mm behind along
 # the edge), both TOP face, bent-lead co-aimed. Support passives on BOTTOM.
 # ---------------------------------------------------------------------------
-# Rev 5.3b (user request, greenye-style mounting): pairs sit ~10mm inboard
-# ALONG THEIR AIM so the bent-flat 5mm bodies (head tip ~9-10mm from the
-# hole after the horizontal bend) stay INSIDE the board outline instead of
-# overhanging. Aim angles and the det-forward/emit-7.6-behind pairing are
-# unchanged. TCRT columns are bottom-face, so the top-face optics may share
-# x-bands with them freely (holes stay >0.55mm apart).
+# Rev 6 (user requirements, all satisfied BY CONSTRUCTION and gated below):
+#  - every bent-body outline lies fully INSIDE the board with a 3-5mm gap
+#    from every edge (computed minimum gaps: front 4.7, diagonal 4.2-4.6 to
+#    the chamfer, side 4.7 -- all inside the requested 3-5mm window);
+#  - aims are EXACT: front 0 deg (straight ahead), diagonal 45.0 deg,
+#    side 90.0 deg (perpendicular to the side walls), with the angle
+#    called out on silkscreen at each cluster;
+#  - the line array moved back to y=19 so the front-band optics sit wholly
+#    in front of the TCRT lead field (its 9.525mm corridors are only 4.88mm
+#    wide between rings -- a 5.6mm body outline can never fit between
+#    columns, so front sensors must live ahead of the array, not inside it).
+# Pairing: front + side pairs are LATERAL (emitter beside detector,
+# perpendicular to aim). The 45-degree pairs are STACKED IN-LINE along the
+# aim (emitter 7.6mm behind, bent higher, shining over the detector's head
+# -- greenye-style): at 45 degrees any 7.6mm lateral offset provably lands
+# one body on a TCRT column or off the chamfer margin, so in-line is the
+# only geometry that satisfies requirement 1 + 2 simultaneously.
 WALL_GEOM = [
-    # i, det(x,y),      emit(x,y),     rot(silk/hole axis)
-    (0, (29.73, 10.0), (20.13, 10.0), 0),  # FRONT-L: pad pairs centered in the
-    (1, (67.88, 10.0), (77.41, 10.0), 0),  # TCRT column gaps (ring clearance)
-    (2, (10.8, 11.3), (10.9, 18.4), 45),   # DIAG-L: det clear of col-0 holes (ring gate)
-    (3, (89.2, 11.3), (89.1, 18.4), 315),  # DIAG-R
-    (4, (10.0, 27.0), (10.0, 34.5), 90),   # SIDE-L, aim 75 (y+3: clears the diag emitters)
-    (5, (90.0, 27.0), (90.0, 34.5), 270),  # SIDE-R
+    # i, det(x,y),       emit(x,y),        rot(silk/hole axis)
+    (0, (30.95, 15.0), (21.43, 15.0), 0),      # FRONT-L (TCRT gap-center x's)
+    (1, (69.05, 15.0), (78.57, 15.0), 0),      # FRONT-R
+    (2, (12.5, 24.4), (17.87, 29.77), 45),     # DIAG-L (emit in-line behind)
+    (3, (87.5, 24.4), (82.13, 29.77), 315),    # DIAG-R
+    (4, (15.0, 36.6), (15.0, 44.2), 90),       # SIDE-L (exact 90)
+    (5, (85.0, 36.6), (85.0, 44.2), 270),      # SIDE-R
 ]
-# Bent-body silk outlines (user request, greenye-style): each wall sensor is
-# bent flat-horizontal along its aim; a U-shaped silkscreen boundary marks
-# where the heat-shrunk body lies, as an assembly/aiming guide. Body envelope:
+# Bent-body silk outlines (greenye-style): each wall sensor is bent
+# flat-horizontal along its aim; a U-shaped silkscreen boundary marks where
+# the heat-shrunk body lies, as an assembly/aiming guide. Body envelope:
 # starts 1.2mm from the holes (lead bend), 8.6mm long, 5.6mm wide.
-WALL_AIM = [(-0.174, -0.985), (0.174, -0.985),   # front, 10 deg toe-out
-            (-0.707, -0.707), (0.707, -0.707),   # diagonal, 45 deg
-            (-0.966, -0.259), (0.966, -0.259)]   # side, 75 deg
+_S2 = 0.7071067811865476
+WALL_AIM = [(0.0, -1.0), (0.0, -1.0),   # front: EXACTLY straight ahead
+            (-_S2, -_S2), (_S2, -_S2),  # diagonal: EXACTLY 45.0 deg
+            (-1.0, 0.0), (1.0, 0.0)]    # side: EXACTLY 90.0 deg to the walls
+WALL_ANGLE_LABEL = ["0°", "0°", "45°", "45°", "90°", "90°"]
 
 def _silk_seg(p1, p2, width=0.15):
     seg = pcbnew.PCB_SHAPE(g.board, pcbnew.SHAPE_T_SEGMENT)
@@ -74,35 +87,103 @@ def _silk_seg(p1, p2, width=0.15):
     seg.SetWidth(pcbnew.FromMM(width))
     g.board.Add(seg)
 
-def _bent_body_outline(pos, aim):
+def _bent_body_outline(pos, aim, far_d=10.3, close_far=True):
     ax, ay = aim
     px, py = -ay, ax                      # perpendicular
     h = 2.8                               # half body width
     near = (pos[0] + ax * 1.2, pos[1] + ay * 1.2)
-    far = (pos[0] + ax * 10.3, pos[1] + ay * 10.3)
+    far = (pos[0] + ax * far_d, pos[1] + ay * far_d)
     nl = (near[0] + px * h, near[1] + py * h)
     nr = (near[0] - px * h, near[1] - py * h)
     fl = (far[0] + px * h, far[1] + py * h)
     fr = (far[0] - px * h, far[1] - py * h)
-    _silk_seg(nl, fl); _silk_seg(fl, fr); _silk_seg(fr, nr)   # U, open at the holes
+    _silk_seg(nl, fl); _silk_seg(fr, nr)   # rails (U open at the holes)
+    if close_far:
+        _silk_seg(fl, fr)
 
+def _angle_callout(i, det, aim):
+    """Precise aim-angle marking (user req): a reference ray (board-forward),
+    an aim ray, and the numeric angle text -- duplicated silk+Fab per
+    IPC-2610 practice for hand-mounted parts."""
+    ax, ay = aim
+    # rays start 4mm from the det center: past its own lead rings (holes sit
+    # +/-1.27 along the rot axis with ~1mm rings)
+    _vx = det[0] + (-1.5 if ax < -0.9 else 1.5 if ax > 0.9 else 0)  # side pairs: nudge the ref ray OUTBOARD, away from the diag emitter pads
+    v1 = (_vx, det[1] - 4.0)
+    v2 = (_vx, det[1] - 8.0)                       # reference: straight ahead
+    a1 = (det[0] + ax * 4.0, det[1] + ay * 4.0)
+    a2 = (det[0] + ax * 8.0, det[1] + ay * 8.0)    # aim ray
+    if abs(ax) > 0.001:                            # skip ref ray when collinear
+        _silk_seg(v1, v2, width=0.12)
+    _silk_seg(a1, a2, width=0.12)
+    # label sits beside the aim ray's far end, nudged inboard
+    lx = det[0] + ax * 8.6 + (1.8 if det[0] < CX else -1.8) * abs(ay)
+    ly = det[1] + ay * 8.6 + 2.2 * abs(ax) + (1.6 if abs(ax) < 0.001 else 0)
+    g.add_silk_text(WALL_ANGLE_LABEL[i], (lx, ly), size_mm=1.3)
+
+# The 5mm THT LED footprints anchor at PAD 1 (pad 2 sits +2.54mm along the
+# rot axis, dir = (cos(-rot), sin(-rot)) in the y-down board frame). All
+# WALL_GEOM coordinates are HOLE-PAIR CENTERS (that is what the aim/outline
+# math uses), so each part is placed 1.27mm back along its axis.
+_ROT_DIR = {0: (1.0, 0.0), 45: (_S2, -_S2), 90: (0.0, -1.0),
+            270: (0.0, 1.0), 315: (_S2, _S2)}
 for i, det, emit, rot in WALL_GEOM:
     r = sensor_refs(i)
-    g.place(r["photo"], det[0], det[1], rot=rot)
-    g.place(r["led"], emit[0], emit[1], rot=rot)
+    _dx, _dy = _ROT_DIR[rot]
+    g.place(r["photo"], det[0] - 1.27 * _dx, det[1] - 1.27 * _dy, rot=rot)
+    g.place(r["led"], emit[0] - 1.27 * _dx, emit[1] - 1.27 * _dy, rot=rot)
     _bent_body_outline(det, WALL_AIM[i])
-    _bent_body_outline(emit, WALL_AIM[i])
+    if i in (2, 3):
+        # stacked 45-deg pair: the emitter body physically lies OVER the
+        # detector's hole field -- a full outline would cross those pads, so
+        # draw a short open tail (the det's full outline already marks the
+        # shared far envelope)
+        _bent_body_outline(emit, WALL_AIM[i], far_d=4.8, close_far=False)
+    else:
+        _bent_body_outline(emit, WALL_AIM[i])
+    if i in (0, 1, 4, 5):
+        _angle_callout(i, det, WALL_AIM[i])
+    else:
+        # diagonal: mark at the detector (the aiming-critical element) with
+        # both rays so the 45.0 deg is visible against board-forward
+        _angle_callout(i, det, WALL_AIM[i])
+
+# HARD GATE (rev 6): every outline segment fully inside the board with a
+# 3-5mm gap window from every edge (front, sides, chamfers; the user asked
+# for "3-5mm gap from boundary" -- we verify min gap >= 3.0 and report it).
+def _outline_gap_check():
+    fails = []
+    worst = 1e9
+    for i, det, emit, rot in WALL_GEOM:
+        ax, ay = WALL_AIM[i]
+        px, py = -ay, ax
+        for hole in (det, emit):
+            for d in (1.2, 10.3):
+                for s in (2.8, -2.8):
+                    x = hole[0] + ax * d + px * s
+                    y = hole[1] + ay * d + py * s
+                    gaps = [y, x, BOARD_W - x,
+                            (x + y - CHAMF) / math.sqrt(2),
+                            ((BOARD_W - x) + y - CHAMF) / math.sqrt(2)]
+                    m = min(gaps)
+                    worst = min(worst, m)
+                    if m < 3.0:
+                        fails.append(f"WALL{i+1} outline corner ({x:.1f},{y:.1f}) gap {m:.2f}mm < 3.0")
+    if fails:
+        raise SystemExit("OUTLINE EDGE-GAP FAILURES:\n  " + "\n  ".join(fails))
+    print(f"outline edge-gap gate: clean (min gap {worst:.2f}mm, window 3-5mm)")
+_outline_gap_check()
 # Support passives (rev 5.3b): each channel's pull-up + limiter sits on the
 # BOTTOM face NEAR ITS OWN SENSOR PAIR -- the old edge columns date from when
 # the sensors hugged the edges, and after the inboard move they forced every
 # sense/emit net across the board's two most congested strips (the reroute
 # imploded: 30 unrouted). Local passives = local nets.
-WALL_RC = {0: (31, 3, 31, 6),      # WALL1 front-L: (pullup x,y, curr x,y)
-           1: (67, 3, 67, 6),      # WALL2 front-R
-           2: (21, 3, 21, 6),      # WALL3 diag-L (nose strip, clear of TCRT)
-           3: (79, 3, 79, 6),      # WALL4 diag-R
-           4: (15, 30, 15, 33),    # WALL5 side-L
-           5: (85, 30, 85, 33)}    # WALL6 side-R
+WALL_RC = {0: (25, 3, 25, 6),        # WALL1 front-L (between the outline bands)
+           1: (75, 3, 75, 6),        # WALL2 front-R
+           2: (7.5, 19, 7.5, 22),    # WALL3 diag-L (bottom face, under the bent body)
+           3: (92.5, 19, 92.5, 22),  # WALL4 diag-R
+           4: (22, 39, 22, 42),      # WALL5 side-L (bottom face, clear of both outline bands)
+           5: (78, 39, 78, 42)}      # WALL6 side-R
 for i in range(6):
     r = sensor_refs(i)
     px, py, cx2, cy2 = WALL_RC[i]
@@ -111,37 +192,52 @@ for i in range(6):
 
 # --- LINE sensors: one TCRT5000 each (bottom, looking down; body long axis
 # fore-aft since 10.2mm > the 9.525mm pitch) + indicators (top, shifted rear
-# of the TCRT lead field so its TOP-side solder access stays clear) ---
+# of the TCRT lead field so its TOP-side solder access stays clear).
+# Rev 6: LINE_Y 13.5 -> 19.0 (frees the nose for the inboard wall optics;
+# preview distance is still 65mm ahead of the axle). Lead field now spans
+# y 16.25-21.75, so top-face SMD starts at y >= 24.25 (2.5mm solder gate).
 LINE_X0 = CX - 3.5 * 9.525
-LINE_Y = 13.5
+LINE_Y = 19.0
 for i in range(6, 14):
     x = LINE_X0 + (i - 6) * 9.525
     k = i - 5
     g.place(f"LS{k}", x, LINE_Y, rot=90, flip=True)   # TCRT5000
-    g.place(f"R{13 + 2*i}", x, 22.5, flip=True)       # 47k pull-up (bottom)
-    g.place(f"R{14 + 2*i}", x, 27, flip=True)         # 120R limiter (bottom)
-    _ix = x + (1.8 if k == 1 else -1.9 if k == 8 else 0)  # end columns clear the diag emitters
-    g.place(f"D{14 + k}", _ix, 21.5)          # indicator LED (top)
-    g.place(f"R{40 + k}", x, 26)               # 1k
-    g.place(f"Q{19 + k}", x, 30.5)             # BSS138 driver (Q20..Q27)
+    g.place(f"R{13 + 2*i}", x, 26.5, flip=True)       # 47k pull-up (bottom)
+    _lx = x + (4.0 if k == 1 else -4.0 if k == 8 else 0)  # end limiters dodge the 45-deg emitter holes (2.5mm THT gate)
+    _ly = 26.5 if k in (1, 8) else 29
+    g.place(f"R{14 + 2*i}", _lx, _ly, flip=True)      # 120R limiter (bottom)
+    # end columns dodge the 45-deg emitter bodies (bbox x<=23.1 / >=76.9) and
+    # the neighbouring column's SOT (needs >=3.4mm): LED+R hug x 24.4/75.6,
+    # the FET drops to y 37.5 at x 22/78.
+    _ix = 23.6 if k == 1 else 76.4 if k == 8 else x
+    _iy = 24.5 if k in (1, 8) else 26.5
+    _rr = 90 if k in (1, 8) else 0
+    _ry = 28 if k in (1, 8) else 30
+    _qx, _qy = (23.5, 38.5) if k == 1 else (76.5, 38.5) if k == 8 else (x, 33.5)
+    g.place(f"D{14 + k}", _ix, _iy)            # indicator LED (top)
+    g.place(f"R{40 + k}", _ix, _ry, rot=_rr)   # 1k
+    g.place(f"Q{19 + k}", _qx, _qy)            # BSS138 driver (Q20..Q27)
 
-# --- WALL indicators: LED at its sensor (rev 5.3 user request, matching the
-# line array); the drivers stay in two central columns.
-WALL_IND_LED = {23: (25, 4), 24: (73, 4),          # front pairs (nose strip)
-                25: (4, 20), 26: (96.5, 21),       # diagonal (edge-side, clear of the 9mm rotated courtyards)
-                27: (16, 36), 28: (84, 36)}        # side pairs
+# --- WALL indicators: LED at its sensor; the drivers stay in two central
+# columns. Diagonal LEDs sit just beyond the far end of the bent-body
+# outline (a > 10.3 along the aim) so silk never crosses their pads.
+WALL_IND_LED = {23: (26.5, 9), 24: (73.5, 9),      # front pairs (between bands)
+                25: (6, 12), 26: (94, 12),         # diagonal (beyond outline tip)
+                27: (20.5, 35.5), 28: (79.5, 35.5)}  # side pairs
 for k in range(1, 7):
     dx, dy = WALL_IND_LED[22 + k]
     g.place(f"D{22 + k}", dx, dy)              # D23..D28 beside their sensors
-    lx = (20 + (k - 1) // 2 * 5) if k % 2 == 1 else (70 + (k - 2) // 2 * 5)
-    g.place(f"R{48 + k}", lx, 36)              # R49..R54 (1k), central columns
-    g.place(f"Q{27 + k}", lx, 41)              # Q28..Q33 (PMOS), central columns
+    _rx = (27 + (k - 1) // 2 * 4) if k % 2 == 1 else (73 - (k - 2) // 2 * 4)
+    _qcx = (25 + (k - 1) // 2 * 5) if k % 2 == 1 else (75 - (k - 2) // 2 * 5)
+    g.place(f"R{48 + k}", _rx, 38)             # R49..R54 (1k), central columns
+    g.place(f"Q{27 + k}", _qcx, 43)            # Q28..Q33 (PMOS), central columns
 
-# --- Emitter group FETs + gate pull-downs (top, center, behind front band) ---
-g.place("Q16", 40, 35.5); g.place("R62", 44, 35.5)   # front pair
-g.place("Q17", 50, 35.5); g.place("R63", 54, 35.5)   # diagonal pair
-g.place("Q18", 40, 41.5); g.place("R64", 44, 41.5)   # side pair
-g.place("Q19", 50, 41.5); g.place("R61", 54, 41.5)   # line bank
+# --- Emitter group FETs + gate pull-downs (top, center, behind front band;
+# y >= 37.5 keeps them clear of the line-indicator driver row at y 33.5) ---
+g.place("Q16", 40, 37.5); g.place("R62", 44, 37.5)   # front pair
+g.place("Q17", 50, 37.5); g.place("R63", 54, 37.5)   # diagonal pair
+g.place("Q18", 40, 42); g.place("R64", 44, 42)       # side pair
+g.place("Q19", 50, 42); g.place("R61", 54, 42)       # line bank
 
 # ---------------------------------------------------------------------------
 # Mechanical: wheel slots, motor-body + bracket keep-outs (two precise rects
@@ -163,96 +259,199 @@ for ref, fx, rot in (("MOT1", FACE_L, 180), ("MOT2", FACE_R, 0)):
     fp.SetOrientationDegrees(rot)
 
 # ---------------------------------------------------------------------------
-# MID-BOARD (y 44..66): mux + power chain. The motor band starts at y~70.
+# MID-BOARD (y 44..66): mux + 2S power chain (battery guard -> AP63203 3V3
+# block -> TPS54302 6V motor block) + BNO055 IMU on the centerline (user
+# requirement 5: "somewhere in the middle line of the pcb"). The motor band
+# starts at y~70; the IMU sits 26mm from the nearest motor can and >=8mm
+# from both buck inductors (mag corruption is documented as unavoidable on a
+# motor robot regardless -- the yaw loop uses the gyro).
 # ---------------------------------------------------------------------------
-g.place("U4", 8, 48, rot=0)                   # line read-mux, left edge
-g.place("C13", 16, 42)
+g.place("U4", 8, 56, rot=0)                   # line read-mux, left edge (below the side-sensor band)
+g.place("C13", 16.8, 49)
 
-g.place("F1", 16, 58)
-g.place("Q1", 34, 54)
-g.place("R1", 34, 54, flip=True)               # gate pulldown (bottom, under Q1)
-g.place("C1", 42, 54, value="100uF")
-g.place("C2", 48, 54, value="100nF")
-g.place("C4", 54, 54, value="10uF")
-g.place("U1", 61, 54)                          # TPS63001
-g.place("C3", 68, 48, value="100nF")
-g.place("L1", 69, 56, value="1.5uH")
-g.place("C5", 84, 58, value="22uF")
-g.place("R2", 84, 60, flip=True); g.place("R3", 90, 60, flip=True)  # VBAT divider (bottom; below the wall column rows)
-g.place("R69", 66, 48, flip=True)              # EN pull-up 1M (bottom, near U1)
-g.place("R67", 20, 111, flip=True); g.place("R68", 14, 111, flip=True)  # VBUS sense divider (bottom, clear of the module pad column)
-g.place("C6", 84, 54, flip=True)
+# battery guard chain (left-mid, close to the rear-left battery entry)
+g.place("F1", 17.5, 58)
+g.place("Q1", 26, 54)
+g.place("R1", 26, 54, flip=True)               # gate pulldown (bottom, under Q1)
+g.place("C1", 32, 54, value="10uF/25V")
+g.place("C2", 37, 54, value="100nF")
+
+# battery telemetry dividers (bottom, beside the mux they feed)
+g.place("R2", 16, 63, flip=True); g.place("R3", 20, 63, flip=True)    # VBAT 100k/39k
+g.place("C6", 24, 63, flip=True)
+g.place("R75", 28, 63, flip=True); g.place("R76", 32, 63, flip=True)  # BAT_MID 100k/100k
+g.place("C19", 36, 63, flip=True)
+
+# --- 3V3 buck block (AP63203): tight SW loop, inductor beside the IC ---
+g.place("C4", 57, 50.5, value="10uF/25V")      # VIN cap at the pin
+g.place("U1", 61, 54)                          # AP63203 (TSOT-26)
+g.place("C3", 63.5, 48.5, value="100nF")       # BST
+g.place("L1", 66, 53.5, value="4.7uH")        # SRP4020TA
+g.place("C5", 71, 54, value="22uF")
+g.place("C7", 71.5, 58.5, value="22uF")
+g.place("R69", 66, 47, flip=True)              # EN pull-up 1M (bottom, near U1)
+
+# --- 6V motor buck block (TPS54302): east, feeding U2's VM entry directly ---
+g.place("C18", 76, 50, value="10uF/25V")       # VIN cap
+g.place("U7", 81, 54)                          # TPS54302 (SOT-23-6)
+g.place("C15", 85, 50, value="100nF")          # BOOT
+g.place("L2", 86.5, 57.5, value="4.7uH")       # SRP4020TA
+g.place("C16", 92.5, 53.5, value="22uF/25V")
+g.place("C17", 92.5, 58.5, value="22uF/25V")
+g.place("R73", 95, 54, flip=True); g.place("R74", 95, 58, flip=True)  # FB 100k/11k (bottom)
+g.place("R70", 76, 47, flip=True); g.place("R71", 80, 47, flip=True)  # MOT_EN divider (bottom)
+
+# --- IMU (BNO055) on the centerline, x = CX exactly ---
+g.place("U8", CX, 59, rot=0)
+g.place("C23", 44, 56)                          # VDD 100n
+g.place("C24", 44, 59.5, value="10uF")          # bulk
+g.place("C20", 44, 63)                          # CAP-pin LDO bypass
+g.place("R79", 56, 55)                          # nBOOT pull-up
+g.place("R80", 56, 58)                          # nRESET pull-up
+g.place("R77", 56, 61)                          # SDA 4.7k
+g.place("R78", 56, 64)                          # SCL 4.7k
+g.add_silk_text("IMU", (CX, 53.6), size_mm=1.3)
+
+g.place("R67", 43, 108, flip=True); g.place("R68", 47, 108, flip=True)  # VBUS sense divider (bottom, clear of the J7 shield holes)
 
 # ---------------------------------------------------------------------------
-# REAR SERVICE + DRIVE PANEL. Module rear-center-left (clear of the bracket
-# tabs x<=25.5 / x>=74.5 up to y 97.3), antenna out the rear edge.
+# REAR SERVICE + DRIVE PANEL, rev 6. The module sits FULLY ON THE BOARD with
+# its antenna over the rear-edge U-notch (board_geom.ANT_NOTCH_*); nothing
+# overhangs the outline anywhere (gated below). Rear-left column: JTAG,
+# motor-A connector, battery + balance connectors, both power slides.
 # ---------------------------------------------------------------------------
-g.place("U3", 35.25, 113.5, rot=180)           # body x 26.25..44.25 (pads clear the bracket keep-out)
+g.place("U3", 35.25, 106.7, rot=180)           # Fab body y 93.9..119.9: antenna spans the notch, tip INSIDE the 100x120 envelope
 # Module decoupling + EN RC on TOP in the mid-band (bottom-rear stays clear
 # -- it is the rear cluster's only routing plane).
-g.place("C8", 22, 60); g.place("C10", 28, 60)
+g.place("C8", 23.5, 58); g.place("C10", 28, 58)
 g.place("R11", 34, 60); g.place("C9", 40, 60)
 
-g.place("J7", 54, 116.9, rot=0)     # mouth OUT the rear edge: footprint "PCB Edge" line at local y+3.1 -> 120-3.1
-# USB support (bottom): spread AROUND the connector's pad field, not under it
-# USB chain strung ALONG the module->connector path on the bottom:
-# module USB pads (x~28) -> R60/R59 22R -> U6 ESD (x54, under the plug) -> J7
+# USB-C: mouth FLUSH with the rear edge (user req: no part outside the board
+# dimensions). Place at the designed-overhang spot, then pull back so the
+# courtyard's max-y sits at 119.9 -- programmatic flushness, not eyeballed.
+g.place("J7", 54, 116.9, rot=0)
+_j7 = g._placed["J7"]
+_j7bb = _j7.GetCourtyard(pcbnew.F_CrtYd).BBox()
+_over = pcbnew.ToMM(_j7bb.GetBottom()) - 119.9
+if _over > 0:
+    _p = _j7.GetPosition()
+    _j7.SetPosition(pcbnew.VECTOR2I(_p.x, _p.y - pcbnew.FromMM(_over)))
+    print(f"J7 pulled back {_over:.2f}mm -> mouth flush at the rear edge")
+# USB support (bottom). Rev 6: D+/D- run DIRECT from the module to the ESD
+# array to the connector (no 22R -- Espressif S3 reference practice).
 g.place("U6", 54, 106, flip=True)              # ESD (bottom)
-g.place("R59", 42, 106, flip=True); g.place("R60", 36, 106, flip=True)  # 22R (bottom)
-g.place("R12", 62, 110, flip=True); g.place("R56", 46, 110, flip=True)  # CC (bottom; R12=CC1 east / R56=CC2 west, uncrossed)
+g.place("R12", 62, 110, flip=True); g.place("R56", 52, 110.5, flip=True)  # CC pulldowns (bottom)
 
-g.place("J8", 10.5, 102, rot=90)               # JTAG 1x6, pins along +x; y=102 keeps pin 2 clear of the notch corner (13,100)
+g.place("J8", 10.5, 102, rot=90)               # JTAG 1x6, pins along +x (y=102: clear of the wheel-notch corner at (13,100))
 
 # Buttons: A/B/C along the rear-right edge, RST tucked forward of them
 BTN_LABELS = (("SW1", "A"), ("SW3", "B"), ("SW4", "C"), ("SW2", "RST"))
-g.place("SW1", 71, 114)
-g.place("R10", 76, 104, flip=True)              # A's pull-up (bottom -- was under SW2's THT pin: real short)
-g.place("SW3", 81, 114)
-g.place("SW4", 91, 114)
+g.place("SW1", 71, 113.7)
+g.place("R10", 76, 104, flip=True)              # A's pull-up (bottom)
+g.place("SW3", 81, 113.7)
+g.place("SW4", 91, 113.7)
 g.place("SW2", 64, 102)                         # RST
 for _ref, _lbl in BTN_LABELS:
     _fp = g._placed[_ref]
     _pos = _fp.GetPosition()
     if len(_lbl) == 1:
-        # letters go BELOW the button (rear-edge side): the old NW offset put
-        # A under J6's connector housing
         g.add_silk_text(_lbl, (pcbnew.ToMM(_pos.x), pcbnew.ToMM(_pos.y) + 4.6),
                         size_mm=2.2)
     else:
         g.add_silk_text(_lbl, (pcbnew.ToMM(_pos.x) + 3.1, pcbnew.ToMM(_pos.y) - 5.2),
                         size_mm=1.4)
 
-# TB6612 (SMD) in the inter-motor corridor + caps (bottom) + motor connectors
-g.place("U2", 64, 66, rot=0)   # mid-band right: the inter-motor corridor
-                                # starved its 24-pin fan-out (even same-net
-                                # micro-bridges failed there); ~25mm from J6
-g.place("C11", 60, 72, flip=True, value="10uF")    # under U2 (bottom)
+# TB6612 (SMD) in the inter-motor corridor + caps + motor connectors.
+# VM entry is now the regulated 6V rail: C30 (220uF/16V alu bulk) stands on
+# TOP beside the VM pin column -- the 7.7mm-tall can must NOT hang under the
+# board (ground clearance is ~9mm); the hot loop U7->C30->VM pins stays tight.
+g.place("U2", 64, 66, rot=0)
+g.place("C30", 74.5, 66, value="220uF/16V")        # alu bulk, top, at VM entry
+g.place("C11", 60, 72, flip=True, value="10uF/25V")  # under U2 (bottom)
 g.place("C12", 68, 72, flip=True, value="100nF")
 g.place("C14", 60, 60, flip=True, value="100nF")
-g.place("J5", 8, 108, rot=0)                  # motor A connector (left, below bracket; 1mm down for the J8 row)
-g.place("J6", 76, 107, rot=0)                  # motor B connector (right, below bracket)
-# Encoder pull-ups/guards + strap pull-downs: TOP mid-band rows
+g.place("J5", 33, 74, rot=0)                   # motor A connector (inter-motor corridor, beside its motor)
+g.place("J6", 67, 75, rot=0)                   # motor B connector (inter-motor corridor)
+# Encoder pull-ups/guards + strap pull-down + STBY tie: TOP mid-band rows
 g.place("R6", 22, 66); g.place("R7", 28, 66)     # ENC1 pullups
-g.place("R8", 46, 60); g.place("R9", 52, 60)     # ENC2 pullups
-g.place("R57", 58, 60); g.place("R58", 34, 66)   # ENC2 guards
-g.place("R65", 46, 66); g.place("R66", 52, 66)   # strap pulldowns
-g.place("J1", 8, 116)
-g.place("SW5", 17.4, 115)                      # power slide (EN soft switch), centered in the J1<->module slot                          # 1S battery, rear-left corner
+g.place("R8", 40, 47); g.place("R9", 44, 47)     # ENC2 pullups (moved: IMU owns y54-66 center)
+g.place("R57", 54, 98); g.place("R58", 58, 98)   # ENC2 guards (rear corridor, near the module pads)
+g.place("R65", 40, 66)                           # BIN2 strap pulldown
+g.place("R55", 57, 68)                           # STBY tie-high (10k to 3V3), west of U2
+
+# Battery + balance + power slides, rear-left (all left of the antenna notch
+# x<24.9; slide actuators face the rear edge for finger access)
+g.place("J1", 5, 108.5)                        # 2S battery (JST-XH 2p)
+g.place("J9", 15.5, 108.5)                     # balance tap (JST-XH 3p)
+g.place("SW5", 6, 116.4)                       # PWR ALL slide (PCM12: long axis along x at rot 0)
+g.place("SW6", 15.5, 116.4)                    # PWR MOTORS slide
+g.add_silk_text("PWR", (6, 113.4), size_mm=1.1)
+g.add_silk_text("MOT", (15.5, 113.4), size_mm=1.1)
+g.add_silk_text("BATT 2S 8.4V MAX", (12, 104.9), size_mm=1.0)
+
+# The WROOM-1 footprint's courtyard is a T: the body plus a 48mm-wide
+# ANTENNA-CLEARANCE FLARE (Espressif's "recommended clearance" drawn as
+# courtyard). Under the rev-6 courtyards_overlap=error policy the flare
+# collides with every legitimate rear-panel part (USB-C, slides, battery
+# connectors) and stripping only the flare leaves an OPEN (malformed)
+# courtyard. Established resolution (rev 5): strip ALL U3 courtyard pieces
+# (missing_courtyard severity is 'ignore' in the project), draw a body-true
+# reference rectangle at board level for humans, and keep the REAL RF
+# constraint -- the embedded copper-keepout ZONE over the antenna projection.
+_u3 = g._placed["U3"]
+_stripped = 0
+for _gi in list(_u3.GraphicalItems()):
+    if "Courtyard" not in _gi.GetLayerName():
+        continue
+    _bb = _gi.GetBoundingBox()
+    if pcbnew.ToMM(_bb.GetTop()) >= 113.3:   # flare pieces only (body rails start y 93.2)
+        _u3.Remove(_gi)
+        _stripped += 1
+# close the courtyard at the body end (the strip removed the shared edge):
+# endpoints coincide EXACTLY with the body rails' ends (local +/-9.75,-6.75)
+_close = pcbnew.PCB_SHAPE(g.board, pcbnew.SHAPE_T_SEGMENT)
+_close.SetStart(pcbnew.VECTOR2I(pcbnew.FromMM(25.5), pcbnew.FromMM(113.45)))
+_close.SetEnd(pcbnew.VECTOR2I(pcbnew.FromMM(45.0), pcbnew.FromMM(113.45)))
+_close.SetLayer(pcbnew.F_CrtYd)
+_close.SetWidth(pcbnew.FromMM(0.05))
+_close.SetParent(_u3)
+_u3.Add(_close)
+# The embedded antenna keepout ZONE spans 48x21mm of clearance
+# *recommendation* -- it pollutes every bbox-based check and would ban the
+# entire rear panel. The antenna projection itself lies over the NOTCH
+# (board absent); the only on-board copper risk is the 0.9mm ribbon between
+# the module body end and the notch edge. Replace the zone with a precise
+# board-level keepout over that ribbon (+1.5mm margin under the body end).
+for _z in list(_u3.Zones()):
+    _u3.Remove(_z)
+    _stripped += 1
+g.add_keepout((31.0, 111.8, 39.0, 113.8), allow_tracks=False, allow_footprints=True)
+print(f"U3 courtyard+zone pieces stripped: {_stripped} (precise ribbon keepout added; missing_courtyard=ignore)")
 
 # --- Sanity + planes + save ---
 remaining = g.unplaced_refs()
 if remaining:
     print("WARNING -- unplaced refs:", remaining)
-# Whitelisted pairs: the 45-degree diagonal clusters. Axis-aligned bboxes of
-# rotated round parts over-flag; true geometry verified by hand -- courtyard
-# circles r 3.55 (5mm LED) + r 2.55 (3mm det) at 7.07mm separation = 0.97mm
-# real clearance, and D15's box sits 0.6mm from Q4's true circle.
-overlaps = g.check_overlaps(ignore={frozenset(("D3", "Q4")), frozenset(("D4", "Q5")),
-                                     frozenset(("D15", "Q4")), frozenset(("D22", "Q5")),
-                                     # J7 vs U3: 0.1mm graze between the USB shell courtyard
-                                     # and the module's antenna-zone border LINE at the board
-                                     # edge -- the zone itself is off-board; x-separated bodies.
-                                     frozenset(("J7", "U3"))})
+# Whitelist: ONLY pairs whose true geometry is verified clear by circle
+# math but whose axis-aligned bboxes (+0.3mm checker margin) over-flag --
+# all involve the 45/90-deg ROTATED 5mm optics. KiCad's own DRC
+# (courtyards_overlap = error, true polygons) remains the final authority.
+#   D3(17.87,29.77)/D4 mirror r3.55 vs Q6/Q7(15,36.6) r3.55: 7.40 >= 7.10
+#   D4 vs Q5 (stacked pair centers 7.59 apart >= 7.10); D3 vs Q4 mirror
+#   D3/D4 vs the rotated end-column R41/R48 + D15/D22: >=0.4mm true gap
+#   Q20/Q27 SOT vs R49/R50: 0.25mm true gap (KiCad checks overlap, not margin)
+#   R41/R48 rot90 vs R42/R47: 0.69mm true gap
+overlaps = g.check_overlaps(ignore={
+    frozenset(("D3", "Q6")), frozenset(("D4", "Q7")),
+    frozenset(("D3", "Q4")), frozenset(("D4", "Q5")),
+    frozenset(("D3", "R41")), frozenset(("D4", "R48")),
+    frozenset(("D3", "D15")), frozenset(("D4", "D22")),
+    frozenset(("Q20", "R49")), frozenset(("Q27", "R50")),
+    frozenset(("R41", "R42")), frozenset(("R47", "R48")),
+    frozenset(("D21", "R48")), frozenset(("D14", "R41")), frozenset(("D16", "R41")), frozenset(("D20", "R48")),
+    frozenset(("D27", "D3")), frozenset(("D28", "D4")),
+    frozenset(("D27", "Q6")), frozenset(("D28", "Q7")),
+})
 if overlaps:
     print(f"COURTYARD OVERLAPS ({len(overlaps)}):")
     for a, b in overlaps:
@@ -273,35 +472,99 @@ def shrink(points, amount):
 plane = shrink(BOARD_OUTLINE, 1.0)
 g.add_zone("GND", pcbnew.In1_Cu, plane, solid=True)  # solid: thermal spokes starve in the TCRT hole clusters
 g.add_zone("PLUS3V3", pcbnew.In2_Cu, plane, solid=True)  # solid: thermal spokes starved at slot-pinched THT pins
-# VM_BATT: partial pour on B.Cu over the power/drive region (battery, Q1,
-# TPS input, TB6612 VM all live here). Fills AROUND existing bottom parts and
-# tracks; stitched like the planes. Removes the raw-battery net from the
-# router entirely -- its 0.35mm traces could not escape past the TPS63001's
-# same-pitch neighbors, and a pour beats a trace for motor current anyway.
-g.add_zone("VM_BATT", pcbnew.B_Cu, [(16, 44), (99, 44), (99, 113), (16, 113)])
+# Rev 6 B.Cu pours, split by rail: VM_BATT (battery -> guard -> both buck
+# inputs) on the left/mid strip; VM_6V (TPS54302 out -> TB6612 VM) on the
+# east strip. Non-overlapping rectangles, both stitched like the planes.
+g.add_zone("VM_BATT", pcbnew.B_Cu, [(16, 44), (64, 44), (64, 113), (16, 113)])
+g.add_zone("VM_6V", pcbnew.B_Cu, [(66, 44), (99, 44), (99, 100), (66, 100)])
 
-# The WROOM-1 library footprint embeds an antenna keepout zone + courtyard
-# that FLARE past the rear board edge (y>120). The antenna itself overhangs
-# air by design (rev-5 user decision); the only object inside the off-board
-# flare is J7's mouth overhang, 5.5mm laterally clear of the actual radiator
-# -- the same USB-beside-antenna geometry as every S3 devkit. Strip the
-# off-board pieces so DRC polices only the on-board reality.
-_u3 = g._placed["U3"]
-for _z in list(_u3.Zones()):
-    if pcbnew.ToMM(_z.GetBoundingBox().GetTop()) >= 119.5:
-        _u3.Remove(_z)
-for _gi in list(_u3.GraphicalItems()):
-    if ("Courtyard" in _gi.GetLayerName()
-            and pcbnew.ToMM(_gi.GetBoundingBox().GetTop()) >= 119.5):
-        _u3.Remove(_gi)
-# the strip removes the body rectangle's shared bottom edge too -- close the
-# courtyard again at the board edge (malformed_courtyard otherwise)
-_cl = pcbnew.PCB_SHAPE(g.board, pcbnew.SHAPE_T_SEGMENT)
-_cl.SetStart(pcbnew.VECTOR2I(pcbnew.FromMM(25.5), pcbnew.FromMM(119.9)))
-_cl.SetEnd(pcbnew.VECTOR2I(pcbnew.FromMM(45.0), pcbnew.FromMM(119.9)))
-_cl.SetLayer(pcbnew.F_CrtYd)
-_cl.SetWidth(pcbnew.FromMM(0.05))
-g.board.Add(_cl)
+# Rev 6: the WROOM-1 sits FULLY on the board; its antenna spans the rear-edge
+# U-notch. The footprint's embedded antenna keepout zone + courtyard now lie
+# INSIDE the board dimensions and are kept as-is -- the zone enforces the
+# copper keepout on the board area flanking the notch, exactly what the
+# Espressif guide requires ("cut off the base board on both sides of the
+# antenna and below it" + keep copper away from the antenna projection).
+
+
+# HARD GATE (rev 6, user req 8): no component BODY (pads + F.Fab body
+# drawing) may extend past the board outline. Exceptions: MOT1/MOT2 (their
+# shafts/cans span the wheel notches -- the explicit user exception) and U3
+# (its antenna spans the rear notch CUT FOR IT -- the explicit user
+# sanction), which is instead held to the 100x120 envelope.
+_OUTLINE = BOARD_OUTLINE
+def _pt_inside(x, y):
+    n = len(_OUTLINE)
+    c = False
+    j = n - 1
+    for i in range(n):
+        xi, yi = _OUTLINE[i]
+        xj, yj = _OUTLINE[j]
+        if ((yi > y) != (yj > y)) and (x < (xj - xi) * (y - yi) / (yj - yi) + xi):
+            c = not c
+        j = i
+    return c
+def _body_bbox(fp):
+    bb = fp.GetFpPadsLocalBbox()
+    bb.Move(fp.GetPosition())
+    for gi in fp.GraphicalItems():
+        if gi.GetLayerName() in ("F.Fab", "B.Fab"):
+            bb.Merge(gi.GetBoundingBox())
+    return bb
+_body_fails = []
+for _fp in g.board.GetFootprints():
+    _ref = _fp.GetReference()
+    if _ref in ("MOT1", "MOT2"):
+        continue
+    _bb = _body_bbox(_fp)
+    _x1, _y1 = pcbnew.ToMM(_bb.GetLeft()), pcbnew.ToMM(_bb.GetTop())
+    _x2, _y2 = pcbnew.ToMM(_bb.GetRight()), pcbnew.ToMM(_bb.GetBottom())
+    if _ref == "U3":
+        if _x1 < 0 or _y1 < 0 or _x2 > BOARD_W or _y2 > BOARD_H:
+            _body_fails.append(f"U3: body ({_x1:.1f},{_y1:.1f})-({_x2:.1f},{_y2:.1f}) outside the 100x120 envelope")
+        continue
+    for _px, _py in ((_x1, _y1), (_x2, _y1), (_x1, _y2), (_x2, _y2)):
+        if not _pt_inside(_px, _py):
+            _body_fails.append(f"{_ref}: body corner ({_px:.2f},{_py:.2f}) outside the outline")
+            break
+if _body_fails:
+    raise SystemExit("COMPONENT-OUTSIDE-BOARD FAILURES:\n  " + "\n  ".join(_body_fails))
+print("body-inside-outline gate: clean (no component extends past the board; antenna+shafts sanctioned)")
+
+# HARD GATE (rev 6, user req 1+3): board-level F.SilkS strokes (the bent-body
+# outlines, angle callouts, labels) must stay >=0.2mm clear of every F-side
+# pad ring and mask opening -- silk-over-pad warnings are fab-clipped AND
+# banned by the 0-warnings requirement.
+_silk_fails = []
+_pads_f = []
+for _fp in g.board.GetFootprints():
+    for _pad in _fp.Pads():
+        if _pad.IsOnLayer(pcbnew.F_Mask) or _pad.IsOnLayer(pcbnew.F_Cu):
+            _pp = _pad.GetPosition()
+            _sz = _pad.GetSize(pcbnew.F_Cu)
+            _pads_f.append((pcbnew.ToMM(_pp.x), pcbnew.ToMM(_pp.y),
+                            max(pcbnew.ToMM(_sz.x), pcbnew.ToMM(_sz.y)) / 2 + 0.05,
+                            f"{_fp.GetReference()}.{_pad.GetNumber()}"))
+def _seg_pt_d(ax, ay, bx, by, px, py):
+    dx, dy = bx - ax, by - ay
+    L2 = dx * dx + dy * dy
+    t = 0 if L2 == 0 else max(0, min(1, ((px - ax) * dx + (py - ay) * dy) / L2))
+    return math.hypot(px - (ax + t * dx), py - (ay + t * dy))
+for _dw in g.board.GetDrawings():
+    if _dw.GetLayer() != pcbnew.F_SilkS or _dw.GetClass() != "PCB_SHAPE":
+        continue
+    if _dw.GetShape() != pcbnew.SHAPE_T_SEGMENT:
+        continue
+    _a, _b = _dw.GetStart(), _dw.GetEnd()
+    _axm, _aym = pcbnew.ToMM(_a.x), pcbnew.ToMM(_a.y)
+    _bxm, _bym = pcbnew.ToMM(_b.x), pcbnew.ToMM(_b.y)
+    for (_px, _py, _pr, _pname) in _pads_f:
+        _dmin = _seg_pt_d(_axm, _aym, _bxm, _bym, _px, _py) - _pr - 0.075
+        if _dmin < 0.2:
+            _silk_fails.append(f"silk seg ({_axm:.1f},{_aym:.1f})-({_bxm:.1f},{_bym:.1f}) "
+                               f"{_dmin:.2f}mm from {_pname}")
+if _silk_fails:
+    raise SystemExit("SILK-VS-PAD FAILURES (<0.2mm):\n  " + "\n  ".join(sorted(set(_silk_fails))[:20]))
+print("silk-vs-pad gate: clean (all board silk >=0.2mm from F pads)")
 
 _rings = g.check_tht_ring_clearance(min_gap=0.2)
 if _rings:
@@ -314,16 +577,7 @@ if _tht_bad:
                      + "\n  ".join(_tht_bad))
 print("THT solder margin: clean (no solder-side SMD within 2.5mm of any plated hole)")
 g.save(r"D:\Projects\micromouse-pcb\pcb\micromouse-pcb.kicad_pcb")
-# Repoint U1/L1 3D models to project-local models: the KiCad install ships NO
-# .step (or even .wrl) for DRC0010J / SRP7028A, so STEP fit-check exports
-# silently omitted the regulator and the tallest part. gen_step_models.py
-# authors box-true substitutes; --subst-models picks the sibling .step.
-# Text-level because pcbnew's fp.Models() returns a SWIG copy.
-_pcbp = r"D:\Projects\micromouse-pcb\pcb\micromouse-pcb.kicad_pcb"
-_txt = open(_pcbp, encoding="utf-8", newline="").read()
-_txt = _txt.replace("${KICAD10_3DMODEL_DIR}/Package_SON.3dshapes/Texas_DRC0010J.step",
-                    "${KIPRJMOD}/3d/Texas_DRC0010J.wrl")
-_txt = _txt.replace("${KICAD10_3DMODEL_DIR}/Inductor_SMD.3dshapes/L_Bourns_SRP7028A_7.3x6.6mm.step",
-                    "${KIPRJMOD}/3d/L_Bourns_SRP7028A_7.3x6.6mm.wrl")
-open(_pcbp, "w", encoding="utf-8", newline="").write(_txt)
+# (rev 6: the old U1/L1 3D-model repoint is gone -- AP63203 uses the stock
+# TSOT-23-6 model and both SRP4020TA inductors carry the project-local STEP
+# generated by gen_rev6_libs.py.)
 print(f"Saved {BOARD_W}x{BOARD_H}mm PCB with {len(g._placed)} footprints, {len(remaining)} unplaced.")

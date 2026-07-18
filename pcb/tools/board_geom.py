@@ -28,19 +28,42 @@ NOTCH_Y2 = AXLE_Y + WHEEL_DIA / 2      # 100
 # 4mm outboard strips were removed (user request) so wheel/tyre width is no
 # longer constrained by the board. Notch floors sit at the gearbox
 # faceplates (x=13 / x=87).
+#
+# Rev-6 ANTENNA NOTCH (user: "no part of any component outside pcb
+# dimensions... cut space in PCB for esp32 antenna if required"): the WROOM-1
+# now sits FULLY on the board and its PCB-antenna end hangs over a U-shaped
+# notch cut into the rear edge -- exactly the Espressif hardware-design-guide
+# fallback ("cut off the base board on both sides of the antenna and below
+# it"; hollowing out mid-board is explicitly prohibited, an edge cutout is
+# the sanctioned form). Module body ends at y=113.83 (fp pos 107.8);
+# the antenna section (last 6mm) spans the notch. Notch: x 24.9..45.6
+# (antenna 18mm + ~1.3mm margin each side), y 113.8..120. Antenna tip at
+# y=119.83 -- INSIDE the board dimensions (user req 8). Internal corners get the
+# fab's >=1mm mill radius automatically; notch width 20.7mm >> 1mm min slot.
+ANT_NOTCH_X1, ANT_NOTCH_X2, ANT_NOTCH_Y = 24.9, 45.6, 113.8
 BOARD_OUTLINE = [
     (CHAMF, 0), (BOARD_W - CHAMF, 0), (BOARD_W, CHAMF),
     (BOARD_W, NOTCH_Y1), (FACE_R, NOTCH_Y1), (FACE_R, NOTCH_Y2), (BOARD_W, NOTCH_Y2),
-    (BOARD_W, BOARD_H), (0, BOARD_H),
+    (BOARD_W, BOARD_H),
+    (ANT_NOTCH_X2, BOARD_H), (ANT_NOTCH_X2, ANT_NOTCH_Y),
+    (ANT_NOTCH_X1, ANT_NOTCH_Y), (ANT_NOTCH_X1, BOARD_H),
+    (0, BOARD_H),
     (0, NOTCH_Y2), (FACE_L, NOTCH_Y2), (FACE_L, NOTCH_Y1), (0, NOTCH_Y1),
     (0, CHAMF),
 ]
 
+# Keep-out over the antenna notch (router margin source, like WHEEL_NOTCHES)
+ANTENNA_NOTCH = (ANT_NOTCH_X1, ANT_NOTCH_Y, ANT_NOTCH_X2, BOARD_H)
+
 # Keep-out rectangles covering the notch volumes (router margin source);
 # same shape the old interior slots protected, extended to the board edge.
+# Rev 6: the ANTENNA notch joins this list -- semantically these are "board
+# absence" rectangles and every routing/healing script derives its edge
+# keepouts from this one name.
 WHEEL_NOTCHES = [
     (0, NOTCH_Y1, FACE_L, NOTCH_Y2),
     (FACE_R, NOTCH_Y1, BOARD_W, NOTCH_Y2),
+    ANTENNA_NOTCH,
 ]
 
 # Motor body + bracket keep-out rectangles (components stay out; tracks OK)
