@@ -82,7 +82,7 @@ def phase_silk():
     # one per cluster: front-L/R, diag-L/R, side-L/R
     ANGLE_POS = [(26.2, 12.0), (73.8, 12.0), (10.7, 27.52), (89.3, 27.52),  # rev 7 front spots
                  (18.15, 37.16), (88.2, 36.6)]
-    LETTER_POS = {"A": (71, 111.9), "B": (81, 111.9), "C": (91, 111.9)}  # ABOVE buttons, clear band  # BELOW buttons (visible)
+    LETTER_POS = {"A": (74.25, 111.9), "B": (84.25, 111.9), "C": (94.25, 111.9)}  # ABOVE buttons, clear band  # BELOW buttons (visible)
     reloc = 0
     for dw in drawings:
         if dw.GetLayer() != pcbnew.F_SilkS or dw.GetClass() != "PCB_TEXT":
