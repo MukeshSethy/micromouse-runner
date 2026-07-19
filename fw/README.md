@@ -47,11 +47,15 @@ in `control_core.c`.
    deliberately does not power the board — it is sense-only.)
 2. Plug USB-C. The host sees the CC 5.1 k pulldowns and enumerates the
    S3's **native USB-Serial-JTAG** (VID 303A, PID 1001) — no UART bridge.
-3. Bootloader: **hold A** (IO0/BOOT), **tap RST** (EN pulses through the
-   10 ms R11/C9 RC), release A → ROM download mode.
+3. **Normally: no buttons.** The S3's USB-Serial-JTAG lets esptool/Arduino
+   enter download mode and reset back into the app automatically over USB —
+   a blank chip boots into it too, so even the first flash is button-free.
 4. `esptool.py --chip esp32s3 write_flash 0x0 firmware.bin` (or Arduino IDE
    "ESP32S3 Dev Module", USB-CDC on boot enabled).
-5. Reset (RST) into the app.
+5. **Recovery only** (app crashes early, reconfigures USB/GPIO19-20, deep
+   sleeps, or the port never appears): **hold A** (IO0/BOOT), **tap RST**
+   (EN pulses through the 10 ms R11/C9 RC), release A → forced ROM download
+   mode; flash, then tap RST once to start the app.
 
 JTAG debugging: the 1×6 header (J8) carries TMS/TCK/TDO/TDI at 3V3.
 
