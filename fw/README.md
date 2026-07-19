@@ -54,3 +54,21 @@ in `control_core.c`.
 5. Reset (RST) into the app.
 
 JTAG debugging: the 1×6 header (J8) carries TMS/TCK/TDO/TDI at 3V3.
+
+## Power / switch procedure (SW5 = PWR ALL, SW6 = PWR MOTORS)
+
+The two slide switches gate the rails independently: **SW5** enables both
+regulators' logic path (3V3 + the 6 V controller EN chain); **SW6** adds the
+6 V motor rail on top (motors can never run without BOTH on).
+
+| Activity | Battery | SW5 (PWR) | SW6 (MOT) | Why |
+|---|---|---|---|---|
+| **Flashing** | connected | **ON** | **OFF** | VBUS is sense-only — the ESP32 must be battery-powered to enumerate. Motors off = no surprise motion if the app starts driving after reset. |
+| **Sensor testing** (walls/line/IMU/telemetry) | connected | **ON** | **OFF** | Whole logic domain (sensors, mux, IMU, WiFi, indicators) runs on 3V3; the 6 V rail is not needed and wheels stay safely dead. |
+| **Motor testing / driving** | connected | **ON** | **ON** | Both rails live. Put the robot on a stand first — the app drives on mode-select. |
+| **Storage / transport** | disconnect | OFF | OFF | The reverse-FET path has µA-level leakage, but a stored LiPo should always be physically disconnected. |
+| **Emergency stop** | — | — | **OFF** | SW6 is the hardware motor kill: it drops the 6 V rail regardless of firmware state (the TB6612 INs also idle low). |
+
+Safe bring-up order for a fresh board: SW5+SW6 OFF → connect battery →
+SW5 ON → check 3V3 rail / smoke-test → flash → sensor tests → *then*
+SW6 ON with wheels off the ground.

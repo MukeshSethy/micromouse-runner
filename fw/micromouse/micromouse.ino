@@ -45,7 +45,26 @@ static pcnt_unit_handle_t g_enc1, g_enc2;
 //   reverse: IN1 = 0,   IN2 = PWM
 // The 6V rail is REGULATED (TPS54302), so PWM duty maps to a stable voltage
 // across the whole 6.6-8.4V pack window.
+// STALL WATCHDOG (rev 7, sim_preflight M2): N20 stall is 1.6A but the TB6612
+// channel rating is 1.2A CONTINUOUS (3.2A peak). If a wheel is commanded hard
+// (>60% duty) but its encoder shows no motion for STALL_MS, cut both motors
+// until the command drops -- protects the driver in crashes/blocked wheels.
+static const uint32_t STALL_MS = 800;
+static uint32_t stall_t0[2] = {0, 0};
+static bool stall_latched = false;
+static bool stall_check(int idx, float v, int32_t enc_delta, uint32_t now_ms) {
+    if (fabsf(v) > 0.60f && enc_delta == 0) {
+        if (stall_t0[idx] == 0) stall_t0[idx] = now_ms;
+        if (now_ms - stall_t0[idx] > STALL_MS) stall_latched = true;
+    } else {
+        stall_t0[idx] = 0;
+        if (fabsf(v) < 0.10f) stall_latched = false;   // release on low command
+    }
+    return stall_latched;
+}
+
 static void motor_write(float left, float right) {
+    if (stall_latched) { left = 0; right = 0; }
     auto ch = [](int in1, int in2, float v) {
         uint32_t duty = (uint32_t)(fabsf(v) * ((1 << PWM_RES) - 1));
         // Cap at 97%: never command DC into a possible stall (TEST_REPORT M2).
@@ -274,6 +293,15 @@ void loop() {
         float base = seen ? BASE_SPEED : BASE_SPEED * 0.5f;   // slow when lost
         float l, r;
         drive_mix(base, steer, &l, &r);
+        // stall watchdog: hard command + frozen encoder = cut drive (M2)
+        static int se1p = 0, se2p = 0;
+        int se1 = 0, se2 = 0;
+        pcnt_unit_get_count(g_enc1, &se1);
+        pcnt_unit_get_count(g_enc2, &se2);
+        uint32_t now_ms = millis();
+        stall_check(0, l, se1 - se1p, now_ms);
+        stall_check(1, r, se2 - se2p, now_ms);
+        se1p = se1; se2p = se2;
         motor_write(l, r);
     }
 
