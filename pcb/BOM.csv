@@ -9,7 +9,7 @@
 "D1-D6","IR333-A (Everlight 5mm 940nm 20deg; LD271 base symbol; TSAL6400 is lifecycle-Obsolete at Lion)","LED_THT:LED_D5.0mm_IRGrey","6","IR333-A","Everlight"
 "D15-D22","Indicator LED 0603 super-red AlInGaP, high-efficiency bin REQUIRED at 1.4mA (e.g. Kingbright APT1608SURCK; LD271 base symbol for ERC)","LED_SMD:LED_0603_1608Metric","8","APT1608SURCK","Kingbright"
 "D23-D28","Indicator LED 0603 super-red AlInGaP, high-eff bin (e.g. APT1608SURCK)","LED_SMD:LED_0603_1608Metric","6","APT1608SURCK","Kingbright"
-"F1","2.6A/16V PPTC","Fuse:Fuse_1812_4532Metric","1","MINISMDC260F/16-2","Littelfuse"
+"F1","2.6A/16V PPTC","Fuse:Fuse_1812_4532Metric","1","MINISMDC350F/16-2","Littelfuse"
 "J1","BATT_IN_2S","Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical","1","B2B-XH-A","JST"
 "J5","MOTOR_A_N20_ENCODER","Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical","1","B6B-XH-A","JST"
 "J6","MOTOR_B_N20_ENCODER","Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical","1","B6B-XH-A","JST"

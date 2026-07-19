@@ -26,7 +26,7 @@ Asserts (exit 1 on failure):
 """
 import sys
 
-FUSE_R, FUSE_HOLD, FUSE_TRIP = 0.050, 2.6, 5.0
+FUSE_R, FUSE_HOLD, FUSE_TRIP = 0.040, 3.5, 7.0  # MINISMDC350F/16 (rev 7.1)
 FET_RDS = 0.030
 EFF6, EFF3 = 0.92, 0.88
 DUTY_MAX = 0.98

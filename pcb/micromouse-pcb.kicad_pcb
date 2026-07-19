@@ -3415,7 +3415,7 @@
 				)
 			)
 		)
-		(property "MPN" "MINISMDC260F/16-2"
+		(property "MPN" "MINISMDC350F/16-2"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")

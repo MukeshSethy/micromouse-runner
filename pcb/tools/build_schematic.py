@@ -37,7 +37,7 @@ _MPN_STATIC = {
     "Q1": ("DMP3098L-7", "Diodes Incorporated"),           # -30V/-3.8A/Vgs +/-20V (2S-safe gate)
     "L1": ("SRP4020TA-4R7M", "Bourns"),
     "L2": ("SRP4020TA-4R7M", "Bourns"),
-    "F1": ("MINISMDC260F/16-2", "Littelfuse"),             # PPTC 2.6A hold, 16V (2S-rated)
+    "F1": ("MINISMDC350F/16-2", "Littelfuse"),             # PPTC 3.5A hold/7A trip, 16V (rev 7.1: double-stall headroom)
     "J1": ("B2B-XH-A", "JST"),                             # 2S battery main (XH: 3A/contact)
     "J9": ("B3B-XH-A(LF)(SN)", "JST"),                     # 2S balance tap (standard XH-3)
     "SW5": ("PCM12SMTR", "C&K"), "SW6": ("PCM12SMTR", "C&K"),
