@@ -131,7 +131,7 @@ command. See `MMSE-PCB-3` and the Remediation Register (§13).
 | MMSE-SI-0 | **Impedance / grounding / standards compliance** | H | — | — | — | `pcb/STANDARDS.md`; audit R6. |
 | MMSE-SI-1 | USB D+/D− shall be routed as a matched differential pair (full-speed). | R | M | A | PARTIAL | Routed as a pair; **intra-pair skew 5.76 mm** (functionally OK for FS; documented target ≤2.5 mm is not met). → `MMSE-REM-9`. |
 | MMSE-SI-2 | Trace widths/clearances shall follow IPC-2221 class with controlled impedance where relevant. | R | S | A | PARTIAL | IPC clearance margin met (0.127 mm floor); doc claims (0.16 mm) don't match board; motor-phase traces 0.25 mm. Doc-accuracy issue, not a fab issue. |
-| MMSE-SI-3 | The ESP32 module shall have **local decoupling (10 µF + 100 nF)** at its 3V3 pin per Espressif guidelines. | R | M | I | **FAILED** | Nearest 3V3 cap is **51 mm** from U3 pin 2 — no local decoupling. Espressif-guideline violation, real brownout/reset risk. → `MMSE-REM-6`. |
+| MMSE-SI-3 | The ESP32 module shall have **local decoupling (10 µF + 100 nF)** at its 3V3 pin per Espressif guidelines. | R | M | I | **FAILED (placement only)** | The caps **exist** (C10 10 µF + C8 100 nF, "Module decoupling") but are placed **51 mm** from U3 pin 2 (at (28,58)/(23.5,58)). Fix = MOVE them adjacent to U3 pin 2 (44, 110.7); NO schematic/netlist change. → `MMSE-REM-6`. |
 | MMSE-SI-4 | **Ground shall be poured on the top layer and every other layer possible** (maximise ground plane / return path). | R | M | I | **OPEN** | *New frozen requirement (2026-07-19).* Current: F.Cu = mixed GND/3V3/VM pours; In1 = GND; In2 = 3V3; B.Cu = VM. Target: GND on F.Cu + In1 + B.Cu (In2 stays power plane) → `MMSE-REM-3`. |
 | MMSE-SI-5 | ESD protection on the USB port. | R | S | I | VERIFIED | ESD array on D±. |
 | MMSE-SI-6 | EN pins shall have RC de-bounce/pull networks per regulator datasheets. | R | S | A | VERIFIED | EN RC networks present (audit R6). |
@@ -184,14 +184,21 @@ validated board.
 | **MMSE-REM-1** ✅ DONE | Custom optical/R-Q footprints carried ~0.7 mm courtyard margin → 20 of 32 errors. | **`pcb/tools/tighten_courtyards.py`** (text-level, robust vs SWIG flakiness) shrinks the courtyard rects to body+pad+0.13 mm (IPC-7351C "Least"). Applied: **32 → 12 errors**, ratsnest still 0, 0 warnings. Run after `build_pcb.py` in the pipeline. | MMSE-PCB-3 | `verify_drc.py`: confirmed 12 errors (was 32). | Low — no part moved; IPC-compliant. |
 | **MMSE-REM-2** | ~10 residual `pth_inside_courtyard`: top-side wall-sensor through-hole pads sit within a bottom-side line-sensor body outline (opposite sides). Copper clearance IS met (0 `clearance` errors) — courtyard-convention only. | Either (a) shift the front wall sensors into the line-array gaps / rotate leads vertical, or (b) mark as reviewed KiCad exclusions justified by measured ≥0.25 mm clearance meeting IPC-2221. Prefer (a). | MMSE-PCB-3 | `verify_drc.py` → 0 errors. | Med (placement + local reroute). |
 | **MMSE-REM-3** | GND pour not maximised (F.Cu mixed; B.Cu = VM). | Re-pour: GND on F.Cu + In1 + B.Cu; In2 stays 3V3 power plane; VM as localised islands/traces. Requires reroute (pour-fed connectivity changes). | MMSE-SI-4 | ratsnest 0 after re-pour; `verify_drc.py`. | Med-High (connectivity). |
-| **MMSE-REM-4** | Project routed/gated with `--severity-warning` for its whole history. | (DONE) tooling now error-inclusive; **regenerate + full reroute** under the corrected gate to converge at 0 errors. | MMSE-PCB-3/6 | `verify_drc.py`. | High (2 h reroute + closure). |
+| **MMSE-REM-4** ✅ tooling done | Project routed/gated with `--severity-warning` for its whole history. | Tooling now error-inclusive (`verify_drc.py` / `export_fab` gate / `finalize`). Since ALL remaining changes (REM-2/3/5/6/7) are **placement/pour only — no netlist change** — they are done **in-place on the routed board** with LOCAL reroutes of the moved parts' nets; a full 2 h regenerate+reroute is NOT required. | MMSE-PCB-3/6 | `verify_drc.py`. | Low-Med. |
 | **MMSE-REM-5** | Wall indicator LEDs placed in front of their sensors. | Move D23–D28 to y > their sensor y (behind); reroute their nets. | MMSE-WALL-5 | inspection + ratsnest 0. | Med. |
-| **MMSE-REM-6** | No local ESP32 decoupling. | Add 10 µF + 100 nF (0402/0603, Lion-orderable) at U3 3V3 pin 2 in `build_schematic.py`; place + route. | MMSE-SI-3, MMSE-BOM-3 | inspection; distance < 3 mm. | Med (schematic + netlist regen). |
+| **MMSE-REM-6** | C10/C8 decoupling caps exist but sit 51 mm from U3 pin 2. | **MOVE** C10 (10 µF) + C8 (100 nF) adjacent to U3 pin 2 (44, 110.7); reroute their 2 PLUS3V3 + 2 GND nets (pour-fed, local). No schematic/BOM change. | MMSE-SI-3 | inspection; distance < 5 mm. | Low — placement + local reroute. |
 | **MMSE-REM-7** | D25 F.Fab nicks the left chamfer (~0.22 mm). | Nudge D25 inward ≥0.3 mm. | MMSE-MECH-2 | DRC `copper_edge_clearance` / body-inside gate. | Low. |
 | **MMSE-REM-8** | Double-stall current corner exceeds buck rating. | (Accept) firmware PWM current-limit + PPTC; document as operating constraint. | MMSE-PWR-3 | analysis. | Low. |
 | **MMSE-REM-9** | USB intra-pair skew 5.76 mm vs 2.5 mm doc target. | Length-match D± during reroute, or correct the doc target (FS-USB tolerant). | MMSE-SI-1 | trace-length report. | Low. |
 
-**Execution order (rev 7):** REM-6 (schematic) → REM-1/REM-3/REM-5/REM-7 (source placement+pours+courtyards) → regenerate → REM-4/REM-2 (reroute + closure) → `verify_drc.py` = 0 errors / 0 warnings + ratsnest 0 → full battery → update this module's statuses to VERIFIED → fab.
+**Execution order (rev 7 — all IN-PLACE, no regenerate):**
+REM-1 (courtyards) ✅ → REM-6 (move C10/C8 to U3) → REM-5 (indicators behind) →
+REM-7 (D25 nudge) → REM-3 (GND-everywhere pours) → REM-2 (front 10: IPC-2221
+exclusions or ~0.5 mm moves) + 2 diagonal-LED nudges → local reroute of moved
+nets → `verify_drc.py` = 0 errors / 0 warnings + ratsnest 0 → full battery →
+regenerate fab package → set statuses VERIFIED → fab.
+Because nothing changes the netlist, the routed board (and its hard-won USB/
+closure work) is preserved; only moved parts' nets are re-routed.
 
 ---
 
