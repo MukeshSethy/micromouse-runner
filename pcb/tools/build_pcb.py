@@ -62,6 +62,17 @@ def sensor_refs(i):
 # only geometry that satisfies requirement 1 + 2 simultaneously.
 WALL_GEOM = [
     # i, det(x,y),       emit(x,y),        rot(silk/hole axis)
+    # REV-7 NOTE: the FRONT pairs' horizontal 2.54mm pad pair spans 4.34mm --
+    # wider than the 3.7mm TCRT line-array gap -- so the through-hole pads sit
+    # under the opposite-side line-sensor bodies (8 pth_inside_courtyard DRC
+    # errors). VALIDATED FIX: rot 0 -> 90 makes the pad pair VERTICAL (1.8mm
+    # x-footprint, fits the gap, 0deg aim preserved since aim = WALL_AIM). BUT
+    # applying it also requires the wall-indicator LEDs (D23-D28) to move out of
+    # the front strip (MMSE-WALL-5) and the line-array front routes to be
+    # re-routed -- the moved pads otherwise land on them. See REQUIREMENTS.md
+    # MMSE-REM-2. build_pcb.py cannot currently regenerate (it aborts on a stale
+    # SW2/R12 gate -- the in-place USB-pocket closure was never back-ported), so
+    # this rot must be applied together with the coordinated front reroute.
     (0, (30.95, 15.0), (21.43, 15.0), 0),      # FRONT-L (TCRT gap-center x's)
     (1, (69.05, 15.0), (78.57, 15.0), 0),      # FRONT-R
     (2, (12.5, 24.4), (17.87, 29.77), 45),     # DIAG-L (emit in-line behind)
