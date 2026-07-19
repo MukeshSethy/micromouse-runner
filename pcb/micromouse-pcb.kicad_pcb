@@ -1288,8 +1288,8 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -1.94 -3.21)
-			(end 4.49 3.21)
+			(start -1.420 -2.630)
+			(end 3.900 2.630)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -1801,8 +1801,8 @@
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -1.68 -0.95)
-			(end 1.68 0.95)
+			(start -1.555 -0.865)
+			(end 1.555 0.865)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -2317,8 +2317,8 @@
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -1.68 -0.95)
-			(end 1.68 0.95)
+			(start -1.555 -0.865)
+			(end 1.555 0.865)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -10121,8 +10121,8 @@
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -1.68 -0.95)
-			(end 1.68 0.95)
+			(start -1.555 -0.865)
+			(end 1.555 0.865)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -10293,8 +10293,8 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -1.94 -3.21)
-			(end 4.49 3.21)
+			(start -1.420 -2.630)
+			(end 3.900 2.630)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -11238,8 +11238,8 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -1.94 -3.21)
-			(end 4.49 3.21)
+			(start -1.420 -2.630)
+			(end 3.900 2.630)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -13340,8 +13340,8 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -1.94 -3.21)
-			(end 4.49 3.21)
+			(start -1.420 -2.630)
+			(end 3.900 2.630)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -13843,8 +13843,8 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -1.94 -3.21)
-			(end 4.49 3.21)
+			(start -1.420 -2.630)
+			(end 3.900 2.630)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -16334,8 +16334,8 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -1.94 -3.21)
-			(end 4.49 3.21)
+			(start -1.420 -2.630)
+			(end 3.900 2.630)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -18639,8 +18639,8 @@
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -1.68 -0.95)
-			(end 1.68 0.95)
+			(start -1.555 -0.865)
+			(end 1.555 0.865)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -21015,8 +21015,8 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -1.94 -3.21)
-			(end 4.49 3.21)
+			(start -1.420 -2.630)
+			(end 3.900 2.630)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -25903,8 +25903,8 @@
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -1.68 -0.95)
-			(end 1.68 0.95)
+			(start -1.555 -0.865)
+			(end 1.555 0.865)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -27697,8 +27697,8 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -1.94 -3.21)
-			(end 4.49 3.21)
+			(start -1.420 -2.630)
+			(end 3.900 2.630)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -29919,8 +29919,8 @@
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -1.68 -0.95)
-			(end 1.68 0.95)
+			(start -1.555 -0.865)
+			(end 1.555 0.865)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -30626,8 +30626,8 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -5.35 3.15)
-			(end 5.35 -3.15)
+			(start -5.230 -3.280)
+			(end 5.480 3.280)
 			(stroke
 				(width 0.05)
 				(type default)
@@ -31182,8 +31182,8 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -5.35 3.15)
-			(end 5.35 -3.15)
+			(start -5.230 -3.280)
+			(end 5.480 3.280)
 			(stroke
 				(width 0.05)
 				(type default)
@@ -33696,8 +33696,8 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -5.35 3.15)
-			(end 5.35 -3.15)
+			(start -5.230 -3.280)
+			(end 5.480 3.280)
 			(stroke
 				(width 0.05)
 				(type default)
@@ -36744,8 +36744,8 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -5.35 3.15)
-			(end 5.35 -3.15)
+			(start -5.230 -3.280)
+			(end 5.480 3.280)
 			(stroke
 				(width 0.05)
 				(type default)
@@ -36944,8 +36944,8 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -5.35 3.15)
-			(end 5.35 -3.15)
+			(start -5.230 -3.280)
+			(end 5.480 3.280)
 			(stroke
 				(width 0.05)
 				(type default)
@@ -37144,8 +37144,8 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -5.35 3.15)
-			(end 5.35 -3.15)
+			(start -5.230 -3.280)
+			(end 5.480 3.280)
 			(stroke
 				(width 0.05)
 				(type default)
@@ -38056,8 +38056,8 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -5.35 3.15)
-			(end 5.35 -3.15)
+			(start -5.230 -3.280)
+			(end 5.480 3.280)
 			(stroke
 				(width 0.05)
 				(type default)
@@ -39502,8 +39502,8 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -5.35 3.15)
-			(end 5.35 -3.15)
+			(start -5.230 -3.280)
+			(end 5.480 3.280)
 			(stroke
 				(width 0.05)
 				(type default)
