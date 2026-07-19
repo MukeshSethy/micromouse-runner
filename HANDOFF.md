@@ -1,4 +1,4 @@
-# HANDOFF — micromouse-pcb rev 6.2 (complete continuation guide)
+# HANDOFF — micromouse-pcb rev 7 (complete continuation guide)
 
 **Purpose:** everything needed to finish, verify, fabricate and bring up this
 board on a fresh machine with Claude Code, with **zero** additional input from
@@ -11,39 +11,18 @@ the human. Read this file completely first; deep references:
 every footprint's exact position/rotation/face + every net's copper stats;
 regenerate with `pcb/tools/gen_board_state.py` after any board change).
 
-**Status snapshot (2026-07-19): NOT fab-ready — 32 DRC errors + open frozen
-requirements. See `pcb/REQUIREMENTS.md` (IBM DOORS module) for the formal,
-tracked status of every requirement; §13 there is the rev-7 remediation plan.**
-
-> ⚠️ **RECORD CORRECTION.** Every "DRC 0/0/0" / "fab-ready" claim in this repo
-> before 2026-07-19 (including the rev-6.2 commit message) was produced with
-> `kicad-cli pcb drc --severity-warning`, which on **KiCad 10.0.4 reports ONLY
-> warnings and silently omits every error** (`included_severities:["warning"]`).
-> Re-run at DEFAULT severity, the board has **32 error-severity violations**.
-> Always verify with `pcb/tools/verify_drc.py` (error+warning + ratsnest).
-
-- XH-connector board **routed: pcbnew ratsnest 0** (1500+ segments, ~360 vias,
-  123 nets, 179 components) — connectivity IS complete.
-- **DRC (default severity): 32 ERRORS** — 18 `pth_inside_courtyard`,
-  8 `npth_inside_courtyard`, 6 `courtyards_overlap`, all in the dense front
-  sensor cluster + a few R/Q pairs. **0 warnings, 0 unconnected, 0 parity.**
-- The board is **electrically/physically manufacturable**: DRC shows
-  **0 `clearance`, 0 `hole_clearance`, 0 `copper_edge_clearance` errors** — the
-  32 are courtyard keep-out overlaps (convention), not copper collisions.
-- **Open frozen requirements** (rev 7): wall indicator LEDs must move BEHIND
-  the sensors (MMSE-WALL-5); GND poured on top + all possible layers
-  (MMSE-SI-4); ESP32 local decoupling 10µF+100nF at U3 3V3 (MMSE-SI-3).
-- Ignored DRC rules limited to the custom-footprint family
-  (`lib_footprint_mismatch`/`_issues`/`footprint_filters_mismatch`) — one
-  documented root cause, zero fab impact (§9.6).
-- ERC 0 · verify_netlist ALL PASS · circuit_tests **41/41** · check_pins
-  **29/29** · line-follow sim **ALL SCENARIOS PASS** · export_fab **ALL
-  GATES PASSED** (gerbers/drill/pos/STEP in `pcb/fab/`) · BOM 49 lines.
-- trace_report: all OK except `MOTB_N` = REVIEW (49 mΩ, 78.6 mV @1.6 A
-  stall ≈ 1.3 % of 6 V) — **accepted** (autonomous decision D6, §15).
-- Renders `renders/rev6-top.png` / `rev6-bottom.png` (+ `images/` copies)
-  show the finished board.
-- Remaining work: **none for fab**. Order from Lion Circuits per §10.
+**Status snapshot (2026-07-19, rev 7): ALL REQUIREMENTS CLOSED — genuinely
+fab-ready.** `pcb/tools/verify_drc.py` (error-inclusive severity + parity +
+pcbnew ratsnest) reports **PASS: 0 errors / 0 warnings / 0 unconnected /
+0 parity / ratsnest 0**. Full battery green (ERC 0, verify_netlist, 41/41
+circuit tests, 29/29 pins, sim ALL PASS, export_fab ALL GATES incl. its DRC
+gate). Rev 7 delivered: front sensors in the line-array gaps (path A, exact
+0/45/90 aims kept), indicators behind the sensors, ESP32 decoupling at the
+pin, GND poured on all possible layers, USB-C 1.5 mm rear overhang, J5 motor
+connector forward, antenna guidelines audited + enforced on all layers.
+Formal per-requirement status: **`pcb/REQUIREMENTS.md`** (39 VERIFIED,
+5 documented deviations, 0 open/failed). trace_report REVIEW items accepted
+(motor-phase stall drops 1.2–1.3%; BATT_RAW at fuse-rating current).
 
 ---
 

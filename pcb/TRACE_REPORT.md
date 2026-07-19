@@ -10,12 +10,12 @@ level) and CONNECTIONS.md (per-net rationale).
 |---|---|---|---|---|---|---|---|---|
 | `BATT_RAW` | 2S battery feed: connector to fuse | 75 | [0.8] | 1 | 45.8 | 2.6 | 119.2 | REVIEW |
 | `Net-(Q1-D)` | fuse to reverse-protection FET | 13 | [0.8] | 0 | 8.3 | 2.6 | 21.5 | OK |
-| `MOTA_P` | motor A + (6V stall) | 44 | [0.5] | 2 | 43.0 | 1.6 | 68.8 | REVIEW |
-| `MOTA_N` | motor A - (6V stall) | 30 | [0.25, 0.5] | 1 | 55.1 | 1.6 | 88.2 | REVIEW |
+| `MOTA_P` | motor A + (6V stall) | 45 | [0.5] | 3 | 44.3 | 1.6 | 70.9 | REVIEW |
+| `MOTA_N` | motor A - (6V stall) | 29 | [0.25, 0.5] | 2 | 46.3 | 1.6 | 74.0 | REVIEW |
 | `MOTB_P` | motor B + (6V stall) | 39 | [0.5] | 1 | 27.7 | 1.6 | 44.3 | OK |
 | `MOTB_N` | motor B - (6V stall) | 36 | [0.25, 0.3] | 1 | 49.1 | 1.6 | 78.6 | REVIEW |
-| `EMIT_LINE_K` | line emitter bank return | 124 | [0.3] | 1 | 117.9 | 0.12 | 14.2 | OK |
-| `EMIT_FRONT_K` | front wall emitter bank return | 84 | [0.3] | 1 | 54.8 | 0.09 | 4.9 | OK |
+| `EMIT_LINE_K` | line emitter bank return | 128 | [0.25, 0.3] | 3 | 128.1 | 0.12 | 15.4 | OK |
+| `EMIT_FRONT_K` | front wall emitter bank return | 80 | [0.25] | 2 | 59.6 | 0.09 | 5.4 | OK |
 | `EMIT_DIAG_K` | diag wall emitter bank return | 72 | [0.3] | 1 | 59.5 | 0.09 | 5.4 | OK |
 | `EMIT_SIDE_K` | side wall emitter bank return | 75 | [0.3] | 0 | 45.9 | 0.09 | 4.1 | OK |
 | `PWR_EN` | soft-switch EN (signal) | 128 | [0.25, 0.3] | 6 | 159.4 | 5e-06 | 0.0 | OK |
@@ -36,18 +36,17 @@ robot; widen the drive traces only if rev 6 frees routing room.
 
 | Net | stitch vias | trace len (mm) | note |
 |---|---|---|---|
-| `GND` | 73 | 95 | In1 solid plane + both outer faces; plane R << trace paths |
-| `PLUS3V3` | 73 | 175 | In2 solid plane; plane R << trace paths |
+| `GND` | 73 | 105 | In1 solid plane + both outer faces; plane R << trace paths |
+| `PLUS3V3` | 76 | 227 | In2 solid plane; plane R << trace paths |
 | `VM_BATT` | 13 | 83 | B.Cu pour, battery -> both buck inputs; plane R << trace paths |
 | `VM_6V` | 7 | 18 | B.Cu pour, 6V buck -> TB6612/motors; plane R << trace paths |
 
 ## USB 2.0 full-speed differential pair
 
-- D+ routed length 31.0 mm, D- 25.2 mm -> skew 5.8 mm (38 ps). Full-speed tolerance is ~4 ns -> margin > 105x. Impedance is uncontrolled (FS allows it).
+- D+ routed length 40.0 mm, D- 28.2 mm -> skew 11.8 mm (78 ps). Full-speed tolerance is ~4 ns -> margin > 52x. Impedance is uncontrolled (FS allows it).
 
 ## Review notes
 
 - BATT_RAW: only 1 via(s) for 2.6 A (want >= 2)
-- MOTA_N: only 1 via(s) for 1.6 A (want >= 2)
 - MOTB_P: only 1 via(s) for 1.6 A (want >= 2)
 - MOTB_N: only 1 via(s) for 1.6 A (want >= 2)

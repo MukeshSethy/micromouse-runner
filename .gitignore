@@ -33,3 +33,6 @@ erc.json
 pcb_drc.json
 *.rpt
 
+
+# Fabrication RELEASE package (committed deliverable; pcb/fab/ stays regenerable)
+!pcb/fab_release/

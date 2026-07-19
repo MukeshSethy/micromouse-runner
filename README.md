@@ -5,13 +5,11 @@ KiCad 10 PCB: ESP32-S3 module doing all control + wireless telemetry, a 2S
 power tree with a regulated 6 V motor rail, a BNO055 9-axis IMU, research-
 verified sensor geometry, and a fully script-generated, fully autorouted design.
 
-> **Status (2026-07-19): in rev-7 remediation — NOT yet fab-ready.**
-> ERC 0 · ratsnest 0 · **but 32 DRC *error*-severity violations** (front-cluster
-> courtyard overlaps) that were masked for the whole project by
-> `kicad-cli --severity-warning` (which hides errors on KiCad 10.0.4). The board
-> is electrically manufacturable (0 copper/hole clearance errors). Formal status
-> of every requirement + the remediation plan: **[`pcb/REQUIREMENTS.md`](pcb/REQUIREMENTS.md)**
-> (IBM DOORS module). Verify with `pcb/tools/verify_drc.py`, never `--severity-warning`.
+ > **Status (2026-07-19, rev 7): all requirements closed — fab-ready.**
+> `verify_drc.py` PASS: **0 errors / 0 warnings / 0 unconnected / 0 parity /
+> ratsnest 0** (error-inclusive severity — never use `--severity-warning`,
+> it hides errors on KiCad 10.0.4). Full verification battery green. Formal
+> per-requirement status: [`pcb/REQUIREMENTS.md`](pcb/REQUIREMENTS.md).
 
 ![PCB top](images/render_top.png)
 
@@ -131,11 +129,12 @@ netlist → `verify_netlist.py` → `build_pcb.py` → `route_loaded.py` →
 
 ## Status
 
-**Rev 6.2 as-built → rev 7 in remediation.** Fully routed (ratsnest 0),
-ERC 0, schematic-parity 0, electrically manufacturable (0 clearance errors),
-2S power with a regulated 6 V motor rail, dual switches, BNO055 IMU, exact
-0/45/90° wall-sensor aims, Lion-orderable BOM. **Not yet fab-ready:** 32
-courtyard-convention DRC errors + three open frozen requirements (wall
-indicators behind the sensors, GND poured on all layers, ESP32 local
-decoupling). Full formal status and the remediation plan are in the IBM
-DOORS-style module **[`pcb/REQUIREMENTS.md`](pcb/REQUIREMENTS.md)**.
+**Rev 7 ships fully routed and verified — all requirements closed.**
+`verify_drc.py` PASS: 0 errors / 0 warnings / 0 unconnected / 0 parity /
+ratsnest 0 · ERC 0 · 41/41 circuit tests · 29/29 pins · sim ALL PASS ·
+export_fab ALL GATES. 2S power with a regulated 6 V motor rail, dual switches,
+BNO055 IMU on the centre line, exact 0/45/90° wall-sensor aims with the front
+sensors nested in the line-array gaps, indicators behind the sensors, ESP32
+decoupling at the pin, ground poured on every possible layer, and a Lion
+Circuits-orderable BOM. Formal requirement tracking:
+[`pcb/REQUIREMENTS.md`](pcb/REQUIREMENTS.md).

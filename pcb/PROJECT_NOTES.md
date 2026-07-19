@@ -1117,3 +1117,36 @@ tracking + rev-7 remediation plan: `pcb/REQUIREMENTS.md` (IBM DOORS module).
 Plus two new frozen requirements: wall indicator LEDs behind the sensors
 (MMSE-WALL-5), GND poured on top + all possible layers (MMSE-SI-4), and the
 audit-found ESP32 local-decoupling gap (MMSE-SI-3).
+
+
+## Rev 7 (2026-07-19) — all requirements closed: genuine 0 errors / 0 warnings
+
+Path A executed in-place on the routed board (routing preserved; ~40 targeted
+A* reroutes), gated on the pcbnew ratsnest and verified by the error-inclusive
+verify_drc.py at every step:
+
+- Front wall sensors rotated 90deg into the line-array gaps (vertical pad
+  pairs at the gap centers; 0-deg aims + bent-optic silk unchanged). Diagonal
+  receivers re-oriented perpendicular-to-aim (pair centers exactly on the det
+  points = 45.000deg preserved). D3/D4 poly courtyards -> body-true circles.
+  DRC errors 32 -> 12 -> 0.
+- Wall indicator LEDs moved BEHIND their sensors (user req); D25's chamfer
+  nick resolved by the same move. A-nets rerouted; K-pads via-stitched.
+- J7 USB-C +1.5mm rearward (cable-overmold clearance): DP behind-row network
+  translated, CC2 re-routed around the shield GND via, 7 pad stitches.
+- J5 motor connector forward (33,72.5)->(33,70) (motor gap 1.6->4.1mm): 22
+  strips + 9 A* reroutes incl. three -45deg diagonals that passed exactly
+  through the new pin holes.
+- ESP32 decoupling localized: C8 100nF 1.5mm from U3 pin 2's 3V3 via, C10
+  10uF at 5mm (was 51mm).
+- GND poured on F.Cu (full) + B.Cu (remainder, priority under the VM pours) +
+  In1 plane; solid pad connection; antenna keepout ribbon extended to all
+  copper layers. Antenna audit: cutout style is Espressif-preferred;
+  deviations documented (J7 shell 4.08mm lateral).
+
+Final: verify_drc PASS 0/0/0/0/0 - ERC 0 - verify_netlist PASS - circuit_tests
+41/41 - check_pins 29/29 - sim ALL PASS - export_fab ALL GATES (incl. the new
+error-inclusive DRC gate) - trace_report: 4 REVIEW items accepted (BATT_RAW
+119mV at the 2.6A fuse rating; motor phases 71-79mV at stall = 1.2-1.3% of 6V,
+transient, PWM-limited). Formal status: pcb/REQUIREMENTS.md (39 VERIFIED,
+5 documented deviations, 0 open/failed).
