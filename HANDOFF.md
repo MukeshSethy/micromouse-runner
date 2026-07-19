@@ -678,3 +678,22 @@ BOM.csv                          : 49 line items, all Lion-verified MPNs (§10)
 renders                          : renders/rev6-{top,bottom}.png + images/ copies
 component/trace inventory        : pcb/BOARD_STATE.md (179 components, 123 nets)
 ```
+
+## 17. POST-PCB / FIRST-ASSEMBLY CHECKLIST (motor harness + bring-up, 2026-07-19)
+
+Motors: robu.in GA12-N20 6V 200RPM w/ encoder (stall only 0.23A -> all margins
+huge; encoder 3PPR x4 x50:1 = 600 ticks/rev -- update fw ENC_TICKS_REV).
+Motor socket is JST ZH 1.5mm 6P; board J5/J6 are JST XH 2.5mm -> NO direct
+mate. Build one adapter harness per motor (the rupee-22 ZH pigtail with loose
+wires + an XH 6-pin housing):
+  board pin 1 <- Red (M1/motor+) | 2 <- White (M2/motor-) | 3 <- VCC |
+  4 <- GND | 5 <- Yellow (C1) | 6 <- Green (C2)
+CRITICAL: meter-verify which pigtail wire is VCC vs GND against the encoder
+board silk BEFORE first power (listing says black=VCC/blue=GND; the board
+photo silk suggests the opposite -- generic listings lie). Wrong M+/M- = wheel
+reversed (swap red/white, harmless); wrong C1/C2 = count inverted (swap
+yellow/green, harmless); wrong VCC/GND = damage (must be right first time).
+First power-up: switches OFF -> battery (J1 main + J9 balance BOTH) -> meter
+VBUS pin to rails = open -> SW5 ON -> 3V3 check -> flash (button-free, native
+USB-Serial-JTAG; hold-A+RST only as recovery) -> sensors -> SW6 ON wheels-up.
+F1 fuse is MINISMDC350F/16-2 (rev 7.1) -- confirm on the Lion BOM at order.
