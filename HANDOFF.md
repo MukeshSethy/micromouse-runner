@@ -726,3 +726,14 @@ F1 fuse is MINISMDC350F/16-2 (rev 7.1) -- confirm on the Lion BOM at order.
    feed the same fuse->FET path). Placement: rear-left, needs room for both
    bodies + mating clearance. Add silk warning "ONE PACK ONLY" (never connect
    two packs simultaneously). XT60 likely hand-solder (not Lion turnkey).
+5. Battery polarity silk DONE on-board (2026-07-19): J1 "+"/"-" at (5/7.5,
+   105.9), J9 "- M +" at (18,105.9). Mirror these beside the new XT60 too.
+6. COMPONENT NAMING FOR DEBUG (user req): refdes currently live on the FAB
+   layer only (finalize moved them for a clean silk -- 179 refs collide on
+   silk at this density). Rev 7.2 must give the user readable component IDs:
+   (a) generate pcb/fab/assembly-top.pdf + assembly-bottom.pdf (F.Fab/B.Fab
+   with refdes) as the DEBUG MAP -- add to export_fab and commit copies; and
+   (b) restore SILK refdes selectively for the debug-critical parts only
+   (U1-U8, J1-J9, SW1-SW6, F1, Q1, BZ1) where clear space exists; verify no
+   silk_over_copper/overlap warnings return. BOARD_STATE.md already maps
+   every ref -> position as the text fallback.
