@@ -697,3 +697,21 @@ First power-up: switches OFF -> battery (J1 main + J9 balance BOTH) -> meter
 VBUS pin to rails = open -> SW5 ON -> 3V3 check -> flash (button-free, native
 USB-Serial-JTAG; hold-A+RST only as recovery) -> sensors -> SW6 ON wheels-up.
 F1 fuse is MINISMDC350F/16-2 (rev 7.1) -- confirm on the Lion BOM at order.
+
+## 18. CONFIRMED WORK ORDER (rev 7.2, user-approved 2026-07-19) -- DO BEFORE ORDER
+
+1. J1 battery main: JST-XH B2B-XH-A -> XT60 (male PCB mount, THT). Rear-left
+   region needs placement shuffle (J9/SW6 nearby) + BATT_RAW 0.8mm reroute.
+   XT60 likely NOT Lion turnkey -> customer-supplied/hand-solder; check stock.
+   J9 balance connector UNCHANGED.
+2. ADD mini buzzer (magnetic, MLT-5030 class) driven from IO46 (module pad 16,
+   the ONLY free GPIO; strap-safe: output stays low at boot). Circuit: IO46 ->
+   base R 1k -> NPN (MMBT2222 class) -> buzzer to 3V3 + flyback diode (1N4148W)
+   across buzzer. Place near ESP32 rear, top face, OUTSIDE the antenna ribbon
+   keepout (x31-39/y111.8-113.8) and clear of J7/C8/C10 pocket. NO blue LED
+   (user dropped it).
+3. Full cycle required: build_schematic + netlist regen + verify_netlist +
+   in-place board add/reroute (or careful regen) + verify_drc 0/0 + battery +
+   fab_release regen + REQUIREMENTS/BOM/renders update + push.
+   pins.h: add PIN_BUZZER 46 + check_pins entry (pad 16); fw: simple beep API.
+   DO NOT ORDER the current gerbers -- rev 7.2 supersedes them.
