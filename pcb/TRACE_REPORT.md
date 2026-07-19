@@ -8,20 +8,20 @@ level) and CONNECTIONS.md (per-net rationale).
 
 | Net | purpose | len (mm) | widths (mm) | vias | path R (mOhm) | I (A) | drop (mV) | verdict |
 |---|---|---|---|---|---|---|---|---|
-| `BATT_RAW` | 2S battery feed: connector to fuse | 75 | [0.8] | 1 | 46.8 | 2.6 | 121.6 | HIGH |
-| `Net-(Q1-D)` | fuse to reverse-protection FET | 14 | [0.8] | 0 | 8.1 | 2.6 | 21.0 | OK |
-| `MOTA_P` | motor A + (6V stall) | 37 | [0.5] | 1 | 33.9 | 1.6 | 54.2 | REVIEW |
-| `MOTA_N` | motor A - (6V stall) | 0 | [] | 0 | no path? | 1.6 | - | CHECK |
-| `MOTB_P` | motor B + (6V stall) | 11 | [0.5, 0.8] | 2 | 6.2 | 1.6 | 9.9 | OK |
-| `MOTB_N` | motor B - (6V stall) | 18 | [0.25] | 2 | 28.8 | 1.6 | 46.1 | OK |
-| `EMIT_LINE_K` | line emitter bank return | 124 | [0.3] | 1 | 118.1 | 0.12 | 14.2 | OK |
-| `EMIT_FRONT_K` | front wall emitter bank return | 84 | [0.3] | 1 | 53.0 | 0.09 | 4.8 | OK |
-| `EMIT_DIAG_K` | diag wall emitter bank return | 75 | [0.3] | 1 | 60.3 | 0.09 | 5.4 | OK |
+| `BATT_RAW` | 2S battery feed: connector to fuse | 75 | [0.8] | 1 | 45.8 | 2.6 | 119.2 | REVIEW |
+| `Net-(Q1-D)` | fuse to reverse-protection FET | 13 | [0.8] | 0 | 8.3 | 2.6 | 21.5 | OK |
+| `MOTA_P` | motor A + (6V stall) | 44 | [0.5] | 2 | 43.0 | 1.6 | 68.8 | REVIEW |
+| `MOTA_N` | motor A - (6V stall) | 30 | [0.25, 0.5] | 1 | 55.1 | 1.6 | 88.2 | REVIEW |
+| `MOTB_P` | motor B + (6V stall) | 39 | [0.5] | 1 | 27.7 | 1.6 | 44.3 | OK |
+| `MOTB_N` | motor B - (6V stall) | 36 | [0.25, 0.3] | 1 | 49.1 | 1.6 | 78.6 | REVIEW |
+| `EMIT_LINE_K` | line emitter bank return | 124 | [0.3] | 1 | 117.9 | 0.12 | 14.2 | OK |
+| `EMIT_FRONT_K` | front wall emitter bank return | 84 | [0.3] | 1 | 54.8 | 0.09 | 4.9 | OK |
+| `EMIT_DIAG_K` | diag wall emitter bank return | 72 | [0.3] | 1 | 59.5 | 0.09 | 5.4 | OK |
 | `EMIT_SIDE_K` | side wall emitter bank return | 75 | [0.3] | 0 | 45.9 | 0.09 | 4.1 | OK |
-| `PWR_EN` | soft-switch EN (signal) | 124 | [0.3] | 8 | 154.9 | 5e-06 | 0.0 | OK |
-| `MOT_EN` | motor-rail EN (signal) | 135 | [0.3] | 3 | 193.2 | 5e-06 | 0.0 | OK |
-| `IMU_SDA` | I2C data (400kHz, 4.7k pull-up) | 51 | [0.25, 0.3] | 2 | 84.2 | 0.0007 | 0.1 | OK |
-| `MUX_SENSE` | line ADC (signal, 47k source) | 0 | [] | 0 | no path? | 0.0001 | - | CHECK |
+| `PWR_EN` | soft-switch EN (signal) | 128 | [0.25, 0.3] | 6 | 159.4 | 5e-06 | 0.0 | OK |
+| `MOT_EN` | motor-rail EN (signal) | 110 | [0.3] | 5 | 157.2 | 5e-06 | 0.0 | OK |
+| `IMU_SDA` | I2C data (400kHz, 4.7k pull-up) | 52 | [0.25, 0.3] | 4 | 85.7 | 0.0007 | 0.1 | OK |
+| `MUX_SENSE` | line ADC (signal, 47k source) | 88 | [0.3] | 4 | 145.2 | 0.0001 | 0.0 | OK |
 
 Reading the verdicts: currents are worst-case (fuse rating for the battery
 feed, motor STALL for the drive nets -- N20 nominal draw is ~0.36 A). The
@@ -36,18 +36,18 @@ robot; widen the drive traces only if rev 6 frees routing room.
 
 | Net | stitch vias | trace len (mm) | note |
 |---|---|---|---|
-| `GND` | 64 | 86 | In1 solid plane + both outer faces; plane R << trace paths |
-| `PLUS3V3` | 61 | 96 | In2 solid plane; plane R << trace paths |
-| `VM_BATT` | 8 | 53 | B.Cu pour, battery -> both buck inputs; plane R << trace paths |
-| `VM_6V` | 8 | 17 | B.Cu pour, 6V buck -> TB6612/motors; plane R << trace paths |
+| `GND` | 73 | 95 | In1 solid plane + both outer faces; plane R << trace paths |
+| `PLUS3V3` | 73 | 175 | In2 solid plane; plane R << trace paths |
+| `VM_BATT` | 13 | 83 | B.Cu pour, battery -> both buck inputs; plane R << trace paths |
+| `VM_6V` | 7 | 18 | B.Cu pour, 6V buck -> TB6612/motors; plane R << trace paths |
 
 ## USB 2.0 full-speed differential pair
 
-- D+ routed length 18.5 mm, D- 22.7 mm -> skew 4.3 mm (28 ps). Full-speed tolerance is ~4 ns -> margin > 142x. Impedance is uncontrolled (FS allows it).
+- D+ routed length 31.0 mm, D- 25.2 mm -> skew 5.8 mm (38 ps). Full-speed tolerance is ~4 ns -> margin > 105x. Impedance is uncontrolled (FS allows it).
 
 ## Review notes
 
 - BATT_RAW: only 1 via(s) for 2.6 A (want >= 2)
-- MOTA_P: only 1 via(s) for 1.6 A (want >= 2)
-- MOTA_N: graph path not resolved (pour-fed or terminal >1.2mm from copper)
-- MUX_SENSE: graph path not resolved (pour-fed or terminal >1.2mm from copper)
+- MOTA_N: only 1 via(s) for 1.6 A (want >= 2)
+- MOTB_P: only 1 via(s) for 1.6 A (want >= 2)
+- MOTB_N: only 1 via(s) for 1.6 A (want >= 2)

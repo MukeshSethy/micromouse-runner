@@ -121,10 +121,16 @@ def _collect(d, types):
 
 
 def _ratsnest(path):
-    b = pcbnew.LoadBoard(path)
-    pcbnew.ZONE_FILLER(b).Fill(b.Zones())
-    b.BuildConnectivity()
-    return b.GetConnectivity().GetUnconnectedCount(True)
+    # subprocess isolation: in-process LoadBoard after phase_silk intermittently
+    # returns a degraded SwigPyObject (no .Zones) -- a fresh interpreter never does
+    code = ("import pcbnew;b=pcbnew.LoadBoard(r'%s');"
+            "pcbnew.ZONE_FILLER(b).Fill(b.Zones());b.BuildConnectivity();"
+            "print('RN=%%d'%%b.GetConnectivity().GetUnconnectedCount(True))" % path)
+    r = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True)
+    for ln in r.stdout.splitlines():
+        if ln.startswith("RN="):
+            return int(ln[3:])
+    raise SystemExit(f"finalize ABORT: ratsnest subprocess failed: {r.stderr[-400:]}")
 
 
 def phase_copper():
@@ -133,120 +139,172 @@ def phase_copper():
     # RATSNEST. A non-zero ratsnest here means routing is incomplete and the
     # strip would cascade through partial routes (this exact bug over-stripped
     # a board from 7 to 51 unconnected once) -- refuse to strip.
+    #
+    # rev 6.2 rewrite: the old free-end graph fixpoint treated T-junctions
+    # (a track ending on the MIDDLE of another track) as free ends and once
+    # stripped 56 load-bearing connections. Now the strip is DRC-list-driven
+    # and iterative: remove ONLY items KiCad itself flags as dangling (its
+    # detection is zone- and T-junction-aware), re-run DRC, repeat until no
+    # flags remain. Every round gates connectivity IN MEMORY before saving.
     rn0 = _ratsnest(BOARD)
     if rn0 != 0:
         raise SystemExit(f"finalize ABORT: ratsnest = {rn0} (routing incomplete); "
                          "route to zero before finalizing")
-    d = run_drc()
-    kill_via = _collect(d, ("via_dangling",))          # one-layer vias (pour-completed)
-    kill_trk = _collect(d, ("track_dangling",))        # stubs the graph missed (via-coincident end)
-    hole_pos = _collect(d, ("holes_co_located", "hole_to_hole"))
-    board = pcbnew.LoadBoard(BOARD)
-    tracks = list(board.GetTracks())            # FIRST -- before any footprint touch
-    items = []                                  # cache geometry while proxies are valid
-    for t in tracks:
-        if t.GetClass() == "PCB_VIA":
-            p = t.GetPosition()
-            items.append({"o": t, "via": True, "x": MM(p.x), "y": MM(p.y), "dead": False})
+    total_v = total_t = total_destk = 0
+    # positions proven load-bearing (skip re-matching); persisted because each
+    # round runs in its own process (a second LoadBoard in-process degrades)
+    PROT = os.path.join(os.environ.get("TEMP", r"D:\tmp"), "finalize_protected.json")
+    protected = set()
+    if os.path.exists(PROT):
+        protected = {tuple(p) for p in json.load(open(PROT))}
+    first = len(sys.argv) > 2 and sys.argv[2] == "first"
+    for rnd in range(1):
+        d = run_drc()
+        kill_via = _collect(d, ("via_dangling",))
+        kill_trk = _collect(d, ("track_dangling",))
+        hole_pos = _collect(d, ("holes_co_located", "hole_to_hole")) if first else []
+        kill_via = [p for p in kill_via if _q(*p) not in protected]
+        kill_trk = [p for p in kill_trk if _q(*p) not in protected]
+        if not kill_via and not kill_trk and not hole_pos:
+            print(f"phase copper: converged after {rnd} rounds "
+                  f"({total_v} vias, {total_t} stubs, {total_destk} de-stacked, "
+                  f"{len(protected)} pour-bridges kept)")
+            return
+        board = pcbnew.LoadBoard(BOARD)
+        tracks = list(board.GetTracks())        # cache FIRST (SWIG)
+        items = []
+        for t in tracks:
+            if t.GetClass() == "PCB_VIA":
+                p = t.GetPosition()
+                items.append({"o": t, "via": True, "x": MM(p.x), "y": MM(p.y),
+                              "net": t.GetNetname(), "dead": False, "src": None})
+            else:
+                a, b = t.GetStart(), t.GetEnd()
+                items.append({"o": t, "via": False, "net": t.GetNetname(),
+                              "a": _q(MM(a.x), MM(a.y)), "b": _q(MM(b.x), MM(b.y)),
+                              "dead": False, "src": None})
+        vias = [it for it in items if it["via"]]
+        n_v = n_t = n_d = 0
+        for (tx, ty) in kill_via:
+            best = min((it for it in vias if not it["dead"]),
+                       key=lambda it: (it["x"] - tx) ** 2 + (it["y"] - ty) ** 2, default=None)
+            if best and (best["x"] - tx) ** 2 + (best["y"] - ty) ** 2 < 0.01:
+                board.Remove(best["o"]); best["dead"] = True
+                best["src"] = _q(tx, ty); n_v += 1
+        for (tx, ty) in kill_trk:
+            best = min((it for it in items if not it["via"] and not it["dead"]),
+                       key=lambda it: min((it["a"][0] - tx) ** 2 + (it["a"][1] - ty) ** 2,
+                                          (it["b"][0] - tx) ** 2 + (it["b"][1] - ty) ** 2),
+                       default=None)
+            if best:
+                dd = min((best["a"][0] - tx) ** 2 + (best["a"][1] - ty) ** 2,
+                         (best["b"][0] - tx) ** 2 + (best["b"][1] - ty) ** 2)
+                if dd < 0.01:
+                    board.Remove(best["o"]); best["dead"] = True
+                    best["src"] = _q(tx, ty); n_t += 1
+        # de-stack co-located via pairs (round 0 only): drop the one with
+        # fewer coincident segment ends (the redundant healer drop)
+        if hole_pos:
+            seg_ends = {}
+            for it in items:
+                if not it["via"]:
+                    seg_ends[it["a"]] = seg_ends.get(it["a"], 0) + 1
+                    seg_ends[it["b"]] = seg_ends.get(it["b"], 0) + 1
+            for (tx, ty) in hole_pos:
+                near = [it for it in vias if not it["dead"]
+                        and (it["x"] - tx) ** 2 + (it["y"] - ty) ** 2 < 0.36]
+                if len(near) >= 2:
+                    near.sort(key=lambda it: seg_ends.get(_q(it["x"], it["y"]), 0))
+                    board.Remove(near[0]["o"]); near[0]["dead"] = True; n_d += 1
+        if n_v + n_t + n_d == 0:
+            print(f"phase copper: {len(kill_via)+len(kill_trk)} flags but no matchable "
+                  "items (positions stale?) -- stopping")
+            return
+        # gate BEFORE saving. KiCad's dangling test ignores ZONES, so a
+        # pad->stub->pour bridge gets flagged although removing it cuts the
+        # pad off. Detect: after the bulk removal, find broken nets and
+        # RE-ADD every removed item on them; iterate until ratsnest is 0.
+        readded = 0
+        for _fix in range(6):
+            pcbnew.ZONE_FILLER(board).Fill(board.Zones())
+            board.BuildConnectivity()
+            rn1 = board.GetConnectivity().GetUnconnectedCount(True)
+            if rn1 == 0:
+                break
+            conn = board.GetConnectivity()
+            broken = set()
+            byname = {}
+            for code, ni in board.GetNetsByNetcode().items():
+                if ni.GetNetname():
+                    byname[ni.GetNetname()] = code
+            removed_nets = {it["net"] for it in items if it["dead"]}
+            for nm in removed_nets:
+                code = byname.get(nm)
+                if code is None:
+                    continue
+                pads = [p for fp in board.GetFootprints() for p in fp.Pads()
+                        if p.GetNetCode() == code]
+                if len(pads) < 2:
+                    continue
+                reach = {(x.GetPosition().x, x.GetPosition().y)
+                         for x in conn.GetConnectedItems(pads[0]) if x.GetClass() == "PAD"}
+                reach.add((pads[0].GetPosition().x, pads[0].GetPosition().y))
+                if any((p.GetPosition().x, p.GetPosition().y) not in reach for p in pads[1:]):
+                    broken.add(nm)
+            if not broken:
+                raise SystemExit(f"finalize ABORT round {rnd}: ratsnest {rn1} but no "
+                                 "broken net matches a removed item; disk untouched")
+            for it in items:
+                if it["dead"] and it["net"] in broken:
+                    board.Add(it["o"]); it["dead"] = False; readded += 1
+                    if it["src"]:
+                        protected.add(it["src"])
+                    if it["via"]:
+                        n_v -= 1
+                    else:
+                        n_t -= 1
         else:
-            a, b = t.GetStart(), t.GetEnd()
-            items.append({"o": t, "via": False,
-                          "a": _q(MM(a.x), MM(a.y)), "b": _q(MM(b.x), MM(b.y)), "dead": False})
-    # pad centres (anchors). GetFootprints() degrades track proxies -- safe now
-    # that geometry is cached; board.Remove(obj) still works on the pointer.
-    anchors = set()
-    for fp in board.GetFootprints():
-        for p in fp.Pads():
-            pp = p.GetPosition()
-            anchors.add(_q(MM(pp.x), MM(pp.y)))
-
-    vias = [it for it in items if it["via"]]
-
-    # 1. remove DRC-flagged one-layer vias (their feeding stub then dangles and
-    #    is swept below -- the signal already completed through its pour)
-    n_kill = 0
-    for (tx, ty) in kill_via:
-        best = min((it for it in vias if not it["dead"]),
-                   key=lambda it: (it["x"] - tx) ** 2 + (it["y"] - ty) ** 2, default=None)
-        if best and (best["x"] - tx) ** 2 + (best["y"] - ty) ** 2 < 0.001:
-            board.Remove(best["o"]); best["dead"] = True; n_kill += 1
-    # 1b. explicit removal of DRC-flagged dangling stubs the graph fixpoint
-    #     kept (their free end coincided with a via that has since been killed,
-    #     or with a pad edge my centre-anchor set missed). unconnected==0 with
-    #     pours filled proves the net is held elsewhere.
-    for (tx, ty) in kill_trk:
-        best = min((it for it in items if not it["via"] and not it["dead"]),
-                   key=lambda it: min((it["a"][0] - tx) ** 2 + (it["a"][1] - ty) ** 2,
-                                      (it["b"][0] - tx) ** 2 + (it["b"][1] - ty) ** 2),
-                   default=None)
-        if best:
-            dd = min((best["a"][0] - tx) ** 2 + (best["a"][1] - ty) ** 2,
-                     (best["b"][0] - tx) ** 2 + (best["b"][1] - ty) ** 2)
-            if dd < 0.001:
-                board.Remove(best["o"]); best["dead"] = True; n_kill += 1
-    # 2. de-stack co-located / too-close via pairs: drop the one with FEWER
-    #    coincident segment ends (the redundant healer drop)
-    seg_ends = {}
-    for it in items:
-        if not it["via"]:
-            seg_ends[it["a"]] = seg_ends.get(it["a"], 0) + 1
-            seg_ends[it["b"]] = seg_ends.get(it["b"], 0) + 1
-    for (tx, ty) in hole_pos:
-        near = [it for it in vias if not it["dead"]
-                and (it["x"] - tx) ** 2 + (it["y"] - ty) ** 2 < 0.36]
-        if len(near) >= 2:
-            near.sort(key=lambda it: seg_ends.get(_q(it["x"], it["y"]), 0))
-            board.Remove(near[0]["o"]); near[0]["dead"] = True; n_kill += 1
-
-    via_pts = {_q(it["x"], it["y"]) for it in vias if not it["dead"]}
-    segs = [it for it in items if not it["via"] and not it["dead"]]
-    vias = [it for it in vias if not it["dead"]]
-    alive = {id(it): it for it in segs}
-    removed_seg = 0
-    changed = True
-    while changed:
-        changed = False
-        endcount = {}
-        for it in alive.values():
-            endcount[it["a"]] = endcount.get(it["a"], 0) + 1
-            endcount[it["b"]] = endcount.get(it["b"], 0) + 1
-        for k in list(alive):
-            it = alive[k]
-            free = False
-            for e in (it["a"], it["b"]):
-                if e not in anchors and e not in via_pts and endcount.get(e, 0) <= 1:
-                    free = True
-                    break
-            if free:
-                board.Remove(it["o"])
-                del alive[k]
-                removed_seg += 1
-                changed = True
-
-    # orphan vias: no surviving segment endpoint coincides with the via
-    live_ends = set()
-    for it in alive.values():
-        live_ends.add(it["a"]); live_ends.add(it["b"])
-    removed_via = 0
-    for it in vias:
-        if _q(it["x"], it["y"]) not in live_ends:
-            board.Remove(it["o"])
-            removed_via += 1
-
-    pcbnew.ZONE_FILLER(board).Fill(board.Zones())
-    pcbnew.SaveBoard(BOARD, board)
-    # POST-STRIP GATE: the strip must not have disconnected anything.
-    rn1 = _ratsnest(BOARD)
-    if rn1 != 0:
-        raise SystemExit(f"finalize ABORT: strip raised ratsnest to {rn1} -- a removed "
-                         "stub was load-bearing; board NOT trustworthy (restore + investigate)")
-    print(f"phase copper: killed {n_kill} flagged vias, stripped {removed_seg} "
-          f"dangling segments, {removed_via} orphan vias (ratsnest still 0)")
+            raise SystemExit(f"finalize ABORT round {rnd}: could not restore ratsnest 0 "
+                             "by re-adding; board on disk left untouched")
+        pcbnew.SaveBoard(BOARD, board)
+        json.dump(sorted(protected), open(PROT, "w"))
+        if readded:
+            print(f"  round: re-added {readded} load-bearing pour-bridge items")
+        total_v += n_v; total_t += n_t; total_destk += n_d
+        print(f"  round done: -{n_v} vias, -{n_t} stubs, -{n_d} de-stacked (ratsnest 0)")
 
 
 def main():
-    phase_silk()
-    phase_copper()
+    # every phase AND every copper round in its OWN interpreter: a second
+    # LoadBoard in-process after a LoadBoard+SaveBoard cycle returns a
+    # degraded SwigPyObject (no methods)
+    if len(sys.argv) > 1:
+        {"silk": phase_silk, "copper": phase_copper}[sys.argv[1]]()
+        return
+    me = os.path.abspath(__file__)
+
+    def run_phase(args):
+        r = subprocess.run([sys.executable, me] + args, capture_output=True, text=True)
+        out = r.stdout + r.stderr
+        for ln in out.splitlines():
+            low = ln.lower()
+            if "memory leak" in low or "duplicate image" in low or not ln.strip():
+                continue
+            print(ln)
+        if r.returncode != 0:
+            raise SystemExit(f"finalize: phase {args[0]} failed (rc {r.returncode})")
+        return out
+
+    prot = os.path.join(os.environ.get("TEMP", r"D:\tmp"), "finalize_protected.json")
+    if os.path.exists(prot):
+        os.remove(prot)
+    run_phase(["silk"])
+    for i in range(10):
+        out = run_phase(["copper", "first"] if i == 0 else ["copper"])
+        if "converged" in out:
+            break
+    else:
+        raise SystemExit("finalize: copper did not converge in 10 rounds")
     print("finalize: done")
 
 

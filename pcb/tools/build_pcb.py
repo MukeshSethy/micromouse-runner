@@ -340,7 +340,10 @@ if _over > 0:
 # USB support (bottom). Rev 6: D+/D- run DIRECT from the module to the ESD
 # array to the connector (no 22R -- Espressif S3 reference practice).
 g.place("U6", 54, 106, flip=True)              # ESD (bottom)
-g.place("R12", 62, 110, flip=True); g.place("R56", 52, 110.5, flip=True)  # CC pulldowns (bottom)
+# CC pulldowns (bottom): MUST stay OUT of the USB-C escape zone
+# (x 50-58, y 108-112) -- at (52.9,110.5) R56 boxed every D-/VBUS inner-layer
+# dive (HANDOFF 6.2). East of the zone, clear of SW2's THT holes.
+g.place("R12", 64.5, 108.5, flip=True); g.place("R56", 60, 108.5, flip=True)
 
 g.place("J8", 10.5, 102, rot=90)               # JTAG 1x6, pins along +x (y=102: clear of the wheel-notch corner at (13,100))
 

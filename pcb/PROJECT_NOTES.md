@@ -1032,3 +1032,40 @@ MPN, Manufacturer) so schematic-parity is 0; lib_footprint_mismatch is set to
 ignore (footprints are DELIBERATELY customized -- refdes on fab). robust
 USB-C same-signal pad-pair bridges (D-/D+/VBUS bridge UNDER the interleaved
 rows on layer-diverse inner dives; CC routed inner first to free F.Cu).
+
+## Rev 6.2 (2026-07-18) — XH board closed out: ratsnest 0, DRC 0/0/0, fab-ready
+
+**Routing closure.** The XH-connector reroute (2.1 h) left 6 fails; heal fixed
+one; the rest were closed by hand-computed geometry against the verifier
+floors: the USB pocket needed the old DM route leg replaced by a B.Cu leg off
+the new pad-pair dive (the old leg walled the only CC/VBUS corridor), CC1 via
+In2 y109.75 with a dogleg F stub, CC2 via a behind-the-row escape that the A*
+finally found itself, VBUS as an all-F east wrap joining the west leg at
+(51,110.5). D20's own K-net hook boxed the anode pad -- re-legged K through
+the B.Cu corridor between the R35/R36 pad rows. PLUS3V3/GND islands stitched
+or track-linked (the pours there are carved by LGA fanout; plane stitches
+alone did NOT join -- ratsnest-verified). VM_BATT had been split by killing
+heal mid-fixpoint; re-routed at 0.8mm.
+
+**finalize.py rewritten.** The old copper strip (free-end graph fixpoint)
+treated T-junctions as free ends and once stripped 56 load-bearing
+connections -- AND saved before its own gate ran. New: per-phase and per-round
+process isolation (a second LoadBoard in-process returns a degraded
+SwigPyObject), DRC-list-driven strip only (KiCad's flags are zone-aware),
+in-memory ratsnest gate BEFORE every save, and a persisted protected-list for
+pour-bridge stubs whose removal breaks connectivity.
+
+**218 warnings -> 0.** KiCad's dangling test is endpoint-based and zone-blind;
+the report pos is not always the dangling end; A* T-joins land up to 0.2mm off
+stub centerlines. Fix ladder per stub -- snap / trim-to-junction / remove --
+every mutation individually connectivity-gated. Same-net stacked via pairs
+de-stacked with orphan-end snapping. lib_footprint_mismatch re-set to ignore
+after the rebuild reverted it (deliberate custom footprints).
+
+**Fab gates.** BNO055/SRP4020TA STEP boxes regenerated with gen_step_models'
+AP214 writer (the gen_rev6_libs writer produced unreadable STEP); F1 re-pointed
+to a generated local Fuse_1812 box (KiCad 10 ships no 1812 fuse STEP).
+export_fab ALL GATES PASSED; BOM 49 lines; battery fully green (ERC 0,
+verify_netlist, 41/41 circuit tests, 29 pins, sim ALL PASS). MOTB_N
+trace-report REVIEW (49mOhm / 78.6mV at stall = 1.3% of 6V) accepted --
+documented as HANDOFF decision D6. Full autonomous-decision log: HANDOFF §15.
