@@ -1,0 +1,55 @@
+Comment,Designator,Footprint,LCSC Part #,MPN,Manufacturer
+"CMT-8504-100-SMT (magnetic transducer 8.5mm, 15R coil, 4kHz; pads 3/4 are mechanical dummies)",BZ1,MagneticBuzzer_CUI_CMT-8504-100-SMT,,CMT-8504-100-SMT-TR,Same Sky (CUI Devices)
+10uF/25V,"C1,C4,C11,C18",C_1210_3225Metric,,CL32B106KBJNNNE,Samsung Electro-Mechanics
+100nF,"C2,C3,C6,C8,C12-C15,C19,C20,C23",C_0805_2012Metric,,CL21B104KBCNNNC,Samsung Electro-Mechanics
+22uF,"C5,C7",C_0805_2012Metric,,CL21A226KPCLRNC,Samsung Electro-Mechanics
+1uF,C9,C_0805_2012Metric,,CL21B105KAFNNNE,Samsung Electro-Mechanics
+10uF,"C10,C24",C_0805_2012Metric,,CL21A106KPFNNNE,Samsung Electro-Mechanics
+22uF/25V,"C16,C17",C_1210_3225Metric,,CL32A226KAJNNNE,Samsung Electro-Mechanics
+220uF/16V,C30,CP_Elec_6.3x7.7,,EEE-FT1C221AP,Panasonic
+IR333-A (Everlight 5mm 940nm 20deg; LD271 base symbol; TSAL6400 is lifecycle-Obsolete at Lion),D1-D6,LED_D5.0mm_IRGrey,,IR333-A,Everlight
+"Indicator LED 0603 super-red AlInGaP, high-efficiency bin REQUIRED at 1.4mA (e.g. Kingbright APT1608SURCK; LD271 base symbol for ERC)",D15-D22,LED_0603_1608Metric,,APT1608SURCK,Kingbright
+"Indicator LED 0603 super-red AlInGaP, high-eff bin (e.g. APT1608SURCK)",D23-D28,LED_0603_1608Metric,,APT1608SURCK,Kingbright
+1N4148W (flyback clamp across the buzzer coil),D29,D_SOD-123,,1N4148W-7-F,Diodes Incorporated
+2.6A/16V PPTC,F1,Fuse_1812_4532Metric,,MINISMDC350F/16-2,Littelfuse
+BATT_IN_2S,J1,JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical,,B2B-XH-A,JST
+MOTOR_A_N20_ENCODER,J5,JST_ZH_B6B-ZR_1x06_P1.50mm_Vertical,,B6B-ZR(LF)(SN),JST
+MOTOR_B_N20_ENCODER,J6,JST_ZH_B6B-ZR_1x06_P1.50mm_Vertical,,B6B-ZR(LF)(SN),JST
+USB-C rear (GCT USB4105; VBUS unused -- battery powers the board),J7,USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal,,USB4105-GF-A,GCT
+"JTAG_1x6 (3V3,TMS,TCK,TDO,TDI,GND)",J8,PinHeader_1x06_P2.54mm_Vertical,,61300611121,Wurth Elektronik
+BALANCE_2S,J9,JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical,,B3B-XH-A(LF)(SN),JST
+BATT_IN_XT60 (parallel option -- ONE PACK ONLY),J10,AMASS_XT60-M_1x02_P7.20mm_Vertical,,XT60-M,AMASS
+4.7uH,"L1,L2",L_Bourns_SRP4020TA,,SRP4020TA-4R7M,Bourns
+"TCRT5000 (reflective sensor, filtered PT; PC817 base symbol so ERC checks pins)",LS1-LS8,TCRT5000,,TCRT5000,Vishay
+"Q_PMOS reverse guard (DMP3098L-7: Vgs +/-20V, 2S-safe)",Q1,SOT-23,,DMP3098L-7,Diodes Incorporated
+PT334-6B (5mm filtered PT; LONG LEAD = EMITTER; SFH309 base symbol so ERC checks pins),Q2-Q7,LED_D5.0mm_IRBlack,,PT334-6B,Everlight
+BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins),Q16-Q27,SOT-23,,BSS138LT1G,onsemi
+BSS84 (PMOS indicator driver; Q_PMOS base symbol),Q28-Q33,SOT-23,,BSS84LT1G,onsemi
+MMBT2222A (buzzer low-side driver; Q_NPN_BEC base symbol so ERC checks pins),Q34,SOT-23,,MMBT2222A-7-F,Diodes Incorporated
+100k,"R1,R2,R61-R64,R69,R73,R75,R76",R_0805_2012Metric,,RC0805FR-07100KL,Yageo
+39k,R3,R_0805_2012Metric,,RC0805FR-0739KL,Yageo
+10k,"R6-R11,R55,R65,R67,R79,R80",R_0805_2012Metric,,RC0805FR-0710KL,Yageo
+5.1k,"R12,R56",R_0805_2012Metric,,RC0805FR-075K1L,Yageo
+47k,"R13,R15,R17,R19,R21,R23,R25,R27,R29,R31,R33,R35,R37,R39",R_0805_2012Metric,,RC0805FR-0747KL,Yageo
+33,"R14,R16,R18,R20,R22,R24",R_0805_2012Metric,,RC0805FR-0733RL,Yageo
+120,"R26,R28,R30,R32,R34,R36,R38,R40",R_0805_2012Metric,,RC0805FR-07120RL,Yageo
+1k,"R41-R54,R57,R58",R_0805_2012Metric,,RC0805FR-071KL,Yageo
+15k,R68,R_0805_2012Metric,,RC0805FR-0715KL,Yageo
+220k,R70,R_0805_2012Metric,,RC0805FR-07220KL,Yageo
+110k,R71,R_0805_2012Metric,,RC0805FR-07110KL,Yageo
+11k,R74,R_0805_2012Metric,,RC0805FR-0711KL,Yageo
+4.7k,"R77,R78",R_0805_2012Metric,,RC0805FR-074K7L,Yageo
+220,R81,R_0805_2012Metric,,RC0805FR-07220RL,Yageo
+BTN_A (start / BOOT),SW1,SW_PUSH_6mm,,PTS645VL582LFS,C&K
+RESET,SW2,SW_PUSH_6mm,,PTS645VL582LFS,C&K
+BTN_B,SW3,SW_PUSH_6mm,,PTS645VL582LFS,C&K
+BTN_C,SW4,SW_PUSH_6mm,,PTS645VL582LFS,C&K
+PWR ALL (PCM12SMTR slide; slide-to-GND = OFF),SW5,SW_SPDT_PCM12,,PCM12SMTR,C&K
+PWR MOTORS (PCM12SMTR slide; slide-to-GND = motors OFF),SW6,SW_SPDT_PCM12,,PCM12SMTR,C&K
+AP63203WU-7 (fixed 3.3V 2A buck; AP63200WU base symbol so ERC checks pins),U1,TSOT-23-6,,AP63203WU-7,Diodes Incorporated
+TB6612FNG,U2,SSOP-24_5.3x8.2mm_P0.65mm,,"TB6612FNG,C,8,EL",Toshiba
+ESP32-S3-WROOM-1-N8R2 (quad PSRAM: IO35-37 usable; octal -R8 would lose them),U3,ESP32-S3-WROOM-1,,ESP32-S3-WROOM-1-N8R2,Espressif Systems
+CD74HC4067M,U4,SOIC-24W_7.5x15.4mm_P1.27mm,,CD74HC4067M96,Texas Instruments
+USBLC6-2SC6 (SOT-23-6; 2P6 base symbol so ERC checks pins),U6,SOT-23-6,,USBLC6-2SC6,STMicroelectronics
+TPS54302DDCR (6.0V/3A motor buck; FB=100k/11k),U7,SOT-23-6,,TPS54302DDCR,Texas Instruments
+BNO055 (9-axis IMU + fusion; 3.3V native; I2C 0x28),U8,BNO055,,BNO055,Bosch Sensortec

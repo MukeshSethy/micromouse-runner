@@ -473,14 +473,22 @@ def _(say, touch, touchc):
     say("(correct for the WROOM); the TB6612's internal 200k input pulldown agrees.")
     say("NEVER add a pull-up to this net.")
     io46 = net_of("U3", 16)
-    require(io46 and io46.startswith("unconnected-"),
-            f"IO46 must be a KiCad explicit no-connect (got {io46})")
+    require(io46 == "BUZZ_CTRL",
+            f"IO46 must carry BUZZ_CTRL, the rev-7.2 buzzer drive (got {io46})")
+    require(on("BUZZ_CTRL", "R81", 1), "R81 base resistor on BUZZ_CTRL")
+    require(abs(rval("R81") - 220) < 30, "R81 must be ~220R")
+    # strap safety: the ONLY other thing on IO46 is R81 -> NPN base. That load
+    # can only ever pull the pin toward GND (B-E junction), which is IO46's
+    # required boot state -- an accidental pull-UP here would be a brick risk.
+    require(len(NETS["BUZZ_CTRL"]) == 2, "BUZZ_CTRL must be exactly U3.16 + R81.1")
+    require(not any(on("PLUS3V3", r, p) and r == "R81" for r, p in [("R81", 1), ("R81", 2)]),
+            "R81 must never tie IO46 toward a rail")
     require("R66" not in COMPS,
             "R66 (the old STBY/IO46 pulldown) must be retired with the STBY rework")
-    say("IO46: explicit no-connect. Its internal weak pulldown keeps the boot-msg")
-    say("strap at the default; rev 6 freed it entirely by tying TB6612 STBY high")
-    say("(M1) -- R66 is confirmed gone from the netlist. Strap census: only IO0 is")
-    say("user-touchable, and only via the deliberate BOOT button dual-use.")
+    say("IO46 (BUZZ_CTRL): drives R81 220R -> Q34 (MMBT2222A) base -> buzzer. The")
+    say("B-E junction only ever pulls the strap LOW = its required boot-msg default,")
+    say("and the pin resets to input so the buzzer stays silent until app init.")
+    say("Strap census: only IO0 is user-touchable, via the deliberate BOOT button.")
 
 @test("E5", "Flashing", "Reset circuit: EN RC + RST button",
       nets=["ESP_EN", "GND"], comps=["R11", "C9", "SW2"])
@@ -578,8 +586,10 @@ def _(say, touch, touchc):
     for pin in ("24", "13", "14"):   # VM1 / VM2 / VM3
         require(on("VM_6V", "U2", pin), f"U2.{pin} (VM) must ride VM_6V")
     vout = 0.596 * (1 + rval("R73") / rval("R74"))
-    for net, pins, conn, cpin in (("MOTA_P", ("1", "2"), "J5", 1), ("MOTA_N", ("5", "6"), "J5", 2),
-                                   ("MOTB_P", ("11", "12"), "J6", 1), ("MOTB_N", ("7", "8"), "J6", 2)):
+    # rev 7.2: J5/J6 are JST ZH B6B-ZR in the ROBU CABLE order -- motor +
+    # on pin 1, motor - on pin 6 (encoder VCC/C1/C2/GND on 2/3/4/5).
+    for net, pins, conn, cpin in (("MOTA_P", ("1", "2"), "J5", 1), ("MOTA_N", ("5", "6"), "J5", 6),
+                                   ("MOTB_P", ("11", "12"), "J6", 1), ("MOTB_N", ("7", "8"), "J6", 6)):
         for p in pins:
             require(on(net, "U2", p), f"{net}: U2.{p} (doubled output) missing")
         require(on(net, conn, cpin), f"{net} -> {conn}.{cpin}")
@@ -589,7 +599,7 @@ def _(say, touch, touchc):
     say("lived in that derated region; rev 6's regulated 6 V restores the full")
     say("1.2 A avg / 3.2 A peak per-channel ratings, and the N20s get their rated")
     say("voltage at any state of charge). Every output uses BOTH package pins")
-    say("(halves per-pin current) into the JST-PH connectors.")
+    say("(halves per-pin current) into the JST ZH direct-plug motor connectors.")
 
 @test("M3", "Motors", "N20 stall vs TB6612 limits vs the 6V buck ceiling", comps=["U2", "U7", "C30"])
 def _(say, touch, touchc):
@@ -597,6 +607,11 @@ def _(say, touch, touchc):
     i_stall = 1.6            # N20 6V winding, ~3.8 ohm terminal R
     r_term = vout / i_stall
     say(f"N20 6 V motors: stall {i_stall:.1f} A at {vout:.1f} V (terminal R ~{r_term:.1f} ohm).")
+    say("(Envelope figure. The ORDERED motor -- robu GA12-N20 6V 200RPM, datasheet")
+    say("2026-07-20 -- stalls at only 0.23 A / runs 60 mA rated: ~7x inside this")
+    say("analysis. And the 8.4 V pack question is moot BY DESIGN: motors hang off")
+    say("the REGULATED 6.00 V rail, never the raw pack -- at 8.4 V the buck still")
+    say("delivers exactly 6 V to the motor terminals.)")
     say("Per TB6612 channel: 1.2 A continuous / 3.2 A peak. A single stall at 100%")
     say(f"duty ({i_stall:.1f} A) exceeds the continuous rating but sits at "
         f"{i_stall/3.2*100:.0f}% of peak")
@@ -639,8 +654,9 @@ def _(say, touch, touchc):
       nets=["ENC1_A", "ENC1_B", "ENC2_A", "ENC2_B", "PLUS3V3"],
       comps=["R6", "R7", "R8", "R9", "J5", "J6"])
 def _(say, touch, touchc):
-    for net, conn, pin in (("ENC1_A", "J5", 5), ("ENC1_B", "J5", 6),
-                            ("ENC2_A", "J6", 5), ("ENC2_B", "J6", 6)):
+    # rev 7.2 ZH cable order: C1/C2 on pins 3/4, encoder VCC/GND on 2/5.
+    for net, conn, pin in (("ENC1_A", "J5", 3), ("ENC1_B", "J5", 4),
+                            ("ENC2_A", "J6", 3), ("ENC2_B", "J6", 4)):
         require(on(net, conn, pin), f"{net} on {conn}.{pin}")
         reaches = any(r == "U3" for r, p in NETS[net])
         if not reaches:
@@ -658,8 +674,11 @@ def _(say, touch, touchc):
     say("ENC2 additionally passes the 1k UART guards. Decoding: two S3 PCNT units")
     say("in hardware quadrature via the GPIO matrix -- zero-CPU-cost counting.")
     for conn in ("J5", "J6"):
-        require(net_of(conn, 3) == "PLUS3V3" and net_of(conn, 4) == "GND",
-                f"{conn} encoder supply pins")
+        require(net_of(conn, 2) == "PLUS3V3" and net_of(conn, 5) == "GND",
+                f"{conn} encoder supply pins (ZH order: VCC=2, GND=5)")
+    say("J5/J6 pin order = the robu GA12-N20 factory cable (M1,VCC,C1,C2,GND,M2):")
+    say("the motor's own JST ZH plug goes straight in. METER-VERIFY pins 2/5 against")
+    say("the delivered cable before first plug-in (listing table vs photo conflict).")
 
 # ---------------------------------------------------------------------------
 # OPTICS: LINE ARRAY (TCRT5000)

@@ -233,6 +233,16 @@ R["Net-(U8-~{BOOT_LOAD_PIN})"] = (
 R["Net-(U8-~{RESET})"] = (
     "BNO055 nRESET held high by R80 10k; no reset GPIO spent -- power-cycle or the "
     "watchdog covers it.")
+R["BUZZ_CTRL"] = (
+    "IO46 (U3.16, the only free GPIO; strap-safe -- the load only ever pulls it low) "
+    "to R81 220R: base drive for the buzzer's NPN. LEDC ~4kHz square wave = beep.")
+R["Net-(Q34-B)"] = (
+    "R81 220R into Q34 (MMBT2222A) base: 12mA drive, forced beta ~18 = hard "
+    "saturation at the buzzer coil's ~220mA peak.")
+R["BUZZ_DRV"] = (
+    "Q34 collector sinking BZ1 (CMT-8504 magnetic transducer, + pin on 3V3) with "
+    "D29 1N4148W flyback clamp across the coil. Beep duty-limited in firmware -- "
+    "~110mA average while sounding, from the 2A 3V3 rail.")
 
 R["Net-(U1-BST)"] = (
     "AP63203 bootstrap: C3 100nF from BST to the SW node -- high-side gate-drive supply "
@@ -493,6 +503,8 @@ GROUPS = [
       "BIN1", "BIN2", "MOTB_P", "MOTB_N", "Net-(U2-STBY)"]),
     ("Encoders (PCNT hardware quadrature)",
      ["ENC1_A", "ENC1_B", "ENC2_A", "ENC2_A_S3", "ENC2_B", "ENC2_B_S3"]),
+    ("Buzzer (IO46, rev 7.2)",
+     ["BUZZ_CTRL", "Net-(Q34-B)", "BUZZ_DRV"]),
     ("IR sensing -- shared control",
      ["MUX_S0", "MUX_S1", "MUX_S2", "MUX_S3", "MUX_SENSE",
       "LINE_EMIT", "WALL_EMIT_FRONT", "WALL_EMIT_DIAG", "WALL_EMIT_SIDE",

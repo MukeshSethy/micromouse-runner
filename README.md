@@ -5,13 +5,26 @@ KiCad 10 PCB: ESP32-S3 module doing all control + wireless telemetry, a 2S
 power tree with a regulated 6 V motor rail, a BNO055 9-axis IMU, research-
 verified sensor geometry, and a fully script-generated, fully autorouted design.
 
- > **Status (2026-07-19, rev 7): all requirements closed — fab-ready.**
+ > **Status (2026-07-20, rev 7.2): all requirements closed — fab-ready, order-ready.**
 > `verify_drc.py` PASS: **0 errors / 0 warnings / 0 unconnected / 0 parity /
 > ratsnest 0** (error-inclusive severity — never use `--severity-warning`,
-> it hides errors on KiCad 10.0.4). Full verification battery green. Formal
+> it hides errors on KiCad 10.0.4). Final battery: **12/12 green** (ERC,
+> netlist gates, 41 circuit tests, 30-pin fw gate, flash/preflight/power/hw/
+> line sims incl. IMU self-test coverage, 4/4 negative tests, DRC).
+> Rev 7.2 adds: **XT60 battery input** (parallel with JST-XH, ONE PACK ONLY),
+> **buzzer on IO46**, **JST-ZH motor connectors** (the robu GA12-N20 factory
+> plug goes straight in — zero soldering), optional balance lead, selective
+> silk refdes + assembly-PDF debug maps. Production folders for **Lion
+> Circuits** and **JLCPCB**: [`pcb/fab_release/`](pcb/fab_release/). Formal
 > per-requirement status: [`pcb/REQUIREMENTS.md`](pcb/REQUIREMENTS.md).
 
+**Top** — sensors, module, connectors (motor plugs go straight into J5/J6):
+
 ![PCB top](images/render_top.png)
+
+**Bottom** — ground pour, USB ESD cluster, button-side routing:
+
+![PCB bottom](images/render_bottom.png)
 
 ## The board (rev 7)
 
@@ -19,7 +32,7 @@ verified sensor geometry, and a fully script-generated, fully autorouted design.
 |---|---|---|
 | Controller | ESP32-S3-WROOM-1-N8R2 (bare module, dual-core FreeRTOS) | Rear placement; antenna spans a rear-edge U-notch (Espressif fallback), tip inside the board |
 | Motor driver | TB6612FNG bare SSOP-24, **IN/IN PWM mode** | 6 V VM rail; PWMA/PWMB/STBY tied high, the four IN pins carry LEDC |
-| **Power** | **2S LiPo** → **AP63203** (3.3 V/2 A logic) + **TPS54302** (regulated **6.0 V**/3 A motors) | Fuse (2.6 A/16 V PPTC), DMP3098L reverse P-FET (Vgs ±20 V), balance-tap per-cell monitoring |
+| **Power** | **2S LiPo** → **AP63203** (3.3 V/2 A logic) + **TPS54302** (regulated **6.0 V**/3 A motors) | Fuse 3.5 A/16 V PPTC (rev 7.1), DMP3098L reverse P-FET (Vgs ±20 V), balance-tap per-cell monitoring (optional — fw auto-detects); battery via JST-XH **or** XT60 (rev 7.2, ONE PACK ONLY) |
 | **Switches** | **SW5 = PWR ALL** (logic EN) + **SW6 = PWR MOTORS** (6 V rail EN) | Motors need both on; SW6's pull-up feeds from the SW5 node |
 | **IMU** | **BNO055 9-axis** on the centerline, I2C (IO18/21), INT IO37 | Internal oscillator; gyro drives the yaw loop |
 | Wall sensors | 6× IR333-A + PT334-6B pairs: front **0°**, diagonal **45.0°**, side **90.0°** | Exact aims with silk angle callouts; bent-body outlines fully inside the board (3–5 mm edge gap) |

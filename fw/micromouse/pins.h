@@ -6,7 +6,7 @@
 // board -- the four IN pins ARE the PWM pins); STBY is tied high (motor kill
 // = the MOT slide switch cutting the 6V rail); IO18/IO21 became the BNO055
 // I2C bus; IO8 became the mux's 4th select; battery/VBUS telemetry moved
-// onto mux channels 8-10; IO46 is a clean no-connect.
+// onto mux channels 8-10. Rev 7.2: IO46 (previously NC) drives the buzzer.
 //
 // All nets documented per-trace in pcb/CONNECTIONS.md.
 #pragma once
@@ -63,12 +63,19 @@
 #define PIN_BTN_A         0   // net on SW1: to GND, 10k pull-up (also BOOT strap)
 #define PIN_BTN_B         35  // net on SW3: to GND, use INPUT_PULLUP (internal)
 #define PIN_BTN_C         36  // net on SW4: to GND, use INPUT_PULLUP (internal)
+#define PIN_BUZZER        46  // net BUZZ_CTRL (rev 7.2): 220R -> MMBT2222A base ->
+                              // CMT-8504 magnetic buzzer (4kHz rated). Strap-safe:
+                              // the base load only ever pulls IO46 LOW (its boot
+                              // default); LEDC ~4kHz square = beep.
 
 // ---- battery policy (2S) -------------------------------------------------------
 #define VBAT_DIVIDER      (139.0f / 39.0f)   // pack divider inverse
 #define BATMID_DIVIDER    2.0f               // midpoint divider inverse
 #define PACK_CUTOFF_V     6.6f               // 3.3V/cell floor
 #define CELL_CUTOFF_V     3.3f               // per-cell floor (either cell)
+#define BALANCE_ABSENT_V  0.5f               // cell-1 below this = J9 balance lead
+                                             // not plugged (R75/R76 drain the sense
+                                             // node to ~0V) -> pack-only monitoring
 
 // USB D-/D+ are the S3's native pins IO19/IO20 (flashing + CDC console).
-// JTAG header J8: TCK=39 TDO=40 TDI=41 TMS=42. IO46 is NC (rev 6).
+// JTAG header J8: TCK=39 TDO=40 TDI=41 TMS=42. IO46 = buzzer (rev 7.2).

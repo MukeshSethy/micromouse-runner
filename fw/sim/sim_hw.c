@@ -47,12 +47,15 @@ static int g_fail = 0;
  * the TEST_REPORT W2 operating point. */
 #define WALL_K            (2000.0f * 60.0f * 60.0f)
 #define WALL_AMBIENT      120.0f    /* sunlight/ambient floor, subtracted */
-/* motors: N20 6V 150RPM class on the regulated 6V rail */
+/* motors: robu GA12-N20 6V 200RPM (the ordered part) on the regulated rail */
 #define MOT_V             6.0f
-#define MOT_RPM_NOLOAD    150.0f
+#define MOT_RPM_NOLOAD    200.0f
 #define MOT_TAU_S         0.05f
-#define WHEEL_DIA_MM      32.0f
-#define ENC_TICKS_REV     1400.0f   /* 7ppr x4 edges x 50:1 */
+#define WHEEL_DIA_MM      43.0f     /* robu GA12-N20 kit wheel (listing spec) */
+#define ENC_TICKS_REV     600.0f    /* robu GA12-N20: 3ppr x4 edges x 50:1
+                                       (HANDOFF s17; was 1400 for a generic
+                                       7ppr N20 before the exact motor was
+                                       chosen) */
 #define TRACK_MM          83.0f
 /* maze */
 #define CELL_MM           168.0f
@@ -153,7 +156,10 @@ static void a1_motors_encoders(void)
     CHECK(fabs(ticks - ticks_expect) < 1.0,
           "encoder integrates distance exactly (%.0f ticks for %.0f mm)", ticks, x_mm);
     float tick_rate = v / ((float)M_PI * WHEEL_DIA_MM) * ENC_TICKS_REV;
-    CHECK(tick_rate > 2000, "steady tick rate resolves motion (%.0f ticks/s @60%%)", tick_rate);
+    /* 600 ticks/rev (3ppr robu encoder): >=1000 ticks/s at 60% duty means
+     * >=2 ticks per 2ms control period -- adequate direct velocity
+     * resolution (and the fw can widen its speed window at crawl speeds) */
+    CHECK(tick_rate > 1000, "steady tick rate resolves motion (%.0f ticks/s @60%%)", tick_rate);
     /* reversal via IN/IN */
     float vr = v;
     for (int t = 0; t < 500; t++) vr = mot_speed_mm_s(-0.6f, vr);

@@ -155,9 +155,34 @@ static float vpack_read()  { return mux_read_mv(MUXCH_VBAT) * VBAT_DIVIDER / 100
 static float vcell1_read() { return mux_read_mv(MUXCH_BATMID) * BATMID_DIVIDER / 1000.0f; }
 static bool  vbus_present() { return mux_read_mv(MUXCH_VBUS) > 1500; }
 
+// Rev 7.2: the J9 balance plug is OPTIONAL. Unplugged, the board's R75/R76
+// divider drains BAT_MID_SENSE to ~0V -- a reading below BALANCE_ABSENT_V is
+// physically impossible with a pack mid-tap connected, so treat it as "no
+// balance lead" and guard on the pack floor alone (per-cell guard needs J9).
+static bool balance_present() { return vcell1_read() > BALANCE_ABSENT_V; }
+
 static bool battery_ok() {
-    float pack = vpack_read(), c1 = vcell1_read(), c2 = pack - c1;
+    float pack = vpack_read();
+    if (!balance_present())
+        return pack > PACK_CUTOFF_V;
+    float c1 = vcell1_read(), c2 = pack - c1;
     return pack > PACK_CUTOFF_V && c1 > CELL_CUTOFF_V && c2 > CELL_CUTOFF_V;
+}
+
+// ---- buzzer (rev 7.2: IO46 -> 220R -> MMBT2222A -> CMT-8504, 4kHz rated) ------
+static void buzz_init() {
+    ledcAttach(PIN_BUZZER, 4000, 8);   // 4kHz = the transducer's rated frequency
+    ledcWrite(PIN_BUZZER, 0);          // silent (NPN off)
+}
+// short blocking beeps -- used at rare events only (boot/run/stop/warnings),
+// never inside the 500Hz control path
+static void beep(uint16_t ms, uint8_t n = 1) {
+    for (uint8_t i = 0; i < n; i++) {
+        ledcWrite(PIN_BUZZER, 128);    // 50% duty square
+        delay(ms);
+        ledcWrite(PIN_BUZZER, 0);
+        if (i + 1 < n) delay(60);
+    }
 }
 
 // ---- IMU (BNO055, minimal register driver) ------------------------------------
@@ -175,18 +200,67 @@ static int imu_read16(uint8_t reg) {
     int lo = Wire.read(), hi = Wire.read();
     return (int16_t)((hi << 8) | lo);
 }
+static int imu_read8(uint8_t reg) {
+    Wire.beginTransmission(IMU_I2C_ADDR);
+    Wire.write(reg);
+    if (Wire.endTransmission(false) != 0) return -1;
+    if (Wire.requestFrom((int)IMU_I2C_ADDR, 1) != 1) return -1;
+    return Wire.read();
+}
+// Rev 7.2 IMU FUNCTIONAL SELF-TEST (gated by fw/sim_preflight.py I6):
+// 1. CHIP_ID (0x00) must read 0xA0 -- the BNO055 needs ~400ms from cold
+//    power to answer, so retry rather than fail on the first read.
+// 2. ST_RESULT (0x36) bits 0-3 are the chip's power-on self-test verdicts
+//    for ACC/MAG/GYR/MCU -- all four must be 1.
+static bool imu_selftest() {
+    int id = -1;
+    for (int i = 0; i < 10 && id != 0xA0; i++) {
+        id = imu_read8(0x00);
+        if (id != 0xA0) delay(50);
+    }
+    if (id != 0xA0) {
+        Serial.printf("[mm] IMU SELF-TEST FAIL: CHIP_ID 0x%02X (want 0xA0)\n", id);
+        return false;
+    }
+    int st = imu_read8(0x36);
+    if ((st & 0x0F) != 0x0F) {
+        Serial.printf("[mm] IMU SELF-TEST FAIL: POST 0x%X (want 0xF = MCU|GYR|MAG|ACC)\n",
+                      st & 0x0F);
+        return false;
+    }
+    return true;
+}
 static void imu_init() {
     Wire.begin(PIN_IMU_SDA, PIN_IMU_SCL, 400000);
     Wire.beginTransmission(IMU_I2C_ADDR);
-    if (Wire.endTransmission() != 0) { Serial.println("[mm] IMU: not found"); return; }
+    if (Wire.endTransmission() != 0) {
+        Serial.println("[mm] IMU: not found on I2C 0x28");
+        beep(60, 4);                  // distinct 4-chirp = IMU problem
+        return;
+    }
+    if (!imu_selftest()) { beep(60, 4); return; }
     imu_write(0x3D, 0x00);            // OPR_MODE = CONFIG
     delay(25);
-    imu_write(0x3F, 0x00);            // SYS_TRIGGER: INTERNAL oscillator (rev 6.1: no crystal)
+    imu_write(0x3F, 0x00);            // SYS_TRIGGER: INTERNAL oscillator (XIN32 is NC on this board)
     delay(20);
     imu_write(0x3D, 0x0C);            // OPR_MODE = NDOF (fusion on-chip, 100Hz)
     delay(20);
+    // fusion sanity: SYS_STATUS (0x39) = 5 "fusion running", SYS_ERR (0x3A) = 0.
+    // NDOF startup can take a few tens of ms -- poll briefly.
+    int sys = 0, err = 0;
+    for (int i = 0; i < 20; i++) {
+        sys = imu_read8(0x39);
+        err = imu_read8(0x3A);
+        if (sys == 5 && err == 0) break;
+        delay(25);
+    }
+    if (sys != 5 || err != 0) {
+        Serial.printf("[mm] IMU: fusion not running (SYS_STATUS=%d SYS_ERR=%d)\n", sys, err);
+        beep(60, 4);
+        return;                       // g_imu_ok stays false -> yaw reads 0, run degraded
+    }
     g_imu_ok = true;
-    Serial.println("[mm] IMU: BNO055 NDOF up (internal osc)");
+    Serial.println("[mm] IMU: BNO055 self-test PASS, NDOF fusion up (internal osc)");
 }
 // yaw rate (gyro Z), deg/s -- the control-loop-grade signal for turns
 static float imu_gyro_z() { return g_imu_ok ? imu_read16(0x18) / 16.0f : 0.0f; }
@@ -223,11 +297,15 @@ void setup() {
     line_est_init(&g_line);
     pid_init(&g_pid, LF_KP, LF_KI, LF_KD, LF_I_CLAMP, LF_D_ALPHA);
 
+    buzz_init();                       // before imu_init: its fail-beep needs LEDC live
     imu_init();
 
     if (vbus_present())
         Serial.println("[mm] USB cable detected -- CDC telemetry live");
+    if (!balance_present())
+        Serial.println("[mm] balance lead (J9) not detected -- pack-level battery guard only");
     Serial.println("[mm] A=run/stop  B=calibrate  C=telemetry");
+    beep(60, 2);                       // ready
 }
 
 void loop() {
@@ -242,6 +320,7 @@ void loop() {
         digitalWrite(PIN_EMIT_LINE, g_running ? HIGH : LOW);  // latched: HW
         motors_enable(g_running);                             // indicators live
         Serial.printf("[mm] %s\n", g_running ? "RUN" : "STOP");
+        beep(g_running ? 40 : 120);   // short = run, long = stop
         delay(30);
     }
     if (!b && b_prev) {                 // calibration sweep: 3 s, wiggle over line
@@ -279,6 +358,7 @@ void loop() {
             g_running = false;
             motors_enable(false);
             Serial.println("[mm] LOW BATTERY (pack or cell floor) -- stopped");
+            beep(250, 3);             // unmistakable: land the bot, swap the pack
         }
     }
 
@@ -302,6 +382,13 @@ void loop() {
         stall_check(0, l, se1 - se1p, now_ms);
         stall_check(1, r, se2 - se2p, now_ms);
         se1p = se1; se2p = se2;
+        static bool stall_beeped = false;
+        if (stall_latched && !stall_beeped) {
+            beep(80, 2);              // motors were just cut by the watchdog
+            stall_beeped = true;
+        } else if (!stall_latched) {
+            stall_beeped = false;
+        }
         motor_write(l, r);
     }
 

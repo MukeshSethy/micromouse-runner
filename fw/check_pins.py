@@ -45,6 +45,7 @@ EXPECT = {
     "PIN_EMIT_SIDE": "WALL_EMIT_SIDE", "PIN_EMIT_LINE": "LINE_EMIT",
     "PIN_ENC1_A": "ENC1_A", "PIN_ENC1_B": "ENC1_B",
     "PIN_ENC2_A": "ENC2_A_S3", "PIN_ENC2_B": "ENC2_B_S3",
+    "PIN_BUZZER": "BUZZ_CTRL",
 }
 # buttons: net names are auto-generated; assert net CONTAINS the right switch
 BTN = {"PIN_BTN_A": "SW1", "PIN_BTN_B": "SW3", "PIN_BTN_C": "SW4"}

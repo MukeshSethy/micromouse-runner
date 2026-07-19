@@ -41,13 +41,23 @@ _MPN_STATIC = {
     "J1": ("B2B-XH-A", "JST"),                             # 2S battery main (XH: 3A/contact)
     "J9": ("B3B-XH-A(LF)(SN)", "JST"),                     # 2S balance tap (standard XH-3)
     "SW5": ("PCM12SMTR", "C&K"), "SW6": ("PCM12SMTR", "C&K"),
-    # J5/J6 (motor connectors): B6B-XH-A, NOT the original B6B-PH-K-S -- the
-    # whole top-entry THT JST-PH line is OUT OF STOCK at Lion Circuits.
-    # B6B-XH-A is In Stock (verified 2026-07), same XH family as J1/J9,
-    # top-entry THT (fits the placement), and 2.5mm pitch is more robust for
-    # the ~1.6A motor-stall current than 2.0mm PH.
-    "J5": ("B6B-XH-A", "JST"),
-    "J6": ("B6B-XH-A", "JST"),
+    # J5/J6 (motor connectors) rev 7.2: JST ZH B6B-ZR -- the robu GA12-N20
+    # motors ship with a factory 14cm cable terminated in a JST ZH 1.5mm
+    # 6-pos plug, so a ZH header on the board means the motor plugs STRAIGHT
+    # IN (user requirement: zero soldering/harness work). ZH is 1A/contact:
+    # fine for THIS motor (robu datasheet stall = 0.23A; the generic-N20
+    # 1.6A figure kept in sims is a different, hotter wind). In Stock at
+    # Lion (verified 2026-07-20). Pin order matches the robu cable, NOT the
+    # old functional order -- see the J5/J6 section below.
+    "J5": ("B6B-ZR(LF)(SN)", "JST"),
+    "J6": ("B6B-ZR(LF)(SN)", "JST"),
+    # Rev 7.2 additions: XT60 parallel battery input (male on the PCB, mating
+    # the pack's female lead; normal BOM line -- Lion procures turnkey even
+    # when the catalog page shows OOS) and the IO46 buzzer driver chain.
+    "J10": ("XT60-M", "AMASS"),   # male on PCB (pack lead = female)
+    "BZ1": ("CMT-8504-100-SMT-TR", "Same Sky (CUI Devices)"),
+    "Q34": ("MMBT2222A-7-F", "Diodes Incorporated"),
+    "D29": ("1N4148W-7-F", "Diodes Incorporated"),
     "J7": ("USB4105-GF-A", "GCT"),
     "J8": ("61300611121", "Wurth Elektronik"),
     "SW1": ("PTS645VL582LFS", "C&K"), "SW2": ("PTS645VL582LFS", "C&K"),
@@ -131,9 +141,9 @@ def FUSE(ref, value, at, footprint="Fuse:Fuse_1206_3216Metric"):
     g.add_component("Device", "Fuse", ref, value, base, {"1": "", "2": ""}, footprint=footprint)
     return pin_at(base, (0, 3.81)), pin_at(base, (0, -3.81))
 
-def CONN2(ref, value, at, footprint="Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal"):
+def CONN2(ref, value, at, footprint="Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal", dnp=False):
     base = snap(at)
-    g.add_component("Connector_Generic", "Conn_01x02", ref, value, base, {"1": "", "2": ""}, footprint=footprint)
+    g.add_component("Connector_Generic", "Conn_01x02", ref, value, base, {"1": "", "2": ""}, footprint=footprint, dnp=dnp)
     return pin_at(base, (-5.08, 0)), pin_at(base, (-5.08, -2.54))
 
 def CONN_COL(ref, value, at, n, footprint):
@@ -342,9 +352,27 @@ RAIL("GND", j1p2, rotation=180)
 PWR("PWR_FLAG", j1p2)
 RAIL("BATT_RAW", j1p1, rotation=0)
 
+# XT60 parallel battery input (rev 7.2, user request "keep both options"):
+# electrically IDENTICAL to J1 (BATT_RAW/GND) -- the pack plugs into EITHER
+# J1 (JST-XH lead) OR J10 (XT60 lead), never both at once ("ONE PACK ONLY"
+# board silk).
+j10p1, j10p2 = CONN2("J10", "BATT_IN_XT60 (parallel option -- ONE PACK ONLY)", (55, 110),
+                     footprint="Connector_AMASS:AMASS_XT60-M_1x02_P7.20mm_Vertical")
+# J10 stays a NORMAL BOM line (user 2026-07-20): Lion sources turnkey and can
+# procure even when their catalog page shows Out of Stock -- let them try; if
+# they can't, hand-fitting an XT60-M (~Rs.30, robu) is a one-minute fallback.
+# Gender: XT60-M = MALE on the PCB, mating the FEMALE XT60 every LiPo pack
+# lead carries (Amass convention: battery=F, device=M).
+RAIL("BATT_RAW", j10p1, rotation=0)
+RAIL("GND", j10p2, rotation=180)
+
 # Balance tap (JST-XH 3-pin = the standard 2S balance plug): pin1 GND (B-),
 # pin2 pack midpoint (B1+), pin3 pack + (B2+, same wire pair as J1 pin 1).
 # Monitoring only -- charge current never flows through this board.
+# Rev 7.2 (user): the balance plug is OPTIONAL -- with J9 unplugged the
+# R75/R76 divider drains BAT_MID_SENSE to ~0 V, which firmware detects
+# (cell-1 reading < 0.5 V = physically impossible with a pack connected)
+# and falls back to pack-level-only monitoring via VBAT_SENSE.
 j9p1, j9p2, j9p3 = CONN3("J9", "BALANCE_2S", (20, 110))
 RAIL("GND", j9p1, rotation=180)
 RAIL("BAT_MID", j9p2, rotation=180)
@@ -610,40 +638,47 @@ RAIL("GND", c14b, rotation=270)
 TXT("Bare TB6612FNG (U2, SSOP-24) in IN/IN PWM mode: PWMA/PWMB tied 3V3, AIN/BIN = LEDC\n(IN1=PWM,IN2=0 fwd-coast; IN1=PWM,IN2=1 rev-brake). VM = regulated 6.0V rail (TPS54302,\n3A limit) gated by SW6; STBY pulled high (R55) -- motor kill = SW6 + IN pins' internal\npull-downs. Decoupling: C30 220uF/16V alu + C11 10uF/25V + C12 100nF on VM, C14 on VCC.",
     (10, 258), size=2.0)
 
-# Motor A connector: M+/M- come from U2's AO outputs (MOTA_P/N), plus
-# encoder VCC/GND/A/B with defensive pull-ups.
+# Motor A connector -- rev 7.2 DIRECT-PLUG: JST ZH B6B-ZR, 1.5mm, matches
+# the plug already crimped on the robu GA12-N20's factory cable. Pin order
+# is therefore the MOTOR CABLE's order (robu listing wire table:
+# 1 Red=M1, 2 Black=VCC, 3 Yellow=C1, 4 Green=C2, 5 Blue=GND, 6 White=M2),
+# NOT the old functional grouping. The listing table conflicts with the
+# listing PHOTO on whether pos 2/5 are VCC/GND or GND/VCC -- METER-VERIFY
+# the two power wires before first plug-in (HANDOFF section 17); if swapped,
+# remedy is lifting the two crimp retainers and swapping positions 2/5 in
+# the housing (no soldering).
 jA = CONN6("J5", "MOTOR_A_N20_ENCODER", (200, 330),
-           footprint="Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical")
-RAIL("MOTA_P", jA[0], rotation=0)
-RAIL("MOTA_N", jA[1], rotation=0)
-RAIL("PLUS3V3", jA[2], rotation=0)
-RAIL("GND", jA[3], rotation=0)
+           footprint="Connector_JST:JST_ZH_B6B-ZR_1x06_P1.50mm_Vertical")
+RAIL("MOTA_P", jA[0], rotation=0)      # 1 Red    M1 (motor +)
+RAIL("PLUS3V3", jA[1], rotation=0)     # 2 Black  encoder VCC
 rea1, rea2 = R("R6", "10k", (220, 320))
-WIRE(rea1, jA[4])
+WIRE(rea1, jA[2])
 RAIL("PLUS3V3", rea2, rotation=90)
-RAIL("ENC1_A", jA[4], rotation=0)
+RAIL("ENC1_A", jA[2], rotation=0)      # 3 Yellow C1
 reb1, reb2 = R("R7", "10k", (220, 300))
-WIRE(reb1, jA[5])
+WIRE(reb1, jA[3])
 RAIL("PLUS3V3", reb2, rotation=90)
-RAIL("ENC1_B", jA[5], rotation=0)
+RAIL("ENC1_B", jA[3], rotation=0)      # 4 Green  C2
+RAIL("GND", jA[4], rotation=0)         # 5 Blue   encoder GND
+RAIL("MOTA_N", jA[5], rotation=0)      # 6 White  M2 (motor -)
 
-# Motor B connector
+# Motor B connector (same cable order)
 jB = CONN6("J6", "MOTOR_B_N20_ENCODER", (200, 260),
-           footprint="Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical")
+           footprint="Connector_JST:JST_ZH_B6B-ZR_1x06_P1.50mm_Vertical")
 RAIL("MOTB_P", jB[0], rotation=0)
-RAIL("MOTB_N", jB[1], rotation=0)
-RAIL("PLUS3V3", jB[2], rotation=0)
-RAIL("GND", jB[3], rotation=0)
+RAIL("PLUS3V3", jB[1], rotation=0)
 rec1, rec2 = R("R8", "10k", (220, 250))
-WIRE(rec1, jB[4])
+WIRE(rec1, jB[2])
 RAIL("PLUS3V3", rec2, rotation=90)
-RAIL("ENC2_A", jB[4], rotation=0)
+RAIL("ENC2_A", jB[2], rotation=0)
 red1, red2 = R("R9", "10k", (220, 230))
-WIRE(red1, jB[5])
+WIRE(red1, jB[3])
 RAIL("PLUS3V3", red2, rotation=90)
-RAIL("ENC2_B", jB[5], rotation=0)
+RAIL("ENC2_B", jB[3], rotation=0)
+RAIL("GND", jB[4], rotation=0)
+RAIL("MOTB_N", jB[5], rotation=0)
 
-TXT("10k pull-ups on all 4 encoder lines -- defensive: N20-encoder wire-color-to-\nfunction mapping is unverified for the exact unit ordered (see PROJECT_NOTES.md),\nand encoder output stage (open-drain vs push-pull) isn't confirmed either. A pull-up\nis required if open-drain and harmless if push-pull.\nMotor connector pin order is FUNCTIONAL (M+,M-,ENC_VCC,ENC_GND,ENC_A,ENC_B) --\nverify against the real wire-to-pin mapping at assembly time, not assumed here.",
+TXT("10k pull-ups on all 4 encoder lines -- defensive: N20-encoder wire-color-to-\nfunction mapping is unverified for the exact unit ordered (see PROJECT_NOTES.md),\nand encoder output stage (open-drain vs push-pull) isn't confirmed either. A pull-up\nis required if open-drain and harmless if push-pull.\nRev 7.2: J5/J6 are JST ZH B6B-ZR in the ROBU CABLE order (M1,VCC,C1,C2,GND,M2) --\nthe motor's factory plug goes straight in, zero soldering. METER-VERIFY pins 2/5\n(VCC/GND) against the actual cable before first plug-in; swap crimps 2/5 if reversed.",
     (10, 400), size=2.0)
 
 # ---------------------------------------------------------------------------
@@ -665,7 +700,8 @@ TXT("10k pull-ups on all 4 encoder lines -- defensive: N20-encoder wire-color-to
 #   IO45 BIN2 -- STRAPPING pin as motor output: safe ONLY because it idles
 #     LOW and carries only R65's pull-DOWN (IO45 high at reset selects 1.8V
 #     flash supply = brick; never add a pull-up to this net)
-#   IO46 NC (rev 6: STBY tied high at U2 -- the strap risk is GONE)
+#   IO46 BUZZ_CTRL (rev 7.2: buzzer driver -- the ONLY free GPIO; strap-safe:
+#     the NPN base + 220R load only ever pulls it toward GND = boot default)
 #   IO39-42 JTAG (MTCK/MTDO/MTDI/MTMS) -> J8, dedicated for debugging
 #   IO43(TXD0)/IO44(RXD0) ENC2_B/ENC2_A   IO47/48 ENC1_A/B  (console = USB-CDC)
 #   IO0 BTN1/BOOT   IO35/36 BTN2/BTN3 (internal pull-ups; N8R2 = quad PSRAM,
@@ -702,7 +738,7 @@ U3_NET = {  # module pad -> net (None = explicit no-connect)
     "31": "BIN1",                                                        # IO38
     "32": "JTAG_TCK", "33": "JTAG_TDO", "34": "JTAG_TDI", "35": "JTAG_TMS",  # IO39-42
     "36": "ENC2_A_S3", "37": "ENC2_B_S3",   # IO44(RXD0)/IO43(TXD0) via 1k guards
-    "26": "BIN2", "16": None,                    # IO45 strap (idle-low output); IO46 NC (STBY tied high)
+    "26": "BIN2", "16": "BUZZ_CTRL",   # IO45 strap (idle-low output); IO46 -> buzzer driver (rev 7.2; strap-safe: Q34's B-E junction + R81 only ever pull the pin LOW, its required boot state)
     "24": "ENC1_A", "25": "ENC1_B",                                      # IO47/IO48
     "27": "USER_BTN",                                                    # IO0 (BOOT strap)
     "13": "USB_DM", "14": "USB_DP",
@@ -816,6 +852,7 @@ rs45a, rs45b = R("R65", "10k", (490, 330))
 RAIL("BIN2", rs45a, rotation=90)
 RAIL("GND", rs45b, rotation=270)
 
+
 # USB ESD array (exposed user-handled connector on a robot). USBLC6 rail pin
 # clamps to +3V3 (VBUS is unused on this board). Rev 6: NO 22R series
 # resistors -- the ESP32-S3's integrated FS PHY meets the USB driver-impedance
@@ -852,7 +889,7 @@ for _pos, _net in zip(j8, J8_JTAG):
 
 TXT("ESP32-S3-WROOM-1 on FreeRTOS: 6 wall sensors DIRECT on ADC1 IO1-IO6 (a fired pair is\n"
     "sampled in parallel), line array via U4 (IO7 + IO11-13), battery IO8, TB6612 on\n"
-    "IO9/10/18/21/38/45/46 (straps 45/46 = idle-low outputs ONLY -- never add pull-ups),\n"
+    "IO9/10/38/45, buzzer IO46 (straps 45/46 = idle-low outputs ONLY -- never add pull-ups),\n"
     "encoders IO43/44/47/48 (PCNT hardware quadrature via GPIO matrix), JTAG on the real\n"
     "JTAG quad IO39-42 -> J8 (ESP-Prog). Buttons: SW1=IO0 (start/BOOT), SW3=IO35, SW4=IO36\n"
     "(internal pull-ups). USB-C (rear) on the native USB pads = flash + console; UART0\n"
@@ -1163,6 +1200,52 @@ for k in range(1, 7):
     w_led_k, w_led_a = pin_at(base, (-5.08, 0)), pin_at(base, (2.54, 0))
     WIRE(wr2, w_led_a)
     RAIL("GND", w_led_k, rotation=180)
+
+# (Buzzer block lives at the END of the file: its WIRE() call must not shift
+# the global dogleg lane counter for any pre-existing wire -- a rev-7.2 lane
+# shift silently shorted U8's boot strap to GND until the netlist diff caught it.)
+# --- Buzzer (rev 7.2, user request): CMT-8504 magnetic transducer on IO46,
+# the ONLY free GPIO (module pad 16). Externally driven at ~4 kHz by LEDC.
+# Datasheet: coil 15R typ, operating 1-6 Vo-p -> at 3V3 the peak coil
+# current is ~220 mA, so the driver is an MMBT2222A (600 mA) with R81 = 220R
+# base drive (12 mA, forced beta ~18 = hard saturation; the datasheet app
+# circuit itself uses 180R). D29 1N4148W clamps the coil's turn-off flyback
+# into 3V3. STRAP-SAFE: R81 + Q34's B-E junction can only ever pull IO46
+# toward GND, which is its required boot-strap state (ROM messaging default);
+# the buzzer cannot sound before app init because the pin resets to
+# input/pull-down and the NPN needs +0.6 V to conduct.
+buz_ctrl1, buz_ctrl2 = R("R81", "220", (560, 345))
+RAIL("BUZZ_CTRL", buz_ctrl1, rotation=90)
+q34_base = snap((575, 358))
+g.add_component("Transistor_BJT", "Q_NPN_BEC", "Q34",
+                "MMBT2222A (buzzer low-side driver; Q_NPN_BEC base symbol so ERC checks pins)",
+                q34_base, {"1": "", "2": "", "3": ""},
+                footprint="Package_TO_SOT_SMD:SOT-23",
+                datasheet="https://www.diodes.com/assets/Datasheets/ds30040.pdf")
+q34_b = pin_at(q34_base, (-5.08, 0))
+q34_e = pin_at(q34_base, (2.54, -5.08))
+q34_c = pin_at(q34_base, (2.54, 5.08))
+WIRE(buz_ctrl2, q34_b)
+RAIL("GND", q34_e, rotation=270)
+RAIL("BUZZ_DRV", q34_c, rotation=90)
+
+bz1_base = snap((600, 340))
+g.add_component("Device", "Buzzer", "BZ1",
+                "CMT-8504-100-SMT (magnetic transducer 8.5mm, 15R coil, 4kHz; pads 3/4 are mechanical dummies)",
+                bz1_base, {"1": "", "2": ""},
+                footprint="Buzzer_Beeper:MagneticBuzzer_CUI_CMT-8504-100-SMT",
+                datasheet="https://www.sameskydevices.com/product/resource/pdf/cmt-8504-100-smt-tr.pdf")
+RAIL("PLUS3V3", pin_at(bz1_base, (-2.54, 2.54)), rotation=180)   # pin 1 "+" -> rail
+RAIL("BUZZ_DRV", pin_at(bz1_base, (-2.54, -2.54)), rotation=180)  # pin 2 "-" -> collector
+
+d29_base = snap((600, 360))
+g.add_component("Device", "D", "D29",
+                "1N4148W (flyback clamp across the buzzer coil)",
+                d29_base, {"1": "", "2": ""},
+                footprint="Diode_SMD:D_SOD-123",
+                datasheet="https://www.diodes.com/assets/Datasheets/ds30086.pdf")
+RAIL("PLUS3V3", pin_at(d29_base, (-3.81, 0)), rotation=180)   # pin 1 K -> 3V3
+RAIL("BUZZ_DRV", pin_at(d29_base, (3.81, 0)), rotation=0)     # pin 2 A -> switched node
 
 with open(r"D:\Projects\micromouse-pcb\pcb\micromouse-pcb.kicad_sch", "w", encoding="utf-8", newline="\n") as f:
     f.write(g.render(title="Micromouse PCB"))

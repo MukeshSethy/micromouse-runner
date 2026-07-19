@@ -42,6 +42,90 @@ def _q(x, y):
     return (round(x, 3), round(y, 3))
 
 
+# ---- selective-refdes clear-spot scanner (rev 7.2) ----------------------------
+def _place_refdes_clear(board, fps):
+    """Place each kept reference text at the first candidate spot around its
+    footprint that is >=0.25mm from every pad's bbox (mask openings), >=0.3mm
+    from every other silk text placed so far, inside the outline, and off the
+    two wheel notches. Text 0.8mm/0.15 stroke -- small, readable, dense-safe."""
+    import math
+    pads = []
+    for fp in board.GetFootprints():
+        for pad in fp.Pads():
+            bb = pad.GetBoundingBox()
+            pads.append((MM(bb.GetLeft()), MM(bb.GetTop()),
+                         MM(bb.GetRight()), MM(bb.GetBottom()),
+                         pad.IsOnLayer(pcbnew.F_Cu), pad.IsOnLayer(pcbnew.B_Cu)))
+    taken = []           # placed text bboxes (both faces; face flag included)
+    # seed with every PRE-EXISTING board-level silk text (BATT/PWR/MOT labels,
+    # angle numbers, A/B/C letters, polarity marks, ONE PACK ONLY): the rev-7.2
+    # first pass ignored them and 8 refdes landed on top of labels.
+    for dw in board.GetDrawings():
+        if dw.GetClass() != "PCB_TEXT":
+            continue
+        lay = dw.GetLayer()
+        if lay not in (pcbnew.F_SilkS, pcbnew.B_SilkS):
+            continue
+        tb = dw.GetBoundingBox()
+        taken.append((MM(tb.GetLeft()), MM(tb.GetTop()),
+                      MM(tb.GetRight()), MM(tb.GetBottom()),
+                      lay == pcbnew.B_SilkS))
+    placed = 0
+    for fp in sorted(fps, key=lambda f: f.GetReference()):
+        r = fp.Reference()
+        r.SetTextSize(pcbnew.VECTOR2I(pcbnew.FromMM(0.8), pcbnew.FromMM(0.8)))
+        r.SetTextThickness(pcbnew.FromMM(0.15))
+        r.SetTextAngleDegrees(0)
+        back = fp.IsFlipped()
+        n = len(fp.GetReference())
+        tw, th = 0.65 * n * 0.8 + 0.3, 1.1     # crude text extent
+        fbb = fp.GetBoundingBox(False)
+        fx1, fy1, fx2, fy2 = MM(fbb.GetLeft()), MM(fbb.GetTop()), MM(fbb.GetRight()), MM(fbb.GetBottom())
+        cx, cy = (fx1 + fx2) / 2, (fy1 + fy2) / 2
+        cands = []
+        for d in (0.9, 1.3, 1.8, 2.4, 3.0):
+            cands += [(cx, fy1 - d), (cx, fy2 + d), (fx1 - d, cy), (fx2 + d, cy),
+                      (fx1 - d, fy1 - d), (fx2 + d, fy1 - d),
+                      (fx1 - d, fy2 + d), (fx2 + d, fy2 + d)]
+        ok_pos = None
+        for (tx, ty) in cands:
+            bx1, by1, bx2, by2 = tx - tw / 2, ty - th / 2, tx + tw / 2, ty + th / 2
+            if bx1 < 1.0 or bx2 > 99.0 or by1 < 1.0 or by2 > 119.0:
+                continue
+            # wheel/antenna notches (board_geom): keep clear
+            from board_geom import WHEEL_NOTCHES
+            bad = False
+            for (nx1, ny1, nx2, ny2) in WHEEL_NOTCHES:
+                if bx2 > nx1 - 0.3 and bx1 < nx2 + 0.3 and by2 > ny1 - 0.3 and by1 < ny2 + 0.3:
+                    bad = True
+            if bad:
+                continue
+            for (px1, py1, px2, py2, onF, onB) in pads:
+                if (onB if back else onF):
+                    if bx2 > px1 - 0.25 and bx1 < px2 + 0.25 and by2 > py1 - 0.25 and by1 < py2 + 0.25:
+                        bad = True
+                        break
+            if bad:
+                continue
+            for (ox1, oy1, ox2, oy2, oback) in taken:
+                if oback == back and bx2 > ox1 - 0.3 and bx1 < ox2 + 0.3 and by2 > oy1 - 0.3 and by1 < oy2 + 0.3:
+                    bad = True
+                    break
+            if not bad:
+                ok_pos = (tx, ty, (bx1, by1, bx2, by2, back))
+                break
+        if ok_pos:
+            r.SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(round(ok_pos[0], 3)),
+                                          pcbnew.FromMM(round(ok_pos[1], 3))))
+            taken.append(ok_pos[2])
+            placed += 1
+        else:
+            # no clear spot -> demote to fab rather than risk a warning
+            r.SetLayer(pcbnew.B_Fab if back else pcbnew.F_Fab)
+            print(f"  refdes {fp.GetReference()}: no clear silk spot, left on fab")
+    return placed
+
+
 # ---- Phase 1: silkscreen -----------------------------------------------------
 def phase_silk():
     """Physical silk keeps ONLY the intentional board-level annotations from
@@ -55,16 +139,38 @@ def phase_silk():
     drawings = list(board.GetDrawings())   # FIRST -- GetFootprints() degrades this proxy
     moved = 0
     SILK = (pcbnew.F_SilkS, pcbnew.B_SilkS)
+    # Rev 7.2 (user: "component namings clearly visible for debugging"):
+    # debug-critical refs KEEP their reference on physical silk, relocated to a
+    # scanned clear spot beside the part. Everything else still moves to fab
+    # (179 refs collide on silk at this density -- the assembly PDFs are the
+    # full map).
+    KEEP_REFDES = ({f"U{i}" for i in range(1, 9)} | {f"J{i}" for i in range(1, 11)}
+                   | {f"SW{i}" for i in range(1, 7)} | {"F1", "Q1", "BZ1"})
+    kept = []
     for fp in board.GetFootprints():
         fab = pcbnew.B_Fab if fp.IsFlipped() else pcbnew.F_Fab
+        ref = fp.GetReference()
         for txt in (fp.Reference(), fp.Value()):
             if txt.GetLayer() in SILK:
+                if txt is fp.Reference() and ref in KEEP_REFDES:
+                    kept.append(fp)
+                    continue
                 txt.SetLayer(fab)
                 moved += 1
         for gi in fp.GraphicalItems():
             if gi.GetLayer() in SILK:
                 gi.SetLayer(pcbnew.B_Fab if gi.GetLayer() == pcbnew.B_SilkS else pcbnew.F_Fab)
                 moved += 1
+    # a KEEP ref whose reference already sits on fab (earlier finalize runs)
+    # comes back to silk first
+    for fp in board.GetFootprints():
+        if fp.GetReference() in KEEP_REFDES and fp not in kept:
+            r = fp.Reference()
+            if r.GetLayer() in (pcbnew.F_Fab, pcbnew.B_Fab):
+                r.SetLayer(pcbnew.B_SilkS if fp.IsFlipped() else pcbnew.F_SilkS)
+                kept.append(fp)
+    placed = _place_refdes_clear(board, kept)
+    print(f"phase silk: selective refdes kept for {len(kept)} parts, {placed} scanned clear")
     # drop the angle RAYS (board-level F.SilkS segments authored at 0.12mm;
     # the U-outlines are 0.15mm and stay)
     dropped = 0

@@ -74,6 +74,18 @@ run([CLI, "pcb", "export", "pos", "--format", "csv", "--units", "mm", "--use-dri
 if not os.path.exists(os.path.join(FAB, "micromouse-pcb.pos.csv")):
     fails.append("pos: file not produced")
 
+# --- assembly drawings (rev 7.2: the component-ID debug map) -------------------
+# F.Fab/B.Fab carry EVERY refdes (finalize moves them off silk); these PDFs are
+# the readable per-part map the user debugs from, alongside the selective silk
+# refs on the board itself.
+for (side, layers, mirror) in (("top", "F.Fab,Edge.Cuts", []),
+                               ("bottom", "B.Fab,Edge.Cuts", ["--mirror"])):
+    _pdf = os.path.join(FAB, f"assembly-{side}.pdf")
+    run([CLI, "pcb", "export", "pdf", "--layers", layers, "--black-and-white",
+         *mirror, "--output", _pdf, PCB], f"assembly-{side}")
+    if not os.path.exists(_pdf) or os.path.getsize(_pdf) < 5000:
+        fails.append(f"assembly: {side} PDF missing or trivially small")
+
 # --- STEP (fit-check) ----------------------------------------------------------
 out = run([CLI, "pcb", "export", "step", "--subst-models",
            "--output", os.path.join(FAB, "micromouse-pcb.step"), PCB], "step")

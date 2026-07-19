@@ -4,8 +4,8 @@
 | Document control | |
 |---|---|
 | **Module** | MMSE — Micromouse Sensor/Control PCB |
-| **Baseline** | **Rev 7 (as-built, 2026-07-19) — ALL requirements closed** |
-| **Date** | 2026-07-19 |
+| **Baseline** | **Rev 7.2 (as-built, 2026-07-20) — ALL requirements closed, incl. MMSE-PWR-8/9, MMSE-CTRL-6/7/8, MMSE-IMU-3/4** |
+| **Date** | 2026-07-20 |
 | **Owner** | Mukesh Sethy |
 | **Prepared by** | Claude (autonomous engineering session) |
 | **Fabricator (intended)** | Lion Circuits (lioncircuits.com) |
@@ -75,9 +75,11 @@ command. See `MMSE-PCB-3` and the Remediation Register (§13).
 | MMSE-PWR-2 | Motors shall run from a **regulated fixed 6.0 V** rail, steady over battery discharge. | R | M | A | VERIFIED | TPS54302 buck, FB 100 k/11 k → **6.01 V** set-point (audit R4). Regulation independent of pack V down to dropout. |
 | MMSE-PWR-3 | The 6 V rail shall supply the motor stall current with margin. | R | M | A | PARTIAL | 3 A buck limit; 2×1.6 A stall = 3.2 A exceeds rating only in the simultaneous double-hard-stall fault corner; firmware PWM-limits + PPTC guard. Acceptable transient (audit R4). → note `MMSE-REM-8`. |
 | MMSE-PWR-4 | Logic shall run from a **regulated 3.3 V** rail. | R | M | A | VERIFIED | AP63203WU 3.3 V/2 A buck. |
-| MMSE-PWR-5 | Input protection: reverse-polarity + over-current. | R | M | A | VERIFIED | F1 MINISMDC260F (2.6 A/16 V PPTC) + Q1 DMP3098L reverse P-FET (Vgs ±20 V, 2S-safe). |
+| MMSE-PWR-5 | Input protection: reverse-polarity + over-current. | R | M | A | VERIFIED | F1 MINISMDC350F/16-2 (3.5 A hold / 7 A trip, 16 V PPTC — rev 7.1 upgrade; approved equivalent Bourns MF-MSMF350-2) + Q1 DMP3098L reverse P-FET (Vgs ±20 V, 2S-safe). |
 | MMSE-PWR-6 | All bulk/decoupling on 2S-referenced rails shall be rated ≥16 V (25 V-class preferred). | R | M | I | VERIFIED | 25 V-class caps on VM_BATT/VM_6V; C30 220 µF/16 V alu at TB6612 VM. |
 | MMSE-PWR-7 | **Two switches:** SW-A enables everything **except** motors; SW-B additionally enables the motor rail. | R | M | A | VERIFIED | SW5 = PWR_EN (all logic rails), SW6 = MOT_EN (gates TPS54302 EN). EN divider R69/R70/R71 = 100 k/220 k/110 k reaches the 1.21 V threshold (audit R7; the 1 MΩ bug is fixed). |
+| MMSE-PWR-8 | The battery shall be connectable via **either** JST-XH (J1) **or** XT60 (J10) in parallel; never both at once (rev 7.2). | R | M | I | VERIFIED | J10 AMASS XT60-M (**male** on PCB — mates the pack's female lead) on the rear-right shelf (hole-aware free-rect scan + optical-corridor keepouts — placement trail in HANDOFF §18.1), BATT_RAW/GND parallel with J1, 0.8 mm rear-corridor feed; "ONE PACK ONLY" + polarity silk. Normal BOM line — Lion may procure despite the OOS catalog page; hand-fit fallback documented. |
+| MMSE-PWR-9 | The J9 balance input shall be **optional**: the system shall run with pack-level protection when unplugged (rev 7.2). | R | M | T | VERIFIED | R75/R76 drain BAT_MID_SENSE to ~0 V when J9 open; fw `balance_present()` < 0.5 V ⇒ pack-floor-only guard + boot log line. |
 
 ---
 
@@ -109,6 +111,8 @@ command. See `MMSE-PCB-3` and the Remediation Register (§13).
 |---|---|---|---|---|---|---|
 | MMSE-IMU-1 | A **9-axis IMU** shall be fitted on the **centre line** of the PCB. | R | M | I | VERIFIED | BNO055 (U8) at x=50.0 (board centre), y≈59 (audit R5). 3.3 V-native LGA-28. |
 | MMSE-IMU-2 | The IMU shall use its internal oscillator (external 32 kHz crystal dropped for routability). | R | S | A | VERIFIED | X1/C21/C22 absent; XIN32/XOUT32 = NC; SYS_TRIGGER CLK_SEL=0 (spec-supported). |
+| MMSE-IMU-3 | IMU **board wiring** shall be gate-verified: exact I2C topology + pull-ups + Fast-mode timing, protocol/address straps, nRESET/nBOOT pull-ups, CAP bypass, INT→IO37 (rev 7.2). | R | M | T | VERIFIED | `fw/sim_preflight.py` I1–I5 — 15 assertions against the netlist; also `circuit_tests` IMU test. |
+| MMSE-IMU-4 | IMU **functioning** shall be self-tested at every boot: CHIP_ID, power-on self-test (ACC/MAG/GYR/MCU), and fusion-running status; failure shall be audible + logged and degrade gracefully (rev 7.2). | R | M | T | VERIFIED | `imu_selftest()` + SYS_STATUS/SYS_ERR poll in `micromouse.ino` (4-chirp on failure, `g_imu_ok=false` → yaw damping off); driver register map audited by `sim_preflight.py` I6. |
 
 ---
 
@@ -120,7 +124,10 @@ command. See `MMSE-PCB-3` and the Remediation Register (§13).
 | MMSE-CTRL-2 | USB-C connector shall be at the **rear** of the board. | R | M | I | VERIFIED | J7 (GCT USB4105) at rear edge. |
 | MMSE-CTRL-3 | A JTAG header shall be placed **near** the ESP32. | R | S | I | VERIFIED | JTAG header ~16 mm edge-to-edge from U3, wired to the JTAG pins (audit R9 — "near" satisfied regionally). |
 | MMSE-CTRL-4 | Buttons A / B / C + RST shall be present and **lettered** on silk. | R | M | I | VERIFIED | Silk letters A/B/C + RST; per-button reset near U3. |
-| MMSE-CTRL-5 | GPIO assignment shall match the locked pin map and be firmware-gated. | R | M | T | VERIFIED | `fw/check_pins.py` — 29/29 pins verified against the netlist. |
+| MMSE-CTRL-5 | GPIO assignment shall match the locked pin map and be firmware-gated. | R | M | T | VERIFIED | `fw/check_pins.py` — 30/30 pins verified against the netlist (rev 7.2 adds PIN_BUZZER). |
+| MMSE-CTRL-6 | A buzzer shall be driveable from the ESP32 without compromising any boot strap (rev 7.2). | R | M | T | VERIFIED | BZ1 CMT-8504 on IO46 via R81 220 R → Q34 MMBT2222A + D29 flyback; the base load only ever pulls the strap LOW (its boot default) — `circuit_tests` E4 asserts the exact topology. |
+| MMSE-CTRL-7 | Motor connectors shall directly mate the robu GA12-N20 factory cable — **zero soldering** (rev 7.2). | R | M | I | VERIFIED | J5/J6 = JST ZH B6B-ZR 1.5 mm in the robu cable order (M1,VCC,C1,C2,GND,M2); `circuit_tests` M2/N1 assert the pin order. Meter-check VCC/GND (pins 2/5) once before first plug-in (listing self-conflict). |
+| MMSE-CTRL-8 | Debug-critical component names shall be readable on the physical board (rev 7.2). | R | S | I | VERIFIED | Selective silk refdes (U1-U8, J1-J10, SW1-SW6, F1, Q1, BZ1) via `finalize.py` clear-spot scanner + full assembly-top/bottom PDFs in `pcb/fab/`. |
 
 ---
 
@@ -152,7 +159,7 @@ command. See `MMSE-PCB-3` and the Remediation Register (§13).
 
 | ID | Requirement | Type | Pri | VM | Status | Evidence / Notes |
 |---|---|---|---|---|---|---|
-| MMSE-FW-1 | Firmware pin map shall match hardware and be gated. | R | M | T | VERIFIED | `fw/check_pins.py` 29/29. |
+| MMSE-FW-1 | Firmware pin map shall match hardware and be gated. | R | M | T | VERIFIED | `fw/check_pins.py` 30/30 (rev 7.2). |
 | MMSE-FW-2 | A host-side control-core simulation shall pass its tracking scenarios. | R | S | T | VERIFIED | `fw/sim/sim_linefollow.c` — ALL SCENARIOS PASS. |
 | MMSE-FW-3 | Analytical circuit tests shall pass with full net/component coverage. | R | S | T | VERIFIED | `circuit_tests.py` 41/41, 100 %/100 %. |
 
@@ -229,3 +236,4 @@ closure work) is preserved; only moved parts' nets are re-routed.
 |---|---|
 | 2026-07-19 | Module created. Baselined rev 6.2 as-built; recorded the `--severity-warning` DRC-masking defect and the true 32-error state; added frozen requirements MMSE-WALL-5 (indicators behind) and MMSE-SI-4 (GND everywhere); opened Remediation Register for rev 7. |
 | 2026-07-19 (rev 7 close-out) | **Rev 7 executed and closed**: courtyards tightened (32→12), front sensors rotated into the line gaps + diagonals re-oriented (12→0 errors), indicators moved behind, C8/C10 decoupling localized at U3, GND poured on F.Cu+B.Cu+In1 with the antenna ribbon on all layers, J5 forward, USB-C overhang, antenna audit. `verify_drc.py` PASS 0/0/0/0/0; full battery green; `export_fab` ALL GATES incl. its new DRC gate. All FAILED/OPEN objects → VERIFIED. |
+| 2026-07-20 (rev 7.2) | **User work order executed**: J10 XT60 parallel battery input (male on PCB; "ONE PACK ONLY" silk), BZ1 buzzer on IO46 (R81 220 R + Q34 MMBT2222A + D29 flyback; strap-safe), J5/J6 → JST ZH B6B-ZR direct-plug in the robu GA12-N20 cable order (zero-solder motors), J9 balance made OPTIONAL (fw auto-detect), selective silk refdes + assembly PDFs, fuse MPN equivalence note (Bourns MF-MSMF350-2). Full Lion stock re-sweep 2026-07-19/20: every BOM MPN In Stock except the XT60 catalog page (kept on the BOM — Lion procures turnkey; hand-fit fallback documented). Sims updated to the exact robu motor (600 ticks/rev, 200 RPM, 43 mm wheel, 0.23 A stall). New reqs MMSE-PWR-8/9, MMSE-CTRL-6/7/8. |

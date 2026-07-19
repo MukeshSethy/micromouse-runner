@@ -525,25 +525,34 @@ netlist→pad mapping (530 pins), THT solder margin 2.5 mm.
 8. Severity policy: rev ≤5 only ran `--severity-error`; rev 6 targets the
    FULL check set = requirement "0 errors and 0 warnings".
 
-## 10. BOM — all 43 MPNs individually verified In-Stock (lioncircuits.com, 2026-07)
+## 10. BOM — full Lion stock re-sweep 2026-07-19/20 (rev 7.2)
 
 Lion Circuits sources turnkey from Digi-Key/Mouser/Element14/Arrow/Avnet/RS
 (**not LCSC**); catalog pages live at `lioncircuits.com/parts/{FULL-MPN}`
-(bare family names 404). Verified per-part:
-- **ICs:** AP63203WU-7, TPS54302DDCR, TB6612FNG,C,8,EL, ESP32-S3-WROOM-1-N8R2,
-  CD74HC4067M96, USBLC6-2SC6, BNO055.
-- **Discretes:** DMP3098L-7, BSS138LT1G, BSS84LT1G, MINISMDC260F/16-2
-  (slug needs URL-encoding: `MINISMDC260F%2F16-2`), SRP4020TA-4R7M ×2.
-- **Optics:** IR333-A (TSAL6400 is lifecycle-Obsolete — don't revert),
-  PT334-6B, TCRT5000, APT1608SURCK.
-- **Connectors/switches:** USB4105-GF-A, B2B-XH-A (J1; the *bare* slug is the
-  In-Stock listing), B3B-XH-A(LF)(SN) (J9), **B6B-XH-A** (J5/J6),
-  61300611121 (J8), PCM12SMTR ×2, PTS645VL582LFS ×4.
-- **Passives:** all 13 Yageo RC0805FR-07xxx values; Samsung CL21B104KBCNNNC /
-  CL21B105KAFNNNE / CL21A106KPFNNNE / CL21A226KPCLRNC / CL32B106KBJNNNE /
-  CL32A226KAJNNNE; Panasonic EEE-FT1C221AP.
-- Ordering: upload `pcb/BOM.csv` via Lion's BOM tool with `pcb/fab/` gerbers;
-  stock is a 2026-07-17/18 snapshot — re-verify at order time.
+(bare family names 404). EVERY BOM MPN re-verified individually on
+2026-07-19/20 (user request "check all stocked components from lion"):
+- **In Stock (all of these):** AP63203WU-7, TPS54302DDCR, TB6612FNG,C,8,EL,
+  ESP32-S3-WROOM-1-N8R2, CD74HC4067M96, USBLC6-2SC6, BNO055; DMP3098L-7,
+  BSS138LT1G, BSS84LT1G, SRP4020TA-4R7M; IR333-A, PT334-6B, TCRT5000,
+  APT1608SURCK; USB4105-GF-A, B2B-XH-A (J1), B3B-XH-A(LF)(SN) (J9),
+  **B6B-ZR(LF)(SN)** (J5/J6 rev 7.2 — ZH direct-plug), 61300611121 (J8),
+  PCM12SMTR ×2, PTS645VL582LFS ×4; all 14 Yageo RC0805FR-07xxx values incl.
+  the new 220R (R81); Samsung CL21B104/CL21B105/CL21A106/CL21A226/CL32B106/
+  CL32A226; Panasonic EEE-FT1C221AP; **CMT-8504-100-SMT-TR** (BZ1),
+  **MMBT2222A-7-F** (Q34), **1N4148W-7-F** (D29).
+- **Lion page shows Out of Stock:** AMASS XT60-M (J10) — kept as a NORMAL
+  BOM line anyway (user 2026-07-20): Lion sources turnkey and can procure
+  parts their catalog page lists as OOS. If they truly can't, the fallback
+  is hand-fitting an XT60-M (robu ~Rs.30) — one minute, THT. Gender is
+  correct for a direct pack connection: **male XT60 on the PCB**, mating the
+  female XT60 on every standard LiPo pack lead.
+- **Unresolvable URL:** F1 MINISMDC350F/16-2 — Lion's part-page router cannot
+  take the slashed MPN in any encoding (plain/%2F/%252F/dash all 404).
+  Confirm it in Lion's BOM-upload tool at order time; approved equivalent:
+  **Bourns MF-MSMF350-2** (1812, 3.5 A hold / 7 A trip).
+- Ordering: upload `pcb/BOM.csv` via Lion's BOM tool with the
+  `pcb/fab_release/` zip; stock is a 2026-07-19/20 snapshot — re-verify at
+  order time.
 
 ## 11. ASSEMBLY / BRING-UP NOTES (physical-reality traps)
 
@@ -655,50 +664,114 @@ handoff"). Revisit any of these if the user disagrees.
 | **D14** | **RECORD CORRECTION (the big one).** Discovered — via the adversarial requirements audit — that `kicad-cli pcb drc --severity-warning` reports ONLY warnings on KiCad 10.0.4, hiding all errors. The board actually has **32 error-severity violations** that were invisible for the whole project. Fixed the tooling (`verify_drc.py`, `export_fab` DRC gate, `finalize` severity) and corrected every false "0/0/0 / fab-ready" claim in the docs. Created `pcb/REQUIREMENTS.md` (IBM DOORS module) tracking all requirements + the rev-7 remediation. | the user asked pointed verification questions; the honest answer is the board is NOT yet error-free | n/a — this is the correction |
 | D13 | Committed the orderable gerber+drill+placement set as `pcb/fab_release/micromouse-pcb-rev6.2-gerbers.zip` (un-ignored that folder); the `pcb/fab/` working dir stays gitignored/regenerable; the 7 MB `.step` excluded from the zip | the user asked "are all production files ... pushed?" — the answer was "generated but gitignored". A versioned release zip is the standard orderable deliverable without churning the repo on every regen | delete the zip; regenerate with export_fab.py |
 
-## 16. THE FINAL VERIFIED STATE (what "done" looked like, 2026-07-18 → 07-19)
+## 16. THE FINAL VERIFIED STATE (rev 7.2, 2026-07-20)
 
 ```
 layers                           : 4-layer (F.Cu / In1.Cu / In2.Cu / B.Cu)
-pcbnew ratsnest (pours filled)   : 0
-kicad-cli DRC (DEFAULT severity) : 32 ERRORS  <-- NOT fab-ready (see REQUIREMENTS.md)
-   18 pth_inside_courtyard, 8 npth_inside_courtyard, 6 courtyards_overlap
-   0 clearance / 0 hole_clearance errors -> electrically manufacturable
-   0 warnings / 0 unconnected / 0 parity
-   (WARNING: --severity-warning falsely reported "0" for the whole project;
-    use pcb/tools/verify_drc.py)
-ERC --severity-all               : 0
-verify_netlist                   : ALL CHECKS PASSED (147 nets)
-circuit_tests                    : 41 PASS / 0 FAIL (100 % net + component coverage)
-check_pins                       : 29/29
-sim_linefollow                   : ALL SCENARIOS PASS (5 scenarios)
-trace_report                     : all OK; MOTB_N REVIEW accepted (D6)
-export_fab                       : ALL GATES PASSED  -> pcb/fab/ (gerbers all 4 Cu layers)
-fab release (committed)          : pcb/fab_release/micromouse-pcb-rev6.2-gerbers.zip (D13)
-BOM.csv                          : 49 line items, all Lion-verified MPNs (§10)
-renders                          : renders/rev6-{top,bottom}.png + images/ copies
-component/trace inventory        : pcb/BOARD_STATE.md (179 components, 123 nets)
+verify_drc (the canonical gate)  : PASS -- 0 errors / 0 warnings / 0 unconnected
+                                   / 0 schematic-parity / pcbnew ratsnest 0
+ERC --severity-all               : 0 violations
+verify_netlist                   : ALL CHECKS PASSED (149 nets)
+gen_connections                  : 149/149 nets documented, 0 missing
+circuit_tests                    : 41 PASS / 0 FAIL (incl. rev-7.2 buzzer strap
+                                   safety E4 + ZH pin-order M2/N1 + 6V-rail
+                                   8.4V-immunity note M3)
+check_pins                       : 30/30 (PIN_BUZZER added)
+sim_flash                        : ALL STAGES PASS (IO46 strap check rewritten
+                                   for the buzzer topology)
+sim_preflight                    : ALL PASS (adds IMU I1-I6: bus/straps/
+                                   supplies/INT + register audit; M4 ZH rating
+                                   + robu cable pin order)
+sim_power                        : ALL CASES PASS (5.8-8.4V full load)
+sim_linefollow / sim_hw          : ALL PASS (robu GA12-N20 exact: 600 ticks/rev,
+                                   200RPM, 43mm wheel)
+test_negative                    : 4/4 injected faults detected
+export_fab                       : ALL GATES PASSED (incl. assembly-top/bottom
+                                   PDF debug maps, new in rev 7.2)
+fab release (committed)          : pcb/fab_release/lion-circuits/ + pcb/fab_release/jlcpcb/
+                                   (fabricator-specific production folders,
+                                    built by pcb/tools/export_release.py)
+BOM.csv                          : regenerated; every MPN re-verified In Stock at
+                                   Lion 2026-07-19/20 (J10 XT60 page OOS -- kept
+                                   on BOM, Lion procures; Bourns fuse equivalent
+                                   noted)
+renders                          : images/render_{top,bottom}.png (rev 7.2:
+                                   XT60 + buzzer + ZH connectors + 23 silk refdes
+                                   visible; both embedded in README)
 ```
 
-## 17. POST-PCB / FIRST-ASSEMBLY CHECKLIST (motor harness + bring-up, 2026-07-19)
+## 17. POST-PCB / FIRST-ASSEMBLY CHECKLIST (motors + bring-up; rev 7.2 = DIRECT PLUG)
 
-Motors: robu.in GA12-N20 6V 200RPM w/ encoder (stall only 0.23A -> all margins
-huge; encoder 3PPR x4 x50:1 = 600 ticks/rev -- update fw ENC_TICKS_REV).
-Motor socket is JST ZH 1.5mm 6P; board J5/J6 are JST XH 2.5mm -> NO direct
-mate. Build one adapter harness per motor (the rupee-22 ZH pigtail with loose
-wires + an XH 6-pin housing):
-  board pin 1 <- Red (M1/motor+) | 2 <- White (M2/motor-) | 3 <- VCC |
-  4 <- GND | 5 <- Yellow (C1) | 6 <- Green (C2)
-CRITICAL: meter-verify which pigtail wire is VCC vs GND against the encoder
-board silk BEFORE first power (listing says black=VCC/blue=GND; the board
-photo silk suggests the opposite -- generic listings lie). Wrong M+/M- = wheel
-reversed (swap red/white, harmless); wrong C1/C2 = count inverted (swap
-yellow/green, harmless); wrong VCC/GND = damage (must be right first time).
-First power-up: switches OFF -> battery (J1 main + J9 balance BOTH) -> meter
-VBUS pin to rails = open -> SW5 ON -> 3V3 check -> flash (button-free, native
-USB-Serial-JTAG; hold-A+RST only as recovery) -> sensors -> SW6 ON wheels-up.
-F1 fuse is MINISMDC350F/16-2 (rev 7.1) -- confirm on the Lion BOM at order.
+Motors: robu.in GA12-N20 6V 200RPM w/ encoder (full spec sheet 2026-07-20:
+no-load 200RPM/30mA, rated 160RPM/60mA/0.3kg-cm, STALL only 0.23A/1.5kg-cm,
+50:1, 3PPR encoder -> x4 x50 = 600 ticks/rev [fw + sims updated], kit wheel
+43mm, factory cable 140mm ending in a JST ZH 1.5mm 6-pos plug).
 
-## 18. CONFIRMED WORK ORDER (rev 7.2, user-approved 2026-07-19) -- DO BEFORE ORDER
+REV 7.2: board J5/J6 are now JST ZH B6B-ZR (1.5mm) in the ROBU CABLE ORDER
+(1 M1/Red, 2 VCC/Black, 3 C1/Yellow, 4 C2/Green, 5 GND/Blue, 6 M2/White) --
+the motor's own plug goes STRAIGHT IN. No harness, no soldering.
+CRITICAL (unchanged): meter-verify VCC vs GND (positions 2/5) on the DELIVERED
+cable before first plug-in -- the listing table and the listing photo disagree
+(generic listings lie). Wrong M1/M2 = wheel reversed (harmless, fix in fw);
+wrong C1/C2 = count inverted (harmless); wrong VCC/GND = encoder damage. If
+the delivered cable IS swapped: lift the two ZH crimp retainers with a pin and
+swap positions 2/5 in the housing -- still no soldering.
+
+8.4V QUESTION (user, 2026-07-20): the motor NEVER sees pack voltage. J5/J6
+motor pins hang off the REGULATED 6.00V rail (TPS54302 buck, SW6-gated) -- at
+any pack state 6.6-8.4V the motor terminals get exactly the rated 6V
+(verified: circuit_tests M2/M3, sim_power P2). Duty is additionally capped at
+97% and the encoder-stall watchdog cuts drive at 800ms.
+
+Battery: J1 (JST-XH) OR J10 (XT60 male on board -> pack's female lead plugs
+straight in) -- ONE PACK ONLY, never both. J9 balance plug is OPTIONAL (rev 7.2):
+unplugged, firmware auto-detects (BAT_MID_SENSE ~0V) and guards on the 6.6V
+pack floor alone; plugged, it adds per-cell 3.3V floors. Plug it when you
+want per-cell protection during hard runs.
+First power-up: switches OFF -> battery -> meter VBUS pin to rails = open ->
+SW5 ON -> 3V3 check -> flash (button-free, native USB-Serial-JTAG; hold-A+RST
+only as recovery) -> expect the 2-beep ready chirp (buzzer, rev 7.2) ->
+sensors -> SW6 ON wheels-up.
+F1 fuse is MINISMDC350F/16-2 (rev 7.1). Lion's part-page URL router cannot
+resolve the slashed MPN (manual check needed in their BOM tool at order time);
+approved equivalent if Littelfuse is unavailable: Bourns MF-MSMF350-2 (same
+1812, 3.5A hold / 7A trip).
+
+## 18. CONFIRMED WORK ORDER (rev 7.2, user-approved 2026-07-19) -- EXECUTED 2026-07-20
+
+STATUS: ALL ITEMS DONE (see 18.1 below for the as-built deviations). The
+gerber package in pcb/fab_release is the rev-7.2 orderable set.
+
+### 18.1 As-built deviations (all user-goal-preserving, evidence-driven)
+- XT60 (J10) FINAL: the REAR-RIGHT SHELF -- pads BATT_RAW (85.68,104.8) "+"
+  / GND (92.88,104.8) "-", body x81.0-97.6 y100.2-109.4, between the wheel
+  bay (the board waist y68-100 is only x13-87 wide) and the button row
+  (y111.45+). Three candidate spots were tried and REJECTED with evidence:
+  rear-left (edge-actuated SW5/SW6 + J1/J9/J8 saturate it), a first
+  rear-right attempt straddling the outline void (the GND pad was literally
+  off the board -- Edge.Cuts dump caught it), and center-front (the
+  hole-aware scan caught the bottom-face TCRT line array's through-holes).
+  The final spot came from a hole-aware, both-face free-rect scan against
+  the true outline polygon with optical-corridor keepouts (side beams at
+  y33-48 shoot +/-x, diagonals exit outboard, nose band reserved). Feed:
+  BATT_RAW 0.8mm along the rear corridor to the J1/J9/F1 spine. J10 is a
+  normal BOM line (Lion may procure despite the OOS catalog page); if they
+  can't, the user hand-fits an XT60-M (~Rs.30). The pack sits right there.
+- Buzzer cluster sits SOUTH of the module around (52-61, 95-104), not at the
+  module rear: IO46 = module pad 16 physically exits on U3's SOUTH row at
+  (40.97,94.2) -- "near ESP32, minimal track" means the south pocket. R57/R58
+  (ENC2 guards) moved east to (74.5, 96.5/100.0) to clear it.
+- Buzzer part: CUI/Same Sky CMT-8504-100-SMT (Lion In Stock, KiCad-stock
+  footprint, magnetic, 100dB@5V, works 1-6V) -- the MLT-5030 THT part has no
+  KiCad footprint and no Lion listing. Base R is 220R (R81), not 1k: the
+  CMT-8504 coil is 15R -> ~220mA peak at 3V3; 220R gives 12mA base = hard
+  saturation (datasheet app circuit uses 180R). R80 was taken (BNO055 nRESET
+  pull-up) -> buzzer base R is R81.
+- BONUS (user, 2026-07-20): J5/J6 swapped XH -> JST ZH B6B-ZR direct-plug in
+  the robu cable order; J9 balance made OPTIONAL (fw fallback); sims updated
+  to the exact robu GA12-N20 numbers (600 ticks/rev, 200RPM, 43mm wheel).
+
+### 18.0 Original order (for traceability)
 
 1. J1 battery main: JST-XH B2B-XH-A -> XT60 (male PCB mount, THT). Rear-left
    region needs placement shuffle (J9/SW6 nearby) + BATT_RAW 0.8mm reroute.

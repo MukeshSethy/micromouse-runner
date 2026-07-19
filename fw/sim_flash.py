@@ -160,11 +160,18 @@ def main():
     check(has(nets, "BIN2", "U3", "26"),
           "IO45 (VDD_SPI strap) is an output-only role in FW",
           "driven low only after boot; internal WPD keeps 3.3V flash strap")
-    io46_used = any(has(nets, n, "U3", "16") for n in nets
-                    if not n.startswith("unconnected-"))
-    check(not io46_used, "IO46 (boot-mode strap) is NC",
-          "only a KiCad unconnected- pseudo-net; no external load")
-    print("  -> no strap conflicts: download mode + normal boot both reachable.")
+    # rev 7.2: IO46 drives the buzzer. Strap safety = the ONLY external load
+    # is R81 -> NPN base, which can only ever pull the pin toward GND (its
+    # required boot-msg default). Any pull-UP on this net would be a brick
+    # risk -- assert the exact 2-node topology.
+    check(has(nets, "BUZZ_CTRL", "U3", "16") and has(nets, "BUZZ_CTRL", "R81"),
+          "IO46 (boot-mode strap) carries only the buzzer base resistor",
+          "BUZZ_CTRL = U3.16 + R81.1; NPN B-E junction pulls LOW only")
+    buzz_nodes = sorted(nets.get("BUZZ_CTRL", []))
+    check(len(buzz_nodes) == 2, "BUZZ_CTRL has no other load (no pull-up possible)",
+          str(buzz_nodes))
+    print("  -> no strap conflicts: download mode + normal boot both reachable;")
+    print("     the buzzer cannot sound before app init (pin resets to input).")
 
     # ---------------- stage 5: virtual flash session -----------------------
     print("\nSTAGE 5 -- virtual flash session (facts above make this valid)")

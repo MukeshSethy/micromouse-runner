@@ -112,7 +112,7 @@ class SchGen:
 
     def add_component(self, lib_name, symbol_name, ref, value, at, pin_offsets,
                        footprint="", extends=None, ref_offset=(0,5.08), value_offset=(0,-5.08),
-                       hide_ref_value=False, datasheet=""):
+                       hide_ref_value=False, datasheet="", dnp=False):
         at = snap(at)
         lib_id = self.need_lib_symbol(lib_name, symbol_name, extra_extends=extends)
         x, y = at
@@ -122,7 +122,7 @@ class SchGen:
         hide = " (hide yes)" if hide_ref_value else ""
         s = []
         s.append(f'(symbol\n\t(lib_id "{lib_id}")\n\t(at {x} {y} 0)\n\t(unit 1)')
-        s.append('\t(exclude_from_sim no)\n\t(in_bom yes)\n\t(on_board yes)\n\t(dnp no)\n\t(fields_autoplaced yes)')
+        s.append('\t(exclude_from_sim no)\n\t(in_bom yes)\n\t(on_board yes)\n\t(dnp %s)\n\t(fields_autoplaced yes)' % ("yes" if dnp else "no"))
         s.append(f'\t(uuid "{sym_uuid}")')
         s.append(f'\t(property "Reference" "{ref}"\n\t\t(at {ref_x} {ref_y} 0)\n\t\t(effects (font (size 1.27 1.27)){hide})\n\t)')
         s.append(f'\t(property "Value" "{value}"\n\t\t(at {val_x} {val_y} 0)\n\t\t(effects (font (size 1.27 1.27)){hide})\n\t)')

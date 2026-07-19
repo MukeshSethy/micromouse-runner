@@ -4,6 +4,27 @@ Single controller: the board's **ESP32-S3-WROOM-1** (U3) does everything —
 500 Hz control loop, sensing, motor drive, WiFi telemetry. (The old
 STM32+Nano split described here before rev 4 is long gone.)
 
+Rev 7.2 additions:
+- **Buzzer on IO46** (`PIN_BUZZER`, LEDC 4 kHz): `beep(ms, n)`. Chirps:
+  2×60 ms = boot ready · 40 ms = RUN · 120 ms = STOP · 3×250 ms = LOW
+  BATTERY cutoff · 2×80 ms = stall watchdog tripped · **4×60 ms = IMU
+  self-test failure** (bot still runs, yaw degraded to 0).
+- **IMU functional self-test at boot**: CHIP_ID must read 0xA0 (with a
+  cold-boot retry window), the BNO055's power-on self-test result (reg 0x36)
+  must report ACC/MAG/GYR/MCU all-pass, and after NDOF is selected
+  SYS_STATUS/SYS_ERR must reach "fusion running"/0 — otherwise the failure
+  is printed, the 4-chirp sounds, and the robot runs without gyro damping.
+  The board-side IMU wiring (I2C topology, pull-ups, straps, reset lines,
+  CAP bypass, INT) is gated by `sim_preflight.py` sections I1–I6.
+- **Balance plug (J9) is OPTIONAL**: unplugged, `BAT_MID_SENSE` reads ~0 V
+  (board divider drains it) → firmware logs it and guards on the 6.6 V pack
+  floor alone; plugged, per-cell 3.3 V floors are enforced too.
+- **Motors plug straight in**: J5/J6 are JST ZH in the robu GA12-N20 cable
+  order (M1, VCC, C1, C2, GND, M2) — meter-check VCC/GND (pins 2/5) against
+  the delivered cable once, before the first plug-in. 600 ticks/rev
+  (3 PPR × 4 × 50:1); motors always see the regulated 6 V rail, never the
+  8.4 V pack.
+
 ```
 fw/
 ├── micromouse/
