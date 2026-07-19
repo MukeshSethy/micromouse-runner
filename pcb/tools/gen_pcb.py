@@ -135,6 +135,10 @@ class PcbGen:
         pad.SetPosition(self._mm(*center))
         pad.SetLayerSet(pad.UnplatedHoleMask())
         fp.Add(pad)
+        # NOTE (rev 6.2): NPTH mounting holes deliberately have NO courtyard.
+        # An earlier attempt to add one made H1-H4 overlap the motor courtyards
+        # (4 courtyards_overlap DRC errors). `missing_courtyard` is set to
+        # `ignore` in the project (standard for NPTH holes) -- see REQUIREMENTS.md.
         self.board.Add(fp)
 
     def check_tht_solder_margin(self, min_mm=2.5, ignore=frozenset()):

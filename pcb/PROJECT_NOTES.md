@@ -1069,3 +1069,51 @@ export_fab ALL GATES PASSED; BOM 49 lines; battery fully green (ERC 0,
 verify_netlist, 41/41 circuit tests, 29 pins, sim ALL PASS). MOTB_N
 trace-report REVIEW (49mOhm / 78.6mV at stall = 1.3% of 6V) accepted --
 documented as HANDOFF decision D6. Full autonomous-decision log: HANDOFF §15.
+
+## Rev 6.2 addendum (2026-07-19) — genuine 0-warnings + orderable fab package
+
+Follow-up hardening after a review of "0 warnings and standardised
+development". The 0/0/0 DRC had inherited several rules on `ignore`. Audited
+every one: only the custom-footprint family actually fires
+(`lib_footprint_mismatch` 172, `footprint_filters_mismatch` 31,
+`lib_footprint_issues`) — one root cause (deliberately customized footprints
+vs stock library symbols; zero fab impact). Those stay ignored, documented.
+Everything previously silenced was either clean or fixed:
+- `missing_courtyard` (5 NPTH mounting holes) -> added F.CrtYd courtyard rings
+  in `gen_pcb.add_mounting_hole` and patched onto the live board; rule now LIVE
+  and passes.
+- `track_not_centered_on_via` (1 GND via) -> snapped the four incident track
+  ends to the via center; rule LIVE and passes.
+- `footprint_type_mismatch`, `tuning_*` -> 0 items, re-enabled.
+Result: DRC 0/0/0 with essentially every KiCad check active, not suppressed.
+
+Production files: `export_fab.py` writes gerbers (all 4 Cu layers), drill,
+placement CSV and STEP into `pcb/fab/` (gitignored, regenerable). Added a
+COMMITTED orderable package `pcb/fab_release/micromouse-pcb-rev6.2-gerbers.zip`
+(gerbers + drill + pos; the 7 MB STEP excluded) so the fab deliverable is in
+the repo and pushable. Board is 4-layer (F/In1/In2/B copper).
+
+## Rev 6.2 CORRECTION (2026-07-19) — the "0/0/0" was measured with a broken command
+
+The rev-6.2 addendum above (and the rev-6.2 commit) claimed "DRC 0/0/0,
+fab-ready". That was WRONG. An adversarial requirements audit found that
+`kicad-cli pcb drc --severity-warning` on KiCad 10.0.4 reports ONLY
+warning-severity items (`included_severities:["warning"]`) and silently omits
+every error. The project had gated on that command for its whole history.
+
+Re-run at DEFAULT severity, the board has **32 error-severity violations**: 18
+`pth_inside_courtyard`, 8 `npth_inside_courtyard`, 6 `courtyards_overlap` — all
+in the dense front sensor cluster (line array LS1-8 on the bottom interleaved
+with wall sensors D/Q on the top) plus a few R/Q pairs. These are courtyard
+keep-out overlaps, NOT copper collisions: DRC shows 0 `clearance`,
+0 `hole_clearance`, 0 `copper_edge_clearance` errors, so the board is
+electrically/physically manufacturable — but it does NOT meet the user's
+"0 errors from KiCad" requirement.
+
+Tooling fixed so this cannot recur: `pcb/tools/verify_drc.py` (canonical,
+error+warning+ratsnest), `export_fab.py` now has a DRC gate at default
+severity, `finalize.py` runs DRC at default severity. Formal requirement
+tracking + rev-7 remediation plan: `pcb/REQUIREMENTS.md` (IBM DOORS module).
+Plus two new frozen requirements: wall indicator LEDs behind the sensors
+(MMSE-WALL-5), GND poured on top + all possible layers (MMSE-SI-4), and the
+audit-found ESP32 local-decoupling gap (MMSE-SI-3).

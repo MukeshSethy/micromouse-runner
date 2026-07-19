@@ -104,7 +104,10 @@ def phase_silk():
 
 # ---- Phase 2: copper cleanup -------------------------------------------------
 def run_drc():
-    subprocess.run([CLI, "pcb", "drc", "--severity-warning", "--format",
+    # rev 6.2 FIX: --severity-warning HIDES errors on KiCad 10.0.4
+    # (included_severities:["warning"] only). Run at DEFAULT severity so the
+    # report carries error-severity items too; callers filter by need.
+    subprocess.run([CLI, "pcb", "drc", "--format",
                     "json", "--output", DRC, BOARD], capture_output=True)
     return json.load(open(DRC))
 

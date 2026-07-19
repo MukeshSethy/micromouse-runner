@@ -102,6 +102,37 @@ if no_mpn:
     for r in no_mpn:
         print("   -", r)
 
+# --- DRC gate (rev 6.2 FIX) ---------------------------------------------------
+# CRITICAL: `kicad-cli pcb drc --severity-warning` on KiCad 10.0.4 reports ONLY
+# warning-severity items (included_severities:["warning"]) -- it HIDES every
+# error. This masked 32 real courtyard/placement errors for many revs. The fab
+# gate now runs DRC at the DEFAULT severity (error+warning) with schematic
+# parity, and FAILS on any error, any unconnected item, or any parity mismatch.
+import json as _json
+_drc = os.path.join(BASE, "_export_drc.json")
+run([CLI, "pcb", "drc", "--schematic-parity", "--format", "json",
+     "--output", _drc, PCB], "drc")
+try:
+    _d = _json.load(open(_drc))
+    _errs = [v for v in _d.get("violations", []) if v.get("severity") == "error"]
+    _warns = [v for v in _d.get("violations", []) if v.get("severity") == "warning"]
+    _unc = _d.get("unconnected_items", [])
+    _par = _d.get("schematic_parity", [])
+    print(f"DRC: {len(_errs)} errors, {len(_warns)} warnings, "
+          f"{len(_unc)} unconnected, {len(_par)} parity")
+    if _errs:
+        import collections as _c
+        _cc = _c.Counter(v["type"] for v in _errs)
+        for _t, _n in _cc.most_common():
+            print(f"   ERROR x{_n}: {_t}")
+        fails.append(f"drc: {len(_errs)} error-severity violations (see above)")
+    if _unc:
+        fails.append(f"drc: {len(_unc)} unconnected items")
+    if _par:
+        fails.append(f"drc: {len(_par)} schematic-parity mismatches")
+except Exception as _e:
+    fails.append(f"drc: could not parse report ({_e})")
+
 if fails:
     print(f"\nFAB EXPORT GATES FAILED ({len(fails)}):")
     for f in fails:

@@ -3,8 +3,15 @@
 A competition-style micromouse robot on a custom **100 × 120 mm, 4-layer**
 KiCad 10 PCB: ESP32-S3 module doing all control + wireless telemetry, a 2S
 power tree with a regulated 6 V motor rail, a BNO055 9-axis IMU, research-
-verified sensor geometry, and a fully script-generated, fully autorouted
-design — ERC 0, DRC 0 errors / 0 warnings, 0 unconnected as shipped.
+verified sensor geometry, and a fully script-generated, fully autorouted design.
+
+> **Status (2026-07-19): in rev-7 remediation — NOT yet fab-ready.**
+> ERC 0 · ratsnest 0 · **but 32 DRC *error*-severity violations** (front-cluster
+> courtyard overlaps) that were masked for the whole project by
+> `kicad-cli --severity-warning` (which hides errors on KiCad 10.0.4). The board
+> is electrically manufacturable (0 copper/hole clearance errors). Formal status
+> of every requirement + the remediation plan: **[`pcb/REQUIREMENTS.md`](pcb/REQUIREMENTS.md)**
+> (IBM DOORS module). Verify with `pcb/tools/verify_drc.py`, never `--severity-warning`.
 
 ![PCB top](images/render_top.png)
 
@@ -124,7 +131,11 @@ netlist → `verify_netlist.py` → `build_pcb.py` → `route_loaded.py` →
 
 ## Status
 
-Rev 6 ships fully routed and verified: **ERC 0 · DRC 0 errors / 0 warnings ·
-0 unconnected (pcbnew ratsnest) · 0 schematic-parity**. 2S power with a
-regulated 6 V motor rail, dual power switches, a BNO055 9-axis IMU, exact
-0/45/90° wall-sensor aims, and a Lion Circuits-orderable BOM.
+**Rev 6.2 as-built → rev 7 in remediation.** Fully routed (ratsnest 0),
+ERC 0, schematic-parity 0, electrically manufacturable (0 clearance errors),
+2S power with a regulated 6 V motor rail, dual switches, BNO055 IMU, exact
+0/45/90° wall-sensor aims, Lion-orderable BOM. **Not yet fab-ready:** 32
+courtyard-convention DRC errors + three open frozen requirements (wall
+indicators behind the sensors, GND poured on all layers, ESP32 local
+decoupling). Full formal status and the remediation plan are in the IBM
+DOORS-style module **[`pcb/REQUIREMENTS.md`](pcb/REQUIREMENTS.md)**.
