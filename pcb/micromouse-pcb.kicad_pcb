@@ -41328,7 +41328,7 @@
 		)
 	)
 	(gr_text "A"
-		(at 65.5 113.7 0)
+		(at 71 117.4 0)
 		(layer "F.SilkS")
 		(uuid "bef2de86-7fbb-4746-a6e9-2cafbfa276a9")
 		(effects
@@ -41339,7 +41339,7 @@
 		)
 	)
 	(gr_text "B"
-		(at 75.5 113.7 0)
+		(at 81 117.4 0)
 		(layer "F.SilkS")
 		(uuid "0fc1a3ce-1237-4ad1-acff-a5c7d711084f")
 		(effects
@@ -41350,7 +41350,7 @@
 		)
 	)
 	(gr_text "C"
-		(at 85.5 113.7 0)
+		(at 91 117.4 0)
 		(layer "F.SilkS")
 		(uuid "239632db-f125-4184-9dc9-330632b2fa93")
 		(effects
