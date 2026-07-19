@@ -721,3 +721,8 @@ F1 fuse is MINISMDC350F/16-2 (rev 7.1) -- confirm on the Lion BOM at order.
    inside the board, not under button bodies), update BOTH the board text and
    finalize.py LETTER_POS, and CONFIRM VISIBILITY in the new top render before
    the fab package is cut.
+1-REVISED (user, 2026-07-19): keep BOTH battery inputs -- J1 JST-XH stays AND
+   add an XT60 footprint in PARALLEL on BATT_RAW/GND (populate either; both
+   feed the same fuse->FET path). Placement: rear-left, needs room for both
+   bodies + mating clearance. Add silk warning "ONE PACK ONLY" (never connect
+   two packs simultaneously). XT60 likely hand-solder (not Lion turnkey).
