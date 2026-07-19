@@ -64,14 +64,20 @@ for sym, net in EXPECT.items():
     if gpio is None:
         fails.append(f"{sym}: missing from pins.h")
         continue
-    # direct check: the claimed net must exist and contain a U3 pad
+    # THREE-WAY check (rev 7): pins.h GPIO -> WROOM module pad -> the netlist
+    # must put EXACTLY that U3 pad on the expected net. A wrong GPIO number in
+    # pins.h now fails (the old check only tested net-exists-somewhere-on-U3).
+    pad = PAD_OF_GPIO.get(int(gpio))
+    if pad is None:
+        fails.append(f"{sym}: GPIO {gpio} is not a mappable WROOM-1 pad")
+        continue
     m = re.search(r'\(net\s*\(code "\d+"\)\s*\(name "%s"\)(.*?)\n\t\t\)' % re.escape(net),
                   netlist, re.S)
     if not m:
         fails.append(f"{sym}: net {net} not in netlist")
         continue
-    if not re.search(r'\(ref "U3"\)', m.group(1)):
-        fails.append(f"{sym}: net {net} does not reach the module")
+    if not re.search(r'\(ref "U3"\)\s*\(pin "%s"\)' % re.escape(pad), m.group(1)):
+        fails.append(f"{sym}: GPIO {gpio} = module pad {pad} is NOT on net {net}")
 
 for sym, sw in BTN.items():
     gpio = declared.get(sym)

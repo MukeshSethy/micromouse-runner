@@ -23,8 +23,8 @@ import re
 import sys
 import os
 
-NETLIST = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                       "..", "pcb", "netlist.net")
+NETLIST = sys.argv[1] if len(sys.argv) > 1 else os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "pcb", "netlist.net")
 
 
 def parse_netlist(path):

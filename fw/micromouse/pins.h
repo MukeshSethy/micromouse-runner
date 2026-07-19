@@ -35,10 +35,10 @@
 #define PIN_MUX_S1        12  // net MUX_S1
 #define PIN_MUX_S2        13  // net MUX_S2
 #define PIN_MUX_S3        8   // net MUX_S3 (rev 6: channels 8-15 unlocked)
-#define PIN_EMIT_FRONT    14  // net WALL_EMIT_FRONT (BSS138 bank gate)
-#define PIN_EMIT_DIAG     15  // net WALL_EMIT_DIAG
-#define PIN_EMIT_SIDE     16  // net WALL_EMIT_SIDE
-#define PIN_EMIT_LINE     17  // net LINE_EMIT (latched ON in line mode so the
+#define PIN_EMIT_FRONT    15  // net WALL_EMIT_FRONT (BSS138 bank gate)
+#define PIN_EMIT_DIAG     16  // net WALL_EMIT_DIAG
+#define PIN_EMIT_SIDE     17  // net WALL_EMIT_SIDE
+#define PIN_EMIT_LINE     14  // net LINE_EMIT (latched ON in line mode so the
                               // hardware indicators read true floor state)
 
 // ---- mux channel map (CD74HC4067) --------------------------------------------
