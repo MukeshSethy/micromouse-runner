@@ -715,3 +715,9 @@ F1 fuse is MINISMDC350F/16-2 (rev 7.1) -- confirm on the Lion BOM at order.
    fab_release regen + REQUIREMENTS/BOM/renders update + push.
    pins.h: add PIN_BUZZER 46 + check_pins entry (pad 16); fw: simple beep API.
    DO NOT ORDER the current gerbers -- rev 7.2 supersedes them.
+4. Button silk A/B/C: RE-POSITION the letter locations again in rev 7.2 (user
+   request). Currently below each button at (71/81/91, 117.4); after the XT60/
+   buzzer placement shuffle, scan fresh clear spots (>=0.2mm from pads/silk,
+   inside the board, not under button bodies), update BOTH the board text and
+   finalize.py LETTER_POS, and CONFIRM VISIBILITY in the new top render before
+   the fab package is cut.
