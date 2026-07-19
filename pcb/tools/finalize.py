@@ -80,7 +80,7 @@ def phase_silk():
     # side pocket per cluster; button letters sit left of each 6mm button.
     # clear-spot positions (scanned >=1.6mm from every pad, >=1.4mm from silk),
     # one per cluster: front-L/R, diag-L/R, side-L/R
-    ANGLE_POS = [(30.6, 13.03), (68.7, 13.03), (10.7, 27.52), (89.3, 27.52),
+    ANGLE_POS = [(26.2, 12.0), (73.8, 12.0), (10.7, 27.52), (89.3, 27.52),  # rev 7 front spots
                  (18.15, 37.16), (88.2, 36.6)]
     LETTER_POS = {"A": (65.5, 113.7), "B": (75.5, 113.7), "C": (85.5, 113.7)}
     reloc = 0

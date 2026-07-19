@@ -13,7 +13,7 @@ verified sensor geometry, and a fully script-generated, fully autorouted design.
 
 ![PCB top](images/render_top.png)
 
-## The board (rev 6)
+## The board (rev 7)
 
 | Subsystem | Part | Notes |
 |---|---|---|
@@ -49,8 +49,8 @@ M2/M2.5/M3 screws from the underside into nuts captured by the bracket.
 - 0.3 mm clearance against **every through-hole pin** on every verification
   path (hand-solder safety, structural in the router); SMD fields may relax
   to 0.16 mm where physics demands it.
-- In1 = GND plane, In2 = 3V3 plane, partial VM battery pour on B.Cu; every
-  SMD pour pad stitched by via + verified stub.
+- GND poured on F.Cu (full board) + B.Cu (remainder) + the In1 plane; In2 =
+  3V3 plane; VM_BATT/VM_6V as priority-1 B.Cu islands; SMD pour pads stitched.
 - Routed to **zero unrouted edges** by the project's own 4-layer A*
   autorouter (`route_loaded.py`): jailed-first ordering with immediate retry
   ladders, hand-computed bridges for the USB-C pad field, wide
@@ -126,6 +126,11 @@ KiCad-format notes. Regeneration order: `build_schematic.py` → export
 netlist → `verify_netlist.py` → `build_pcb.py` → `route_loaded.py` →
 `heal_all.py` → `finalize.py` (silk→fab + ratsnest-gated stub cleanup) →
 `sync_board_meta.py` (parity metadata) → `export_fab.py`.
+
+> **Warning:** the shipped rev-7 board was refined **in-place** after routing;
+> regenerating overwrites it with a re-route that must then re-pass
+> `pcb/tools/verify_drc.py`. Do not regenerate casually — the committed
+> `.kicad_pcb` is the verified artifact.
 
 ## Status
 

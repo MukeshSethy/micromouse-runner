@@ -1,8 +1,9 @@
-# Standards & Impedance Compliance — micromouse-pcb rev 6
+# Standards & Impedance Compliance — micromouse-pcb rev 7
 
 Scope: 4-layer 100×120 mm robot PCB (ESP32-S3, USB 2.0 full-speed device,
-2S LiPo 8.4 V max, 20 kHz motor PWM up to ~3 A). Stackup: F.Cu signal /
-In1 GND plane / In2 +3V3 plane / B.Cu signal+pours (JLC7628-class:
+2S LiPo 8.4 V max, 20 kHz motor PWM up to ~3 A). Stackup: F.Cu signal + FULL GND
+pour / In1 GND plane / In2 +3V3 plane / B.Cu signal + GND-remainder pour +
+priority-1 VM_BATT/VM_6V islands (rev 7) (JLC7628-class:
 0.035 mm outer Cu, 0.21 mm prepreg, 1.065 mm core, εr ≈ 4.6).
 Sources: USB 2.0 spec ch.7, IPC-2221B, IPC-2152, IPC-7351/2610, Espressif
 ESP Hardware Design Guidelines, TI/Diodes/Toshiba/Bosch datasheets.
@@ -20,7 +21,8 @@ exceeds any route on this board — every trace is electrically short.
 What we implement anyway (pragmatic FS rules):
 - D+/D− routed as a coupled pair over **continuous In1 GND** end-to-end, no
   plane splits under the pair.
-- Intra-pair length match ≤ 2.5 mm (HS-grade; FS tolerates ~10 mm). Verified
+- Intra-pair skew: FS tolerates ~10 mm; as-built 5.76 mm — accepted
+  deviation (REQUIREMENTS MMSE-SI-1), well inside the FS budget. Reported
   per revision in TRACE_REPORT.md (rev-5 measured 6.2 mm ≈ 41 ps against an
   ~4 ns FS edge = 1 % — rev 6 target is tighter; see the current report).
 - **No series termination resistors** — the S3's integrated PHY meets the
@@ -39,7 +41,7 @@ matters is IR drop and loop area, covered below and in TRACE_REPORT.md.
 ## 2. Clearance / creepage (IPC-2221B)
 
 8.4 V DC falls in the 0–15 V band: 0.05 mm internal / 0.10 mm external
-required. The board's design rule (0.2 mm nominal, 0.16 mm floor in dense
+required. The board's design rule (0.15 mm netclass nominal, 0.127 mm floor in dense
 SMD fields, 0.3 mm no-inter-pin hand-solder rule for THT) exceeds the
 standard everywhere. First voltage where IPC clearance would bite: > 30 V.
 
@@ -54,7 +56,8 @@ standard everywhere. First voltage where IPC clearance would bite: > 30 V.
 
 Applied: battery feed (BATT_RAW → fuse → FET) routed at 0.8 mm; the
 protected rail and the 6 V motor rail are **B.Cu pours** (better than any
-trace); motor phases target 0.8 mm with a documented 0.5/0.3 mm fallback in
+trace); motor phases run 0.5 mm with 0.25–0.3 mm segments (IR drop 71–79 mV at
+stall = 1.2–1.3 % of 6 V; accepted TRACE_REPORT REVIEW items) in
 the densest corridors (N20 6 V stall ≈ 1.6 A is transient — see
 TRACE_REPORT.md verdicts). Motor current never routes on 0.5 oz inner
 layers. Skin depth at 20 kHz (0.47 mm) ≫ foil thickness — no AC derating.
@@ -107,7 +110,8 @@ Implemented per the guide's sanctioned fallback: the WROOM-1 sits fully on
 the board and the base board is **cut away on both sides of the antenna and
 below it** — a 20.7 × 6.2 mm U-notch in the rear edge. The antenna tip stays
 inside the 100×120 envelope (user requirement: nothing outside the board
-except motor shafts). Copper/track keepout ribbon under the module's last
+except motor shafts, the antenna over its notch, and the USB-C mouth's
+deliberate 1.5 mm rear overhang for cable clearance). Copper/track keepout ribbon under the module's last
 2 mm + the notch itself; the guide's mid-board hollow-out is explicitly
 prohibited and avoided. Slot manufacturability: width 20.7 mm ≫ 1 mm
 minimum, internal corners receive the fab's ≥ 1 mm mill radius.

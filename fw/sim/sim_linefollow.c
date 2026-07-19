@@ -20,7 +20,7 @@
 #include "../micromouse/control_core.h"
 
 #define DT 0.002f              /* 500 Hz, matches LOOP_HZ */
-#define SENSOR_AHEAD_MM 70.5f
+#define SENSOR_AHEAD_MM 65.0f  /* board truth: array y=19, axle y=84 */
 #define TRACK_MM 83.0f
 #define VMAX_MM_S 900.0f
 #define TAU_S 0.05f

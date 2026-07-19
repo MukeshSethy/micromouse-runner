@@ -52,16 +52,12 @@ BTN = {"PIN_BTN_A": "SW1", "PIN_BTN_B": "SW3", "PIN_BTN_C": "SW4"}
 declared = dict(re.findall(r"#define\s+(PIN_\w+)\s+(\d+)", pins_h))
 fails = []
 
-# GPIO -> net via the netlist: find the U3 pad whose declared schematic name
-# is IO<gpio>, then look that pad up in the netlist.
-def net_for_gpio(gpio):
-    ioname = f"IO{gpio}"
-    # build_schematic maps module pads by position; U3_NET pad->net direct:
-    # find pads whose DECLARED net matches; instead, use ESP_PINS name table:
-    m = re.search(r'"%s":\s*\(([^)]*)\)' % ioname, sch)
-    # Fallback: search the netlist for a net that pins.h claims and check the
-    # schematic's comment map -- handled by caller.
-    return None
+# WROOM-1 module pad <- GPIO (datasheet table 3; the pad the netlist sees)
+PAD_OF_GPIO = {0:"27",1:"39",2:"38",3:"15",4:"4",5:"5",6:"6",7:"7",8:"12",
+               9:"17",10:"18",11:"19",12:"20",13:"21",14:"22",15:"8",16:"9",
+               17:"10",18:"11",19:"13",20:"14",21:"23",35:"28",36:"29",
+               37:"30",38:"31",39:"32",40:"33",41:"34",42:"35",43:"37",
+               44:"36",45:"26",46:"16",47:"24",48:"25"}
 
 for sym, net in EXPECT.items():
     gpio = declared.get(sym)

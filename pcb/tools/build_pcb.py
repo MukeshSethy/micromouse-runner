@@ -73,8 +73,8 @@ WALL_GEOM = [
     # MMSE-REM-2. build_pcb.py cannot currently regenerate (it aborts on a stale
     # SW2/R12 gate -- the in-place USB-pocket closure was never back-ported), so
     # this rot must be applied together with the coordinated front reroute.
-    (0, (30.95, 15.0), (21.43, 15.0), 0),      # FRONT-L (TCRT gap-center x's)
-    (1, (69.05, 15.0), (78.57, 15.0), 0),      # FRONT-R
+    (0, (30.95, 15.0), (21.43, 15.0), 90),     # FRONT-L (rev 7: rot90, pads vertical in the line gaps)
+    (1, (69.05, 15.0), (78.57, 15.0), 90),     # FRONT-R (rev 7: rot90)
     (2, (12.5, 24.4), (17.87, 29.77), 45),     # DIAG-L (emit in-line behind)
     (3, (87.5, 24.4), (82.13, 29.77), 315),    # DIAG-R
     (4, (15.0, 36.6), (15.0, 44.2), 90),       # SIDE-L (exact 90)
@@ -137,11 +137,17 @@ def _angle_callout(i, det, aim):
 # WALL_GEOM coordinates are HOLE-PAIR CENTERS (that is what the aim/outline
 # math uses), so each part is placed 1.27mm back along its axis.
 _ROT_DIR = {0: (1.0, 0.0), 45: (_S2, -_S2), 90: (0.0, -1.0),
-            270: (0.0, 1.0), 315: (_S2, _S2)}
+            135: (-_S2, -_S2), 270: (0.0, 1.0), 315: (_S2, _S2)}
+# rev 7: the diagonal RECEIVERS rotated perpendicular-to-aim (pads clear the
+# line-sensor bodies); the emitters keep the in-line rot. Pair centres stay
+# exactly on the det points, so the 45.000-deg aims are unchanged.
+_DET_ROT = {0: 90, 1: 90, 2: 135, 3: 45, 4: 90, 5: 270}
 for i, det, emit, rot in WALL_GEOM:
     r = sensor_refs(i)
     _dx, _dy = _ROT_DIR[rot]
-    g.place(r["photo"], det[0] - 1.27 * _dx, det[1] - 1.27 * _dy, rot=rot)
+    _drot = _DET_ROT.get(i, rot)
+    _ddx, _ddy = _ROT_DIR[_drot]
+    g.place(r["photo"], det[0] - 1.27 * _ddx, det[1] - 1.27 * _ddy, rot=_drot)
     g.place(r["led"], emit[0] - 1.27 * _dx, emit[1] - 1.27 * _dy, rot=rot)
     _bent_body_outline(det, WALL_AIM[i])
     if i in (2, 3):
@@ -232,9 +238,9 @@ for i in range(6, 14):
 # --- WALL indicators: LED at its sensor; the drivers stay in two central
 # columns. Diagonal LEDs sit just beyond the far end of the bent-body
 # outline (a > 10.3 along the aim) so silk never crosses their pads.
-WALL_IND_LED = {23: (26.5, 9), 24: (73.5, 9),      # front pairs (between bands)
-                25: (6, 12), 26: (94, 12),         # diagonal (beyond outline tip)
-                27: (20.5, 35.5), 28: (79.5, 35.5)}  # side pairs
+WALL_IND_LED = {23: (21.43, 19.6), 24: (78.57, 19.6),  # rev 7: BEHIND the sensors
+                25: (8.5, 32), 26: (91.5, 32),         # (user req MMSE-WALL-5)
+                27: (20.5, 46.5), 28: (79.5, 46.5)}
 for k in range(1, 7):
     dx, dy = WALL_IND_LED[22 + k]
     g.place(f"D{22 + k}", dx, dy)              # D23..D28 beside their sensors
@@ -334,7 +340,7 @@ g.place("R67", 43, 108, flip=True); g.place("R68", 47, 108, flip=True)  # VBUS s
 g.place("U3", 35.25, 106.7, rot=180)           # Fab body y 93.9..119.9: antenna spans the notch, tip INSIDE the 100x120 envelope
 # Module decoupling + EN RC on TOP in the mid-band (bottom-rear stays clear
 # -- it is the rear cluster's only routing plane).
-g.place("C8", 23.5, 58); g.place("C10", 28, 58)
+g.place("C8", 48.4, 108.7, rot=90); g.place("C10", 50.8, 104.8)  # rev 7: at U3 pin 2 (MMSE-SI-3)
 g.place("R11", 34, 60); g.place("C9", 40, 60)
 
 # USB-C: mouth FLUSH with the rear edge (user req: no part outside the board
@@ -384,7 +390,7 @@ g.place("C30", 74.5, 66, value="220uF/16V")        # alu bulk, top, at VM entry
 g.place("C11", 60, 72, flip=True, value="10uF/25V")  # under U2 (bottom)
 g.place("C12", 68, 72, flip=True, value="100nF")
 g.place("C14", 60, 60, flip=True, value="100nF")
-g.place("J5", 33, 72.5, rot=0)               # motor A (B6B-XH-A 2.5mm; nudged up to clear MOT1)
+g.place("J5", 33, 70, rot=0)                 # motor A (rev 7: forward; 4.1mm motor-body gap)
 g.place("J6", 83, 64, rot=0)                 # motor B (B6B-XH-A; right of U2/above MOT2 -- the wider XH connector will not fit the corridor beside U2/C30)
 # Encoder pull-ups/guards + strap pull-down + STBY tie: TOP mid-band rows
 g.place("R6", 22, 66); g.place("R7", 28, 66)     # ENC1 pullups

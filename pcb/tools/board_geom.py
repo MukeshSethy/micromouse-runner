@@ -35,7 +35,7 @@ NOTCH_Y2 = AXLE_Y + WHEEL_DIA / 2      # 100
 # notch cut into the rear edge -- exactly the Espressif hardware-design-guide
 # fallback ("cut off the base board on both sides of the antenna and below
 # it"; hollowing out mid-board is explicitly prohibited, an edge cutout is
-# the sanctioned form). Module body ends at y=113.83 (fp pos 107.8);
+# the sanctioned form). Module body ends at y~119.45 (fp pos 106.7);
 # the antenna section (last 6mm) spans the notch. Notch: x 24.9..45.6
 # (antenna 18mm + ~1.3mm margin each side), y 113.8..120. Antenna tip at
 # y=119.83 -- INSIDE the board dimensions (user req 8). Internal corners get the

@@ -32,6 +32,12 @@ bool line_est_update(line_estimator_t *e, const uint16_t raw[LINE_N], float *pos
         if (raw[i] > lo && hi > lo)
             v = (float)(raw[i] - lo) / (float)(hi - lo);   // 0..1 "line-ness"
         if (v > 1) v = 1;
+        // idle-channel deadband: with factory defaults (cal_min 300) a real
+        // white floor of ~0.4V (496 counts, TEST_REPORT O2) leaves ~0.1 of
+        // "line-ness" on EVERY channel, dragging the centroid toward zero
+        // (host sim S2 finding: positions compressed ~0.55x). Channels below
+        // 15% are floor, not line.
+        if (v < 0.15f) v = 0;
         if (v > strongest_v) { strongest_v = v; strongest = i; }
         // channel i center offset from array middle, +ve to the right
         float x_mm = ((float)i - (LINE_N - 1) / 2.0f) * LINE_PITCH_MM;

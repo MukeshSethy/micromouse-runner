@@ -148,7 +148,7 @@ to 51 — the recovery cost hours. Don't repeat it.
 
 ### 5.1 Board
 
-100 × 120 mm, 4-layer: **F.Cu** signals · **In1** solid GND plane · **In2**
+100 × 120 mm, 4-layer (rev 7): **F.Cu** signals + FULL GND pour — **In1** solid GND plane — **In2** solid +3V3 plane — **B.Cu** signals + GND-remainder pour + priority-1 VM_BATT/VM_6V islands
 solid +3V3 plane · **B.Cu** signals + two pours (VM_BATT rect (16,44)-(64,113),
 VM_6V rect (66,44)-(99,100)). Design rules: 0.2 mm clearance nominal,
 **0.3 mm against every THT pin** (hand-solder rule, enforced by the router's
@@ -225,6 +225,11 @@ IN1 PWM + IN2 low, reverse = IN1 low + IN2 PWM; hardware motor kill = SW6.
 
 ### 5.4 Sensors — exact geometry (rev 6 requirement: exact angles + inboard outlines)
 
+> **Rev 7:** front sensors rot **90** (pads vertical in the line gaps at
+> (21.43/30.95/69.05/78.57, 16.27)); diagonal receivers Q4 rot **135** /
+> Q5 rot **45** (pads perpendicular to aim). Hole-pair centres and the
+> exact 0/45/90 aims are unchanged — only the lead orientation moved.
+
 `WALL_GEOM` in build_pcb.py, coordinates = HOLE-PAIR CENTERS (the 5 mm THT
 LED footprints anchor at PAD 1, so placement subtracts 1.27 mm along the
 rotation axis — `_ROT_DIR` map):
@@ -254,7 +259,7 @@ rotation axis — `_ROT_DIR` map):
 ### 5.5 Major placement map (rev 6.1)
 
 - Front band y 3–47: sensors (above), line indicators (D15-22 y26.5,
-  R41-48 y30, Q20-27 y33.5; end columns x 23.6/76.4 + FETs at (22.5/77.5,38.5)),
+  R41-48 y30, Q20-27 y33.5; end columns x 23.6/76.4 + FETs at (23.5/76.5,38.5)),
   emitter FETs Q16-19+R61-64 (40–54, 37.5–42), wall-indicator drivers
   R49-54 (26–34/66–74, 38) Q28-33 (25–35/65–75, 43).
 - Mid band y 44–70: U4 mux (8,56); battery chain F1 (17.5,58) Q1 (26,54);
@@ -262,12 +267,12 @@ rotation axis — `_ROT_DIR` map):
   U7 6V block (76–96, 47–58); **U8 BNO055 at (50,59)** + support N of it;
   U2 TB6612 (64,66) + C30 (74.5,66); R55 (57,68).
 - Motors: axle y=84, bodies 13–46 / 54–87 (keepouts); **J5 motor-A connector
-  (33,72.5)**, **J6 motor-B (83,64)** — both B6B-XH-A verticals (moved in
+  (33,70)** (rev 7: forward, 4.1mm motor gap), **J6 motor-B (83,64)** — both B6B-XH-A verticals (moved in
   rev 6.1; the 2.5 mm XH is wider than the old 2.0 mm PH and did not fit the
   old corridor spots).
 - Rear y 94–120: WROOM U3 (35.25,106.7 rot180, antenna over the notch);
   J8 JTAG (10.5,102); J1 battery (5,108.5); J9 balance (15.5,108.5);
-  SW5 (6,116.4) SW6 (15.5,116.4); J7 USB-C (54, ~115.6 — placed at 116.9
+  SW5 (6,116.4) SW6 (15.5,116.4); J7 USB-C (54, 117.175 — rev 7: mouth overhangs the rear edge ~1.5mm for cable-overmold clearance; was ~115.6 — placed at 116.9
   then pulled flush so the courtyard max-y = 119.9); U6 ESD (54,106,B);
   CC pulldowns R12/R56 (bottom) — **must stay OUT of the USB escape zone**
   (see §6.2); buttons SW1/3/4 (71/81/91, 113.7) + SW2 RST (64,102).
@@ -307,7 +312,7 @@ pours). Then assess with the RATSNEST (§3) — kicad-cli will lie.
 
 ### 6.2 USB-C fanout (the recurring hard part)
 
-USB4105 interleaves rows: pads along +x at y=112: A1/B12(50.8 GND) A4/B9(51.6
+USB4105 interleaves rows: pads along +x at y=113.5 (rev 7; all pocket copper below translated accordingly): A1/B12(50.8 GND) A4/B9(51.6
 VBUS) A5(52.75 CC1) B7(53.25 **DM**) A6(53.75 DP) A7(54.25 **DM**) B6(54.75 DP)
 B5(55.75 CC2) A9/B4(56.4 VBUS) A12/B1(57.2 GND). Same-net pairs must bridge
 UNDER the other pair on inner layers:
@@ -506,16 +511,13 @@ netlist→pad mapping (530 pins), THT solder margin 2.5 mm.
    (strap risk removed). The hardware kill is SW6.
 4. **J5/J6 = B6B-XH-A** (In-Stock) not B6B-PH-K-S (OOS at Lion; the whole
    top-entry THT PH line is un-stocked there). Their rev-6.1 positions
-   (33,72.5)/(83,64) are the scanned fit for the wider XH body.
+   (33,70)/(83,64) are the rev-7 positions (J5 moved forward for motor clearance — do not revert to 72.5).
 5. **USB D± direct** (no 22R) — S3 PHY meets the driver-impedance window
    internally; every Espressif devkit routes direct; ESD array stays.
 6. **Minimal DRC ignore set (rev 6.2)** — only `lib_footprint_mismatch`,
    `lib_footprint_issues`, `footprint_filters_mismatch` are `ignore`, all the
    same root cause (custom footprints vs stock symbols). Everything else is
-   error/warning and passes 0. `missing_courtyard` is now LIVE because the 5
-   NPTH mounting holes got courtyard rings (added in `gen_pcb.add_mounting_hole`
-   + patched onto the live board); the one `track_not_centered_on_via` (a GND
-   via) was fixed by snapping the track ends to the via center. Do NOT revert
+   error/warning and passes 0. `missing_courtyard` is **ignore** (NPTH mounting holes correctly have no courtyard; a courtyard-ring attempt created motor overlaps and was reverted). The ignore set is the three custom-footprint rules + missing_courtyard. The 1 `track_not_centered_on_via` was fixed by snapping ends. Do NOT revert
    these back to `ignore` — the point is that "0 warnings" is real, not
    achieved by silencing checks.
 7. **TSAL6400 rejected** (lifecycle Obsolete on Lion's page) → IR333-A.
@@ -582,7 +584,13 @@ to ratsnest-0 (USB pocket hand-geometry §6.2/§7.1, D20 K-net re-leg, GND
 island link), finalize rewritten (per-round process isolation, gate-before-
 save, DRC-driven strip with pour-bridge protection), DRC 218 warnings → 0,
 full battery green, fab exports gated out, STEP boxes regenerated with the
-proven AP214 writer (BNO055/SRP4020TA/Fuse_1812).
+proven AP214 writer (BNO055/SRP4020TA/Fuse_1812). **rev 7:** the
+--severity-warning masking defect exposed 32 real errors (D14); front
+sensors rotated into the line gaps, diagonals re-oriented, indicators moved
+behind, J5 forward, USB-C overhang, decoupling at the module, GND poured on
+all possible layers, antenna ribbon on all copper layers -> verify_drc PASS
+0/0/0/0/0; sim_flash.py (USB flash-path) + sim_hw.c (sensor/actuator
+chains) added; estimator idle-floor deadband fixed in control_core.
 
 ## 13. FILE INVENTORY
 
