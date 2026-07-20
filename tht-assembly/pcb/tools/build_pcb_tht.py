@@ -64,12 +64,11 @@ FIX = {
     "J15": (25, 99, 0, False),
     "J10": (17.8, 100, 90, False), "J1": (16, 113.8, 0, False),
     "J9": (4, 12, 0, False), "J8": (63, 40, 90, False),
-    "J5": (16, 72, 0, False), "J6": (77.5, 72, 0, False),
+    "J5": (16, 66, 0, False), "J6": (68, 73, 0, False),
     "SW5": (3.5, 99.2, 90, False), "SW6": (3.5, 113, 90, False),
-    # buttons A/B/C in the mid-gap between the power block (ends x65) and the
-    # TB6612 socket (pin-1 origin at x78.5, extends +x); RST rear
-    "SW1": (71, 46, 0, False), "SW3": (71, 55, 0, False),
-    "SW4": (71, 64, 0, False), "SW2": (95, 105, 90, False),
+    # buttons A/B/C in the empty lower-centre (top face, accessible); RST rear
+    "SW1": (44, 82, 0, False), "SW3": (54, 82, 0, False),
+    "SW4": (64, 82, 0, False), "SW2": (95, 105, 90, False),
     # power block (starts x24, right of the left-edge side optics D5/Q6;
     # 13mm part spacing for TO-220 + D9.5 inductor courtyards)
     "Q1": (5.5, 55, 0, False), "F1": (5.5, 61, 0, False),
@@ -83,9 +82,11 @@ FIX = {
     "Q18": (50, 43, 0, False), "Q19": (50, 24, 0, True),
     "BZ1": (8, 88, 0, True),
 }
-# 14 indicator LEDs (D121-126 wall + D131-138 line) in the open nose (y3-12),
-# two rows of 7 at ~9mm -- forward of the sensor row (y16+), clearly visible.
-_NOSE = [(20 + 9 * i, 3.5) for i in range(7)] + [(20 + 9 * i, 11.5) for i in range(7)]
+# 14 indicator LEDs (D121-126 wall + D131-138 line) in the open nose, two rows
+# of 7, forward of the sensor row (y16+); front row DODGES the castor hole at
+# (CX=50, 4) by clustering left/right of centre.
+_NOSE = ([(16 + 8 * i, 4) for i in range(4)] + [(60 + 8 * i, 4) for i in range(3)]
+         + [(16 + 9 * i, 12) for i in range(7)])
 _IND_LEDS = [f"D{121+i}" for i in range(6)] + [f"D{131+i}" for i in range(8)]
 for _ref, (_x, _y) in zip(_IND_LEDS, _NOSE):
     FIX[_ref] = (_x, _y, 0, False)
