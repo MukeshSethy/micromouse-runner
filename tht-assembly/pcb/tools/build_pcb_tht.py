@@ -1,21 +1,19 @@
-"""THT carrier board: outline + placement + zones (no routing -- route_tht.py).
+"""THT carrier placement v12 -- NET-AWARE clustering auto-placer.
 
-Placement doctrine (worked out against the hard constraints):
-  - sensor geometry (D1-6, Q2-7, LS1-8) is COPIED from the SMD rev-7.2 board
-    verbatim -- it is research-verified and all three part families are THT
-  - motor bodies own the waist top face (x2.7-46.2 / x53.8-97.3, y76.9-91.1):
-    nothing else goes there
-  - the DevKitC-1 lies across the REAR (rows y94.5 / y117.36, pin1 x31.0,
-    USB end facing RIGHT where the corridor is kept clear); only FLAT parts
-    live under its deck (the mux DIP is soldered flat there, no socket)
-  - the antenna U-notch of the SMD outline is REMOVED (DevKit antenna sits
-    ~10 mm above the board) -- gives the rear row continuous board
-  - left rear column: XT60 + XH battery in; left edge: the two slide switches
-  - front-center pocket (between the front sensor pairs, above the line
-    array): 8 horizontal 1k indicator resistors
-  - mid band, left-to-right: power block | indicator field | TB6612 socket
+v4-v11 scattered all 66 support resistors onto a generic bottom grid; that
+made ~47% of nets span a resistor forest to reach the part they serve, and
+routing failed. v12: only parts with a NATURAL fixed position are hard-placed
+(optics by sensor geometry, sockets/connectors/switches by edge/ergonomics,
+mux under the DevKit deck, the buck power block as one cluster, the four
+emitter-bank gates centrally). EVERY support part (limiter/pull-up R,
+indicator PMOS+R+LED, strap/encoder/IMU R, buzzer parts) is then AUTO-PLACED
+on the bottom face by spiral-searching outward from the centroid of its
+already-placed neighbours for a courtyard+hole-clear spot -- so each support
+net stays LOCAL and routes. Only the inherently-spanning buses remain
+(symmetric emitter pairs share one gate; the two board-spanning power rails)
+-- those are hand-routed by handroute_power.py.
 """
-import sys, os
+import sys, os, json, math
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import pcbnew
 from gen_pcb import PcbGen
@@ -24,166 +22,251 @@ import board_geom
 BASE = r"D:\Projects\micromouse-pcb\tht-assembly\pcb"
 NETLIST = os.path.join(BASE, "netlist.net")
 BOARD = os.path.join(BASE, "micromouse-tht.kicad_pcb")
+MM = pcbnew.ToMM
 
-# ---- outline: SMD outline minus the antenna U-notch ---------------------------
-# board_geom.BOARD_OUTLINE traces the notch between the two rear segments at
-# y=120; rebuild the polygon with the rear edge straight across.
-OUT = []
-skip = False
+# outline minus the antenna notch (DevKit antenna rides above the board)
 pts = list(board_geom.BOARD_OUTLINE)
-for i, (x, y) in enumerate(pts):
-    if abs(y - board_geom.ANTENNA_NOTCH[1]) < 0.01 or \
-       (abs(y - 120.0) > 0.01 and board_geom.ANTENNA_NOTCH[0] - 0.01 <= x <= board_geom.ANTENNA_NOTCH[2] + 0.01
-        and y > 110):
-        continue      # drop notch-wall points
+OUT = []
+for (x, y) in pts:
+    if (board_geom.ANTENNA_NOTCH[0] - 0.01 <= x <= board_geom.ANTENNA_NOTCH[2] + 0.01
+            and y > 110 and abs(y - 120.0) > 0.01):
+        continue
     OUT.append((x, y))
-# dedupe consecutive duplicates
 OUTLINE = [p for i, p in enumerate(OUT) if i == 0 or p != OUT[i - 1]]
+
+def inside(px, py, poly=OUTLINE, m=1.2):
+    # point-in-polygon with an inward margin (sample the 4 margin corners too)
+    def pip(x, y):
+        c = False
+        n = len(poly)
+        for i in range(n):
+            x1, y1 = poly[i]; x2, y2 = poly[(i + 1) % n]
+            if (y1 > y) != (y2 > y):
+                xi = x1 + (y - y1) * (x2 - x1) / (y2 - y1)
+                if xi > x:
+                    c = not c
+        return c
+    return all(pip(px + dx, py + dy) for dx in (-m, m) for dy in (-m, m))
+
+# ---- FIXED anchors (ref -> (x, y, rot, flip)) --------------------------------
+FIX = {
+    # wall optics (SMD-verified geometry)
+    "D1": (21.43, 16.27, 90, False), "D2": (78.57, 16.27, 90, False),
+    "D3": (16.972, 30.668, 45, False), "D4": (81.232, 28.872, -45, False),
+    "D5": (15.0, 45.47, 90, False), "D6": (85.0, 42.93, -90, False),
+    "Q2": (30.95, 16.27, 90, False), "Q3": (69.05, 16.27, 90, False),
+    "Q4": (13.4, 25.3, 135, False), "Q5": (86.6, 25.3, 45, False),
+    "Q6": (15.0, 37.87, 90, False), "Q7": (85.0, 35.33, -90, False),
+    # sockets / connectors / switches / mux
+    "J13": (31.0, 94.5, 90, False), "J14": (31.0, 117.36, 90, False),
+    "U4": (57, 113.4, 90, False),
+    "J11": (78.5, 50, 90, False), "J12": (78.5, 65.24, 90, False),
+    "J15": (25, 99, 0, False),
+    "J10": (17.8, 100, 90, False), "J1": (16, 113.8, 0, False),
+    "J9": (4, 12, 0, False), "J8": (63, 40, 90, False),
+    "J5": (16, 72, 0, False), "J6": (77.5, 72, 0, False),
+    "SW5": (3.5, 99.2, 90, False), "SW6": (3.5, 113, 90, False),
+    # buttons A/B/C in the mid-gap between the power block (ends x65) and the
+    # TB6612 socket (pin-1 origin at x78.5, extends +x); RST rear
+    "SW1": (71, 46, 0, False), "SW3": (71, 55, 0, False),
+    "SW4": (71, 64, 0, False), "SW2": (95, 105, 90, False),
+    # power block (starts x24, right of the left-edge side optics D5/Q6;
+    # 13mm part spacing for TO-220 + D9.5 inductor courtyards)
+    "Q1": (5.5, 55, 0, False), "F1": (5.5, 61, 0, False),
+    "C1": (11.5, 55, 0, False), "C2": (11.5, 61, 0, False),
+    "U1": (26, 49, 0, False), "L1": (39, 49, 0, False), "D30": (49, 49, 0, False),
+    "C5": (56, 49, 0, False), "C7": (62, 49, 0, False),
+    "U7": (26, 62, 0, False), "L2": (39, 62, 0, False), "D31": (49, 62, 0, False),
+    "C16": (56, 62, 0, False), "C17": (62, 62, 0, False),
+    # emitter-bank gates near their banks; LINE gate under the array (bottom)
+    "Q16": (50, 15, 0, False), "Q17": (50, 30, 0, False),
+    "Q18": (50, 43, 0, False), "Q19": (50, 24, 0, True),
+    "BZ1": (8, 88, 0, True),
+}
+# 14 indicator LEDs (D121-126 wall + D131-138 line) in the open nose (y3-12),
+# two rows of 7 at ~9mm -- forward of the sensor row (y16+), clearly visible.
+_NOSE = [(20 + 9 * i, 3.5) for i in range(7)] + [(20 + 9 * i, 11.5) for i in range(7)]
+_IND_LEDS = [f"D{121+i}" for i in range(6)] + [f"D{131+i}" for i in range(8)]
+for _ref, (_x, _y) in zip(_IND_LEDS, _NOSE):
+    FIX[_ref] = (_x, _y, 0, False)
 
 g = PcbGen(NETLIST)
 g.setup_design_rules()
 g.LAYERS = [pcbnew.F_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.B_Cu]
-
-# ---- placements ----------------------------------------------------------------
-# copied SMD optic geometry (ref: (x, y, rot, flip))
-OPTICS = {
-    "D1": (21.43, 16.27, 90, False),  "D2": (78.57, 16.27, 90, False),
-    "D3": (16.972, 30.668, 45, False), "D4": (81.232, 28.872, -45, False),
-    "D5": (15.0, 45.47, 90, False),   "D6": (85.0, 42.93, -90, False),
-    "Q2": (30.95, 16.27, 90, False),  "Q3": (69.05, 16.27, 90, False),
-    "Q4": (13.4, 25.3, 135, False),   "Q5": (86.6, 25.3, 45, False),
-    "Q6": (15.0, 37.87, 90, False),   "Q7": (85.0, 35.33, -90, False),
-}
-for k in range(8):
-    OPTICS[f"LS{k+1}"] = (16.663 + 9.525 * k, 19.0, 90, True)
-
-P = {}   # ref -> (x, y, rot)
-P.update({r: (x, y, rot) for r, (x, y, rot, fl) in OPTICS.items()})
-
-# ---- v6: explicit bottom-face tables + measured-courtyard greedy packers ----
-# Bottom face budget: parts <= ~7mm tall (ride height). Horizontal axial R
-# (3.5mm), TO-92 (5.2mm), DO-35 (2.5mm), PS1240 piezo (7mm) qualify.
-ALL_R = ([f"R{101+i}" for i in range(8)] + [f"R{111+i}" for i in range(8)]
-         + [f"R{131+i}" for i in range(6)] + [f"R{141+i}" for i in range(6)]
-         + ["R61", "R62", "R63", "R64"]
-         + [f"R{151+i}" for i in range(6)] + [f"R{161+i}" for i in range(8)]
-         + ["R1", "R2", "R3", "R69", "R70", "R73", "R74", "R75", "R76",
-            "R77", "R78", "R10", "R65", "R81",
-            "R6", "R7", "R8", "R9", "R57", "R58"])
-R_SLOTS = ([(x, 28 + 4.4 * r) for r in range(10)
-            for x in (10, 24.5, 39, 53.5, 68, 82.5)
-            if (x, round(28 + 4.4 * r, 1)) not in
-               {(82.5, 50.0), (82.5, 63.2), (82.5, 67.6), (10, 67.6)}]
-           + [(x, y) for y in (98.5, 105.5) for x in (12.5, 26, 39.5, 53)]
-           + [(81, 112.5), (52, 90.5)])
-assert len(R_SLOTS) >= len(ALL_R), (len(R_SLOTS), len(ALL_R))
-BOT = {}
-for ref, (x, y) in zip(ALL_R, R_SLOTS):
-    BOT[ref] = (x, y, 0)
-_fets = ([f"Q{121+i}" for i in range(6)] + [f"Q{131+i}" for i in range(8)]
-         + ["Q16", "Q17", "Q18", "Q19", "Q35", "Q34"])
-F_SLOTS = ([(91, 28 + 5.6 * r) for r in range(4)]
-           + [(38 + 7.5 * k, 112.5) for k in range(5)]
-           + [(x, y) for y in (98.5, 105.5) for x in (67, 74.5, 82, 89.5)]
-           + [(23.5, 90.5), (31, 90.5), (38.5, 90.5)])
-assert len(F_SLOTS) >= len(_fets)
-for ref, (x, y) in zip(_fets, F_SLOTS):
-    BOT[ref] = (x, y, 0)
-BOT["D29"] = (30, 112.5, 0)
-BOT["BZ1"] = (50, 78, 0)
-P.update(BOT)
-
-# ---- top face fixed parts -----------------------------------------------------
-P.update({
-    # left strip (packed top-down by the greedy pass below): Q1/F1/C1
-    # power ranks + C column: packed below
-    "C2": (4.5, 44, 0), "C6": (4.5, 35, 0), "C19": (13, 8, 0),
-    "J8": (61, 40, 90),
-    "J11": (78.5, 50, 90), "J12": (78.5, 65.24, 90),
-    "SW2": (95, 105, 90),
-    "J5": (16, 72, 0), "J6": (77.5, 72, 0),
-    "J13": (31.0, 94.5, 90), "J14": (31.0, 117.36, 90),
-    "U4": (57, 113.4, 90),
-    "J10": (17.8, 100, 90), "J1": (16, 113.8, 0),
-    "J15": (25, 99, 0),
-    "SW5": (3.5, 99.2, 90), "SW6": (3.5, 113, 90),
-    "J9": (4.2, 19.6, 0),
-})
-# nose: 8 line-indicator LEDs, 2x4 grid
-for i in range(8):
-    P[f"D{131+i}"] = (38 + 5.7 * (i % 4), 4.5 if i < 4 else 10.2, 0)
-# mid rows packed after initial placement (see PACK below): wall LEDs + buttons
-for i in range(6):
-    P[f"D{121+i}"] = (52 + 5.7 * i, 51, 0)      # seed; PACK refines
-P.update({"SW1": (67, 51, 0), "SW3": (67, 60.5, 0), "SW4": (95, 115, 90)})
-# power parts seeds; PACK refines rank x-positions with measured widths
-P.update({
-    "Q1": (5.5, 47, 0), "F1": (4.5, 54, 0), "C1": (3.5, 60.5, 0),
-    "U1": (18, 52, 0), "L1": (29, 52, 0), "D30": (38, 52, 0),
-    "C5": (45.5, 47, 0), "C7": (45.5, 53.5, 0),
-    "U7": (18, 63, 0), "L2": (29, 63, 0), "D31": (38, 63, 0),
-    "C16": (45.5, 60, 0), "C17": (45.5, 66.5, 0),
-})
-
-# ---- build ---------------------------------------------------------------------
 g.add_outline(OUTLINE)
 for (hx, hy, hr) in board_geom.MOUNT_HOLES:
     g.add_mounting_hole((hx, hy), hr * 2)
 
-placed = 0
-for ref, (x, y, rot) in P.items():
-    flip = OPTICS.get(ref, (0, 0, 0, False))[3] or (ref in BOT)
+for ref, (x, y, rot, flip) in FIX.items():
     g.place(ref, x, y, rot=rot, flip=flip)
-    placed += 1
 
+# ---- overlap primitives (courtyard same-face + hole-bbox any-face) -----------
+def hole_bbox(fp):
+    xs, ys = [], []
+    for pad in fp.Pads():
+        if not pad.HasHole():
+            continue
+        p = pad.GetPosition()
+        r = MM(pad.GetDrillSize().x) / 2 + 0.35   # hole + hole-to-hole margin
+        xs += [MM(p.x) - r, MM(p.x) + r]
+        ys += [MM(p.y) - r, MM(p.y) + r]
+    if not xs:
+        bb = fp.GetBoundingBox(False)
+        return (MM(bb.GetLeft()), MM(bb.GetTop()), MM(bb.GetRight()), MM(bb.GetBottom()))
+    return (min(xs), min(ys), max(xs), max(ys))
 
-# ---- PACK: measured-courtyard greedy passes -----------------------------------
-def _bbox(ref):
+def cbb(fp):
+    return g._courtyard_bbox_mm(fp)
+
+def rects_hit(a, b, m=0.0):
+    return (a[0] < b[2] + m and a[2] > b[0] - m and
+            a[1] < b[3] + m and a[3] > b[1] - m)
+
+# cache (hole_bbox, courtyard_bbox, flip) of every FIXED/placed part; only the
+# candidate part's boxes are recomputed per trial -- collides() is then O(n),
+# not O(n * pads).
+_CACHE = []   # list of (hbb, cbb, flip)
+def cache_placed(ref):
     fp = g._placed[ref]
-    bb = fp.GetBoundingBox(False)
-    return (pcbnew.ToMM(bb.GetLeft()), pcbnew.ToMM(bb.GetTop()),
-            pcbnew.ToMM(bb.GetRight()), pcbnew.ToMM(bb.GetBottom()))
+    _CACHE.append((hole_bbox(fp), cbb(fp), fp.IsFlipped()))
 
-def _move(ref, x, y):
+for _r in FIX:
+    cache_placed(_r)
+
+def collides_boxes(fh, fc, ff):
+    for (ohb, ocb, ofl) in _CACHE:
+        if rects_hit(fh, ohb):
+            return True
+        if ff == ofl and rects_hit(fc, ocb, 0.35):   # > checker's 0.25 margin
+            return True
+    return False
+
+# ---- net-aware spiral auto-placement -----------------------------------------
+neigh = json.load(open(r"D:\tmp\tht_neigh.json"))
+AUTO = [r for r in neigh if r not in FIX]
+# most-constrained first: parts with the most already-fixed neighbours
+def n_fixed(r):
+    return sum(1 for x in neigh[r] if x in FIX)
+AUTO.sort(key=lambda r: -n_fixed(r))
+
+def anchor_xy(ref):
+    ps = [(MM(g._placed[x].GetPosition().x), MM(g._placed[x].GetPosition().y))
+          for x in neigh[ref] if x in g._placed]
+    if not ps:
+        return (50, 55)
+    return (sum(p[0] for p in ps) / len(ps), sum(p[1] for p in ps) / len(ps))
+
+placed_auto = 0
+failed_place = []
+for ref in AUTO:
+    ax, ay = anchor_xy(ref)
+    # place ONCE at the anchor (bottom face), extract geometry as Python rects
+    fp = g.place(ref, ax, ay, rot=0, flip=True)
+    cx0, cy0 = MM(fp.GetPosition().x), MM(fp.GetPosition().y)
+    holes0 = []
+    for pad in fp.Pads():
+        if pad.HasHole():
+            p = pad.GetPosition()
+            holes0.append((MM(p.x) - cx0, MM(p.y) - cy0,
+                           MM(pad.GetDrillSize().x) / 2 + 0.35))
+    if not holes0:
+        holes0 = [(0, 0, 0.5)]
+    c = cbb(fp)
+    cw, ch = (c[2] - c[0]) / 2, (c[3] - c[1]) / 2   # courtyard half-extents
+
+    def trial_boxes(x, y, rot90):
+        hs = [((-dy, dx, r) if rot90 else (dx, dy, r)) for (dx, dy, r) in holes0]
+        hx = [x + dx - r for dx, dy, r in hs] + [x + dx + r for dx, dy, r in hs]
+        hy = [y + dy - r for dx, dy, r in hs] + [y + dy + r for dx, dy, r in hs]
+        fh = (min(hx), min(hy), max(hx), max(hy))
+        w, h = (ch, cw) if rot90 else (cw, ch)
+        fc = (x - w, y - h, x + w, y + h)
+        return fh, fc
+
+    done = None
+    for radius in [r * 1.6 for r in range(0, 30)]:
+        steps = max(1, int(radius / 1.6) * 6)
+        for s in range(steps if radius else 1):
+            th = 2 * math.pi * s / max(1, steps)
+            x = round(ax + radius * math.cos(th), 2)
+            y = round(ay + radius * math.sin(th), 2)
+            if not inside(x, y):
+                continue
+            for rot in (0, 90):
+                fh, fc = trial_boxes(x, y, rot == 90)
+                if not collides_boxes(fh, fc, True):
+                    done = (x, y, rot, fh, fc)
+                    break
+            if done:
+                break
+        if done:
+            break
+    if done:
+        x, y, rot, fh, fc = done
+        fp.SetPosition(g._mm(x, y))
+        if rot:
+            fp.SetOrientation(pcbnew.EDA_ANGLE(rot, pcbnew.DEGREES_T))
+        _CACHE.append((fh, fc, True))
+        placed_auto += 1
+    else:
+        failed_place.append(ref)
+
+print(f"fixed {len(FIX)}, auto-placed {placed_auto}, FAILED {failed_place}")
+
+# ---- repair pass: drive check_overlaps -> 0 using the ACCURATE checker -------
+# HARD parts never move (geometry/ergonomics/edge); everything else can be
+# re-spiralled to a fresh clear spot.
+HARD = ({"D1","D2","D3","D4","D5","D6","Q2","Q3","Q4","Q5","Q6","Q7"}
+        | {r for r in FIX if r.startswith("J")} | {f"SW{i}" for i in range(1,7)}
+        | {"U1","U4","U7","L1","L2","Q16","Q17","Q18","Q19"})
+def real_boxes(ref):
     fp = g._placed[ref]
-    fp.SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(x), pcbnew.FromMM(y)))
-
-def pack_row(refs, x0, y, gap=0.6):
-    cur = x0
-    for r in refs:
-        x1, _, x2, _ = _bbox(r)
-        w = x2 - x1
-        fp = g._placed[r]
-        cx = pcbnew.ToMM(fp.GetPosition().x)
-        _move(r, cur + (cx - x1), y)
-        cur += w + gap
-    return cur
-
-def pack_col(refs, x, y0, gap=0.6):
-    cur = y0
-    for r in refs:
-        _, y1, _, y2 = _bbox(r)
-        h = y2 - y1
-        fp = g._placed[r]
-        cy = pcbnew.ToMM(fp.GetPosition().y)
-        _move(r, x, cur + (cy - y1))
-        cur += h + gap
-    return cur
-
-end1 = pack_col(["Q1", "F1", "C1"], 4.8, 49.0)          # left strip
-print(f"left strip ends y={end1:.1f}")
-end2 = pack_row(["U1", "L1", "D30", "C5"], 14, 52)      # 3V3 rank
-end3 = pack_row(["U7", "L2", "D31", "C16"], 14, 63.2)   # 6V rank
-print(f"power ranks end x={end2:.1f}/{end3:.1f}")
-_move("C7", end2 + 3.0, 52)
-_move("C17", end3 + 3.0, 63.2)
-end4 = pack_row([f"D{121+i}" for i in range(6)], 27, 70.8, gap=0.7)   # wall LEDs (waist row)
-print(f"wall LED row ends x={end4:.1f}")
-print("buttons at fixed column x70")
+    return (hole_bbox(fp), g._courtyard_boxes_mm(fp), fp.IsFlipped())
+def hits_any(ref, hb, cbs, fl):
+    for o, ofp in g._placed.items():
+        if o == ref:
+            continue
+        ohb = hole_bbox(ofp)
+        if rects_hit(hb, ohb):
+            return True
+        if fl == ofp.IsFlipped():
+            ocbs = g._courtyard_boxes_mm(ofp)
+            if any(rects_hit(a, b, 0.3) for a in cbs for b in ocbs):
+                return True
+    return False
+for it in range(40):
+    bad = g.check_overlaps(margin_mm=0.25)
+    if not bad:
+        print(f"repair: 0 overlaps after {it} iterations")
+        break
+    movable = [r for pr in bad for r in pr if r not in HARD]
+    if not movable:
+        print(f"repair STUCK: all {len(bad)} overlaps involve HARD parts: {bad[:8]}")
+        break
+    ref = max(set(movable), key=movable.count)   # the most-conflicting movable part
+    fp = g._placed[ref]
+    ax, ay = MM(fp.GetPosition().x), MM(fp.GetPosition().y)
+    moved = False
+    for radius in [r * 1.4 for r in range(1, 40)]:
+        for s in range(max(6, int(radius))):
+            th = 2 * math.pi * s / max(6, int(radius))
+            x = round(ax + radius * math.cos(th), 2)
+            y = round(ay + radius * math.sin(th), 2)
+            if not inside(x, y):
+                continue
+            fp.SetPosition(g._mm(x, y))
+            hb, cbs, fl = real_boxes(ref)
+            if not hits_any(ref, hb, cbs, fl):
+                moved = True
+                break
+        if moved:
+            break
+    if not moved:
+        print(f"repair: could not relocate {ref}")
+        break
 missing = g.unplaced_refs()
-print(f"placed {placed}; unplaced: {sorted(missing) if missing else 'NONE'}")
+print("unplaced:", sorted(missing) if missing else "NONE")
 
-# zones: GND on F/B/In1, PLUS3V3 on In2 (full board rect)
 RECT = [(1, 1), (99, 1), (99, 119), (1, 119)]
 g.add_zone("GND", pcbnew.F_Cu, RECT)
 g.add_zone("GND", pcbnew.B_Cu, RECT)
@@ -191,14 +274,7 @@ g.add_zone("GND", pcbnew.In1_Cu, RECT)
 g.add_zone("PLUS3V3", pcbnew.In2_Cu, RECT)
 
 g.assert_netlist_pads_mapped()
-for _r in ("J13", "J14", "J11", "J12", "J15", "J8", "SW5", "U4", "C2", "D5", "J6", "SW4"):
-    _fp = g._placed.get(_r)
-    if _fp:
-        _bb = _fp.GetBoundingBox(False)
-        print(f"  {_r}: x[{pcbnew.ToMM(_bb.GetLeft()):.1f},{pcbnew.ToMM(_bb.GetRight()):.1f}] "
-              f"y[{pcbnew.ToMM(_bb.GetTop()):.1f},{pcbnew.ToMM(_bb.GetBottom()):.1f}]")
-IGN = {frozenset(p) for p in (("D3", "Q4"), ("D3", "Q6"), ("D4", "Q5"), ("D4", "Q7"), ("J9", "Q4"))}
-bad = [pr for pr in g.check_overlaps(margin_mm=0.25) if frozenset(pr) not in IGN]
-print("overlaps:", bad if bad else "NONE")
+bad = g.check_overlaps(margin_mm=0.25)
+print("same-face courtyard overlaps:", len(bad) if bad else "NONE")
 g.save(BOARD)
 print("SAVED", BOARD)

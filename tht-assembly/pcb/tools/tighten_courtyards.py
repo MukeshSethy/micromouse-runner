@@ -20,7 +20,7 @@ See pcb/REQUIREMENTS.md MMSE-REM-1 / MMSE-REM-2.
 """
 import re, sys
 
-BOARD = r"D:\Projects\micromouse-pcb\pcb\micromouse-tht.kicad_pcb"
+BOARD = r"D:\Projects\micromouse-pcb\tht-assembly\pcb\micromouse-tht.kicad_pcb"
 EXCESS = 0.13  # mm, IPC-7351C "Least"
 # targets: optical parts (by value substring) + the flagged dense R/Q pairs (by ref)
 OPT_VALUES = ("IR333", "PT334", "TCRT5000")
