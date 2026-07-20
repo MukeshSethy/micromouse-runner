@@ -46,6 +46,23 @@ fab + parts kit + three robu modules). Solder bottom-face resistors first
 GPIO numbers are IDENTICAL to the SMD board (same S3 silicon); flash through
 the DevKit's own USB-C.
 
+## Placement (pre-routing, for review)
+
+> These are PLACEMENT renders (no traces yet) — routing + DRC follow. Wall
+> sensors sit on the perimeter facing outward with clear IR paths; indicators
+> are inboard behind them; all support parts + both RGB drivers + the buzzer
+> are on the bottom face.
+
+**Top** — sensors (perimeter), indicators (inboard), power block, DevKit +
+TB6612 sockets, buttons, RGB LEDs:
+
+![THT placement top](images/placement_top.png)
+
+**Bottom** — axial resistors, TO-92 transistors, buzzer, flyback diode:
+
+![THT placement bottom](images/placement_bottom.png)
+
 ## Status
 See the milestone log in git (`THT assembly M1..`): schematic ERC 0 →
-placement 0-overlap → routing → DRC gate → fab package.
+placement 0-overlap + optical-clear → routing → DRC gate → fab package.
+**Current: placement complete & optically verified; routing in progress.**
