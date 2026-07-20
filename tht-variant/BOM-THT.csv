@@ -1,0 +1,30 @@
+Function,SMD original (rev 7.2),THT replacement,THT MPN,Manufacturer,Lion status (2026-07-20),Notes
+Controller,ESP32-S3-WROOM-1-N8R2 (U3),Socketed DevKit,ESP32-S3-DEVKITC-1-N8R2,Espressif,In Stock,Plugs into 2x 22-pos female headers; brings its own USB-C (flash/console) and antenna
+Controller socket,-,2x 22-pos female header 2.54mm,PPTC221LFBN-RC,Sullins,In Stock,Qty 2
+3V3 logic buck,AP63203WU-7 (U1),TO-220-5 buck,LM2596T-3.3/NOPB,Texas Instruments,In Stock,150 kHz: needs 33 uH + catch schottky + bigger output cap (DESIGN.md)
+6V motor buck,TPS54302DDCR (U7),TO-220-5 adj buck,LM2596T-ADJ/NOPB,Texas Instruments,In Stock,FB divider sets 6.0 V; same 33 uH + schottky + bulk cap recipe
+Buck inductors,SRP4020TA-4R7M (L1/L2),Radial power inductor 33uH,RLB0914-330KL,Bourns,Family In Stock (4R7 slug verified),Exact 33 uH slug to confirm in Lion BOM tool
+Buck catch diodes,-(sync bucks had none),Axial schottky 3A,1N5822,onsemi/Vishay,VERIFY at order,One per LM2596; any 3 A / 40 V schottky
+Motor driver,TB6612FNG (U2),Breakout module on headers,TB6612FNG breakout (robu SKU),robu.in,customer-supplied (~Rs.150),Keeps IN/IN fw + 6 V rail; two 1x8 female headers PPTC081LFBN-RC (In Stock)
+IMU,BNO055 LGA (U8),Breakout on 1x8 header,GY-BNO055 (robu),robu.in,customer-supplied (~Rs.700),Same 0x28 I2C + INT; header PPTC081LFBN-RC In Stock
+Analog mux,CD74HC4067M96 (U4),2x DIP-16 8:1 mux,CD74HC4067E or 2x CD74HC4051E,Texas Instruments,catalog page OOS - Lion procures (jellybean),Dual-4051 needs one 2N7000 bank-enable inverter (DESIGN.md)
+USB ESD,USBLC6-2SC6 (U6),DELETED,-,-,-,USB lives on the DevKit; board has no USB connector
+USB connector,USB4105 USB-C (J7),DELETED,-,-,-,Flash via the DevKit's own USB-C
+Reverse P-FET,DMP3098L-7 (Q1),TO-220 P-FET,IRF9540NPBF,Infineon,In Stock,Vgs +/-20 V 2S-safe; -23 A overkill margin
+NMOS gates (emitters/line),BSS138LT1G (Q2-Q26 class),TO-92 NMOS,2N7000,onsemi,In Stock,Vgs(th) max 3 V - fine at 3.3 V gate for <=100 mA banks
+PMOS indicators,BSS84LT1G (Q28-Q33),TO-92 PMOS,BS250P,Diotec/Vishay,In Stock,
+Buzzer driver NPN,MMBT2222A-7-F (Q34),TO-92 NPN,PN2222A,onsemi,In Stock,
+Buzzer,CMT-8504-100-SMT (BZ1),THT piezo 12.5mm,PS1240P02BT,TDK,In Stock,Piezo: quieter (~70dB) but zero coil current; keep NPN drive; flyback optional
+Flyback diode,1N4148W-7-F (D29),Axial diode,1N4148,onsemi/Vishay,In Stock,
+PPTC fuse,MINISMDC350F/16-2 (F1),Radial PPTC 3A/6A,RUEF300,Littelfuse,In Stock,Robu motor stall 0.23 A - margins huge; radial leaded
+Resistors (all values),RC0805FR-07xxx,Axial 1/4W 1%,CFR-25JB-52-xxx / MFR-25 series,Yageo,Family In Stock (10K slug verified),Every rev-7.2 E24 value exists in the family
+100nF ceramics,CL21B104KBCNNNC,Radial MLCC,K104K15X7RF5TL2,Vishay,In Stock,
+1uF ceramics,CL21B105KAFNNNE,Radial MLCC,FG28X7R1E105KRT06,TDK,In Stock,25 V X7R
+10uF caps,CL21A106/CL32B106,Radial electrolytic 25V,ECA-1EM100,Panasonic,In Stock,
+22uF caps,CL21A226/CL32A226,Radial electrolytic 25V,ECA-1EM220,Panasonic,In Stock,LM2596 outputs use 220uF instead (next line)
+220uF bulk (+LM2596 outs),EEE-FT1C221AP (C30),Radial electrolytic 16V+,EEU-FR1C221,Panasonic,In Stock,Qty 3 (motor bulk + 2 buck outputs)
+Indicator LEDs,APT1608SURCK 0603 (D15-28),3mm THT red,WP710A10ID,Kingbright,In Stock,
+Slide switches,PCM12SMTR (SW5/SW6),THT slide SPDT,EG1218,E-Switch,In Stock,200 mA switch: gates EN pins only (logic-level) - fine
+Tact switches,PTS645VL582LFS (SW1-SW4),UNCHANGED (already THT),PTS645VL582LFS,C&K,In Stock,
+Battery/motor/JTAG connectors,J1/J5/J6/J8/J9/J10,UNCHANGED (already THT),B2B-XH-A / B6B-ZR(LF)(SN) / 61300611121 / B3B-XH-A(LF)(SN) / XT60-M,JST/Wurth/AMASS,In Stock (XT60 page OOS - Lion procures),Identical to rev 7.2 incl. ONE PACK ONLY rule
+Wall/line optics,IR333-A / PT334-6B / TCRT5000,UNCHANGED (already THT),IR333-A / PT334-6B / TCRT5000,Everlight/Vishay,In Stock,Sensor geometry carries over unchanged

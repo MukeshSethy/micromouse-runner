@@ -810,3 +810,16 @@ gerber package in pcb/fab_release is the rev-7.2 orderable set.
    (U1-U8, J1-J9, SW1-SW6, F1, Q1, BZ1) where clear space exists; verify no
    silk_over_copper/overlap warnings return. BOARD_STATE.md already maps
    every ref -> position as the text fallback.
+
+## 19. THT VARIANT PROJECT (user request 2026-07-20) -- see tht-variant/
+
+A separate self-solderable edition: every board part THT, bare-PCB fab only
+(no assembly service). Engineering package COMPLETE and Lion-verified
+(tht-variant/{README,DESIGN,ORDERING}.md + BOM-THT.csv): socketed
+ESP32-S3-DevKitC-1-N8R2 (In Stock at Lion; brings its own USB-C -> the whole
+J7/U6/CC/VBUS cluster is deleted), TB6612 + BNO055 breakouts on female
+headers (DIP H-bridges rejected with analysis: SN754410 needs a 5V rail,
+L298 saturation robs the 6V rail), LM2596 TO-220 bucks, DIP muxes, TO-92
+FETs/BJT, axial/radial passives, radial PPTC. LAYOUT NOT STARTED -- that is
+its own session (DESIGN.md section 8 is the exact TODO; reuse the free-rect
+scanner + optical keepouts + all gates; must end at verify_drc 0/0).

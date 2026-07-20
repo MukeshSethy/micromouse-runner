@@ -17,6 +17,8 @@ verified sensor geometry, and a fully script-generated, fully autorouted design.
 > silk refdes + assembly-PDF debug maps. Production folders for **Lion
 > Circuits** and **JLCPCB**: [`pcb/fab_release/`](pcb/fab_release/). Formal
 > per-requirement status: [`pcb/REQUIREMENTS.md`](pcb/REQUIREMENTS.md).
+> A **self-solderable all-THT edition** is chartered as a separate project:
+> [`tht-variant/`](tht-variant/) (Lion-verified THT BOM + architecture; layout pending).
 
 **Top** — sensors, module, connectors (motor plugs go straight into J5/J6):
 
