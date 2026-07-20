@@ -15,18 +15,20 @@ verified sensor geometry, and a fully script-generated, fully autorouted design.
 > **buzzer on IO46**, **JST-ZH motor connectors** (the robu GA12-N20 factory
 > plug goes straight in — zero soldering), optional balance lead, selective
 > silk refdes + assembly-PDF debug maps. Production folders for **Lion
-> Circuits** and **JLCPCB**: [`pcb/fab_release/`](pcb/fab_release/). Formal
-> per-requirement status: [`pcb/REQUIREMENTS.md`](pcb/REQUIREMENTS.md).
-> A **self-solderable all-THT edition** is chartered as a separate project:
-> [`tht-variant/`](tht-variant/) (Lion-verified THT BOM + architecture; layout pending).
+> Circuits** ([`pcb/LionCircuit_4layers/`](pcb/LionCircuit_4layers/)) and
+> **JLCPCB** ([`pcb/JLCPCB_4layers/`](pcb/JLCPCB_4layers/)). A leaner
+> **2-layer, fully JLC-assemblable** edition (line sensors removed) is under
+> construction at [`pcb/JLCPCB_2layers/`](pcb/JLCPCB_2layers/). Each project
+> folder is self-contained: `design/`, `production/`, `fw/`, `simulation/`,
+> `images/`.
 
 **Top** — sensors, module, connectors (motor plugs go straight into J5/J6):
 
-![PCB top](images/render_top.png)
+![PCB top](pcb/LionCircuit_4layers/images/render_top.png)
 
 **Bottom** — ground pour, USB ESD cluster, button-side routing:
 
-![PCB bottom](images/render_bottom.png)
+![PCB bottom](pcb/LionCircuit_4layers/images/render_bottom.png)
 
 ## The board (rev 7)
 
