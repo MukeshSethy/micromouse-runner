@@ -197,7 +197,7 @@ def LM2596(ref, value, at, n_out_sw, n_fb, n_en):
 # 3V3 rail
 LM2596("U1", "LM2596T-3.3 (TO-220-5)", (30, 70), "SW_3V3", "PLUS3V3", "PWR_EN")
 DIODE("D30", "1N5822 (catch)", (52, 78), "SW_3V3", "GND",
-      fp="Diode_THT:D_DO-201AD_P12.70mm_Horizontal")
+      fp="Diode_THT:D_DO-201AD_P5.08mm_Vertical_CathodeUp")
 L1B = snap((62, 70))
 g.add_component("Device", "L", "L1", "33uH 3A radial", L1B, {"1": "", "2": ""},
                 footprint="Inductor_THT:L_Radial_D9.5mm_P5.00mm_Fastron_07HVP")
@@ -219,7 +219,7 @@ PWR("GND", pin_at(SW5B, (5.08, -2.54)))
 # 6V rail (ADJ: Vout = 1.23 * (1 + R73/R74) = 6.03V with 3.9k/1k)
 LM2596("U7", "LM2596T-ADJ -> 6.0V (TO-220-5)", (30, 100), "SW_6V", "FB_6V", "MOT_EN")
 DIODE("D31", "1N5822 (catch)", (52, 108), "SW_6V", "GND",
-      fp="Diode_THT:D_DO-201AD_P12.70mm_Horizontal")
+      fp="Diode_THT:D_DO-201AD_P5.08mm_Vertical_CathodeUp")
 L2B = snap((62, 100))
 g.add_component("Device", "L", "L2", "33uH 3A radial", L2B, {"1": "", "2": ""},
                 footprint="Inductor_THT:L_Radial_D9.5mm_P5.00mm_Fastron_07HVP")
@@ -346,9 +346,9 @@ HEF4067_PINS = {
     "Y10": (12.7, -7.62), "Y9": (12.7, -5.08), "Y8": (12.7, -2.54), "VDD": (0, 25.4),
 }
 U4B = snap((40, 395))
-g.add_component("74xx", "CD74HC4067M", "U4", "CD74HC4067E (DIP-24 in socket)", U4B,
+g.add_component("74xx", "CD74HC4067M", "U4", "CD74HC4067E (DIP-24, soldered flat -- sits under the DevKit)", U4B,
                 {str(n): "" for n in range(1, 25)},
-                footprint="Package_DIP:DIP-24_W15.24mm_Socket",
+                footprint="Package_DIP:DIP-24_W15.24mm",
                 datasheet="https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf")
 _mux_net = {"Z": "MUX_SENSE", "A0": "MUX_S0", "A1": "MUX_S1", "A2": "MUX_S2",
             "A3": "MUX_S3", "VDD": "PLUS3V3", "VSS": "GND", "E": "GND",
