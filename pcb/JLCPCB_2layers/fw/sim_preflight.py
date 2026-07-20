@@ -22,7 +22,7 @@ import re
 import sys
 
 FW = os.path.dirname(os.path.abspath(__file__))
-NET = open(os.path.join(FW, "..", "pcb", "netlist.net"), encoding="utf-8").read()
+NET = open(os.path.join(FW, "..", "design", "netlist.net"), encoding="utf-8").read()
 PINS = open(os.path.join(FW, "micromouse", "pins.h"), encoding="utf-8").read()
 INO = open(os.path.join(FW, "micromouse", "micromouse.ino"), encoding="utf-8").read()
 FAILS = []
@@ -67,22 +67,25 @@ check(vs <= 3.3, "worst-case VBUS (5.25V) sense within ADC range",
       f"{r67/1e3:.0f}k/{r68/1e3:.0f}k -> {vs:.2f} V")
 
 print("S1 all analog inputs on ADC1 (GPIO1-10; ADC2 dies with WiFi)")
+# 2-layer: 6 wall channels + the 3 DIRECT-ADC telemetry taps (mux removed).
 analog = ["PIN_WALL1_SENSE", "PIN_WALL2_SENSE", "PIN_WALL3_SENSE",
           "PIN_WALL4_SENSE", "PIN_WALL5_SENSE", "PIN_WALL6_SENSE",
-          "PIN_MUX_SENSE"]
+          "PIN_VBAT_SENSE", "PIN_BATMID_SENSE", "PIN_VBUS_SENSE"]
 declared = dict(re.findall(r"#define\s+(PIN_\w+)\s+(\d+)", PINS))
 bad = [(a, declared.get(a)) for a in analog
        if not (declared.get(a) and 1 <= int(declared[a]) <= 10)]
-check(not bad, "7 analog channels all on ADC1",
-      "WALL1-6 + MUX_SENSE on GPIO " + ",".join(declared[a] for a in analog))
+check(not bad, "9 analog channels all on ADC1",
+      "WALL1-6 + VBAT/BATMID/VBUS on GPIO " + ",".join(declared[a] for a in analog))
 
-print("S2 mux settling vs scan slot")
-# worst source: TCRT collector 47k pull-up + CD74HC4067 Ron ~125R into the
-# S3 ADC sampling cap (~10 pF): tau ~ 0.47 us; 5-tau settle ~ 2.4 us.
-tau_us = (47e3 + 125) * 10e-12 * 1e6
+print("S2 telemetry-divider settling vs ADC sample slot")
+# 2-layer: no mux. Worst source impedance is the VBAT divider 100k||39k ~= 28k
+# into the S3 ADC sampling cap (~10 pF): tau ~ 0.28 us; 5-tau settle ~ 1.4 us,
+# far inside any read cadence -- and the fw reads telemetry at <=10 Hz.
+r_src = 100e3 * 39e3 / (100e3 + 39e3)
+tau_us = (r_src + 125) * 10e-12 * 1e6
 slot_us = 1e6 / 500 / 2            # 500 Hz loop, conservative half-slot per read
-check(5 * tau_us < slot_us, "5-tau mux settle fits the ADC slot",
-      f"{5*tau_us:.1f} us << {slot_us:.0f} us")
+check(5 * tau_us < slot_us, "5-tau divider settle fits the ADC slot",
+      f"{5*tau_us:.1f} us << {slot_us:.0f} us (source ~{r_src/1e3:.0f}k)")
 
 print("M1 PWM frequency vs TB6612")
 m = re.search(r"PWM_FREQ\s*=\s*(\d+)", INO)

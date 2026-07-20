@@ -193,6 +193,25 @@ def main():
   -> board reboots into the application (release A first!)"""
     print(session)
 
+    # ---------------- stage 6: on-chip debug capability --------------------
+    print("\nSTAGE 6 -- on-chip debug (native USB-Serial-JTAG, no probe/header)")
+    # The SAME D+/D- path verified in stage 2 also carries the JTAG TAP: the
+    # ESP32-S3 USB-Serial-JTAG peripheral exposes BOTH a CDC UART and a JTAG
+    # endpoint to OpenOCD over the one USB-C cable.
+    check(has(nets, "USB_DM", "U3", "13") and has(nets, "USB_DP", "U3", "14"),
+          "JTAG TAP rides native USB (IO19/IO20) -> gdb/OpenOCD over USB-C",
+          "no external JTAG probe, no board JTAG header (J8 removed on 2-layer)")
+    # The removed JTAG-header GPIOs must be genuinely FREE (NC), not miswired to
+    # a signal that would clash with the internal TAP or a strap.
+    for io in (39, 40, 41, 42):
+        free = any(("U3-IO%d-" % io) in n for n in nets)
+        check(free, "former JTAG-header pin IO%d is NC (free)" % io,
+              "no conflict with the internal TAP")
+    # CDC console coexists: Serial.begin() in the fw = printf debugging too.
+    print("  -> `openocd -f board/esp32s3-builtin.cfg` then")
+    print("     `xtensa-esp32s3-elf-gdb app.elf -ex 'target remote :3333'`")
+    print("     attach over the SAME USB-C cable that flashes; CDC console live.")
+
     print("\n" + "=" * 72)
     if FAIL:
         print(f"FLASH-PATH SIM: {len(FAIL)} FAILURE(S):")

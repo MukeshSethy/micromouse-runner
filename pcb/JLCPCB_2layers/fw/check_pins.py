@@ -8,10 +8,10 @@ agree for every pin used by the firmware.
 import re
 import sys
 
-BASE = r"D:\Projects\micromouse-pcb"
+BASE = r"D:\Projects\micromouse-pcb\pcb\JLCPCB_2layers"
 pins_h = open(BASE + r"\fw\micromouse\pins.h", encoding="utf-8").read()
-netlist = open(BASE + r"\pcb\netlist.net", encoding="utf-8").read()
-sch = open(BASE + r"\pcb\tools\build_schematic.py", encoding="utf-8").read()
+netlist = open(BASE + r"\design\netlist.net", encoding="utf-8").read()
+sch = open(BASE + r"\design\tools\build_schematic.py", encoding="utf-8").read()
 
 # pad -> net from the netlist
 pad_net = {}
@@ -35,14 +35,16 @@ EXPECT = {
     "PIN_WALL1_SENSE": "WALL1_SENSE", "PIN_WALL2_SENSE": "WALL2_SENSE",
     "PIN_WALL3_SENSE": "WALL3_SENSE", "PIN_WALL4_SENSE": "WALL4_SENSE",
     "PIN_WALL5_SENSE": "WALL5_SENSE", "PIN_WALL6_SENSE": "WALL6_SENSE",
-    "PIN_MUX_SENSE": "MUX_SENSE",
+    # 2-layer: battery / bus telemetry moved off the mux onto direct ADC1
+    "PIN_VBAT_SENSE": "VBAT_SENSE", "PIN_BATMID_SENSE": "BAT_MID_SENSE",
+    "PIN_VBUS_SENSE": "VBUS_SENSE",
     "PIN_AIN1": "AIN1", "PIN_AIN2": "AIN2",
     "PIN_BIN1": "BIN1", "PIN_BIN2": "BIN2",
-    "PIN_MUX_S0": "MUX_S0", "PIN_MUX_S1": "MUX_S1", "PIN_MUX_S2": "MUX_S2",
-    "PIN_MUX_S3": "MUX_S3",
     "PIN_IMU_SDA": "IMU_SDA", "PIN_IMU_SCL": "IMU_SCL", "PIN_IMU_INT": "IMU_INT",
     "PIN_EMIT_FRONT": "WALL_EMIT_FRONT", "PIN_EMIT_DIAG": "WALL_EMIT_DIAG",
-    "PIN_EMIT_SIDE": "WALL_EMIT_SIDE", "PIN_EMIT_LINE": "LINE_EMIT",
+    "PIN_EMIT_SIDE": "WALL_EMIT_SIDE",
+    # 2-layer: ESP-driven indicators
+    "PIN_STATUS_LED": "STATUS_LED", "PIN_RGB_DATA": "RGB_DATA",
     "PIN_ENC1_A": "ENC1_A", "PIN_ENC1_B": "ENC1_B",
     "PIN_ENC2_A": "ENC2_A_S3", "PIN_ENC2_B": "ENC2_B_S3",
     "PIN_BUZZER": "BUZZ_CTRL",
