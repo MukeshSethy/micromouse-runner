@@ -44,7 +44,10 @@ NOTCH_Y2 = AXLE_Y + WHEEL_DIA / 2      # 100
 # wheel (0.75mm -> ~3.5mm clearance). U3 + the antenna ribbon keepout move to
 # match. (Full dead-centre would need relocating the buzzer that packs the
 # rear-centre; this is the max shift the buzzer allows.)
-ANT_NOTCH_X1, ANT_NOTCH_X2, ANT_NOTCH_Y = 27.65, 48.35, 113.8
+# Centred (2-layer, user): ESP fully centred on the board, antenna notch dead-
+# centre. Buzzer + USB-C + indicator LEDs relocated off the centre-rear to free
+# it, using the space freed by removing the line array + mux.
+ANT_NOTCH_X1, ANT_NOTCH_X2, ANT_NOTCH_Y = 39.65, 60.35, 113.8
 BOARD_OUTLINE = [
     (CHAMF, 0), (BOARD_W - CHAMF, 0), (BOARD_W, CHAMF),
     (BOARD_W, NOTCH_Y1), (FACE_R, NOTCH_Y1), (FACE_R, NOTCH_Y2), (BOARD_W, NOTCH_Y2),

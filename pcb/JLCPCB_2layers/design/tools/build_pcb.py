@@ -344,18 +344,18 @@ g.place("R67", 43, 108, flip=True); g.place("R68", 47, 108, flip=True)  # VBUS s
 # overhangs the outline anywhere (gated below). Rear-left column: JTAG,
 # motor-A connector, battery + balance connectors, both power slides.
 # ---------------------------------------------------------------------------
-g.place("U3", 38.0, 106.7, rot=180)            # +2.75mm toward centre (user): off the left wheel; antenna still spans the (shifted) notch, tip inside 100x120
+g.place("U3", 50.0, 106.7, rot=180)            # CENTRED (user): antenna spans the centred notch; clears both wheels by ~8mm
 # Module decoupling + EN RC on TOP in the mid-band (bottom-rear stays clear
 # -- it is the rear cluster's only routing plane).
 # ESP decoupling -> BOTTOM face under U3 (the module shifted +2.75mm and the
 # buzzer blocks the top-face gap on its right; underside is the short path).
-g.place("C8", 32, 108, rot=90, flip=True); g.place("C10", 32, 104, flip=True)
+g.place("C8", 46, 103, rot=90, flip=True); g.place("C10", 54, 103, flip=True)  # under centred U3 (bottom)
 g.place("R11", 34, 60); g.place("C9", 40, 60)
 
 # USB-C: mouth FLUSH with the rear edge (user req: no part outside the board
 # dimensions). Place at the designed-overhang spot, then pull back so the
 # courtyard's max-y sits at 119.9 -- programmatic flushness, not eyeballed.
-g.place("J7", 54, 116.9, rot=0)
+g.place("J7", 70, 116.9, rot=0)                # USB-C -> rear-RIGHT (off the centred ESP antenna notch)
 _j7 = g._placed["J7"]
 _j7bb = _j7.GetCourtyard(pcbnew.F_CrtYd).BBox()
 _over = pcbnew.ToMM(_j7bb.GetBottom()) - 119.9
@@ -365,7 +365,7 @@ if _over > 0:
     print(f"J7 pulled back {_over:.2f}mm -> mouth flush at the rear edge")
 # USB support (bottom). Rev 6: D+/D- run DIRECT from the module to the ESD
 # array to the connector (no 22R -- Espressif S3 reference practice).
-g.place("U6", 54, 106, flip=True)              # ESD (bottom)
+g.place("U6", 64, 112, flip=True)              # USB ESD (bottom) -> near the relocated J7
 # CC pulldowns (bottom): MUST stay OUT of the USB-C escape zone
 # (x 50-58, y 108-112) -- at (52.9,110.5) R56 boxed every D-/VBUS inner-layer
 # dive (HANDOFF 6.2). East of the zone, clear of SW2's THT holes.
@@ -400,18 +400,18 @@ for _ref, _lbl in BTN_LABELS:
 # bodies at x13-46 / x54-87) so the motor connectors J5/J6 sit SYMMETRICALLY
 # forward of it (user request). Decoupling rides underneath (bottom).
 g.place("U2", 50, 78, rot=0)
-g.place("C30", 61, 84, value="220uF/16V")          # alu bulk, top, near U2/VM
-g.place("C11", 46, 78, flip=True, value="10uF/25V")  # under U2 (bottom)
-g.place("C12", 54, 78, flip=True, value="100nF")
+g.place("C30", 50, 87, value="220uF/16V")          # alu bulk -> motor-bay corridor behind U2 (clear of U3 + motors)
+g.place("C11", 50, 72, flip=True, value="10uF/25V")  # corridor, forward of U2 (bottom)
+g.place("C12", 50, 84, flip=True, value="100nF")     # corridor, behind U2 (bottom)
 g.place("C14", 60, 60, flip=True, value="100nF")
-g.place("J5", 33, 70, rot=0)                 # motor A (rev 7: forward; 4.1mm motor-body gap)
-g.place("J6", 67, 70, rot=0)                 # motor B -- symmetric mirror of J5 (x=100-33=67), same y, inboard (user request)
+g.place("J5", 33, 70, rot=0)                 # motor A (forward move blocked by the dense mid-row passives)
+g.place("J6", 67, 70, rot=180)               # motor B -- TRUE mirror of J5 (rot 180 so the body mirrors, not just the placement point)
 # Encoder pull-ups/guards + strap pull-down + STBY tie: TOP mid-band rows
 g.place("R6", 22, 66); g.place("R7", 28, 66)     # ENC1 pullups
 g.place("R8", 40, 47); g.place("R9", 44, 47)     # ENC2 pullups (moved: IMU owns y54-66 center)
-g.place("R57", 54, 98); g.place("R58", 58, 98)   # ENC2 guards (rear corridor, near the module pads)
+g.place("R57", 44, 100); g.place("R58", 56, 100)   # ENC2 guards -> flank the centred U3 (off the buzzer)
 g.place("R65", 40, 66)                           # BIN2 strap pulldown
-g.place("R55", 57, 68)                           # STBY tie-high (10k to 3V3), west of U2
+g.place("R55", 52, 68)                           # STBY tie-high (10k to 3V3) -- moved clear of the mirrored J6
 
 # Battery + balance + power slides, rear-left (all left of the antenna notch
 # x<24.9; slide actuators face the rear edge for finger access)
@@ -459,7 +459,7 @@ _u3.Add(_close)
 for _z in list(_u3.Zones()):
     _u3.Remove(_z)
     _stripped += 1
-g.add_keepout((33.75, 111.8, 41.75, 113.8), allow_tracks=False, allow_footprints=True)  # +2.75mm with U3
+g.add_keepout((46.0, 111.8, 54.0, 113.8), allow_tracks=False, allow_footprints=True)  # centred with U3
 print(f"U3 courtyard+zone pieces stripped: {_stripped} (precise ribbon keepout added; missing_courtyard=ignore)")
 
 # --- Sanity + planes + save ---
@@ -505,21 +505,35 @@ def shrink(points, amount):
 
 # Buzzer cluster + XT60: hand-placed in the frozen 4-layer board (build_pcb.py
 # never placed them), so restore those exact positions here.
-g.place("BZ1", 52.2, 98.5, rot=0)
-g.place("Q34", 59.5, 102.3, rot=180)
-g.place("R81", 58.5, 96.5, rot=-90)
-g.place("D29", 61.2, 97.6, rot=90)
+# Buzzer cluster -> forward-left (off the centred ESP), using freed space.
+g.place("BZ1", 22, 46, rot=0)
+g.place("Q34", 29, 48, rot=180)
+g.place("R81", 15, 46, rot=-90)
+g.place("D29", 29, 43, rot=90)
 g.place("J10", 85.68, 104.8, rot=0)
 
 # 2-layer additions: power/status/RGB LEDs + passives (user request), in the
 # rear band between the buzzer (x<62) and the XT60 (x~86), top face. Positions
 # PROVISIONAL -- refined after the placement render review.
-g.place("D30", 60, 110)     # power LED (logic rail / SW5)
-g.place("R82", 60, 107)
-g.place("D33", 66, 110)     # motor-power LED (VM_6V / SW6)  <-- new
-g.place("R84", 66, 107)
-g.place("D31", 72, 110)     # status LED (IO12)
-g.place("R83", 72, 107)
+# Indicator LEDs -> rear-LEFT (freed by centring the ESP), a clean row.
+g.place("D30", 26, 110)     # power LED (logic rail / SW5)
+g.place("R82", 26, 106)
+g.place("D33", 32, 110)     # motor-power LED (VM_6V / SW6)
+g.place("R84", 32, 106)
+g.place("D31", 38, 110)     # status LED (IO12)
+g.place("R83", 38, 106)
+
+# Function names on silk for every LED (user request). Placed just below each
+# LED. RGB label sits above it (its cap is to the left).
+for _ref, _lbl, _dy in (("D30", "PWR", 2.6), ("D33", "MOT", 2.6),
+                        ("D31", "STAT", 2.6), ("D32", "RGB", -3.2)):
+    if _ref in g._placed:
+        _p = g._placed[_ref].GetPosition()
+        g.add_silk_text(_lbl, (pcbnew.ToMM(_p.x), pcbnew.ToMM(_p.y) + _dy), size_mm=1.0)
+# J9 balance tap is OPTIONAL to connect (user) -- mark it on silk.
+if "J9" in g._placed:
+    _p = g._placed["J9"].GetPosition()
+    g.add_silk_text("BAL (OPT)", (pcbnew.ToMM(_p.x), pcbnew.ToMM(_p.y) - 3.4), size_mm=0.85)
 g.place("D32", 50, 20)      # WS2812B RGB -> front-center, visible (user request)
 g.place("C31", 44, 20)
 
