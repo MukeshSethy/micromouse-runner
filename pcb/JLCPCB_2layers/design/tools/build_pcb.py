@@ -307,7 +307,7 @@ g.place("R75", 28, 63, flip=True); g.place("R76", 32, 63, flip=True)  # BAT_MID 
 g.place("C19", 36, 63, flip=True)
 
 # --- 3V3 buck block (AP63203): tight SW loop, inductor beside the IC ---
-g.place("C4", 57, 50.5, value="10uF/25V")      # VIN cap at the pin
+g.place("C4", 55, 49, value="10uF/25V")        # VIN cap (nudged clear of U1 corner)
 g.place("U1", 61, 54)                          # AP63203 (TSOT-26)
 g.place("C3", 63.5, 48.5, value="100nF")       # BST
 g.place("L1", 66, 53.5, value="4.7uH")        # SRP4020TA
@@ -506,10 +506,14 @@ def shrink(points, amount):
 # Buzzer cluster + XT60: hand-placed in the frozen 4-layer board (build_pcb.py
 # never placed them), so restore those exact positions here.
 # Buzzer cluster -> forward-left (off the centred ESP), using freed space.
-g.place("BZ1", 22, 46, rot=0)
-g.place("Q34", 29, 48, rot=180)
-g.place("R81", 15, 46, rot=-90)
-g.place("D29", 29, 43, rot=90)
+# Buzzer cluster -> BOTTOM face, front-centre. The top face has ZERO clear
+# 9mm spots (dense), but removing the line array left the whole bottom-front
+# open, so the 8.5mm buzzer gets ample margin here (magnetic transducer -- fine
+# radiating from the underside). Driver rides beside it on the bottom.
+g.place("BZ1", 48, 24, rot=0, flip=True)
+g.place("Q34", 58, 22, rot=180, flip=True)
+g.place("R81", 62, 22, rot=-90, flip=True)
+g.place("D29", 58, 27, rot=90, flip=True)
 g.place("J10", 85.68, 104.8, rot=0)
 
 # 2-layer additions: power/status/RGB LEDs + passives (user request), in the

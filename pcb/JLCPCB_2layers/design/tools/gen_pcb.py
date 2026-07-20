@@ -384,8 +384,20 @@ class PcbGen:
     def _courtyard_bbox_mm(self, fp):
         courtyard_layer = "B.Courtyard" if fp.GetLayerName() == "B.Cu" else "F.Courtyard"
         boxes = [gi.GetBoundingBox() for gi in fp.GraphicalItems() if gi.GetLayerName() == courtyard_layer]
-        if not boxes:
-            boxes = [fp.GetBoundingBox()]
+        # Some library parts (e.g. the CUI magnetic buzzer) ship a DEGENERATE
+        # courtyard -- a single point / near-zero area -- which silently made
+        # the overlap check skip them (the buzzer buried under 9 parts and was
+        # never flagged). Treat a courtyard smaller than the pad extent as
+        # missing and fall back to the footprint body bbox.
+        def _area(bb):
+            return pcbnew.ToMM(bb.GetWidth()) * pcbnew.ToMM(bb.GetHeight())
+        pad_bb = None
+        try:
+            pad_bb = fp.GetBoundingBox(False, False)   # pads+edges, no text
+        except TypeError:
+            pad_bb = fp.GetBoundingBox()
+        if not boxes or max(_area(b) for b in boxes) < 0.5 * _area(pad_bb):
+            boxes = [pad_bb]
         x1 = min(pcbnew.ToMM(b.GetLeft()) for b in boxes)
         y1 = min(pcbnew.ToMM(b.GetTop()) for b in boxes)
         x2 = max(pcbnew.ToMM(b.GetRight()) for b in boxes)
@@ -413,7 +425,11 @@ class PcbGen:
             # C&K OS102011 slide switch draws B.Courtyard on an F.Cu part);
             # an opposite-side courtyard still beats the padded-bbox fallback
             out = pieces(other)
-        if not out:
+        # degenerate courtyard (near-zero-area pieces, e.g. the CUI buzzer) ->
+        # fall back to the real footprint body so the overlap check guards it
+        def _a(bx):
+            return max(0.0, bx[2] - bx[0]) * max(0.0, bx[3] - bx[1])
+        if not out or max(_a(b) for b in out) < 1.0:
             out = [self._courtyard_bbox_mm(fp)]
         return out
 
