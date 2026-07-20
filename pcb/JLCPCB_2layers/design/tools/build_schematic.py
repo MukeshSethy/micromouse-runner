@@ -1115,6 +1115,13 @@ for _gref, _gate, _knet, _gx in ((None, "WALL_EMIT_FRONT", "EMIT_FRONT_K", 250),
 # LINE-SENSOR INDICATOR LEDs removed with the line array (2-layer edition):
 # the 8 D15-D22 / Q20-Q27 / R41-R48 per-line indicators are gone. Wall-sensor
 # indicators (below) are retained -- they serve the wall sensors that stay.
+#
+# Re-seed the ref counters so the RETAINED wall indicators keep their 4-layer
+# numbers (Q28-33, D23-28, R49-54) even though the line indicators that used to
+# precede them are gone -- so the proven build_pcb.py placements carry over.
+_ctr["Q"] = 27
+_ctr["D"] = 22
+_ctr["R"] = 48
 
 # ---------------------------------------------------------------------------
 # WALL-SENSOR INDICATOR LEDs (user request 2026-07-15): 6 top-side LEDs, one
