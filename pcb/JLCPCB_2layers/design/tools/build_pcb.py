@@ -312,7 +312,7 @@ g.place("U1", 61, 54)                          # AP63203 (TSOT-26)
 g.place("C3", 63.5, 48.5, value="100nF")       # BST
 g.place("L1", 66, 53.5, value="4.7uH")        # SRP4020TA
 g.place("C5", 71, 54, value="22uF")
-g.place("C7", 71.5, 58.5, value="22uF")
+g.place("C7", 66.5, 58.5, value="22uF")   # moved 5mm left, clear of BZ1 (user)
 g.place("R69", 66, 47, flip=True)              # EN pull-up 1M (bottom, near U1)
 
 # --- 6V motor buck block (TPS54302): east, feeding U2's VM entry directly ---
