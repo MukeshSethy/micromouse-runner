@@ -72,7 +72,7 @@ LCSC_MAP = {
     #      Mapped to JLCPCB BASIC parts (UNI-ROYAL 0805W8F, value/size/1% tol
     #      identical -> board unchanged, no per-part setup fee). Exceptions
     #      noted where the Basic value was OOS.
-    "RC0805FR-07100KL": _e("C17407",  "0805W8F1003T5E", tier="BASIC", note="JLC-Basic equiv 100k 0805 1%"),
+    "RC0805FR-07100KL": _e("C96346",  "RC0805FR-07100KL (Yageo)", note="exact design part; Basic C17407 went short -- reverted to Yageo 100k (in stock)"),
     "RC0805FR-0739KL":  _e("C113306", "RC0805FR-0739KL (Yageo)",       note="exact MPN (Basic 39k was OOS); in stock"),
     "RC0805FR-0710KL":  _e("C17414",  "0805W8F1002T5E", tier="BASIC", note="JLC-Basic equiv 10k 0805 1%"),
     "RC0805FR-075K1L":  _e("C27834",  "0805W8F5101T5E", tier="BASIC", note="JLC-Basic equiv 5.1k 0805 1%"),
@@ -96,5 +96,5 @@ LCSC_MAP = {
     "CL21A226KPCLRNC": _e("C45783",  "22uF 10V 0805 X5R",  tier="BASIC", note="JLC-Basic equiv 22uF 0805"),
     "CL21B105KAFNNNE": _e("C28323",  "1uF 25V 0805 X7R",   tier="BASIC", note="JLC-Basic equiv 1uF"),
     "CL21A106KPFNNNE": _e("C15850",  "10uF 10V 0805 X5R",  tier="BASIC", note="JLC-Basic equiv 10uF 0805"),
-    "CL32A226KAJNNNE": _e("C307586", "22uF 25V 1210 X5R",  note="1210 equiv (no Basic 1210); 25V"),
+    "CL32A226KAJNNNE": _e("C52306",  "CL32A226KAJNNNE (Samsung)", note="exact design part 1210 22uF 25V; generic C307586 went short -- reverted to Samsung (in stock)"),
 }

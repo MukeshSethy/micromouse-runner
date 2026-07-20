@@ -61,3 +61,25 @@ currently carry **no** per-part setup fee.
 3. **Stock.** These read low/variable at time of writing — check live qty and
    order promptly (or pre-approve a substitute): **BNO055** (C93216, ~505),
    **SRP4020TA-4R7M** (C2041623, ~806), **110 k** (C17422).
+
+## Inventory-shortage handling (JLC parts review flagged 8 lines)
+The BOM matched 46/54 automatically; 8 lines were JLC-assembly-stock short.
+Resolved as follows:
+
+- **100 k (R1,R2,R61–64,R69,R73,R75,R76)** and **22 µF/25 V 1210 (C16,C17)** —
+  the JLC-Basic generics I'd chosen went short, so the BOM now uses the **exact
+  design parts**, which are in stock: Yageo `RC0805FR-07100KL` = **C96346**,
+  Samsung `CL32A226KAJNNNE` = **C52306**. Already fixed in these files.
+- **U1 (AP63203WU-7, C780769)** — NO pin-to-pin drop-in exists (every other
+  TSOT-23-6 3.3 V buck has a different pinout). Do NOT substitute. Options:
+  **reduce build qty** (shortfall scales with board count) or **pre-order** this
+  one line (9–15 day sourcing) at the Cart step.
+- **BZ1 (CMT-8504 buzzer, C3811795)** — custom 8.5×8.5 footprint, no safe swap.
+  Reduce qty / pre-order, or set **Do Not Place** and hand-solder later (it only
+  drives the beeper; non-critical for bring-up).
+- **SW1–SW4 (PTS645 6 mm tact, C285524)** — through-hole; simplest is **Do Not
+  Place** + hand-solder (trivial), or pick any in-stock 6 mm THT tact of the
+  same footprint in JLC's replace dialog.
+
+First lever to try: **lower the board quantity** — it often clears U1/BZ1/SW
+without any part changes.
