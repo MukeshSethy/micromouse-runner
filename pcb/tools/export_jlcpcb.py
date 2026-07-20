@@ -1,0 +1,214 @@
+"""Build the JLCPCB production folder in JLC's EXACT upload formats (matched to
+the user's JLCSMT sample files), ready to upload directly:
+
+  jlcpcb/micromouse-pcb-rev7.2-jlcpcb-gerbers.zip  fab (Gerber X2 + Excellon,
+                                                    flat at zip root)
+  jlcpcb/BOM_JLCSMT.xlsx      SMT assembly BOM, columns EXACTLY:
+        Comment | Designator | Footprint | JLCPCB Part #（optional）
+  jlcpcb/CPL_JLCSMT.xlsx      pick-and-place, columns EXACTLY:
+        Designator | Mid X | Mid Y | Layer | Rotation
+  jlcpcb/THT_hand-solder_parts.csv   the through-hole parts JLC's economic SMT
+        line does NOT place -- order loose (LCSC #s given) and hand-solder
+  jlcpcb/ORDERING.md          swaps, SMT-vs-THT, rotation/coord caveats
+
+Coordinate frame: the KiCad pos and the KiCad gerbers share one frame (board
+outline X[0,100] Y[-120,0] mm, Y-up so the board sits below the origin; parts
+fall inside it). We pass KiCad's Mid X/Y through UNCHANGED so the CPL overlays
+the gerbers exactly -- do NOT "normalise" Y to positive, that would desync it
+from the fab data. Rotations are KiCad's; per-package JLC offsets are checked
+in JLC's placement preview (documented in ORDERING).
+
+Same rev-7.2 board as the Lion package: every LCSC choice is footprint- and
+value-compatible, so gerbers + placement are unchanged; only BOM part #s differ
+(passives -> JLC Basic equivalents to kill per-part setup fees).
+"""
+import csv
+import os
+import re
+import zipfile
+
+BASE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+FAB = os.path.join(BASE, "fab")
+OUT = os.path.join(BASE, "fab_release", "jlcpcb")
+
+
+def _load_map():
+    from jlcpcb_lcsc_map import LCSC_MAP
+    return LCSC_MAP
+
+
+# ----------------------------------------------------------------- xlsx writer
+_XML = {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}
+
+
+def _esc(s):
+    return "".join(_XML.get(c, c) for c in str(s))
+
+
+def _col(i):  # 0->A 1->B ...
+    s = ""
+    i += 1
+    while i:
+        i, r = divmod(i - 1, 26)
+        s = chr(65 + r) + s
+    return s
+
+
+def write_xlsx(path, rows):
+    """rows: list of lists; row 0 is the header. All cells written as inline
+    strings (JLC parses them fine, incl. '95.05mm' and '270')."""
+    sheet = ['<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',
+             '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>']
+    for r, row in enumerate(rows, 1):
+        cells = "".join(
+            f'<c r="{_col(c)}{r}" t="inlineStr"><is><t xml:space="preserve">{_esc(v)}</t></is></c>'
+            for c, v in enumerate(row))
+        sheet.append(f'<row r="{r}">{cells}</row>')
+    sheet.append("</sheetData></worksheet>")
+    parts = {
+        "[Content_Types].xml":
+            '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
+            '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'
+            '<Default Extension="xml" ContentType="application/xml"/>'
+            '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>'
+            '<Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>'
+            '</Types>',
+        "_rels/.rels":
+            '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+            '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>'
+            '</Relationships>',
+        "xl/workbook.xml":
+            '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" '
+            'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'
+            '<sheets><sheet name="Sheet1" sheetId="1" r:id="rId1"/></sheets></workbook>',
+        "xl/_rels/workbook.xml.rels":
+            '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+            '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/>'
+            '</Relationships>',
+        "xl/worksheets/sheet1.xml": "".join(sheet),
+    }
+    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as z:
+        for name, data in parts.items():
+            z.writestr(name, data)
+
+
+# --------------------------------------------------------------- ref expansion
+def expand_refs(s):
+    out = []
+    for tok in s.split(","):
+        tok = tok.strip()
+        if not tok:
+            continue
+        if "-" in tok:
+            a, b = tok.split("-", 1)
+            ma = re.match(r"([A-Za-z]+)(\d+)", a)
+            mb = re.match(r"([A-Za-z]*)(\d+)", b)
+            if ma and mb:
+                pref, lo, hi = ma.group(1), int(ma.group(2)), int(mb.group(2))
+                out += [f"{pref}{n}" for n in range(lo, hi + 1)]
+                continue
+        out.append(tok)
+    return out
+
+
+def clean_comment(value, mpn):
+    c = (value or "").split("(")[0].strip()
+    return (c or mpn)[:40]
+
+
+def short_fp(fp):
+    return (fp or "").rsplit(":", 1)[-1]
+
+
+def rot_fmt(v):
+    try:
+        f = float(v)
+        return str(int(round(f))) if abs(f - round(f)) < 1e-6 else f"{f:g}"
+    except ValueError:
+        return v
+
+
+def num_fmt(v):
+    try:
+        return f"{float(v):.4f}".rstrip("0").rstrip(".")
+    except ValueError:
+        return v
+
+
+def main():
+    LCSC_MAP = _load_map()
+    os.makedirs(OUT, exist_ok=True)
+    # clean stale outputs from the older export_release run
+    for f in ("bom_jlcpcb.csv", "cpl_jlcpcb.csv", "micromouse-pcb-rev7.2-jlcpcb.zip",
+              "BOM_JLCPCB.csv", "CPL_JLCPCB.csv", "micromouse-pcb-jlcpcb-gerbers.zip"):
+        p = os.path.join(OUT, f)
+        if os.path.exists(p):
+            os.remove(p)
+
+    # ---- gerber + drill zip (flat) -----------------------------------------
+    zpath = os.path.join(OUT, "micromouse-pcb-rev7.2-jlcpcb-gerbers.zip")
+    with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
+        for f in os.listdir(os.path.join(FAB, "gerbers")):
+            z.write(os.path.join(FAB, "gerbers", f), f)
+        for f in os.listdir(os.path.join(FAB, "drill")):
+            if f.endswith(".drl"):
+                z.write(os.path.join(FAB, "drill", f), f)
+
+    # ---- read BOM, split SMT vs THT ----------------------------------------
+    bom = list(csv.DictReader(open(os.path.join(BASE, "BOM.csv"),
+                                   newline="", encoding="utf-8-sig")))
+    smt_refs = set()
+    smt_bom, tht_bom, missing = [], [], []
+    for r in bom:
+        mpn = r["MPN"].strip()
+        m = LCSC_MAP.get(mpn)
+        if not m or not m["lcsc"]:
+            missing.append(mpn)
+        lcsc = m["lcsc"] if m else ""
+        is_smt = m["smt"] if m else True
+        row = [clean_comment(r["Value"], mpn), r["Reference"], short_fp(r["Footprint"]), lcsc]
+        if is_smt:
+            smt_bom.append(row)
+            smt_refs.update(expand_refs(r["Reference"]))
+        else:
+            tht_bom.append(row + [m["part"] if m else mpn, str(r["Qty"])])
+
+    # ---- BOM_JLCSMT.xlsx (SMT parts; EXACT sample columns) -----------------
+    write_xlsx(os.path.join(OUT, "BOM_JLCSMT.xlsx"),
+               [["Comment", "Designator", "Footprint", "JLCPCB Part #（optional）"]] + smt_bom)
+
+    # ---- CPL_JLCSMT.xlsx (SMT placements only) ------------------------------
+    pos = list(csv.DictReader(open(os.path.join(FAB, "micromouse-pcb.pos.csv"),
+                                   newline="", encoding="utf-8-sig")))
+    cpl = [["Designator", "Mid X", "Mid Y", "Layer", "Rotation"]]
+    placed = 0
+    for r in pos:
+        if r["Ref"] not in smt_refs:
+            continue
+        side = "Top" if r["Side"].lower().startswith("t") else "Bottom"
+        cpl.append([r["Ref"], f'{num_fmt(r["PosX"])}mm', f'{num_fmt(r["PosY"])}mm',
+                    side, rot_fmt(r["Rot"])])
+        placed += 1
+    write_xlsx(os.path.join(OUT, "CPL_JLCSMT.xlsx"), cpl)
+
+    # ---- THT hand-solder supplement ----------------------------------------
+    with open(os.path.join(OUT, "THT_hand-solder_parts.csv"), "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["Comment", "Designator", "Footprint", "LCSC Part #", "Order MPN", "Qty"])
+        w.writerows(tht_bom)
+
+    print(f"SMT BOM lines: {len(smt_bom)} | SMT placements in CPL: {placed} "
+          f"| THT lines: {len(tht_bom)}")
+    if missing:
+        print(f"NO LCSC for {len(missing)}: {sorted(set(missing))}")
+    else:
+        print("every BOM MPN has a JLCPCB/LCSC part")
+    print("jlcpcb folder:", sorted(os.listdir(OUT)))
+
+
+if __name__ == "__main__":
+    main()

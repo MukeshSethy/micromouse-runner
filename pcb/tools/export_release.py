@@ -51,57 +51,9 @@ open(os.path.join(lion, "ORDERING.md"), "w", encoding="utf-8").write("""# Lion C
 print("lion-circuits folder:", sorted(os.listdir(lion)))
 
 # ---------------- jlcpcb -------------------------------------------------------
-jlc = os.path.join(REL, "jlcpcb")
-shutil.rmtree(jlc, ignore_errors=True)
-os.makedirs(jlc)
-# flat gerber+drill zip
-zpath = os.path.join(jlc, "micromouse-pcb-rev7.2-jlcpcb.zip")
-with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
-    gdir = os.path.join(FAB, "gerbers")
-    for f in os.listdir(gdir):
-        z.write(os.path.join(gdir, f), f)
-    ddir = os.path.join(FAB, "drill")
-    for f in os.listdir(ddir):
-        if f.endswith((".drl", ".pdf")):
-            z.write(os.path.join(ddir, f), f)
-# BOM in JLC columns: Comment, Designator, Footprint, LCSC Part #
-rows = list(csv.DictReader(open(os.path.join(BASE, "BOM.csv"), newline="", encoding="utf-8-sig")))
-with open(os.path.join(jlc, "bom_jlcpcb.csv"), "w", newline="", encoding="utf-8") as f:
-    w = csv.writer(f)
-    w.writerow(["Comment", "Designator", "Footprint", "LCSC Part #", "MPN", "Manufacturer"])
-    for r in rows:
-        w.writerow([r.get("Value", ""), r.get("Reference", ""),
-                    (r.get("Footprint", "") or "").rsplit(":", 1)[-1],
-                    "",                       # LCSC numbers: match by MPN in their tool
-                    r.get("MPN", ""), r.get("Manufacturer", "")])
-# CPL in JLC columns from the KiCad pos csv
-pos = list(csv.DictReader(open(os.path.join(FAB, "micromouse-pcb.pos.csv"), newline="", encoding="utf-8-sig")))
-with open(os.path.join(jlc, "cpl_jlcpcb.csv"), "w", newline="", encoding="utf-8") as f:
-    w = csv.writer(f)
-    w.writerow(["Designator", "Mid X", "Mid Y", "Layer", "Rotation"])
-    for r in pos:
-        w.writerow([r.get("Ref", r.get("ref", "")),
-                    f'{r.get("PosX", r.get("posx", ""))}mm',
-                    f'{r.get("PosY", r.get("posy", ""))}mm',
-                    ("Top" if r.get("Side", r.get("side", "")).lower().startswith("top") else "Bottom"),
-                    r.get("Rot", r.get("rot", ""))])
-open(os.path.join(jlc, "ORDERING.md"), "w", encoding="utf-8").write("""# JLCPCB ordering notes (rev 7.2)
-
-1. Upload `micromouse-pcb-rev7.2-jlcpcb.zip` (gerbers + Excellon drill, flat).
-   Board: 4-layer, 100 x 120 mm, 1.6 mm; the default JLC 4-layer stackup is
-   fine (no controlled impedance required -- USB is full-speed).
-2. For SMT assembly add `bom_jlcpcb.csv` + `cpl_jlcpcb.csv`. LCSC part
-   numbers are intentionally blank: use JLC's "match by MPN" in the BOM
-   review step (all MPNs are major-distributor parts; some may be
-   Global-Sourcing lines with longer lead).
-3. CHECK ROTATIONS in JLC's assembly preview -- KiCad and JLC rotation
-   conventions differ per package; fix any flipped polarized part
-   (U1/U2/U3/U6/U7/U8, D29, Q-parts) in their editor before confirming.
-4. THT parts (J1/J5/J6/J7-J10, SW1-SW6, sensors, motors' connectors) are NOT
-   in JLC economic SMT -- order them loose and hand-fit, or use JLC Standard
-   PCBA. J10 (XT60) is optional: fit only if your pack lead is XT60.
-5. The exact robu motor plugs straight into J5/J6 (JST ZH) -- meter-check
-   the cable's VCC/GND (positions 2/5) once before first plug-in.
-""")
-print("jlcpcb folder:", sorted(os.listdir(jlc)))
+# The JLCPCB folder is owned by export_jlcpcb.py (it fills real LCSC part
+# numbers, emits JLC's exact .xlsx BOM/CPL formats, and splits SMT vs THT).
+# Kept out of this script so a re-run can't clobber those files with the old
+# blank-LCSC csv format.
+print("jlcpcb: run tools/export_jlcpcb.py (owns pcb/fab_release/jlcpcb/)")
 print("export_release: DONE")
