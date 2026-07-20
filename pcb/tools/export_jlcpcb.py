@@ -1,22 +1,28 @@
 """Build the JLCPCB production folder in JLC's EXACT upload formats (matched to
-the user's JLCSMT sample files), ready to upload directly:
+the user's JLCSMT sample files), ready to upload directly.
 
-  jlcpcb/micromouse-pcb-rev7.2-jlcpcb-gerbers.zip  fab (Gerber X2 + Excellon,
-                                                    flat at zip root)
-  jlcpcb/BOM_JLCSMT.xlsx      SMT assembly BOM, columns EXACTLY:
+JLC's **Standard PCBA** assembles BOTH surface-mount AND through-hole parts
+(reflow for SMD, then wave/selective/hand-solder for THT) -- so the whole board
+is turnkey, no hand-soldering, provided every part is in JLC's library (all of
+ours are; C-numbers are in jlcpcb_lcsc_map.py). Only the cheaper Economy PCBA
+tier is SMD-only. So we emit ONE combined BOM + ONE combined CPL covering every
+part:
+
+  jlcpcb/micromouse-pcb-rev7.2-jlcpcb-gerbers.zip  fab (Gerber X2 + Excellon)
+  jlcpcb/BOM_JLC-assembly.xlsx   full assembly BOM, columns EXACTLY:
         Comment | Designator | Footprint | JLCPCB Part #（optional）
-  jlcpcb/CPL_JLCSMT.xlsx      pick-and-place, columns EXACTLY:
+  jlcpcb/CPL_JLC-assembly.xlsx   full placement, columns EXACTLY:
         Designator | Mid X | Mid Y | Layer | Rotation
-  jlcpcb/THT_hand-solder_parts.csv   the through-hole parts JLC's economic SMT
-        line does NOT place -- order loose (LCSC #s given) and hand-solder
-  jlcpcb/ORDERING.md          swaps, SMT-vs-THT, rotation/coord caveats
+  jlcpcb/THT_parts_reference.csv  which BOM lines are through-hole (info only:
+        so you can see the THT-assembly cost delta, or deselect them in JLC's
+        tool if you'd rather run Economy PCBA + self-solder)
+  jlcpcb/ORDERING.md              tier choice, swaps, rotation/coord caveats
 
-Coordinate frame: the KiCad pos and the KiCad gerbers share one frame (board
-outline X[0,100] Y[-120,0] mm, Y-up so the board sits below the origin; parts
-fall inside it). We pass KiCad's Mid X/Y through UNCHANGED so the CPL overlays
-the gerbers exactly -- do NOT "normalise" Y to positive, that would desync it
-from the fab data. Rotations are KiCad's; per-package JLC offsets are checked
-in JLC's placement preview (documented in ORDERING).
+Coordinate frame: the KiCad pos and the KiCad gerbers share one frame (outline
+X[0,100] Y[-120,0] mm, Y-up so the board sits below the origin; parts fall
+inside it). We pass KiCad's Mid X/Y through UNCHANGED so the CPL overlays the
+gerbers exactly -- do NOT "normalise" Y to positive. Rotations are KiCad's;
+per-package JLC offsets are checked in JLC's placement preview.
 
 Same rev-7.2 board as the Lion package: every LCSC choice is footprint- and
 value-compatible, so gerbers + placement are unchanged; only BOM part #s differ
@@ -55,7 +61,7 @@ def _col(i):  # 0->A 1->B ...
 
 
 def write_xlsx(path, rows):
-    """rows: list of lists; row 0 is the header. All cells written as inline
+    """rows: list of lists; row 0 is the header. Cells written as inline
     strings (JLC parses them fine, incl. '95.05mm' and '270')."""
     sheet = ['<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',
              '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>']
@@ -142,9 +148,10 @@ def num_fmt(v):
 def main():
     LCSC_MAP = _load_map()
     os.makedirs(OUT, exist_ok=True)
-    # clean stale outputs from the older export_release run
+    # clean stale outputs (older SMT-only and blank-LCSC exports)
     for f in ("bom_jlcpcb.csv", "cpl_jlcpcb.csv", "micromouse-pcb-rev7.2-jlcpcb.zip",
-              "BOM_JLCPCB.csv", "CPL_JLCPCB.csv", "micromouse-pcb-jlcpcb-gerbers.zip"):
+              "BOM_JLCPCB.csv", "CPL_JLCPCB.csv", "micromouse-pcb-jlcpcb-gerbers.zip",
+              "BOM_JLCSMT.xlsx", "CPL_JLCSMT.xlsx", "THT_hand-solder_parts.csv"):
         p = os.path.join(OUT, f)
         if os.path.exists(p):
             os.remove(p)
@@ -158,11 +165,11 @@ def main():
             if f.endswith(".drl"):
                 z.write(os.path.join(FAB, "drill", f), f)
 
-    # ---- read BOM, split SMT vs THT ----------------------------------------
+    # ---- read BOM (ALL parts -> one assembly BOM for Standard PCBA) ---------
     bom = list(csv.DictReader(open(os.path.join(BASE, "BOM.csv"),
                                    newline="", encoding="utf-8-sig")))
-    smt_refs = set()
-    smt_bom, tht_bom, missing = [], [], []
+    all_refs = set()
+    bom_rows, tht_ref_rows, missing = [], [], []
     for r in bom:
         mpn = r["MPN"].strip()
         m = LCSC_MAP.get(mpn)
@@ -170,39 +177,37 @@ def main():
             missing.append(mpn)
         lcsc = m["lcsc"] if m else ""
         is_smt = m["smt"] if m else True
-        row = [clean_comment(r["Value"], mpn), r["Reference"], short_fp(r["Footprint"]), lcsc]
-        if is_smt:
-            smt_bom.append(row)
-            smt_refs.update(expand_refs(r["Reference"]))
-        else:
-            tht_bom.append(row + [m["part"] if m else mpn, str(r["Qty"])])
+        bom_rows.append([clean_comment(r["Value"], mpn), r["Reference"], short_fp(r["Footprint"]), lcsc])
+        all_refs.update(expand_refs(r["Reference"]))
+        if not is_smt:
+            tht_ref_rows.append([r["Reference"], clean_comment(r["Value"], mpn),
+                                 short_fp(r["Footprint"]), lcsc, m["part"] if m else mpn, str(r["Qty"])])
 
-    # ---- BOM_JLCSMT.xlsx (SMT parts; EXACT sample columns) -----------------
-    write_xlsx(os.path.join(OUT, "BOM_JLCSMT.xlsx"),
-               [["Comment", "Designator", "Footprint", "JLCPCB Part #（optional）"]] + smt_bom)
+    write_xlsx(os.path.join(OUT, "BOM_JLC-assembly.xlsx"),
+               [["Comment", "Designator", "Footprint", "JLCPCB Part #（optional）"]] + bom_rows)
 
-    # ---- CPL_JLCSMT.xlsx (SMT placements only) ------------------------------
+    # ---- CPL (ALL placements for BOM parts) --------------------------------
     pos = list(csv.DictReader(open(os.path.join(FAB, "micromouse-pcb.pos.csv"),
                                    newline="", encoding="utf-8-sig")))
     cpl = [["Designator", "Mid X", "Mid Y", "Layer", "Rotation"]]
     placed = 0
     for r in pos:
-        if r["Ref"] not in smt_refs:
-            continue
+        if r["Ref"] not in all_refs:
+            continue  # non-BOM mechanical (mount holes, fiducials) -- JLC skips
         side = "Top" if r["Side"].lower().startswith("t") else "Bottom"
         cpl.append([r["Ref"], f'{num_fmt(r["PosX"])}mm', f'{num_fmt(r["PosY"])}mm',
                     side, rot_fmt(r["Rot"])])
         placed += 1
-    write_xlsx(os.path.join(OUT, "CPL_JLCSMT.xlsx"), cpl)
+    write_xlsx(os.path.join(OUT, "CPL_JLC-assembly.xlsx"), cpl)
 
-    # ---- THT hand-solder supplement ----------------------------------------
-    with open(os.path.join(OUT, "THT_hand-solder_parts.csv"), "w", newline="", encoding="utf-8") as f:
+    # ---- THT reference (info only) -----------------------------------------
+    with open(os.path.join(OUT, "THT_parts_reference.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
-        w.writerow(["Comment", "Designator", "Footprint", "LCSC Part #", "Order MPN", "Qty"])
-        w.writerows(tht_bom)
+        w.writerow(["Designator", "Comment", "Footprint", "LCSC Part #", "Order MPN", "Qty"])
+        w.writerows(tht_ref_rows)
 
-    print(f"SMT BOM lines: {len(smt_bom)} | SMT placements in CPL: {placed} "
-          f"| THT lines: {len(tht_bom)}")
+    tht_lines = len(tht_ref_rows)
+    print(f"BOM lines: {len(bom_rows)} ({tht_lines} THT) | CPL placements: {placed}")
     if missing:
         print(f"NO LCSC for {len(missing)}: {sorted(set(missing))}")
     else:
