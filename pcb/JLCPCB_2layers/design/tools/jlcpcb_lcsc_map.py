@@ -30,7 +30,10 @@ LCSC_MAP = {
     "TPS54302DDCR":          _e("C311983",  "TPS54302DDCR"),
     "CD74HC4067M96":         _e("C496123",  "CD74HC4067M96"),
     "USBLC6-2SC6":           _e("C7519",    "USBLC6-2SC6"),
-    "BNO055":                _e("C93216",   "BNO055", note="low assembly stock (~505) -- order early"),
+    "BNO055":                _e("C93216",   "BNO055",
+                                note="AT-RISK: JLC assembly ~505 and draining (LCSC retail already 0), "
+                                     "re-verified 2026-07-20. No pin/protocol drop-in (BNO085 is NOT a sub). "
+                                     "RESERVE/pre-order and confirm the count at checkout"),
 
     # ---- discretes (SMD) ----------------------------------------------------
     "DMP3098L-7":            _e("C150492",  "DMP3098L-7"),
@@ -51,6 +54,9 @@ LCSC_MAP = {
     "IR333-A":               _e("C264290",  "IR333-A",   smt=False, note="THT 5mm IR emitter (hand-solder)"),
     "PT334-6B":              _e("C369188",  "PT334-6B",  smt=False, note="THT 5mm phototransistor (hand-solder)"),
     "APT1608SURCK":          _e("C5875723", "APT1608SURCK"),   # 0603 SMD indicator
+    "WS2812B":               _e("C2761795", "WS2812B-B/T (Worldsemi)",
+                                note="addressable RGB, SMD5050-4P = LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm; "
+                                     "good stock ~414k (alt C114586 ~500k) -- verified 2026-07-20"),
 
     # ---- buzzer (SMD) -------------------------------------------------------
     "CMT-8504-100-SMT-TR":   _e("C3811795", "CMT-8504-100-SMT-TR"),
@@ -82,7 +88,9 @@ LCSC_MAP = {
     "RC0805FR-071KL":   _e("C17513",  "0805W8F1001T5E", tier="BASIC", note="JLC-Basic equiv 1k 0805 1%"),
     "RC0805FR-0715KL":  _e("C17475",  "0805W8F1502T5E", tier="BASIC", note="JLC-Basic equiv 15k 0805 1%"),
     "RC0805FR-07220KL": _e("C17556",  "0805W8F2203T5E", tier="BASIC", note="JLC-Basic equiv 220k 0805 1%"),
-    "RC0805FR-07110KL": _e("C17422",  "0805W8F1103T5E", tier="BASIC", note="JLC-Basic equiv 110k 0805 1% (confirm stock at order)"),
+    "RC0805FR-07110KL": _e("C2907221", "FRC0805F1103TS (FOJAN)",
+                            note="SUB: prior C17422 (0805W8F1103T5E) went OOS at JLC; FOJAN 110k 0805 "
+                                 "1% same footprint, good stock ~28.2k -- verified 2026-07-20"),
     "RC0805FR-0711KL":  _e("C17429",  "0805W8F1102T5E", tier="BASIC", note="JLC-Basic equiv 11k 0805 1%"),
     "RC0805FR-074K7L":  _e("C17673",  "0805W8F4701T5E", tier="BASIC", note="JLC-Basic equiv 4.7k 0805 1%"),
     "RC0805FR-07220RL": _e("C17557",  "0805W8F2200T5E", tier="BASIC", note="JLC-Basic equiv 220R 0805 1%"),
