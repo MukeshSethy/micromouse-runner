@@ -404,8 +404,8 @@ g.place("C30", 50, 87, value="220uF/16V")          # alu bulk -> motor-bay corri
 g.place("C11", 50, 72, flip=True, value="10uF/25V")  # corridor, forward of U2 (bottom)
 g.place("C12", 50, 84, flip=True, value="100nF")     # corridor, behind U2 (bottom)
 g.place("C14", 60, 60, flip=True, value="100nF")
-g.place("J5", 33, 70, rot=0)                 # motor A (forward move blocked by the dense mid-row passives)
-g.place("J6", 67, 70, rot=180)               # motor B -- TRUE mirror of J5 (rot 180 so the body mirrors, not just the placement point)
+g.place("J5", 33, 70, rot=0)                 # motor A (at the wheel forward edge; a forward move needs re-flowing the packed mid-section)
+g.place("J6", 67, 70, rot=180)               # motor B -- TRUE mirror of J5 (rot 180)
 # Encoder pull-ups/guards + strap pull-down + STBY tie: TOP mid-band rows
 g.place("R6", 22, 66); g.place("R7", 28, 66)     # ENC1 pullups
 g.place("R8", 40, 47); g.place("R9", 44, 47)     # ENC2 pullups (moved: IMU owns y54-66 center)

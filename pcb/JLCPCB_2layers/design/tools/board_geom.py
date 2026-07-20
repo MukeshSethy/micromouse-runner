@@ -73,10 +73,13 @@ WHEEL_NOTCHES = [
     ANTENNA_NOTCH,
 ]
 
-# Motor body + bracket keep-out rectangles (components stay out; tracks OK)
+# Motor body + bracket keep-out rectangles (components stay out; tracks OK).
+# 2-layer (user): body half-width widened 6 -> 7mm after measuring the actual
+# motor (Ø10 body / 12mm gearbox+encoder cross-section, 30.5mm inboard) -- now
+# 2mm margin on the body, 1mm on the gearbox/encoder (was ~0 on the gearbox).
 MOTOR_KEEPOUTS = [
-    (FACE_L, AXLE_Y - 6, FACE_L + 33, AXLE_Y + 6),
-    (FACE_R - 33, AXLE_Y - 6, FACE_R, AXLE_Y + 6),
+    (FACE_L, AXLE_Y - 7, FACE_L + 33, AXLE_Y + 7),
+    (FACE_R - 33, AXLE_Y - 7, FACE_R, AXLE_Y + 7),
     (FACE_L, AXLE_Y - 13.3, FACE_L + 12.5, AXLE_Y + 13.3),
     (FACE_R - 12.5, AXLE_Y - 13.3, FACE_R, AXLE_Y + 13.3),
 ]
