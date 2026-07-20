@@ -34,7 +34,7 @@ def load():
     g = PcbGen(NETLIST)
     g.board = pcbnew.LoadBoard(BOARD)
     g.setup_design_rules()
-    g.LAYERS = [pcbnew.F_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.B_Cu]
+    g.LAYERS = [pcbnew.F_Cu, pcbnew.B_Cu]   # THT: In1/In2 are GND/3V3 planes -- never route signals on them
     g._placed = {fp.GetReference(): fp for fp in g.board.GetFootprints()}
     g._nets = {}
     for code, ni in g.board.GetNetsByNetcode().items():

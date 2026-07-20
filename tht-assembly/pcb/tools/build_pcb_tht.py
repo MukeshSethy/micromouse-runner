@@ -48,6 +48,22 @@ def inside(px, py, poly=OUTLINE, m=1.2):
         return c
     return all(pip(px + dx, py + dy) for dx in (-m, m) for dy in (-m, m))
 
+def bbox_inside(x1, y1, x2, y2, poly=OUTLINE, m=0.6):
+    # all 4 corners of a part's extent must be on-board (checking only the
+    # CENTRE lets a long axial resistor hang a pad off the chamfered front
+    # edge -- the closer caught R152 at y=-9.4).
+    def pip(x, y):
+        c = False; n = len(poly)
+        for i in range(n):
+            ax, ay = poly[i]; bx, by = poly[(i + 1) % n]
+            if (ay > y) != (by > y):
+                xi = ax + (y - ay) * (bx - ax) / (by - ay)
+                if xi > x:
+                    c = not c
+        return c
+    return (pip(x1 - m, y1 - m) and pip(x2 + m, y1 - m)
+            and pip(x1 - m, y2 + m) and pip(x2 + m, y2 + m))
+
 # ---- FIXED anchors (ref -> (x, y, rot, flip)) --------------------------------
 FIX = {
     # wall optics (SMD-verified geometry)
@@ -64,14 +80,15 @@ FIX = {
     "J11": (78.5, 50, 90, False), "J12": (78.5, 65.24, 90, False),
     "J15": (25, 99, 0, False),
     "J10": (17.8, 100, 90, False), "J1": (16, 113.8, 0, False),
-    "J9": (4, 12, 0, False),
+    "J9": (35, 100, 0, False),   # balance tap: rear-inboard, OUT of the diag-L
+                                 # sensor's forward path (was (4,12) -- blocked it)
     "J5": (16, 66, 0, False), "J6": (68, 73, 0, False),
     # 2 RGB LEDs (top face, visible in the open mid-band; repair nudges if tight)
     "D40": (36, 90, 0, False), "D41": (60, 90, 0, False),
     "SW5": (3.5, 99.2, 90, False), "SW6": (3.5, 113, 90, False),
     # buttons A/B/C in the empty lower-centre (top face, accessible); RST rear
     "SW1": (44, 82, 0, False), "SW3": (54, 82, 0, False),
-    "SW4": (64, 82, 0, False), "SW2": (95, 105, 90, False),
+    "SW4": (64, 82, 0, False), "SW2": (91, 105, 90, False),
     # power block (starts x24, right of the left-edge side optics D5/Q6;
     # 13mm part spacing for TO-220 + D9.5 inductor courtyards)
     "Q1": (5.5, 55, 0, False), "F1": (5.5, 61, 0, False),
@@ -82,14 +99,38 @@ FIX = {
     "C16": (56, 62, 0, False), "C17": (62, 62, 0, False),
     # 3 wall emitter-bank gates near their banks (line gate Q19 removed)
     "Q16": (50, 15, 0, False), "Q17": (50, 30, 0, False), "Q18": (50, 43, 0, False),
-    "BZ1": (8, 88, 0, True),
+    "BZ1": (11, 88, 0, True),
 }
-# 6 wall-indicator LEDs (D121-126) in the open nose, dodging the castor hole
-# at (CX=50, 4) -- 3 left of centre, 3 right.
-_NOSE = [(20 + 8 * i, 5) for i in range(3)] + [(60 + 8 * i, 5) for i in range(3)]
-_IND_LEDS = [f"D{121+i}" for i in range(6)]
-for _ref, (_x, _y) in zip(_IND_LEDS, _NOSE):
+# 6 wall-indicator LEDs (D121-126) placed INBOARD, each BEHIND its sensor
+# pair (toward board centre) exactly like the SMD board's D23-28 -- so the
+# sensors' OUTWARD IR paths stay clear. WALL1..6 = front-L, front-R, diag-L,
+# diag-R, side-L, side-R. (User: nothing may obstruct the emitters/receivers
+# toward the outside; all support parts go inboard.)
+_IND_POS = {
+    "D121": (26, 24), "D122": (74, 24),    # behind the front pairs (y16 -> 24)
+    "D123": (26, 33), "D124": (74, 33),    # inboard of the diagonals
+    "D125": (27, 44), "D126": (73, 44),    # inboard of the side pairs
+}
+for _ref, (_x, _y) in _IND_POS.items():
     FIX[_ref] = (_x, _y, 0, False)
+
+# ---- OPTICAL KEEPOUT: the outward IR path of every wall sensor. NO part
+# (support, indicator, connector) may sit in these bands -- only the sensors
+# themselves, at the perimeter, facing out. The auto-placer + repair reject
+# any position whose extent intersects a band.
+# bands sized to each sensor's actual outward BEAM (not a generous box) --
+# a part BODY (opaque) here blocks IR; thin leads passing through are OK.
+OPTICAL = [
+    (13, 0, 39, 15),    # front-left pair -> forward (nose)
+    (61, 0, 87, 15),    # front-right pair -> forward
+    (0, 10, 17, 30),    # diagonal-left -> front-left corner
+    (83, 10, 100, 30),  # diagonal-right -> front-right corner
+    (0, 34, 15, 47),    # side-left -> left edge (beam ~y38-46)
+    (85, 34, 100, 47),  # side-right -> right edge
+]
+def in_optical(x1, y1, x2, y2, m=0.4):
+    return any(x2 > kx1 - m and x1 < kx2 + m and y2 > ky1 - m and y1 < ky2 + m
+               for (kx1, ky1, kx2, ky2) in OPTICAL)
 
 g = PcbGen(NETLIST)
 g.setup_design_rules()
@@ -151,8 +192,14 @@ def n_fixed(r):
 AUTO.sort(key=lambda r: -n_fixed(r))
 
 def anchor_xy(ref):
+    # anchor on FIXED neighbours only (optics/LEDs/sockets) -- centroid of ALL
+    # neighbours let support parts drag each other away from their real anchor
+    # and scattered the buzzer/RGB/indicator clusters (v1: those nets failed to
+    # route because the parts spanned to reach each other).
+    fixed = [x for x in neigh[ref] if x in FIX]
+    src = fixed if fixed else [x for x in neigh[ref] if x in g._placed]
     ps = [(MM(g._placed[x].GetPosition().x), MM(g._placed[x].GetPosition().y))
-          for x in neigh[ref] if x in g._placed]
+          for x in src if x in g._placed]
     if not ps:
         return (50, 55)
     return (sum(p[0] for p in ps) / len(ps), sum(p[1] for p in ps) / len(ps))
@@ -195,7 +242,8 @@ for ref in AUTO:
                 continue
             for rot in (0, 90):
                 fh, fc = trial_boxes(x, y, rot == 90)
-                if not collides_boxes(fh, fc, True):
+                if (bbox_inside(*fc) and not in_optical(*fc)
+                        and not collides_boxes(fh, fc, True)):
                     done = (x, y, rot, fh, fc)
                     break
             if done:
@@ -258,7 +306,9 @@ for it in range(40):
                 continue
             fp.SetPosition(g._mm(x, y))
             hb, cbs, fl = real_boxes(ref)
-            if not hits_any(ref, hb, cbs, fl):
+            cb = cbb(fp)
+            if (bbox_inside(*cb) and not in_optical(*cb)
+                    and not hits_any(ref, hb, cbs, fl)):
                 moved = True
                 break
         if moved:

@@ -38,7 +38,12 @@ try:
 except TypeError:
     raise SystemExit("DEGRADED LOAD -- retry")
 g.setup_design_rules()
-g.LAYERS = [pcbnew.F_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.B_Cu]
+# CRITICAL: route signals ONLY on the two OUTER layers. In1 = GND plane and
+# In2 = PLUS3V3 plane -- laying signal tracks on them fragments the plane fill
+# and produces hundreds of phantom-unconnected items (v1 THT route bug: 455
+# ratsnest from MOTA_P etc. tracks stranded on In2). THT barrels reach the
+# inner planes directly, so GND/3V3 need no routing.
+g.LAYERS = [pcbnew.F_Cu, pcbnew.B_Cu]
 g._placed = {fp.GetReference(): fp for fp in g.board.GetFootprints()}
 g._nets = {}
 for code, ni in g.board.GetNetsByNetcode().items():
