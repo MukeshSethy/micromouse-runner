@@ -162,15 +162,9 @@ for i, det, emit, rot in WALL_GEOM:
     _ddx, _ddy = _ROT_DIR[_drot]
     g.place(r["photo"], det[0] - 1.27 * _ddx, det[1] - 1.27 * _ddy, rot=_drot)
     g.place(r["led"], emit[0] - 1.27 * _dx, emit[1] - 1.27 * _dy, rot=rot)
-    _bent_body_outline(det, WALL_AIM[i])
-    if i in (2, 3):
-        # stacked 45-deg pair: the emitter body physically lies OVER the
-        # detector's hole field -- a full outline would cross those pads, so
-        # draw a short open tail (the det's full outline already marks the
-        # shared far envelope)
-        _bent_body_outline(emit, WALL_AIM[i], far_d=4.8, close_far=False)
-    else:
-        _bent_body_outline(emit, WALL_AIM[i])
+    # 2-layer (user request): the U-shaped body-silk outlines ("boxes") around
+    # the wall-sensor LEDs are removed to declutter -- only the angle callout
+    # (0deg/45deg/90deg) stays at each cluster.
     if i in (0, 1, 4, 5):
         _angle_callout(i, det, WALL_AIM[i])
     else:
@@ -379,10 +373,12 @@ g.place("J8", 10.5, 102, rot=90)               # JTAG 1x6, pins along +x (y=102:
 
 # Buttons: A/B/C along the rear-right edge, RST tucked forward of them
 BTN_LABELS = (("SW1", "A"), ("SW3", "B"), ("SW4", "C"), ("SW2", "RST"))
-g.place("SW1", 71, 113.7)
+# 3 user buttons moved to the OPEN front-center (user request), clear of the
+# front-sensor beams (sensors sit at the corners; center-front is empty).
+g.place("SW1", 40, 28)      # BTN_A / start
 g.place("R10", 76, 104, flip=True)              # A's pull-up (bottom)
-g.place("SW3", 81, 113.7)
-g.place("SW4", 91, 113.7)
+g.place("SW3", 50, 28)      # BTN_B
+g.place("SW4", 60, 28)      # BTN_C
 g.place("SW2", 64, 102)                         # RST
 for _ref, _lbl in BTN_LABELS:
     _fp = g._placed[_ref]
@@ -398,13 +394,16 @@ for _ref, _lbl in BTN_LABELS:
 # VM entry is now the regulated 6V rail: C30 (220uF/16V alu bulk) stands on
 # TOP beside the VM pin column -- the 7.7mm-tall can must NOT hang under the
 # board (ground clearance is ~9mm); the hot loop U7->C30->VM pins stays tight.
-g.place("U2", 64, 66, rot=0)
-g.place("C30", 74.5, 66, value="220uF/16V")        # alu bulk, top, at VM entry
-g.place("C11", 60, 72, flip=True, value="10uF/25V")  # under U2 (bottom)
-g.place("C12", 68, 72, flip=True, value="100nF")
+# Motor driver moved to the MOTOR-BAY CENTER (x~50, between the two motor
+# bodies at x13-46 / x54-87) so the motor connectors J5/J6 sit SYMMETRICALLY
+# forward of it (user request). Decoupling rides underneath (bottom).
+g.place("U2", 50, 78, rot=0)
+g.place("C30", 61, 84, value="220uF/16V")          # alu bulk, top, near U2/VM
+g.place("C11", 46, 78, flip=True, value="10uF/25V")  # under U2 (bottom)
+g.place("C12", 54, 78, flip=True, value="100nF")
 g.place("C14", 60, 60, flip=True, value="100nF")
 g.place("J5", 33, 70, rot=0)                 # motor A (rev 7: forward; 4.1mm motor-body gap)
-g.place("J6", 83, 64, rot=0)                 # motor B (B6B-XH-A; right of U2/above MOT2 -- the wider XH connector will not fit the corridor beside U2/C30)
+g.place("J6", 67, 70, rot=0)                 # motor B -- symmetric mirror of J5 (x=100-33=67), same y, inboard (user request)
 # Encoder pull-ups/guards + strap pull-down + STBY tie: TOP mid-band rows
 g.place("R6", 22, 66); g.place("R7", 28, 66)     # ENC1 pullups
 g.place("R8", 40, 47); g.place("R9", 44, 47)     # ENC2 pullups (moved: IMU owns y54-66 center)
@@ -517,8 +516,8 @@ g.place("D30", 66, 110)     # power LED (always on from 3V3)
 g.place("R82", 66, 107)
 g.place("D31", 72, 110)     # status LED (IO12)
 g.place("R83", 72, 107)
-g.place("D32", 78, 110)     # WS2812B RGB (IO14)
-g.place("C31", 78, 107)
+g.place("D32", 50, 20)      # WS2812B RGB -> front-center, visible (user request)
+g.place("C31", 44, 20)
 
 plane = shrink(BOARD_OUTLINE, 1.0)
 # 2-layer: no inner planes. GND pour on BOTH outer copper layers (stitched
