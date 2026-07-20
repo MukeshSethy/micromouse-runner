@@ -344,10 +344,12 @@ g.place("R67", 43, 108, flip=True); g.place("R68", 47, 108, flip=True)  # VBUS s
 # overhangs the outline anywhere (gated below). Rear-left column: JTAG,
 # motor-A connector, battery + balance connectors, both power slides.
 # ---------------------------------------------------------------------------
-g.place("U3", 35.25, 106.7, rot=180)           # Fab body y 93.9..119.9: antenna spans the notch, tip INSIDE the 100x120 envelope
+g.place("U3", 38.0, 106.7, rot=180)            # +2.75mm toward centre (user): off the left wheel; antenna still spans the (shifted) notch, tip inside 100x120
 # Module decoupling + EN RC on TOP in the mid-band (bottom-rear stays clear
 # -- it is the rear cluster's only routing plane).
-g.place("C8", 48.4, 108.7, rot=90); g.place("C10", 50.8, 104.8)  # rev 7: at U3 pin 2 (MMSE-SI-3)
+# ESP decoupling -> BOTTOM face under U3 (the module shifted +2.75mm and the
+# buzzer blocks the top-face gap on its right; underside is the short path).
+g.place("C8", 32, 108, rot=90, flip=True); g.place("C10", 32, 104, flip=True)
 g.place("R11", 34, 60); g.place("C9", 40, 60)
 
 # USB-C: mouth FLUSH with the rear edge (user req: no part outside the board
@@ -457,7 +459,7 @@ _u3.Add(_close)
 for _z in list(_u3.Zones()):
     _u3.Remove(_z)
     _stripped += 1
-g.add_keepout((31.0, 111.8, 39.0, 113.8), allow_tracks=False, allow_footprints=True)
+g.add_keepout((33.75, 111.8, 41.75, 113.8), allow_tracks=False, allow_footprints=True)  # +2.75mm with U3
 print(f"U3 courtyard+zone pieces stripped: {_stripped} (precise ribbon keepout added; missing_courtyard=ignore)")
 
 # --- Sanity + planes + save ---
@@ -512,8 +514,10 @@ g.place("J10", 85.68, 104.8, rot=0)
 # 2-layer additions: power/status/RGB LEDs + passives (user request), in the
 # rear band between the buzzer (x<62) and the XT60 (x~86), top face. Positions
 # PROVISIONAL -- refined after the placement render review.
-g.place("D30", 66, 110)     # power LED (always on from 3V3)
-g.place("R82", 66, 107)
+g.place("D30", 60, 110)     # power LED (logic rail / SW5)
+g.place("R82", 60, 107)
+g.place("D33", 66, 110)     # motor-power LED (VM_6V / SW6)  <-- new
+g.place("R84", 66, 107)
 g.place("D31", 72, 110)     # status LED (IO12)
 g.place("R83", 72, 107)
 g.place("D32", 50, 20)      # WS2812B RGB -> front-center, visible (user request)

@@ -63,6 +63,7 @@ _MPN_STATIC = {
     "D30": ("APT1608SURCK", "Kingbright"),
     "D31": ("APT1608SURCK", "Kingbright"),
     "D32": ("WS2812B", "Worldsemi"),
+    "D33": ("APT1608SURCK", "Kingbright"),   # motor-rail indicator (VM_6V present)
     "J7": ("USB4105-GF-A", "GCT"),
     "SW1": ("PTS645VL582LFS", "C&K"), "SW2": ("PTS645VL582LFS", "C&K"),
     "SW3": ("PTS645VL582LFS", "C&K"), "SW4": ("PTS645VL582LFS", "C&K"),
@@ -1236,6 +1237,18 @@ NC(pin_at(_rb, (7.62, 0)))                                   # 2 DOUT unused
 _rc1, _rc2 = C("C31", "100nF", (690, 650))
 RAIL("PLUS3V3", _rc1, rotation=90)
 RAIL("GND", _rc2, rotation=270)
+
+# Motor-rail indicator LED (user request): ON when SW6 (motor switch) is on AND
+# the 6V motor rail is up. VM_6V -> 1k -> LED -> GND (~4mA, negligible vs motor
+# current). Confirms both the switch and the TPS54302 regulator.
+_mr1, _mr2 = R("R84", "1k", (740, 640))
+RAIL("VM_6V", _mr1, rotation=90)
+RAIL("MOTLED_A", _mr2, rotation=270)
+_mb = snap((740, 620))
+g.add_component("LED", "LD271", "D33", "Motor-power LED 0603 (VM_6V present; JLC good-stock)",
+                _mb, {"1": "", "2": ""}, footprint="LED_SMD:LED_0603_1608Metric")
+RAIL("MOTLED_A", pin_at(_mb, (2.54, 0)), rotation=0)     # anode
+RAIL("GND", pin_at(_mb, (-5.08, 0)), rotation=180)       # cathode
 
 with open(r"D:\Projects\micromouse-pcb\pcb\JLCPCB_2layers\design\micromouse-pcb.kicad_sch", "w", encoding="utf-8", newline="\n") as f:
     f.write(g.render(title="Micromouse PCB"))

@@ -40,7 +40,11 @@ NOTCH_Y2 = AXLE_Y + WHEEL_DIA / 2      # 100
 # (antenna 18mm + ~1.3mm margin each side), y 113.8..120. Antenna tip at
 # y=119.83 -- INSIDE the board dimensions (user req 8). Internal corners get the
 # fab's >=1mm mill radius automatically; notch width 20.7mm >> 1mm min slot.
-ANT_NOTCH_X1, ANT_NOTCH_X2, ANT_NOTCH_Y = 24.9, 45.6, 113.8
+# Shifted +2.75mm toward centre (2-layer, user): moves the ESP off the left
+# wheel (0.75mm -> ~3.5mm clearance). U3 + the antenna ribbon keepout move to
+# match. (Full dead-centre would need relocating the buzzer that packs the
+# rear-centre; this is the max shift the buzzer allows.)
+ANT_NOTCH_X1, ANT_NOTCH_X2, ANT_NOTCH_Y = 27.65, 48.35, 113.8
 BOARD_OUTLINE = [
     (CHAMF, 0), (BOARD_W - CHAMF, 0), (BOARD_W, CHAMF),
     (BOARD_W, NOTCH_Y1), (FACE_R, NOTCH_Y1), (FACE_R, NOTCH_Y2), (BOARD_W, NOTCH_Y2),
