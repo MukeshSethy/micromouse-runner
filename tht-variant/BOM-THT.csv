@@ -6,7 +6,7 @@ Controller socket,-,2x 22-pos female header 2.54mm,PPTC221LFBN-RC,Sullins,In Sto
 Buck inductors,SRP4020TA-4R7M (L1/L2),Radial power inductor 33uH,RLB0914-330KL,Bourns,Family In Stock (4R7 slug verified),Exact 33 uH slug to confirm in Lion BOM tool
 Buck catch diodes,-(sync bucks had none),Axial schottky 3A,1N5822,onsemi/Vishay,VERIFY at order,One per LM2596; any 3 A / 40 V schottky
 Motor driver,TB6612FNG (U2),Breakout module on headers,Adafruit/Pololu TB6612 breakout #2448,Adafruit,In Stock at Lion (Rs.360) -- robu clone ~Rs.150 alt,Keeps IN/IN fw + 6 V rail; two 1x8 sockets PPTC081LFBN-RC (In Stock); dry-fit row spacing
-IMU,BNO055 LGA (U8),Breakout on 1x8 socket,Adafruit BNO055 breakout #4646,Adafruit,In Stock at Lion -- GY-BNO055 (robu ~Rs.700) alt needs jumpers,J15 wired in Adafruit 4646 pin order (VIN/3VO/GND/SDA/SCL/ADR/RST/INT); same 0x28 I2C + INT
+IMU,BNO055 LGA (U8),Breakout on IMU header,Adafruit BNO055 #4646 or GY-BNO055,Adafruit/robu,#4646 In Stock at Lion; GY-BNO055 robu alt,J15 = vendor-AGNOSTIC 6-signal header (VIN/GND/SDA/SCL/INT + ADR-NC): wire your module's matching pins (socket if the row aligns else jumpers); tie ADR low for 0x28; same fw
 Analog mux,CD74HC4067M96 (U4),2x DIP-16 8:1 mux,CD74HC4067E or 2x CD74HC4051E,Texas Instruments,catalog page OOS - Lion procures (jellybean),Dual-4051 needs one 2N7000 bank-enable inverter (DESIGN.md)
 USB ESD,USBLC6-2SC6 (U6),DELETED,-,-,-,USB lives on the DevKit; board has no USB connector
 USB connector,USB4105 USB-C (J7),DELETED,-,-,-,Flash via the DevKit's own USB-C
