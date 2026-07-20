@@ -177,10 +177,15 @@ def main():
             missing.append(mpn)
         lcsc = m["lcsc"] if m else ""
         is_smt = m["smt"] if m else True
-        bom_rows.append([clean_comment(r["Value"], mpn), r["Reference"], short_fp(r["Footprint"]), lcsc])
-        all_refs.update(expand_refs(r["Reference"]))
+        # JLC wants EXPLICIT comma-separated designators, not KiCad ranges
+        # (e.g. "C12,C13,C14,C15" not "C12-C15"); a range string hard-fails
+        # its BOM parser and desyncs from the per-part CPL.
+        refs = expand_refs(r["Reference"])
+        designators = ",".join(refs)
+        bom_rows.append([clean_comment(r["Value"], mpn), designators, short_fp(r["Footprint"]), lcsc])
+        all_refs.update(refs)
         if not is_smt:
-            tht_ref_rows.append([r["Reference"], clean_comment(r["Value"], mpn),
+            tht_ref_rows.append([designators, clean_comment(r["Value"], mpn),
                                  short_fp(r["Footprint"]), lcsc, m["part"] if m else mpn, str(r["Qty"])])
 
     bom_table = [["Comment", "Designator", "Footprint", "JLCPCB Part #（optional）"]] + bom_rows
