@@ -183,8 +183,14 @@ def main():
             tht_ref_rows.append([r["Reference"], clean_comment(r["Value"], mpn),
                                  short_fp(r["Footprint"]), lcsc, m["part"] if m else mpn, str(r["Qty"])])
 
-    write_xlsx(os.path.join(OUT, "BOM_JLC-assembly.xlsx"),
-               [["Comment", "Designator", "Footprint", "JLCPCB Part #（optional）"]] + bom_rows)
+    bom_table = [["Comment", "Designator", "Footprint", "JLCPCB Part #（optional）"]] + bom_rows
+    write_xlsx(os.path.join(OUT, "BOM_JLC-assembly.xlsx"), bom_table)
+    # CSV twin (JLC accepts csv; robust against xlsx-parser quirks). ASCII
+    # header for the LCSC column -- JLC matches "LCSC Part #" too.
+    with open(os.path.join(OUT, "BOM_JLC-assembly.csv"), "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["Comment", "Designator", "Footprint", "LCSC Part #"])
+        w.writerows(bom_rows)
 
     # ---- CPL (ALL placements for BOM parts) --------------------------------
     pos = list(csv.DictReader(open(os.path.join(FAB, "micromouse-pcb.pos.csv"),
@@ -199,6 +205,8 @@ def main():
                     side, rot_fmt(r["Rot"])])
         placed += 1
     write_xlsx(os.path.join(OUT, "CPL_JLC-assembly.xlsx"), cpl)
+    with open(os.path.join(OUT, "CPL_JLC-assembly.csv"), "w", newline="", encoding="utf-8") as f:
+        csv.writer(f).writerows(cpl)
 
     # ---- THT reference (info only) -----------------------------------------
     with open(os.path.join(OUT, "THT_parts_reference.csv"), "w", newline="", encoding="utf-8") as f:
