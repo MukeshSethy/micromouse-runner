@@ -246,7 +246,7 @@ for i in range(6, 14):
 # columns. Diagonal LEDs sit just beyond the far end of the bent-body
 # outline (a > 10.3 along the aim) so silk never crosses their pads.
 WALL_IND_LED = {23: (21.43, 19.6), 24: (78.57, 19.6),  # rev 7: BEHIND the sensors
-                25: (8.5, 32), 26: (91.5, 32),         # (user req MMSE-WALL-5)
+                25: (30, 33), 26: (70, 33),            # 2-layer (user): moved INBOARD, behind the diagonal sensors (out of the beam)
                 27: (20.5, 46.5), 28: (79.5, 46.5)}
 for k in range(1, 7):
     dx, dy = WALL_IND_LED[22 + k]
@@ -404,13 +404,13 @@ g.place("C30", 50, 87, value="220uF/16V")          # alu bulk -> motor-bay corri
 g.place("C11", 50, 72, flip=True, value="10uF/25V")  # corridor, forward of U2 (bottom)
 g.place("C12", 50, 84, flip=True, value="100nF")     # corridor, behind U2 (bottom)
 g.place("C14", 60, 60, flip=True, value="100nF")
-g.place("J5", 33, 70, rot=0)                 # motor A (at the wheel forward edge; a forward move needs re-flowing the packed mid-section)
+g.place("J5", 33, 69.1, rot=0)               # motor A -- forward 0.9mm so its body y aligns with J6 (mirror-symmetric)
 g.place("J6", 67, 70, rot=180)               # motor B -- TRUE mirror of J5 (rot 180)
 # Encoder pull-ups/guards + strap pull-down + STBY tie: TOP mid-band rows
-g.place("R6", 22, 66); g.place("R7", 28, 66)     # ENC1 pullups
+g.place("R6", 21, 50); g.place("R7", 25, 50)     # ENC1 pullups -> front gap (cleared J5 forward path)
 g.place("R8", 40, 47); g.place("R9", 44, 47)     # ENC2 pullups (moved: IMU owns y54-66 center)
 g.place("R57", 44, 100); g.place("R58", 56, 100)   # ENC2 guards -> flank the centred U3 (off the buzzer)
-g.place("R65", 40, 66)                           # BIN2 strap pulldown
+g.place("R65", 44, 52)                           # BIN2 strap pulldown -> front gap
 g.place("R55", 52, 68)                           # STBY tie-high (10k to 3V3) -- moved clear of the mirrored J6
 
 # Battery + balance + power slides, rear-left (all left of the antenna notch
