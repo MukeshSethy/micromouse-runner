@@ -513,7 +513,7 @@ def shrink(points, amount):
 # Buzzer back on the TOP face (pad-based scan: the top IS NOT full -- silk
 # labels had inflated the earlier count) beside the right motor connector J6,
 # a genuinely open mid-side spot. Driver rides on the bottom right under it.
-g.place("BZ1", 78, 62, rot=0)
+g.place("BZ1", 76, 62, rot=0)
 g.place("Q34", 72, 66, rot=180, flip=True)
 g.place("R81", 66, 64, rot=-90, flip=True)
 g.place("D29", 84, 64, rot=90, flip=True)
