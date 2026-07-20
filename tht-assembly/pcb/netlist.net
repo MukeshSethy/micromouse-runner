@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "D:\\Projects\\micromouse-pcb\\tht-assembly\\pcb\\micromouse-tht.kicad_sch")
-		(date "2026-07-20T10:46:28")
+		(date "2026-07-20T16:23:41")
 		(tool "Eeschema 10.0.4")
 		(sheet
 			(number "1")
@@ -105,7 +105,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e25b315f-3f54-45cb-9323-aec78a96208f")
+			(tstamps "3865322a-25bc-4c76-87d2-1309d7cce7e3")
 			(units
 				(unit
 					(name "A")
@@ -171,7 +171,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "dab8b6f7-7265-4325-a29a-36844997ffbf")
+			(tstamps "74e2ed84-2f28-46f5-bd02-f4f9c479bb64")
 			(units
 				(unit
 					(name "A")
@@ -237,7 +237,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c7fa24fc-804e-4d28-bb32-9c299d3129df")
+			(tstamps "8d21f3da-c9e5-42c3-8194-4e7c825911a7")
 			(units
 				(unit
 					(name "A")
@@ -303,7 +303,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d127fcd5-e196-4e1c-9bbe-a00dec06a0d8")
+			(tstamps "30e3ec44-51e9-4d88-9283-48d8df516ecd")
 			(units
 				(unit
 					(name "A")
@@ -369,7 +369,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7ca24dc9-bed2-4a0e-b880-10ebc16a2884")
+			(tstamps "a51150b9-0db0-4f08-9dfb-0f3e48ab6eb4")
 			(units
 				(unit
 					(name "A")
@@ -435,7 +435,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "235a483c-2dd1-4e86-9dc8-df5986071f94")
+			(tstamps "b3e464a4-0734-4b23-ba12-59d7d93109f7")
 			(units
 				(unit
 					(name "A")
@@ -501,7 +501,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e718f8df-ec36-465c-9425-483e358ec69e")
+			(tstamps "f72971dd-3b4f-407f-ac15-722bc16da32c")
 			(units
 				(unit
 					(name "A")
@@ -567,7 +567,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "164917aa-2d3f-4603-bb81-addeca63fd50")
+			(tstamps "efdacdbd-fa3f-4041-bbda-e347a6152905")
 			(units
 				(unit
 					(name "A")
@@ -633,7 +633,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ad33abd5-c430-4212-9ec0-c39ea893d463")
+			(tstamps "83d041c8-11b8-443d-a1bf-2551a515778c")
 			(units
 				(unit
 					(name "A")
@@ -699,7 +699,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "849f9192-7c7d-44a7-b57f-18ee78e73d20")
+			(tstamps "90c4c386-9e66-4a00-b0e3-f700986ac165")
 			(units
 				(unit
 					(name "A")
@@ -765,7 +765,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c62781d6-7160-42ed-bdc1-5ce500558951")
+			(tstamps "8abcd85e-7d91-4cb3-a5a6-a46026eb45d7")
 			(units
 				(unit
 					(name "A")
@@ -831,7 +831,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "64fc1a57-cb41-4c67-b798-a94acc1c073a")
+			(tstamps "90f1a72f-9138-4de6-82a4-5ba4f3bf285a")
 			(units
 				(unit
 					(name "A")
@@ -897,7 +897,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4b8da163-9d67-4a55-9e74-1101c906cb75")
+			(tstamps "e53bd1f9-2ccc-4957-85f4-b38a9634cf21")
 			(units
 				(unit
 					(name "A")
@@ -963,7 +963,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "76c53769-257f-4861-8158-7df74db134f0")
+			(tstamps "55557696-cc90-41d0-bb26-e25901f2d195")
 			(units
 				(unit
 					(name "A")
@@ -1029,7 +1029,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c3aea61d-de11-4925-af75-461e2cd10b9c")
+			(tstamps "76e70f86-4cb3-4c85-bb7b-cd3fb5e16f97")
 			(units
 				(unit
 					(name "A")
@@ -1095,7 +1095,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a8863b92-a4f2-4f05-bfa5-6fb2b0637d40")
+			(tstamps "1cc830fa-a4b3-401e-a067-35cf40bd1d60")
 			(units
 				(unit
 					(name "A")
@@ -1161,7 +1161,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c6120b02-e3ce-4afd-94be-b160992d2485")
+			(tstamps "47df4187-d244-4b3a-8326-c6ce64346080")
 			(units
 				(unit
 					(name "A")
@@ -1227,7 +1227,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0eeea19a-cbad-4430-a134-746c142b031a")
+			(tstamps "ac73138d-e6b4-41bc-9e69-61508aaa23fc")
 			(units
 				(unit
 					(name "A")
@@ -1237,6 +1237,150 @@
 						)
 						(pin
 							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D40")
+			(value "WP154A4SUREQBFZGC (5mm common-cathode RGB)")
+			(footprint "LED_THT:LED_D5.0mm-4_RGB")
+			(fields
+				(field
+					(name "MPN") "WP154A4SUREQBFZGC")
+				(field
+					(name "Manufacturer") "Kingbright")
+				(field
+					(name "Footprint") "LED_THT:LED_D5.0mm-4_RGB")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "LED_RKGB")
+				(description "RGB LED, red/cathode/green/blue")
+			)
+			(property
+				(name "MPN")
+				(value "WP154A4SUREQBFZGC")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Kingbright")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-tht")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-tht.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "LED RGB diode")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "LED* LED_SMD:* LED_THT:*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "230eed36-b9f6-4b27-b7cb-316fe7e548b8")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D41")
+			(value "WP154A4SUREQBFZGC (5mm common-cathode RGB)")
+			(footprint "LED_THT:LED_D5.0mm-4_RGB")
+			(fields
+				(field
+					(name "MPN") "WP154A4SUREQBFZGC")
+				(field
+					(name "Manufacturer") "Kingbright")
+				(field
+					(name "Footprint") "LED_THT:LED_D5.0mm-4_RGB")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "LED_RKGB")
+				(description "RGB LED, red/cathode/green/blue")
+			)
+			(property
+				(name "MPN")
+				(value "WP154A4SUREQBFZGC")
+			)
+			(property
+				(name "Manufacturer")
+				(value "Kingbright")
+			)
+			(property
+				(name "Sheetname")
+				(value "micromouse-tht")
+			)
+			(property
+				(name "Sheetfile")
+				(value "micromouse-tht.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "LED RGB diode")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "LED* LED_SMD:* LED_THT:*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "7e4ce40e-8cc6-4a7e-94a4-41577deeec4d")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
 						)
 					)
 				)
@@ -1293,7 +1437,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9269671d-3b55-44a0-9694-77a0d1298412")
+			(tstamps "8772d5b7-659f-45c1-af79-c7d1a49583fb")
 			(units
 				(unit
 					(name "A")
@@ -1359,7 +1503,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8798bacc-cd2f-46a1-bc91-c75f03eade69")
+			(tstamps "5c8f80d2-086e-441f-8774-056e2d2251f6")
 			(units
 				(unit
 					(name "A")
@@ -1425,7 +1569,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b4e618fe-3c3b-4ac2-b005-416b8a1ad862")
+			(tstamps "31badbb1-dacb-4177-91f6-f6469d93b888")
 			(units
 				(unit
 					(name "A")
@@ -1491,7 +1635,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "68cffe30-c2c0-4d6d-a555-460586089fbd")
+			(tstamps "bce5c485-7368-4eff-9405-f83a3a069d26")
 			(units
 				(unit
 					(name "A")
@@ -1557,7 +1701,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "161b2cda-6098-4d6e-90a4-d72fe1ee1cce")
+			(tstamps "b7d84c75-f29b-4d22-a7ef-51f2a7b28a2d")
 			(units
 				(unit
 					(name "A")
@@ -1623,535 +1767,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "66185211-bb7c-494a-8a4f-bdcf6b759b7a")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D131")
-			(value "LED red 3mm")
-			(footprint "LED_THT:LED_D3.0mm")
-			(fields
-				(field
-					(name "MPN") "WP710A10ID")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_THT:LED_D3.0mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "D")
-				(description "Diode")
-			)
-			(property
-				(name "MPN")
-				(value "WP710A10ID")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO-???* *_Diode_* *SingleDiode* D_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "5309119c-6c83-4c8d-bd05-09c3eb9efc13")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D132")
-			(value "LED red 3mm")
-			(footprint "LED_THT:LED_D3.0mm")
-			(fields
-				(field
-					(name "MPN") "WP710A10ID")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_THT:LED_D3.0mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "D")
-				(description "Diode")
-			)
-			(property
-				(name "MPN")
-				(value "WP710A10ID")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO-???* *_Diode_* *SingleDiode* D_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "bae3e22d-16c8-4e90-9590-01631fca639f")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D133")
-			(value "LED red 3mm")
-			(footprint "LED_THT:LED_D3.0mm")
-			(fields
-				(field
-					(name "MPN") "WP710A10ID")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_THT:LED_D3.0mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "D")
-				(description "Diode")
-			)
-			(property
-				(name "MPN")
-				(value "WP710A10ID")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO-???* *_Diode_* *SingleDiode* D_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "c1771ff6-4501-4d77-b692-6361c9857cc5")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D134")
-			(value "LED red 3mm")
-			(footprint "LED_THT:LED_D3.0mm")
-			(fields
-				(field
-					(name "MPN") "WP710A10ID")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_THT:LED_D3.0mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "D")
-				(description "Diode")
-			)
-			(property
-				(name "MPN")
-				(value "WP710A10ID")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO-???* *_Diode_* *SingleDiode* D_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "5bef52c5-1791-4b5d-85b7-cb45153add2e")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D135")
-			(value "LED red 3mm")
-			(footprint "LED_THT:LED_D3.0mm")
-			(fields
-				(field
-					(name "MPN") "WP710A10ID")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_THT:LED_D3.0mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "D")
-				(description "Diode")
-			)
-			(property
-				(name "MPN")
-				(value "WP710A10ID")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO-???* *_Diode_* *SingleDiode* D_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "5745aeea-84e7-429b-87cc-68ba99cff3f3")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D136")
-			(value "LED red 3mm")
-			(footprint "LED_THT:LED_D3.0mm")
-			(fields
-				(field
-					(name "MPN") "WP710A10ID")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_THT:LED_D3.0mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "D")
-				(description "Diode")
-			)
-			(property
-				(name "MPN")
-				(value "WP710A10ID")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO-???* *_Diode_* *SingleDiode* D_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "3b3d85be-9982-4f19-a212-10979a6b87c0")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D137")
-			(value "LED red 3mm")
-			(footprint "LED_THT:LED_D3.0mm")
-			(fields
-				(field
-					(name "MPN") "WP710A10ID")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_THT:LED_D3.0mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "D")
-				(description "Diode")
-			)
-			(property
-				(name "MPN")
-				(value "WP710A10ID")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO-???* *_Diode_* *SingleDiode* D_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "8838ceb6-6d60-44c8-9c01-2ba46707a3cd")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D138")
-			(value "LED red 3mm")
-			(footprint "LED_THT:LED_D3.0mm")
-			(fields
-				(field
-					(name "MPN") "WP710A10ID")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_THT:LED_D3.0mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "D")
-				(description "Diode")
-			)
-			(property
-				(name "MPN")
-				(value "WP710A10ID")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO-???* *_Diode_* *SingleDiode* D_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "3f79672f-c346-46d4-a39b-a0cd16240e79")
+			(tstamps "453ab99a-6e3a-4ed4-81e0-cc0560a60072")
 			(units
 				(unit
 					(name "A")
@@ -2217,7 +1833,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "19b683d1-390a-4b7f-92c9-4c26226d6684")
+			(tstamps "df94f4df-13d4-4a30-8bdc-43f6a4e2ea8d")
 			(units
 				(unit
 					(name "A")
@@ -2283,7 +1899,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "90218a9d-3733-4c90-9146-8a7dfa75bf3a")
+			(tstamps "f0e582e4-30b7-4d1e-a6f7-7531e0b67ae4")
 			(units
 				(unit
 					(name "A")
@@ -2349,7 +1965,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5be0a850-ef92-4fdb-8581-2cb2a20dc68d")
+			(tstamps "c1ed7143-73b7-44ca-a884-098ef74ed1ea")
 			(units
 				(unit
 					(name "A")
@@ -2427,85 +2043,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "95684efb-d782-4829-90e2-6cba011c04b1")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "4")
-						)
-						(pin
-							(num "5")
-						)
-						(pin
-							(num "6")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "J8")
-			(value "JTAG_1x6")
-			(footprint "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
-			(fields
-				(field
-					(name "MPN") "61300611121")
-				(field
-					(name "Manufacturer") "Wurth Elektronik")
-				(field
-					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x06")
-				(description "Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "MPN")
-				(value "61300611121")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Wurth Elektronik")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "a22b7803-761a-4f04-953e-59063abeb5d6")
+			(tstamps "8382b2ed-a1d1-4c80-9e90-7953ea4e75e5")
 			(units
 				(unit
 					(name "A")
@@ -2583,7 +2121,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ee15c834-8b30-4750-8ac8-697b7c2f767a")
+			(tstamps "6665d30a-5ae6-4897-8170-96ce1d1de9a2")
 			(units
 				(unit
 					(name "A")
@@ -2652,7 +2190,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9863c0e2-e08f-4bf7-96f2-681be3d96ba1")
+			(tstamps "fbb010b8-27f6-43e3-98b2-5606cd4df8c5")
 			(units
 				(unit
 					(name "A")
@@ -2718,7 +2256,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a7e2a9d6-8237-46f5-9a5f-34a3cab66c22")
+			(tstamps "8ace692d-d28f-4fb3-848b-e334cff0a7ce")
 			(units
 				(unit
 					(name "A")
@@ -2802,7 +2340,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "138a0f7b-c7be-413d-be8f-b17cb12ce31f")
+			(tstamps "8223cb4b-432d-44bc-9f1f-4edec37c8d7a")
 			(units
 				(unit
 					(name "A")
@@ -2886,7 +2424,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "61ef8785-a284-46f2-af28-d5fa3e4d7855")
+			(tstamps "caae631f-f652-409d-a312-97b8efba0580")
 			(units
 				(unit
 					(name "A")
@@ -3012,7 +2550,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3b147e9a-fb1d-401c-8c1a-a6984fe3dde4")
+			(tstamps "1d341340-de54-413f-bd69-71f414f0ca3b")
 			(units
 				(unit
 					(name "A")
@@ -3138,7 +2676,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "84afc64a-5e2b-4c5b-9acb-fab4e751b13a")
+			(tstamps "27ccdbd8-548c-4dd5-8e80-33edfbbe61ac")
 			(units
 				(unit
 					(name "A")
@@ -3216,7 +2754,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "785cc617-69d0-4695-8403-9d3832775806")
+			(tstamps "4195d60d-3ec4-4e5d-8201-5fe0bb7e86c4")
 			(units
 				(unit
 					(name "A")
@@ -3282,7 +2820,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3312ed4c-909e-4122-9329-285de81b0091")
+			(tstamps "e3bcc5e8-f390-49bc-90c5-a413e32f4fab")
 			(units
 				(unit
 					(name "A")
@@ -3292,582 +2830,6 @@
 						)
 						(pin
 							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "LS1")
-			(value "TCRT5000 (PC817 base symbol so ERC checks pins)")
-			(footprint "n20:TCRT5000")
-			(fields
-				(field
-					(name "MPN") "TCRT5000")
-				(field
-					(name "Manufacturer") "Vishay")
-				(field
-					(name "Footprint") "n20:TCRT5000")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Isolator")
-				(part "PC817")
-				(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
-			)
-			(property
-				(name "MPN")
-				(value "TCRT5000")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Vishay")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "NPN DC Optocoupler")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "DIP*W7.62mm*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "08585241-07f6-4912-80dd-e183fa256eb5")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "4")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "LS2")
-			(value "TCRT5000 (PC817 base symbol so ERC checks pins)")
-			(footprint "n20:TCRT5000")
-			(fields
-				(field
-					(name "MPN") "TCRT5000")
-				(field
-					(name "Manufacturer") "Vishay")
-				(field
-					(name "Footprint") "n20:TCRT5000")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Isolator")
-				(part "PC817")
-				(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
-			)
-			(property
-				(name "MPN")
-				(value "TCRT5000")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Vishay")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "NPN DC Optocoupler")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "DIP*W7.62mm*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "b8ca67e4-bacc-4180-9ff1-16468d2f2d86")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "4")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "LS3")
-			(value "TCRT5000 (PC817 base symbol so ERC checks pins)")
-			(footprint "n20:TCRT5000")
-			(fields
-				(field
-					(name "MPN") "TCRT5000")
-				(field
-					(name "Manufacturer") "Vishay")
-				(field
-					(name "Footprint") "n20:TCRT5000")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Isolator")
-				(part "PC817")
-				(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
-			)
-			(property
-				(name "MPN")
-				(value "TCRT5000")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Vishay")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "NPN DC Optocoupler")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "DIP*W7.62mm*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "f9e24eb5-2c3b-43b2-a574-62953bf2ef85")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "4")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "LS4")
-			(value "TCRT5000 (PC817 base symbol so ERC checks pins)")
-			(footprint "n20:TCRT5000")
-			(fields
-				(field
-					(name "MPN") "TCRT5000")
-				(field
-					(name "Manufacturer") "Vishay")
-				(field
-					(name "Footprint") "n20:TCRT5000")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Isolator")
-				(part "PC817")
-				(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
-			)
-			(property
-				(name "MPN")
-				(value "TCRT5000")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Vishay")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "NPN DC Optocoupler")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "DIP*W7.62mm*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "47cdc18e-2861-41b8-9bf3-002cec00a4e5")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "4")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "LS5")
-			(value "TCRT5000 (PC817 base symbol so ERC checks pins)")
-			(footprint "n20:TCRT5000")
-			(fields
-				(field
-					(name "MPN") "TCRT5000")
-				(field
-					(name "Manufacturer") "Vishay")
-				(field
-					(name "Footprint") "n20:TCRT5000")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Isolator")
-				(part "PC817")
-				(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
-			)
-			(property
-				(name "MPN")
-				(value "TCRT5000")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Vishay")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "NPN DC Optocoupler")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "DIP*W7.62mm*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "06610064-5bf9-47c5-9bbe-b3c98b4e0407")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "4")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "LS6")
-			(value "TCRT5000 (PC817 base symbol so ERC checks pins)")
-			(footprint "n20:TCRT5000")
-			(fields
-				(field
-					(name "MPN") "TCRT5000")
-				(field
-					(name "Manufacturer") "Vishay")
-				(field
-					(name "Footprint") "n20:TCRT5000")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Isolator")
-				(part "PC817")
-				(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
-			)
-			(property
-				(name "MPN")
-				(value "TCRT5000")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Vishay")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "NPN DC Optocoupler")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "DIP*W7.62mm*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "7182776a-648d-410e-a176-15f661a6da70")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "4")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "LS7")
-			(value "TCRT5000 (PC817 base symbol so ERC checks pins)")
-			(footprint "n20:TCRT5000")
-			(fields
-				(field
-					(name "MPN") "TCRT5000")
-				(field
-					(name "Manufacturer") "Vishay")
-				(field
-					(name "Footprint") "n20:TCRT5000")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Isolator")
-				(part "PC817")
-				(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
-			)
-			(property
-				(name "MPN")
-				(value "TCRT5000")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Vishay")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "NPN DC Optocoupler")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "DIP*W7.62mm*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "976431ec-3662-4acd-855e-cf49f82e7799")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "4")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "LS8")
-			(value "TCRT5000 (PC817 base symbol so ERC checks pins)")
-			(footprint "n20:TCRT5000")
-			(fields
-				(field
-					(name "MPN") "TCRT5000")
-				(field
-					(name "Manufacturer") "Vishay")
-				(field
-					(name "Footprint") "n20:TCRT5000")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Isolator")
-				(part "PC817")
-				(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
-			)
-			(property
-				(name "MPN")
-				(value "TCRT5000")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Vishay")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "NPN DC Optocoupler")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "DIP*W7.62mm*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "0fe879ae-ace6-4376-b3a7-c789e2b6c153")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "4")
-						)
-						(pin
-							(num "3")
 						)
 					)
 				)
@@ -3920,7 +2882,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "de2e61d7-f168-4209-bf5c-f4f7016407ca")
+			(tstamps "f64aae54-f054-4bef-8584-6db66a332e1e")
 			(units
 				(unit
 					(name "A")
@@ -3989,7 +2951,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c9b0eca1-8910-47c9-906f-36247da91193")
+			(tstamps "38f0e297-5869-42ba-9d4f-2f83c315510e")
 			(units
 				(unit
 					(name "A")
@@ -4055,7 +3017,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b10f8622-11c5-41f8-b5a7-8e26fe13bda8")
+			(tstamps "d642f697-ebd7-4d90-9017-b56981cc8dd3")
 			(units
 				(unit
 					(name "A")
@@ -4121,7 +3083,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "224b80e3-d2ab-4598-a2ee-b555799960a3")
+			(tstamps "2c81655e-260b-44cc-aa04-c2e2ebfe96c2")
 			(units
 				(unit
 					(name "A")
@@ -4187,7 +3149,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3873217e-e431-4c70-8edd-66bac7bedd55")
+			(tstamps "14d2fdcc-eb99-4b2c-8020-a3f9a36d55b9")
 			(units
 				(unit
 					(name "A")
@@ -4253,7 +3215,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2a01c5e9-592d-48d9-a4a7-219953a92690")
+			(tstamps "1432e802-eb1b-457b-91c0-05c529a2e694")
 			(units
 				(unit
 					(name "A")
@@ -4319,7 +3281,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "43fbff23-6675-4dca-b36f-d2a97e409990")
+			(tstamps "23374d89-e086-45bf-816f-ab9424c31805")
 			(units
 				(unit
 					(name "A")
@@ -4381,7 +3343,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "558faf60-2b0a-4898-b0f7-3eda25dc3106")
+			(tstamps "65bb3e2a-4c5c-42ad-bb75-8d77d7394b3a")
 			(units
 				(unit
 					(name "A")
@@ -4446,7 +3408,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4766761d-fd6d-414e-b73b-a06840aca040")
+			(tstamps "fb2eb931-ef53-4391-b1e5-678b525d1063")
 			(units
 				(unit
 					(name "A")
@@ -4511,72 +3473,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f6a3a55a-4b81-4311-8201-f86fe72ebeb6")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "1")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q19")
-			(value "2N7000 (TO-92 S-G-D)")
-			(footprint "Package_TO_SOT_THT:TO-92_Inline")
-			(fields
-				(field
-					(name "MPN") "2N7000")
-				(field
-					(name "Manufacturer") "onsemi")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-92_Inline")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "Q_NMOS_SGD")
-				(description "N-MOSFET transistor, source/gate/drain")
-			)
-			(property
-				(name "MPN")
-				(value "2N7000")
-			)
-			(property
-				(name "Manufacturer")
-				(value "onsemi")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "transistor NMOS N-MOS N-MOSFET")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "e686e10e-392b-4e31-b526-4d48c2da2f2a")
+			(tstamps "e002cf17-1049-46c2-9b3d-eeee463b0090")
 			(units
 				(unit
 					(name "A")
@@ -4641,7 +3538,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "06d5aaae-f6a2-4ebd-aea9-920820ea1d03")
+			(tstamps "31980337-56c6-4120-b64d-baa887245b3f")
 			(units
 				(unit
 					(name "A")
@@ -4706,7 +3603,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "017c02d7-a585-462c-93d9-3c63bcac5a72")
+			(tstamps "b37b71ff-4e4c-48ab-8600-1aeb9f679cea")
 			(units
 				(unit
 					(name "A")
@@ -4771,7 +3668,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "89827037-e8d8-4e18-afc9-4c10017f9962")
+			(tstamps "df419aad-b7a1-45da-a0ff-aab9e9af3d8a")
 			(units
 				(unit
 					(name "A")
@@ -4836,7 +3733,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "36cf593e-e6a6-4aab-8be1-2ab12ef190b3")
+			(tstamps "7f57e447-0354-41ef-acfd-c0b5d5717476")
 			(units
 				(unit
 					(name "A")
@@ -4901,7 +3798,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9e080f38-6f27-42fa-99b3-26cd958448e4")
+			(tstamps "ec90786a-7836-4bc0-850f-39711bd68096")
 			(units
 				(unit
 					(name "A")
@@ -4966,7 +3863,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e3dad475-0e70-446c-a610-4c1f88b3d5a1")
+			(tstamps "f700557f-17f5-4039-a43d-149eb70a142a")
 			(units
 				(unit
 					(name "A")
@@ -5031,7 +3928,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1049aae0-33b8-43ce-8492-a50fee526f17")
+			(tstamps "be865aa8-eba9-4f1b-b2fc-3cb6989d3966")
 			(units
 				(unit
 					(name "A")
@@ -5096,527 +3993,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "25c9fba2-c5b3-464a-bad3-67d09409950b")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q131")
-			(value "BS250P (TO-92 D-G-S)")
-			(footprint "Package_TO_SOT_THT:TO-92_Inline")
-			(fields
-				(field
-					(name "MPN") "BS250P")
-				(field
-					(name "Manufacturer") "Diotec")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-92_Inline")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "Q_PMOS_DGS")
-				(description "P-MOSFET transistor, drain/gate/source")
-			)
-			(property
-				(name "MPN")
-				(value "BS250P")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Diotec")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "transistor PMOS P-MOS P-MOSFET")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "38bf91e9-71d6-451d-bb94-cebdf8465a19")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q132")
-			(value "BS250P (TO-92 D-G-S)")
-			(footprint "Package_TO_SOT_THT:TO-92_Inline")
-			(fields
-				(field
-					(name "MPN") "BS250P")
-				(field
-					(name "Manufacturer") "Diotec")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-92_Inline")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "Q_PMOS_DGS")
-				(description "P-MOSFET transistor, drain/gate/source")
-			)
-			(property
-				(name "MPN")
-				(value "BS250P")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Diotec")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "transistor PMOS P-MOS P-MOSFET")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "be96417e-d7dc-427b-aa15-f13612d362f9")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q133")
-			(value "BS250P (TO-92 D-G-S)")
-			(footprint "Package_TO_SOT_THT:TO-92_Inline")
-			(fields
-				(field
-					(name "MPN") "BS250P")
-				(field
-					(name "Manufacturer") "Diotec")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-92_Inline")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "Q_PMOS_DGS")
-				(description "P-MOSFET transistor, drain/gate/source")
-			)
-			(property
-				(name "MPN")
-				(value "BS250P")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Diotec")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "transistor PMOS P-MOS P-MOSFET")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "65dbde93-7d39-4bb2-86d2-f3d14ae9787f")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q134")
-			(value "BS250P (TO-92 D-G-S)")
-			(footprint "Package_TO_SOT_THT:TO-92_Inline")
-			(fields
-				(field
-					(name "MPN") "BS250P")
-				(field
-					(name "Manufacturer") "Diotec")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-92_Inline")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "Q_PMOS_DGS")
-				(description "P-MOSFET transistor, drain/gate/source")
-			)
-			(property
-				(name "MPN")
-				(value "BS250P")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Diotec")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "transistor PMOS P-MOS P-MOSFET")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "c7f1f84b-a29f-45c7-89e3-729a6e5cc1e1")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q135")
-			(value "BS250P (TO-92 D-G-S)")
-			(footprint "Package_TO_SOT_THT:TO-92_Inline")
-			(fields
-				(field
-					(name "MPN") "BS250P")
-				(field
-					(name "Manufacturer") "Diotec")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-92_Inline")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "Q_PMOS_DGS")
-				(description "P-MOSFET transistor, drain/gate/source")
-			)
-			(property
-				(name "MPN")
-				(value "BS250P")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Diotec")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "transistor PMOS P-MOS P-MOSFET")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "4b3a55dd-4ced-4598-803e-6695516a3c2d")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q136")
-			(value "BS250P (TO-92 D-G-S)")
-			(footprint "Package_TO_SOT_THT:TO-92_Inline")
-			(fields
-				(field
-					(name "MPN") "BS250P")
-				(field
-					(name "Manufacturer") "Diotec")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-92_Inline")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "Q_PMOS_DGS")
-				(description "P-MOSFET transistor, drain/gate/source")
-			)
-			(property
-				(name "MPN")
-				(value "BS250P")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Diotec")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "transistor PMOS P-MOS P-MOSFET")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "e148d1ef-fedc-4431-bb98-1c336977c5f7")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q137")
-			(value "BS250P (TO-92 D-G-S)")
-			(footprint "Package_TO_SOT_THT:TO-92_Inline")
-			(fields
-				(field
-					(name "MPN") "BS250P")
-				(field
-					(name "Manufacturer") "Diotec")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-92_Inline")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "Q_PMOS_DGS")
-				(description "P-MOSFET transistor, drain/gate/source")
-			)
-			(property
-				(name "MPN")
-				(value "BS250P")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Diotec")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "transistor PMOS P-MOS P-MOSFET")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "6484c60f-8900-41b5-abb7-6fca61c942aa")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q138")
-			(value "BS250P (TO-92 D-G-S)")
-			(footprint "Package_TO_SOT_THT:TO-92_Inline")
-			(fields
-				(field
-					(name "MPN") "BS250P")
-				(field
-					(name "Manufacturer") "Diotec")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-92_Inline")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "Q_PMOS_DGS")
-				(description "P-MOSFET transistor, drain/gate/source")
-			)
-			(property
-				(name "MPN")
-				(value "BS250P")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Diotec")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "transistor PMOS P-MOS P-MOSFET")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "af727bc7-8d66-467d-87a7-89af549fb900")
+			(tstamps "878818a1-d1a6-42b7-ad42-357602a8c36d")
 			(units
 				(unit
 					(name "A")
@@ -5685,7 +4062,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "85d7f53d-3427-49a4-9b16-15c6beba5258")
+			(tstamps "599839dd-6324-46f2-b922-e6ae7458824e")
 			(units
 				(unit
 					(name "A")
@@ -5751,7 +4128,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c04e1f8c-22dd-4f9b-8981-7cb7a7ddc63d")
+			(tstamps "28d4f80c-03a9-4d51-8d6d-d3e28b23b304")
 			(units
 				(unit
 					(name "A")
@@ -5817,7 +4194,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3fd30af7-2983-4d99-bc56-90078ec5ae1a")
+			(tstamps "b1b89aa0-6a05-415c-80b5-892ef50a334d")
 			(units
 				(unit
 					(name "A")
@@ -5883,7 +4260,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "48c7b8c5-adb4-4043-990c-6ee2962dea9e")
+			(tstamps "77386e57-2c6f-444a-8d7b-b9997309def8")
 			(units
 				(unit
 					(name "A")
@@ -5949,7 +4326,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "345777af-8c55-4a89-a200-824419669aba")
+			(tstamps "fee99176-7c2c-4d89-bc32-81931c0f674e")
 			(units
 				(unit
 					(name "A")
@@ -6015,7 +4392,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6ae3e62d-0b43-472f-ac2c-ae81450aa90d")
+			(tstamps "9e282762-1351-4811-a061-f4e9294cde78")
 			(units
 				(unit
 					(name "A")
@@ -6081,7 +4458,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1f993fdb-e617-4779-ba64-b8805cd25e3f")
+			(tstamps "6319ae55-c14d-48e4-9995-314c86ba97ee")
 			(units
 				(unit
 					(name "A")
@@ -6147,7 +4524,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bc9a32f0-c52f-45a3-a78d-30ed86daffd0")
+			(tstamps "91caebb2-7f62-4e91-98b1-fd4f77c9bc38")
 			(units
 				(unit
 					(name "A")
@@ -6213,7 +4590,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0f1627b1-aef1-4d3b-8ca1-83142892f7bc")
+			(tstamps "251097ad-5826-435a-b37b-2dd829b24279")
 			(units
 				(unit
 					(name "A")
@@ -6279,73 +4656,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "75f405ce-aabd-48c1-b8d1-a0fdd09a947d")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R61")
-			(value "100k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-100K")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-100K")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "8f5ed808-284e-49ca-bbe0-311c7b21260f")
+			(tstamps "8f3959bd-485a-40ae-afb4-d1f96c3da2cc")
 			(units
 				(unit
 					(name "A")
@@ -6411,7 +4722,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ac2db1c1-6558-4f31-9637-358dc2c54db7")
+			(tstamps "69753e66-5f96-4b4c-89be-c53d126f53d8")
 			(units
 				(unit
 					(name "A")
@@ -6477,7 +4788,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9e61333f-a017-4509-bb90-f57150f39c4e")
+			(tstamps "d82fcc01-24f2-42d1-8c14-ae4024bad6db")
 			(units
 				(unit
 					(name "A")
@@ -6543,7 +4854,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "189e6f25-5c15-4fdd-8f6f-aabdb8764bbc")
+			(tstamps "3f5cec7c-d684-4962-bf45-c4152a1f2c97")
 			(units
 				(unit
 					(name "A")
@@ -6609,7 +4920,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cdedd54a-c44c-41fb-83f0-b041653d3421")
+			(tstamps "55f7eddb-eb04-44d2-a242-21e83e8f0ffc")
 			(units
 				(unit
 					(name "A")
@@ -6675,7 +4986,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4acecd47-3915-4403-b6b1-27a3b32d8cda")
+			(tstamps "a73e8402-ecd9-4872-87d3-cc5c8743f8f2")
 			(units
 				(unit
 					(name "A")
@@ -6741,7 +5052,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c84cd087-9077-445a-9775-03aba9931329")
+			(tstamps "4e3637e1-21ff-4550-8551-246d8e712a03")
 			(units
 				(unit
 					(name "A")
@@ -6807,7 +5118,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "142199f2-b71e-4d00-abd2-6f91e93810c4")
+			(tstamps "f6bf8ddb-5732-49cd-a0f9-682ef201818c")
 			(units
 				(unit
 					(name "A")
@@ -6873,7 +5184,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "587d9f8b-deb4-4ed5-9fb0-89718587122f")
+			(tstamps "f310007a-c306-439e-b9f3-2058ea159ac5")
 			(units
 				(unit
 					(name "A")
@@ -6939,7 +5250,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "df1c6382-c695-4b18-a50e-c1e6c1a7a3df")
+			(tstamps "081c5bab-e0e3-47a5-bd62-a8d39b9f5ac9")
 			(units
 				(unit
 					(name "A")
@@ -7005,7 +5316,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3b3f2266-9af1-4496-ba59-e0972f540e0f")
+			(tstamps "2262ad88-5ced-4095-bd4f-e13bd5cdc0b1")
 			(units
 				(unit
 					(name "A")
@@ -7071,7 +5382,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f98ffbcd-c63e-49cf-a52b-5ac41f52814d")
+			(tstamps "43658c84-92b7-45d8-999b-382dabcbdbf0")
 			(units
 				(unit
 					(name "A")
@@ -7137,7 +5448,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c2378468-f31b-433e-809d-5a945243f85d")
+			(tstamps "aeadaba2-6e9b-41e5-b459-c5a91ab45dfd")
 			(units
 				(unit
 					(name "A")
@@ -7203,1063 +5514,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "aa657dc2-bb38-415d-9aa3-0fe98be5be19")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R101")
-			(value "120")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-120")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-120")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "b981e824-f581-4572-aed6-a6d100893019")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R102")
-			(value "120")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-120")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-120")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "54c41818-ab88-4289-a7d3-fd32c977929d")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R103")
-			(value "120")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-120")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-120")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "3d97ea89-aaf5-4391-87f5-627cbb742359")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R104")
-			(value "120")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-120")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-120")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "696aab33-3de5-43f5-aa9d-3c7c9b08e75c")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R105")
-			(value "120")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-120")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-120")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "7d1dd523-c273-4406-bdeb-dd499ac72c12")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R106")
-			(value "120")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-120")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-120")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "d890e9b8-ee46-464c-93e5-4f0c2eae10d5")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R107")
-			(value "120")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-120")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-120")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "abde5306-1b31-4156-9cb6-e545dfa78f04")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R108")
-			(value "120")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-120")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-120")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "a778db97-7813-4146-b6d0-5fa098deb2b8")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R111")
-			(value "47k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-47K")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-47K")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "6e715049-5d7c-4a98-be3c-f2c2b89fb576")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R112")
-			(value "47k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-47K")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-47K")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "eb9fa57d-1a75-4916-b6ff-d82121bd7fc6")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R113")
-			(value "47k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-47K")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-47K")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "44025cc3-72d9-4a79-b23b-2bdc984715b9")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R114")
-			(value "47k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-47K")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-47K")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "3fc3c1ff-2e86-4e06-80c0-ae7e14e94e91")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R115")
-			(value "47k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-47K")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-47K")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "571843e8-f4f7-420a-b957-9c11a16e1b90")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R116")
-			(value "47k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-47K")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-47K")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "04e30ec2-4160-48b5-9924-a86c037f9cb0")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R117")
-			(value "47k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-47K")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-47K")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "8f0c84ad-7fdf-4d8d-8caf-1d917fd099c6")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R118")
-			(value "47k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-47K")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-47K")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "5ec515da-dae2-4df4-96cb-4e81c563613f")
+			(tstamps "6326d95c-46a2-4ad7-bbfc-5b118c8524b0")
 			(units
 				(unit
 					(name "A")
@@ -8325,7 +5580,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0c581237-a74c-48cb-949e-742f482dc917")
+			(tstamps "af480429-ed8a-420b-a744-155da236386e")
 			(units
 				(unit
 					(name "A")
@@ -8391,7 +5646,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f1c9a3ae-4288-4da0-8660-6ef90341c68b")
+			(tstamps "8dfc5897-5322-4006-8954-ef515f983b21")
 			(units
 				(unit
 					(name "A")
@@ -8457,7 +5712,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f5db6b3a-df10-46ed-829e-521a3a64c60c")
+			(tstamps "cbf02aa9-139f-4555-9c18-cbae5929067f")
 			(units
 				(unit
 					(name "A")
@@ -8523,7 +5778,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3bf76821-4ed3-4b94-a4d0-722f994a28ea")
+			(tstamps "3b4da349-6025-4907-a6fd-8ae4d9eff0c3")
 			(units
 				(unit
 					(name "A")
@@ -8589,7 +5844,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2dfea5c1-7c78-4c62-b31d-4f88d54b9d48")
+			(tstamps "c37d71b5-39f9-4641-bb93-f3c7ac4c215d")
 			(units
 				(unit
 					(name "A")
@@ -8655,7 +5910,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9f2cfc81-da7f-4890-915e-afcdf0bf110d")
+			(tstamps "a3d1696f-e04e-4ce7-bc2e-f2c73020a3eb")
 			(units
 				(unit
 					(name "A")
@@ -8721,7 +5976,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9b6f00ba-d28d-425a-9a81-3546a7595d1a")
+			(tstamps "f27b1dea-7fe9-49ee-b78a-abb5fcb1b1ab")
 			(units
 				(unit
 					(name "A")
@@ -8787,7 +6042,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "91c39a59-80ce-4bc9-b7cf-827afabfe6ee")
+			(tstamps "824d0a70-4e54-4ef1-883e-72462b200e1d")
 			(units
 				(unit
 					(name "A")
@@ -8853,7 +6108,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "fb1ada04-d166-481d-bf59-eaefd2f11c98")
+			(tstamps "05ddcc2f-4f6d-4caa-871a-3a7dcd38aec9")
 			(units
 				(unit
 					(name "A")
@@ -8919,7 +6174,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b67801d3-f5cf-4b65-a8bb-b6f706a7d9e5")
+			(tstamps "d9c30623-684b-4b8f-9edd-c4a4717dfd21")
 			(units
 				(unit
 					(name "A")
@@ -8985,7 +6240,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4bc414ed-978a-4cce-afb3-978d339890a3")
+			(tstamps "88ea9a5c-d7f5-43a8-ab89-fa798e6c397f")
 			(units
 				(unit
 					(name "A")
@@ -9051,7 +6306,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "689512de-c1e1-4fe8-b2fe-76b1490c2e54")
+			(tstamps "cdabd893-bd46-4405-a9f3-43e06af65209")
 			(units
 				(unit
 					(name "A")
@@ -9117,7 +6372,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "424a88cf-a0cc-4f14-b56f-327ba0828eea")
+			(tstamps "3e7a06e5-8986-4e72-92be-7050d6752023")
 			(units
 				(unit
 					(name "A")
@@ -9183,7 +6438,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "906c720e-b20a-470d-9ec3-b1a19c8db289")
+			(tstamps "e6dc6898-64e7-4eb9-82f9-14e3e586b3cd")
 			(units
 				(unit
 					(name "A")
@@ -9249,7 +6504,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "049c516d-2fab-49fb-a742-6f2a2135ae3c")
+			(tstamps "d2a95567-3670-4a5d-a9fe-f67d14cf1123")
 			(units
 				(unit
 					(name "A")
@@ -9315,7 +6570,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "adf45075-156b-4f2c-9a40-f7db6f7f1536")
+			(tstamps "08e89ea4-5e66-4bd5-ba0a-b87c322d472b")
 			(units
 				(unit
 					(name "A")
@@ -9381,7 +6636,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6a58b119-b94f-4958-b217-16c27a221d70")
+			(tstamps "8a965902-1aeb-491e-a9e0-0ae4bfa253be")
 			(units
 				(unit
 					(name "A")
@@ -9447,7 +6702,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ab50a09a-ee27-4a20-9306-116b161ed2fc")
+			(tstamps "e014ee7b-d552-4638-9be8-c36836d7ad0d")
 			(units
 				(unit
 					(name "A")
@@ -9463,12 +6718,12 @@
 			)
 		)
 		(comp
-			(ref "R161")
-			(value "1k")
+			(ref "R201")
+			(value "180")
 			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "CFR-25JB-52-1K")
+					(name "MPN") "CFR-25JB-52-180")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
@@ -9487,7 +6742,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "CFR-25JB-52-1K")
+				(value "CFR-25JB-52-180")
 			)
 			(property
 				(name "Manufacturer")
@@ -9513,7 +6768,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "83086198-f1c7-4d87-8e88-10ab2e06e7e8")
+			(tstamps "734646d1-d6be-4e19-9e36-de9a0887d5b4")
 			(units
 				(unit
 					(name "A")
@@ -9529,12 +6784,12 @@
 			)
 		)
 		(comp
-			(ref "R162")
-			(value "1k")
+			(ref "R202")
+			(value "68")
 			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "CFR-25JB-52-1K")
+					(name "MPN") "CFR-25JB-52-68")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
@@ -9553,7 +6808,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "CFR-25JB-52-1K")
+				(value "CFR-25JB-52-68")
 			)
 			(property
 				(name "Manufacturer")
@@ -9579,7 +6834,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "63ae173b-814e-4108-88ba-715afa2e0f15")
+			(tstamps "76ede799-d38a-433b-b761-143ee5e4df01")
 			(units
 				(unit
 					(name "A")
@@ -9595,12 +6850,12 @@
 			)
 		)
 		(comp
-			(ref "R163")
-			(value "1k")
+			(ref "R203")
+			(value "68")
 			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "CFR-25JB-52-1K")
+					(name "MPN") "CFR-25JB-52-68")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
@@ -9619,7 +6874,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "CFR-25JB-52-1K")
+				(value "CFR-25JB-52-68")
 			)
 			(property
 				(name "Manufacturer")
@@ -9645,7 +6900,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5c673fd7-7c1d-442f-9dc8-a706dd035b87")
+			(tstamps "5e317cac-b004-4d4a-895f-412ced119d69")
 			(units
 				(unit
 					(name "A")
@@ -9661,12 +6916,12 @@
 			)
 		)
 		(comp
-			(ref "R164")
-			(value "1k")
+			(ref "R204")
+			(value "180")
 			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "CFR-25JB-52-1K")
+					(name "MPN") "CFR-25JB-52-180")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
@@ -9685,7 +6940,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "CFR-25JB-52-1K")
+				(value "CFR-25JB-52-180")
 			)
 			(property
 				(name "Manufacturer")
@@ -9711,7 +6966,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0d257db0-370b-4e19-8cbd-c3f546fe4e12")
+			(tstamps "44cc150b-6b44-400a-a1a2-6e92e1628ce6")
 			(units
 				(unit
 					(name "A")
@@ -9727,12 +6982,12 @@
 			)
 		)
 		(comp
-			(ref "R165")
-			(value "1k")
+			(ref "R205")
+			(value "68")
 			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "CFR-25JB-52-1K")
+					(name "MPN") "CFR-25JB-52-68")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
@@ -9751,7 +7006,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "CFR-25JB-52-1K")
+				(value "CFR-25JB-52-68")
 			)
 			(property
 				(name "Manufacturer")
@@ -9777,7 +7032,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "26b1a99b-1786-4888-b274-1323dabadacc")
+			(tstamps "2b34682c-b50e-4f52-9582-fefa8202c52a")
 			(units
 				(unit
 					(name "A")
@@ -9793,12 +7048,12 @@
 			)
 		)
 		(comp
-			(ref "R166")
-			(value "1k")
+			(ref "R206")
+			(value "68")
 			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "CFR-25JB-52-1K")
+					(name "MPN") "CFR-25JB-52-68")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
@@ -9817,7 +7072,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "CFR-25JB-52-1K")
+				(value "CFR-25JB-52-68")
 			)
 			(property
 				(name "Manufacturer")
@@ -9843,139 +7098,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9081dfc8-2561-4928-a692-64ad0281a226")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R167")
-			(value "1k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-1K")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-1K")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "2b7c43c3-3844-4796-9f97-8e46bdb65ecc")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R168")
-			(value "1k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CFR-25JB-52-1K")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "CFR-25JB-52-1K")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "5ef187cb-7510-4147-85dc-81f1194ea4ba")
+			(tstamps "197a1758-76ce-4251-bc54-fc9b914066fe")
 			(units
 				(unit
 					(name "A")
@@ -10037,7 +7160,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "eda57acb-572f-47ee-ba65-0711f7b3a1e8")
+			(tstamps "4b46ebec-e9e0-4244-8b68-5291e967a2d0")
 			(units
 				(unit
 					(name "A")
@@ -10099,7 +7222,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "03ce0177-5b15-43fe-ad8b-058a215c844e")
+			(tstamps "488e0fed-53e8-4674-9523-471ccd2756c0")
 			(units
 				(unit
 					(name "A")
@@ -10161,7 +7284,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b5b87387-78cb-4599-bc59-8eb322a412d3")
+			(tstamps "e10df369-9fb2-413d-863e-4517c38a0243")
 			(units
 				(unit
 					(name "A")
@@ -10223,7 +7346,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0ee37b3a-4c3d-4e22-bf8b-14610f13e472")
+			(tstamps "9e3f0bce-3ffa-4e9d-86d9-60618c932b8b")
 			(units
 				(unit
 					(name "A")
@@ -10285,7 +7408,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4854d783-3b7d-4dda-923d-fd1dc18e25a8")
+			(tstamps "d68a7b87-9172-4193-8151-cb527cb84ee7")
 			(units
 				(unit
 					(name "A")
@@ -10350,7 +7473,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f73b4808-dd68-4158-bef8-62c82b67c326")
+			(tstamps "8a5b7a6d-d2a9-4e7f-9350-eb4a3c79e53e")
 			(units
 				(unit
 					(name "A")
@@ -10419,7 +7542,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f9f82818-ea92-4804-a19a-8fb082ac6351")
+			(tstamps "68209631-89b7-4627-9ae4-95c7647cf4bc")
 			(units
 				(unit
 					(name "A")
@@ -10438,138 +7561,6 @@
 						)
 						(pin
 							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "U4")
-			(value "CD74HC4067E (DIP-24, soldered flat -- sits under the DevKit)")
-			(footprint "Package_DIP:DIP-24_W15.24mm")
-			(datasheet "https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf")
-			(fields
-				(field
-					(name "MPN") "CD74HC4067E")
-				(field
-					(name "Manufacturer") "Texas Instruments")
-				(field
-					(name "Footprint") "Package_DIP:DIP-24_W15.24mm")
-				(field
-					(name "Datasheet") "https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "74xx")
-				(part "CD74HC4067M")
-				(description "High-Speed CMOS Logic 16-Channel Analog Multiplexer/Demultiplexer, SOIC-24")
-			)
-			(property
-				(name "MPN")
-				(value "CD74HC4067E")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Texas Instruments")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-tht")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-tht.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "multiplexer demultiplexer mux demux")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "SOIC*W*7.5x15.4mm*P1.27mm*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "b5a60ef7-a8d4-45e7-a398-10c97008de81")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "10")
-						)
-						(pin
-							(num "11")
-						)
-						(pin
-							(num "14")
-						)
-						(pin
-							(num "13")
-						)
-						(pin
-							(num "15")
-						)
-						(pin
-							(num "24")
-						)
-						(pin
-							(num "12")
-						)
-						(pin
-							(num "9")
-						)
-						(pin
-							(num "8")
-						)
-						(pin
-							(num "7")
-						)
-						(pin
-							(num "6")
-						)
-						(pin
-							(num "5")
-						)
-						(pin
-							(num "4")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "23")
-						)
-						(pin
-							(num "22")
-						)
-						(pin
-							(num "21")
-						)
-						(pin
-							(num "20")
-						)
-						(pin
-							(num "19")
-						)
-						(pin
-							(num "18")
-						)
-						(pin
-							(num "17")
-						)
-						(pin
-							(num "16")
 						)
 					)
 				)
@@ -10626,7 +7617,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ae15788d-0004-405a-8434-0292c1bf16f4")
+			(tstamps "9050c3ac-11e4-4d26-8775-ab030df719c9")
 			(units
 				(unit
 					(name "A")
@@ -10654,149 +7645,6 @@
 	(groups)
 	(variants)
 	(libparts
-		(libpart
-			(lib "74xx")
-			(part "CD74HC4067M")
-			(description "High-Speed CMOS Logic 16-Channel Analog Multiplexer/Demultiplexer, SOIC-24")
-			(docs "http://www.ti.com/lit/ds/symlink/cd74hc4067.pdf")
-			(footprints
-				(fp "SOIC*W*7.5x15.4mm*P1.27mm*")
-			)
-			(fields
-				(field
-					(name "Reference") "U")
-				(field
-					(name "Value") "CD74HC4067M")
-				(field
-					(name "Footprint") "Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm")
-				(field
-					(name "Datasheet") "http://www.ti.com/lit/ds/symlink/cd74hc4067.pdf")
-				(field
-					(name "Description") "High-Speed CMOS Logic 16-Channel Analog Multiplexer/Demultiplexer, SOIC-24")
-			)
-			(pins
-				(pin
-					(num "1")
-					(name "COM")
-					(type "passive")
-				)
-				(pin
-					(num "2")
-					(name "I7")
-					(type "passive")
-				)
-				(pin
-					(num "3")
-					(name "I6")
-					(type "passive")
-				)
-				(pin
-					(num "4")
-					(name "I5")
-					(type "passive")
-				)
-				(pin
-					(num "5")
-					(name "I4")
-					(type "passive")
-				)
-				(pin
-					(num "6")
-					(name "I3")
-					(type "passive")
-				)
-				(pin
-					(num "7")
-					(name "I2")
-					(type "passive")
-				)
-				(pin
-					(num "8")
-					(name "I1")
-					(type "passive")
-				)
-				(pin
-					(num "9")
-					(name "I0")
-					(type "passive")
-				)
-				(pin
-					(num "10")
-					(name "S0")
-					(type "input")
-				)
-				(pin
-					(num "11")
-					(name "S1")
-					(type "input")
-				)
-				(pin
-					(num "12")
-					(name "GND")
-					(type "power_in")
-				)
-				(pin
-					(num "13")
-					(name "S3")
-					(type "input")
-				)
-				(pin
-					(num "14")
-					(name "S2")
-					(type "input")
-				)
-				(pin
-					(num "15")
-					(name "~{E}")
-					(type "input")
-				)
-				(pin
-					(num "16")
-					(name "I15")
-					(type "passive")
-				)
-				(pin
-					(num "17")
-					(name "I14")
-					(type "passive")
-				)
-				(pin
-					(num "18")
-					(name "I13")
-					(type "passive")
-				)
-				(pin
-					(num "19")
-					(name "I12")
-					(type "passive")
-				)
-				(pin
-					(num "20")
-					(name "I11")
-					(type "passive")
-				)
-				(pin
-					(num "21")
-					(name "I10")
-					(type "passive")
-				)
-				(pin
-					(num "22")
-					(name "I9")
-					(type "passive")
-				)
-				(pin
-					(num "23")
-					(name "I8")
-					(type "passive")
-				)
-				(pin
-					(num "24")
-					(name "VCC")
-					(type "power_in")
-				)
-			)
-		)
 		(libpart
 			(lib "Connector_Generic")
 			(part "Conn_01x02")
@@ -11338,6 +8186,52 @@
 		)
 		(libpart
 			(lib "Device")
+			(part "LED_RKGB")
+			(description "RGB LED, red/cathode/green/blue")
+			(footprints
+				(fp "LED*")
+				(fp "LED_SMD:*")
+				(fp "LED_THT:*")
+			)
+			(fields
+				(field
+					(name "Reference") "D")
+				(field
+					(name "Value") "LED_RKGB")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description") "RGB LED, red/cathode/green/blue")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "RA")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "K")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "GA")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "BA")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Device")
 			(part "R")
 			(description "Resistor")
 			(footprints
@@ -11365,49 +8259,6 @@
 				)
 				(pin
 					(num "2")
-					(name "")
-					(type "passive")
-				)
-			)
-		)
-		(libpart
-			(lib "Isolator")
-			(part "PC817")
-			(description "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
-			(docs "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf")
-			(footprints
-				(fp "DIP*W7.62mm*")
-			)
-			(fields
-				(field
-					(name "Reference") "U")
-				(field
-					(name "Value") "PC817")
-				(field
-					(name "Footprint") "Package_DIP:DIP-4_W7.62mm")
-				(field
-					(name "Datasheet") "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf")
-				(field
-					(name "Description") "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4")
-			)
-			(pins
-				(pin
-					(num "1")
-					(name "")
-					(type "passive")
-				)
-				(pin
-					(num "2")
-					(name "")
-					(type "passive")
-				)
-				(pin
-					(num "3")
-					(name "")
-					(type "passive")
-				)
-				(pin
-					(num "4")
 					(name "")
 					(type "passive")
 				)
@@ -11745,20 +8596,12 @@
 	)
 	(libraries
 		(library
-			(logical "74xx")
-			(uri "${KICAD10_SYMBOL_DIR}/74xx.kicad_sym")
-		)
-		(library
 			(logical "Connector_Generic")
 			(uri "${KICAD10_SYMBOL_DIR}/Connector_Generic.kicad_sym")
 		)
 		(library
 			(logical "Device")
 			(uri "${KICAD10_SYMBOL_DIR}/Device.kicad_sym")
-		)
-		(library
-			(logical "Isolator")
-			(uri "${KICAD10_SYMBOL_DIR}/Isolator.kicad_sym")
 		)
 		(library
 			(logical "LED")
@@ -11874,6 +8717,12 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "J13")
+				(pin "12")
+				(pinfunction "Pin_12_12")
+				(pintype "passive")
+			)
+			(node
 				(ref "R75")
 				(pin "2")
 				(pintype "passive")
@@ -11881,12 +8730,6 @@
 			(node
 				(ref "R76")
 				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "22")
-				(pinfunction "I9_22")
 				(pintype "passive")
 			)
 		)
@@ -12032,57 +8875,6 @@
 		)
 		(net
 			(code "13")
-			(name "EMIT_LINE_K")
-			(class "Default")
-			(node
-				(ref "LS1")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "LS2")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "LS3")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "LS4")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "LS5")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "LS6")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "LS7")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "LS8")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q19")
-				(pin "3")
-				(pinfunction "D_3")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "14")
 			(name "EMIT_SIDE_K")
 			(class "Default")
 			(node
@@ -12105,7 +8897,7 @@
 			)
 		)
 		(net
-			(code "15")
+			(code "14")
 			(name "ENC1_A")
 			(class "Default")
 			(node
@@ -12127,7 +8919,7 @@
 			)
 		)
 		(net
-			(code "16")
+			(code "15")
 			(name "ENC1_B")
 			(class "Default")
 			(node
@@ -12149,7 +8941,7 @@
 			)
 		)
 		(net
-			(code "17")
+			(code "16")
 			(name "ENC2_A")
 			(class "Default")
 			(node
@@ -12170,7 +8962,7 @@
 			)
 		)
 		(net
-			(code "18")
+			(code "17")
 			(name "ENC2_A_S3")
 			(class "Default")
 			(node
@@ -12186,7 +8978,7 @@
 			)
 		)
 		(net
-			(code "19")
+			(code "18")
 			(name "ENC2_B")
 			(class "Default")
 			(node
@@ -12207,7 +8999,7 @@
 			)
 		)
 		(net
-			(code "20")
+			(code "19")
 			(name "ENC2_B_S3")
 			(class "Default")
 			(node
@@ -12223,7 +9015,7 @@
 			)
 		)
 		(net
-			(code "21")
+			(code "20")
 			(name "ESP_RST")
 			(class "Default")
 			(node
@@ -12240,7 +9032,7 @@
 			)
 		)
 		(net
-			(code "22")
+			(code "21")
 			(name "F1_OUT")
 			(class "Default")
 			(node
@@ -12256,7 +9048,7 @@
 			)
 		)
 		(net
-			(code "23")
+			(code "22")
 			(name "FB_6V")
 			(class "Default")
 			(node
@@ -12277,7 +9069,7 @@
 			)
 		)
 		(net
-			(code "24")
+			(code "23")
 			(name "GND")
 			(class "Default")
 			(node
@@ -12357,54 +9149,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "D131")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "D132")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "D133")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "D134")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "D135")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "D136")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "D137")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "D138")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
 				(ref "D30")
 				(pin "2")
 				(pinfunction "A_2")
@@ -12414,6 +9158,18 @@
 				(ref "D31")
 				(pin "2")
 				(pinfunction "A_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "D40")
+				(pin "2")
+				(pinfunction "K_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "D41")
+				(pin "2")
+				(pinfunction "K_2")
 				(pintype "passive")
 			)
 			(node
@@ -12489,55 +9245,9 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "J8")
-				(pin "6")
-				(pinfunction "Pin_6_6")
-				(pintype "passive")
-			)
-			(node
 				(ref "J9")
 				(pin "1")
 				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "LS1")
-				(pin "3")
-				(pintype "passive")
-			)
-			(node
-				(ref "LS2")
-				(pin "3")
-				(pintype "passive")
-			)
-			(node
-				(ref "LS3")
-				(pin "3")
-				(pintype "passive")
-			)
-			(node
-				(ref "LS4")
-				(pin "3")
-				(pintype "passive")
-			)
-			(node
-				(ref "LS5")
-				(pin "3")
-				(pintype "passive")
-			)
-			(node
-				(ref "LS6")
-				(pin "3")
-				(pintype "passive")
-			)
-			(node
-				(ref "LS7")
-				(pin "3")
-				(pintype "passive")
-			)
-			(node
-				(ref "LS8")
-				(pin "3")
 				(pintype "passive")
 			)
 			(node
@@ -12554,12 +9264,6 @@
 			)
 			(node
 				(ref "Q18")
-				(pin "1")
-				(pinfunction "S_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q19")
 				(pin "1")
 				(pinfunction "S_1")
 				(pintype "passive")
@@ -12613,11 +9317,6 @@
 			)
 			(node
 				(ref "R3")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R61")
 				(pin "2")
 				(pintype "passive")
 			)
@@ -12694,18 +9393,6 @@
 				(pintype "power_in")
 			)
 			(node
-				(ref "U4")
-				(pin "12")
-				(pinfunction "GND_12")
-				(pintype "power_in")
-			)
-			(node
-				(ref "U4")
-				(pin "15")
-				(pinfunction "~{E}_15")
-				(pintype "input")
-			)
-			(node
 				(ref "U7")
 				(pin "3")
 				(pinfunction "GND_3")
@@ -12713,7 +9400,7 @@
 			)
 		)
 		(net
-			(code "25")
+			(code "24")
 			(name "IMU_INT")
 			(class "Default")
 			(node
@@ -12730,7 +9417,7 @@
 			)
 		)
 		(net
-			(code "26")
+			(code "25")
 			(name "IMU_SCL")
 			(class "Default")
 			(node
@@ -12752,7 +9439,7 @@
 			)
 		)
 		(net
-			(code "27")
+			(code "26")
 			(name "IMU_SDA")
 			(class "Default")
 			(node
@@ -12774,569 +9461,7 @@
 			)
 		)
 		(net
-			(code "28")
-			(name "JTAG_TCK")
-			(class "Default")
-			(node
-				(ref "J14")
-				(pin "9")
-				(pinfunction "Pin_9_9")
-				(pintype "passive")
-			)
-			(node
-				(ref "J8")
-				(pin "3")
-				(pinfunction "Pin_3_3")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "29")
-			(name "JTAG_TDI")
-			(class "Default")
-			(node
-				(ref "J14")
-				(pin "7")
-				(pinfunction "Pin_7_7")
-				(pintype "passive")
-			)
-			(node
-				(ref "J8")
-				(pin "5")
-				(pinfunction "Pin_5_5")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "30")
-			(name "JTAG_TDO")
-			(class "Default")
-			(node
-				(ref "J14")
-				(pin "8")
-				(pinfunction "Pin_8_8")
-				(pintype "passive")
-			)
-			(node
-				(ref "J8")
-				(pin "4")
-				(pinfunction "Pin_4_4")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "31")
-			(name "JTAG_TMS")
-			(class "Default")
-			(node
-				(ref "J14")
-				(pin "6")
-				(pinfunction "Pin_6_6")
-				(pintype "passive")
-			)
-			(node
-				(ref "J8")
-				(pin "2")
-				(pinfunction "Pin_2_2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "32")
-			(name "LIND1")
-			(class "Default")
-			(node
-				(ref "Q131")
-				(pin "1")
-				(pinfunction "D_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R161")
-				(pin "1")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "33")
-			(name "LIND2")
-			(class "Default")
-			(node
-				(ref "Q132")
-				(pin "1")
-				(pinfunction "D_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R162")
-				(pin "1")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "34")
-			(name "LIND3")
-			(class "Default")
-			(node
-				(ref "Q133")
-				(pin "1")
-				(pinfunction "D_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R163")
-				(pin "1")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "35")
-			(name "LIND4")
-			(class "Default")
-			(node
-				(ref "Q134")
-				(pin "1")
-				(pinfunction "D_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R164")
-				(pin "1")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "36")
-			(name "LIND5")
-			(class "Default")
-			(node
-				(ref "Q135")
-				(pin "1")
-				(pinfunction "D_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R165")
-				(pin "1")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "37")
-			(name "LIND6")
-			(class "Default")
-			(node
-				(ref "Q136")
-				(pin "1")
-				(pinfunction "D_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R166")
-				(pin "1")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "38")
-			(name "LIND7")
-			(class "Default")
-			(node
-				(ref "Q137")
-				(pin "1")
-				(pinfunction "D_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R167")
-				(pin "1")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "39")
-			(name "LIND8")
-			(class "Default")
-			(node
-				(ref "Q138")
-				(pin "1")
-				(pinfunction "D_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R168")
-				(pin "1")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "40")
-			(name "LINE1_SENSE")
-			(class "Default")
-			(node
-				(ref "LS1")
-				(pin "4")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q131")
-				(pin "2")
-				(pinfunction "G_2")
-				(pintype "input")
-			)
-			(node
-				(ref "R111")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "9")
-				(pinfunction "I0_9")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "41")
-			(name "LINE2_SENSE")
-			(class "Default")
-			(node
-				(ref "LS2")
-				(pin "4")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q132")
-				(pin "2")
-				(pinfunction "G_2")
-				(pintype "input")
-			)
-			(node
-				(ref "R112")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "8")
-				(pinfunction "I1_8")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "42")
-			(name "LINE3_SENSE")
-			(class "Default")
-			(node
-				(ref "LS3")
-				(pin "4")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q133")
-				(pin "2")
-				(pinfunction "G_2")
-				(pintype "input")
-			)
-			(node
-				(ref "R113")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "7")
-				(pinfunction "I2_7")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "43")
-			(name "LINE4_SENSE")
-			(class "Default")
-			(node
-				(ref "LS4")
-				(pin "4")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q134")
-				(pin "2")
-				(pinfunction "G_2")
-				(pintype "input")
-			)
-			(node
-				(ref "R114")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "6")
-				(pinfunction "I3_6")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "44")
-			(name "LINE5_SENSE")
-			(class "Default")
-			(node
-				(ref "LS5")
-				(pin "4")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q135")
-				(pin "2")
-				(pinfunction "G_2")
-				(pintype "input")
-			)
-			(node
-				(ref "R115")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "5")
-				(pinfunction "I4_5")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "45")
-			(name "LINE6_SENSE")
-			(class "Default")
-			(node
-				(ref "LS6")
-				(pin "4")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q136")
-				(pin "2")
-				(pinfunction "G_2")
-				(pintype "input")
-			)
-			(node
-				(ref "R116")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "4")
-				(pinfunction "I5_4")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "46")
-			(name "LINE7_SENSE")
-			(class "Default")
-			(node
-				(ref "LS7")
-				(pin "4")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q137")
-				(pin "2")
-				(pinfunction "G_2")
-				(pintype "input")
-			)
-			(node
-				(ref "R117")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "3")
-				(pinfunction "I6_3")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "47")
-			(name "LINE8_SENSE")
-			(class "Default")
-			(node
-				(ref "LS8")
-				(pin "4")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q138")
-				(pin "2")
-				(pinfunction "G_2")
-				(pintype "input")
-			)
-			(node
-				(ref "R118")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "2")
-				(pinfunction "I7_2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "48")
-			(name "LINE_EMIT")
-			(class "Default")
-			(node
-				(ref "J13")
-				(pin "20")
-				(pinfunction "Pin_20_20")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q19")
-				(pin "2")
-				(pinfunction "G_2")
-				(pintype "input")
-			)
-			(node
-				(ref "R61")
-				(pin "1")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "49")
-			(name "LLED1")
-			(class "Default")
-			(node
-				(ref "D131")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R161")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "50")
-			(name "LLED2")
-			(class "Default")
-			(node
-				(ref "D132")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R162")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "51")
-			(name "LLED3")
-			(class "Default")
-			(node
-				(ref "D133")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R163")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "52")
-			(name "LLED4")
-			(class "Default")
-			(node
-				(ref "D134")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R164")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "53")
-			(name "LLED5")
-			(class "Default")
-			(node
-				(ref "D135")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R165")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "54")
-			(name "LLED6")
-			(class "Default")
-			(node
-				(ref "D136")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R166")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "55")
-			(name "LLED7")
-			(class "Default")
-			(node
-				(ref "D137")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R167")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "56")
-			(name "LLED8")
-			(class "Default")
-			(node
-				(ref "D138")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R168")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "57")
+			(code "27")
 			(name "MOTA_N")
 			(class "Default")
 			(node
@@ -13353,7 +9478,7 @@
 			)
 		)
 		(net
-			(code "58")
+			(code "28")
 			(name "MOTA_P")
 			(class "Default")
 			(node
@@ -13370,7 +9495,7 @@
 			)
 		)
 		(net
-			(code "59")
+			(code "29")
 			(name "MOTB_N")
 			(class "Default")
 			(node
@@ -13387,7 +9512,7 @@
 			)
 		)
 		(net
-			(code "60")
+			(code "30")
 			(name "MOTB_P")
 			(class "Default")
 			(node
@@ -13404,7 +9529,7 @@
 			)
 		)
 		(net
-			(code "61")
+			(code "31")
 			(name "MOT_EN")
 			(class "Default")
 			(node
@@ -13426,7 +9551,7 @@
 			)
 		)
 		(net
-			(code "62")
+			(code "32")
 			(name "MOT_EN_SW")
 			(class "Default")
 			(node
@@ -13449,92 +9574,7 @@
 			)
 		)
 		(net
-			(code "63")
-			(name "MUX_S0")
-			(class "Default")
-			(node
-				(ref "J13")
-				(pin "17")
-				(pinfunction "Pin_17_17")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "10")
-				(pinfunction "S0_10")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "64")
-			(name "MUX_S1")
-			(class "Default")
-			(node
-				(ref "J13")
-				(pin "18")
-				(pinfunction "Pin_18_18")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "11")
-				(pinfunction "S1_11")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "65")
-			(name "MUX_S2")
-			(class "Default")
-			(node
-				(ref "J13")
-				(pin "19")
-				(pinfunction "Pin_19_19")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "14")
-				(pinfunction "S2_14")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "66")
-			(name "MUX_S3")
-			(class "Default")
-			(node
-				(ref "J13")
-				(pin "12")
-				(pinfunction "Pin_12_12")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "13")
-				(pinfunction "S3_13")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "67")
-			(name "MUX_SENSE")
-			(class "Default")
-			(node
-				(ref "J13")
-				(pin "7")
-				(pinfunction "Pin_7_7")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "1")
-				(pinfunction "COM_1")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "68")
+			(code "33")
 			(name "Net-(D1-A)")
 			(class "Default")
 			(node
@@ -13550,7 +9590,7 @@
 			)
 		)
 		(net
-			(code "69")
+			(code "34")
 			(name "Net-(D2-A)")
 			(class "Default")
 			(node
@@ -13566,7 +9606,7 @@
 			)
 		)
 		(net
-			(code "70")
+			(code "35")
 			(name "Net-(D3-A)")
 			(class "Default")
 			(node
@@ -13582,7 +9622,7 @@
 			)
 		)
 		(net
-			(code "71")
+			(code "36")
 			(name "Net-(D4-A)")
 			(class "Default")
 			(node
@@ -13598,7 +9638,7 @@
 			)
 		)
 		(net
-			(code "72")
+			(code "37")
 			(name "Net-(D5-A)")
 			(class "Default")
 			(node
@@ -13614,7 +9654,7 @@
 			)
 		)
 		(net
-			(code "73")
+			(code "38")
 			(name "Net-(D6-A)")
 			(class "Default")
 			(node
@@ -13630,127 +9670,7 @@
 			)
 		)
 		(net
-			(code "74")
-			(name "Net-(LS1-Pad1)")
-			(class "Default")
-			(node
-				(ref "LS1")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R101")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "75")
-			(name "Net-(LS2-Pad1)")
-			(class "Default")
-			(node
-				(ref "LS2")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R102")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "76")
-			(name "Net-(LS3-Pad1)")
-			(class "Default")
-			(node
-				(ref "LS3")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R103")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "77")
-			(name "Net-(LS4-Pad1)")
-			(class "Default")
-			(node
-				(ref "LS4")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R104")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "78")
-			(name "Net-(LS5-Pad1)")
-			(class "Default")
-			(node
-				(ref "LS5")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R105")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "79")
-			(name "Net-(LS6-Pad1)")
-			(class "Default")
-			(node
-				(ref "LS6")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R106")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "80")
-			(name "Net-(LS7-Pad1)")
-			(class "Default")
-			(node
-				(ref "LS7")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R107")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "81")
-			(name "Net-(LS8-Pad1)")
-			(class "Default")
-			(node
-				(ref "LS8")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R108")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "82")
+			(code "39")
 			(name "PLUS3V3")
 			(class "Default")
 			(node
@@ -13830,12 +9750,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "J8")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-			(node
 				(ref "L1")
 				(pin "2")
 				(pinfunction "2_2")
@@ -13878,54 +9792,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "Q131")
-				(pin "3")
-				(pinfunction "S_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q132")
-				(pin "3")
-				(pinfunction "S_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q133")
-				(pin "3")
-				(pinfunction "S_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q134")
-				(pin "3")
-				(pinfunction "S_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q135")
-				(pin "3")
-				(pinfunction "S_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q136")
-				(pin "3")
-				(pinfunction "S_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q137")
-				(pin "3")
-				(pinfunction "S_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q138")
-				(pin "3")
-				(pinfunction "S_3")
-				(pintype "passive")
-			)
-			(node
 				(ref "Q35")
 				(pin "2")
 				(pinfunction "G_2")
@@ -13933,86 +9799,6 @@
 			)
 			(node
 				(ref "R10")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R101")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R102")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R103")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R104")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R105")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R106")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R107")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R108")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R111")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R112")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R113")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R114")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R115")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R116")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R117")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R118")
 				(pin "1")
 				(pintype "passive")
 			)
@@ -14112,15 +9898,9 @@
 				(pinfunction "FB_4")
 				(pintype "input")
 			)
-			(node
-				(ref "U4")
-				(pin "24")
-				(pinfunction "VCC_24")
-				(pintype "power_in")
-			)
 		)
 		(net
-			(code "83")
+			(code "40")
 			(name "PWR_EN")
 			(class "Default")
 			(node
@@ -14148,7 +9928,7 @@
 			)
 		)
 		(net
-			(code "84")
+			(code "41")
 			(name "Q1_G")
 			(class "Default")
 			(node
@@ -14164,7 +9944,199 @@
 			)
 		)
 		(net
-			(code "85")
+			(code "42")
+			(name "RGB1_B")
+			(class "Default")
+			(node
+				(ref "J13")
+				(pin "19")
+				(pinfunction "Pin_19_19")
+				(pintype "passive")
+			)
+			(node
+				(ref "R203")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "43")
+			(name "RGB1_BA")
+			(class "Default")
+			(node
+				(ref "D40")
+				(pin "4")
+				(pinfunction "BA_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "R203")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "44")
+			(name "RGB1_G")
+			(class "Default")
+			(node
+				(ref "J13")
+				(pin "18")
+				(pinfunction "Pin_18_18")
+				(pintype "passive")
+			)
+			(node
+				(ref "R202")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "45")
+			(name "RGB1_GA")
+			(class "Default")
+			(node
+				(ref "D40")
+				(pin "3")
+				(pinfunction "GA_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "R202")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "46")
+			(name "RGB1_R")
+			(class "Default")
+			(node
+				(ref "J13")
+				(pin "17")
+				(pinfunction "Pin_17_17")
+				(pintype "passive")
+			)
+			(node
+				(ref "R201")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "47")
+			(name "RGB1_RA")
+			(class "Default")
+			(node
+				(ref "D40")
+				(pin "1")
+				(pinfunction "RA_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R201")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "48")
+			(name "RGB2_B")
+			(class "Default")
+			(node
+				(ref "J14")
+				(pin "6")
+				(pinfunction "Pin_6_6")
+				(pintype "passive")
+			)
+			(node
+				(ref "R206")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "49")
+			(name "RGB2_BA")
+			(class "Default")
+			(node
+				(ref "D41")
+				(pin "4")
+				(pinfunction "BA_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "R206")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "50")
+			(name "RGB2_G")
+			(class "Default")
+			(node
+				(ref "J13")
+				(pin "21")
+				(pinfunction "Pin_21_21")
+				(pintype "passive")
+			)
+			(node
+				(ref "R205")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "51")
+			(name "RGB2_GA")
+			(class "Default")
+			(node
+				(ref "D41")
+				(pin "3")
+				(pinfunction "GA_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "R205")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "52")
+			(name "RGB2_R")
+			(class "Default")
+			(node
+				(ref "J13")
+				(pin "20")
+				(pinfunction "Pin_20_20")
+				(pintype "passive")
+			)
+			(node
+				(ref "R204")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "53")
+			(name "RGB2_RA")
+			(class "Default")
+			(node
+				(ref "D41")
+				(pin "1")
+				(pinfunction "RA_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R204")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "54")
 			(name "SW_3V3")
 			(class "Default")
 			(node
@@ -14187,7 +10159,7 @@
 			)
 		)
 		(net
-			(code "86")
+			(code "55")
 			(name "SW_6V")
 			(class "Default")
 			(node
@@ -14210,7 +10182,7 @@
 			)
 		)
 		(net
-			(code "87")
+			(code "56")
 			(name "USER_BTN")
 			(class "Default")
 			(node
@@ -14232,7 +10204,7 @@
 			)
 		)
 		(net
-			(code "88")
+			(code "57")
 			(name "USER_BTN2")
 			(class "Default")
 			(node
@@ -14249,7 +10221,7 @@
 			)
 		)
 		(net
-			(code "89")
+			(code "58")
 			(name "USER_BTN3")
 			(class "Default")
 			(node
@@ -14266,12 +10238,18 @@
 			)
 		)
 		(net
-			(code "90")
+			(code "59")
 			(name "VBAT_SENSE")
 			(class "Default")
 			(node
 				(ref "C6")
 				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J13")
+				(pin "7")
+				(pinfunction "Pin_7_7")
 				(pintype "passive")
 			)
 			(node
@@ -14284,15 +10262,9 @@
 				(pin "1")
 				(pintype "passive")
 			)
-			(node
-				(ref "U4")
-				(pin "23")
-				(pinfunction "I8_23")
-				(pintype "passive")
-			)
 		)
 		(net
-			(code "91")
+			(code "60")
 			(name "VM_6V")
 			(class "Default")
 			(node
@@ -14324,7 +10296,7 @@
 			)
 		)
 		(net
-			(code "92")
+			(code "61")
 			(name "VM_BATT")
 			(class "Default")
 			(node
@@ -14372,7 +10344,7 @@
 			)
 		)
 		(net
-			(code "93")
+			(code "62")
 			(name "WALL1_SENSE")
 			(class "Default")
 			(node
@@ -14400,7 +10372,7 @@
 			)
 		)
 		(net
-			(code "94")
+			(code "63")
 			(name "WALL2_SENSE")
 			(class "Default")
 			(node
@@ -14428,7 +10400,7 @@
 			)
 		)
 		(net
-			(code "95")
+			(code "64")
 			(name "WALL3_SENSE")
 			(class "Default")
 			(node
@@ -14456,7 +10428,7 @@
 			)
 		)
 		(net
-			(code "96")
+			(code "65")
 			(name "WALL4_SENSE")
 			(class "Default")
 			(node
@@ -14484,7 +10456,7 @@
 			)
 		)
 		(net
-			(code "97")
+			(code "66")
 			(name "WALL5_SENSE")
 			(class "Default")
 			(node
@@ -14512,7 +10484,7 @@
 			)
 		)
 		(net
-			(code "98")
+			(code "67")
 			(name "WALL6_SENSE")
 			(class "Default")
 			(node
@@ -14540,7 +10512,7 @@
 			)
 		)
 		(net
-			(code "99")
+			(code "68")
 			(name "WALL_EMIT_DIAG")
 			(class "Default")
 			(node
@@ -14562,7 +10534,7 @@
 			)
 		)
 		(net
-			(code "100")
+			(code "69")
 			(name "WALL_EMIT_FRONT")
 			(class "Default")
 			(node
@@ -14584,7 +10556,7 @@
 			)
 		)
 		(net
-			(code "101")
+			(code "70")
 			(name "WALL_EMIT_SIDE")
 			(class "Default")
 			(node
@@ -14606,7 +10578,7 @@
 			)
 		)
 		(net
-			(code "102")
+			(code "71")
 			(name "WIND1")
 			(class "Default")
 			(node
@@ -14622,7 +10594,7 @@
 			)
 		)
 		(net
-			(code "103")
+			(code "72")
 			(name "WIND2")
 			(class "Default")
 			(node
@@ -14638,7 +10610,7 @@
 			)
 		)
 		(net
-			(code "104")
+			(code "73")
 			(name "WIND3")
 			(class "Default")
 			(node
@@ -14654,7 +10626,7 @@
 			)
 		)
 		(net
-			(code "105")
+			(code "74")
 			(name "WIND4")
 			(class "Default")
 			(node
@@ -14670,7 +10642,7 @@
 			)
 		)
 		(net
-			(code "106")
+			(code "75")
 			(name "WIND5")
 			(class "Default")
 			(node
@@ -14686,7 +10658,7 @@
 			)
 		)
 		(net
-			(code "107")
+			(code "76")
 			(name "WIND6")
 			(class "Default")
 			(node
@@ -14702,7 +10674,7 @@
 			)
 		)
 		(net
-			(code "108")
+			(code "77")
 			(name "WLED1")
 			(class "Default")
 			(node
@@ -14718,7 +10690,7 @@
 			)
 		)
 		(net
-			(code "109")
+			(code "78")
 			(name "WLED2")
 			(class "Default")
 			(node
@@ -14734,7 +10706,7 @@
 			)
 		)
 		(net
-			(code "110")
+			(code "79")
 			(name "WLED3")
 			(class "Default")
 			(node
@@ -14750,7 +10722,7 @@
 			)
 		)
 		(net
-			(code "111")
+			(code "80")
 			(name "WLED4")
 			(class "Default")
 			(node
@@ -14766,7 +10738,7 @@
 			)
 		)
 		(net
-			(code "112")
+			(code "81")
 			(name "WLED5")
 			(class "Default")
 			(node
@@ -14782,7 +10754,7 @@
 			)
 		)
 		(net
-			(code "113")
+			(code "82")
 			(name "WLED6")
 			(class "Default")
 			(node
@@ -14798,18 +10770,40 @@
 			)
 		)
 		(net
-			(code "114")
-			(name "unconnected-(J13-Pin_21-Pad21)")
+			(code "83")
+			(name "unconnected-(J14-Pin_7-Pad7)")
 			(class "Default")
 			(node
-				(ref "J13")
-				(pin "21")
-				(pinfunction "Pin_21_21")
+				(ref "J14")
+				(pin "7")
+				(pinfunction "Pin_7_7")
 				(pintype "passive+no_connect")
 			)
 		)
 		(net
-			(code "115")
+			(code "84")
+			(name "unconnected-(J14-Pin_8-Pad8)")
+			(class "Default")
+			(node
+				(ref "J14")
+				(pin "8")
+				(pinfunction "Pin_8_8")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "85")
+			(name "unconnected-(J14-Pin_9-Pad9)")
+			(class "Default")
+			(node
+				(ref "J14")
+				(pin "9")
+				(pinfunction "Pin_9_9")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "86")
 			(name "unconnected-(J14-Pin_19-Pad19)")
 			(class "Default")
 			(node
@@ -14820,7 +10814,7 @@
 			)
 		)
 		(net
-			(code "116")
+			(code "87")
 			(name "unconnected-(J14-Pin_20-Pad20)")
 			(class "Default")
 			(node
@@ -14831,79 +10825,13 @@
 			)
 		)
 		(net
-			(code "117")
+			(code "88")
 			(name "unconnected-(J15-Pin_6-Pad6)")
 			(class "Default")
 			(node
 				(ref "J15")
 				(pin "6")
 				(pinfunction "Pin_6_6")
-				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "118")
-			(name "unconnected-(U4-I10-Pad21)")
-			(class "Default")
-			(node
-				(ref "U4")
-				(pin "21")
-				(pinfunction "I10_21")
-				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "119")
-			(name "unconnected-(U4-I11-Pad20)")
-			(class "Default")
-			(node
-				(ref "U4")
-				(pin "20")
-				(pinfunction "I11_20")
-				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "120")
-			(name "unconnected-(U4-I12-Pad19)")
-			(class "Default")
-			(node
-				(ref "U4")
-				(pin "19")
-				(pinfunction "I12_19")
-				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "121")
-			(name "unconnected-(U4-I13-Pad18)")
-			(class "Default")
-			(node
-				(ref "U4")
-				(pin "18")
-				(pinfunction "I13_18")
-				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "122")
-			(name "unconnected-(U4-I14-Pad17)")
-			(class "Default")
-			(node
-				(ref "U4")
-				(pin "17")
-				(pinfunction "I14_17")
-				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "123")
-			(name "unconnected-(U4-I15-Pad16)")
-			(class "Default")
-			(node
-				(ref "U4")
-				(pin "16")
-				(pinfunction "I15_16")
 				(pintype "passive+no_connect")
 			)
 		)

@@ -57,14 +57,17 @@ FIX = {
     "Q2": (30.95, 16.27, 90, False), "Q3": (69.05, 16.27, 90, False),
     "Q4": (13.4, 25.3, 135, False), "Q5": (86.6, 25.3, 45, False),
     "Q6": (15.0, 37.87, 90, False), "Q7": (85.0, 35.33, -90, False),
-    # sockets / connectors / switches / mux
-    "J13": (31.0, 94.5, 90, False), "J14": (31.0, 117.36, 90, False),
-    "U4": (57, 113.4, 90, False),
+    # sockets / connectors / switches (mux U4 + JTAG J8 removed). DevKit socket
+    # shifted to pin1 x=22 so its 53mm row sits BETWEEN the bracket holes
+    # (x17.25 / x82.75) instead of over the right one.
+    "J13": (25.5, 94.5, 90, False), "J14": (25.5, 117.36, 90, False),
     "J11": (78.5, 50, 90, False), "J12": (78.5, 65.24, 90, False),
     "J15": (25, 99, 0, False),
     "J10": (17.8, 100, 90, False), "J1": (16, 113.8, 0, False),
-    "J9": (4, 12, 0, False), "J8": (63, 40, 90, False),
+    "J9": (4, 12, 0, False),
     "J5": (16, 66, 0, False), "J6": (68, 73, 0, False),
+    # 2 RGB LEDs (top face, visible in the open mid-band; repair nudges if tight)
+    "D40": (36, 90, 0, False), "D41": (60, 90, 0, False),
     "SW5": (3.5, 99.2, 90, False), "SW6": (3.5, 113, 90, False),
     # buttons A/B/C in the empty lower-centre (top face, accessible); RST rear
     "SW1": (44, 82, 0, False), "SW3": (54, 82, 0, False),
@@ -77,17 +80,14 @@ FIX = {
     "C5": (56, 49, 0, False), "C7": (62, 49, 0, False),
     "U7": (26, 62, 0, False), "L2": (39, 62, 0, False), "D31": (49, 62, 0, False),
     "C16": (56, 62, 0, False), "C17": (62, 62, 0, False),
-    # emitter-bank gates near their banks; LINE gate under the array (bottom)
-    "Q16": (50, 15, 0, False), "Q17": (50, 30, 0, False),
-    "Q18": (50, 43, 0, False), "Q19": (50, 24, 0, True),
+    # 3 wall emitter-bank gates near their banks (line gate Q19 removed)
+    "Q16": (50, 15, 0, False), "Q17": (50, 30, 0, False), "Q18": (50, 43, 0, False),
     "BZ1": (8, 88, 0, True),
 }
-# 14 indicator LEDs (D121-126 wall + D131-138 line) in the open nose, two rows
-# of 7, forward of the sensor row (y16+); front row DODGES the castor hole at
-# (CX=50, 4) by clustering left/right of centre.
-_NOSE = ([(16 + 8 * i, 4) for i in range(4)] + [(60 + 8 * i, 4) for i in range(3)]
-         + [(16 + 9 * i, 12) for i in range(7)])
-_IND_LEDS = [f"D{121+i}" for i in range(6)] + [f"D{131+i}" for i in range(8)]
+# 6 wall-indicator LEDs (D121-126) in the open nose, dodging the castor hole
+# at (CX=50, 4) -- 3 left of centre, 3 right.
+_NOSE = [(20 + 8 * i, 5) for i in range(3)] + [(60 + 8 * i, 5) for i in range(3)]
+_IND_LEDS = [f"D{121+i}" for i in range(6)]
 for _ref, (_x, _y) in zip(_IND_LEDS, _NOSE):
     FIX[_ref] = (_x, _y, 0, False)
 
@@ -219,7 +219,8 @@ print(f"fixed {len(FIX)}, auto-placed {placed_auto}, FAILED {failed_place}")
 # re-spiralled to a fresh clear spot.
 HARD = ({"D1","D2","D3","D4","D5","D6","Q2","Q3","Q4","Q5","Q6","Q7"}
         | {r for r in FIX if r.startswith("J")} | {f"SW{i}" for i in range(1,7)}
-        | {"U1","U4","U7","L1","L2","Q16","Q17","Q18","Q19"})
+        | {f"H{i}" for i in range(1, 6)}          # mount holes -- NEVER move
+        | {"U1","U7","L1","L2","Q16","Q17","Q18"})
 def real_boxes(ref):
     fp = g._placed[ref]
     return (hole_bbox(fp), g._courtyard_boxes_mm(fp), fp.IsFlipped())

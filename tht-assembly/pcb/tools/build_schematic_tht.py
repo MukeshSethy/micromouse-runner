@@ -33,7 +33,8 @@ _MPN_STATIC = {
     "J1": ("B2B-XH-A", "JST"), "J9": ("B3B-XH-A(LF)(SN)", "JST"),
     "J10": ("XT60-M", "AMASS"),
     "J5": ("B6B-ZR(LF)(SN)", "JST"), "J6": ("B6B-ZR(LF)(SN)", "JST"),
-    "J8": ("61300611121", "Wurth Elektronik"),
+    "D40": ("WP154A4SUREQBFZGC", "Kingbright"),
+    "D41": ("WP154A4SUREQBFZGC", "Kingbright"),
     "J11": ("PPTC081LFBN-RC", "Sullins"), "J12": ("PPTC081LFBN-RC", "Sullins"),
     "J13": ("PPTC221LFBN-RC", "Sullins"), "J14": ("PPTC221LFBN-RC", "Sullins"),
     "J15": ("PPTC061LFBN-RC", "Sullins"),
@@ -253,20 +254,44 @@ C_DISC("C19", "100nF", (225, 40), "BAT_MID_SENSE", "GND")
 # ============================ CONTROLLER SOCKET =================================
 TXT("CONTROLLER -- ESP32-S3-DevKitC-1-N8R2 on two 1x22 sockets (its own USB-C flashes it)", (10, 135), size=4)
 # left row J13 (DevKitC-1 v1.x silk order, top->bottom)
+# rev THT-2: line-follower array + mux REMOVED (this is a wall-following
+# micromouse; the line array/mux was ~50 parts and drove the board over its
+# footprint). Battery telemetry (VBAT_SENSE, BAT_MID_SENSE) now goes DIRECT to
+# two DevKit ADC1 pins (the old mux-sense/select pins); the freed pins are NC.
 CONN("J13", "DEVKIT_LEFT", (30, 180), 22,
      ["PLUS3V3", "PLUS3V3", "ESP_RST", "WALL4_SENSE", "WALL5_SENSE", "WALL6_SENSE",
-      "MUX_SENSE", "WALL_EMIT_FRONT", "WALL_EMIT_DIAG", "WALL_EMIT_SIDE",
-      "IMU_SDA", "MUX_S3", "WALL3_SENSE", "BUZZ_CTRL", "AIN1", "AIN2",
-      "MUX_S0", "MUX_S1", "MUX_S2", "LINE_EMIT", None, "GND"],
+      "VBAT_SENSE", "WALL_EMIT_FRONT", "WALL_EMIT_DIAG", "WALL_EMIT_SIDE",
+      "IMU_SDA", "BAT_MID_SENSE", "WALL3_SENSE", "BUZZ_CTRL", "AIN1", "AIN2",
+      "RGB1_R", "RGB1_G", "RGB1_B", "RGB2_R", "RGB2_G", "GND"],
      "Connector_PinSocket_2.54mm:PinSocket_1x22_P2.54mm_Vertical")
-# right row J14 (top->bottom: G, TX43, RX44, 1, 2, 42, 41, 40, 39, 38, 37,
-# 36, 35, 0, 45, 48, 47, 21, 20, 19, G, G)
+# right row J14. rev THT-2: external JTAG header (J8) DROPPED -- the DevKit has
+# built-in USB-Serial-JTAG, so an external JTAG connector is redundant. Its 4
+# GPIO (IO39-42) are freed: one carries the 6th RGB channel, three are spare.
 CONN("J14", "DEVKIT_RIGHT", (70, 180), 22,
      ["GND", "ENC2_B_S3", "ENC2_A_S3", "WALL1_SENSE", "WALL2_SENSE",
-      "JTAG_TMS", "JTAG_TDI", "JTAG_TDO", "JTAG_TCK", "BIN1", "IMU_INT",
+      "RGB2_B", None, None, None, "BIN1", "IMU_INT",
       "USER_BTN3", "USER_BTN2", "USER_BTN", "BIN2", "ENC1_B", "ENC1_A",
       "IMU_SCL", None, None, "GND", "GND"],
      "Connector_PinSocket_2.54mm:PinSocket_1x22_P2.54mm_Vertical")
+
+# 2x RGB indicator LEDs (common cathode, ESP-driven, rev THT-2). Kingbright
+# WP154A4SUREQBFZGC 5mm 4-pin. Each anode via a limiter to a DevKit GPIO;
+# common cathode to GND. NOTE: green/blue Vf (~3.0V) leaves little headroom
+# from 3.3V -- G/B run dimmer than red (fine for a status indicator). Drive
+# with LEDC PWM for colour mixing.
+for _n in (1, 2):
+    base = snap((70 + _n * 20, 120))
+    g.add_component("Device", "LED_RKGB", f"D{39 + _n}",
+                    "WP154A4SUREQBFZGC (5mm common-cathode RGB)", base,
+                    {"1": "", "2": "", "3": "", "4": ""},
+                    footprint="LED_THT:LED_D5.0mm-4_RGB")
+    RAIL(f"RGB{_n}_RA", pin_at(base, (5.08, 5.08)), rotation=0)   # pin1 red anode
+    PWR("GND", pin_at(base, (-5.08, 0)))                          # pin2 common K
+    RAIL(f"RGB{_n}_GA", pin_at(base, (5.08, 0)), rotation=0)      # pin3 green anode
+    RAIL(f"RGB{_n}_BA", pin_at(base, (5.08, -5.08)), rotation=0)  # pin4 blue anode
+    R(f"R{200 + _n*3 - 2}", "180", (70 + _n*20 + 12, 125), f"RGB{_n}_R", f"RGB{_n}_RA")
+    R(f"R{200 + _n*3 - 1}", "68", (70 + _n*20 + 12, 120), f"RGB{_n}_G", f"RGB{_n}_GA")
+    R(f"R{200 + _n*3}", "68", (70 + _n*20 + 12, 115), f"RGB{_n}_B", f"RGB{_n}_BA")
 TXT("DevKit is powered from PLUS3V3 (3V3 pins). CAUTION: do not run motors while\nits USB is plugged AND battery on -- same procedure table as the SMD board.\n5V pin NC. IO19/20 (USB D+/-) NC -- flashing uses the DevKit's own connector.", (10, 215), size=2.0)
 
 # straps / buttons
@@ -282,10 +307,8 @@ for ref, net, x, lbl in (("SW1", "USER_BTN", 132, "BTN_A (start/BOOT)"),
     RAIL(net, pin_at(B, (-5.08, 0)), rotation=180)
     PWR("GND", pin_at(B, (5.08, 0)))
 
-# JTAG (optional -- the DevKit USB-JTAG covers debug; kept for parity)
-CONN("J8", "JTAG_1x6", (195, 180), 6,
-     ["PLUS3V3", "JTAG_TMS", "JTAG_TCK", "JTAG_TDO", "JTAG_TDI", "GND"],
-     "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
+# (external JTAG header J8 REMOVED, rev THT-2: the DevKit's built-in
+#  USB-Serial-JTAG covers flashing + debug; freed IO39-42 for RGB + spares)
 
 # ============================ MOTOR DRIVER SOCKET ===============================
 TXT("MOTOR DRIVER -- TB6612FNG breakout on two 1x8 sockets (SparkFun pin order; dry-fit!)", (10, 240), size=4)
@@ -335,50 +358,11 @@ RAIL("BUZZ_DRV", pin_at(Q34B, (2.54, 5.08)), rotation=90)
 R("R81", "1k", (125, 320), "BUZZ_CTRL", "BUZZ_B")
 DIODE("D29", "1N4148", (138, 320), "PLUS3V3", "BUZZ_DRV")
 
-# ============================ MUX + LINE ARRAY ==================================
-TXT("LINE ARRAY -- 8x TCRT5000 through CD74HC4067E (DIP-24 socket) + battery telemetry", (10, 350), size=4)
-HEF4067_PINS = {
-    "Z": (-12.7, 12.7), "Y7": (12.7, 0), "Y6": (12.7, 2.54), "Y5": (12.7, 5.08),
-    "Y4": (12.7, 7.62), "Y3": (12.7, 10.16), "Y2": (12.7, 12.7), "Y1": (12.7, 15.24),
-    "Y0": (12.7, 17.78), "A0": (-12.7, 2.54), "A1": (-12.7, 0), "VSS": (0, -27.94),
-    "A3": (-12.7, -5.08), "A2": (-12.7, -2.54), "E": (-12.7, -15.24), "Y15": (12.7, -20.32),
-    "Y14": (12.7, -17.78), "Y13": (12.7, -15.24), "Y12": (12.7, -12.7), "Y11": (12.7, -10.16),
-    "Y10": (12.7, -7.62), "Y9": (12.7, -5.08), "Y8": (12.7, -2.54), "VDD": (0, 25.4),
-}
-U4B = snap((40, 395))
-g.add_component("74xx", "CD74HC4067M", "U4", "CD74HC4067E (DIP-24, soldered flat -- sits under the DevKit)", U4B,
-                {str(n): "" for n in range(1, 25)},
-                footprint="Package_DIP:DIP-24_W15.24mm",
-                datasheet="https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf")
-_mux_net = {"Z": "MUX_SENSE", "A0": "MUX_S0", "A1": "MUX_S1", "A2": "MUX_S2",
-            "A3": "MUX_S3", "VDD": "PLUS3V3", "VSS": "GND", "E": "GND",
-            "Y8": "VBAT_SENSE", "Y9": "BAT_MID_SENSE"}
-for k in range(8):
-    _mux_net[f"Y{k}"] = f"LINE{k+1}_SENSE"
-for name, off in HEF4067_PINS.items():
-    pos = pin_at(U4B, off)
-    net = _mux_net.get(name)
-    if net is None:
-        NC(pos)
-    elif net == "GND":
-        PWR("GND", pos)
-    else:
-        RAIL(net, pos, rotation=(180 if off[0] < 0 else 0))
-
-for k in range(8):
-    x = 90 + k * 18
-    LSB = snap((x, 390))
-    g.add_component("Isolator", "PC817", f"LS{k+1}",
-                    "TCRT5000 (PC817 base symbol so ERC checks pins)",
-                    LSB, {"1": "", "2": "", "3": "", "4": ""}, footprint="n20:TCRT5000")
-    RAIL(f"Net-(LS{k+1}-Pad1)", pin_at(LSB, (-7.62, 2.54)), rotation=180)  # LED A
-    RAIL("EMIT_LINE_K", pin_at(LSB, (-7.62, -2.54)), rotation=180)         # LED K
-    RAIL(f"LINE{k+1}_SENSE", pin_at(LSB, (7.62, 2.54)), rotation=0)        # PT C
-    PWR("GND", pin_at(LSB, (7.62, -2.54)))                                  # PT E
-    R(f"R{101+k}", "120", (x, 410), "PLUS3V3", f"Net-(LS{k+1}-Pad1)")
-    R(f"R{111+k}", "47k", (x + 9, 410), "PLUS3V3", f"LINE{k+1}_SENSE")
-NMOS("Q19", (245, 395), "LINE_EMIT", "GND", "EMIT_LINE_K")
-R("R61", "100k", (258, 395), "LINE_EMIT", "GND")
+# ============================ (LINE ARRAY + MUX REMOVED, rev THT-2) ============
+# The 8x TCRT5000 line array, its CD74HC4067 mux, per-channel limiters/pull-ups,
+# line-emitter gate (Q19/R61) and line indicators are all deleted for the THT
+# variant -- a micromouse wall-follows, and those ~50 parts pushed the board
+# past its footprint. Battery telemetry moved to direct DevKit ADC pins above.
 
 # ============================ WALL SENSORS ======================================
 TXT("WALL SENSORS -- 6x IR333-A + PT334-6B (0/45/90 deg pairs), 3 banked emitter gates", (10, 440), size=4)
@@ -408,19 +392,14 @@ for bank, gate, x in (("FRONT", "WALL_EMIT_FRONT", 220), ("DIAG", "WALL_EMIT_DIA
       gate, "GND")
 
 # ============================ INDICATORS ========================================
-TXT("INDICATORS -- LED ON = seen: 6 wall + 8 line channels (BS250P + 1k + 3mm LED)", (10, 510), size=4)
+TXT("INDICATORS -- LED ON = wall seen: 6 wall channels (BS250P + 1k + 3mm LED)", (10, 510), size=4)
 for k in range(1, 7):
     x = 25 + (k - 1) * 20
     PMOS_DGS(f"Q{120+k}", (x, 535), f"WALL{k}_SENSE", "PLUS3V3", f"WIND{k}")
     R(f"R{150+k}", "1k", (x, 552), f"WIND{k}", f"WLED{k}")
     DIODE(f"D{120+k}", "LED red 3mm", (x, 566), "GND", f"WLED{k}",
           fp="LED_THT:LED_D3.0mm")
-for k in range(1, 9):
-    x = 160 + (k - 1) * 20
-    PMOS_DGS(f"Q{130+k}", (x, 535), f"LINE{k}_SENSE", "PLUS3V3", f"LIND{k}")
-    R(f"R{160+k}", "1k", (x, 552), f"LIND{k}", f"LLED{k}")
-    DIODE(f"D{130+k}", "LED red 3mm", (x, 566), "GND", f"LLED{k}",
-          fp="LED_THT:LED_D3.0mm")
+# (line-channel indicators D131-138 / Q131-138 / R161-168 removed with the array)
 
 with open(r"D:\Projects\micromouse-pcb\tht-assembly\pcb\micromouse-tht.kicad_sch",
           "w", encoding="utf-8", newline="\n") as f:
