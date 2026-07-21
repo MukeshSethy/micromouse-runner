@@ -9374,7 +9374,7 @@
 				)
 			)
 		)
-		(property "Value" "Status LED 0603 blue (JLC good-stock)"
+		(property "Value" "Status LED 0603 red (JLC good-stock)"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "7cbb9c97-3d0e-49a0-86da-ce5c763906d7")
@@ -11380,7 +11380,7 @@
 				)
 			)
 		)
-		(property "Value" "Power LED 0603 green (JLC good-stock)"
+		(property "Value" "Power LED 0603 red (JLC good-stock)"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "dfd2d270-c0ac-42ac-a450-62da040faf23")

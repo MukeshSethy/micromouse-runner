@@ -54,13 +54,15 @@ LCSC_MAP = {
     "TCRT5000":              _e("C2984661", "TCRT5000",  smt=False, note="THT reflective sensor (hand-solder)"),
     "IR333-A":               _e("C264290",  "IR333-A",   smt=False, note="THT 5mm IR emitter (hand-solder)"),
     "PT334-6B":              _e("C369188",  "PT334-6B",  smt=False, note="THT 5mm phototransistor (hand-solder)"),
-    "APT1608SURCK":          _e("C5875723", "APT1608SURCK"),   # 0603 SMD indicator
+    "APT1608SURCK":          _e("C2286",    "KT-0603R", tier="BASIC",
+                                note="SUB: JLC assembly pool showed 0 of C5875723 (LCSC retail-only); KT-0603R is the JLC Basic 0603 red (3.59M stock, 2026-07-21), Vf 1.8-2.4V + 0603 pad-compatible, 300mcd vs 230 -- series resistors unchanged"),
     "WS2812B":               _e("C2761795", "WS2812B-B/T (Worldsemi)",
                                 note="addressable RGB, SMD5050-4P = LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm; "
                                      "good stock ~414k (alt C114586 ~500k) -- verified 2026-07-20"),
 
     # ---- buzzer (SMD) -------------------------------------------------------
-    "CMT-8504-100-SMT-TR":   _e("C3811795", "CMT-8504-100-SMT-TR"),
+    "CMT-8504-100-SMT-TR":   _e("C22359707", "CMT-8504-100-SMT-TR",
+                                note="SAME MPN, different LCSC listing: C3811795 (JLC-consigned) hit Inventory shortage; C22359707 is the regular LCSC listing of the identical CUI part, 104 in stock (2026-07-21). Exact drop-in -- not a substitute"),
 
     # ---- connectors (THT / hand-solder) -------------------------------------
     "USB4105-GF-A":          _e("C3020560", "USB4105-GF-A", smt=False, note="USB-C (SMD shell + THT pegs; hand-solder recommended)"),

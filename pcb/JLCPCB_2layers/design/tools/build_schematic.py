@@ -1193,7 +1193,7 @@ _pr1, _pr2 = R("R82", "1k", (610, 640))
 RAIL("PLUS3V3", _pr1, rotation=90)
 RAIL("PWRLED_A", _pr2, rotation=270)
 _pb = snap((610, 620))
-g.add_component("LED", "LD271", "D30", "Power LED 0603 green (JLC good-stock)",
+g.add_component("LED", "LD271", "D30", "Power LED 0603 red (JLC good-stock)",
                 _pb, {"1": "", "2": ""}, footprint="LED_SMD:LED_0603_1608Metric")
 RAIL("PWRLED_A", pin_at(_pb, (2.54, 0)), rotation=0)          # anode
 RAIL("GND", pin_at(_pb, (-5.08, 0)), rotation=180)           # cathode
@@ -1203,7 +1203,7 @@ _sr1, _sr2 = R("R83", "1k", (660, 640))
 RAIL("STATUS_LED", _sr1, rotation=90)
 RAIL("STATLED_A", _sr2, rotation=270)
 _sb = snap((660, 620))
-g.add_component("LED", "LD271", "D31", "Status LED 0603 blue (JLC good-stock)",
+g.add_component("LED", "LD271", "D31", "Status LED 0603 red (JLC good-stock)",
                 _sb, {"1": "", "2": ""}, footprint="LED_SMD:LED_0603_1608Metric")
 RAIL("STATLED_A", pin_at(_sb, (2.54, 0)), rotation=0)
 RAIL("GND", pin_at(_sb, (-5.08, 0)), rotation=180)
