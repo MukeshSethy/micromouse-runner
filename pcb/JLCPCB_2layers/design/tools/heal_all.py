@@ -24,8 +24,8 @@ BOARD = r"D:\Projects\micromouse-pcb\pcb\JLCPCB_2layers\design\micromouse-pcb.ki
 NETLIST = r"D:\Projects\micromouse-pcb\pcb\JLCPCB_2layers\design\netlist.net"
 DRC = r"D:\Projects\micromouse-pcb\pcb_drc.json"
 CLI = r"C:\Program Files\KiCad\10.0\bin\kicad-cli.exe"
-POUR_RECTS = {"VM_BATT": (16, 44, 64, 113), "VM_6V": (66, 44, 99, 100)}
-POUR_NETS = ("GND", "PLUS3V3", "VM_BATT", "VM_6V")
+POUR_RECTS = {}                 # 2-layer: no VM/3V3 pour islands to constrain vias to
+POUR_NETS = ("GND",)            # 2-layer: only GND is poured -> only GND gets via-stitch heals
 LAYER = {"F.Cu": pcbnew.F_Cu, "B.Cu": pcbnew.B_Cu,
          "In1.Cu": pcbnew.In1_Cu, "In2.Cu": pcbnew.In2_Cu}
 
@@ -34,7 +34,7 @@ def load():
     g = PcbGen(NETLIST)
     g.board = pcbnew.LoadBoard(BOARD)
     g.setup_design_rules()
-    g.LAYERS = [pcbnew.F_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.B_Cu]
+    g.LAYERS = [pcbnew.F_Cu, pcbnew.B_Cu]   # 2-layer
     g._placed = {fp.GetReference(): fp for fp in g.board.GetFootprints()}
     g._nets = {}
     for code, ni in g.board.GetNetsByNetcode().items():
@@ -213,7 +213,7 @@ for rnd in range(1, 7):
             ok = (g.retry_edge(net, A, B, width_mm=0.25, clearance_mm=0.3,
                                grid_mm=0.1, max_expansions=400000)
                   or g.retry_edge(net, A, B, width_mm=0.25, clearance_mm=0.18,
-                                  grid_mm=0.1, max_expansions=1200000))
+                                  grid_mm=0.1, max_expansions=700000))
             if ok:
                 print(f"  micro-route {net} {A}->{B}: OK")
                 acted += 1

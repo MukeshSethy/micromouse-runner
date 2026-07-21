@@ -365,7 +365,7 @@ if _over > 0:
     print(f"J7 pulled back {_over:.2f}mm -> mouth flush at the rear edge")
 # USB support (bottom). Rev 6: D+/D- run DIRECT from the module to the ESD
 # array to the connector (no 22R -- Espressif S3 reference practice).
-g.place("U6", 64, 112, flip=True)              # USB ESD (bottom) -> near the relocated J7
+g.place("U6", 61.5, 112, flip=True)            # USB ESD (bottom); moved -2.5mm so pad3 clears J7 shield PTH (DRC short)
 # CC pulldowns (bottom): MUST stay OUT of the USB-C escape zone
 # (x 50-58, y 108-112) -- at (52.9,110.5) R56 boxed every D-/VBUS inner-layer
 # dive (HANDOFF 6.2). East of the zone, clear of SW2's THT holes.
@@ -399,19 +399,26 @@ for _ref, _lbl in BTN_LABELS:
 # Motor driver moved to the MOTOR-BAY CENTER (x~50, between the two motor
 # bodies at x13-46 / x54-87) so the motor connectors J5/J6 sit SYMMETRICALLY
 # forward of it (user request). Decoupling rides underneath (bottom).
-g.place("U2", 50, 78, rot=0)
-g.place("C30", 50, 87, value="220uF/16V")          # alu bulk -> motor-bay corridor behind U2 (clear of U3 + motors)
+g.place("U2", 50, 72, rot=0)                       # moved fwd into the J5/J6 x-gap, out of the motor Y-band (DRC courtyard)
+g.place("C30", 50, 87, flip=True, value="220uF/16V")  # alu bulk -> BOTTOM under motor bay (opposite top motors; ~16mm floor clr)
 g.place("C11", 50, 72, flip=True, value="10uF/25V")  # corridor, forward of U2 (bottom)
-g.place("C12", 50, 84, flip=True, value="100nF")     # corridor, behind U2 (bottom)
+g.place("C12", 42, 86, flip=True, value="100nF")     # bottom, left of flipped C30 (clear of its courtyard)
 g.place("C14", 60, 60, flip=True, value="100nF")
 g.place("J5", 33, 69.1, rot=0)               # motor A -- forward 0.9mm so its body y aligns with J6 (mirror-symmetric)
 g.place("J6", 67, 70, rot=180)               # motor B -- TRUE mirror of J5 (rot 180)
 # Encoder pull-ups/guards + strap pull-down + STBY tie: TOP mid-band rows
 g.place("R6", 21, 50); g.place("R7", 25, 50)     # ENC1 pullups -> front gap (cleared J5 forward path)
 g.place("R8", 40, 47); g.place("R9", 44, 47)     # ENC2 pullups (moved: IMU owns y54-66 center)
-g.place("R57", 44, 100); g.place("R58", 56, 100)   # ENC2 guards -> flank the centred U3 (off the buzzer)
+g.place("R57", 44, 100, flip=True); g.place("R58", 56, 100, flip=True)   # ENC2 guards -> BOTTOM under U3 module (top is module body)
 g.place("R65", 44, 52)                           # BIN2 strap pulldown -> front gap
-g.place("R55", 52, 68)                           # STBY tie-high (10k to 3V3) -- moved clear of the mirrored J6
+g.place("R55", 58, 74)                           # STBY tie-high (10k) -- clear right of U2, fwd of motors
+# DIAG indicator LEDs (D3/D4) crowd the adjacent SIDE detectors (Q6/Q7) in the
+# front corners -- MOVE the existing footprints (g.place would duplicate the
+# ref) to clear openings ahead of the SIDE clusters.
+_byref = {fp.GetReference(): fp for fp in g.board.GetFootprints()}
+for _r, _x, _y in (("D3", 27.0, 24.0), ("D4", 73.0, 24.0)):
+    if _r in _byref:
+        _byref[_r].SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(_x), pcbnew.FromMM(_y)))
 
 # Battery + balance + power slides, rear-left (all left of the antenna notch
 # x<24.9; slide actuators face the rear edge for finger access)
@@ -434,22 +441,15 @@ g.add_silk_text("BATT 2S 8.4V MAX", (12, 104.9), size_mm=1.0)
 # constraint -- the embedded copper-keepout ZONE over the antenna projection.
 _u3 = g._placed["U3"]
 _stripped = 0
+# Remove EVERY courtyard shape from the module. The antenna-notch courtyard is
+# an OPEN (malformed) polygon once the flare is stripped and the old _close
+# segment had the wrong endpoints (25.5->45 vs the body rails at 40.25/59.75),
+# leaving it unclosed -> KiCad malformed_courtyard. Match by LAYER ID (the layer
+# name is "F.Courtyard", not "CrtYd"). One clean rectangle is rebuilt below.
 for _gi in list(_u3.GraphicalItems()):
-    if "Courtyard" not in _gi.GetLayerName():
-        continue
-    _bb = _gi.GetBoundingBox()
-    if pcbnew.ToMM(_bb.GetTop()) >= 113.3:   # flare pieces only (body rails start y 93.2)
+    if _gi.GetLayer() in (pcbnew.F_CrtYd, pcbnew.B_CrtYd):
         _u3.Remove(_gi)
         _stripped += 1
-# close the courtyard at the body end (the strip removed the shared edge):
-# endpoints coincide EXACTLY with the body rails' ends (local +/-9.75,-6.75)
-_close = pcbnew.PCB_SHAPE(g.board, pcbnew.SHAPE_T_SEGMENT)
-_close.SetStart(pcbnew.VECTOR2I(pcbnew.FromMM(25.5), pcbnew.FromMM(113.45)))
-_close.SetEnd(pcbnew.VECTOR2I(pcbnew.FromMM(45.0), pcbnew.FromMM(113.45)))
-_close.SetLayer(pcbnew.F_CrtYd)
-_close.SetWidth(pcbnew.FromMM(0.05))
-_close.SetParent(_u3)
-_u3.Add(_close)
 # The embedded antenna keepout ZONE spans 48x21mm of clearance
 # *recommendation* -- it pollutes every bbox-based check and would ban the
 # entire rear panel. The antenna projection itself lies over the NOTCH
@@ -460,7 +460,19 @@ for _z in list(_u3.Zones()):
     _u3.Remove(_z)
     _stripped += 1
 g.add_keepout((46.0, 111.8, 54.0, 113.8), allow_tracks=False, allow_footprints=True)  # centred with U3
-print(f"U3 courtyard+zone pieces stripped: {_stripped} (precise ribbon keepout added; missing_courtyard=ignore)")
+# Rebuild ONE clean CLOSED rectangle as the courtyard over the module BODY
+# (closed segments -- KiCad's courtyard builder only accepts closed poly-lines,
+# not a RECT shape). y capped at the notch line (113.5) so it never spans the
+# board-absent antenna notch; the ribbon keepout above guards that strip.
+_cpts = [(40.0, 93.0), (60.0, 93.0), (60.0, 113.5), (40.0, 113.5), (40.0, 93.0)]
+for _a, _c in zip(_cpts, _cpts[1:]):
+    _s = pcbnew.PCB_SHAPE(_u3, pcbnew.SHAPE_T_SEGMENT)
+    _s.SetStart(pcbnew.VECTOR2I(pcbnew.FromMM(_a[0]), pcbnew.FromMM(_a[1])))
+    _s.SetEnd(pcbnew.VECTOR2I(pcbnew.FromMM(_c[0]), pcbnew.FromMM(_c[1])))
+    _s.SetLayer(pcbnew.F_CrtYd)
+    _s.SetWidth(pcbnew.FromMM(0.05))
+    _u3.Add(_s)
+print(f"U3 courtyard rebuilt: stripped {_stripped}, added clean closed body rectangle")
 
 # --- Sanity + planes + save ---
 remaining = g.unplaced_refs()
