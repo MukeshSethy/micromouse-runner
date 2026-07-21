@@ -31,9 +31,10 @@ LCSC_MAP = {
     "CD74HC4067M96":         _e("C496123",  "CD74HC4067M96"),
     "USBLC6-2SC6":           _e("C7519",    "USBLC6-2SC6"),
     "BNO055":                _e("C93216",   "BNO055",
-                                note="AT-RISK: JLC assembly ~505 and draining (LCSC retail already 0), "
-                                     "re-verified 2026-07-20. No pin/protocol drop-in (BNO085 is NOT a sub). "
-                                     "RESERVE/pre-order and confirm the count at checkout"),
+                                note="AT-RISK: LCSC retail down to 2 units (re-verified 2026-07-21); JLC "
+                                     "assembly pool was ~505 on 07-20 and draining. No pin/protocol "
+                                     "drop-in (BNO085 is NOT a sub). RESERVE at checkout or source "
+                                     "the part yourself BEFORE ordering assembly"),
 
     # ---- discretes (SMD) ----------------------------------------------------
     "DMP3098L-7":            _e("C150492",  "DMP3098L-7"),

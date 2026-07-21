@@ -8,7 +8,7 @@ ours are; C-numbers are in jlcpcb_lcsc_map.py). Only the cheaper Economy PCBA
 tier is SMD-only. So we emit ONE combined BOM + ONE combined CPL covering every
 part:
 
-  jlcpcb/micromouse-pcb-rev7.2-jlcpcb-gerbers.zip  fab (Gerber X2 + Excellon)
+  jlcpcb/micromouse-pcb-2layer-jlcpcb-gerbers.zip  fab (Gerber X2 + Excellon)
   jlcpcb/BOM_JLC-assembly.xlsx   full assembly BOM, columns EXACTLY:
         Comment | Designator | Footprint | JLCPCB Part #（optional）
   jlcpcb/CPL_JLC-assembly.xlsx   full placement, columns EXACTLY:
@@ -132,7 +132,7 @@ def short_fp(fp):
 
 def rot_fmt(v):
     try:
-        f = float(v)
+        f = float(v) % 360.0          # JLC CPL convention is [0,360): -45 -> 315
         return str(int(round(f))) if abs(f - round(f)) < 1e-6 else f"{f:g}"
     except ValueError:
         return v
@@ -157,7 +157,7 @@ def main():
             os.remove(p)
 
     # ---- gerber + drill zip (flat) -----------------------------------------
-    zpath = os.path.join(OUT, "micromouse-pcb-rev7.2-jlcpcb-gerbers.zip")
+    zpath = os.path.join(OUT, "micromouse-pcb-2layer-jlcpcb-gerbers.zip")
     with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
         for f in os.listdir(os.path.join(FAB, "gerbers")):
             z.write(os.path.join(FAB, "gerbers", f), f)

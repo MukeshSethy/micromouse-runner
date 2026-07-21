@@ -36,3 +36,8 @@ pcb_drc.json
 
 # Fabrication RELEASE package (committed deliverable; pcb/fab/ stays regenerable)
 !pcb/fab_release/
+
+# 2-layer fab outputs (regenerate with design/tools/export_fab.py); the
+# fab_release/ package next to it is the committed orderable deliverable
+pcb/JLCPCB_2layers/design/fab/
+pcb/JLCPCB_2layers/design/_export_drc.json
