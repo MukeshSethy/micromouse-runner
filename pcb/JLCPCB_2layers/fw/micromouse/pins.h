@@ -27,7 +27,7 @@
 
 // ---- battery / bus telemetry (DIRECT ADC1 -- mux removed on 2-layer) --------
 #define PIN_VBAT_SENSE    7   // net VBAT_SENSE     pack / (100k:39k)  = V*39/139
-#define PIN_BATMID_SENSE  8   // net BAT_MID_SENSE  cell-1 / (100k:100k) = V/2
+// IO8 free -- per-cell (BAT_MID_SENSE) removed with the balance connector
 #define PIN_VBUS_SENSE    9   // net VBUS_SENSE     5V / (10k:15k)     = V*0.6
 
 // ---- motor driver (TB6612FNG, IN/IN PWM mode) -------------------------------
@@ -72,13 +72,8 @@
 
 // ---- battery policy (2S) ----------------------------------------------------
 #define VBAT_DIVIDER      (139.0f / 39.0f)   // pack divider inverse (100k:39k)
-#define BATMID_DIVIDER    2.0f               // midpoint divider inverse (100k:100k)
 #define VBUS_DIVIDER      (25.0f / 15.0f)    // VBUS divider inverse (10k:15k)
-#define PACK_CUTOFF_V     6.6f               // 3.3V/cell floor
-#define CELL_CUTOFF_V     3.3f               // per-cell floor (either cell)
-#define BALANCE_ABSENT_V  0.5f               // cell-1 below this = J9 balance lead not
-                                             // plugged (R75/R76 drain the sense node to
-                                             // ~0V) -> pack-only monitoring
+#define PACK_CUTOFF_V     6.6f               // 2S pack floor (3.3V/cell avg); PACK-LEVEL only
 
 // USB D-/D+ are the S3 native pins IO19/IO20 (flashing + CDC console).
 // 2-layer: NO JTAG header -- IO39-42 are NC; debug is over native USB only.

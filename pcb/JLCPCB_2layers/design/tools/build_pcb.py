@@ -88,8 +88,8 @@ WALL_GEOM = [
     # this rot must be applied together with the coordinated front reroute.
     (0, (30.95, 15.0), (21.43, 15.0), 90),     # FRONT-L (rev 7: rot90, pads vertical in the line gaps)
     (1, (69.05, 15.0), (78.57, 15.0), 90),     # FRONT-R (rev 7: rot90)
-    (2, (12.5, 24.4), (17.87, 29.77), 45),     # DIAG-L (emit in-line behind)
-    (3, (87.5, 24.4), (82.13, 29.77), 315),    # DIAG-R
+    (2, (12.5, 22.4), (17.87, 27.77), 45),     # DIAG-L (emit in-line behind); USER: pair shifted UP 2mm off the SIDE detectors
+    (3, (87.5, 22.4), (82.13, 27.77), 315),    # DIAG-R (pair shifted UP 2mm, mirror)
     (4, (15.0, 36.6), (15.0, 44.2), 90),       # SIDE-L (exact 90)
     (5, (85.0, 36.6), (85.0, 44.2), 270),      # SIDE-R
 ]
@@ -151,10 +151,13 @@ def _angle_callout(i, det, aim):
 # math uses), so each part is placed 1.27mm back along its axis.
 _ROT_DIR = {0: (1.0, 0.0), 45: (_S2, -_S2), 90: (0.0, -1.0),
             135: (-_S2, -_S2), 270: (0.0, 1.0), 315: (_S2, _S2)}
-# rev 7: the diagonal RECEIVERS rotated perpendicular-to-aim (pads clear the
-# line-sensor bodies); the emitters keep the in-line rot. Pair centres stay
-# exactly on the det points, so the 45.000-deg aims are unchanged.
-_DET_ROT = {0: 90, 1: 90, 2: 135, 3: 45, 4: 90, 5: 270}
+# rev 7: the diagonal RECEIVERS were rotated perpendicular-to-aim (pads clear
+# the line-sensor bodies); the emitters keep the in-line rot. USER (2026-07-21):
+# align the diagonal detectors Q4/Q5 to their emitters D3/D4 (rotate 90deg):
+# Q4 135->45 (=D3), Q5 45->315 (=D4). Line sensors are gone on 2-layer, so the
+# perpendicular clearance is no longer needed. Pair centres stay on the det
+# points, so the 45.000-deg aims are unchanged.
+_DET_ROT = {0: 90, 1: 90, 2: 45, 3: 315, 4: 90, 5: 270}
 for i, det, emit, rot in WALL_GEOM:
     r = sensor_refs(i)
     _dx, _dy = _ROT_DIR[rot]
@@ -202,12 +205,16 @@ _outline_gap_check()
 # the sensors hugged the edges, and after the inboard move they forced every
 # sense/emit net across the board's two most congested strips (the reroute
 # imploded: 30 unrouted). Local passives = local nets.
-WALL_RC = {0: (25, 3, 25, 6),        # WALL1 front-L (between the outline bands)
-           1: (75, 3, 75, 6),        # WALL2 front-R
-           2: (7.5, 19, 7.5, 22),    # WALL3 diag-L (bottom face, under the bent body)
-           3: (92.5, 19, 92.5, 22),  # WALL4 diag-R
-           4: (22, 39, 22, 42),      # WALL5 side-L (bottom face, clear of both outline bands)
-           5: (78, 39, 78, 42)}      # WALL6 side-R
+# USER (2026-07-21): the front/diagonal pull-ups sat in the sensing beam path
+# (front-nose y3-6 ahead of the forward sensors; far side edges x7.5/92.5 ahead
+# of the diagonal aim). Moved BEHIND / inboard of each sensor (bottom face, off
+# the beam) -- still local to each channel's net (short sense/emit traces).
+WALL_RC = {0: (30, 23, 34, 23),      # WALL1 front-L -> BEHIND the front sensor, off the forward beam
+           1: (70, 23, 66, 23),      # WALL2 front-R -> behind
+           2: (22, 26, 26, 26),      # WALL3 diag-L -> inboard+behind the 45deg aim (4mm pair pitch)
+           3: (78, 26, 74, 26),      # WALL4 diag-R -> inboard+behind (4mm pair pitch)
+           4: (22, 39, 22, 42),      # WALL5 side-L (already inboard of the side aim -- keep)
+           5: (78, 39, 78, 42)}      # WALL6 side-R (keep)
 for i in range(6):
     r = sensor_refs(i)
     px, py, cx2, cy2 = WALL_RC[i]
@@ -293,10 +300,14 @@ for ref, fx, rot in (("MOT1", FACE_L, 180), ("MOT2", FACE_R, 0)):
 g.place("U4", 8, 56, rot=0)                   # line read-mux, left edge (below the side-sensor band)
 g.place("C13", 16.8, 49)
 
-# battery guard chain (left-mid, close to the rear-left battery entry)
-g.place("F1", 17.5, 58)
-g.place("Q1", 26, 54)
-g.place("R1", 26, 54, flip=True)               # gate pulldown (bottom, under Q1)
+# battery guard chain -- moved to the RIGHT next to the buck U7 it feeds, in
+# the top-right full-width band (the middle-right y68-100 is the wheel-well
+# cutout, edge at x=87). BATT_RAW now runs UP THE RIGHT EDGE from the battery
+# instead of crossing the whole board (155mm high-current path -> ~71mm, and
+# off the dense central routing channels).
+g.place("F1", 95.5, 64.5)                      # fuse on the right edge, in the BATT_RAW feed
+g.place("Q1", 92.5, 48)                        # reverse-protect FET beside buck U7's VM_BATT in
+g.place("R1", 92.5, 48, flip=True)             # gate pulldown (bottom, under Q1)
 g.place("C1", 32, 54, value="10uF/25V")
 g.place("C2", 37, 54, value="100nF")
 
@@ -400,35 +411,39 @@ for _ref, _lbl in BTN_LABELS:
 # bodies at x13-46 / x54-87) so the motor connectors J5/J6 sit SYMMETRICALLY
 # forward of it (user request). Decoupling rides underneath (bottom).
 g.place("U2", 50, 72, rot=0)                       # moved fwd into the J5/J6 x-gap, out of the motor Y-band (DRC courtyard)
-g.place("C30", 50, 87, flip=True, value="220uF/16V")  # alu bulk -> BOTTOM under motor bay (opposite top motors; ~16mm floor clr)
+g.place("C30", 12.5, 57.5, value="220uF/16V")  # alu bulk 6.3x7.7mm -> TOP (USER: off the bottom, hits the maze floor). USER: near R6/R7, 5mm further down/rear -- left-edge gap, well clear of MOT1 (y>=76.9), the mount holes, and the side-sensor optics
 g.place("C11", 50, 72, flip=True, value="10uF/25V")  # corridor, forward of U2 (bottom)
 g.place("C12", 42, 86, flip=True, value="100nF")     # bottom, left of flipped C30 (clear of its courtyard)
 g.place("C14", 60, 60, flip=True, value="100nF")
-g.place("J5", 33, 69.1, rot=0)               # motor A -- forward 0.9mm so its body y aligns with J6 (mirror-symmetric)
-g.place("J6", 67, 70, rot=180)               # motor B -- TRUE mirror of J5 (rot 180)
+g.place("J5", 33, 69.1, rot=0)               # motor A -- forward 0.9mm so its body y aligns with J6
+g.place("J6", 67, 70, rot=180)               # motor B -- TRUE MIRROR of J5 (USER: symmetric to J5 + clears the H3 mount hole; rot0 swung the body over the mount)
 # Encoder pull-ups/guards + strap pull-down + STBY tie: TOP mid-band rows
 g.place("R6", 21, 50); g.place("R7", 25, 50)     # ENC1 pullups -> front gap (cleared J5 forward path)
 g.place("R8", 40, 47); g.place("R9", 44, 47)     # ENC2 pullups (moved: IMU owns y54-66 center)
 g.place("R57", 44, 100, flip=True); g.place("R58", 56, 100, flip=True)   # ENC2 guards -> BOTTOM under U3 module (top is module body)
 g.place("R65", 44, 52)                           # BIN2 strap pulldown -> front gap
 g.place("R55", 58, 74)                           # STBY tie-high (10k) -- clear right of U2, fwd of motors
-# DIAG indicator LEDs (D3/D4) crowd the adjacent SIDE detectors (Q6/Q7) in the
-# front corners -- MOVE the existing footprints (g.place would duplicate the
-# ref) to clear openings ahead of the SIDE clusters.
-_byref = {fp.GetReference(): fp for fp in g.board.GetFootprints()}
-for _r, _x, _y in (("D3", 27.0, 24.0), ("D4", 73.0, 24.0)):
-    if _r in _byref:
-        _byref[_r].SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(_x), pcbnew.FromMM(_y)))
+# DIAG sensor pairs (D3 emitter+Q4 detector / D4 emitter+Q5 detector): USER
+# (2026-07-21 render review) wanted the placement_top.png diagonal geometry back
+# (NOT the 1297b67 pull-toward-centre). Governed by WALL_GEOM above -- the DIAG-L
+# /DIAG-R rows were shifted UP 3mm there so each emitter+detector pair keeps its
+# 45deg optics but clears the SIDE detectors Q6/Q7 (courtyard overlap at the
+# exact placement_top.png spot). No _byref override here: g.place from WALL_GEOM
+# is the source of truth and wins over a late SetPosition.
 
 # Battery + balance + power slides, rear-left (all left of the antenna notch
 # x<24.9; slide actuators face the rear edge for finger access)
-g.place("J1", 5, 108.5)                        # 2S battery (JST-XH 2p)
-g.place("J9", 15.5, 108.5)                     # balance tap (JST-XH 3p)
+g.place("J1", 89, 114)                         # 2S battery (JST-XH 2p) -- consolidated by XT60 (user)
+g.place("J9", 68, 96)                          # balance tap (JST-XH 3p) -- moved off left, below R-motor/right of ESP
 g.place("SW5", 6, 116.4)                       # PWR ALL slide (PCM12: long axis along x at rot 0)
 g.place("SW6", 15.5, 116.4)                    # PWR MOTORS slide
-g.add_silk_text("PWR", (6, 113.4), size_mm=1.1)
-g.add_silk_text("MOT", (15.5, 113.4), size_mm=1.1)
-g.add_silk_text("BATT 2S 8.4V MAX", (12, 104.9), size_mm=1.0)
+# PWR/MOT switch labels ABOVE the switch bodies (body spans y112.4-121.5, so the
+# old y113.4 printed ON the switch = unreadable -- USER render review).
+g.add_silk_text("PWR", (6, 109.5), size_mm=1.1)
+g.add_silk_text("MOT", (15.5, 109.5), size_mm=1.1)
+# BATT rating label FOLLOWS the battery connectors (J1/J10) after they were
+# consolidated to the right -- USER (render review): it was stranded on the left.
+g.add_silk_text("BATT 2S 8.4V MAX", (72.0, 99.5), size_mm=1.0)
 
 # The WROOM-1 footprint's courtyard is a T: the body plus a 48mm-wide
 # ANTENNA-CLEARANCE FLARE (Espressif's "recommended clearance" drawn as

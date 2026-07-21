@@ -39,7 +39,6 @@ _MPN_STATIC = {
     "L2": ("SRP4020TA-4R7M", "Bourns"),
     "F1": ("MINISMDC350F/16-2", "Littelfuse"),             # PPTC 3.5A hold/7A trip, 16V (rev 7.1: double-stall headroom)
     "J1": ("B2B-XH-A", "JST"),                             # 2S battery main (XH: 3A/contact)
-    "J9": ("B3B-XH-A(LF)(SN)", "JST"),                     # 2S balance tap (standard XH-3)
     "SW5": ("PCM12SMTR", "C&K"), "SW6": ("PCM12SMTR", "C&K"),
     # J5/J6 (motor connectors) rev 7.2: JST ZH B6B-ZR -- the robu GA12-N20
     # motors ship with a factory 14cm cable terminated in a JST ZH 1.5mm
@@ -371,17 +370,10 @@ j10p1, j10p2 = CONN2("J10", "BATT_IN_XT60 (parallel option -- ONE PACK ONLY)", (
 RAIL("BATT_RAW", j10p1, rotation=0)
 RAIL("GND", j10p2, rotation=180)
 
-# Balance tap (JST-XH 3-pin = the standard 2S balance plug): pin1 GND (B-),
-# pin2 pack midpoint (B1+), pin3 pack + (B2+, same wire pair as J1 pin 1).
-# Monitoring only -- charge current never flows through this board.
-# Rev 7.2 (user): the balance plug is OPTIONAL -- with J9 unplugged the
-# R75/R76 divider drains BAT_MID_SENSE to ~0 V, which firmware detects
-# (cell-1 reading < 0.5 V = physically impossible with a pack connected)
-# and falls back to pack-level-only monitoring via VBAT_SENSE.
-j9p1, j9p2, j9p3 = CONN3("J9", "BALANCE_2S", (20, 110))
-RAIL("GND", j9p1, rotation=180)
-RAIL("BAT_MID", j9p2, rotation=180)
-RAIL("BATT_RAW", j9p3, rotation=180)
+# Balance tap + per-cell monitoring REMOVED (user, keep it simple): no J9
+# connector, no BAT_MID divider. Battery monitoring is PACK-LEVEL only via
+# VBAT_SENSE (IO7); the 2S pack floor (6.6V) guards the pack adequately and a
+# 2S LiPo charged on a balance charger stays matched. Frees the motor-bay area.
 
 f1p1, f1p2 = FUSE("F1", "2.6A/16V PPTC", (90, 150), footprint="Fuse:Fuse_1812_4532Metric")
 RAIL("BATT_RAW", f1p1, rotation=90)
@@ -567,17 +559,9 @@ WIRE(r2p2, c6p1)
 RAIL("GND", c6p2, rotation=270)
 RAIL("VBAT_SENSE", r2p2, rotation=0)
 
-r75a, r75b = R("R75", "100k", (100, 65))
-RAIL("BAT_MID", r75a, rotation=90)
-r76a, r76b = R("R76", "100k", (100, 40))
-WIRE(r75b, r76a)
-RAIL("GND", r76b, rotation=270)
-c19a, c19b = C("C19", "100nF", (118, 52))
-WIRE(r75b, c19a)
-RAIL("GND", c19b, rotation=270)
-RAIL("BAT_MID_SENSE", r75b, rotation=0)
+# BAT_MID divider (R75/R76/C19) removed with J9 -- no per-cell monitoring.
 
-TXT("VBAT_SENSE = pack (0-8.4V) x 39/139 <= 2.36V; BAT_MID_SENSE = cell-1 (0-4.2V) x 1/2 <= 2.1V.\nBoth + VBUS_SENSE read through mux channels Y8/Y9/Y10 (ADC1 IO7). Firmware cutoff:\n3.3V/cell (either cell) = 6.6V pack floor; the 6V rail is in regulation across that window.",
+TXT("VBAT_SENSE = pack (0-8.4V) x 39/139 <= 2.36V on ADC1 IO7 (direct).\nVBUS_SENSE = 5V x 15/25 <= 3.15V on IO9. PACK-LEVEL monitoring only\n(per-cell/balance removed). Firmware cutoff: 6.6V pack floor (3.3V/cell avg);\nthe 6V motor rail stays in regulation across the 6.6-8.4V window.",
     (20, 20), size=2.2)
 
 # ---------------------------------------------------------------------------
@@ -733,7 +717,7 @@ U3_NET = {  # module pad -> net (None = explicit no-connect)
     "2": "PLUS3V3", "3": "ESP_EN",
     "39": "WALL1_SENSE", "38": "WALL2_SENSE", "15": "WALL3_SENSE",       # IO1-3
     "4": "WALL4_SENSE", "5": "WALL5_SENSE", "6": "WALL6_SENSE",          # IO4-6
-    "7": "VBAT_SENSE", "12": "BAT_MID_SENSE",                           # IO7/IO8 ADC1 (battery direct; mux removed)
+    "7": "VBAT_SENSE", "12": None,                                      # IO7 ADC1 (pack); IO8 free (per-cell removed)
     "17": "VBUS_SENSE", "18": "AIN2",                                   # IO9 ADC1 (VBUS) / IO10 LEDC PWM
     "19": "AIN1", "20": "STATUS_LED", "21": None,                      # IO11 LEDC PWM; IO12 status LED; IO13 spare
     "22": "RGB_DATA",                                                   # IO14 -> WS2812B addressable RGB

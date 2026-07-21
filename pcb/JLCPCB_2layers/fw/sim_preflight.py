@@ -67,15 +67,15 @@ check(vs <= 3.3, "worst-case VBUS (5.25V) sense within ADC range",
       f"{r67/1e3:.0f}k/{r68/1e3:.0f}k -> {vs:.2f} V")
 
 print("S1 all analog inputs on ADC1 (GPIO1-10; ADC2 dies with WiFi)")
-# 2-layer: 6 wall channels + the 3 DIRECT-ADC telemetry taps (mux removed).
+# 2-layer: 6 wall channels + 2 DIRECT-ADC telemetry taps (per-cell removed).
 analog = ["PIN_WALL1_SENSE", "PIN_WALL2_SENSE", "PIN_WALL3_SENSE",
           "PIN_WALL4_SENSE", "PIN_WALL5_SENSE", "PIN_WALL6_SENSE",
-          "PIN_VBAT_SENSE", "PIN_BATMID_SENSE", "PIN_VBUS_SENSE"]
+          "PIN_VBAT_SENSE", "PIN_VBUS_SENSE"]
 declared = dict(re.findall(r"#define\s+(PIN_\w+)\s+(\d+)", PINS))
 bad = [(a, declared.get(a)) for a in analog
        if not (declared.get(a) and 1 <= int(declared[a]) <= 10)]
-check(not bad, "9 analog channels all on ADC1",
-      "WALL1-6 + VBAT/BATMID/VBUS on GPIO " + ",".join(declared[a] for a in analog))
+check(not bad, "8 analog channels all on ADC1",
+      "WALL1-6 + VBAT/VBUS on GPIO " + ",".join(declared[a] for a in analog))
 
 print("S2 telemetry-divider settling vs ADC sample slot")
 # 2-layer: no mux. Worst source impedance is the VBAT divider 100k||39k ~= 28k

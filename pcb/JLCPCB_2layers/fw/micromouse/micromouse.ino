@@ -42,7 +42,7 @@ static const float WF_KP = 0.010f, WF_KI = 0.0f, WF_KD = 0.0016f;
 static const float WF_I_CLAMP = 3.0f, WF_D_ALPHA = 0.30f;
 static const float WF_BASE_SPEED = 0.40f;
 static const uint16_t WALL_FRONT_STOP = 900;   // conditioned front reading => wall ahead
-// battery policy comes from pins.h: PACK_CUTOFF_V / CELL_CUTOFF_V (2S)
+// battery policy comes from pins.h: PACK_CUTOFF_V (2S pack floor)
 
 // ---- state ------------------------------------------------------------------
 static pid_t g_pid;
@@ -139,24 +139,13 @@ static WallReading wall_scan() {
     return out;
 }
 
-// ---- battery telemetry (2-layer: DIRECT ADC, per-cell 2S monitoring) --------
-static float vpack_read()  { return analogReadMilliVolts(PIN_VBAT_SENSE)  * VBAT_DIVIDER   / 1000.0f; }
-static float vcell1_read() { return analogReadMilliVolts(PIN_BATMID_SENSE) * BATMID_DIVIDER / 1000.0f; }
+// ---- battery telemetry (2-layer: DIRECT ADC, PACK-LEVEL only) ---------------
+// Per-cell/balance monitoring removed (no J9 connector / BAT_MID divider). The
+// 2S pack floor guards the pack; a balance-charged LiPo stays cell-matched.
+static float vpack_read()  { return analogReadMilliVolts(PIN_VBAT_SENSE) * VBAT_DIVIDER / 1000.0f; }
 static bool  vbus_present() { return analogReadMilliVolts(PIN_VBUS_SENSE) > 1500; }  // raw >1.5V = cable
 
-// The J9 balance plug is OPTIONAL. Unplugged, the board's R75/R76 divider
-// drains BAT_MID_SENSE to ~0V -- a reading below BALANCE_ABSENT_V is physically
-// impossible with a pack mid-tap connected, so treat it as "no balance lead"
-// and guard on the pack floor alone (per-cell guard needs J9).
-static bool balance_present() { return vcell1_read() > BALANCE_ABSENT_V; }
-
-static bool battery_ok() {
-    float pack = vpack_read();
-    if (!balance_present())
-        return pack > PACK_CUTOFF_V;
-    float c1 = vcell1_read(), c2 = pack - c1;
-    return pack > PACK_CUTOFF_V && c1 > CELL_CUTOFF_V && c2 > CELL_CUTOFF_V;
-}
+static bool battery_ok() { return vpack_read() > PACK_CUTOFF_V; }
 
 // ---- buzzer (IO46 -> 220R -> MMBT2222A -> CMT-8504, 4kHz rated) -------------
 static void buzz_init() {
@@ -301,8 +290,6 @@ void setup() {
 
     if (vbus_present())
         Serial.println("[mm] USB cable detected -- CDC telemetry live");
-    if (!balance_present())
-        Serial.println("[mm] balance lead (J9) not detected -- pack-level battery guard only");
     Serial.println("[mm] A=run/stop  B=zero-heading  C=telemetry");
     rgb_set(0, g_imu_ok ? 24 : 0, g_imu_ok ? 0 : 0);   // green idle, red if IMU down
     if (!g_imu_ok) rgb_set(24, 0, 0);
@@ -345,10 +332,10 @@ void loop() {
         pcnt_unit_get_count(g_enc1, &e1);
         pcnt_unit_get_count(g_enc2, &e2);
         WallReading w = wall_scan();
-        float pack = vpack_read(), c1 = vcell1_read();
-        Serial.printf("[mm] pack=%.2fV c1=%.2fV c2=%.2fV gz=%.1fdps hdg=%.1f "
+        float pack = vpack_read();
+        Serial.printf("[mm] pack=%.2fV gz=%.1fdps hdg=%.1f "
                       "enc=%d/%d walls FL%u FR%u DL%u DR%u SL%u SR%u\n",
-                      pack, c1, pack - c1, imu_gyro_z(), imu_heading() - g_hdg_zero,
+                      pack, imu_gyro_z(), imu_heading() - g_hdg_zero,
                       e1, e2, w.front_l, w.front_r, w.diag_l,
                       w.diag_r, w.side_l, w.side_r);
     }

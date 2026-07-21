@@ -35,8 +35,8 @@ EXPECT = {
     "PIN_WALL1_SENSE": "WALL1_SENSE", "PIN_WALL2_SENSE": "WALL2_SENSE",
     "PIN_WALL3_SENSE": "WALL3_SENSE", "PIN_WALL4_SENSE": "WALL4_SENSE",
     "PIN_WALL5_SENSE": "WALL5_SENSE", "PIN_WALL6_SENSE": "WALL6_SENSE",
-    # 2-layer: battery / bus telemetry moved off the mux onto direct ADC1
-    "PIN_VBAT_SENSE": "VBAT_SENSE", "PIN_BATMID_SENSE": "BAT_MID_SENSE",
+    # 2-layer: battery / bus telemetry on direct ADC1 (pack-level; per-cell removed)
+    "PIN_VBAT_SENSE": "VBAT_SENSE",
     "PIN_VBUS_SENSE": "VBUS_SENSE",
     "PIN_AIN1": "AIN1", "PIN_AIN2": "AIN2",
     "PIN_BIN1": "BIN1", "PIN_BIN2": "BIN2",
