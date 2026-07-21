@@ -105,7 +105,7 @@ def via_stitch(g, net, pos, layer):
     return False
 
 
-def bridge_fragments(g, net, zlayer):
+def bridge_fragments(g, net, zlayer, maxn=999):
     zone = None
     for z in g.board.Zones():
         if z.GetNetname() == net and z.GetLayer() == zlayer:
@@ -118,9 +118,11 @@ def bridge_fragments(g, net, zlayer):
     areas = [(abs(poly.Outline(i).Area()), i) for i in range(poly.OutlineCount())]
     main = max(areas)[1]
     n = 0
-    for (_, fi) in areas:
+    for (_, fi) in sorted(areas):         # smallest fragments first = the isolated ones
         if fi == main:
             continue
+        if n >= maxn:                     # crash-isolation: cap fragments/process
+            break
         chain = poly.Outline(fi)
         done = False
         for (a, b, tn, hw, L) in list(g._track_segs):
@@ -179,7 +181,7 @@ def bridge_fragments(g, net, zlayer):
                         break
             if placed and best and g.retry_edge(net, placed, best[1], width_mm=0.25,
                                                 clearance_mm=0.18, grid_mm=0.1,
-                                                max_expansions=600000):
+                                                max_expansions=300000):
                 print(f"  fragment({net}/{fi}) island via {placed} -> routed to {best[1]}")
                 done = True
                 n += 1
@@ -191,7 +193,8 @@ def bridge_fragments(g, net, zlayer):
 
 
 ZNAME = {pcbnew.In1_Cu: "In1.Cu", pcbnew.In2_Cu: "In2.Cu", pcbnew.B_Cu: "B.Cu"}
-for rnd in range(1, 7):
+if __name__ == "__main__":
+  for rnd in range(1, 7):
     d = run_drc()
     un = d.get("unconnected_items", [])
     print(f"== round {rnd}: {len(d.get('violations', []))} violations, {len(un)} unconnected")
@@ -211,9 +214,9 @@ for rnd in range(1, 7):
         if len(plain) == 2 and plain[0]["net"] == plain[1]["net"]:
             net, A, B = plain[0]["net"], plain[0]["pos"], plain[1]["pos"]
             ok = (g.retry_edge(net, A, B, width_mm=0.25, clearance_mm=0.3,
-                               grid_mm=0.1, max_expansions=400000)
+                               grid_mm=0.1, max_expansions=300000)
                   or g.retry_edge(net, A, B, width_mm=0.25, clearance_mm=0.18,
-                                  grid_mm=0.1, max_expansions=700000))
+                                  grid_mm=0.1, max_expansions=300000))
             if ok:
                 print(f"  micro-route {net} {A}->{B}: OK")
                 acted += 1
