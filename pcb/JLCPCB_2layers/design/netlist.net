@@ -1,8 +1,8 @@
 (export
 	(version "E")
 	(design
-		(source "D:\\Projects\\micromouse-pcb\\pcb\\JLCPCB_2layers\\design\\micromouse-pcb.kicad_sch")
-		(date "2026-07-21T19:15:10")
+		(source "C:\\Users\\Mukesh\\OneDrive - Rapyuta Robotics\\Project_OKS_MyDocs\\micromouse-runner\\pcb\\JLCPCB_2layers\\design\\micromouse-pcb.kicad_sch")
+		(date "2026-07-22T00:55:48")
 		(tool "Eeschema 10.0.4")
 		(sheet
 			(number "1")
@@ -105,7 +105,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7a10ede2-b63b-4bb9-8fab-01b77e82c24e")
+			(tstamps "49d304a8-6131-4d02-9c67-8e363c645646")
 			(units
 				(unit
 					(name "A")
@@ -171,7 +171,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "fce575c6-3479-4f64-a4bb-f53383ba2a34")
+			(tstamps "13648b39-40eb-4cd1-a954-fac9bd601429")
 			(units
 				(unit
 					(name "A")
@@ -237,7 +237,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b1310bb9-f2f1-4f86-804b-2ae0728b2ea1")
+			(tstamps "95349189-a725-45e4-b7c7-f40ad4580ad8")
 			(units
 				(unit
 					(name "A")
@@ -303,7 +303,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "58fe7d0e-a468-464c-8818-b226b65a0854")
+			(tstamps "3f5cdef7-5a00-4846-933e-abb054278ab7")
 			(units
 				(unit
 					(name "A")
@@ -369,7 +369,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "09440ad4-74ba-4855-b168-17d2eafe7e40")
+			(tstamps "869b544a-34ba-4753-8609-b943ded60a7d")
 			(units
 				(unit
 					(name "A")
@@ -435,7 +435,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ff0a9fe1-1c1d-419c-b295-64d70639c20b")
+			(tstamps "f9b37d95-6379-40ff-aea0-32404347f589")
 			(units
 				(unit
 					(name "A")
@@ -501,7 +501,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b6722254-a2b7-4346-a8a6-1f4acc058029")
+			(tstamps "59133072-97e1-4348-8e8f-87fdd382ad5b")
 			(units
 				(unit
 					(name "A")
@@ -567,7 +567,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8c316a68-b8e5-4fd0-8c20-0094296eb899")
+			(tstamps "51d1d4d1-11c0-4d86-af27-826ba42de003")
 			(units
 				(unit
 					(name "A")
@@ -633,7 +633,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2997d0c9-644d-4787-be83-d3b0c5a1b272")
+			(tstamps "8c83dadb-98b4-49d6-a99d-6746c3540d88")
 			(units
 				(unit
 					(name "A")
@@ -699,7 +699,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b829a8b9-e881-4d62-88a7-232de2e8e607")
+			(tstamps "526844e7-a19d-45d5-9f69-8e261dc28a3f")
 			(units
 				(unit
 					(name "A")
@@ -765,7 +765,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f1f6f3b1-75dd-471b-bd96-83f83e871da0")
+			(tstamps "9e72e28c-a491-4897-91fa-37edcd523f75")
 			(units
 				(unit
 					(name "A")
@@ -831,7 +831,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0626807c-80dc-4004-bf22-1c3e6199aabe")
+			(tstamps "9327c035-b249-401d-bf21-a3e128d5ecd7")
 			(units
 				(unit
 					(name "A")
@@ -897,7 +897,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9519ac15-419b-4e62-8836-2f99764a260a")
+			(tstamps "a89da8fc-b3ff-40cc-beaa-7a69a4790cf7")
 			(units
 				(unit
 					(name "A")
@@ -963,7 +963,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8568087f-baf6-4e85-b87a-37af65cf99f4")
+			(tstamps "026130c4-d387-4ada-8cf8-dca1c1631114")
 			(units
 				(unit
 					(name "A")
@@ -1029,7 +1029,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3980910f-9609-42de-9e3e-f2660c9c9177")
+			(tstamps "d561f13e-8285-4b3f-9550-84af768cccd1")
 			(units
 				(unit
 					(name "A")
@@ -1095,7 +1095,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cdd0d34c-1bb5-401b-a433-917ba17a462e")
+			(tstamps "c44b5470-a3db-4805-aac0-bcf91bc95919")
 			(units
 				(unit
 					(name "A")
@@ -1161,7 +1161,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5f5f5459-1673-49c6-851d-b0d27d162d96")
+			(tstamps "1a575ae0-587c-4c91-bd36-1a690463cd6d")
 			(units
 				(unit
 					(name "A")
@@ -1227,7 +1227,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7b097dd6-b288-4bdb-a7fa-84bdff8539f0")
+			(tstamps "ad1480e1-40b2-4d4b-a5ca-a69e94cf2adf")
 			(units
 				(unit
 					(name "A")
@@ -1293,7 +1293,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3e9907c7-4f6d-4c18-9289-978cadb4b655")
+			(tstamps "c6f9158d-34a3-4bc7-9d2b-beb838bd4fcf")
 			(units
 				(unit
 					(name "A")
@@ -1359,7 +1359,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c99f7b43-cc75-4eeb-b1c4-2add9c6ca9f3")
+			(tstamps "5dd646ac-80b5-4583-9ae2-6964c724be6e")
 			(units
 				(unit
 					(name "A")
@@ -1425,7 +1425,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "191d6a30-2c6c-4dcb-a2d0-19d55ddd20d3")
+			(tstamps "108da688-41d9-4a10-beba-abd30243bf77")
 			(units
 				(unit
 					(name "A")
@@ -1491,7 +1491,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ac67695e-fb98-4c28-b2ef-4a5045d17e38")
+			(tstamps "81c7298f-abd2-4e13-8a23-1fbe94d4f820")
 			(units
 				(unit
 					(name "A")
@@ -1557,7 +1557,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5121fa6a-0368-4af8-9f0c-525fe5cbc3af")
+			(tstamps "5b0c116a-a717-41f8-9edc-c144fbd47d1e")
 			(units
 				(unit
 					(name "A")
@@ -1623,7 +1623,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f89d93da-5002-48b0-b9a3-fa63b9b8d162")
+			(tstamps "c21bdfae-966a-4fd8-b00c-9d5be2a43460")
 			(units
 				(unit
 					(name "A")
@@ -1689,7 +1689,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9b2cf877-c154-4179-a82c-fada56bec00c")
+			(tstamps "55841a0f-fc9a-4bf5-b79d-52f514e951d2")
 			(units
 				(unit
 					(name "A")
@@ -1755,7 +1755,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1d519c2d-7686-42dd-bcc3-8407ab52e383")
+			(tstamps "7bac3394-9a2c-42ba-bcf0-9243ba4ce2ec")
 			(units
 				(unit
 					(name "A")
@@ -1821,7 +1821,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cb5cdf2a-5720-43f7-9652-2788c38b2059")
+			(tstamps "e42414a2-8101-4fa4-afbb-2a76007146e3")
 			(units
 				(unit
 					(name "A")
@@ -1887,7 +1887,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c75854f4-46b4-4edd-b315-b48365ec0fe9")
+			(tstamps "463d7795-e761-424d-bf59-f4997636e20b")
 			(units
 				(unit
 					(name "A")
@@ -1953,7 +1953,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cb5a6fcf-578a-4481-a1b9-8806094f90cd")
+			(tstamps "32b88293-a47f-4f56-90e7-fbec5eb01ff8")
 			(units
 				(unit
 					(name "A")
@@ -2019,7 +2019,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1d563920-0648-4bf9-997c-d7257f15dddb")
+			(tstamps "507c40dc-0c3e-4c66-934a-b0fe2003972f")
 			(units
 				(unit
 					(name "A")
@@ -2085,7 +2085,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d7e48adf-c3d7-4dbb-9d98-66fe4853b60e")
+			(tstamps "716e4ee3-e137-42b0-b805-84941756024a")
 			(units
 				(unit
 					(name "A")
@@ -2151,7 +2151,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9a5d5538-d033-401d-ab3a-924f8c1ab60b")
+			(tstamps "f89e8be0-17eb-4626-9eb9-45b132ec0d6f")
 			(units
 				(unit
 					(name "A")
@@ -2217,7 +2217,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "40ab5566-2d15-4957-a6eb-dd961fbf128a")
+			(tstamps "760e87be-21d9-4714-81d2-6b3612211a90")
 			(units
 				(unit
 					(name "A")
@@ -2283,7 +2283,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3643fc03-fef4-4732-bf1d-0550054d8178")
+			(tstamps "a8d4ea89-b50d-460b-beb2-06b65b7af6a2")
 			(units
 				(unit
 					(name "A")
@@ -2349,7 +2349,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "09850eb2-c816-4380-86ff-9b0c8bc012c0")
+			(tstamps "ca6f6bec-1eab-429c-b042-38557d51800b")
 			(units
 				(unit
 					(name "A")
@@ -2415,7 +2415,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2cca9f03-69ba-40f2-b33b-4d09ab725f8d")
+			(tstamps "5ceb8d30-e53e-4dde-b3db-91c1c13284cc")
 			(units
 				(unit
 					(name "A")
@@ -2481,7 +2481,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a7f025f8-23e6-4edd-8677-cf653f73116e")
+			(tstamps "ffa9cfae-43b0-4fbd-8210-6e2385b1e2f7")
 			(units
 				(unit
 					(name "A")
@@ -2547,7 +2547,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d2f1aea9-4e5b-44d6-a183-7b4e2bbd34c3")
+			(tstamps "f3015af2-2fbe-4d0e-ae6c-78b5a2a7cba8")
 			(units
 				(unit
 					(name "A")
@@ -2568,9 +2568,9 @@
 			(footprint "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm")
 			(fields
 				(field
-					(name "MPN") "WS2812B")
+					(name "MPN") "XL-5050RGBC-WS2812B")
 				(field
-					(name "Manufacturer") "Worldsemi")
+					(name "Manufacturer") "Xinglight")
 				(field
 					(name "Footprint") "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm")
 				(field
@@ -2587,11 +2587,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "WS2812B")
+				(value "XL-5050RGBC-WS2812B")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Worldsemi")
+				(value "Xinglight")
 			)
 			(property
 				(name "Sheetname")
@@ -2613,7 +2613,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1a786d00-f884-44d2-adec-765884216c63")
+			(tstamps "7c247eb0-aac8-4169-b6d3-3b9ba9bc84fa")
 			(units
 				(unit
 					(name "A")
@@ -2685,7 +2685,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "596cd80b-9ec9-4fb1-9ddd-32ed36c4dd28")
+			(tstamps "b5282dbc-06b6-4bca-88ba-a90a9338c5b5")
 			(units
 				(unit
 					(name "A")
@@ -2706,7 +2706,7 @@
 			(footprint "Fuse:Fuse_1812_4532Metric")
 			(fields
 				(field
-					(name "MPN") "MINISMDC350F/16-2")
+					(name "MPN") "MINISMDC260F/16-2")
 				(field
 					(name "Manufacturer") "Littelfuse")
 				(field
@@ -2725,7 +2725,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "MINISMDC350F/16-2")
+				(value "MINISMDC260F/16-2")
 			)
 			(property
 				(name "Manufacturer")
@@ -2751,7 +2751,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d9bad524-c4eb-4a1b-b2a4-ca4817eabfb6")
+			(tstamps "5d384865-d2b9-46e1-a43d-bd505a33fe28")
 			(units
 				(unit
 					(name "A")
@@ -2817,7 +2817,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5c7fb49a-74d2-4e56-b5c6-3d6e0fe52e64")
+			(tstamps "9d4b9b4a-65fa-4645-94db-514599e90be2")
 			(units
 				(unit
 					(name "A")
@@ -2883,7 +2883,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "58dd2804-e22f-446c-a567-93d1ee13c14a")
+			(tstamps "61045e39-b870-45be-b65a-90966d54d13c")
 			(units
 				(unit
 					(name "A")
@@ -2961,7 +2961,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f0f02968-236f-4d90-835c-c011520642b2")
+			(tstamps "a75f34ba-d073-42c7-9c19-edfc49a590da")
 			(units
 				(unit
 					(name "A")
@@ -3039,7 +3039,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d9b13c00-4f0e-4dff-9f35-6fba5a77ba63")
+			(tstamps "cbff88cb-a44d-4880-8721-2a1409505db8")
 			(units
 				(unit
 					(name "A")
@@ -3150,7 +3150,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b255b94c-9bc3-4d8b-8c45-f188d5115eb1")
+			(tstamps "2272cb7a-d3c7-4d34-90d4-724e0d9de208")
 			(units
 				(unit
 					(name "A")
@@ -3216,7 +3216,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "024be7a0-7db1-4eba-a517-d99b4e273ef8")
+			(tstamps "b665adc7-dc4c-49ad-ac74-0628c11b13af")
 			(units
 				(unit
 					(name "A")
@@ -3282,7 +3282,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9c1c1d7b-c830-41d9-8d17-8042cb918178")
+			(tstamps "b7ff6d51-8c3c-4876-b5a5-15cb9ba7455a")
 			(units
 				(unit
 					(name "A")
@@ -3344,7 +3344,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a7631311-53ba-4321-92b1-e8f995a38e90")
+			(tstamps "50e8e7a0-e39c-49f0-b340-0194e58782c9")
 			(units
 				(unit
 					(name "A")
@@ -3413,7 +3413,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "91eb5899-d44e-4e4c-a6bc-7224d10f0c10")
+			(tstamps "a77ee3ef-6c55-45f4-9095-2067254d50d8")
 			(units
 				(unit
 					(name "A")
@@ -3479,7 +3479,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7f31ce42-3c28-4011-89b5-7aae39d8e909")
+			(tstamps "cfcac47b-ac6f-4491-a7dd-e4f94af372b7")
 			(units
 				(unit
 					(name "A")
@@ -3545,7 +3545,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "60eca12e-4748-4841-8b70-60178eb3c727")
+			(tstamps "3a65ff57-cb94-45db-b015-519f39fe01f5")
 			(units
 				(unit
 					(name "A")
@@ -3611,7 +3611,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1dec5feb-ce17-4c71-af45-c7e71a2379e7")
+			(tstamps "e65ff633-d034-47c4-be2c-10000bba5263")
 			(units
 				(unit
 					(name "A")
@@ -3677,7 +3677,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "01182d9f-08f5-4d14-802c-815de271e7eb")
+			(tstamps "af0cc75a-8c79-41a8-80e4-d6c20705e9e6")
 			(units
 				(unit
 					(name "A")
@@ -3743,7 +3743,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "37f83bf8-8472-4441-b89d-3150491bcc13")
+			(tstamps "569e63b0-4d05-42a0-8fbe-86e975a21458")
 			(units
 				(unit
 					(name "A")
@@ -3805,7 +3805,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d659007c-fb89-4743-ac7d-61d31e13c811")
+			(tstamps "90b4787d-7d2f-48d3-bab1-8c19da6d482b")
 			(units
 				(unit
 					(name "A")
@@ -3870,7 +3870,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b1765c22-e181-4e15-b855-aadd90d94f3b")
+			(tstamps "8fd31c45-d947-4ba0-994a-42d46649afc0")
 			(units
 				(unit
 					(name "A")
@@ -3935,7 +3935,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4a352537-4fab-4521-b126-5c4dfdcabad5")
+			(tstamps "79cf4d37-ca1e-488a-b981-0678a3ed28b5")
 			(units
 				(unit
 					(name "A")
@@ -4000,7 +4000,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5e5f8698-8845-445e-81bc-884093626a68")
+			(tstamps "1443a071-9f1a-4c38-854b-b218b67e1f92")
 			(units
 				(unit
 					(name "A")
@@ -4065,7 +4065,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b8290bb9-03a3-4566-bfa4-c600990fa84d")
+			(tstamps "0a4fd8b8-b205-4be2-abef-23ae4ff3e711")
 			(units
 				(unit
 					(name "A")
@@ -4130,7 +4130,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8453df55-7fb3-440d-bcad-03687ef13ce2")
+			(tstamps "3066b7a8-e590-4acb-bf4f-693da04c6e63")
 			(units
 				(unit
 					(name "A")
@@ -4195,7 +4195,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "798472f1-1deb-4e5f-bc2d-f5bcc874a6bd")
+			(tstamps "1fbbb1db-bb2b-4640-a8c1-4a375fed34ea")
 			(units
 				(unit
 					(name "A")
@@ -4260,7 +4260,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5a831f4d-6828-48fd-a59a-e9b2289e96af")
+			(tstamps "02149f7a-06d6-4735-95aa-1904e48484bc")
 			(units
 				(unit
 					(name "A")
@@ -4325,7 +4325,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b13e0d7e-265c-4bef-b786-4eff7efc8e34")
+			(tstamps "f0793687-e3c5-4b68-a063-45b4b3643bed")
 			(units
 				(unit
 					(name "A")
@@ -4390,7 +4390,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2bf7ad73-bc05-457c-ace2-4a8a9144cea2")
+			(tstamps "87d9fdc7-e883-454a-845b-dc2cd0bd001c")
 			(units
 				(unit
 					(name "A")
@@ -4459,7 +4459,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "db6f0e77-6801-49f7-839f-19a4c69aaf72")
+			(tstamps "c0191722-8834-457b-8fc8-94e68bc2d01f")
 			(units
 				(unit
 					(name "A")
@@ -4525,7 +4525,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b2ad3003-b99d-4bcd-bdfd-7e2c3d950a35")
+			(tstamps "a1c3f778-4dbd-4459-8d36-4c415b90323f")
 			(units
 				(unit
 					(name "A")
@@ -4591,7 +4591,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "703e589c-455e-44f7-b16c-a0b48070b326")
+			(tstamps "20406937-3ed1-4f91-b7b6-8d7a7495a949")
 			(units
 				(unit
 					(name "A")
@@ -4612,9 +4612,9 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0710KL")
+					(name "MPN") "WR08X1002FTL")
 				(field
-					(name "Manufacturer") "Yageo")
+					(name "Manufacturer") "Walsin")
 				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
@@ -4631,11 +4631,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0710KL")
+				(value "WR08X1002FTL")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Yageo")
+				(value "Walsin")
 			)
 			(property
 				(name "Sheetname")
@@ -4657,7 +4657,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bbcca762-71ab-4622-b8e4-bbc1ca6b1c27")
+			(tstamps "01d5d959-4b42-402a-85f9-64ba73a5e198")
 			(units
 				(unit
 					(name "A")
@@ -4678,9 +4678,9 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0710KL")
+					(name "MPN") "WR08X1002FTL")
 				(field
-					(name "Manufacturer") "Yageo")
+					(name "Manufacturer") "Walsin")
 				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
@@ -4697,11 +4697,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0710KL")
+				(value "WR08X1002FTL")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Yageo")
+				(value "Walsin")
 			)
 			(property
 				(name "Sheetname")
@@ -4723,7 +4723,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "84b95876-0452-4479-b934-f3db66a9f598")
+			(tstamps "a4a8b182-6502-46f6-b4bc-9f6d25f01e7b")
 			(units
 				(unit
 					(name "A")
@@ -4744,9 +4744,9 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0710KL")
+					(name "MPN") "WR08X1002FTL")
 				(field
-					(name "Manufacturer") "Yageo")
+					(name "Manufacturer") "Walsin")
 				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
@@ -4763,11 +4763,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0710KL")
+				(value "WR08X1002FTL")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Yageo")
+				(value "Walsin")
 			)
 			(property
 				(name "Sheetname")
@@ -4789,7 +4789,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4764e4a8-1545-4fa9-acbf-b09ee081e65d")
+			(tstamps "69de6972-c86c-49a6-a170-e7b685521bd2")
 			(units
 				(unit
 					(name "A")
@@ -4810,9 +4810,9 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0710KL")
+					(name "MPN") "WR08X1002FTL")
 				(field
-					(name "Manufacturer") "Yageo")
+					(name "Manufacturer") "Walsin")
 				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
@@ -4829,11 +4829,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0710KL")
+				(value "WR08X1002FTL")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Yageo")
+				(value "Walsin")
 			)
 			(property
 				(name "Sheetname")
@@ -4855,7 +4855,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f2207a39-0954-43dc-9183-e9e2e10371a4")
+			(tstamps "6f552fa9-ee84-47c1-9240-ae50760c768d")
 			(units
 				(unit
 					(name "A")
@@ -4876,9 +4876,9 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0710KL")
+					(name "MPN") "WR08X1002FTL")
 				(field
-					(name "Manufacturer") "Yageo")
+					(name "Manufacturer") "Walsin")
 				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
@@ -4895,11 +4895,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0710KL")
+				(value "WR08X1002FTL")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Yageo")
+				(value "Walsin")
 			)
 			(property
 				(name "Sheetname")
@@ -4921,7 +4921,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3192430a-82bf-45f9-a5e5-dbd3fb6b725b")
+			(tstamps "f5db1652-4beb-4adf-b435-8e87f5705a82")
 			(units
 				(unit
 					(name "A")
@@ -4942,9 +4942,9 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0710KL")
+					(name "MPN") "WR08X1002FTL")
 				(field
-					(name "Manufacturer") "Yageo")
+					(name "Manufacturer") "Walsin")
 				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
@@ -4961,11 +4961,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0710KL")
+				(value "WR08X1002FTL")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Yageo")
+				(value "Walsin")
 			)
 			(property
 				(name "Sheetname")
@@ -4987,7 +4987,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f0050cc6-b4ba-476f-bb83-aa86669a86c5")
+			(tstamps "cd153d45-7e90-490c-88df-e3f9f4fea82b")
 			(units
 				(unit
 					(name "A")
@@ -5053,7 +5053,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d1c67932-94fc-4c0b-bd91-82a1e251a93c")
+			(tstamps "a10f55b3-9dfe-4f5e-8fa4-67f14d24b125")
 			(units
 				(unit
 					(name "A")
@@ -5119,7 +5119,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "daa06630-4df9-4fc8-a085-35f6c442f7a4")
+			(tstamps "1299e331-c889-4e5e-b728-889b7e91f535")
 			(units
 				(unit
 					(name "A")
@@ -5185,7 +5185,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3577776d-71a9-4a32-b910-853495fe3b28")
+			(tstamps "406636e9-d83d-49ba-9d3e-67ff3057a8b6")
 			(units
 				(unit
 					(name "A")
@@ -5251,7 +5251,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "16b5ff1f-e861-4a9c-ab0e-a8596b01ca8d")
+			(tstamps "deb82d1c-cdfe-4bad-9777-204766032134")
 			(units
 				(unit
 					(name "A")
@@ -5317,7 +5317,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "26422560-0535-4283-8857-d5ff7fb97905")
+			(tstamps "cf325730-d283-46fc-aa62-37168e2a05d7")
 			(units
 				(unit
 					(name "A")
@@ -5383,7 +5383,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d439cd74-d109-45f0-b105-14361ad3ce7d")
+			(tstamps "cd4416d6-a803-4660-9251-c48834b5d095")
 			(units
 				(unit
 					(name "A")
@@ -5449,7 +5449,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ae0d85d1-8d73-4647-b577-4fb067040ca9")
+			(tstamps "963361af-7ac0-4d2d-a80d-f9a3cfe68d25")
 			(units
 				(unit
 					(name "A")
@@ -5515,7 +5515,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "39d53ae9-f02a-4799-aba2-cce98c57c81f")
+			(tstamps "afb629d4-920f-4a3b-bb01-12cdaa9e4936")
 			(units
 				(unit
 					(name "A")
@@ -5581,7 +5581,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ba5f9f7c-49bf-4c63-92e1-e6f48acc16e9")
+			(tstamps "7f5a6f38-dad7-4c33-83c6-d0c5aaddcde1")
 			(units
 				(unit
 					(name "A")
@@ -5647,7 +5647,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "85124c26-5de0-4406-be22-8666a100dfd9")
+			(tstamps "a4672eb4-150b-4bf3-ac49-9909a00a7493")
 			(units
 				(unit
 					(name "A")
@@ -5713,7 +5713,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3b714441-ce17-404f-af66-6738f78e7c6f")
+			(tstamps "004fa22b-3102-499e-bfd5-4ffaf9a6cbe6")
 			(units
 				(unit
 					(name "A")
@@ -5779,7 +5779,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7d1462c6-9ec8-4a76-9010-73013a24c0c5")
+			(tstamps "e7125f34-7615-4a3b-8c15-0135b7c220ae")
 			(units
 				(unit
 					(name "A")
@@ -5845,7 +5845,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d986bd11-79e1-491b-8039-51f12a00faa7")
+			(tstamps "02fe5d0b-99a2-4041-a3d6-c18824d80eca")
 			(units
 				(unit
 					(name "A")
@@ -5911,7 +5911,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8a3ac4a2-2641-412e-bfe9-0f146db72968")
+			(tstamps "b0c88c41-2e11-4857-b858-e8a63fdef0b6")
 			(units
 				(unit
 					(name "A")
@@ -5977,7 +5977,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "083075e1-fc2d-498e-be16-230b9a481512")
+			(tstamps "4fec442b-a38d-4799-a4dc-c9060d599493")
 			(units
 				(unit
 					(name "A")
@@ -6043,7 +6043,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "96dfe4b3-de66-45e1-bd6d-b03c2e112b76")
+			(tstamps "79cc29de-0100-4668-968d-c461c300b0ce")
 			(units
 				(unit
 					(name "A")
@@ -6109,7 +6109,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8c5f6dca-b4d5-4270-a4af-2ce4f91af1dd")
+			(tstamps "d0e7c5fe-7a20-4921-9ddb-e4fc22150ae8")
 			(units
 				(unit
 					(name "A")
@@ -6175,7 +6175,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "55e29ebb-1e60-4008-8aa5-288423766805")
+			(tstamps "ff316eb8-5ac4-4c66-a502-f7b06abd492d")
 			(units
 				(unit
 					(name "A")
@@ -6241,7 +6241,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "94b98825-18c4-407b-b059-14911a278c8d")
+			(tstamps "4705575f-4263-4ccc-8d96-f94fd6c2e901")
 			(units
 				(unit
 					(name "A")
@@ -6262,9 +6262,9 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0710KL")
+					(name "MPN") "WR08X1002FTL")
 				(field
-					(name "Manufacturer") "Yageo")
+					(name "Manufacturer") "Walsin")
 				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
@@ -6281,11 +6281,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0710KL")
+				(value "WR08X1002FTL")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Yageo")
+				(value "Walsin")
 			)
 			(property
 				(name "Sheetname")
@@ -6307,7 +6307,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3423e042-81cd-472b-8a9b-a632ee6531a1")
+			(tstamps "a62f3504-cd82-4cca-82d0-84fcb09b2d14")
 			(units
 				(unit
 					(name "A")
@@ -6373,7 +6373,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "27477d1e-6ddd-4b5b-b742-4280cc719847")
+			(tstamps "fd92826f-6f56-4303-bae6-8c449183df12")
 			(units
 				(unit
 					(name "A")
@@ -6439,7 +6439,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8c51e0fd-f84d-4c4b-b1d4-922dce17e0d5")
+			(tstamps "3286a6ab-1926-4012-aef6-2b2d6e0cf646")
 			(units
 				(unit
 					(name "A")
@@ -6505,7 +6505,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3680238d-a599-425e-b54b-f35588b03af1")
+			(tstamps "442fee42-afd9-4977-979c-1e5dccd6e92d")
 			(units
 				(unit
 					(name "A")
@@ -6571,7 +6571,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5f8d16b6-b426-4009-b5f8-e48efe28d60c")
+			(tstamps "702ced83-fbb2-4431-929f-f597c88ceca6")
 			(units
 				(unit
 					(name "A")
@@ -6637,7 +6637,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c735e954-1ce3-4f09-afc6-d48201832987")
+			(tstamps "bb4c7308-7664-4160-b78a-524c837175c5")
 			(units
 				(unit
 					(name "A")
@@ -6703,7 +6703,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "28168469-d7a5-4354-bedb-c89d77f9df24")
+			(tstamps "2992b23d-78bd-4e5e-8107-f25d388c0db1")
 			(units
 				(unit
 					(name "A")
@@ -6724,9 +6724,9 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0710KL")
+					(name "MPN") "WR08X1002FTL")
 				(field
-					(name "Manufacturer") "Yageo")
+					(name "Manufacturer") "Walsin")
 				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
@@ -6743,11 +6743,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0710KL")
+				(value "WR08X1002FTL")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Yageo")
+				(value "Walsin")
 			)
 			(property
 				(name "Sheetname")
@@ -6769,7 +6769,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b871634e-50eb-4082-a8c9-0442625b8f5c")
+			(tstamps "a3ac229f-5473-40ba-a77d-6cd520184f35")
 			(units
 				(unit
 					(name "A")
@@ -6790,9 +6790,9 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0710KL")
+					(name "MPN") "WR08X1002FTL")
 				(field
-					(name "Manufacturer") "Yageo")
+					(name "Manufacturer") "Walsin")
 				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
@@ -6809,11 +6809,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0710KL")
+				(value "WR08X1002FTL")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Yageo")
+				(value "Walsin")
 			)
 			(property
 				(name "Sheetname")
@@ -6835,7 +6835,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f15de9f3-99d4-40c2-99f3-3969304b903b")
+			(tstamps "7caee63f-d94e-4a37-9c56-93efad4254de")
 			(units
 				(unit
 					(name "A")
@@ -6901,7 +6901,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cf8d6050-7fed-4d31-a42e-72dd1927dcd8")
+			(tstamps "7c268929-fbaf-4b14-8b8d-f05085de673c")
 			(units
 				(unit
 					(name "A")
@@ -6967,7 +6967,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "60c40cce-f634-4ddb-a30b-1d628c8dc4f9")
+			(tstamps "10f7b209-a7aa-43ee-a35c-4c57258e7b70")
 			(units
 				(unit
 					(name "A")
@@ -7033,7 +7033,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "930e2800-7a3a-4737-852a-1b590d4dd208")
+			(tstamps "8b6dfbe8-2c72-4d88-866f-9a5c1ec8a6c9")
 			(units
 				(unit
 					(name "A")
@@ -7099,7 +7099,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ae236c01-7362-44a0-bb93-19d41417467d")
+			(tstamps "010a6f62-97b6-4089-88eb-aa1ddc84d809")
 			(units
 				(unit
 					(name "A")
@@ -7165,7 +7165,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bfd5c591-bb2b-4e7d-9274-f88f281c7b3c")
+			(tstamps "5e16b7e2-3a48-4e23-abd1-aeca0d79b4b3")
 			(units
 				(unit
 					(name "A")
@@ -7231,7 +7231,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5fc2cff6-f00b-4f07-9775-3f45b32a0d6a")
+			(tstamps "44e41d9d-891c-4bb4-a845-4a40ea25b4e2")
 			(units
 				(unit
 					(name "A")
@@ -7297,7 +7297,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "613e3b4a-0a11-4a12-ab85-be8050e42178")
+			(tstamps "1cd4d2bf-40ba-4f67-bb7c-f98470c8333e")
 			(units
 				(unit
 					(name "A")
@@ -7363,7 +7363,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7b5def5d-7dd1-4c45-8d5b-c0d7549f53cb")
+			(tstamps "e2a5a0cc-6303-4efc-8848-4021f063de7b")
 			(units
 				(unit
 					(name "A")
@@ -7384,9 +7384,9 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0710KL")
+					(name "MPN") "WR08X1002FTL")
 				(field
-					(name "Manufacturer") "Yageo")
+					(name "Manufacturer") "Walsin")
 				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
@@ -7403,11 +7403,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0710KL")
+				(value "WR08X1002FTL")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Yageo")
+				(value "Walsin")
 			)
 			(property
 				(name "Sheetname")
@@ -7429,7 +7429,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "407ad25f-a3c2-44d3-8d5d-84fa95b2a3f6")
+			(tstamps "01f8808c-17e7-4a6c-96e7-b35c7acd22bf")
 			(units
 				(unit
 					(name "A")
@@ -7450,9 +7450,9 @@
 			(footprint "Resistor_SMD:R_0805_2012Metric")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0710KL")
+					(name "MPN") "WR08X1002FTL")
 				(field
-					(name "Manufacturer") "Yageo")
+					(name "Manufacturer") "Walsin")
 				(field
 					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
 				(field
@@ -7469,11 +7469,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0710KL")
+				(value "WR08X1002FTL")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Yageo")
+				(value "Walsin")
 			)
 			(property
 				(name "Sheetname")
@@ -7495,7 +7495,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "90e4872d-32bf-4287-bf28-a03a4dc81206")
+			(tstamps "417d9182-e324-45e1-bd53-43dd2c20488a")
 			(units
 				(unit
 					(name "A")
@@ -7561,7 +7561,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "51f487f8-ac20-4def-8873-c3ee5810f103")
+			(tstamps "870dfb9c-ea8b-4e85-9dc2-38dffb4f9147")
 			(units
 				(unit
 					(name "A")
@@ -7627,7 +7627,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3dcad4d3-a52e-4f45-8391-f9dc7241241f")
+			(tstamps "e1ba22f2-2e6e-4d66-b79c-51d8794f4dca")
 			(units
 				(unit
 					(name "A")
@@ -7693,7 +7693,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0617c14b-6db0-4c56-a2ba-fa29f5d685fb")
+			(tstamps "5bf72182-456d-4676-bba2-6cf4b5b343ca")
 			(units
 				(unit
 					(name "A")
@@ -7759,7 +7759,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7c45a811-28b0-4612-bac5-f63fd89ea17c")
+			(tstamps "d61bbd69-43ec-44be-bb0a-a7fbec2e51de")
 			(units
 				(unit
 					(name "A")
@@ -7777,14 +7777,14 @@
 		(comp
 			(ref "SW1")
 			(value "BTN_A (start / BOOT)")
-			(footprint "Button_Switch_THT:SW_PUSH_6mm")
+			(footprint "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2")
 			(fields
 				(field
-					(name "MPN") "PTS645VL582LFS")
+					(name "MPN") "KMR221NGLFS")
 				(field
 					(name "Manufacturer") "C&K")
 				(field
-					(name "Footprint") "Button_Switch_THT:SW_PUSH_6mm")
+					(name "Footprint") "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2")
 				(field
 					(name "Datasheet")
 				)
@@ -7799,7 +7799,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "PTS645VL582LFS")
+				(value "KMR221NGLFS")
 			)
 			(property
 				(name "Manufacturer")
@@ -7821,7 +7821,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "43585295-a518-4d3c-a1f4-1ef2de3d96c3")
+			(tstamps "70dedb59-ceaf-4d21-a947-1ea8a2fbd273")
 			(units
 				(unit
 					(name "A")
@@ -7838,15 +7838,15 @@
 		)
 		(comp
 			(ref "SW2")
-			(value "RESET")
-			(footprint "Button_Switch_THT:SW_PUSH_6mm")
+			(value "BTN_B")
+			(footprint "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2")
 			(fields
 				(field
-					(name "MPN") "PTS645VL582LFS")
+					(name "MPN") "KMR221NGLFS")
 				(field
 					(name "Manufacturer") "C&K")
 				(field
-					(name "Footprint") "Button_Switch_THT:SW_PUSH_6mm")
+					(name "Footprint") "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2")
 				(field
 					(name "Datasheet")
 				)
@@ -7861,7 +7861,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "PTS645VL582LFS")
+				(value "KMR221NGLFS")
 			)
 			(property
 				(name "Manufacturer")
@@ -7883,7 +7883,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "202f87c8-3468-4961-8830-2676a5fcf640")
+			(tstamps "b6bf6fbe-d932-41e7-b469-56ece419fcc4")
 			(units
 				(unit
 					(name "A")
@@ -7900,15 +7900,15 @@
 		)
 		(comp
 			(ref "SW3")
-			(value "BTN_B")
-			(footprint "Button_Switch_THT:SW_PUSH_6mm")
+			(value "BTN_C")
+			(footprint "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2")
 			(fields
 				(field
-					(name "MPN") "PTS645VL582LFS")
+					(name "MPN") "KMR221NGLFS")
 				(field
 					(name "Manufacturer") "C&K")
 				(field
-					(name "Footprint") "Button_Switch_THT:SW_PUSH_6mm")
+					(name "Footprint") "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2")
 				(field
 					(name "Datasheet")
 				)
@@ -7923,7 +7923,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "PTS645VL582LFS")
+				(value "KMR221NGLFS")
 			)
 			(property
 				(name "Manufacturer")
@@ -7945,7 +7945,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bf96021d-bdcd-4f8b-874f-3b4f6a2c3aad")
+			(tstamps "c0231a6f-b3c7-4d0d-97dc-f2b3a35714d2")
 			(units
 				(unit
 					(name "A")
@@ -7962,15 +7962,15 @@
 		)
 		(comp
 			(ref "SW4")
-			(value "BTN_C")
-			(footprint "Button_Switch_THT:SW_PUSH_6mm")
+			(value "RESET")
+			(footprint "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2")
 			(fields
 				(field
-					(name "MPN") "PTS645VL582LFS")
+					(name "MPN") "KMR221NGLFS")
 				(field
 					(name "Manufacturer") "C&K")
 				(field
-					(name "Footprint") "Button_Switch_THT:SW_PUSH_6mm")
+					(name "Footprint") "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2")
 				(field
 					(name "Datasheet")
 				)
@@ -7985,7 +7985,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "PTS645VL582LFS")
+				(value "KMR221NGLFS")
 			)
 			(property
 				(name "Manufacturer")
@@ -8007,7 +8007,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "fd4604b7-b804-4e4b-9ef7-f0876bdd58a6")
+			(tstamps "2eb70c87-1dc4-4143-a950-ddf344233677")
 			(units
 				(unit
 					(name "A")
@@ -8069,7 +8069,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b110c6d7-c4f2-40a2-b0a5-f3ca09bff32e")
+			(tstamps "30ab91dc-6822-48af-ba4f-bf16a34817b8")
 			(units
 				(unit
 					(name "A")
@@ -8134,7 +8134,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8f36bead-91a8-4698-b17b-353a35aa5b28")
+			(tstamps "20b77327-8344-43e8-804a-4b6f94761cdd")
 			(units
 				(unit
 					(name "A")
@@ -8203,7 +8203,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "fdda2881-bdf9-4c3a-a34a-fef66cef95b0")
+			(tstamps "5778baa5-5e0e-42d8-8032-d5582b730935")
 			(units
 				(unit
 					(name "A")
@@ -8281,7 +8281,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6de0c6c8-e7f3-42af-b60d-bf606fd7311b")
+			(tstamps "cb32129a-fe75-4dc1-9f22-b17b9f76dd06")
 			(units
 				(unit
 					(name "A")
@@ -8413,7 +8413,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "62ec3b98-c120-4e4a-80e9-0471bffcd407")
+			(tstamps "fd147538-c9a8-45c6-831d-3426516496cc")
 			(units
 				(unit
 					(name "A")
@@ -8596,7 +8596,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1860015c-5c76-41ee-97d4-81b07b65ed33")
+			(tstamps "ec01b42d-a2a4-4adb-8119-87d0963d6047")
 			(units
 				(unit
 					(name "A")
@@ -8674,7 +8674,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e45260e6-077a-4e52-8963-5e82fb88ae21")
+			(tstamps "1588a6e8-3e70-430e-b2a6-64b4dfe951ee")
 			(units
 				(unit
 					(name "A")
@@ -8752,7 +8752,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f1349a8c-e06a-42fb-94be-27ed4d4fbcee")
+			(tstamps "b4bf8b46-638a-48eb-b258-3f84cb426318")
 			(units
 				(unit
 					(name "A")
@@ -10633,7 +10633,7 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "SW2")
+				(ref "SW4")
 				(pin "1")
 				(pinfunction "1_1")
 				(pintype "passive")
@@ -12360,7 +12360,7 @@
 			(name "USER_BTN2")
 			(class "Default")
 			(node
-				(ref "SW3")
+				(ref "SW2")
 				(pin "1")
 				(pinfunction "1_1")
 				(pintype "passive")
@@ -12377,7 +12377,7 @@
 			(name "USER_BTN3")
 			(class "Default")
 			(node
-				(ref "SW4")
+				(ref "SW3")
 				(pin "1")
 				(pinfunction "1_1")
 				(pintype "passive")

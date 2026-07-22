@@ -20,9 +20,10 @@ import pcbnew
 from gen_pcb import PcbGen
 from board_geom import BOARD_OUTLINE, WHEEL_NOTCHES, MOUNT_HOLES
 
-BOARD = r"D:\Projects\micromouse-pcb\pcb\JLCPCB_2layers\design\micromouse-pcb.kicad_pcb"
-NETLIST = r"D:\Projects\micromouse-pcb\pcb\JLCPCB_2layers\design\netlist.net"
-DRC = r"D:\Projects\micromouse-pcb\pcb_drc.json"
+_BASE = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+BOARD = os.path.join(_BASE, "micromouse-pcb.kicad_pcb")
+NETLIST = os.path.join(_BASE, "netlist.net")
+DRC = os.path.join(_BASE, "_pcb_drc.json")
 CLI = r"C:\Program Files\KiCad\10.0\bin\kicad-cli.exe"
 POUR_RECTS = {}                 # 2-layer: no VM/3V3 pour islands to constrain vias to
 POUR_NETS = ("GND",)            # 2-layer: only GND is poured -> only GND gets via-stitch heals

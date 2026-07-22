@@ -17,9 +17,11 @@ Gates (each would have caught a shipped rev-5 defect class):
 """
 import csv
 import os
+import re
 import shutil
 import subprocess
 import sys
+from collections import Counter
 
 CLI = r"C:\Program Files\KiCad\10.0\bin\kicad-cli.exe"
 BASE = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
@@ -111,6 +113,90 @@ run([CLI, "sch", "export", "bom",
      "--labels", "Reference,Value,Footprint,Qty,MPN,Manufacturer",
      "--group-by", "Value,Footprint,MPN",
      "--exclude-dnp", "--output", bom_path, SCH], "bom")
+
+# Post-merge (2026-07-22): kicad-cli's own --group-by includes Value, so
+# parts that share the same real orderable component (same Footprint+MPN)
+# but carry a role-specific Value/Comment -- e.g. D30 "Power LED...", D31
+# "Status LED...", D33 "Motor-power LED..." are all the identical
+# APT1608SURCK -- end up as separate BOM lines. Value is purely descriptive
+# once MPN is fixed: two genuinely different parts (a 10k vs a 47k resistor)
+# always carry different MPNs, so re-grouping by (Footprint, MPN) alone is
+# safe and merges only true duplicates, never distinct components.
+def _expand_refs(s):
+    out = []
+    for tok in s.split(","):
+        tok = tok.strip()
+        if not tok:
+            continue
+        if "-" in tok:
+            a, b = tok.split("-", 1)
+            ma = re.match(r"([A-Za-z]+)(\d+)", a)
+            mb = re.match(r"([A-Za-z]*)(\d+)", b)
+            if ma and mb:
+                pref, lo, hi = ma.group(1), int(ma.group(2)), int(mb.group(2))
+                out += [f"{pref}{n}" for n in range(lo, hi + 1)]
+                continue
+        out.append(tok)
+    return out
+
+
+def _ref_sort_key(ref):
+    m = re.match(r"([A-Za-z]+)(\d+)", ref)
+    return (m.group(1), int(m.group(2))) if m else (ref, 0)
+
+
+# Manual override for merged groups whose auto-picked (mode/tie-break) Value
+# is a real designator's role label that reads oddly once it's covering
+# several distinct roles (e.g. "BTN_B" representing BTN_A/B/C/RESET
+# together) -- keyed by (Footprint, MPN), same key the merge groups on.
+_VALUE_OVERRIDE = {
+    ("Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2", "KMR221NGLFS"): "Tactile pushbutton switch",
+}
+
+
+_rows = list(csv.DictReader(open(bom_path, newline="", encoding="utf-8-sig")))
+_groups, _order = {}, []
+for _r in _rows:
+    _key = (_r["Footprint"].strip(), _r["MPN"].strip())
+    _refs = _expand_refs(_r["Reference"])
+    _qty = int(_r["Qty"])
+    if _key not in _groups:
+        _groups[_key] = {"refs": [], "values": [], "footprint": _r["Footprint"],
+                          "mpn": _r["MPN"], "manufacturer": _r["Manufacturer"]}
+        _order.append(_key)
+    _groups[_key]["refs"].extend(_refs)
+    _groups[_key]["values"].extend([_r["Value"]] * _qty)
+
+_merged_groups = 0
+_new_rows = []
+for _key in _order:
+    _g = _groups[_key]
+    _refs_sorted = sorted(set(_g["refs"]), key=_ref_sort_key)
+    _counts = Counter(_g["values"])
+    _top = max(_counts.values())
+    # representative Value = the description shared by the most designators
+    # (mode); ties broken by shortest-then-alphabetical for determinism
+    _candidates = sorted([v for v, c in _counts.items() if c == _top], key=lambda v: (len(v), v))
+    _value = _VALUE_OVERRIDE.get(_key, _candidates[0])
+    if len(_counts) > 1:
+        _merged_groups += 1
+    _new_rows.append({
+        "Reference": ",".join(_refs_sorted),
+        "Value": _value,
+        "Footprint": _g["footprint"],
+        "Qty": str(len(_refs_sorted)),
+        "MPN": _g["mpn"],
+        "Manufacturer": _g["manufacturer"],
+    })
+
+if _merged_groups:
+    with open(bom_path, "w", newline="", encoding="utf-8") as f:
+        _w = csv.DictWriter(f, fieldnames=["Reference", "Value", "Footprint", "Qty", "MPN", "Manufacturer"])
+        _w.writeheader()
+        _w.writerows(_new_rows)
+    print(f"BOM post-merge: combined {_merged_groups} part group(s) sharing the same "
+          f"Footprint+MPN under different role-descriptions into single BOM lines")
+
 no_mpn = []
 n_rows = 0
 with open(bom_path, newline="", encoding="utf-8-sig") as f:

@@ -384,15 +384,17 @@ g.place("R12", 64.5, 108.5, flip=True); g.place("R56", 60, 108.5, flip=True)
 
 g.place("J8", 10.5, 102, rot=90)               # JTAG 1x6, pins along +x (y=102: clear of the wheel-notch corner at (13,100))
 
-# Buttons: A/B/C along the rear-right edge, RST tucked forward of them
-BTN_LABELS = (("SW1", "A"), ("SW3", "B"), ("SW4", "C"), ("SW2", "RST"))
+# Buttons: A/B/C along the rear-right edge, RST tucked forward of them.
+# Rev 8 (2026-07-21): renumbered so SW1-3 are the three user buttons and SW4
+# is RESET (was SW2) -- pure designator rename, positions/nets unchanged.
+BTN_LABELS = (("SW1", "A"), ("SW2", "B"), ("SW3", "C"), ("SW4", "RST"))
 # 3 user buttons moved to the OPEN front-center (user request), clear of the
 # front-sensor beams (sensors sit at the corners; center-front is empty).
 g.place("SW1", 40, 28)      # BTN_A / start
 g.place("R10", 76, 104, flip=True)              # A's pull-up (bottom)
-g.place("SW3", 50, 28)      # BTN_B
-g.place("SW4", 60, 28)      # BTN_C
-g.place("SW2", 64, 102)                         # RST
+g.place("SW2", 50, 28)      # BTN_B
+g.place("SW3", 60, 28)      # BTN_C
+g.place("SW4", 64, 102)                         # RST
 for _ref, _lbl in BTN_LABELS:
     _fp = g._placed[_ref]
     _pos = _fp.GetPosition()

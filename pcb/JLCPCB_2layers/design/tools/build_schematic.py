@@ -37,7 +37,15 @@ _MPN_STATIC = {
     "Q1": ("DMP3098L-7", "Diodes Incorporated"),           # -30V/-3.8A/Vgs +/-20V (2S-safe gate)
     "L1": ("SRP4020TA-4R7M", "Bourns"),
     "L2": ("SRP4020TA-4R7M", "Bourns"),
-    "F1": ("MINISMDC350F/16-2", "Littelfuse"),             # PPTC 3.5A hold/7A trip, 16V (rev 7.1: double-stall headroom)
+    # Rev 8 (2026-07-21): "MINISMDC350F/16-2" is not a real orderable
+    # Littelfuse part at any distributor/LCSC/Lion checked -- looks like a
+    # long-standing typo. The schematic's own FUSE() value ("2.6A/16V PPTC",
+    # below) matches the REAL part MINISMDC260F/16-2 exactly (confirmed in
+    # stock at LCSC C16490 and listed at Lion Circuits) -- corrected to that.
+    # FLAG FOR REVIEW: this comment previously said "3.5A hold/7A trip" (rev
+    # 7.1 stall-headroom note) which does NOT match the 2.6A value string --
+    # unresolved discrepancy, re-verify actual required hold current.
+    "F1": ("MINISMDC260F/16-2", "Littelfuse"),
     "J1": ("B2B-XH-A", "JST"),                             # 2S battery main (XH: 3A/contact)
     "SW5": ("PCM12SMTR", "C&K"), "SW6": ("PCM12SMTR", "C&K"),
     # J5/J6 (motor connectors) rev 7.2: JST ZH B6B-ZR -- the robu GA12-N20
@@ -61,12 +69,36 @@ _MPN_STATIC = {
     # + WS2812B addressable RGB. J8 (JTAG header) removed.
     "D30": ("APT1608SURCK", "Kingbright"),
     "D31": ("APT1608SURCK", "Kingbright"),
-    "D32": ("WS2812B", "Worldsemi"),
+    # Rev 8 (2026-07-21): genuine Worldsemi WS2812B not stocked at Lion
+    # Circuits at all -- swapped to XL-5050RGBC-WS2812B (Xinglight), same
+    # 5050 PLCC4 footprint, WS2812B-protocol-compatible, in stock at both
+    # LCSC/JLCPCB (C2843785) and Lion Circuits.
+    "D32": ("XL-5050RGBC-WS2812B", "Xinglight"),
     "D33": ("APT1608SURCK", "Kingbright"),   # motor-rail indicator (VM_6V present)
     "J7": ("USB4105-GF-A", "GCT"),
-    "SW1": ("PTS645VL582LFS", "C&K"), "SW2": ("PTS645VL582LFS", "C&K"),
-    "SW3": ("PTS645VL582LFS", "C&K"), "SW4": ("PTS645VL582LFS", "C&K"),
+    # Rev 8 (2026-07-21): swapped THT PTS645VL582LFS -> SMD KMR221NGLFS --
+    # the THT part went out of stock; SMD also drops it from the
+    # hand-solder list entirely (reflow only). Same 2-net (pad"1"/pad"2")
+    # topology, so no schematic rewiring needed, only the footprint+MPN.
+    # (First attempt used TL3301AF160QG, but its ~11.2mm gull-wing lead span
+    # overlapped/shorted adjacent buttons on this board's 10mm button pitch
+    # -- caught via DRC courtyard/shorting errors. KMR221NGLFS's ~5mm pad
+    # span fits the pitch with margin; 2N/50mA/32V comfortably covers the
+    # 12V/50mA design need.)
+    "SW1": ("KMR221NGLFS", "C&K"), "SW2": ("KMR221NGLFS", "C&K"),
+    "SW3": ("KMR221NGLFS", "C&K"), "SW4": ("KMR221NGLFS", "C&K"),
     "C30": ("EEE-FT1C221AP", "Panasonic"),                 # 220uF/16V SMD alu (motor bulk)
+}
+# Rev 8 (2026-07-21): per-value override for the generic Yageo R_0805 formula
+# below, for values where the Yageo part isn't a clean dual-vendor (JLCPCB +
+# Lion Circuits) common part. Only "10k" has a confirmed common replacement
+# (Walsin, in stock at both) -- 47k/220k/110k/11k had no common part found
+# after checking multiple manufacturers at both vendors (2026-07-21), so
+# those stay on the Yageo formula (real MPN, in stock at Lion; JLC-side
+# still substitutes via jlcpcb_lcsc_map.py as it already did before this
+# audit) -- a documented per-vendor exception, not a unified part.
+_RES_MPN = {
+    "10k": ("WR08X1002FTL", "Walsin"),
 }
 _CAP_MPN = {
     # 0805 X7R/X5R unless noted. 2S rails (VM_BATT 8.4V max / VM_6V) must use
@@ -111,6 +143,9 @@ def _bom_fields(ref, value, footprint):
         return {"MPN": "TCRT5000", "Manufacturer": "Vishay"}
     if fp.startswith("LED_0603"):
         return {"MPN": "APT1608SURCK", "Manufacturer": "Kingbright"}
+    if fp.startswith("R_0805") and value in _RES_MPN:
+        mpn, mfr = _RES_MPN[value]
+        return {"MPN": mpn, "Manufacturer": mfr}
     if fp.startswith("R_0805") and value and value[0].isdigit():
         return {"MPN": f"RC0805FR-07{_res_code(value)}L", "Manufacturer": "Yageo"}
     if fp.startswith("C_") and value in _CAP_MPN:
@@ -221,7 +256,8 @@ def QN_BSS138(ref, at, footprint="Package_TO_SOT_SMD:SOT-23"):
                      datasheet="https://www.onsemi.com/pub/Collateral/BSS138-D.PDF")
     return pin_at(base, (-5.08, 0)), pin_at(base, (2.54, -5.08)), pin_at(base, (2.54, 5.08))  # G, S, D
 
-def SWPUSH(ref, at, value="SW_Push", footprint="Button_Switch_THT:SW_PUSH_6mm"):
+def SWPUSH(ref, at, value="SW_Push",
+           footprint="Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2"):
     base = snap(at)
     g.add_component("Switch", "SW_Push", ref, value, base, {"1": "", "2": ""}, footprint=footprint)
     return pin_at(base, (-5.08, 0)), pin_at(base, (5.08, 0))
@@ -754,16 +790,18 @@ for _pad, (_nm, _off) in WROOM_PADS.items():
         RAIL(_net, _pos, rotation=(180 if _off[0] < 0 else 0))
 
 # EN reset circuit per Espressif hardware design guidelines: 10k pull-up +
-# 1uF RC delay + reset button (SW2). Hold SW1 (IO0) + tap SW2 = ROM download.
+# 1uF RC delay + reset button (SW4). Hold SW1 (IO0) + tap SW4 = ROM download.
+# (Rev 8: renumbered so SW1-3 are the three user buttons and SW4 is RESET --
+# was SW2; purely a designator rename, net names below are unchanged.)
 r11a, r11b = R("R11", "10k", (415, 258))
 RAIL("PLUS3V3", r11a, rotation=90)
 RAIL("ESP_EN", r11b, rotation=270)
 c9a, c9b = C("C9", "1uF", (430, 258))
 RAIL("ESP_EN", c9a, rotation=90)
 RAIL("GND", c9b, rotation=270)
-sw2a, sw2b = SWPUSH("SW2", (447, 265), value="RESET")
-RAIL("ESP_EN", sw2a, rotation=180)
-RAIL("GND", sw2b, rotation=0)
+sw4a, sw4b = SWPUSH("SW4", (447, 265), value="RESET")
+RAIL("ESP_EN", sw4a, rotation=180)
+RAIL("GND", sw4b, rotation=0)
 
 # Module decoupling: 10uF bulk + 100nF.
 c10a, c10b = C("C10", "10uF", (415, 235))
@@ -873,7 +911,7 @@ TXT("ESP32-S3-WROOM-1 on FreeRTOS: 6 wall sensors DIRECT on ADC1 IO1-IO6 (a fire
     "sampled in parallel), line array via U4 (IO7 + IO11-13), battery IO8, TB6612 on\n"
     "IO9/10/38/45, buzzer IO46 (straps 45/46 = idle-low outputs ONLY -- never add pull-ups),\n"
     "encoders IO43/44/47/48 (PCNT hardware quadrature via GPIO matrix), JTAG on the real\n"
-    "JTAG quad IO39-42 -> J8 (ESP-Prog). Buttons: SW1=IO0 (start/BOOT), SW3=IO35, SW4=IO36\n"
+    "JTAG quad IO39-42 -> J8 (ESP-Prog). Buttons: SW1=IO0 (start/BOOT), SW2=IO35, SW3=IO36\n"
     "(internal pull-ups). USB-C (rear) on the native USB pads = flash + console; UART0\n"
     "pins repurposed as encoder inputs. Every analog net sits on ADC1 (IO1-IO8).",
     (300, 368), size=2.0)
@@ -890,20 +928,20 @@ RAIL("PLUS3V3", rbtn1, rotation=90)
 RAIL("USER_BTN", btn1, rotation=180)
 RAIL("GND", btn2, rotation=0)
 
-sw3a, sw3b = SWPUSH("SW3", (620, 330), value="BTN_B")
-RAIL("USER_BTN2", sw3a, rotation=180)
+sw2a, sw2b = SWPUSH("SW2", (620, 330), value="BTN_B")
+RAIL("USER_BTN2", sw2a, rotation=180)
+RAIL("GND", sw2b, rotation=0)
+sw3a, sw3b = SWPUSH("SW3", (620, 350), value="BTN_C")
+RAIL("USER_BTN3", sw3a, rotation=180)
 RAIL("GND", sw3b, rotation=0)
-sw4a, sw4b = SWPUSH("SW4", (620, 350), value="BTN_C")
-RAIL("USER_BTN3", sw4a, rotation=180)
-RAIL("GND", sw4b, rotation=0)
 
-TXT("Buttons are lettered on the silkscreen: A=SW1, B=SW3, C=SW4, RST=SW2.\n"
+TXT("Buttons are lettered on the silkscreen: A=SW1, B=SW2, C=SW3, RST=SW4.\n"
     "SW1/A = USER_BTN on IO0: start-run button AND the BOOT strap (hold A, tap RST\n"
     "-> ROM download mode). External 10k pull-up R10 keeps the strap solid.\n"
-    "SW3/SW4 = USER_BTN2/3 on IO35/IO36 (menu/select UX): active-low, firmware enables the\n"
+    "SW2/SW3 = USER_BTN2/3 on IO35/IO36 (menu/select UX): active-low, firmware enables the\n"
     "internal pull-ups -- no external resistors. NOTE: on octal-PSRAM (-R8) modules IO35/36\n"
     "do not exist; buttons 2/3 are the sacrificial feature (control is unaffected).\n"
-    "SW2 (reset) lives in the controller section on ESP_EN.",
+    "SW4 (reset) lives in the controller section on ESP_EN.",
     (600, 260), size=2.0)
 
 # ---------------------------------------------------------------------------
@@ -1234,7 +1272,8 @@ g.add_component("LED", "LD271", "D33", "Motor-power LED 0603 (VM_6V present; JLC
 RAIL("MOTLED_A", pin_at(_mb, (2.54, 0)), rotation=0)     # anode
 RAIL("GND", pin_at(_mb, (-5.08, 0)), rotation=180)       # cathode
 
-with open(r"D:\Projects\micromouse-pcb\pcb\JLCPCB_2layers\design\micromouse-pcb.kicad_sch", "w", encoding="utf-8", newline="\n") as f:
+_OUT_SCH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "micromouse-pcb.kicad_sch")
+with open(_OUT_SCH, "w", encoding="utf-8", newline="\n") as f:
     f.write(g.render(title="Micromouse PCB"))
 
 print("wrote", len(g.symbol_instances), "components,", len(g.label_instances), "labels,",

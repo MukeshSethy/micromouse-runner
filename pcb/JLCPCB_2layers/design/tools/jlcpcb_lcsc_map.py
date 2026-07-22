@@ -45,10 +45,18 @@ LCSC_MAP = {
 
     # ---- power passives (SMD) ----------------------------------------------
     "SRP4020TA-4R7M":        _e("C2041623", "SRP4020TA-4R7M", note="low stock (~806) -- order early or sub SRP4020 4R7"),
-    "EEE-FT1C221AP":         _e("C178588",  "EEE-FT1C221AP"),
-    "MINISMDC350F/16-2":     _e("C883162",  "BSMD1812-300-16V (BHFUSE)",
-                                note="SUB: exact Littelfuse MPN not on LCSC; 1812 PPTC 3.0A-hold/16V "
-                                     "(design intent 2.6A hold) -- same footprint, verify trip current"),
+    # Rev 8 (2026-07-21): EEE-FT1C221AP itself went Out of Stock at LCSC.
+    # Subbed to KNSCHA RVT220UF16V67RV0015 -- identical D6.3xL7.7mm case,
+    # same 220uF/16V rating, 146k+ in stock (C2887273). Lion Circuits still
+    # stocks the real EEE-FT1C221AP, so the Lion BOM keeps the design MPN
+    # unchanged -- only the JLC folder substitutes here.
+    "EEE-FT1C221AP":         _e("C2887273", "RVT220UF16V67RV0015 (KNSCHA)",
+                                note="SUB: EEE-FT1C221AP went OOS at LCSC 2026-07-21; same D6.3x7.7mm case, 220uF/16V"),
+    # Rev 8: "MINISMDC350F/16-2" was never a real orderable Littelfuse part
+    # (not found at LCSC, Lion, or any distributor) -- corrected design MPN
+    # to MINISMDC260F/16-2 (matches the schematic's own "2.6A/16V" value),
+    # which IS real and in stock -- no substitute needed anymore.
+    "MINISMDC260F/16-2":     _e("C16490",   "MINISMDC260F/16-2"),
 
     # ---- opto (5mm THT emitters/detectors + SMD indicator LEDs) -------------
     "TCRT5000":              _e("C2984661", "TCRT5000",  smt=False, note="THT reflective sensor (hand-solder)"),
@@ -56,9 +64,11 @@ LCSC_MAP = {
     "PT334-6B":              _e("C369188",  "PT334-6B",  smt=False, note="THT 5mm phototransistor (hand-solder)"),
     "APT1608SURCK":          _e("C2286",    "KT-0603R", tier="BASIC",
                                 note="SUB: JLC assembly pool showed 0 of C5875723 (LCSC retail-only); KT-0603R is the JLC Basic 0603 red (3.59M stock, 2026-07-21), Vf 1.8-2.4V + 0603 pad-compatible, 300mcd vs 230 -- series resistors unchanged"),
-    "WS2812B":               _e("C2761795", "WS2812B-B/T (Worldsemi)",
-                                note="addressable RGB, SMD5050-4P = LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm; "
-                                     "good stock ~414k (alt C114586 ~500k) -- verified 2026-07-20"),
+    # Rev 8: real Worldsemi WS2812B isn't stocked at Lion Circuits at all --
+    # design MPN corrected to XL-5050RGBC-WS2812B (Xinglight), same 5050
+    # PLCC4 footprint, WS2812B-protocol-compatible, in stock at both
+    # JLCPCB/LCSC (1.58M+ units) and Lion Circuits -- no substitute needed.
+    "XL-5050RGBC-WS2812B":   _e("C2843785", "XL-5050RGBC-WS2812B (Xinglight)"),
 
     # ---- buzzer (SMD) -------------------------------------------------------
     "CMT-8504-100-SMT-TR":   _e("C22359707", "CMT-8504-100-SMT-TR",
@@ -73,8 +83,15 @@ LCSC_MAP = {
     "61300611121":           _e("C124380",  "1x6 2.54mm male header",
                                 smt=False, note="SUB: Wurth MPN not on LCSC; generic 1x6/2.54mm THT header (JTAG)"),
 
-    # ---- switches (THT tact + SMD slide) ------------------------------------
-    "PTS645VL582LFS":        _e("C285524",  "PTS645VL582LFS", smt=False, note="THT 6mm tact (hand-solder); JLC lib also C221892"),
+    # ---- switches (all SMD now) ----------------------------------------------
+    # Rev 8 (2026-07-21): PTS645VL582LFS (THT) went out of stock at JLC/LCSC;
+    # swapped to KMR221NGLFS, SMD 4.2x2.8mm, same 2-net pad topology --
+    # confirmed in stock at both JLCPCB/LCSC (C269272, 422 units) and
+    # lioncircuits.com. (First attempt, TL3301AF160QG, was electrically fine
+    # but physically too wide -- its ~11.2mm gull-wing lead span overlapped
+    # adjacent buttons on this board's 10mm pitch; caught via DRC before
+    # committing. KMR221NGLFS's ~5mm pad span fits with margin.)
+    "KMR221NGLFS":           _e("C269272",  "KMR221NGLFS"),   # SMD tact, 2N/50mA/32V
     "PCM12SMTR":             _e("C221841",  "PCM12SMTR"),   # SMD slide switch
 
     # ---- passives: 0805 resistors (design=Yageo RC0805 1%) ------------------
@@ -83,7 +100,11 @@ LCSC_MAP = {
     #      noted where the Basic value was OOS.
     "RC0805FR-07100KL": _e("C96346",  "RC0805FR-07100KL (Yageo)", note="exact design part; Basic C17407 went short -- reverted to Yageo 100k (in stock)"),
     "RC0805FR-0739KL":  _e("C113306", "RC0805FR-0739KL (Yageo)",       note="exact MPN (Basic 39k was OOS); in stock"),
-    "RC0805FR-0710KL":  _e("C17414",  "0805W8F1002T5E", tier="BASIC", note="JLC-Basic equiv 10k 0805 1%"),
+    # Rev 8: design MPN for 10k corrected to Walsin WR08X1002FTL (was Yageo
+    # RC0805FR-0710KL, itself unlisted on Lion) -- Walsin part is the one
+    # confirmed common in stock at both JLCPCB/LCSC and Lion Circuits, so no
+    # substitute needed here anymore either.
+    "WR08X1002FTL":     _e("C108451", "WR08X1002FTL (Walsin)"),
     "RC0805FR-075K1L":  _e("C27834",  "0805W8F5101T5E", tier="BASIC", note="JLC-Basic equiv 5.1k 0805 1%"),
     "RC0805FR-0747KL":  _e("C17713",  "0805W8F4702T5E", tier="BASIC", note="JLC-Basic equiv 47k 0805 1%"),
     "RC0805FR-0733RL":  _e("C17634",  "0805W8F330LT5E", tier="BASIC", note="JLC-Basic equiv 33R 0805 1%"),

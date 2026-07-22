@@ -18,11 +18,20 @@ part:
         tool if you'd rather run Economy PCBA + self-solder)
   jlcpcb/ORDERING.md              tier choice, swaps, rotation/coord caveats
 
-Coordinate frame: the KiCad pos and the KiCad gerbers share one frame (outline
-X[0,100] Y[-120,0] mm, Y-up so the board sits below the origin; parts fall
-inside it). We pass KiCad's Mid X/Y through UNCHANGED so the CPL overlays the
-gerbers exactly -- do NOT "normalise" Y to positive. Rotations are KiCad's;
-per-package JLC offsets are checked in JLC's placement preview.
+Coordinate frame: the placement data and the KiCad gerbers share one frame
+(outline X[0,100] Y[-120,0] mm, Y-up so the board sits below the origin;
+parts fall inside it) -- do NOT "normalise" Y to positive.
+
+CPL source: placement comes from `gen_jlc_positions.py` (run via KiCad's
+bundled Python, which alone has pcbnew), NOT kicad-cli's raw `pcb export pos`.
+kicad-cli reports each footprint's KiCad *anchor*, which for many THT parts
+(switches, LEDs, connectors) is not the physical body center JLC's
+pick-and-place needs; and KiCad's raw rotation is the mirrored, as-drawn
+value for bottom-side parts, not JLC's "as viewed from above" convention.
+gen_jlc_positions.py corrects both, plus known KiCad-vs-JLC package rotation
+mismatches (SOT-23 family, SSOP, electrolytic caps) -- see its module
+docstring for the full reasoning and how each correction was verified
+against this board's own footprint geometry.
 
 Same rev-7.2 board as the Lion package: every LCSC choice is footprint- and
 value-compatible, so gerbers + placement are unchanged; only BOM part #s differ
@@ -198,8 +207,13 @@ def main():
         w.writerows(bom_rows)
 
     # ---- CPL (ALL placements for BOM parts) --------------------------------
-    pos = list(csv.DictReader(open(os.path.join(FAB, "micromouse-pcb.pos.csv"),
-                                   newline="", encoding="utf-8-sig")))
+    jlc_pos_path = os.path.join(FAB, "micromouse-pcb.jlc-positions.csv")
+    if not os.path.exists(jlc_pos_path):
+        raise SystemExit(
+            "missing " + jlc_pos_path + " -- run gen_jlc_positions.py first, "
+            'with KiCad\'s bundled Python: "C:\\Program Files\\KiCad\\10.0\\'
+            'bin\\python.exe" gen_jlc_positions.py')
+    pos = list(csv.DictReader(open(jlc_pos_path, newline="", encoding="utf-8-sig")))
     cpl = [["Designator", "Mid X", "Mid Y", "Layer", "Rotation"]]
     placed = 0
     for r in pos:

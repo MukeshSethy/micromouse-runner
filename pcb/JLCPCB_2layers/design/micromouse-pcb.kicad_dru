@@ -1,0 +1,16 @@
+(version 1)
+
+# Rev 9 (2026-07-22): extra clearance at the THT IR-emitter LEDs (D1-D6)
+# only, not all THT parts board-wide. An earlier attempt at a blanket
+# 0.2mm rule for every THT pad (J1/J5/J6/J10/Q2-Q7/D1-D6) found ~26 tight
+# spots, most of which were the *tight-pitch connector fanout* (J5/J6 at
+# 1.5mm pin pitch) rather than a real hand-solder risk -- fixing those
+# safely turned out to require full local reroutes, and automated
+# attempts at it caused real regressions. D1/D4/D6's spots were simple,
+# isolated single-track proximity (that LED's own second leg passing
+# close to its own pad) and fixed cleanly with a small perpendicular jog,
+# so this rule is scoped to just the LEDs where the fix is safe and the
+# board can actually satisfy it. Board-wide clearance stays at 0.127mm.
+(rule "THT LED extra clearance for hand-soldering"
+    (condition "(A.Reference == 'D1' || A.Reference == 'D2' || A.Reference == 'D3' || A.Reference == 'D4' || A.Reference == 'D5' || A.Reference == 'D6' || B.Reference == 'D1' || B.Reference == 'D2' || B.Reference == 'D3' || B.Reference == 'D4' || B.Reference == 'D5' || B.Reference == 'D6') && (A.Pad_Type == 'Through-hole' || B.Pad_Type == 'Through-hole')")
+    (constraint clearance (min 0.2mm)))
