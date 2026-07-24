@@ -1,0 +1,15 @@
+(footprint "N20_Motor_Encoder"
+  (version 20240108)
+  (generator "gen_n20_lib")
+  (layer "F.Cu")
+  (descr "N20 micro metal gearmotor + encoder, MECHANICAL reference only (no pads). Origin=faceplate center, +X=shaft. Dims per Pololu 0J949; encoder extension vendor-dependent.")
+  (attr exclude_from_pos_files exclude_from_bom)
+  (fp_text reference "REF**" (at 0 -8.5) (layer "F.SilkS") (effects (font (size 1 1) (thickness 0.15))))
+  (fp_text value "N20_Motor_Encoder" (at 0 8.5) (layer "F.Fab") (effects (font (size 1 1) (thickness 0.15))))
+  (fp_rect (start -32.70 -6.8) (end 0 6.8) (stroke (width 0.12) (type default)) (layer "F.Fab"))
+  (fp_rect (start 0 -1.5) (end 10 1.5) (stroke (width 0.12) (type default)) (layer "F.Fab"))
+  (fp_rect (start -33.20 -7.05) (end 10.25 7.05) (stroke (width 0.05) (type default)) (layer "F.CrtYd"))
+  (fp_text user "shaft ->" (at 5 -3) (layer "F.Fab") (effects (font (size 0.8 0.8) (thickness 0.12))))
+  (model "${KIPRJMOD}/n20.3dshapes/N20_Motor_Encoder.wrl"
+    (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))
+)

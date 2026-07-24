@@ -1,0 +1,36 @@
+Reference,Value,Footprint,Qty,MPN,Manufacturer
+BZ1,"CMT-8504-100-SMT (magnetic transducer 8.5mm, 15R coil, 4kHz; pads 3/4 are mechanical dummies)",Buzzer_Beeper:MagneticBuzzer_CUI_CMT-8504-100-SMT,1,CMT-8504-100-SMT-TR,Same Sky (CUI Devices)
+"C1,C4,C11,C18",10uF/25V,Capacitor_SMD:C_1210_3225Metric,4,CL32B106KBJNNNE,Samsung Electro-Mechanics
+"C2,C3,C8,C12,C14,C15",100nF,Capacitor_SMD:C_0805_2012Metric,6,CL21B104KBCNNNC,Samsung Electro-Mechanics
+C5,22uF,Capacitor_SMD:C_0805_2012Metric,1,CL21A226KPCLRNC,Samsung Electro-Mechanics
+C10,10uF,Capacitor_SMD:C_0805_2012Metric,1,CL21A106KPFNNNE,Samsung Electro-Mechanics
+"C16,C17",22uF/25V,Capacitor_SMD:C_1210_3225Metric,2,CL32A226KAJNNNE,Samsung Electro-Mechanics
+C30,220uF/16V,Capacitor_SMD:CP_Elec_6.3x7.7,1,EEE-FT1C221AP,Panasonic
+"D1,D2,D3,D4,D5,D6",IR333-A (Everlight 5mm 940nm 20deg; LD271 base symbol; TSAL6400 is lifecycle-Obsolete at Lion),LED_THT:LED_D5.0mm_IRGrey,6,IR333-A,Everlight
+D29,1N4148W (flyback clamp across the buzzer coil),Diode_SMD:D_SOD-123,1,1N4148W-7-F,Diodes Incorporated
+"D30,D33",Power LED 0603 red (JLC good-stock),LED_SMD:LED_0603_1608Metric,2,APT1608SURCK,Kingbright
+F1,2.6A/16V PPTC,Fuse:Fuse_1812_4532Metric,1,MINISMDC260F/16-2,Littelfuse
+J1,BATT_IN_2S,Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical,1,B2B-XH-A,JST
+"J5,J6",MOTOR_A_N20_ENCODER,Connector_JST:JST_ZH_B6B-ZR_1x06_P1.50mm_Vertical,2,B6B-ZR(LF)(SN),JST
+J10,BATT_IN_XT60 (parallel option -- ONE PACK ONLY),Connector_AMASS:AMASS_XT60-M_1x02_P7.20mm_Vertical,1,XT60-M,AMASS
+"L1,L2",4.7uH,n20:L_Bourns_SRP4020TA,2,SRP4020TA-4R7M,Bourns
+Q1,"Q_PMOS reverse guard (DMP3098L-7: Vgs +/-20V, 2S-safe)",Package_TO_SOT_SMD:SOT-23,1,DMP3098L-7,Diodes Incorporated
+"Q2,Q3,Q4,Q5,Q6,Q7",PT334-6B (5mm filtered PT; LONG LEAD = EMITTER; SFH309 base symbol so ERC checks pins),LED_THT:LED_D5.0mm_IRBlack,6,PT334-6B,Everlight
+"Q16,Q17,Q18",BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins),Package_TO_SOT_SMD:SOT-23,3,BSS138LT1G,onsemi
+Q34,MMBT2222A (buzzer low-side driver; Q_NPN_BEC base symbol so ERC checks pins),Package_TO_SOT_SMD:SOT-23,1,MMBT2222A-7-F,Diodes Incorporated
+"R1,R62,R63,R64,R69,R73",100k,Resistor_SMD:R_0805_2012Metric,6,RC0805FR-07100KL,Yageo
+"R6,R7,R8,R9,R10,R55",10k,Resistor_SMD:R_0805_2012Metric,6,WR08X1002FTL,Walsin
+"R13,R15,R17,R19,R21,R23",47k,Resistor_SMD:R_0805_2012Metric,6,RC0805FR-0747KL,Yageo
+"R14,R16,R18,R20,R22,R24",33,Resistor_SMD:R_0805_2012Metric,6,RC0805FR-0733RL,Yageo
+R70,220k,Resistor_SMD:R_0805_2012Metric,1,RC0805FR-07220KL,Yageo
+R71,110k,Resistor_SMD:R_0805_2012Metric,1,RC0805FR-07110KL,Yageo
+R74,11k,Resistor_SMD:R_0805_2012Metric,1,RC0805FR-0711KL,Yageo
+R81,220,Resistor_SMD:R_0805_2012Metric,1,RC0805FR-07220RL,Yageo
+"R82,R84",1k,Resistor_SMD:R_0805_2012Metric,2,RC0805FR-071KL,Yageo
+R85,40.2k,Resistor_SMD:R_0805_2012Metric,1,RC0805FR-0740K2L,Yageo
+"SW1,SW2",Tactile pushbutton switch,Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2,2,KMR221NGLFS,C&K
+"SW5,SW6,SW7",PWR ALL (PCM12SMTR slide; slide-to-GND = OFF),Button_Switch_SMD:SW_SPDT_PCM12,3,PCM12SMTR,C&K
+U1,AP63203WU-7 (fixed 3.3V 2A buck; AP63200WU base symbol so ERC checks pins),Package_TO_SOT_SMD:TSOT-23-6,1,AP63203WU-7,Diodes Incorporated
+U2,TB6612FNG,Package_SO:SSOP-24_5.3x8.2mm_P0.65mm,1,"TB6612FNG,C,8,EL",Toshiba
+U3,"Seeed XIAO nRF52840 Sense Plus (SKU 102010694): D0-D5 ADC-capable, D6-D10 + 9 Plus pads digital-only. Own onboard IMU/RGB LED/USB-C/reset button.",xiao:XIAO-nRF52840-Plus-SMD,1,"102010694 (Seeed XIAO nRF52840 Sense Plus -- HAND-SOLDER, NOT part of turnkey SMT assembly)",Seeed Studio
+U7,TPS54302DDCR (6.0V/3A motor buck; FB=100k/11k),Package_TO_SOT_SMD:SOT-23-6,1,TPS54302DDCR,Texas Instruments

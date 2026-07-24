@@ -1,0 +1,40 @@
+Reference,Value,Footprint,Qty,MPN,Manufacturer
+BZ1,"CMT-8504-100-SMT (magnetic transducer 8.5mm, 15R coil, 4kHz; pads 3/4 are mechanical dummies)",Buzzer_Beeper:MagneticBuzzer_CUI_CMT-8504-100-SMT,1,CMT-8504-100-SMT-TR,Same Sky (CUI Devices)
+"C1,C4,C11,C18",10uF/25V,Capacitor_SMD:C_1210_3225Metric,4,CL32B106KBJNNNE,Samsung Electro-Mechanics
+"C2,C3,C6,C8,C12-C15,C19,C20,C23",100nF,Capacitor_SMD:C_0805_2012Metric,11,CL21B104KBCNNNC,Samsung Electro-Mechanics
+"C5,C7",22uF,Capacitor_SMD:C_0805_2012Metric,2,CL21A226KPCLRNC,Samsung Electro-Mechanics
+C9,1uF,Capacitor_SMD:C_0805_2012Metric,1,CL21B105KAFNNNE,Samsung Electro-Mechanics
+"C10,C24",10uF,Capacitor_SMD:C_0805_2012Metric,2,CL21A106KPFNNNE,Samsung Electro-Mechanics
+"C16,C17",22uF/25V,Capacitor_SMD:C_1210_3225Metric,2,CL32A226KAJNNNE,Samsung Electro-Mechanics
+C30,220uF/16V,Capacitor_SMD:CP_Elec_6.3x7.7,1,EEE-FT1C221AP,Panasonic
+D1-D6,IR333-A (Everlight 5mm 940nm 20deg; LD271 base symbol; TSAL6400 is lifecycle-Obsolete at Lion),LED_THT:LED_D5.0mm_IRGrey,6,IR333-A,Everlight
+D15-D22,"Indicator LED 0603 super-red AlInGaP, high-efficiency bin REQUIRED at 1.4mA (e.g. Kingbright APT1608SURCK; LD271 base symbol for ERC)",LED_SMD:LED_0603_1608Metric,8,APT1608SURCK,Kingbright
+D23-D28,"Indicator LED 0603 super-red AlInGaP, high-eff bin (e.g. APT1608SURCK)",LED_SMD:LED_0603_1608Metric,6,APT1608SURCK,Kingbright
+D29,1N4148W (flyback clamp across the buzzer coil),Diode_SMD:D_SOD-123,1,1N4148W-7-F,Diodes Incorporated
+F1,2.6A/16V PPTC,Fuse:Fuse_1812_4532Metric,1,MINISMDC350F/16-2,Littelfuse
+J1,BATT_IN_2S,Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical,1,B2B-XH-A,JST
+J5,MOTOR_A_N20_ENCODER,Connector_JST:JST_ZH_B6B-ZR_1x06_P1.50mm_Vertical,1,B6B-ZR(LF)(SN),JST
+J6,MOTOR_B_N20_ENCODER,Connector_JST:JST_ZH_B6B-ZR_1x06_P1.50mm_Vertical,1,B6B-ZR(LF)(SN),JST
+J7,USB-C rear (GCT USB4105; VBUS unused -- battery powers the board),Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal,1,USB4105-GF-A,GCT
+J8,"JTAG_1x6 (3V3,TMS,TCK,TDO,TDI,GND)",Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical,1,61300611121,Wurth Elektronik
+J9,BALANCE_2S,Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical,1,B3B-XH-A(LF)(SN),JST
+J10,BATT_IN_XT60 (parallel option -- ONE PACK ONLY),Connector_AMASS:AMASS_XT60-M_1x02_P7.20mm_Vertical,1,XT60-M,AMASS
+"L1,L2",4.7uH,n20:L_Bourns_SRP4020TA,2,SRP4020TA-4R7M,Bourns
+LS1-LS8,"TCRT5000 (reflective sensor, filtered PT; PC817 base symbol so ERC checks pins)",n20:TCRT5000,8,TCRT5000,Vishay
+Q1,"Q_PMOS reverse guard (DMP3098L-7: Vgs +/-20V, 2S-safe)",Package_TO_SOT_SMD:SOT-23,1,DMP3098L-7,Diodes Incorporated
+Q2-Q7,PT334-6B (5mm filtered PT; LONG LEAD = EMITTER; SFH309 base symbol so ERC checks pins),LED_THT:LED_D5.0mm_IRBlack,6,PT334-6B,Everlight
+Q16-Q27,BSS138 (real part; Q_NMOS_GSD base symbol used so ERC checks pins),Package_TO_SOT_SMD:SOT-23,12,BSS138LT1G,onsemi
+Q28-Q33,BSS84 (PMOS indicator driver; Q_PMOS base symbol),Package_TO_SOT_SMD:SOT-23,6,BSS84LT1G,onsemi
+Q34,MMBT2222A (buzzer low-side driver; Q_NPN_BEC base symbol so ERC checks pins),Package_TO_SOT_SMD:SOT-23,1,MMBT2222A-7-F,Diodes Incorporated
+"R1,R2,R61-R64,R69,R73,R75,R76",100k,Resistor_SMD:R_0805_2012Metric,10,RC0805FR-07100KL,Yageo
+R3,39k,Resistor_SMD:R_0805_2012Metric,1,RC0805FR-0739KL,Yageo
+"R6-R11,R55,R65,R67,R79,R80",10k,Resistor_SMD:R_0805_2012Metric,11,RC0805FR-0710KL,Yageo
+"R12,R56",5.1k,Resistor_SMD:R_0805_2012Metric,2,RC0805FR-075K1L,Yageo
+"R13,R15,R17,R19,R21,R23,R25,R27,R29,R31,R33,R35,R37,R39",47k,Resistor_SMD:R_0805_2012Metric,14,RC0805FR-0747KL,Yageo
+"R14,R16,R18,R20,R22,R24",33,Resistor_SMD:R_0805_2012Metric,6,RC0805FR-0733RL,Yageo
+"R26,R28,R30,R32,R34,R36,R38,R40",120,Resistor_SMD:R_0805_2012Metric,8,RC0805FR-07120RL,Yageo
+"R41-R54,R57,R58",1k,Resistor_SMD:R_0805_2012Metric,16,RC0805FR-071KL,Yageo
+R68,15k,Resistor_SMD:R_0805_2012Metric,1,RC0805FR-0715KL,Yageo
+R70,220k,Resistor_SMD:R_0805_2012Metric,1,RC0805FR-07220KL,Yageo
+R71,110k,Resistor_SMD:R_0805_2012Metric,1,RC0805FR-07110KL,Yageo
+R74,11k,Resistor_SMD:R_0805_2012Metric,1,RC0805FR-0711KL,Yageo

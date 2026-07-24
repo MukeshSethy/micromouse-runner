@@ -1,0 +1,13 @@
+  OK WALL_EMIT_FRONT: R62.1((43.087, 37.5)) <-> U3.19((58.655, 105.713))  d=70.0mm
+  OK WALL_EMIT_DIAG: U3.20((58.655, 103.172)) <-> R63.1((53.087, 37.5))  d=65.9mm
+  OK WALL_EMIT_SIDE: U3.21((41.345, 103.172)) <-> R64.1((43.087, 42.0))  d=61.2mm
+  OK MOT_EN: SW6.2((16.25, 114.97)) <-> R70.2((58.913, 41.0))  d=85.4mm
+  FAIL AIN2: U3.8((41.745, 101.903)) <-> U2.22((53.5, 69.725))  d=34.3mm
+  OK BUZZ_CTRL: R81.1((64.0, 64.287)) <-> U3.11((41.745, 109.522))  d=50.4mm
+  OK USER_BTN2: SW2.1((47.95, 27.2)) <-> U3.23((41.345, 108.252))  d=81.3mm
+
+healed 6/7: ['WALL_EMIT_FRONT', 'WALL_EMIT_DIAG', 'WALL_EMIT_SIDE', 'MOT_EN', 'BUZZ_CTRL', 'USER_BTN2']
+still failing:
+  AIN2 (U3.8/U2.22): no path found
+zone fill: True
+saved C:\Users\Mukesh\OneDrive - Rapyuta Robotics\Project_OKS_MyDocs\micromouse-runner\pcb\JLCPCB_2layers_simplified\xiao\design\micromouse-pcb-simplified.kicad_pcb

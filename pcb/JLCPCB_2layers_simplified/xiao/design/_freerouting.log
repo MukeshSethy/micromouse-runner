@@ -1,0 +1,48 @@
+2026-07-23 20:08:33.678 INFO   Freerouting v2.2.4 (build-date: 2026-05-13)
+2026-07-23 20:08:36.149 INFO   New version available: v2.2.4
+2026-07-23 20:08:38.809 INFO   Opening 'micromouse-pcb-simplified.dsn'...
+2026-07-23 20:08:47.166 INFO   [634CD5\E8D82D] Starting routing of 'micromouse-pcb-simplified' on 15 threads...
+2026-07-23 20:08:55.401 INFO   [634CD5\E8D82D] Auto-router pass #1 on board '0d87f351e99e4fd4465452ec15766fb7' was completed in 8.12 seconds with the score of 842.74 (46 unrouted).
+2026-07-23 20:09:03.960 INFO   [634CD5\E8D82D] Auto-router pass #2 on board '96bf52bfda11bcd5d52986b631549fac' was completed in 8.49 seconds with the score of 898.07 (34 unrouted).
+2026-07-23 20:09:09.297 INFO   [634CD5\E8D82D] Auto-router pass #3 on board '3ca8b722dc1b7fa0de6f11924f119f27' was completed in 5.28 seconds with the score of 930.89 (24 unrouted).
+2026-07-23 20:09:22.195 INFO   [634CD5\E8D82D] Auto-router pass #4 on board '8eaf4c0cdad0200feb19e91bd32e0697' was completed in 12.84 seconds with the score of 967.34 (12 unrouted).
+2026-07-23 20:09:30.273 INFO   [634CD5\E8D82D] Auto-router pass #5 on board 'a46359787c038907bdb771879f3e9e26' was completed in 8.03 seconds with the score of 967.21 (12 unrouted).
+2026-07-23 20:09:36.553 INFO   [634CD5\E8D82D] Auto-router pass #6 on board 'bc3adb1cc790721e0952fc2d373b6878' was completed in 6.20 seconds with the score of 967.23 (12 unrouted).
+2026-07-23 20:09:43.514 INFO   [634CD5\E8D82D] Auto-router pass #7 on board '274086bb6dccc8d0dcb6ce2a2843f7ce' was completed in 6.89 seconds with the score of 967.31 (12 unrouted).
+2026-07-23 20:09:50.949 INFO   [634CD5\E8D82D] Auto-router pass #8 on board '44088b43a9e5ff5a0f84c3797db1f905' was completed in 7.38 seconds with the score of 969.73 (11 unrouted).
+2026-07-23 20:09:58.152 INFO   [634CD5\E8D82D] Auto-router pass #9 on board 'e541fc6f62bcbbaaf31512dab13958ed' was completed in 7.13 seconds with the score of 967.31 (12 unrouted).
+2026-07-23 20:10:05.034 INFO   [634CD5\E8D82D] Auto-router pass #10 on board '90ddf373f1a684fb36a788782a760a4c' was completed in 6.82 seconds with the score of 969.75 (11 unrouted).
+2026-07-23 20:10:11.396 INFO   [634CD5\E8D82D] Auto-router pass #11 on board '85786723e27cb3d905919fd5e38417d1' was completed in 6.30 seconds with the score of 967.31 (12 unrouted).
+2026-07-23 20:10:17.958 INFO   [634CD5\E8D82D] Auto-router pass #12 on board '84d847f1a4d5599dc1c53e3f6b334410' was completed in 6.51 seconds with the score of 969.77 (11 unrouted).
+2026-07-23 20:10:24.299 INFO   [634CD5\E8D82D] Auto-router pass #13 on board '0b050ef28d4760d70bbf30514ad18ace' was completed in 6.28 seconds with the score of 967.31 (12 unrouted).
+2026-07-23 20:10:30.713 INFO   [634CD5\E8D82D] Auto-router pass #14 on board '9033de05560a23ea5decf69792a5c90c' was completed in 6.35 seconds with the score of 969.77 (11 unrouted).
+2026-07-23 20:10:37.183 INFO   [634CD5\E8D82D] Auto-router pass #15 on board '2f5a02f532306a6a60bab3e651949d10' was completed in 6.40 seconds with the score of 967.31 (12 unrouted).
+2026-07-23 20:10:44.139 INFO   [634CD5\E8D82D] Auto-router pass #16 on board '0b050ef28d4760d70bbf30514ad18ace' was completed in 0.00 seconds with the score of 969.77 (11 unrouted).
+2026-07-23 20:10:50.810 INFO   [634CD5\E8D82D] Auto-router pass #17 on board '0b050ef28d4760d70bbf30514ad18ace' was completed in 6.62 seconds with the score of 967.31 (12 unrouted).
+2026-07-23 20:10:57.288 INFO   [634CD5\E8D82D] Auto-router pass #18 on board '287e7295d3a8d33c11f06ea998f9077f' was completed in 6.42 seconds with the score of 969.71 (11 unrouted).
+2026-07-23 20:10:57.310 INFO   [634CD5\E8D82D] The router's best score (969.73) has not improved by more than 0.5 points since pass #8. Stopping the auto-router after 18 passes (11 items still unconnected).
+The following connections could not be routed -- please review your design (e.g. check pad clearances, trace width rules, and available routing space):
+  Net 'PLUS3V3' (1 unrouted connection):
+    - D29-1  ->  BZ1-1
+  Net 'WALL_EMIT_FRONT' (1 unrouted connection):
+    - U3-19  ->  R62-1
+  Net 'WALL_EMIT_DIAG' (1 unrouted connection):
+    - U3-20  ->  R63-1
+  Net 'WALL_EMIT_SIDE' (1 unrouted connection):
+    - R64-1  ->  U3-21
+  Net 'MOT_EN' (1 unrouted connection):
+    - SW6-2  ->  R70-2
+  Net 'AIN1' (1 unrouted connection):
+    - U2-21  ->  U3-7
+  Net 'AIN2' (1 unrouted connection):
+    - U3-8  ->  U2-22
+  Net 'BUZZ_CTRL' (1 unrouted connection):
+    - U3-11  ->  R81-1
+  Net 'ENC2_B' (1 unrouted connection):
+    - J6-4  ->  U3-18
+  Net 'USER_BTN' (1 unrouted connection):
+    - SW1-1@1  ->  via
+  Net 'USER_BTN2' (1 unrouted connection):
+    - U3-23  ->  SW2-1
+2026-07-23 20:10:57.384 INFO   [634CD5\E8D82D] Auto-router session completed: started with 129 unrouted nets, completed in 2 minutes 10.22 seconds, final score: 969.77 (11 unrouted).
+2026-07-23 20:10:57.522 INFO   Saving 'micromouse-pcb-simplified.ses'...
