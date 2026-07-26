@@ -1,0 +1,32 @@
+#VRML V2.0 utf8
+# MINI 3PI Car N20 Caster Robot Ball Wheel (real vendor part, user-supplied
+# listing, Robu SKU 62858): 22mm diameter x 15mm height overall, plastic
+# body case, 304 stainless steel ball. PLACEHOLDER geometry (a cylinder
+# body + a sphere ball) -- no real vendor 3D model available -- but sized
+# to the real spec, not a guess.
+#
+# UNITS: this project's own WRL convention (see N20_Motor_Encoder.wrl) is
+# 1 unit = 2.54mm. Body radius 11mm=4.3307, body height 10mm=3.9370, ball
+# radius 5mm=1.9685 (body+exposed ball together span the real 15mm
+# overall height). Mounted with local Z+ = away from the mounting face
+# (same convention as qre1113.pretty/QRE1113GR.wrl and n20.pretty's own
+# TCRT-style parts) -- this footprint is placed with flip=True onto B.Cu
+# so the ball hangs below the board, touching the floor, same face the
+# board's own IR line sensors face.
+
+Group { children [
+    Transform {
+      translation 0 0 1.9685
+      children Shape {
+        appearance Appearance { material Material { diffuseColor 0.92 0.92 0.90 } }
+        geometry Cylinder { radius 4.3307 height 3.9370 }
+      }
+    }
+    Transform {
+      translation 0 0 3.9370
+      children Shape {
+        appearance Appearance { material Material { diffuseColor 0.75 0.76 0.78 specularColor 0.9 0.9 0.9 shininess 0.8 } }
+        geometry Sphere { radius 1.9685 }
+      }
+    }
+] }

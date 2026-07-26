@@ -1,0 +1,7 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "n20")(type "KiCad")(uri "${KIPRJMOD}/n20.pretty")(options "")(descr "project-local N20 motor mechanical lib"))
+  (lib (name "xiao")(type "KiCad")(uri "${KIPRJMOD}/xiao.pretty")(options "")(descr "project-local Seeed XIAO module footprints"))
+  (lib (name "qre1113")(type "KiCad")(uri "${KIPRJMOD}/qre1113.pretty")(options "")(descr "project-local QRE1113GR reflective sensor footprint"))
+  (lib (name "castor")(type "KiCad")(uri "${KIPRJMOD}/castor.pretty")(options "")(descr "project-local castor ball-wheel mechanical reference footprint"))
+)
