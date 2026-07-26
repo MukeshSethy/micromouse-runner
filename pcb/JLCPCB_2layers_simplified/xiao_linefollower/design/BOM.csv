@@ -9,6 +9,7 @@ C30,220uF/16V,Capacitor_SMD:CP_Elec_6.3x7.7,1,EEE-FT1C221AP,Panasonic
 "D1,D2,D3,D4,D5,D6",IR333-A (Everlight 5mm 940nm 20deg; LD271 base symbol; TSAL6400 is lifecycle-Obsolete at Lion),LED_THT:LED_D5.0mm_IRGrey,6,IR333-A,Everlight
 D29,1N4148W (flyback clamp across the buzzer coil),Diode_SMD:D_SOD-123,1,1N4148W-7-F,Diodes Incorporated
 "D30,D33,D41,D42,D43,D44,D45,D46,D47,D48",Power LED 0603 red (JLC good-stock),LED_SMD:LED_0603_1608Metric,10,APT1608SURCK,Kingbright
+"D50,D51,D52,D53,D54,D55",WALL_DL_LED wall-detection indicator (0603 green LED; firmware drives the PCF8574 pin LOW via I2C when this sensor's ADC reading crosses its wall-detected threshold),LED_SMD:LED_0603_1608Metric,6,APT1608SGC,Kingbright
 F1,2.6A/16V PPTC,Fuse:Fuse_1812_4532Metric,1,MINISMDC260F/16-2,Littelfuse
 J1,BATT_IN_2S,Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical,1,B2B-XH-A,JST
 "J5,J6",MOTOR_A_N20_ENCODER,Connector_JST:JST_ZH_B6B-ZR_1x06_P1.50mm_Vertical,2,B6B-ZR(LF)(SN),JST
@@ -26,7 +27,7 @@ Q34,MMBT2222A (buzzer low-side driver; Q_NPN_BEC base symbol so ERC checks pins)
 R70,220k,Resistor_SMD:R_0805_2012Metric,1,RC0805FR-07220KL,Yageo
 R71,110k,Resistor_SMD:R_0805_2012Metric,1,RC0805FR-07110KL,Yageo
 R74,11k,Resistor_SMD:R_0805_2012Metric,1,RC0805FR-0711KL,Yageo
-"R81,R91,R92,R93,R94,R95,R96,R97,R98",220,Resistor_SMD:R_0805_2012Metric,9,RC0805FR-07220RL,Yageo
+"R81,R91,R92,R93,R94,R95,R96,R97,R98,R105,R106,R107,R108,R109,R110",220,Resistor_SMD:R_0805_2012Metric,15,RC0805FR-07220RL,Yageo
 "R82,R84",1k,Resistor_SMD:R_0805_2012Metric,2,RC0805FR-071KL,Yageo
 R85,40.2k,Resistor_SMD:R_0805_2012Metric,1,RC0805FR-0740K2L,Yageo
 "R103,R104",2.2k,Resistor_SMD:R_0805_2012Metric,2,RC0805FR-072K2L,Yageo

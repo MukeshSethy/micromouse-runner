@@ -145,10 +145,9 @@ def main():
             d = math.hypot(a[0] - b[0], a[1] - b[1])
             routed = False
             for (width, clr, grid, maxexp) in (
-                (0.25, 0.18, 0.2, 400000),
-                (0.2, 0.15, 0.15, 700000),
-                (0.2, 0.13, 0.1, 1200000),
-                (0.15, 0.127, 0.08, 1800000),
+                (0.25, 0.18, 0.2, 300000),
+                (0.2, 0.15, 0.15, 500000),
+                (0.2, 0.13, 0.1, 800000),
             ):
                 if g.retry_edge(net, a, b, width_mm=width, clearance_mm=clr,
                                  grid_mm=grid, max_expansions=maxexp):

@@ -102,6 +102,14 @@ LCSC_MAP = {
     "PT334-6B":              _e("C369188",  "PT334-6B",  smt=False, note="THT 5mm phototransistor (hand-solder)"),
     "APT1608SURCK":          _e("C2286",    "KT-0603R", tier="BASIC",
                                 note="SUB: JLC assembly pool showed 0 of C5875723 (LCSC retail-only); KT-0603R is the JLC Basic 0603 red (3.59M stock, 2026-07-21), Vf 1.8-2.4V + 0603 pad-compatible, 300mcd vs 230 -- series resistors unchanged"),
+    "APT1608SGC":            _e("C5875754", "APT1608SGC", tier="EXTENDED",
+                                note="Green 0603 (565nm, Vf 2.2V), wall-detection indicators -- confirmed real/"
+                                     "in-stock via a live LCSC product page 2026-07-26 (7160 units). NOT yet "
+                                     "confirmed against JLC's own SMT-assembly-pool availability specifically "
+                                     "(a stricter subset than general LCSC retail stock -- see the "
+                                     "APT1608SURCK note above for a case where that distinction mattered); "
+                                     "verify in JLCPCB's own BOM tool before ordering, substitute to a "
+                                     "JLC-Basic green 0603 if it shows OOS for assembly"),
     # Rev 8: real Worldsemi WS2812B isn't stocked at Lion Circuits at all --
     # design MPN corrected to XL-5050RGBC-WS2812B (Xinglight), same 5050
     # PLCC4 footprint, WS2812B-protocol-compatible, in stock at both

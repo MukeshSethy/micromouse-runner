@@ -93,6 +93,16 @@ _MPN_STATIC = {
     # span fits the pitch with margin; 2N/50mA/32V comfortably covers the
     # 12V/50mA design need.)
     "SW1": ("KMR221NGLFS", "C&K"), "SW2": ("KMR221NGLFS", "C&K"),
+    # Rev 11 (user request): 6 wall-detection indicator LEDs, one per wall
+    # sensor, driven from the PCF8574's 6 spare pins (P2-P7 -- every native
+    # XIAO GPIO pin is already committed, exact 20/20 fit, so this is the
+    # only way to add them without removing something else). GREEN
+    # (Kingbright APT1608SGC, 565nm) to visually distinguish from the RED
+    # line-sensor indicators (APT1608SURCK) -- verified real/in-stock via a
+    # live LCSC product page (C5875754) 2026-07-26.
+    "D50": ("APT1608SGC", "Kingbright"), "D51": ("APT1608SGC", "Kingbright"),
+    "D52": ("APT1608SGC", "Kingbright"), "D53": ("APT1608SGC", "Kingbright"),
+    "D54": ("APT1608SGC", "Kingbright"), "D55": ("APT1608SGC", "Kingbright"),
     "C30": ("EEE-FT1C221AP", "Panasonic"),                 # 220uF/16V SMD alu (motor bulk)
     # Line-follower revision additions:
     "U4": ("ADS7830IPWR", "Texas Instruments"),            # I2C 8-ch 8-bit ADC (line sensors)
@@ -1257,8 +1267,6 @@ RAIL("GND", pcf["A0"], rotation=180)   # address select: A0=A1=A2=GND -> 0x20/0x
 RAIL("GND", pcf["A1"], rotation=180)
 RAIL("GND", pcf["A2"], rotation=180)
 NC(pcf["INT"])                          # unused -- firmware polls over I2C
-NC(pcf["P2"]); NC(pcf["P3"]); NC(pcf["P4"])
-NC(pcf["P5"]); NC(pcf["P6"]); NC(pcf["P7"])
 
 c50a, c50b = C("C50", "100nF", (615, 770))
 RAIL("PLUS3V3", c50a, rotation=90)
@@ -1276,9 +1284,64 @@ TXT("2 user buttons (SW1=A, SW2=B), read via the PCF8574 I2C GPIO expander (U5) 
     "SDA/SCL bus as the ADS7830 line-sensor ADC -- zero extra XIAO GPIO pins used. Each button:\n"
     "P0/P1 -> button -> GND, using the PCF8574's own internal ~100uA pull-up (no external\n"
     "resistor). A0=A1=A2=GND -> I2C address 0x20 write/0x21 read (ADS7830 is 0x48/0x49 -- no\n"
-    "conflict). P2-P7 unused (NC); INT unused, firmware polls over I2C. Reset/bootloader is\n"
-    "still the XIAO module's own onboard button, unaffected.",
+    "conflict). P2-P7 drive the 6 wall-detection indicator LEDs (see below); INT unused,\n"
+    "firmware polls over I2C. Reset/bootloader is still the XIAO module's own onboard button,\n"
+    "unaffected.",
     (600, 720), size=2.0)
+
+# ---------------------------------------------------------------------------
+# WALL-DETECTION INDICATOR LEDs (user request, rev 11, 2026-07-26): one GREEN
+# 0603 LED per wall sensor (front-L/R, diagonal-L/R, side-L/R), driven from
+# the PCF8574's 6 spare P2-P7 pins -- firmware reads each wall sensor's ADC
+# channel, and when it crosses the "wall detected" threshold, drives that
+# sensor's PCF8574 pin LOW to light its LED. Sink configuration (same
+# electrical scheme TI's own datasheet uses for the SW1/SW2 buttons, just
+# LED instead of switch): PLUS3V3 -> 220R -> LED anode -> LED cathode ->
+# PCF8574 pin -> pin driven LOW by firmware to sink current and turn the
+# LED on. No transistor buffer needed -- PCF8574's IOL (25mA max per TI's
+# datasheet) comfortably covers a single 0603 LED's ~5mA, so this is at
+# least as minimal as the buffered PMOS scheme (Q28-33) an EARLIER revision
+# of this board used for the same purpose before it was removed entirely
+# for GPIO-budget reasons (see the LINE-SENSOR/WALL-SENSOR INDICATOR LEDs
+# removal note above) -- the PCF8574 addition now makes that budget
+# irrelevant. GREEN (APT1608SGC) to visually distinguish from the RED line-
+# sensor indicators (APT1608SURCK).
+# ---------------------------------------------------------------------------
+TXT("WALL-DETECTION INDICATOR LEDs -- 6x GREEN 0603, one per wall sensor, driven from PCF8574 P2-P7", (600, 610), size=5)
+
+WALL_LED_PINS = [
+    ("P2", "D50", "R105", "WALL_FL_LED"),
+    ("P3", "D51", "R106", "WALL_FR_LED"),
+    ("P4", "D52", "R107", "WALL_DL_LED"),
+    ("P5", "D53", "R108", "WALL_DR_LED"),
+    ("P6", "D54", "R109", "WALL_SL_LED"),
+    ("P7", "D55", "R110", "WALL_SR_LED"),
+]
+
+for i, (pcf_pin, d_ref, r_ref, net_name) in enumerate(WALL_LED_PINS):
+    row_y = 630 - i * 12
+    r1, r2 = R(r_ref, "220", (560, row_y))
+    RAIL("PLUS3V3", r1, rotation=90)
+
+    led_base = snap((580, row_y))
+    g.add_component("LED", "LD271", d_ref,
+                     f"{net_name} wall-detection indicator (0603 green LED; firmware drives the "
+                     "PCF8574 pin LOW via I2C when this sensor's ADC reading crosses its "
+                     "wall-detected threshold)",
+                     led_base, {"1": "", "2": ""}, footprint="LED_SMD:LED_0603_1608Metric")
+    led_a = pin_at(led_base, (2.54, 0))
+    led_k = pin_at(led_base, (-5.08, 0))
+    g.add_wire(r2, led_a)
+    RAIL(net_name, led_k, rotation=0)
+    RAIL(net_name, pcf[pcf_pin], rotation=180)
+
+TXT("Wall indicators: PLUS3V3 -> 220R -> green 0603 LED (anode) -> cathode -> PCF8574 P2-P7.\n"
+    "Firmware writes the corresponding pin LOW (I2C) to light an LED when its wall sensor\n"
+    "crosses the detection threshold; HIGH (PCF8574's own ~100uA weak pull-up) leaves it off.\n"
+    "No series-resistor-free 'LED as pull-up' trick here (that's specific to the line sensors'\n"
+    "phototransistor bias) -- this is a simple firmware-driven indicator, standard 220R limit\n"
+    "for ~5mA at 3.3V/2.2Vf.",
+    (600, 590), size=2.0)
 
 _OUT_SCH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "micromouse-pcb-simplified.kicad_sch")
 with open(_OUT_SCH, "w", encoding="utf-8", newline="\n") as f:
