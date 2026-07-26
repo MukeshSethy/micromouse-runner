@@ -61,6 +61,11 @@ LCSC_MAP = {
     # datasheets pulled for this design):
     "ADS7830IPWR":           _e("C161747",  "ADS7830IPWR",
                                 note="I2C 8-ch 8-bit ADC (line sensor read), TSSOP-16"),
+    "PCF8574DWR":            _e("C2652271", "PCF8574DWR",
+                                note="I2C 8-bit GPIO expander (2 pushbuttons), SOIC-16-300mil -- "
+                                     "verified via LCSC product page (TI, 2024 in stock as of "
+                                     "2026-07-26): SOIC-16-300mil matches this board's "
+                                     "Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm footprint"),
     "QRE1113GR":             _e("C232862",  "QRE1113GR",
                                 note="SMT reflective object sensor (same part used inside Pololu's own "
                                      "QTR sensor arrays); B.Cu placement, faces the floor"),
@@ -153,6 +158,17 @@ LCSC_MAP = {
     "RC0805FR-07220RL": _e("C17557",  "0805W8F2200T5E", tier="BASIC", note="JLC-Basic equiv 220R 0805 1%"),
     # Line-follower revision addition: I2C pull-ups (R103/R104).
     "RC0805FR-072K2L":  _e("C17512",  "0805W8F2201T5E", tier="BASIC", note="JLC-Basic equiv 2.2k 0805 1% (I2C pull-ups)"),
+    # R85 (VM_6V feedback divider, 40.2k 0805 1%): NO LCSC/JLC-Basic
+    # equivalent found -- confirmed the exact Yageo part is real (datasheet +
+    # a retail listing), and 0603/0402 variants of the same value ARE
+    # indexed on LCSC, but the 0805 SKU itself never surfaced through
+    # extensive web search (2026-07-26): LCSC's own search/product pages are
+    # a client-rendered SPA (no product data in the raw HTML -- confirmed via
+    # direct fetch), so it isn't reachable by search-engine indexing or
+    # simple page fetches either. lcsc="" is intentional, NOT an oversight --
+    # it keeps this row flagged by export_jlcpcb.py's missing-LCSC check
+    # until someone with live LCSC search access fills it in.
+    "RC0805FR-0740K2L": _e("", "RC0805FR-0740K2L (Yageo)", note="NO LCSC MATCH FOUND -- needs manual lookup, see comment above"),
 
     # ---- caps: 0805 + 1210 (design=Samsung CL21/CL32) -----------------------
     #      0805 values map to JLC BASIC MLCC; 1210 25V values have no Basic
