@@ -41,3 +41,8 @@ pcb_drc.json
 # fab_release/ package next to it is the committed orderable deliverable
 pcb/JLCPCB_2layers/design/fab/
 pcb/JLCPCB_2layers/design/_export_drc.json
+
+# xiao_linefollower regenerable fab outputs (design/tools/export_fab.py etc.);
+# the committed deliverable is xiao_linefollower/production/
+pcb/JLCPCB_2layers_simplified/xiao_linefollower/design/fab/
+pcb/JLCPCB_2layers_simplified/xiao_linefollower/design/fab_release/
