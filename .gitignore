@@ -46,3 +46,8 @@ pcb/JLCPCB_2layers/design/_export_drc.json
 # the committed deliverable is xiao_linefollower/production/
 pcb/JLCPCB_2layers_simplified/xiao_linefollower/design/fab/
 pcb/JLCPCB_2layers_simplified/xiao_linefollower/design/fab_release/
+
+# xiao_linefollower 2-layer variant intermediates (regenerable)
+pcb/JLCPCB_2layers_simplified/xiao_linefollower/design/fab_2l/
+pcb/JLCPCB_2layers_simplified/xiao_linefollower/design/*.dsn
+pcb/JLCPCB_2layers_simplified/xiao_linefollower/design/*.ses

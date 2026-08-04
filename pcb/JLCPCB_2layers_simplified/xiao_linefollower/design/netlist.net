@@ -1,8 +1,8 @@
 (export
 	(version "E")
 	(design
-		(source "C:\\Users\\Mukesh\\OneDrive - Rapyuta Robotics\\Project_OKS_MyDocs\\micromouse-runner\\pcb\\JLCPCB_2layers_simplified\\xiao_linefollower\\design\\micromouse-pcb-simplified.kicad_sch")
-		(date "2026-07-26T21:25:57")
+		(source "D:\\Projects\\micromouse-pcb\\pcb\\JLCPCB_2layers_simplified\\xiao_linefollower\\design\\micromouse-pcb-simplified.kicad_sch")
+		(date "2026-08-03T22:36:04")
 		(tool "Eeschema 10.0.4")
 		(sheet
 			(number "1")
@@ -105,7 +105,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "fe8ae2d3-cead-46f3-b2fc-24395a092637")
+			(tstamps "a21bda13-054f-4b25-bfef-2b42a62d5286")
 			(units
 				(unit
 					(name "A")
@@ -171,7 +171,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c95a088b-a3cd-45ee-9304-9649fbf94534")
+			(tstamps "951be355-fcf5-4900-ad80-dd47901a9601")
 			(units
 				(unit
 					(name "A")
@@ -237,7 +237,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "766baabe-ba7b-494e-8bc2-da79874e7fa5")
+			(tstamps "0d3a1961-0cdf-48f0-863a-bb585676252f")
 			(units
 				(unit
 					(name "A")
@@ -303,7 +303,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b832067d-3af5-4947-99db-a0b67497a40b")
+			(tstamps "ca6f8963-e85a-42a1-a8e6-8c11c69c76d2")
 			(units
 				(unit
 					(name "A")
@@ -369,7 +369,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5306c598-ad5b-4a02-b984-6932449f33f8")
+			(tstamps "797dd5b4-b28d-492e-ba4a-463f6d9467b7")
 			(units
 				(unit
 					(name "A")
@@ -435,7 +435,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3bac1472-1536-4451-9ecc-fc9e913d3045")
+			(tstamps "4ab3c22e-739c-4940-8b22-505f057f617d")
 			(units
 				(unit
 					(name "A")
@@ -501,7 +501,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8eaee582-5e99-4e1e-9798-ed63f11ddad1")
+			(tstamps "cfa168a2-3533-47d4-8fb4-78aa7d6e4b1d")
 			(units
 				(unit
 					(name "A")
@@ -567,7 +567,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5481a5ee-26f8-4c37-8993-6a6cb78d40d5")
+			(tstamps "c5bb1a72-1be7-4ea5-82be-630c565d599b")
 			(units
 				(unit
 					(name "A")
@@ -633,7 +633,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "06a90074-d9f6-4408-94a1-0b3f2bbd8f5d")
+			(tstamps "3749d1fb-d7b6-49a4-bfb8-2d095f31f176")
 			(units
 				(unit
 					(name "A")
@@ -699,7 +699,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "604f9de0-d08d-420b-8d44-45cbae27e3bf")
+			(tstamps "7758300a-c4d4-4fca-9f8b-b3513c650c80")
 			(units
 				(unit
 					(name "A")
@@ -765,7 +765,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "041857c8-5cc5-4665-ac05-117a73c825ae")
+			(tstamps "623f0a1c-6c80-45f6-b822-7cf9d6253206")
 			(units
 				(unit
 					(name "A")
@@ -831,7 +831,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a8b77ecb-fec6-4e22-a3ae-74b3854ee43c")
+			(tstamps "95234b7f-117e-4fd1-9708-62f11dbb4b53")
 			(units
 				(unit
 					(name "A")
@@ -897,7 +897,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5b1d50e6-0a5b-4f3f-bc0d-1f96de4c199f")
+			(tstamps "f93ecc88-2047-4e65-b951-3f88497011d0")
 			(units
 				(unit
 					(name "A")
@@ -963,7 +963,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e4f132e0-2f83-417c-8610-eea8153a92dd")
+			(tstamps "fdc6a577-4fb7-4e23-a8f8-c912bdcc97d0")
 			(units
 				(unit
 					(name "A")
@@ -1029,7 +1029,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "26f4f7c1-c476-4f89-af60-1d7fb6ea5858")
+			(tstamps "5cc2ed90-0540-42e0-ae0f-fab17d477636")
 			(units
 				(unit
 					(name "A")
@@ -1095,139 +1095,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f168e180-a014-4183-a852-76f8ae0c984d")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C40")
-			(value "100nF")
-			(footprint "Capacitor_SMD:C_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "CL21B104KBCNNNC")
-				(field
-					(name "Manufacturer") "Samsung Electro-Mechanics")
-				(field
-					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C")
-				(description "Unpolarized capacitor")
-			)
-			(property
-				(name "MPN")
-				(value "CL21B104KBCNNNC")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Samsung Electro-Mechanics")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "C_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "5af83e01-f007-4bc3-b105-66a5f89694b6")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C41")
-			(value "100nF")
-			(footprint "Capacitor_SMD:C_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "CL21B104KBCNNNC")
-				(field
-					(name "Manufacturer") "Samsung Electro-Mechanics")
-				(field
-					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C")
-				(description "Unpolarized capacitor")
-			)
-			(property
-				(name "MPN")
-				(value "CL21B104KBCNNNC")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Samsung Electro-Mechanics")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "C_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "fb110572-efa3-46df-b46c-22cbe5537ead")
+			(tstamps "fd33f90a-8bdc-422b-b997-810d003cbb5a")
 			(units
 				(unit
 					(name "A")
@@ -1293,7 +1161,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1748de1b-5917-4d2f-ab31-c3d19746294f")
+			(tstamps "2f50dfd5-7c30-4848-b4a1-d2c00fc087d1")
 			(units
 				(unit
 					(name "A")
@@ -1359,7 +1227,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c740d488-27e7-431b-b93f-8d85cafb3dbd")
+			(tstamps "718af8c2-b2a3-419e-90f0-b17fc73bb7a2")
 			(units
 				(unit
 					(name "A")
@@ -1425,7 +1293,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "868e9b84-2f29-4228-ab21-4f29d86887c5")
+			(tstamps "a6536f9e-1b5e-470e-b410-ec332c644241")
 			(units
 				(unit
 					(name "A")
@@ -1491,7 +1359,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d55abb4e-bfb7-4296-8bd6-1d2ebd017405")
+			(tstamps "648bab4c-5f8d-4943-a62c-8850e89ff1e7")
 			(units
 				(unit
 					(name "A")
@@ -1557,7 +1425,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a57df407-5f07-4dda-aae6-51258fbf839a")
+			(tstamps "6fe8db9c-1fad-4fc9-814e-492cfb9ce771")
 			(units
 				(unit
 					(name "A")
@@ -1623,7 +1491,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5e7696c1-1e65-4c1b-9ced-a838c524c9e1")
+			(tstamps "017f12d1-bfba-4ffa-94d6-e200ea528eb2")
 			(units
 				(unit
 					(name "A")
@@ -1689,7 +1557,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "90acff21-3063-4dc8-9273-5ba52219dfc5")
+			(tstamps "2d1d3ef7-05a7-40ef-8dd7-80e7753e8264")
 			(units
 				(unit
 					(name "A")
@@ -1755,7 +1623,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6ed93aac-5c1b-48db-aaba-8916db65cc78")
+			(tstamps "b651b8c0-5a46-44b5-95db-7cb9b098ebe8")
 			(units
 				(unit
 					(name "A")
@@ -1821,7 +1689,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3c3611f2-7a93-4210-b5a0-80a0f40e4994")
+			(tstamps "50a90575-f9fe-4a91-b351-5d56050f6157")
 			(units
 				(unit
 					(name "A")
@@ -1887,535 +1755,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "35fb0dfd-8475-402b-900f-0956cfcafc43")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D41")
-			(value "LINE0 indicator (0603 visible LED; dim, proportional to reflected IR -- IS the pull-up, no transistor buffer per user's minimal-circuit request)")
-			(footprint "LED_SMD:LED_0603_1608Metric")
-			(fields
-				(field
-					(name "MPN") "APT1608SURCK")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "APT1608SURCK")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "53dbf307-95a2-4f09-a6cd-0334004fbcef")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D42")
-			(value "LINE1 indicator (0603 visible LED; dim, proportional to reflected IR -- IS the pull-up, no transistor buffer per user's minimal-circuit request)")
-			(footprint "LED_SMD:LED_0603_1608Metric")
-			(fields
-				(field
-					(name "MPN") "APT1608SURCK")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "APT1608SURCK")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "7c105e89-0bfb-4683-859d-559e11e7f063")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D43")
-			(value "LINE2 indicator (0603 visible LED; dim, proportional to reflected IR -- IS the pull-up, no transistor buffer per user's minimal-circuit request)")
-			(footprint "LED_SMD:LED_0603_1608Metric")
-			(fields
-				(field
-					(name "MPN") "APT1608SURCK")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "APT1608SURCK")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "8d3a09f0-c61a-49d8-9802-5af447447eee")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D44")
-			(value "LINE3 indicator (0603 visible LED; dim, proportional to reflected IR -- IS the pull-up, no transistor buffer per user's minimal-circuit request)")
-			(footprint "LED_SMD:LED_0603_1608Metric")
-			(fields
-				(field
-					(name "MPN") "APT1608SURCK")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "APT1608SURCK")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "c1d26306-23fb-4678-b777-4a643a44c804")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D45")
-			(value "LINE4 indicator (0603 visible LED; dim, proportional to reflected IR -- IS the pull-up, no transistor buffer per user's minimal-circuit request)")
-			(footprint "LED_SMD:LED_0603_1608Metric")
-			(fields
-				(field
-					(name "MPN") "APT1608SURCK")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "APT1608SURCK")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "8139d74d-a4cd-48f1-8063-8ce9604d71f6")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D46")
-			(value "LINE5 indicator (0603 visible LED; dim, proportional to reflected IR -- IS the pull-up, no transistor buffer per user's minimal-circuit request)")
-			(footprint "LED_SMD:LED_0603_1608Metric")
-			(fields
-				(field
-					(name "MPN") "APT1608SURCK")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "APT1608SURCK")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "26f8920f-3b1f-4b81-acaf-75ae84afe4b8")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D47")
-			(value "LINE6 indicator (0603 visible LED; dim, proportional to reflected IR -- IS the pull-up, no transistor buffer per user's minimal-circuit request)")
-			(footprint "LED_SMD:LED_0603_1608Metric")
-			(fields
-				(field
-					(name "MPN") "APT1608SURCK")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "APT1608SURCK")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "797a118b-15c3-4403-b034-995cb5b25d91")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D48")
-			(value "LINE7 indicator (0603 visible LED; dim, proportional to reflected IR -- IS the pull-up, no transistor buffer per user's minimal-circuit request)")
-			(footprint "LED_SMD:LED_0603_1608Metric")
-			(fields
-				(field
-					(name "MPN") "APT1608SURCK")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "APT1608SURCK")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "16158381-aa4d-4cce-bf48-deb520a4be1d")
+			(tstamps "7029524f-6b29-41b2-9abf-003258fe77dc")
 			(units
 				(unit
 					(name "A")
@@ -2481,7 +1821,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e27c9bc3-fa77-474b-81a9-47e720fa219f")
+			(tstamps "559754a6-107a-453e-a20b-cebcb0d20742")
 			(units
 				(unit
 					(name "A")
@@ -2547,7 +1887,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "05e38d0f-e371-444e-92bc-b95beda2bb6f")
+			(tstamps "8ee37073-6add-492a-8e04-881d65e86636")
 			(units
 				(unit
 					(name "A")
@@ -2613,7 +1953,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "33241657-9812-4e28-90ec-116e1ee7fad9")
+			(tstamps "bd7e03f7-f945-455a-98dc-8df51e638f98")
 			(units
 				(unit
 					(name "A")
@@ -2679,7 +2019,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "16848c31-0dbd-422f-8543-d123890e3f31")
+			(tstamps "03539066-21e2-4098-a0fe-eb75304da69e")
 			(units
 				(unit
 					(name "A")
@@ -2745,7 +2085,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8fbd846b-21b1-48ee-bddf-e892211d6683")
+			(tstamps "af8ec5d6-7b90-4549-a0be-a029f4975dd4")
 			(units
 				(unit
 					(name "A")
@@ -2811,7 +2151,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cf0359e3-752b-4182-af4e-85a20890581f")
+			(tstamps "b3057f99-b691-4cd5-90d3-7f2f2e7168c8")
 			(units
 				(unit
 					(name "A")
@@ -2877,7 +2217,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6421deeb-5e3a-4b0e-bf58-0e64734f8574")
+			(tstamps "2b995e42-5663-4cc5-9f40-386b6afbd232")
 			(units
 				(unit
 					(name "A")
@@ -2943,7 +2283,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d69b0529-9656-43e4-af45-3f3aca49a148")
+			(tstamps "3f368db8-78f0-44c1-95e9-ba87408272ca")
 			(units
 				(unit
 					(name "A")
@@ -3009,7 +2349,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "fe3173a5-41ad-44a3-9413-c00f6b38a167")
+			(tstamps "2ca25849-1122-4470-9c52-79dbc30b4e7b")
 			(units
 				(unit
 					(name "A")
@@ -3087,7 +2427,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "70604c6d-90ce-40d4-98d3-2ff3aef8be7d")
+			(tstamps "91c7f9fc-64c6-4954-938d-9cc1c82ffdf1")
 			(units
 				(unit
 					(name "A")
@@ -3165,7 +2505,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c8bd0d72-dd6b-457a-844a-9a6f5a69ca97")
+			(tstamps "3d3ade73-690b-4350-a464-cd4a9e0713e5")
 			(units
 				(unit
 					(name "A")
@@ -3231,7 +2571,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "514b9e83-07d4-4491-ac08-a6b13c48232c")
+			(tstamps "e556d62f-2d41-4157-9d28-c3f802d0b3f8")
 			(units
 				(unit
 					(name "A")
@@ -3297,7 +2637,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "80e1efda-bdc8-4a8f-bb78-a5c5127bc5b8")
+			(tstamps "b8d5d6ee-c9c5-4112-8934-a8229ff526f2")
 			(units
 				(unit
 					(name "A")
@@ -3359,7 +2699,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3b585ca7-52c7-4c80-9b87-5894cfb2ae26")
+			(tstamps "8370da92-3c64-468f-b47c-efbb7122a460")
 			(units
 				(unit
 					(name "A")
@@ -3428,7 +2768,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b1c5893a-19a9-4068-a1fe-667520ff67d4")
+			(tstamps "c65a73d4-5a99-44be-a3c4-d2f921c93d6d")
 			(units
 				(unit
 					(name "A")
@@ -3494,7 +2834,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "84f7426e-3ba8-4a25-b65e-08517ae392ba")
+			(tstamps "41abce8f-6a80-4578-90a1-f9f6d97ac2ac")
 			(units
 				(unit
 					(name "A")
@@ -3560,7 +2900,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "82d4f81a-2b7a-4d99-8732-36db65e0bb3a")
+			(tstamps "05589209-d25e-4dad-9930-4e501ba539d0")
 			(units
 				(unit
 					(name "A")
@@ -3626,7 +2966,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4f4d689f-6c84-4a9e-a11e-bdf92bf1569a")
+			(tstamps "aefc1152-7a2b-43cd-80b0-d07728c03606")
 			(units
 				(unit
 					(name "A")
@@ -3692,7 +3032,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d6f70c5f-d1fd-455c-825e-39ceaf72fa5a")
+			(tstamps "cd9b6c9b-bef7-4d4b-8b62-4c9b9e96374a")
 			(units
 				(unit
 					(name "A")
@@ -3758,7 +3098,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "149d9e1d-e2e4-4731-8544-d9fa6b4183f8")
+			(tstamps "1c036c42-1eaf-43d0-8f4d-fea1448ecf60")
 			(units
 				(unit
 					(name "A")
@@ -3820,7 +3160,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "aa33dd58-4d72-4d21-9adb-581b3e3f061b")
+			(tstamps "19c8e40a-852f-45b0-ad56-df51347e9620")
 			(units
 				(unit
 					(name "A")
@@ -3885,7 +3225,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ba8e4a0b-8e7e-4c37-8839-d02aadb76e62")
+			(tstamps "6e6f11e9-8e6e-4133-94e3-b22de6c110c4")
 			(units
 				(unit
 					(name "A")
@@ -3950,7 +3290,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8e89c8f3-04b5-42ff-9b84-08f22d666d76")
+			(tstamps "b11b72b7-d272-46bb-96ba-28546897cce1")
 			(units
 				(unit
 					(name "A")
@@ -4015,7 +3355,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c81a113e-00b3-4f82-8cd1-5b0415fab62a")
+			(tstamps "cc43f3a0-c923-41ce-88f9-8bf78d686620")
 			(units
 				(unit
 					(name "A")
@@ -4028,582 +3368,6 @@
 						)
 						(pin
 							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q41")
-			(value "QRE1113GR (onsemi SMT reflective sensor; Pololu QTR sensor part; pin1=Anode pin2=Cathode(IR LED) pin3=Collector pin4=Emitter(phototransistor); B.Cu placement, faces the floor)")
-			(footprint "qre1113:QRE1113GR")
-			(fields
-				(field
-					(name "MPN") "QRE1113GR")
-				(field
-					(name "Manufacturer") "onsemi")
-				(field
-					(name "Footprint") "qre1113:QRE1113GR")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x04")
-				(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "MPN")
-				(value "QRE1113GR")
-			)
-			(property
-				(name "Manufacturer")
-				(value "onsemi")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "ab54e7f4-aae5-42ea-92a7-ab4074cff735")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "4")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q42")
-			(value "QRE1113GR (onsemi SMT reflective sensor; Pololu QTR sensor part; pin1=Anode pin2=Cathode(IR LED) pin3=Collector pin4=Emitter(phototransistor); B.Cu placement, faces the floor)")
-			(footprint "qre1113:QRE1113GR")
-			(fields
-				(field
-					(name "MPN") "QRE1113GR")
-				(field
-					(name "Manufacturer") "onsemi")
-				(field
-					(name "Footprint") "qre1113:QRE1113GR")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x04")
-				(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "MPN")
-				(value "QRE1113GR")
-			)
-			(property
-				(name "Manufacturer")
-				(value "onsemi")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "758f875e-130f-4a8e-a69e-c33ada22ef0a")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "4")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q43")
-			(value "QRE1113GR (onsemi SMT reflective sensor; Pololu QTR sensor part; pin1=Anode pin2=Cathode(IR LED) pin3=Collector pin4=Emitter(phototransistor); B.Cu placement, faces the floor)")
-			(footprint "qre1113:QRE1113GR")
-			(fields
-				(field
-					(name "MPN") "QRE1113GR")
-				(field
-					(name "Manufacturer") "onsemi")
-				(field
-					(name "Footprint") "qre1113:QRE1113GR")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x04")
-				(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "MPN")
-				(value "QRE1113GR")
-			)
-			(property
-				(name "Manufacturer")
-				(value "onsemi")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "71d430bb-8f6b-4edc-93ae-edf20f4c20e4")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "4")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q44")
-			(value "QRE1113GR (onsemi SMT reflective sensor; Pololu QTR sensor part; pin1=Anode pin2=Cathode(IR LED) pin3=Collector pin4=Emitter(phototransistor); B.Cu placement, faces the floor)")
-			(footprint "qre1113:QRE1113GR")
-			(fields
-				(field
-					(name "MPN") "QRE1113GR")
-				(field
-					(name "Manufacturer") "onsemi")
-				(field
-					(name "Footprint") "qre1113:QRE1113GR")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x04")
-				(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "MPN")
-				(value "QRE1113GR")
-			)
-			(property
-				(name "Manufacturer")
-				(value "onsemi")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "0cf24322-ce03-485f-baf7-0a35c04a4930")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "4")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q45")
-			(value "QRE1113GR (onsemi SMT reflective sensor; Pololu QTR sensor part; pin1=Anode pin2=Cathode(IR LED) pin3=Collector pin4=Emitter(phototransistor); B.Cu placement, faces the floor)")
-			(footprint "qre1113:QRE1113GR")
-			(fields
-				(field
-					(name "MPN") "QRE1113GR")
-				(field
-					(name "Manufacturer") "onsemi")
-				(field
-					(name "Footprint") "qre1113:QRE1113GR")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x04")
-				(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "MPN")
-				(value "QRE1113GR")
-			)
-			(property
-				(name "Manufacturer")
-				(value "onsemi")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "4028b07c-2aff-4a23-b035-08481d53eea6")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "4")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q46")
-			(value "QRE1113GR (onsemi SMT reflective sensor; Pololu QTR sensor part; pin1=Anode pin2=Cathode(IR LED) pin3=Collector pin4=Emitter(phototransistor); B.Cu placement, faces the floor)")
-			(footprint "qre1113:QRE1113GR")
-			(fields
-				(field
-					(name "MPN") "QRE1113GR")
-				(field
-					(name "Manufacturer") "onsemi")
-				(field
-					(name "Footprint") "qre1113:QRE1113GR")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x04")
-				(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "MPN")
-				(value "QRE1113GR")
-			)
-			(property
-				(name "Manufacturer")
-				(value "onsemi")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "0f6b836f-0399-4710-b289-5b4d2aad3a03")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "4")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q47")
-			(value "QRE1113GR (onsemi SMT reflective sensor; Pololu QTR sensor part; pin1=Anode pin2=Cathode(IR LED) pin3=Collector pin4=Emitter(phototransistor); B.Cu placement, faces the floor)")
-			(footprint "qre1113:QRE1113GR")
-			(fields
-				(field
-					(name "MPN") "QRE1113GR")
-				(field
-					(name "Manufacturer") "onsemi")
-				(field
-					(name "Footprint") "qre1113:QRE1113GR")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x04")
-				(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "MPN")
-				(value "QRE1113GR")
-			)
-			(property
-				(name "Manufacturer")
-				(value "onsemi")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "425b495d-02f2-4c26-abb2-6bee1c69717f")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "4")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q48")
-			(value "QRE1113GR (onsemi SMT reflective sensor; Pololu QTR sensor part; pin1=Anode pin2=Cathode(IR LED) pin3=Collector pin4=Emitter(phototransistor); B.Cu placement, faces the floor)")
-			(footprint "qre1113:QRE1113GR")
-			(fields
-				(field
-					(name "MPN") "QRE1113GR")
-				(field
-					(name "Manufacturer") "onsemi")
-				(field
-					(name "Footprint") "qre1113:QRE1113GR")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x04")
-				(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "MPN")
-				(value "QRE1113GR")
-			)
-			(property
-				(name "Manufacturer")
-				(value "onsemi")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "e4991775-b087-4e61-b2ec-35817949b185")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "4")
 						)
 					)
 				)
@@ -4660,7 +3424,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e61d3c55-539e-48f3-a69e-7204524a979f")
+			(tstamps "017e94c9-778c-4ebd-bd5c-c1eba05dad76")
 			(units
 				(unit
 					(name "A")
@@ -4726,7 +3490,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "dc908b0a-c2b2-4f56-84f4-64a27701c268")
+			(tstamps "bbe558a2-1eac-4689-9d6c-20dd598b0433")
 			(units
 				(unit
 					(name "A")
@@ -4792,7 +3556,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1f06b213-bdd3-48ed-b4ad-d015e41d2d2c")
+			(tstamps "815e6adc-657f-4b1c-a458-443a8b1429a8")
 			(units
 				(unit
 					(name "A")
@@ -4858,7 +3622,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "d6c73c82-d267-4297-a588-f9dea5c3dc6c")
+			(tstamps "72eaefe6-4cdf-4851-b437-bba8ee5c2f51")
 			(units
 				(unit
 					(name "A")
@@ -4924,7 +3688,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7d8ce450-f0fe-4b66-b05c-2cf694f7d1c7")
+			(tstamps "2bb81698-6df0-4402-8feb-f6079d80beb1")
 			(units
 				(unit
 					(name "A")
@@ -4990,7 +3754,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9e00da7e-8d9e-4e5d-ac90-a812c19686b7")
+			(tstamps "101ce091-48ea-43bf-a9c3-4ea9a21d2d55")
 			(units
 				(unit
 					(name "A")
@@ -5056,7 +3820,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "befd9baf-0d29-43de-9128-fcc9c3bdd35d")
+			(tstamps "a22bffde-4226-4450-b1fd-84633b5a39de")
 			(units
 				(unit
 					(name "A")
@@ -5122,7 +3886,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c8f083da-a2f1-4e19-bfb0-045aabc23087")
+			(tstamps "9582a83b-27c4-414f-9019-9a165067ede6")
 			(units
 				(unit
 					(name "A")
@@ -5188,7 +3952,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3233c329-6a3e-4d8e-b413-ef1e42305b5d")
+			(tstamps "ef30d85e-6e06-4118-b03f-f82c00d23625")
 			(units
 				(unit
 					(name "A")
@@ -5254,7 +4018,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6c8b14a9-e492-44da-bbb7-d699b813269b")
+			(tstamps "3dd09558-7dbc-4002-aaae-f7be444f7ea3")
 			(units
 				(unit
 					(name "A")
@@ -5320,7 +4084,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "56744585-6b16-42ff-8383-4fd816105a4c")
+			(tstamps "92ab9155-5b88-45f4-a2b1-f5d388803424")
 			(units
 				(unit
 					(name "A")
@@ -5386,7 +4150,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5239671d-b89c-46b5-b43e-50ac596bb364")
+			(tstamps "c5774a46-8bf3-4242-b1db-1cf8916ab115")
 			(units
 				(unit
 					(name "A")
@@ -5452,7 +4216,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1ea99585-4ba3-477f-9156-417f35f36854")
+			(tstamps "bcbb61c1-b01c-46cf-8eed-fd6312c8149c")
 			(units
 				(unit
 					(name "A")
@@ -5518,7 +4282,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "73f83a1c-6cd9-4767-9bd5-465685d6f2a7")
+			(tstamps "59f90931-d44a-45e0-95e3-892d6f7507b7")
 			(units
 				(unit
 					(name "A")
@@ -5584,7 +4348,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "589d203e-0642-484e-b47d-dda6d5fce1d7")
+			(tstamps "c4f805bb-4570-423e-932b-f496e786f906")
 			(units
 				(unit
 					(name "A")
@@ -5650,7 +4414,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "358dda5b-371f-4127-8984-97b0f02a7aa9")
+			(tstamps "4b99290c-01de-425f-9bd3-2fd446b725df")
 			(units
 				(unit
 					(name "A")
@@ -5716,7 +4480,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "72ec377c-e82b-4e5a-ae51-b6b4beeb77f2")
+			(tstamps "923d3729-4d7a-467a-a25d-3b4c794f7c47")
 			(units
 				(unit
 					(name "A")
@@ -5782,7 +4546,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "62106fda-1c34-4425-bb2f-a147d2ba1f45")
+			(tstamps "3b1a6661-5b0d-4076-9fc2-b0ac51e2d4c7")
 			(units
 				(unit
 					(name "A")
@@ -5848,7 +4612,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "56e0a262-93b5-49fd-b4a6-793b4db6404b")
+			(tstamps "49b4764b-630b-40ab-837a-4d3cfc71872a")
 			(units
 				(unit
 					(name "A")
@@ -5914,7 +4678,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a0a6692b-f963-43f8-af26-de618eb98b04")
+			(tstamps "aa811eb1-73fd-4c30-9008-eefff5bb355f")
 			(units
 				(unit
 					(name "A")
@@ -5980,7 +4744,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "49d77b81-91f3-4275-81b1-4e686f43ceb7")
+			(tstamps "728b9e31-028c-4ef5-9038-be07790a34c3")
 			(units
 				(unit
 					(name "A")
@@ -6046,7 +4810,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a3b81636-2723-4ef5-bee5-5f7faea6061c")
+			(tstamps "eee21a51-3d98-4265-8c59-29e26c34455a")
 			(units
 				(unit
 					(name "A")
@@ -6112,7 +4876,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2af53a14-0b3e-499e-8e8b-4dcb8f875107")
+			(tstamps "896bca20-3eb1-44d0-a473-ad4881ac5ae1")
 			(units
 				(unit
 					(name "A")
@@ -6178,7 +4942,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a5f50c70-3d7f-4161-96fe-247787792f8c")
+			(tstamps "9b932309-8f97-4895-83fe-b4924f1a286f")
 			(units
 				(unit
 					(name "A")
@@ -6244,7 +5008,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "183a32f6-5f9b-483d-a9fb-b17e0e8a5ea2")
+			(tstamps "ba10496d-56c6-45d2-8738-5a62fd498ead")
 			(units
 				(unit
 					(name "A")
@@ -6310,7 +5074,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6c830be8-47f0-4ca8-a587-9f6fd91e5f78")
+			(tstamps "86f687c3-670d-43e4-873c-fac29f94f98a")
 			(units
 				(unit
 					(name "A")
@@ -6376,7 +5140,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "24ce8a0f-b090-4174-b778-2e3e337f3912")
+			(tstamps "70e7c35f-34bb-4df7-8943-697262e81764")
 			(units
 				(unit
 					(name "A")
@@ -6442,7 +5206,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "47e0467f-083b-4a1b-97e0-d2fc3d364fdb")
+			(tstamps "5e4bfb2a-98fc-4354-956b-1dfecb106781")
 			(units
 				(unit
 					(name "A")
@@ -6508,7 +5272,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5e6f724b-21ce-4491-bb23-d0971dc4adc3")
+			(tstamps "487c17e3-181b-4da5-a1b8-58871e01e71c")
 			(units
 				(unit
 					(name "A")
@@ -6574,535 +5338,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "336f0929-f5b3-4351-b881-aa0904121089")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R91")
-			(value "220")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-07220RL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-07220RL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "bd24c6d2-b96a-405f-bff9-a8f3aa0a0195")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R92")
-			(value "220")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-07220RL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-07220RL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "a1b8d7d5-11eb-4ca2-8249-4f03eadb0063")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R93")
-			(value "220")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-07220RL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-07220RL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "927f3074-2a1e-40ac-95b0-506d7804a629")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R94")
-			(value "220")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-07220RL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-07220RL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "4408cc82-10f8-415d-8c6d-bb6495baa3ac")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R95")
-			(value "220")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-07220RL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-07220RL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "0e78a7db-0170-4595-9751-181f518924af")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R96")
-			(value "220")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-07220RL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-07220RL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "f8daa0b6-8f39-4ab3-b096-7305e4487fce")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R97")
-			(value "220")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-07220RL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-07220RL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "4a89fb87-19fa-4f04-b0ad-4e27acd0ecb2")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R98")
-			(value "220")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-07220RL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-07220RL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "4dbcf196-ac8a-41d0-9e65-22bb48ad0cfa")
+			(tstamps "80d2e0eb-5472-471c-9a03-6081db3a9a66")
 			(units
 				(unit
 					(name "A")
@@ -7168,7 +5404,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f4d576a5-b2d5-4ede-ad54-cce2fa4e9bf8")
+			(tstamps "2b759b7d-2dbe-4de4-ad72-df43372ada6e")
 			(units
 				(unit
 					(name "A")
@@ -7234,7 +5470,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1c31d9e1-eff2-47e9-9955-7ec748bb575f")
+			(tstamps "379facc3-c4dd-4d06-a6d2-4f8d1375323e")
 			(units
 				(unit
 					(name "A")
@@ -7300,7 +5536,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8e530c3b-6910-49dc-a7ed-b6f2e44304cd")
+			(tstamps "24f001bc-9a9c-451f-809f-a4428bbf087a")
 			(units
 				(unit
 					(name "A")
@@ -7366,7 +5602,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "14013c6e-7e38-4280-8345-e7f927576564")
+			(tstamps "9f6dea10-a483-4e17-9f90-8d0b8417baf3")
 			(units
 				(unit
 					(name "A")
@@ -7432,7 +5668,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ad50f13f-84a0-4830-acf8-e572caed8057")
+			(tstamps "08acef30-49e5-4fa4-a8e1-138473be25e8")
 			(units
 				(unit
 					(name "A")
@@ -7498,7 +5734,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3d75daec-db85-419f-b2a8-d37cd14e9c3a")
+			(tstamps "6ad634df-47c3-4051-a1b5-e5ef9fbf67cc")
 			(units
 				(unit
 					(name "A")
@@ -7564,7 +5800,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2700b49b-aa38-4c4f-8889-463b031accd9")
+			(tstamps "1cc091ad-5967-4cee-9e8b-92c628d3f188")
 			(units
 				(unit
 					(name "A")
@@ -7630,7 +5866,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7cdf53b6-311e-4e3e-8016-ce7c131d588f")
+			(tstamps "589d0c0d-1b14-4d74-ab0f-01b3f6abe2eb")
 			(units
 				(unit
 					(name "A")
@@ -7692,7 +5928,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1f0978ba-0e17-4d13-8e49-729b41be636a")
+			(tstamps "297201a4-e98c-4000-9349-593a89cd2cd7")
 			(units
 				(unit
 					(name "A")
@@ -7754,7 +5990,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2079eeed-c082-4b29-93e0-70a776e97bd6")
+			(tstamps "5e5b2b53-67b9-4954-99cf-f73ffa8332f0")
 			(units
 				(unit
 					(name "A")
@@ -7816,7 +6052,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "97d9e98a-e7fb-4857-adeb-545e17883a2d")
+			(tstamps "8388d882-5930-419e-aada-6a621e4ddfec")
 			(units
 				(unit
 					(name "A")
@@ -7881,7 +6117,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c1db4362-b7ea-49d7-aa23-d583d4975206")
+			(tstamps "070c27b2-93d6-4cce-bf09-42270fa0489b")
 			(units
 				(unit
 					(name "A")
@@ -7946,7 +6182,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2a318ea5-3c75-4a97-a262-5633379eed81")
+			(tstamps "4083f93d-c2f9-4e93-add1-906cc5adf0f0")
 			(units
 				(unit
 					(name "A")
@@ -8015,7 +6251,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "88da143e-9209-494e-8779-e7bac5499a53")
+			(tstamps "b03b5da0-8ca3-400e-978c-ef219b6a2a8d")
 			(units
 				(unit
 					(name "A")
@@ -8093,7 +6329,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7f70b5e5-0f6f-4999-99fd-024e5b4045ce")
+			(tstamps "a056ffd2-d479-48a0-b65a-cc1da793f0cf")
 			(units
 				(unit
 					(name "A")
@@ -8225,7 +6461,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "529893cd-309d-405b-9945-bef842fd72e0")
+			(tstamps "31d42ca2-6b28-44e1-9dba-e6e58d1adb4f")
 			(units
 				(unit
 					(name "A")
@@ -8304,114 +6540,6 @@
 			)
 		)
 		(comp
-			(ref "U4")
-			(value "ADS7830IPWR (I2C 8-ch 8-bit ADC, TSSOP-16; A0=A1=GND -> addr 0x48; internal 2.5V ref; single-ended mode, COM unused)")
-			(footprint "Package_SO:TSSOP-16_4.4x5mm_P0.65mm")
-			(datasheet "https://www.ti.com/lit/ds/symlink/ads7830.pdf")
-			(fields
-				(field
-					(name "MPN") "ADS7830IPWR")
-				(field
-					(name "Manufacturer") "Texas Instruments")
-				(field
-					(name "Footprint") "Package_SO:TSSOP-16_4.4x5mm_P0.65mm")
-				(field
-					(name "Datasheet") "https://www.ti.com/lit/ds/symlink/ads7830.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Analog_DAC")
-				(part "ADS7830")
-				(description "Single-supply, 8bit, 8 ch, SAR, 70kHz SR, 2.7 - 5 VDD, I2C, TSSOP-16")
-			)
-			(property
-				(name "MPN")
-				(value "ADS7830IPWR")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Texas Instruments")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "8bit DAC 8CH")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TSSOP*4.4x5mm*P0.65mm*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "e1a77a25-e2fb-4740-851f-2ca01b83c688")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "4")
-						)
-						(pin
-							(num "5")
-						)
-						(pin
-							(num "6")
-						)
-						(pin
-							(num "7")
-						)
-						(pin
-							(num "8")
-						)
-						(pin
-							(num "11")
-						)
-						(pin
-							(num "16")
-						)
-						(pin
-							(num "9")
-						)
-						(pin
-							(num "15")
-						)
-						(pin
-							(num "14")
-						)
-						(pin
-							(num "10")
-						)
-						(pin
-							(num "13")
-						)
-						(pin
-							(num "12")
-						)
-					)
-				)
-			)
-		)
-		(comp
 			(ref "U5")
 			(value "PCF8574DWR (8-bit I2C GPIO expander, SOIC-16W; A0=A1=A2=GND -> addr 0x20/0x21; TCA9534 base symbol so ERC checks pins -- see comment above)")
 			(footprint "Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm")
@@ -8462,7 +6590,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6cd4b08c-9421-450d-bad9-816a5739cfa5")
+			(tstamps "8432696f-99cf-4aec-9ea1-ff8387401370")
 			(units
 				(unit
 					(name "A")
@@ -8570,7 +6698,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "62dbefa5-2192-45cd-915d-f4eb54ee7bb4")
+			(tstamps "a38ea804-582c-4a0c-9648-bcd18afd86c2")
 			(units
 				(unit
 					(name "A")
@@ -8602,109 +6730,6 @@
 	(variants)
 	(libparts
 		(libpart
-			(lib "Analog_DAC")
-			(part "ADS7830")
-			(description "Single-supply, 8bit, 8 ch, SAR, 70kHz SR, 2.7 - 5 VDD, I2C, TSSOP-16")
-			(docs "http://www.ti.com/lit/ds/symlink/ads7830.pdf")
-			(footprints
-				(fp "TSSOP*4.4x5mm*P0.65mm*")
-			)
-			(fields
-				(field
-					(name "Reference") "U")
-				(field
-					(name "Value") "ADS7830")
-				(field
-					(name "Footprint") "Package_SO:TSSOP-16_4.4x5mm_P0.65mm")
-				(field
-					(name "Datasheet") "http://www.ti.com/lit/ds/symlink/ads7830.pdf")
-				(field
-					(name "Description") "Single-supply, 8bit, 8 ch, SAR, 70kHz SR, 2.7 - 5 VDD, I2C, TSSOP-16")
-			)
-			(pins
-				(pin
-					(num "1")
-					(name "CH0")
-					(type "input")
-				)
-				(pin
-					(num "2")
-					(name "CH1")
-					(type "input")
-				)
-				(pin
-					(num "3")
-					(name "CH2")
-					(type "input")
-				)
-				(pin
-					(num "4")
-					(name "CH3")
-					(type "input")
-				)
-				(pin
-					(num "5")
-					(name "CH4")
-					(type "input")
-				)
-				(pin
-					(num "6")
-					(name "CH5")
-					(type "input")
-				)
-				(pin
-					(num "7")
-					(name "CH6")
-					(type "input")
-				)
-				(pin
-					(num "8")
-					(name "CH7")
-					(type "input")
-				)
-				(pin
-					(num "9")
-					(name "GND")
-					(type "power_in")
-				)
-				(pin
-					(num "10")
-					(name "REFin/REFout")
-					(type "bidirectional")
-				)
-				(pin
-					(num "11")
-					(name "COM")
-					(type "input")
-				)
-				(pin
-					(num "12")
-					(name "A0")
-					(type "input")
-				)
-				(pin
-					(num "13")
-					(name "A1")
-					(type "input")
-				)
-				(pin
-					(num "14")
-					(name "SCL")
-					(type "input")
-				)
-				(pin
-					(num "15")
-					(name "SDA")
-					(type "bidirectional")
-				)
-				(pin
-					(num "16")
-					(name "VDD")
-					(type "power_in")
-				)
-			)
-		)
-		(libpart
 			(lib "Connector_Generic")
 			(part "Conn_01x02")
 			(description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")
@@ -8734,50 +6759,6 @@
 				(pin
 					(num "2")
 					(name "Pin_2")
-					(type "passive")
-				)
-			)
-		)
-		(libpart
-			(lib "Connector_Generic")
-			(part "Conn_01x04")
-			(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			(footprints
-				(fp "Connector*:*_1x??_*")
-			)
-			(fields
-				(field
-					(name "Reference") "J")
-				(field
-					(name "Value") "Conn_01x04")
-				(field
-					(name "Footprint")
-				)
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description") "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(pins
-				(pin
-					(num "1")
-					(name "Pin_1")
-					(type "passive")
-				)
-				(pin
-					(num "2")
-					(name "Pin_2")
-					(type "passive")
-				)
-				(pin
-					(num "3")
-					(name "Pin_3")
-					(type "passive")
-				)
-				(pin
-					(num "4")
-					(name "Pin_4")
 					(type "passive")
 				)
 			)
@@ -9791,10 +7772,6 @@
 	)
 	(libraries
 		(library
-			(logical "Analog_DAC")
-			(uri "${KICAD10_SYMBOL_DIR}/Analog_DAC.kicad_sym")
-		)
-		(library
 			(logical "Connector_Generic")
 			(uri "${KICAD10_SYMBOL_DIR}/Connector_Generic.kicad_sym")
 		)
@@ -10208,16 +8185,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "C40")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "C41")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
 				(ref "C5")
 				(pin "2")
 				(pintype "passive")
@@ -10308,102 +8275,6 @@
 				(ref "Q4")
 				(pin "2")
 				(pinfunction "E_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q41")
-				(pin "2")
-				(pinfunction "Pin_2_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q41")
-				(pin "4")
-				(pinfunction "Pin_4_4")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q42")
-				(pin "2")
-				(pinfunction "Pin_2_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q42")
-				(pin "4")
-				(pinfunction "Pin_4_4")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q43")
-				(pin "2")
-				(pinfunction "Pin_2_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q43")
-				(pin "4")
-				(pinfunction "Pin_4_4")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q44")
-				(pin "2")
-				(pinfunction "Pin_2_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q44")
-				(pin "4")
-				(pinfunction "Pin_4_4")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q45")
-				(pin "2")
-				(pinfunction "Pin_2_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q45")
-				(pin "4")
-				(pinfunction "Pin_4_4")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q46")
-				(pin "2")
-				(pinfunction "Pin_2_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q46")
-				(pin "4")
-				(pinfunction "Pin_4_4")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q47")
-				(pin "2")
-				(pinfunction "Pin_2_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q47")
-				(pin "4")
-				(pinfunction "Pin_4_4")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q48")
-				(pin "2")
-				(pinfunction "Pin_2_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q48")
-				(pin "4")
-				(pinfunction "Pin_4_4")
 				(pintype "passive")
 			)
 			(node
@@ -10527,24 +8398,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "U4")
-				(pin "12")
-				(pinfunction "A0_12")
-				(pintype "input")
-			)
-			(node
-				(ref "U4")
-				(pin "13")
-				(pinfunction "A1_13")
-				(pintype "input")
-			)
-			(node
-				(ref "U4")
-				(pin "9")
-				(pinfunction "GND_9")
-				(pintype "power_in")
-			)
-			(node
 				(ref "U5")
 				(pin "1")
 				(pinfunction "A0_1")
@@ -10577,190 +8430,6 @@
 		)
 		(net
 			(code "17")
-			(name "LINE0_ADC")
-			(class "Default")
-			(node
-				(ref "D41")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q41")
-				(pin "3")
-				(pinfunction "Pin_3_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "1")
-				(pinfunction "CH0_1")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "18")
-			(name "LINE1_ADC")
-			(class "Default")
-			(node
-				(ref "D42")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q42")
-				(pin "3")
-				(pinfunction "Pin_3_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "2")
-				(pinfunction "CH1_2")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "19")
-			(name "LINE2_ADC")
-			(class "Default")
-			(node
-				(ref "D43")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q43")
-				(pin "3")
-				(pinfunction "Pin_3_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "3")
-				(pinfunction "CH2_3")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "20")
-			(name "LINE3_ADC")
-			(class "Default")
-			(node
-				(ref "D44")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q44")
-				(pin "3")
-				(pinfunction "Pin_3_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "4")
-				(pinfunction "CH3_4")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "21")
-			(name "LINE4_ADC")
-			(class "Default")
-			(node
-				(ref "D45")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q45")
-				(pin "3")
-				(pinfunction "Pin_3_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "5")
-				(pinfunction "CH4_5")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "22")
-			(name "LINE5_ADC")
-			(class "Default")
-			(node
-				(ref "D46")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q46")
-				(pin "3")
-				(pinfunction "Pin_3_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "6")
-				(pinfunction "CH5_6")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "23")
-			(name "LINE6_ADC")
-			(class "Default")
-			(node
-				(ref "D47")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q47")
-				(pin "3")
-				(pinfunction "Pin_3_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "7")
-				(pinfunction "CH6_7")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "24")
-			(name "LINE7_ADC")
-			(class "Default")
-			(node
-				(ref "D48")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q48")
-				(pin "3")
-				(pinfunction "Pin_3_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "8")
-				(pinfunction "CH7_8")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "25")
 			(name "MOTA_N")
 			(class "Default")
 			(node
@@ -10783,7 +8452,7 @@
 			)
 		)
 		(net
-			(code "26")
+			(code "18")
 			(name "MOTA_P")
 			(class "Default")
 			(node
@@ -10806,7 +8475,7 @@
 			)
 		)
 		(net
-			(code "27")
+			(code "19")
 			(name "MOTB_N")
 			(class "Default")
 			(node
@@ -10829,7 +8498,7 @@
 			)
 		)
 		(net
-			(code "28")
+			(code "20")
 			(name "MOTB_P")
 			(class "Default")
 			(node
@@ -10852,7 +8521,7 @@
 			)
 		)
 		(net
-			(code "29")
+			(code "21")
 			(name "MOTLED_A")
 			(class "Default")
 			(node
@@ -10868,7 +8537,7 @@
 			)
 		)
 		(net
-			(code "30")
+			(code "22")
 			(name "MOT_EN")
 			(class "Default")
 			(node
@@ -10895,7 +8564,7 @@
 			)
 		)
 		(net
-			(code "31")
+			(code "23")
 			(name "Net-(D1-A)")
 			(class "Default")
 			(node
@@ -10911,7 +8580,7 @@
 			)
 		)
 		(net
-			(code "32")
+			(code "24")
 			(name "Net-(D2-A)")
 			(class "Default")
 			(node
@@ -10927,7 +8596,7 @@
 			)
 		)
 		(net
-			(code "33")
+			(code "25")
 			(name "Net-(D3-A)")
 			(class "Default")
 			(node
@@ -10943,7 +8612,7 @@
 			)
 		)
 		(net
-			(code "34")
+			(code "26")
 			(name "Net-(D4-A)")
 			(class "Default")
 			(node
@@ -10959,7 +8628,7 @@
 			)
 		)
 		(net
-			(code "35")
+			(code "27")
 			(name "Net-(D5-A)")
 			(class "Default")
 			(node
@@ -10975,7 +8644,7 @@
 			)
 		)
 		(net
-			(code "36")
+			(code "28")
 			(name "Net-(D6-A)")
 			(class "Default")
 			(node
@@ -10991,7 +8660,7 @@
 			)
 		)
 		(net
-			(code "37")
+			(code "29")
 			(name "Net-(D50-A)")
 			(class "Default")
 			(node
@@ -11007,7 +8676,7 @@
 			)
 		)
 		(net
-			(code "38")
+			(code "30")
 			(name "Net-(D51-A)")
 			(class "Default")
 			(node
@@ -11023,7 +8692,7 @@
 			)
 		)
 		(net
-			(code "39")
+			(code "31")
 			(name "Net-(D52-A)")
 			(class "Default")
 			(node
@@ -11039,7 +8708,7 @@
 			)
 		)
 		(net
-			(code "40")
+			(code "32")
 			(name "Net-(D53-A)")
 			(class "Default")
 			(node
@@ -11055,7 +8724,7 @@
 			)
 		)
 		(net
-			(code "41")
+			(code "33")
 			(name "Net-(D54-A)")
 			(class "Default")
 			(node
@@ -11071,7 +8740,7 @@
 			)
 		)
 		(net
-			(code "42")
+			(code "34")
 			(name "Net-(D55-A)")
 			(class "Default")
 			(node
@@ -11087,7 +8756,7 @@
 			)
 		)
 		(net
-			(code "43")
+			(code "35")
 			(name "Net-(Q1-D)")
 			(class "Default")
 			(node
@@ -11103,7 +8772,7 @@
 			)
 		)
 		(net
-			(code "44")
+			(code "36")
 			(name "Net-(Q1-G)")
 			(class "Default")
 			(node
@@ -11119,7 +8788,7 @@
 			)
 		)
 		(net
-			(code "45")
+			(code "37")
 			(name "Net-(Q34-B)")
 			(class "Default")
 			(node
@@ -11135,135 +8804,7 @@
 			)
 		)
 		(net
-			(code "46")
-			(name "Net-(Q41-Pin_1)")
-			(class "Default")
-			(node
-				(ref "Q41")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R91")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "47")
-			(name "Net-(Q42-Pin_1)")
-			(class "Default")
-			(node
-				(ref "Q42")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R92")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "48")
-			(name "Net-(Q43-Pin_1)")
-			(class "Default")
-			(node
-				(ref "Q43")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R93")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "49")
-			(name "Net-(Q44-Pin_1)")
-			(class "Default")
-			(node
-				(ref "Q44")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R94")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "50")
-			(name "Net-(Q45-Pin_1)")
-			(class "Default")
-			(node
-				(ref "Q45")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R95")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "51")
-			(name "Net-(Q46-Pin_1)")
-			(class "Default")
-			(node
-				(ref "Q46")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R96")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "52")
-			(name "Net-(Q47-Pin_1)")
-			(class "Default")
-			(node
-				(ref "Q47")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R97")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "53")
-			(name "Net-(Q48-Pin_1)")
-			(class "Default")
-			(node
-				(ref "Q48")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R98")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "54")
+			(code "38")
 			(name "Net-(SW7-B)")
 			(class "Default")
 			(node
@@ -11279,7 +8820,7 @@
 			)
 		)
 		(net
-			(code "55")
+			(code "39")
 			(name "Net-(U1-BST)")
 			(class "Default")
 			(node
@@ -11295,7 +8836,7 @@
 			)
 		)
 		(net
-			(code "56")
+			(code "40")
 			(name "Net-(U2-STBY)")
 			(class "Default")
 			(node
@@ -11311,23 +8852,7 @@
 			)
 		)
 		(net
-			(code "57")
-			(name "Net-(U4-REFin{slash}REFout)")
-			(class "Default")
-			(node
-				(ref "C41")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U4")
-				(pin "10")
-				(pinfunction "REFin/REFout_10")
-				(pintype "bidirectional")
-			)
-		)
-		(net
-			(code "58")
+			(code "41")
 			(name "Net-(U5-P0)")
 			(class "Default")
 			(node
@@ -11344,7 +8869,7 @@
 			)
 		)
 		(net
-			(code "59")
+			(code "42")
 			(name "Net-(U5-P1)")
 			(class "Default")
 			(node
@@ -11361,7 +8886,7 @@
 			)
 		)
 		(net
-			(code "60")
+			(code "43")
 			(name "Net-(U7-BOOT)")
 			(class "Default")
 			(node
@@ -11377,7 +8902,7 @@
 			)
 		)
 		(net
-			(code "61")
+			(code "44")
 			(name "PLUS3V3")
 			(class "Default")
 			(node
@@ -11393,11 +8918,6 @@
 			)
 			(node
 				(ref "C14")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "C40")
 				(pin "1")
 				(pintype "passive")
 			)
@@ -11420,54 +8940,6 @@
 				(ref "D29")
 				(pin "1")
 				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "D41")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "D42")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "D43")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "D44")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "D45")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "D46")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "D47")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "D48")
-				(pin "2")
-				(pinfunction "A_2")
 				(pintype "passive")
 			)
 			(node
@@ -11619,46 +9091,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "R91")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R92")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R93")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R94")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R95")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R96")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R97")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R98")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
 				(ref "U1")
 				(pin "1")
 				(pinfunction "FB_1")
@@ -11689,12 +9121,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "U4")
-				(pin "16")
-				(pinfunction "VDD_16")
-				(pintype "power_in")
-			)
-			(node
 				(ref "U5")
 				(pin "16")
 				(pinfunction "VDD_16")
@@ -11702,7 +9128,7 @@
 			)
 		)
 		(net
-			(code "62")
+			(code "45")
 			(name "PWRLED_A")
 			(class "Default")
 			(node
@@ -11718,7 +9144,7 @@
 			)
 		)
 		(net
-			(code "63")
+			(code "46")
 			(name "PWR_EN")
 			(class "Default")
 			(node
@@ -11745,7 +9171,7 @@
 			)
 		)
 		(net
-			(code "64")
+			(code "47")
 			(name "SCL")
 			(class "Default")
 			(node
@@ -11760,12 +9186,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "U4")
-				(pin "14")
-				(pinfunction "SCL_14")
-				(pintype "input")
-			)
-			(node
 				(ref "U5")
 				(pin "14")
 				(pinfunction "SCL_14")
@@ -11773,7 +9193,7 @@
 			)
 		)
 		(net
-			(code "65")
+			(code "48")
 			(name "SDA")
 			(class "Default")
 			(node
@@ -11788,12 +9208,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "U4")
-				(pin "15")
-				(pinfunction "SDA_15")
-				(pintype "bidirectional")
-			)
-			(node
 				(ref "U5")
 				(pin "15")
 				(pinfunction "SDA_15")
@@ -11801,7 +9215,7 @@
 			)
 		)
 		(net
-			(code "66")
+			(code "49")
 			(name "SW_3V3")
 			(class "Default")
 			(node
@@ -11823,7 +9237,7 @@
 			)
 		)
 		(net
-			(code "67")
+			(code "50")
 			(name "SW_6V")
 			(class "Default")
 			(node
@@ -11845,7 +9259,7 @@
 			)
 		)
 		(net
-			(code "68")
+			(code "51")
 			(name "VM_6V")
 			(class "Default")
 			(node
@@ -11909,7 +9323,7 @@
 			)
 		)
 		(net
-			(code "69")
+			(code "52")
 			(name "VM_BATT")
 			(class "Default")
 			(node
@@ -11957,7 +9371,7 @@
 			)
 		)
 		(net
-			(code "70")
+			(code "53")
 			(name "WALL_DL_LED")
 			(class "Default")
 			(node
@@ -11974,7 +9388,7 @@
 			)
 		)
 		(net
-			(code "71")
+			(code "54")
 			(name "WALL_DL_SENSE")
 			(class "Default")
 			(node
@@ -11996,7 +9410,7 @@
 			)
 		)
 		(net
-			(code "72")
+			(code "55")
 			(name "WALL_DR_LED")
 			(class "Default")
 			(node
@@ -12013,7 +9427,7 @@
 			)
 		)
 		(net
-			(code "73")
+			(code "56")
 			(name "WALL_DR_SENSE")
 			(class "Default")
 			(node
@@ -12035,7 +9449,7 @@
 			)
 		)
 		(net
-			(code "74")
+			(code "57")
 			(name "WALL_EMIT_DIAG")
 			(class "Default")
 			(node
@@ -12057,7 +9471,7 @@
 			)
 		)
 		(net
-			(code "75")
+			(code "58")
 			(name "WALL_EMIT_FRONT")
 			(class "Default")
 			(node
@@ -12079,7 +9493,7 @@
 			)
 		)
 		(net
-			(code "76")
+			(code "59")
 			(name "WALL_EMIT_SIDE")
 			(class "Default")
 			(node
@@ -12101,7 +9515,7 @@
 			)
 		)
 		(net
-			(code "77")
+			(code "60")
 			(name "WALL_FL_LED")
 			(class "Default")
 			(node
@@ -12118,7 +9532,7 @@
 			)
 		)
 		(net
-			(code "78")
+			(code "61")
 			(name "WALL_FL_SENSE")
 			(class "Default")
 			(node
@@ -12140,7 +9554,7 @@
 			)
 		)
 		(net
-			(code "79")
+			(code "62")
 			(name "WALL_FR_LED")
 			(class "Default")
 			(node
@@ -12157,7 +9571,7 @@
 			)
 		)
 		(net
-			(code "80")
+			(code "63")
 			(name "WALL_FR_SENSE")
 			(class "Default")
 			(node
@@ -12179,7 +9593,7 @@
 			)
 		)
 		(net
-			(code "81")
+			(code "64")
 			(name "WALL_SL_LED")
 			(class "Default")
 			(node
@@ -12196,7 +9610,7 @@
 			)
 		)
 		(net
-			(code "82")
+			(code "65")
 			(name "WALL_SL_SENSE")
 			(class "Default")
 			(node
@@ -12218,7 +9632,7 @@
 			)
 		)
 		(net
-			(code "83")
+			(code "66")
 			(name "WALL_SR_LED")
 			(class "Default")
 			(node
@@ -12235,7 +9649,7 @@
 			)
 		)
 		(net
-			(code "84")
+			(code "67")
 			(name "WALL_SR_SENSE")
 			(class "Default")
 			(node
@@ -12257,7 +9671,7 @@
 			)
 		)
 		(net
-			(code "85")
+			(code "68")
 			(name "unconnected-(SW5-C-Pad3)")
 			(class "Default")
 			(node
@@ -12268,7 +9682,7 @@
 			)
 		)
 		(net
-			(code "86")
+			(code "69")
 			(name "unconnected-(SW6-C-Pad3)")
 			(class "Default")
 			(node
@@ -12279,7 +9693,7 @@
 			)
 		)
 		(net
-			(code "87")
+			(code "70")
 			(name "unconnected-(SW7-C-Pad3)")
 			(class "Default")
 			(node
@@ -12290,7 +9704,7 @@
 			)
 		)
 		(net
-			(code "88")
+			(code "71")
 			(name "unconnected-(U3-Pin_13-Pad13)")
 			(class "Default")
 			(node
@@ -12301,18 +9715,7 @@
 			)
 		)
 		(net
-			(code "89")
-			(name "unconnected-(U4-COM-Pad11)")
-			(class "Default")
-			(node
-				(ref "U4")
-				(pin "11")
-				(pinfunction "COM_11")
-				(pintype "input+no_connect")
-			)
-		)
-		(net
-			(code "90")
+			(code "72")
 			(name "unconnected-(U5-~{INT}-Pad13)")
 			(class "Default")
 			(node

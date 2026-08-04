@@ -983,46 +983,15 @@ for _gref, _gate, _knet, _gx in ((None, "WALL_EMIT_FRONT", "EMIT_FRONT_K", 250),
 # always on (no GPIO strobing -- keeps the circuit minimal per user
 # request, unlike the wall sensors' ganged-group strobing above).
 # ---------------------------------------------------------------------------
-TXT("LINE-FOLLOWER FRONT SENSOR ARRAY  --  8x QRE1113GR (Pololu QTR part) on B.Cu,\n"
-    "read via new ADS7830 I2C ADC, all 8 channels used (SDA/SCL shared with the button expander)",
-    (650, 400), size=5)
+# LINE-SENSOR ARRAY REMOVED (2-layer simplification, user request 2026-08-03):
+# the 8x QRE1113GR sensors (Q41-48), their indicator/pull-up LEDs (D41-48),
+# 220R emitter resistors (R91-98), the ADS7830 I2C ADC (U4) that existed only
+# to read them, and its decoupling (C40 VDD, C41 REFin) are all gone. The I2C
+# bus itself SURVIVES for the PCF8574 button expander (U5) -- its pull-ups
+# R103/R104 are kept below. No XIAO pin frees up (line data rode the I2C bus).
 
-_ctr["Q"] = 40
-_ctr["R"] = 90
-_ctr["D"] = 40
-
-# Real KiCad symbol Analog_DAC:ADS7830 -- pin offsets taken directly from
-# the library symbol's own "at" coordinates (same convention as every other
-# real-symbol part in this file, e.g. AP63200WU/TPS54302 above).
-ADS_PIN_OFFSET = {
-    "CH0": (-12.7, 10.16), "CH1": (-12.7, 7.62), "CH2": (-12.7, 5.08), "CH3": (-12.7, 2.54),
-    "CH4": (-12.7, 0), "CH5": (-12.7, -2.54), "CH6": (-12.7, -5.08), "CH7": (-12.7, -7.62),
-    "COM": (-12.7, -10.16),
-    "GND": (0, -15.24), "VDD": (0, 15.24),
-    "REF": (12.7, 0), "A0": (12.7, -7.62), "A1": (12.7, -5.08),
-    "SCL": (12.7, 7.62), "SDA": (12.7, 10.16),
-}
-U4_BASE = snap((950, 470))
-g.add_component("Analog_DAC", "ADS7830", "U4",
-                 "ADS7830IPWR (I2C 8-ch 8-bit ADC, TSSOP-16; A0=A1=GND -> addr 0x48; "
-                 "internal 2.5V ref; single-ended mode, COM unused)",
-                 U4_BASE, {str(n): "" for n in range(1, 17)},
-                 footprint="Package_SO:TSSOP-16_4.4x5mm_P0.65mm",
-                 datasheet="https://www.ti.com/lit/ds/symlink/ads7830.pdf")
-ads = {name: pin_at(U4_BASE, off) for name, off in ADS_PIN_OFFSET.items()}
-
-RAIL("GND", ads["GND"], rotation=270)
-RAIL("PLUS3V3", ads["VDD"], rotation=90)
-RAIL("SDA", ads["SDA"], rotation=0)
-RAIL("SCL", ads["SCL"], rotation=0)
-RAIL("GND", ads["A0"], rotation=0)   # address select: A1=A0=GND -> 0x48
-RAIL("GND", ads["A1"], rotation=0)
-NC(ads["COM"])                       # single-ended mode: COM unused (datasheet Fig. 13)
-# CH6/CH7 now used (rev 10, user request: 8 line sensors, all 8 ADS7830
-# channels) -- see LINE_NAMES loop below.
-
-# I2C pull-ups (module has no fixed hardware I2C pins -- these are firmware-
-# assigned GPIOs, so external pull-ups are required same as any I2C bus).
+# I2C pull-ups for the button-expander bus (module has no fixed hardware
+# I2C pins -- firmware-assigned GPIOs, so external pull-ups are required).
 r103a, r103b = R("R103", "2.2k", (990, 440))
 RAIL("PLUS3V3", r103a, rotation=90)
 RAIL("SDA", r103b, rotation=270)
@@ -1030,93 +999,6 @@ r104a, r104b = R("R104", "2.2k", (1000, 440))
 RAIL("PLUS3V3", r104a, rotation=90)
 RAIL("SCL", r104b, rotation=270)
 
-# VDD + reference decoupling (datasheet Figure 13 app circuit: 0.1uF at
-# VDD, 0.1uF at REFin/REFout for the internal reference).
-c40a, c40b = C("C40", "100nF", (930, 440))
-RAIL("PLUS3V3", c40a, rotation=90)
-RAIL("GND", c40b, rotation=270)
-c41a, c41b = C("C41", "100nF", (970, 500))
-WIRE(c41a, ads["REF"])
-RAIL("GND", c41b, rotation=270)
-
-LINE_NAMES = [f"LINE{i}" for i in range(8)]
-LINE_X0 = 650
-LINE_DX = 42
-LINE_ROW_Y = 470
-CH_NAMES = ["CH0", "CH1", "CH2", "CH3", "CH4", "CH5", "CH6", "CH7"]
-
-for i, name in enumerate(LINE_NAMES):
-    x = LINE_X0 + i * LINE_DX
-
-    sens_pins = CONN_COL(ref("Q"),
-                          "QRE1113GR (onsemi SMT reflective sensor; Pololu QTR sensor part; "
-                          "pin1=Anode pin2=Cathode(IR LED) pin3=Collector pin4=Emitter(phototransistor); "
-                          "B.Cu placement, faces the floor)",
-                          (x, LINE_ROW_Y), 4, footprint="qre1113:QRE1113GR")
-    anode, cathode, collector, emitter = sens_pins
-    RAIL("GND", cathode, rotation=180)
-    RAIL("GND", emitter, rotation=180)
-
-    # IR emitter current-limit resistor (always-on, no GPIO strobe -- minimal).
-    # NEITHER x-aligned to the pin column NOR routed via the shared global
-    # dogleg-lane counter -- both were tried and both are real bugs:
-    # (a) all 4 CONN_COL pins (anode/cathode/collector/emitter) share the
-    # EXACT SAME X, so a straight vertical wire from a point above/below the
-    # column down to one of them runs straight through every OTHER pin
-    # between them (caught by ERC: the resistor->anode wire silently shorted
-    # PLUS3V3/GND/LINE*_ADC together via the cathode/collector/emitter pins
-    # it passed through); (b) the old shared-counter WIRE() Z-dogleg let two
-    # UNRELATED sensors' bend positions coincide once this loop grew past 6
-    # iterations (12 dogleg calls = an exact multiple of the counter's mod-12
-    # cycle; 16 calls is not). Fix: a manual 2-bend dogleg with an offset
-    # that's per-iteration-unique (varies by LINE_DX=42mm each loop pass) and
-    # off the shared pin column, so it can neither cross this sensor's own
-    # other pins nor coincide with a neighboring sensor 42mm away.
-    er1, er2 = R(ref("R"), "220", (x - 10, LINE_ROW_Y + 15))
-    RAIL("PLUS3V3", er1, rotation=90)
-    _bend_er = (round(er2[0] - 2.54, 2), er2[1])
-    g.add_wire(er2, _bend_er)
-    g.add_wire(_bend_er, (_bend_er[0], anode[1]))
-    g.add_wire((_bend_er[0], anode[1]), anode)
-
-    # Indicator LED IS the pull-up: PLUS3V3 -> LED -> collector node -> QRE1113.
-    # Same manual local dogleg as above, for the same reason (led_k sits
-    # above this sensor's own pin column; a straight line down to the
-    # collector pin -- 3rd of 4 in that column -- would run straight through
-    # the anode and cathode pins above it).
-    _led_base = snap((x + 10, LINE_ROW_Y - 20))
-    g.add_component("LED", "LD271", ref("D"),
-                     f"{name} indicator (0603 visible LED; dim, proportional to reflected IR -- "
-                     "IS the pull-up, no transistor buffer per user's minimal-circuit request)",
-                     _led_base, {"1": "", "2": ""}, footprint="LED_SMD:LED_0603_1608Metric")
-    led_k = pin_at(_led_base, (-5.08, 0))
-    led_a = pin_at(_led_base, (2.54, 0))
-    RAIL("PLUS3V3", led_a, rotation=90)
-    _bend_led = (round(led_k[0] + 2.54, 2), led_k[1])
-    g.add_wire(led_k, _bend_led)
-    g.add_wire(_bend_led, (_bend_led[0], collector[1]))
-    g.add_wire((_bend_led[0], collector[1]), collector)
-
-    # Direct connection to the ADS7830 input, no series resistor: routing
-    # this design showed the 6 series/isolation resistors (R92/94/96/98/
-    # 100/102 in an earlier revision) added real board congestion for no
-    # electrical benefit -- the ADC input impedance is already very high, so
-    # a bare collector-to-CHx wire is standard practice and, per the user's
-    # own "keep circuit minimal and simple" request, strictly MORE minimal
-    # than the resistor it replaces (removed, not added, complexity).
-    RAIL(f"{name}_ADC", collector, rotation=0)
-    RAIL(f"{name}_ADC", ads[CH_NAMES[i]], rotation=180)
-
-TXT("Line sensors: PLUS3V3 -> 220R -> QRE1113 anode (IR LED, always on) -> cathode -> GND.\n"
-    "PLUS3V3 -> indicator LED -> QRE1113 collector (== ADS7830 CHx, direct -- no series\n"
-    "resistor, ADC input impedance is high) -> phototransistor -> emitter -> GND. LED IS the\n"
-    "pull-up -- lights in direct proportion to reflected IR (dim, ~0.1-0.4mA typical per\n"
-    "QRE1113GR datasheet; no transistor buffer, per user's 'minimal and simple' requirement --\n"
-    "flagged for easy upgrade if brighter indication is wanted). ADS7830: A0=A1=GND -> I2C\n"
-    "address 0x48, internal 2.5V reference, single-ended mode (COM unused). SDA/SCL are\n"
-    "firmware-assigned GPIOs (module pads 22/23, freed from the removed USER_BTN/USER_BTN2)\n"
-    "-- nRF52840 has no fixed hardware I2C pins.",
-    (650, 560), size=2.0)
 
 # LINE-SENSOR INDICATOR LEDs removed with the line array (2-layer edition):
 # the 8 D15-D22 / Q20-Q27 / R41-R48 per-line indicators are gone.
