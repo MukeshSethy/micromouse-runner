@@ -23,6 +23,15 @@ def _e(lcsc, part, smt=True, note="", tier="EXTENDED"):
     return dict(lcsc=lcsc, part=part, tier=tier, smt=smt, note=note)
 
 LCSC_MAP = {
+    # THT axials (user 2026-08-05): hand-solder, sourced locally -- deliberately
+    # NO LCSC number (not part of turnkey SMT assembly; ~Rs.0.5/pc locally)
+    "CFR-25JB-52-100K": _e("", "CFR-25JB-52-100K", smt=False, note="THT axial, hand-solder"),
+    "CFR-25JB-52-47K":  _e("", "CFR-25JB-52-47K",  smt=False, note="THT axial, hand-solder"),
+    "CFR-25JB-52-33R":  _e("", "CFR-25JB-52-33R",  smt=False, note="THT axial, hand-solder"),
+    "CFR-25JB-52-220R": _e("", "CFR-25JB-52-220R", smt=False, note="THT axial, hand-solder"),
+    "CFR-25JB-52-1K":   _e("", "CFR-25JB-52-1K",   smt=False, note="THT axial, hand-solder"),
+    "CFR-25JB-52-10K":  _e("", "CFR-25JB-52-10K",  smt=False, note="THT axial, hand-solder"),
+
     # ---- module + ICs (SMD, JLC SMT line places all) ------------------------
     "ESP32-S3-WROOM-1-N8R2": _e("C2913204", "ESP32-S3-WROOM-1-N8R2"),
     "TB6612FNG,C,8,EL":      _e("C141517",  "TB6612FNG,C,8,EL"),

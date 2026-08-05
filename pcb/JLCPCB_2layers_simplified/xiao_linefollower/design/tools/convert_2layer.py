@@ -99,14 +99,14 @@ ok = pcbnew.ExportSpecctraDSN(b, DSN)
 # inject DSN keepouts at KiCad-vs-Freerouting marginal spots (r8: BIN1 routed
 # 0.15-0.2 from L1 pad 2 -- legal per DSN pad shape, illegal per KiCad DRC).
 # DSN frame: um, y negated. 0.65mm half-box on both copper layers.
-_spots_mm = [(35.2, 95.4)]                     # L1 pad 2 flank
+_spots_mm = []   # DSN keepouts DISABLED: a box on L1 pad 2 seals the pad exit
+                 # (16-stuck route). Blind spots are handled by the A* healer instead.
 _ktxt = ""
 for (_sx, _sy) in _spots_mm:
     x0, x1 = int((_sx - 0.65) * 1000), int((_sx + 0.65) * 1000)
     y0, y1 = int(-(_sy - 0.65) * 1000), int(-(_sy + 0.65) * 1000)
     for _lay in ("F.Cu", "B.Cu"):
-        _ktxt += ("
-    (keepout \"ko_%s_%d_%d\" (polygon %s 0  %d %d  %d %d  %d %d  %d %d))"
+        _ktxt += ("\n    (keepout \"ko_%s_%d_%d\" (polygon %s 0  %d %d  %d %d  %d %d  %d %d))"
                   % (_lay.replace(".", ""), x0, -y0, _lay, x0, y0, x1, y0, x1, y1, x0, y1))
 _d = open(DSN, encoding="utf-8").read()
 _i = _d.index("(structure")
@@ -118,15 +118,13 @@ while True:
         _depth -= 1
         if _depth == 0: break
     _j += 1
-_d = _d[:_j] + _ktxt + "
-  " + _d[_j:]
-open(DSN, "w", encoding="utf-8", newline="
-").write(_d)
+_d = _d[:_j] + _ktxt + "\n  " + _d[_j:]
+open(DSN, "w", encoding="utf-8", newline="\n").write(_d)
 print("injected %d DSN keepouts" % (2 * len(_spots_mm)), flush=True)
 print("DSN export (inset boundary):", ok, flush=True)
 
 # 5. power-class surgery on the DSN
-POWER = ["BATT_RAW", "VM_BATT", "VM_6V", "SW_6V"]
+POWER = ["BATT_RAW", "VM_BATT"]
 POWER3 = ["PLUS3V3", "SW_3V3"]
 MOTOR = ["MOTA_P", "MOTA_N", "MOTB_P", "MOTB_N"]
 s = open(DSN, encoding="utf-8").read()

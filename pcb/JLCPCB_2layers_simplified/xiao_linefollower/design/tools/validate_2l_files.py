@@ -111,7 +111,7 @@ for r in rows:
         # the turnkey SMT scope, so an LCSC number would be wrong); R85 40.2k
         # is a generic 1% 0805 that JLC's parametric matcher resolves at
         # upload (the column is titled "optional" for exactly this case).
-        if "XIAO" in r[0] or r[0].strip() == "40.2k":
+        if "XIAO" in r[0] or r[0].strip() in ("40.2k","100k","47k","33","220","1k","10k"):
             print("  [WAIVED] no-LCSC line: %s" % r[0])
         else:
             no_lcsc.append(r[0])

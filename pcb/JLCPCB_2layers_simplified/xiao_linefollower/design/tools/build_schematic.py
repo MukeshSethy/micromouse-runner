@@ -40,10 +40,8 @@ _MPN_STATIC = {
     "U3": ("102010694 (Seeed XIAO nRF52840 Sense Plus -- HAND-SOLDER, NOT part of turnkey SMT assembly)", "Seeed Studio"),
     # 6V motor buck (restored, XIAO revision -- see POWER section): reuses
     # the ORIGINAL (pre-simplification) full board's exact proven part.
-    "U7": ("TPS54302DDCR", "Texas Instruments"),           # 6V motor buck, 3A, 28V in
     "Q1": ("DMP3098L-7", "Diodes Incorporated"),           # -30V/-3.8A/Vgs +/-20V (2S-safe gate)
     "L1": ("SRP4020TA-4R7M", "Bourns"),
-    "L2": ("SRP4020TA-4R7M", "Bourns"),                    # 6V buck inductor, same part as L1
     # Rev 8 (2026-07-21): "MINISMDC350F/16-2" is not a real orderable
     # Littelfuse part at any distributor/LCSC/Lion checked -- looks like a
     # long-standing typo. The schematic's own FUSE() value ("2.6A/16V PPTC",
@@ -54,8 +52,7 @@ _MPN_STATIC = {
     # unresolved discrepancy, re-verify actual required hold current.
     "F1": ("MINISMDC260F/16-2", "Littelfuse"),
     "J1": ("B2B-XH-A", "JST"),                             # 2S battery main (XH: 3A/contact)
-    "SW5": ("PCM12SMTR", "C&K"), "SW6": ("PCM12SMTR", "C&K"),  # rev 9: restored motor switch
-    "SW7": ("PCM12SMTR", "C&K"),  # 6V/7.5V toggle, same part reused as SPST
+    "SW5": ("PCM12SMTR", "C&K"), "SW6": ("PCM12SMTR", "C&K"),
     # J5/J6 (motor connectors) rev 7.2: JST ZH B6B-ZR -- the robu GA12-N20
     # motors ship with a factory 14cm cable terminated in a JST ZH 1.5mm
     # 6-pos plug, so a ZH header on the board means the motor plugs STRAIGHT
@@ -100,17 +97,12 @@ _MPN_STATIC = {
     # (Kingbright APT1608SGC, 565nm) to visually distinguish from the RED
     # line-sensor indicators (APT1608SURCK) -- verified real/in-stock via a
     # live LCSC product page (C5875754) 2026-07-26.
-    "D50": ("APT1608SGC", "Kingbright"), "D51": ("APT1608SGC", "Kingbright"),
-    "D52": ("APT1608SGC", "Kingbright"), "D53": ("APT1608SGC", "Kingbright"),
-    "D54": ("APT1608SGC", "Kingbright"), "D55": ("APT1608SGC", "Kingbright"),
-    "C30": ("EEE-FT1C221AP", "Panasonic"),                 # 220uF/16V SMD alu (motor bulk)
     # Line-follower revision additions:
     "U4": ("ADS7830IPWR", "Texas Instruments"),            # I2C 8-ch 8-bit ADC (line sensors)
     # Rev 10 (2026-07-25): SW1/SW2 buttons restored via a PCF8574 I2C GPIO
     # expander sharing the ADS7830's own SDA/SCL bus -- see USER INTERFACE
     # section for the full rationale (every XIAO GPIO pin is already spoken
     # for, so a shared-bus expander is the only way to add buttons back).
-    "U5": ("PCF8574DWR", "Texas Instruments"),             # I2C 8-bit GPIO expander (buttons)
 }
 # Rev 8 (2026-07-21): per-value override for the generic Yageo R_0805 formula
 # below, for values where the Yageo part isn't a clean dual-vendor (JLCPCB +
@@ -171,6 +163,8 @@ def _bom_fields(ref, value, footprint):
     if fp.startswith("R_0805") and value in _RES_MPN:
         mpn, mfr = _RES_MPN[value]
         return {"MPN": mpn, "Manufacturer": mfr}
+    if fp.startswith("R_Axial") and value and value[0].isdigit():
+        return {"MPN": f"CFR-25JB-52-{_res_code(value)}", "Manufacturer": "Yageo"}
     if fp.startswith("R_0805") and value and value[0].isdigit():
         return {"MPN": f"RC0805FR-07{_res_code(value)}L", "Manufacturer": "Yageo"}
     if fp.startswith("C_") and value in _CAP_MPN:
@@ -184,6 +178,10 @@ g.field_provider = _bom_fields
 # Generic component helpers (same pin-transform convention as build_power_mcu.py:
 # pin_at(base, local_offset) = (base_x+lx, base_y-ly), KiCad negates local Y).
 # ---------------------------------------------------------------------------
+
+# THT axial (vertical, 2.54mm pitch) -- user 2026-08-05: resistors go THT for
+# cheap local sourcing + easy hand-soldering; kills 5 SMD min-order BOM lines.
+THT_R = "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"  # user: flat, not vertical
 
 def R(ref, value, at, n1=None, n2=None, footprint="Resistor_SMD:R_0805_2012Metric"):
     base = snap(at)
@@ -452,7 +450,7 @@ RAIL("BATT_RAW", f1p1, rotation=90)
 qD, qG, qS = QPMOS("Q1", "Q_PMOS reverse guard (DMP3098L-7: Vgs +/-20V, 2S-safe)", (125, 150))
 WIRE(f1p2, qD)
 
-r1p1, r1p2 = R("R1", "100k", (125, 115))
+r1p1, r1p2 = R("R1", "100k", (125, 115), footprint=THT_R)
 WIRE(qG, r1p1)
 RAIL("GND", r1p2, rotation=270)
 
@@ -518,7 +516,7 @@ RAIL("GND", c5p2, rotation=270)
 # SW5 = master soft switch (logic power switch): R69 pulls PWR_EN to the
 # battery rail (AP63203 EN is VIN-tolerant); PCM12SMTR slide grounds it =
 # everything (logic side) off.
-r69a, r69b = R("R69", "100k", (232, 143))
+r69a, r69b = R("R69", "100k", (232, 143), footprint=THT_R)
 RAIL("VM_BATT", r69a, rotation=90)
 RAIL("PWR_EN", r69b, rotation=270)
 SW5_BASE = snap((243, 155))
@@ -533,108 +531,16 @@ NC(pin_at(SW5_BASE, (5.08, -2.54)))                          # throw B unused
 TXT("+3V3 is the regulated logic rail: XIAO module, encoder VCC, PT pull-ups, and IR LED\ncurrent. VM_6V (TPS54302, 3A limit) feeds ONLY the TB6612 VM pins -- a REGULATED,\nconstant 6.0V whenever VM_BATT is above ~6V (restored per user requirement; the ESP32\ncost-reduced variant's raw-battery-through-a-FET motor supply is NOT used here).",
     (200, 100), size=2.2)
 
-# --- 6V MOTOR RAIL (RESTORED, XIAO revision): TPS54302 (SOT-23-6, 3A,
-# 4.5-28V in, 400kHz), copied verbatim from the ORIGINAL (pre-simplification)
-# full board's build_schematic.py -- same part, same FB divider values, same
-# wiring pattern; only the placement coordinates are adapted to this
-# schematic sheet. FB divider 100k/11k -> 0.596V x (1+100/11) = 6.01V.
-# Motors therefore see a REGULATED 6.0V with the buck's 3A current limit as a
-# hard supply-side ceiling (per-channel limits are TB6612's own). Pinout:
-# 1 GND / 2 SW / 3 VIN / 4 FB / 5 EN / 6 BOOT.
-U7_BASE = snap((250, 230))
-g.add_component("Regulator_Switching", "TPS54302", "U7",
-                 "TPS54302DDCR (6.0V/3A motor buck; FB=100k/11k)",
-                 U7_BASE, {str(n): "" for n in range(1, 7)},
-                 footprint="Package_TO_SOT_SMD:SOT-23-6",
-                 datasheet="https://www.ti.com/lit/ds/symlink/tps54302.pdf")
-u7_gnd = pin_at(U7_BASE, (0, -7.62))
-u7_sw  = pin_at(U7_BASE, (10.16, 0))
-u7_vin = pin_at(U7_BASE, (-10.16, 2.54))
-u7_fb  = pin_at(U7_BASE, (10.16, -2.54))
-u7_en  = pin_at(U7_BASE, (-10.16, -2.54))
-u7_bst = pin_at(U7_BASE, (10.16, 2.54))
+# 6V MOTOR BUCK REMOVED (user, 2026-08-05): motors run DIRECTLY from
+# VM_BATT (2S, 6.4-8.4V); speed regulation is closed-loop via the encoders
+# + PID (user decision -- N20s tolerate the pack window; TB6612 VM max is
+# 15V). Removed: U7 TPS54302, L2, C15 (BOOT), C16/C17 (22uF out),
+# R73/R74 (FB), R70/R71 + SW6 (EN gating), D33/R84 (would duplicate D30).
 
-RAIL("VM_BATT", u7_vin, rotation=180)
-RAIL("GND", u7_gnd, rotation=270)
-RAIL("MOT_EN", u7_en, rotation=180)
-RAIL("SW_6V", u7_sw, rotation=0)
-RAIL("FB_6V", u7_fb, rotation=0)
 
-cb2a, cb2b = C("C15", "100nF", (238, 205))
-RAIL("SW_6V", cb2a, rotation=90)
-WIRE(cb2b, u7_bst)
-l2p1, l2p2 = L("L2", "4.7uH", (272, 230), footprint="n20:L_Bourns_SRP4020TA")
-RAIL("SW_6V", l2p1, rotation=90)
-RAIL("VM_6V", l2p2, rotation=270)
-PWR("PWR_FLAG", l2p2)
 
-# 6V rail caps: 2x 22uF/25V 1210 at the buck + the 220uF/16V alu bulk (C30)
-# lives at the TB6612 VM entry (motor hot-loop, standards item).
-c16a, c16b = C("C16", "22uF/25V", (285, 230), footprint="Capacitor_SMD:C_1210_3225Metric")
-RAIL("VM_6V", c16a, rotation=90)
-RAIL("GND", c16b, rotation=270)
-c17a, c17b = C("C17", "22uF/25V", (295, 230), footprint="Capacitor_SMD:C_1210_3225Metric")
-RAIL("VM_6V", c17a, rotation=90)
-RAIL("GND", c17b, rotation=270)
-c18a, c18b = C("C18", "10uF/25V", (305, 230), footprint="Capacitor_SMD:C_1210_3225Metric")
-RAIL("VM_BATT", c18a, rotation=90)
-RAIL("GND", c18b, rotation=270)
+# SW6 + R70/R71 EN-gating REMOVED with the buck (motor kill = firmware).
 
-# FB divider (6.01V baseline)
-r73a, r73b = R("R73", "100k", (315, 230))
-RAIL("VM_6V", r73a, rotation=90)
-RAIL("FB_6V", r73b, rotation=270)
-r74a, r74b = R("R74", "11k", (325, 230))
-RAIL("FB_6V", r74a, rotation=90)
-RAIL("GND", r74b, rotation=270)
-
-# 6V/7.5V output toggle (user requirement): R85 (40.2k) in series with SW7
-# (a plain on/off toggle) connects in PARALLEL with R74 when closed. Reuses
-# the SAME PCM12SMTR part already qualified for SW5/SW6 (just wired as a
-# simple 2-terminal SPST -- third pin left NC) rather than introducing a new
-# switch part, per the "keep circuits simple" brief.
-#   Toggle OPEN (default): R74 alone (11k) -> Vout = 0.596*(1+100/11) = 6.01V
-#   Toggle CLOSED: R74 || R85 = 11k||40.2k = 8.637k
-#                  -> Vout = 0.596*(1+100/8.637) = 7.50V
-# Verified against this same divider's own 0.596V reference (already implied
-# by the 100k/11k->6.01V figure above). NOTE (physical limitation, not a
-# bug): the 7.5V setting only stays fully regulated while VM_BATT is above
-# roughly 7.8-8.0V (buck dropout headroom); as the pack discharges below
-# that, this setting progressively droops toward the raw battery voltage
-# instead of holding a hard 7.5V.
-r85a, r85b = R("R85", "40.2k", (335, 230))
-RAIL("FB_6V", r85a, rotation=90)
-SW7_BASE = snap((345, 230))
-g.add_component("Switch", "SW_SPDT", "SW7",
-                 "6V/7.5V toggle (PCM12SMTR reused as SPST; 3rd pin NC)", SW7_BASE,
-                 {"1": "", "2": "", "3": ""},
-                 footprint="Button_Switch_SMD:SW_SPDT_PCM12")
-WIRE(r85b, pin_at(SW7_BASE, (-5.08, 0)))
-RAIL("GND", pin_at(SW7_BASE, (5.08, 2.54)), rotation=0)
-NC(pin_at(SW7_BASE, (5.08, -2.54)))
-
-# SW6 = motor enable. The pull-up feeds from PWR_EN (NOT VM_BATT): motors can
-# only be enabled when SW5 is already on -- "SW6 enables supply to motors
-# ALSO". The R69/R70/R71 string (100k/220k/110k) puts the TPS54302 EN at
-# 1.69-2.15V across the pack window: above the worst-case 1.31V rising
-# threshold, far below any absolute limit. SW6 shorts MOT_EN to GND = off.
-# SW6 only ever switches this microamp-level logic signal, never real motor
-# current -- unlike the ESP32 variant's Q35 FET scheme, no series power FET
-# is needed here at all.
-r70a, r70b = R("R70", "220k", (232, 250))
-RAIL("PWR_EN", r70a, rotation=90)
-RAIL("MOT_EN", r70b, rotation=270)
-r71a, r71b = R("R71", "110k", (222, 250))
-RAIL("MOT_EN", r71a, rotation=90)
-RAIL("GND", r71b, rotation=270)
-SW6_BASE = snap((243, 262))
-g.add_component("Switch", "SW_SPDT", "SW6",
-                 "PWR MOTORS (PCM12SMTR slide; slide-to-GND = motors OFF)", SW6_BASE,
-                 {"1": "", "2": "", "3": ""},
-                 footprint="Button_Switch_SMD:SW_SPDT_PCM12")
-RAIL("GND", pin_at(SW6_BASE, (5.08, 2.54)), rotation=0)
-RAIL("MOT_EN", pin_at(SW6_BASE, (-5.08, 0)), rotation=180)
-NC(pin_at(SW6_BASE, (5.08, -2.54)))
 
 # Battery voltage sense (VBAT_SENSE divider: R2/R3/C6 in earlier revisions)
 # REMOVED ENTIRELY (XIAO revision, user-confirmed accepted gap): it does not
@@ -664,9 +570,9 @@ TXT("Battery voltage sense is NOT implemented in this design (accepted gap, XIAO
 TXT("MOTOR DRIVER (TB6612FNG, SMD)  --  2x N20-with-encoder motors", (10, 230), size=5)
 
 U2 = TB6612("U2", (95, 310))
-RAIL("VM_6V", U2["VM1"], rotation=90)
-RAIL("VM_6V", U2["VM2"], rotation=90)
-RAIL("VM_6V", U2["VM3"], rotation=90)
+RAIL("VM_BATT", U2["VM1"], rotation=90)
+RAIL("VM_BATT", U2["VM2"], rotation=90)
+RAIL("VM_BATT", U2["VM3"], rotation=90)
 RAIL("PLUS3V3", U2["VCC"], rotation=90)
 RAIL("GND", U2["GND"], rotation=270)
 RAIL("GND", U2["PGND1"], rotation=270)
@@ -679,9 +585,22 @@ RAIL("GND", U2["PGND2"], rotation=270)
 # leaves the outputs off.
 RAIL("PLUS3V3", U2["PWMA"], rotation=180)
 RAIL("PLUS3V3", U2["PWMB"], rotation=180)
-r55a, r55b = R("R55", "10k", (60, 285))
+# SW6 RESTORED as a HARDWARE MOTOR KILL (user, 2026-08-05): with the buck
+# gone, the clean cutoff is TB6612 STBY -- R55 (10k THT) pulls STBY to 3V3,
+# SW6 shorts it to GND = bridge hard-disabled regardless of firmware. STBY
+# is a logic input (uA) -- well inside the PCM12 rating.
+r55a, r55b = R("R55", "10k", (60, 285), footprint=THT_R)
 RAIL("PLUS3V3", r55a, rotation=90)
 WIRE(r55b, U2["STBY"])
+RAIL("MOT_STBY", U2["STBY"], rotation=180)
+SW6_BASE = snap((70, 285))
+g.add_component("Switch", "SW_SPDT", "SW6",
+                 "MOTOR KILL (PCM12SMTR slide; slide-to-GND = motors hard-off via STBY)", SW6_BASE,
+                 {"1": "", "2": "", "3": ""},
+                 footprint="Button_Switch_SMD:SW_SPDT_PCM12")
+RAIL("MOT_STBY", pin_at(SW6_BASE, (-5.08, 0)), rotation=180)
+RAIL("GND", pin_at(SW6_BASE, (5.08, 2.54)), rotation=0)
+NC(pin_at(SW6_BASE, (5.08, -2.54)))
 RAIL("AIN1", U2["AIN1"], rotation=180)
 RAIL("AIN2", U2["AIN2"], rotation=180)
 RAIL("BIN1", U2["BIN1"], rotation=180)
@@ -695,14 +614,12 @@ RAIL("MOTB_N", U2["BO2"], rotation=0)
 # standards item) + 10uF/25V + 100nF ceramics at the pins -- this is where
 # the TB6612's own decoupling needs to sit, per the Toshiba application
 # circuit.
-c30a, c30b = C("C30", "220uF/16V", (118, 335), footprint="Capacitor_SMD:CP_Elec_6.3x7.7")
-RAIL("VM_6V", c30a, rotation=90)
-RAIL("GND", c30b, rotation=270)
+# C30 220uF REMOVED (user passives cut): 2x22uF + 100nF ceramics remain on 6V.
 c11a, c11b = C("C11", "10uF/25V", (130, 335), footprint="Capacitor_SMD:C_1210_3225Metric")
-RAIL("VM_6V", c11a, rotation=90)
+RAIL("VM_BATT", c11a, rotation=90)
 RAIL("GND", c11b, rotation=270)
 c12a, c12b = C("C12", "100nF", (142, 335))
-RAIL("VM_6V", c12a, rotation=90)
+RAIL("VM_BATT", c12a, rotation=90)
 RAIL("GND", c12b, rotation=270)
 c14a, c14b = C("C14", "100nF", (154, 335))
 RAIL("PLUS3V3", c14a, rotation=90)
@@ -724,13 +641,9 @@ jA = CONN6("J5", "MOTOR_A_N20_ENCODER", (200, 330),
            footprint="Connector_JST:JST_ZH_B6B-ZR_1x06_P1.50mm_Vertical")
 RAIL("MOTA_P", jA[0], rotation=0)      # 1 Red    M1 (motor +)
 RAIL("PLUS3V3", jA[1], rotation=0)     # 2 Black  encoder VCC
-rea1, rea2 = R("R6", "10k", (220, 320))
-WIRE(rea1, jA[2])
-RAIL("PLUS3V3", rea2, rotation=90)
+# R6 encoder pull-up REMOVED -- fw INPUT_PULLUP (~13k internal).
 RAIL("ENC1_A", jA[2], rotation=0)      # 3 Yellow C1
-reb1, reb2 = R("R7", "10k", (220, 300))
-WIRE(reb1, jA[3])
-RAIL("PLUS3V3", reb2, rotation=90)
+# R7 encoder pull-up REMOVED -- fw INPUT_PULLUP (~13k internal).
 RAIL("ENC1_B", jA[3], rotation=0)      # 4 Green  C2
 RAIL("GND", jA[4], rotation=0)         # 5 Blue   encoder GND
 RAIL("MOTA_N", jA[5], rotation=0)      # 6 White  M2 (motor -)
@@ -740,13 +653,9 @@ jB = CONN6("J6", "MOTOR_B_N20_ENCODER", (200, 260),
            footprint="Connector_JST:JST_ZH_B6B-ZR_1x06_P1.50mm_Vertical")
 RAIL("MOTB_P", jB[0], rotation=0)
 RAIL("PLUS3V3", jB[1], rotation=0)
-rec1, rec2 = R("R8", "10k", (220, 250))
-WIRE(rec1, jB[2])
-RAIL("PLUS3V3", rec2, rotation=90)
+# R8 encoder pull-up REMOVED -- fw INPUT_PULLUP (~13k internal).
 RAIL("ENC2_A", jB[2], rotation=0)
-red1, red2 = R("R9", "10k", (220, 230))
-WIRE(red1, jB[3])
-RAIL("PLUS3V3", red2, rotation=90)
+# R9 encoder pull-up REMOVED -- fw INPUT_PULLUP (~13k internal).
 RAIL("ENC2_B", jB[3], rotation=0)
 RAIL("GND", jB[4], rotation=0)
 RAIL("MOTB_N", jB[5], rotation=0)
@@ -803,7 +712,7 @@ XIAO_NET = {  # module pad -> net (None = explicit no-connect)
     "12": "GND", "13": None, "14": "PLUS3V3",                            # GND / 5V(unused) / 3V3
     "15": "ENC1_A", "16": "ENC1_B", "17": "ENC2_A", "18": "ENC2_B",       # Plus1-4
     "19": "WALL_EMIT_FRONT", "20": "WALL_EMIT_DIAG", "21": "WALL_EMIT_SIDE",  # Plus5-7
-    "22": "SDA", "23": "SCL",                                             # Plus8-9 (line-follower rev: was USER_BTN/2)
+    "22": "USER_BTN", "23": "USER_BTN2",   # ex-I2C pins: SW1/SW2 direct (fw INPUT_PULLUP)                                             # Plus8-9 (line-follower rev: was USER_BTN/2)
 }
 U3_BASE = snap((360, 300))
 U3_PINS = XIAO("U3", U3_BASE)
@@ -819,7 +728,7 @@ for _pad, _net in XIAO_NET.items():
 # Module decoupling: 100nF + 10uF at the 3V3 pin -- standard local bulk+HF
 # caps at a module's supply entry (the nRF52840 has its own on-die
 # requirements handled internally by Seeed's design).
-c10a, c10b = C("C10", "10uF", (415, 235))
+c10a, c10b = C("C10", "22uF", (415, 235))
 RAIL("PLUS3V3", c10a, rotation=90)
 RAIL("GND", c10b, rotation=270)
 c8p1, c8p2 = C("C8", "100nF", (430, 235))
@@ -831,7 +740,7 @@ RAIL("GND", c8p2, rotation=270)
 # (same defensive pattern used throughout this project's designs).
 for _ref, _net, _gx in (("R62", "WALL_EMIT_FRONT", 455),
                          ("R63", "WALL_EMIT_DIAG", 465), ("R64", "WALL_EMIT_SIDE", 475)):
-    _p1, _p2 = R(_ref, "100k", (_gx, 330))
+    _p1, _p2 = R(_ref, "100k", (_gx, 330), footprint=THT_R)
     RAIL(_net, _p1, rotation=90)
     RAIL("GND", _p2, rotation=270)
 
@@ -854,7 +763,7 @@ TXT("XIAO nRF52840 Sense Plus: 6 wall sensors DIRECT on D0-D5 (the only ADC-capa
 # ---------------------------------------------------------------------------
 # CONNECTORS / DEBUG SECTION
 # ---------------------------------------------------------------------------
-TXT("USER INTERFACE  --  2 buttons (SW1/SW2) via a PCF8574 I2C GPIO expander (U5),\nsharing the existing SDA/SCL bus -- zero extra XIAO GPIO pins needed (see U5/SW1/SW2 at end of file)", (600, 230), size=5)
+TXT("USER INTERFACE -- 1 button (SW1) direct on XIAO pad 22; reset = the module's own button", (600, 230), size=5)
 
 # SW1/SW2/U5 wiring lives at the END of this file (same reason as the buzzer
 # block below): its WIRE() calls must not shift the global dogleg lane
@@ -913,7 +822,7 @@ for i, name in enumerate(SENSOR_NAMES):
     rx_c, rx_e = SFH309(ref("Q"), (x, row_y), footprint=photo_fp, value=photo_val)
     RAIL("GND", rx_e, rotation=270)
     # pull-up x-aligned with the collector pin -> straight vertical wire
-    rp1, rp2 = R(ref("R"), "47k", (rx_c[0], row_y + 15))
+    rp1, rp2 = R(ref("R"), "47k", (rx_c[0], row_y + 15), footprint=THT_R)
     WIRE(rp2, rx_c)
     RAIL("PLUS3V3", rp1, rotation=90)
     RAIL(f"{name}_SENSE", rx_c, rotation=0)
@@ -922,7 +831,7 @@ for i, name in enumerate(SENSOR_NAMES):
     # net (one BSS138 per group, below) instead of a per-sensor switch.
     # limiter x-aligned with the LED anode pin -> straight vertical wire
     led_k, led_a = LED_SFH4550(ref("D"), (x + 16, row_y), footprint=led_fp, value=led_val)
-    lr1, lr2 = R(ref("R"), "33", (led_a[0], row_y + 15))
+    lr1, lr2 = R(ref("R"), "33", (led_a[0], row_y + 15), footprint=THT_R)
     RAIL("PLUS3V3", lr1, rotation=90)
     WIRE(lr2, led_a)
     _grp = "EMIT_FRONT_K" if i < 2 else "EMIT_DIAG_K" if i < 4 else "EMIT_SIDE_K"
@@ -990,14 +899,9 @@ for _gref, _gate, _knet, _gx in ((None, "WALL_EMIT_FRONT", "EMIT_FRONT_K", 250),
 # bus itself SURVIVES for the PCF8574 button expander (U5) -- its pull-ups
 # R103/R104 are kept below. No XIAO pin frees up (line data rode the I2C bus).
 
-# I2C pull-ups for the button-expander bus (module has no fixed hardware
-# I2C pins -- firmware-assigned GPIOs, so external pull-ups are required).
-r103a, r103b = R("R103", "2.2k", (990, 440))
-RAIL("PLUS3V3", r103a, rotation=90)
-RAIL("SDA", r103b, rotation=270)
-r104a, r104b = R("R104", "2.2k", (1000, 440))
-RAIL("PLUS3V3", r104a, rotation=90)
-RAIL("SCL", r104b, rotation=270)
+# I2C bus REMOVED entirely (user, 2026-08-04): expander gone -> SDA/SCL and
+# pull-ups R103/R104 go too.
+
 
 
 # LINE-SENSOR INDICATOR LEDs removed with the line array (2-layer edition):
@@ -1021,7 +925,7 @@ RAIL("SCL", r104b, rotation=270)
 # toward GND, which is its required boot-strap state (ROM messaging default);
 # the buzzer cannot sound before app init because the pin resets to
 # input/pull-down and the NPN needs +0.6 V to conduct.
-buz_ctrl1, buz_ctrl2 = R("R81", "220", (560, 345))
+buz_ctrl1, buz_ctrl2 = R("R81", "220", (560, 345), footprint=THT_R)
 RAIL("BUZZ_CTRL", buz_ctrl1, rotation=90)
 q34_base = snap((575, 358))
 g.add_component("Transistor_BJT", "Q_NPN_BEC", "Q34",
@@ -1067,7 +971,7 @@ RAIL("BUZZ_DRV", pin_at(d29_base, (3.81, 0)), rotation=0)     # pin 2 A -> switc
 TXT("STATUS / POWER LEDs", (600, 600), size=5)
 
 # Power LED -- always on from +3V3 (dev-board power-good indicator)
-_pr1, _pr2 = R("R82", "1k", (610, 640))
+_pr1, _pr2 = R("R82", "1k", (610, 640), footprint=THT_R)
 RAIL("PLUS3V3", _pr1, rotation=90)
 RAIL("PWRLED_A", _pr2, rotation=270)
 _pb = snap((610, 620))
@@ -1084,14 +988,9 @@ RAIL("GND", pin_at(_pb, (-5.08, 0)), rotation=180)           # cathode
 # TPS54302-regulated 6.0V motor rail) is present -- i.e. SW5 AND SW6 both on.
 # ~4mA, negligible vs motor current; confirms the switch + reverse-protect
 # FET path AND the 6V buck are both live.
-_mr1, _mr2 = R("R84", "1k", (740, 640))
-RAIL("VM_6V", _mr1, rotation=90)
-RAIL("MOTLED_A", _mr2, rotation=270)
-_mb = snap((740, 620))
-g.add_component("LED", "LD271", "D33", "Motor-power LED 0603 (VM_6V present; JLC good-stock)",
-                _mb, {"1": "", "2": ""}, footprint="LED_SMD:LED_0603_1608Metric")
-RAIL("MOTLED_A", pin_at(_mb, (2.54, 0)), rotation=0)     # anode
-RAIL("GND", pin_at(_mb, (-5.08, 0)), rotation=180)       # cathode
+# D33/R84 motor-power LED REMOVED with the buck (duplicated D30 once the
+# motor rail became VM_BATT behind the same SW5 switch).
+
 
 # ---------------------------------------------------------------------------
 # USER INTERFACE (buttons) -- SW1/SW2 RESTORED (user request, rev 10
@@ -1123,107 +1022,19 @@ RAIL("GND", pin_at(_mb, (-5.08, 0)), rotation=180)       # cathode
 # PCF8574 datasheet's own DW/N package table) so ERC actually checks these
 # pins.
 # ---------------------------------------------------------------------------
-TXT("USER INTERFACE  --  2 buttons (SW1/SW2) via PCF8574 I2C GPIO expander (U5), shared SDA/SCL bus", (600, 700), size=5)
-
-PCF_PIN_OFFSET = {
-    "A0": (-10.16, -2.54), "A1": (-10.16, -5.08), "A2": (-10.16, -7.62),
-    "P0": (10.16, 10.16), "P1": (10.16, 7.62), "P2": (10.16, 5.08), "P3": (10.16, 2.54),
-    "GND": (0, -12.7),
-    "P4": (10.16, 0), "P5": (10.16, -2.54), "P6": (10.16, -5.08), "P7": (10.16, -7.62),
-    "INT": (-10.16, 2.54), "SCL": (-10.16, 10.16), "SDA": (-10.16, 7.62), "VDD": (0, 15.24),
-}
-U5_BASE = snap((600, 750))
-g.add_component("Interface_Expansion", "TCA9534", "U5",
-                 "PCF8574DWR (8-bit I2C GPIO expander, SOIC-16W; A0=A1=A2=GND -> addr 0x20/0x21; "
-                 "TCA9534 base symbol so ERC checks pins -- see comment above)",
-                 U5_BASE, {str(n): "" for n in range(1, 17)},
-                 footprint="Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm",
-                 datasheet="https://www.ti.com/lit/ds/symlink/pcf8574.pdf")
-pcf = {name: pin_at(U5_BASE, off) for name, off in PCF_PIN_OFFSET.items()}
-
-RAIL("GND", pcf["GND"], rotation=270)
-RAIL("PLUS3V3", pcf["VDD"], rotation=90)
-RAIL("SDA", pcf["SDA"], rotation=180)
-RAIL("SCL", pcf["SCL"], rotation=180)
-RAIL("GND", pcf["A0"], rotation=180)   # address select: A0=A1=A2=GND -> 0x20/0x21
-RAIL("GND", pcf["A1"], rotation=180)
-RAIL("GND", pcf["A2"], rotation=180)
-NC(pcf["INT"])                          # unused -- firmware polls over I2C
-
-c50a, c50b = C("C50", "100nF", (615, 770))
-RAIL("PLUS3V3", c50a, rotation=90)
-RAIL("GND", c50b, rotation=270)
-
+# PCF8574 + 6 wall-detection LEDs + SW2 REMOVED (user, 2026-08-04): SW2's
+# job is the XIAO's own reset/boot button; SW1 takes the GPIO freed by the
+# expander's SDA (pad 22, fw INPUT_PULLUP). Wall feedback -> BLE/serial.
+TXT("USER INTERFACE -- SW1 direct on XIAO pad 22 (USER_BTN); reset = module button", (600, 700), size=5)
 sw1a, sw1b = SWPUSH("SW1", (630, 750))
-WIRE(sw1a, pcf["P0"])
+RAIL("USER_BTN", sw1a, rotation=180)
 RAIL("GND", sw1b, rotation=0)
 
+# SW2 RESTORED (user, 2026-08-05): pad 23 (ex-SCL) was spare after the
+# expander removal -- second user button, fw INPUT_PULLUP, shorts to GND.
 sw2a, sw2b = SWPUSH("SW2", (630, 735))
-WIRE(sw2a, pcf["P1"])
+RAIL("USER_BTN2", sw2a, rotation=180)
 RAIL("GND", sw2b, rotation=0)
-
-TXT("2 user buttons (SW1=A, SW2=B), read via the PCF8574 I2C GPIO expander (U5) on the SAME\n"
-    "SDA/SCL bus as the ADS7830 line-sensor ADC -- zero extra XIAO GPIO pins used. Each button:\n"
-    "P0/P1 -> button -> GND, using the PCF8574's own internal ~100uA pull-up (no external\n"
-    "resistor). A0=A1=A2=GND -> I2C address 0x20 write/0x21 read (ADS7830 is 0x48/0x49 -- no\n"
-    "conflict). P2-P7 drive the 6 wall-detection indicator LEDs (see below); INT unused,\n"
-    "firmware polls over I2C. Reset/bootloader is still the XIAO module's own onboard button,\n"
-    "unaffected.",
-    (600, 720), size=2.0)
-
-# ---------------------------------------------------------------------------
-# WALL-DETECTION INDICATOR LEDs (user request, rev 11, 2026-07-26): one GREEN
-# 0603 LED per wall sensor (front-L/R, diagonal-L/R, side-L/R), driven from
-# the PCF8574's 6 spare P2-P7 pins -- firmware reads each wall sensor's ADC
-# channel, and when it crosses the "wall detected" threshold, drives that
-# sensor's PCF8574 pin LOW to light its LED. Sink configuration (same
-# electrical scheme TI's own datasheet uses for the SW1/SW2 buttons, just
-# LED instead of switch): PLUS3V3 -> 220R -> LED anode -> LED cathode ->
-# PCF8574 pin -> pin driven LOW by firmware to sink current and turn the
-# LED on. No transistor buffer needed -- PCF8574's IOL (25mA max per TI's
-# datasheet) comfortably covers a single 0603 LED's ~5mA, so this is at
-# least as minimal as the buffered PMOS scheme (Q28-33) an EARLIER revision
-# of this board used for the same purpose before it was removed entirely
-# for GPIO-budget reasons (see the LINE-SENSOR/WALL-SENSOR INDICATOR LEDs
-# removal note above) -- the PCF8574 addition now makes that budget
-# irrelevant. GREEN (APT1608SGC) to visually distinguish from the RED line-
-# sensor indicators (APT1608SURCK).
-# ---------------------------------------------------------------------------
-TXT("WALL-DETECTION INDICATOR LEDs -- 6x GREEN 0603, one per wall sensor, driven from PCF8574 P2-P7", (600, 610), size=5)
-
-WALL_LED_PINS = [
-    ("P2", "D50", "R105", "WALL_FL_LED"),
-    ("P3", "D51", "R106", "WALL_FR_LED"),
-    ("P4", "D52", "R107", "WALL_DL_LED"),
-    ("P5", "D53", "R108", "WALL_DR_LED"),
-    ("P6", "D54", "R109", "WALL_SL_LED"),
-    ("P7", "D55", "R110", "WALL_SR_LED"),
-]
-
-for i, (pcf_pin, d_ref, r_ref, net_name) in enumerate(WALL_LED_PINS):
-    row_y = 630 - i * 12
-    r1, r2 = R(r_ref, "220", (560, row_y))
-    RAIL("PLUS3V3", r1, rotation=90)
-
-    led_base = snap((580, row_y))
-    g.add_component("LED", "LD271", d_ref,
-                     f"{net_name} wall-detection indicator (0603 green LED; firmware drives the "
-                     "PCF8574 pin LOW via I2C when this sensor's ADC reading crosses its "
-                     "wall-detected threshold)",
-                     led_base, {"1": "", "2": ""}, footprint="LED_SMD:LED_0603_1608Metric")
-    led_a = pin_at(led_base, (2.54, 0))
-    led_k = pin_at(led_base, (-5.08, 0))
-    g.add_wire(r2, led_a)
-    RAIL(net_name, led_k, rotation=0)
-    RAIL(net_name, pcf[pcf_pin], rotation=180)
-
-TXT("Wall indicators: PLUS3V3 -> 220R -> green 0603 LED (anode) -> cathode -> PCF8574 P2-P7.\n"
-    "Firmware writes the corresponding pin LOW (I2C) to light an LED when its wall sensor\n"
-    "crosses the detection threshold; HIGH (PCF8574's own ~100uA weak pull-up) leaves it off.\n"
-    "No series-resistor-free 'LED as pull-up' trick here (that's specific to the line sensors'\n"
-    "phototransistor bias) -- this is a simple firmware-driven indicator, standard 220R limit\n"
-    "for ~5mA at 3.3V/2.2Vf.",
-    (600, 590), size=2.0)
 
 _OUT_SCH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "micromouse-pcb-simplified.kicad_sch")
 with open(_OUT_SCH, "w", encoding="utf-8", newline="\n") as f:

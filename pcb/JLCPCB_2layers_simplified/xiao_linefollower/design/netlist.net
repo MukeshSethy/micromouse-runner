@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "D:\\Projects\\micromouse-pcb\\pcb\\JLCPCB_2layers_simplified\\xiao_linefollower\\design\\micromouse-pcb-simplified.kicad_sch")
-		(date "2026-08-03T22:36:04")
+		(date "2026-08-05T00:57:24")
 		(tool "Eeschema 10.0.4")
 		(sheet
 			(number "1")
@@ -105,7 +105,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a21bda13-054f-4b25-bfef-2b42a62d5286")
+			(tstamps "d41ebea1-b268-48cb-ab8a-52e2fcceed3a")
 			(units
 				(unit
 					(name "A")
@@ -171,7 +171,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "951be355-fcf5-4900-ad80-dd47901a9601")
+			(tstamps "89026168-ea99-4b47-8be4-9c53b6dd5648")
 			(units
 				(unit
 					(name "A")
@@ -237,7 +237,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0d3a1961-0cdf-48f0-863a-bb585676252f")
+			(tstamps "9ed8f079-25ce-4189-b490-b1d2bc1a656a")
 			(units
 				(unit
 					(name "A")
@@ -303,7 +303,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ca6f8963-e85a-42a1-a8e6-8c11c69c76d2")
+			(tstamps "92781c34-c5f4-4365-ac6e-dd381140e998")
 			(units
 				(unit
 					(name "A")
@@ -369,7 +369,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "797dd5b4-b28d-492e-ba4a-463f6d9467b7")
+			(tstamps "61d06c30-1b2c-4040-a1fc-e0dc278aaad0")
 			(units
 				(unit
 					(name "A")
@@ -435,7 +435,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4ab3c22e-739c-4940-8b22-505f057f617d")
+			(tstamps "7ed688ef-f346-47ac-a87d-3b97c3e93903")
 			(units
 				(unit
 					(name "A")
@@ -501,7 +501,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cfa168a2-3533-47d4-8fb4-78aa7d6e4b1d")
+			(tstamps "544749f4-631b-4baf-b696-546918588d0d")
 			(units
 				(unit
 					(name "A")
@@ -518,11 +518,11 @@
 		)
 		(comp
 			(ref "C10")
-			(value "10uF")
+			(value "22uF")
 			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
-					(name "MPN") "CL21A106KPFNNNE")
+					(name "MPN") "CL21A226KPCLRNC")
 				(field
 					(name "Manufacturer") "Samsung Electro-Mechanics")
 				(field
@@ -541,7 +541,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "CL21A106KPFNNNE")
+				(value "CL21A226KPCLRNC")
 			)
 			(property
 				(name "Manufacturer")
@@ -567,7 +567,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c5bb1a72-1be7-4ea5-82be-630c565d599b")
+			(tstamps "fa192dcc-71da-4850-91ec-f218c058f0f1")
 			(units
 				(unit
 					(name "A")
@@ -633,7 +633,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3749d1fb-d7b6-49a4-bfb8-2d095f31f176")
+			(tstamps "1b7395b7-8d51-451a-9506-2d9150e9cac3")
 			(units
 				(unit
 					(name "A")
@@ -699,7 +699,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7758300a-c4d4-4fca-9f8b-b3513c650c80")
+			(tstamps "2d2424fa-c8a2-474b-9a45-90ec26f2b4af")
 			(units
 				(unit
 					(name "A")
@@ -765,403 +765,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "623f0a1c-6c80-45f6-b822-7cf9d6253206")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C15")
-			(value "100nF")
-			(footprint "Capacitor_SMD:C_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "CL21B104KBCNNNC")
-				(field
-					(name "Manufacturer") "Samsung Electro-Mechanics")
-				(field
-					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C")
-				(description "Unpolarized capacitor")
-			)
-			(property
-				(name "MPN")
-				(value "CL21B104KBCNNNC")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Samsung Electro-Mechanics")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "C_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "95234b7f-117e-4fd1-9708-62f11dbb4b53")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C16")
-			(value "22uF/25V")
-			(footprint "Capacitor_SMD:C_1210_3225Metric")
-			(fields
-				(field
-					(name "MPN") "CL32A226KAJNNNE")
-				(field
-					(name "Manufacturer") "Samsung Electro-Mechanics")
-				(field
-					(name "Footprint") "Capacitor_SMD:C_1210_3225Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C")
-				(description "Unpolarized capacitor")
-			)
-			(property
-				(name "MPN")
-				(value "CL32A226KAJNNNE")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Samsung Electro-Mechanics")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "C_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "f93ecc88-2047-4e65-b951-3f88497011d0")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C17")
-			(value "22uF/25V")
-			(footprint "Capacitor_SMD:C_1210_3225Metric")
-			(fields
-				(field
-					(name "MPN") "CL32A226KAJNNNE")
-				(field
-					(name "Manufacturer") "Samsung Electro-Mechanics")
-				(field
-					(name "Footprint") "Capacitor_SMD:C_1210_3225Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C")
-				(description "Unpolarized capacitor")
-			)
-			(property
-				(name "MPN")
-				(value "CL32A226KAJNNNE")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Samsung Electro-Mechanics")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "C_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "fdc6a577-4fb7-4e23-a8f8-c912bdcc97d0")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C18")
-			(value "10uF/25V")
-			(footprint "Capacitor_SMD:C_1210_3225Metric")
-			(fields
-				(field
-					(name "MPN") "CL32B106KBJNNNE")
-				(field
-					(name "Manufacturer") "Samsung Electro-Mechanics")
-				(field
-					(name "Footprint") "Capacitor_SMD:C_1210_3225Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C")
-				(description "Unpolarized capacitor")
-			)
-			(property
-				(name "MPN")
-				(value "CL32B106KBJNNNE")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Samsung Electro-Mechanics")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "C_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "5cc2ed90-0540-42e0-ae0f-fab17d477636")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C30")
-			(value "220uF/16V")
-			(footprint "Capacitor_SMD:CP_Elec_6.3x7.7")
-			(fields
-				(field
-					(name "MPN") "EEE-FT1C221AP")
-				(field
-					(name "Manufacturer") "Panasonic")
-				(field
-					(name "Footprint") "Capacitor_SMD:CP_Elec_6.3x7.7")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C")
-				(description "Unpolarized capacitor")
-			)
-			(property
-				(name "MPN")
-				(value "EEE-FT1C221AP")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Panasonic")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "C_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "fd33f90a-8bdc-422b-b997-810d003cbb5a")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C50")
-			(value "100nF")
-			(footprint "Capacitor_SMD:C_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "CL21B104KBCNNNC")
-				(field
-					(name "Manufacturer") "Samsung Electro-Mechanics")
-				(field
-					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C")
-				(description "Unpolarized capacitor")
-			)
-			(property
-				(name "MPN")
-				(value "CL21B104KBCNNNC")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Samsung Electro-Mechanics")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "C_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "2f50dfd5-7c30-4848-b4a1-d2c00fc087d1")
+			(tstamps "f39f318b-efc8-4635-9386-e63ed926f814")
 			(units
 				(unit
 					(name "A")
@@ -1227,7 +831,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "718af8c2-b2a3-419e-90f0-b17fc73bb7a2")
+			(tstamps "93fe358a-b785-42b8-a6ad-0c655445cb65")
 			(units
 				(unit
 					(name "A")
@@ -1293,7 +897,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a6536f9e-1b5e-470e-b410-ec332c644241")
+			(tstamps "a25264a1-5453-4ba8-8435-cc1076bf5045")
 			(units
 				(unit
 					(name "A")
@@ -1359,7 +963,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "648bab4c-5f8d-4943-a62c-8850e89ff1e7")
+			(tstamps "40e74ca6-5026-4ea6-af51-88a4dabe2070")
 			(units
 				(unit
 					(name "A")
@@ -1425,7 +1029,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6fe8db9c-1fad-4fc9-814e-492cfb9ce771")
+			(tstamps "72bd4b89-848e-4550-833b-6add65c7f18c")
 			(units
 				(unit
 					(name "A")
@@ -1491,7 +1095,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "017f12d1-bfba-4ffa-94d6-e200ea528eb2")
+			(tstamps "44c35bde-37d9-43e9-9f49-8651ccd9115c")
 			(units
 				(unit
 					(name "A")
@@ -1557,7 +1161,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2d1d3ef7-05a7-40ef-8dd7-80e7753e8264")
+			(tstamps "568c77a9-9c14-45a3-a1aa-d66d38a751da")
 			(units
 				(unit
 					(name "A")
@@ -1623,7 +1227,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b651b8c0-5a46-44b5-95db-7cb9b098ebe8")
+			(tstamps "1186c238-ddc6-4d0b-8c8d-7a97317c87c6")
 			(units
 				(unit
 					(name "A")
@@ -1689,469 +1293,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "50a90575-f9fe-4a91-b351-5d56050f6157")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D33")
-			(value "Motor-power LED 0603 (VM_6V present; JLC good-stock)")
-			(footprint "LED_SMD:LED_0603_1608Metric")
-			(fields
-				(field
-					(name "MPN") "APT1608SURCK")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "APT1608SURCK")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "7029524f-6b29-41b2-9abf-003258fe77dc")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D50")
-			(value "WALL_FL_LED wall-detection indicator (0603 green LED; firmware drives the PCF8574 pin LOW via I2C when this sensor's ADC reading crosses its wall-detected threshold)")
-			(footprint "LED_SMD:LED_0603_1608Metric")
-			(fields
-				(field
-					(name "MPN") "APT1608SGC")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "APT1608SGC")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "559754a6-107a-453e-a20b-cebcb0d20742")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D51")
-			(value "WALL_FR_LED wall-detection indicator (0603 green LED; firmware drives the PCF8574 pin LOW via I2C when this sensor's ADC reading crosses its wall-detected threshold)")
-			(footprint "LED_SMD:LED_0603_1608Metric")
-			(fields
-				(field
-					(name "MPN") "APT1608SGC")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "APT1608SGC")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "8ee37073-6add-492a-8e04-881d65e86636")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D52")
-			(value "WALL_DL_LED wall-detection indicator (0603 green LED; firmware drives the PCF8574 pin LOW via I2C when this sensor's ADC reading crosses its wall-detected threshold)")
-			(footprint "LED_SMD:LED_0603_1608Metric")
-			(fields
-				(field
-					(name "MPN") "APT1608SGC")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "APT1608SGC")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "bd7e03f7-f945-455a-98dc-8df51e638f98")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D53")
-			(value "WALL_DR_LED wall-detection indicator (0603 green LED; firmware drives the PCF8574 pin LOW via I2C when this sensor's ADC reading crosses its wall-detected threshold)")
-			(footprint "LED_SMD:LED_0603_1608Metric")
-			(fields
-				(field
-					(name "MPN") "APT1608SGC")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "APT1608SGC")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "03539066-21e2-4098-a0fe-eb75304da69e")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D54")
-			(value "WALL_SL_LED wall-detection indicator (0603 green LED; firmware drives the PCF8574 pin LOW via I2C when this sensor's ADC reading crosses its wall-detected threshold)")
-			(footprint "LED_SMD:LED_0603_1608Metric")
-			(fields
-				(field
-					(name "MPN") "APT1608SGC")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "APT1608SGC")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "af8ec5d6-7b90-4549-a0be-a029f4975dd4")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D55")
-			(value "WALL_SR_LED wall-detection indicator (0603 green LED; firmware drives the PCF8574 pin LOW via I2C when this sensor's ADC reading crosses its wall-detected threshold)")
-			(footprint "LED_SMD:LED_0603_1608Metric")
-			(fields
-				(field
-					(name "MPN") "APT1608SGC")
-				(field
-					(name "Manufacturer") "Kingbright")
-				(field
-					(name "Footprint") "LED_SMD:LED_0603_1608Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "LED")
-				(part "LD271")
-				(description "940nm IR-LED, 5mm")
-			)
-			(property
-				(name "MPN")
-				(value "APT1608SGC")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Kingbright")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "IR LED")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED*5.0mm*IRGrey*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "b3057f99-b691-4cd5-90d3-7f2f2e7168c8")
+			(tstamps "d64c383d-1e82-40ab-b208-28c10d811b2f")
 			(units
 				(unit
 					(name "A")
@@ -2217,7 +1359,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2b995e42-5663-4cc5-9f40-386b6afbd232")
+			(tstamps "8f8e564e-6b3f-43df-9c91-4b5e04d8f539")
 			(units
 				(unit
 					(name "A")
@@ -2283,7 +1425,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3f368db8-78f0-44c1-95e9-ba87408272ca")
+			(tstamps "bbd1c4ac-9d8e-4a7d-9ce9-57db38c55f9c")
 			(units
 				(unit
 					(name "A")
@@ -2349,7 +1491,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2ca25849-1122-4470-9c52-79dbc30b4e7b")
+			(tstamps "2f9f84b4-dfb2-49c3-8a6c-86a7cfcf84e4")
 			(units
 				(unit
 					(name "A")
@@ -2427,7 +1569,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "91c7f9fc-64c6-4954-938d-9cc1c82ffdf1")
+			(tstamps "828d2b09-ce0c-4947-8d7c-1ecfdcb6a42c")
 			(units
 				(unit
 					(name "A")
@@ -2505,7 +1647,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3d3ade73-690b-4350-a464-cd4a9e0713e5")
+			(tstamps "085720c8-a543-4850-b4a5-d4861621365e")
 			(units
 				(unit
 					(name "A")
@@ -2571,73 +1713,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e556d62f-2d41-4157-9d28-c3f802d0b3f8")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "L2")
-			(value "4.7uH")
-			(footprint "n20:L_Bourns_SRP4020TA")
-			(fields
-				(field
-					(name "MPN") "SRP4020TA-4R7M")
-				(field
-					(name "Manufacturer") "Bourns")
-				(field
-					(name "Footprint") "n20:L_Bourns_SRP4020TA")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "L")
-				(description "Inductor")
-			)
-			(property
-				(name "MPN")
-				(value "SRP4020TA-4R7M")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Bourns")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "inductor choke coil reactor magnetic")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Choke_* *Coil* Inductor_* L_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "b8d5d6ee-c9c5-4112-8934-a8229ff526f2")
+			(tstamps "f0aeb8cc-57a6-46d6-902f-2da75ad35526")
 			(units
 				(unit
 					(name "A")
@@ -2699,7 +1775,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8370da92-3c64-468f-b47c-efbb7122a460")
+			(tstamps "d50af37e-b93e-4b1b-ab70-ca489cf435b0")
 			(units
 				(unit
 					(name "A")
@@ -2768,7 +1844,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c65a73d4-5a99-44be-a3c4-d2f921c93d6d")
+			(tstamps "bb013740-0dc2-481b-8578-5355bc54c489")
 			(units
 				(unit
 					(name "A")
@@ -2834,7 +1910,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "41abce8f-6a80-4578-90a1-f9f6d97ac2ac")
+			(tstamps "01d8453a-eaa7-46c2-b912-d094303af67b")
 			(units
 				(unit
 					(name "A")
@@ -2900,7 +1976,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "05589209-d25e-4dad-9930-4e501ba539d0")
+			(tstamps "38a805d0-d354-403e-906a-b96b77e45d38")
 			(units
 				(unit
 					(name "A")
@@ -2966,7 +2042,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "aefc1152-7a2b-43cd-80b0-d07728c03606")
+			(tstamps "f9335eaa-577d-4966-a4de-669abd5fd976")
 			(units
 				(unit
 					(name "A")
@@ -3032,7 +2108,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cd9b6c9b-bef7-4d4b-8b62-4c9b9e96374a")
+			(tstamps "91f28e7d-d793-46e0-9a25-1ec66b3b3f53")
 			(units
 				(unit
 					(name "A")
@@ -3098,7 +2174,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1c036c42-1eaf-43d0-8f4d-fea1448ecf60")
+			(tstamps "d4ffff55-ff05-434e-a763-717e679b70dc")
 			(units
 				(unit
 					(name "A")
@@ -3160,7 +2236,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "19c8e40a-852f-45b0-ad56-df51347e9620")
+			(tstamps "35d9cde7-0d2c-402a-a71b-9708dea572c6")
 			(units
 				(unit
 					(name "A")
@@ -3225,7 +2301,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6e6f11e9-8e6e-4133-94e3-b22de6c110c4")
+			(tstamps "e6201f1d-c160-4d79-8dad-8edff88b292f")
 			(units
 				(unit
 					(name "A")
@@ -3290,7 +2366,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b11b72b7-d272-46bb-96ba-28546897cce1")
+			(tstamps "dd941b18-3292-4938-b469-2020c649116b")
 			(units
 				(unit
 					(name "A")
@@ -3355,7 +2431,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cc43f3a0-c923-41ce-88f9-8bf78d686620")
+			(tstamps "e3065729-64d8-4314-94b4-d7b32c8b79f2")
 			(units
 				(unit
 					(name "A")
@@ -3376,14 +2452,14 @@
 		(comp
 			(ref "R1")
 			(value "100k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-07100KL")
+					(name "MPN") "CFR-25JB-52-100K")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -3398,7 +2474,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-07100KL")
+				(value "CFR-25JB-52-100K")
 			)
 			(property
 				(name "Manufacturer")
@@ -3424,271 +2500,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "017e94c9-778c-4ebd-bd5c-c1eba05dad76")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R6")
-			(value "10k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "WR08X1002FTL")
-				(field
-					(name "Manufacturer") "Walsin")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "WR08X1002FTL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Walsin")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "bbe558a2-1eac-4689-9d6c-20dd598b0433")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R7")
-			(value "10k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "WR08X1002FTL")
-				(field
-					(name "Manufacturer") "Walsin")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "WR08X1002FTL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Walsin")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "815e6adc-657f-4b1c-a458-443a8b1429a8")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R8")
-			(value "10k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "WR08X1002FTL")
-				(field
-					(name "Manufacturer") "Walsin")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "WR08X1002FTL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Walsin")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "72eaefe6-4cdf-4851-b437-bba8ee5c2f51")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R9")
-			(value "10k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "WR08X1002FTL")
-				(field
-					(name "Manufacturer") "Walsin")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "WR08X1002FTL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Walsin")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "2bb81698-6df0-4402-8feb-f6079d80beb1")
+			(tstamps "937559e4-ece5-4fc4-9a43-a21498bf217e")
 			(units
 				(unit
 					(name "A")
@@ -3706,14 +2518,14 @@
 		(comp
 			(ref "R13")
 			(value "47k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0747KL")
+					(name "MPN") "CFR-25JB-52-47K")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -3728,7 +2540,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0747KL")
+				(value "CFR-25JB-52-47K")
 			)
 			(property
 				(name "Manufacturer")
@@ -3754,7 +2566,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "101ce091-48ea-43bf-a9c3-4ea9a21d2d55")
+			(tstamps "a9d6fdbf-9a40-40fa-9d19-3b6cef97f705")
 			(units
 				(unit
 					(name "A")
@@ -3772,14 +2584,14 @@
 		(comp
 			(ref "R14")
 			(value "33")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0733RL")
+					(name "MPN") "CFR-25JB-52-33R")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -3794,7 +2606,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0733RL")
+				(value "CFR-25JB-52-33R")
 			)
 			(property
 				(name "Manufacturer")
@@ -3820,7 +2632,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a22bffde-4226-4450-b1fd-84633b5a39de")
+			(tstamps "c935eb0f-c9a5-4ec5-9192-3bc6c8a8cd30")
 			(units
 				(unit
 					(name "A")
@@ -3838,14 +2650,14 @@
 		(comp
 			(ref "R15")
 			(value "47k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0747KL")
+					(name "MPN") "CFR-25JB-52-47K")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -3860,7 +2672,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0747KL")
+				(value "CFR-25JB-52-47K")
 			)
 			(property
 				(name "Manufacturer")
@@ -3886,7 +2698,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9582a83b-27c4-414f-9019-9a165067ede6")
+			(tstamps "83fe1156-a8d2-4f8b-997c-74b8f5edbaba")
 			(units
 				(unit
 					(name "A")
@@ -3904,14 +2716,14 @@
 		(comp
 			(ref "R16")
 			(value "33")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0733RL")
+					(name "MPN") "CFR-25JB-52-33R")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -3926,7 +2738,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0733RL")
+				(value "CFR-25JB-52-33R")
 			)
 			(property
 				(name "Manufacturer")
@@ -3952,7 +2764,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ef30d85e-6e06-4118-b03f-f82c00d23625")
+			(tstamps "0d0214e9-362e-4872-baa0-3c3fb51cdeb5")
 			(units
 				(unit
 					(name "A")
@@ -3970,14 +2782,14 @@
 		(comp
 			(ref "R17")
 			(value "47k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0747KL")
+					(name "MPN") "CFR-25JB-52-47K")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -3992,7 +2804,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0747KL")
+				(value "CFR-25JB-52-47K")
 			)
 			(property
 				(name "Manufacturer")
@@ -4018,7 +2830,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3dd09558-7dbc-4002-aaae-f7be444f7ea3")
+			(tstamps "c8307a7f-6a28-4286-9210-da82cb303130")
 			(units
 				(unit
 					(name "A")
@@ -4036,14 +2848,14 @@
 		(comp
 			(ref "R18")
 			(value "33")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0733RL")
+					(name "MPN") "CFR-25JB-52-33R")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -4058,7 +2870,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0733RL")
+				(value "CFR-25JB-52-33R")
 			)
 			(property
 				(name "Manufacturer")
@@ -4084,7 +2896,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "92ab9155-5b88-45f4-a2b1-f5d388803424")
+			(tstamps "de10fe60-5211-4dc9-a3cb-52a24c034df2")
 			(units
 				(unit
 					(name "A")
@@ -4102,14 +2914,14 @@
 		(comp
 			(ref "R19")
 			(value "47k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0747KL")
+					(name "MPN") "CFR-25JB-52-47K")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -4124,7 +2936,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0747KL")
+				(value "CFR-25JB-52-47K")
 			)
 			(property
 				(name "Manufacturer")
@@ -4150,7 +2962,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c5774a46-8bf3-4242-b1db-1cf8916ab115")
+			(tstamps "c0587084-0c82-4978-9ff1-a486a85903f1")
 			(units
 				(unit
 					(name "A")
@@ -4168,14 +2980,14 @@
 		(comp
 			(ref "R20")
 			(value "33")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0733RL")
+					(name "MPN") "CFR-25JB-52-33R")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -4190,7 +3002,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0733RL")
+				(value "CFR-25JB-52-33R")
 			)
 			(property
 				(name "Manufacturer")
@@ -4216,7 +3028,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bcbb61c1-b01c-46cf-8eed-fd6312c8149c")
+			(tstamps "d1ac7f27-0110-46bb-a1a3-ea260aeed309")
 			(units
 				(unit
 					(name "A")
@@ -4234,14 +3046,14 @@
 		(comp
 			(ref "R21")
 			(value "47k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0747KL")
+					(name "MPN") "CFR-25JB-52-47K")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -4256,7 +3068,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0747KL")
+				(value "CFR-25JB-52-47K")
 			)
 			(property
 				(name "Manufacturer")
@@ -4282,7 +3094,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "59f90931-d44a-45e0-95e3-892d6f7507b7")
+			(tstamps "6ca7a80a-e287-4ed8-a30f-f11e3fd82e44")
 			(units
 				(unit
 					(name "A")
@@ -4300,14 +3112,14 @@
 		(comp
 			(ref "R22")
 			(value "33")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0733RL")
+					(name "MPN") "CFR-25JB-52-33R")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -4322,7 +3134,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0733RL")
+				(value "CFR-25JB-52-33R")
 			)
 			(property
 				(name "Manufacturer")
@@ -4348,7 +3160,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c4f805bb-4570-423e-932b-f496e786f906")
+			(tstamps "bfbcd863-7e6b-4090-bf38-7a5bca659b35")
 			(units
 				(unit
 					(name "A")
@@ -4366,14 +3178,14 @@
 		(comp
 			(ref "R23")
 			(value "47k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0747KL")
+					(name "MPN") "CFR-25JB-52-47K")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -4388,7 +3200,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0747KL")
+				(value "CFR-25JB-52-47K")
 			)
 			(property
 				(name "Manufacturer")
@@ -4414,7 +3226,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4b99290c-01de-425f-9bd3-2fd446b725df")
+			(tstamps "da5bfee7-c523-4751-b54d-3b93aa26e186")
 			(units
 				(unit
 					(name "A")
@@ -4432,14 +3244,14 @@
 		(comp
 			(ref "R24")
 			(value "33")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-0733RL")
+					(name "MPN") "CFR-25JB-52-33R")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -4454,7 +3266,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-0733RL")
+				(value "CFR-25JB-52-33R")
 			)
 			(property
 				(name "Manufacturer")
@@ -4480,7 +3292,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "923d3729-4d7a-467a-a25d-3b4c794f7c47")
+			(tstamps "aba01d91-afdb-4c68-b9a5-7f9e523a5d02")
 			(units
 				(unit
 					(name "A")
@@ -4498,14 +3310,14 @@
 		(comp
 			(ref "R55")
 			(value "10k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "WR08X1002FTL")
+					(name "MPN") "CFR-25JB-52-10K")
 				(field
-					(name "Manufacturer") "Walsin")
+					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -4520,11 +3332,11 @@
 			)
 			(property
 				(name "MPN")
-				(value "WR08X1002FTL")
+				(value "CFR-25JB-52-10K")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Walsin")
+				(value "Yageo")
 			)
 			(property
 				(name "Sheetname")
@@ -4546,7 +3358,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3b1a6661-5b0d-4076-9fc2-b0ac51e2d4c7")
+			(tstamps "fc66d1c9-cf36-4053-b463-f1ccdf08fbc4")
 			(units
 				(unit
 					(name "A")
@@ -4564,14 +3376,14 @@
 		(comp
 			(ref "R62")
 			(value "100k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-07100KL")
+					(name "MPN") "CFR-25JB-52-100K")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -4586,7 +3398,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-07100KL")
+				(value "CFR-25JB-52-100K")
 			)
 			(property
 				(name "Manufacturer")
@@ -4612,7 +3424,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "49b4764b-630b-40ab-837a-4d3cfc71872a")
+			(tstamps "34146d2b-ed94-4923-9abb-acbdffc873f6")
 			(units
 				(unit
 					(name "A")
@@ -4630,14 +3442,14 @@
 		(comp
 			(ref "R63")
 			(value "100k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-07100KL")
+					(name "MPN") "CFR-25JB-52-100K")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -4652,7 +3464,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-07100KL")
+				(value "CFR-25JB-52-100K")
 			)
 			(property
 				(name "Manufacturer")
@@ -4678,7 +3490,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "aa811eb1-73fd-4c30-9008-eefff5bb355f")
+			(tstamps "94696de1-9924-4ac9-bbba-52b7bd5afa03")
 			(units
 				(unit
 					(name "A")
@@ -4696,14 +3508,14 @@
 		(comp
 			(ref "R64")
 			(value "100k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-07100KL")
+					(name "MPN") "CFR-25JB-52-100K")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -4718,7 +3530,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-07100KL")
+				(value "CFR-25JB-52-100K")
 			)
 			(property
 				(name "Manufacturer")
@@ -4744,7 +3556,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "728b9e31-028c-4ef5-9038-be07790a34c3")
+			(tstamps "a476992c-9eb0-4d6a-bb9a-e9052a7b5d9a")
 			(units
 				(unit
 					(name "A")
@@ -4762,14 +3574,14 @@
 		(comp
 			(ref "R69")
 			(value "100k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-07100KL")
+					(name "MPN") "CFR-25JB-52-100K")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -4784,7 +3596,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-07100KL")
+				(value "CFR-25JB-52-100K")
 			)
 			(property
 				(name "Manufacturer")
@@ -4810,271 +3622,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "eee21a51-3d98-4265-8c59-29e26c34455a")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R70")
-			(value "220k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-07220KL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-07220KL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "896bca20-3eb1-44d0-a473-ad4881ac5ae1")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R71")
-			(value "110k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-07110KL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-07110KL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "9b932309-8f97-4895-83fe-b4924f1a286f")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R73")
-			(value "100k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-07100KL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-07100KL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "ba10496d-56c6-45d2-8738-5a62fd498ead")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R74")
-			(value "11k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-0711KL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-0711KL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "86f687c3-670d-43e4-873c-fac29f94f98a")
+			(tstamps "c879b0ea-7ab5-4ee7-a845-75d001fdde72")
 			(units
 				(unit
 					(name "A")
@@ -5092,14 +3640,14 @@
 		(comp
 			(ref "R81")
 			(value "220")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-07220RL")
+					(name "MPN") "CFR-25JB-52-220R")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -5114,7 +3662,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-07220RL")
+				(value "CFR-25JB-52-220R")
 			)
 			(property
 				(name "Manufacturer")
@@ -5140,7 +3688,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "70e7c35f-34bb-4df7-8943-697262e81764")
+			(tstamps "48553694-3bf7-4e70-9d42-95aef41e0c47")
 			(units
 				(unit
 					(name "A")
@@ -5158,14 +3706,14 @@
 		(comp
 			(ref "R82")
 			(value "1k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "RC0805FR-071KL")
+					(name "MPN") "CFR-25JB-52-1K")
 				(field
 					(name "Manufacturer") "Yageo")
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -5180,7 +3728,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "RC0805FR-071KL")
+				(value "CFR-25JB-52-1K")
 			)
 			(property
 				(name "Manufacturer")
@@ -5206,667 +3754,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5e4bfb2a-98fc-4354-956b-1dfecb106781")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R84")
-			(value "1k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-071KL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-071KL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "487c17e3-181b-4da5-a1b8-58871e01e71c")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R85")
-			(value "40.2k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-0740K2L")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-0740K2L")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "80d2e0eb-5472-471c-9a03-6081db3a9a66")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R103")
-			(value "2.2k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-072K2L")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-072K2L")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "2b759b7d-2dbe-4de4-ad72-df43372ada6e")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R104")
-			(value "2.2k")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-072K2L")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-072K2L")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "379facc3-c4dd-4d06-a6d2-4f8d1375323e")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R105")
-			(value "220")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-07220RL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-07220RL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "24f001bc-9a9c-451f-809f-a4428bbf087a")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R106")
-			(value "220")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-07220RL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-07220RL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "9f6dea10-a483-4e17-9f90-8d0b8417baf3")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R107")
-			(value "220")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-07220RL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-07220RL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "08acef30-49e5-4fa4-a8e1-138473be25e8")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R108")
-			(value "220")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-07220RL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-07220RL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "6ad634df-47c3-4051-a1b5-e5ef9fbf67cc")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R109")
-			(value "220")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-07220RL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-07220RL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "1cc091ad-5967-4cee-9e8b-92c628d3f188")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R110")
-			(value "220")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
-			(fields
-				(field
-					(name "MPN") "RC0805FR-07220RL")
-				(field
-					(name "Manufacturer") "Yageo")
-				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "MPN")
-				(value "RC0805FR-07220RL")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Yageo")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "589d0c0d-1b14-4d74-ab0f-01b3f6abe2eb")
+			(tstamps "673ed979-bdb4-405e-961e-dd4cd8bffee7")
 			(units
 				(unit
 					(name "A")
@@ -5928,7 +3816,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "297201a4-e98c-4000-9349-593a89cd2cd7")
+			(tstamps "16611303-8cf2-48e4-b8b5-6e8404d0a354")
 			(units
 				(unit
 					(name "A")
@@ -5990,7 +3878,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5e5b2b53-67b9-4954-99cf-f73ffa8332f0")
+			(tstamps "cf0c3b0d-b2a5-4c2b-ae08-601c35a31ea3")
 			(units
 				(unit
 					(name "A")
@@ -6052,7 +3940,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8388d882-5930-419e-aada-6a621e4ddfec")
+			(tstamps "0c83a642-52a3-4809-9e11-2a5e6025a2a0")
 			(units
 				(unit
 					(name "A")
@@ -6072,7 +3960,7 @@
 		)
 		(comp
 			(ref "SW6")
-			(value "PWR MOTORS (PCM12SMTR slide; slide-to-GND = motors OFF)")
+			(value "MOTOR KILL (PCM12SMTR slide; slide-to-GND = motors hard-off via STBY)")
 			(footprint "Button_Switch_SMD:SW_SPDT_PCM12")
 			(fields
 				(field
@@ -6117,72 +4005,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "070c27b2-93d6-4cce-bf09-42270fa0489b")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "SW7")
-			(value "6V/7.5V toggle (PCM12SMTR reused as SPST; 3rd pin NC)")
-			(footprint "Button_Switch_SMD:SW_SPDT_PCM12")
-			(fields
-				(field
-					(name "MPN") "PCM12SMTR")
-				(field
-					(name "Manufacturer") "C&K")
-				(field
-					(name "Footprint") "Button_Switch_SMD:SW_SPDT_PCM12")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Switch")
-				(part "SW_SPDT")
-				(description "Switch, single pole double throw")
-			)
-			(property
-				(name "MPN")
-				(value "PCM12SMTR")
-			)
-			(property
-				(name "Manufacturer")
-				(value "C&K")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "switch single-pole double-throw spdt ON-ON")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "4083f93d-c2f9-4e93-add1-906cc5adf0f0")
+			(tstamps "4dc4515d-39df-4016-9f14-85b0c8dafbe6")
 			(units
 				(unit
 					(name "A")
@@ -6251,7 +4074,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b03b5da0-8ca3-400e-978c-ef219b6a2a8d")
+			(tstamps "944d2e53-d810-46b6-9589-bff53a7f9e61")
 			(units
 				(unit
 					(name "A")
@@ -6329,7 +4152,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a056ffd2-d479-48a0-b65a-cc1da793f0cf")
+			(tstamps "ddc0fca4-8e2a-4d8d-a6b0-0051eaff31c7")
 			(units
 				(unit
 					(name "A")
@@ -6461,7 +4284,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "31d42ca2-6b28-44e1-9dba-e6e58d1adb4f")
+			(tstamps "a17c9649-85b6-4600-8942-c6993ae5ed39")
 			(units
 				(unit
 					(name "A")
@@ -6534,192 +4357,6 @@
 						)
 						(pin
 							(num "23")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "U5")
-			(value "PCF8574DWR (8-bit I2C GPIO expander, SOIC-16W; A0=A1=A2=GND -> addr 0x20/0x21; TCA9534 base symbol so ERC checks pins -- see comment above)")
-			(footprint "Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm")
-			(datasheet "https://www.ti.com/lit/ds/symlink/pcf8574.pdf")
-			(fields
-				(field
-					(name "MPN") "PCF8574DWR")
-				(field
-					(name "Manufacturer") "Texas Instruments")
-				(field
-					(name "Footprint") "Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm")
-				(field
-					(name "Datasheet") "https://www.ti.com/lit/ds/symlink/pcf8574.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Interface_Expansion")
-				(part "TCA9534")
-				(description "8-bit I/O Expander, I2C / SMBus interface, interrupt output, fixed address bits 0b0100xxx, TSSOP-16 / SOIC-16")
-			)
-			(property
-				(name "MPN")
-				(value "PCF8574DWR")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Texas Instruments")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "Texas-Instruments Port-Expander TCA9534DWR TCA9534DWT TCA9534PWR")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TSSOP*4.4x5mm?P0.65mm* *SOIC*7.5x10.3mm?P1.27mm*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "8432696f-99cf-4aec-9ea1-ff8387401370")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "14")
-						)
-						(pin
-							(num "15")
-						)
-						(pin
-							(num "13")
-						)
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "16")
-						)
-						(pin
-							(num "8")
-						)
-						(pin
-							(num "4")
-						)
-						(pin
-							(num "5")
-						)
-						(pin
-							(num "6")
-						)
-						(pin
-							(num "7")
-						)
-						(pin
-							(num "9")
-						)
-						(pin
-							(num "10")
-						)
-						(pin
-							(num "11")
-						)
-						(pin
-							(num "12")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "U7")
-			(value "TPS54302DDCR (6.0V/3A motor buck; FB=100k/11k)")
-			(footprint "Package_TO_SOT_SMD:SOT-23-6")
-			(datasheet "https://www.ti.com/lit/ds/symlink/tps54302.pdf")
-			(fields
-				(field
-					(name "MPN") "TPS54302DDCR")
-				(field
-					(name "Manufacturer") "Texas Instruments")
-				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23-6")
-				(field
-					(name "Datasheet") "https://www.ti.com/lit/ds/symlink/tps54302.pdf")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Regulator_Switching")
-				(part "TPS54302")
-				(description "3A, 4.5 to 28V Input, EMI Friendly integrated switch synchronous step-down regulator, pulse-skipping, SOT-23-6")
-			)
-			(property
-				(name "MPN")
-				(value "TPS54302DDCR")
-			)
-			(property
-				(name "Manufacturer")
-				(value "Texas Instruments")
-			)
-			(property
-				(name "Sheetname")
-				(value "micromouse-pcb-simplified")
-			)
-			(property
-				(name "Sheetfile")
-				(value "micromouse-pcb-simplified.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "switching buck converter power-supply voltage regulator emi spread spectrum")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "SOT?23*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "a38ea804-582c-4a0c-9648-bcd18afd86c2")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "5")
-						)
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "6")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "4")
 						)
 					)
 				)
@@ -7314,111 +4951,6 @@
 			)
 		)
 		(libpart
-			(lib "Interface_Expansion")
-			(part "TCA9534")
-			(description "8-bit I/O Expander, I2C / SMBus interface, interrupt output, fixed address bits 0b0100xxx, TSSOP-16 / SOIC-16")
-			(docs "http://www.ti.com/lit/ds/symlink/tca9534.pdf")
-			(footprints
-				(fp "TSSOP*4.4x5mm?P0.65mm*")
-				(fp "*SOIC*7.5x10.3mm?P1.27mm*")
-			)
-			(fields
-				(field
-					(name "Reference") "U")
-				(field
-					(name "Value") "TCA9534")
-				(field
-					(name "Footprint")
-				)
-				(field
-					(name "Datasheet") "http://www.ti.com/lit/ds/symlink/tca9534.pdf")
-				(field
-					(name "Description") "8-bit I/O Expander, I2C / SMBus interface, interrupt output, fixed address bits 0b0100xxx, TSSOP-16 / SOIC-16")
-			)
-			(pins
-				(pin
-					(num "1")
-					(name "A0")
-					(type "input")
-				)
-				(pin
-					(num "2")
-					(name "A1")
-					(type "input")
-				)
-				(pin
-					(num "3")
-					(name "A2")
-					(type "input")
-				)
-				(pin
-					(num "4")
-					(name "P0")
-					(type "bidirectional")
-				)
-				(pin
-					(num "5")
-					(name "P1")
-					(type "bidirectional")
-				)
-				(pin
-					(num "6")
-					(name "P2")
-					(type "bidirectional")
-				)
-				(pin
-					(num "7")
-					(name "P3")
-					(type "bidirectional")
-				)
-				(pin
-					(num "8")
-					(name "GND")
-					(type "power_in")
-				)
-				(pin
-					(num "9")
-					(name "P4")
-					(type "bidirectional")
-				)
-				(pin
-					(num "10")
-					(name "P5")
-					(type "bidirectional")
-				)
-				(pin
-					(num "11")
-					(name "P6")
-					(type "bidirectional")
-				)
-				(pin
-					(num "12")
-					(name "P7")
-					(type "bidirectional")
-				)
-				(pin
-					(num "13")
-					(name "~{INT}")
-					(type "open_collector")
-				)
-				(pin
-					(num "14")
-					(name "SCL")
-					(type "input")
-				)
-				(pin
-					(num "15")
-					(name "SDA")
-					(type "bidirectional")
-				)
-				(pin
-					(num "16")
-					(name "VDD")
-					(type "power_in")
-				)
-			)
-		)
-		(libpart
 			(lib "LED")
 			(part "LD271")
 			(description "940nm IR-LED, 5mm")
@@ -7500,59 +5032,6 @@
 				(pin
 					(num "6")
 					(name "BST")
-					(type "passive")
-				)
-			)
-		)
-		(libpart
-			(lib "Regulator_Switching")
-			(part "TPS54302")
-			(description "3A, 4.5 to 28V Input, EMI Friendly integrated switch synchronous step-down regulator, pulse-skipping, SOT-23-6")
-			(docs "http://www.ti.com/lit/ds/symlink/tps54302.pdf")
-			(footprints
-				(fp "SOT?23*")
-			)
-			(fields
-				(field
-					(name "Reference") "U")
-				(field
-					(name "Value") "TPS54302")
-				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23-6")
-				(field
-					(name "Datasheet") "http://www.ti.com/lit/ds/symlink/tps54302.pdf")
-				(field
-					(name "Description") "3A, 4.5 to 28V Input, EMI Friendly integrated switch synchronous step-down regulator, pulse-skipping, SOT-23-6")
-			)
-			(pins
-				(pin
-					(num "1")
-					(name "GND")
-					(type "power_in")
-				)
-				(pin
-					(num "2")
-					(name "SW")
-					(type "power_out")
-				)
-				(pin
-					(num "3")
-					(name "VIN")
-					(type "power_in")
-				)
-				(pin
-					(num "4")
-					(name "FB")
-					(type "input")
-				)
-				(pin
-					(num "5")
-					(name "EN")
-					(type "input")
-				)
-				(pin
-					(num "6")
-					(name "BOOT")
 					(type "passive")
 				)
 			)
@@ -7782,10 +5261,6 @@
 		(library
 			(logical "Driver_Motor")
 			(uri "${KICAD10_SYMBOL_DIR}/Driver_Motor.kicad_sym")
-		)
-		(library
-			(logical "Interface_Expansion")
-			(uri "${KICAD10_SYMBOL_DIR}/Interface_Expansion.kicad_sym")
 		)
 		(library
 			(logical "LED")
@@ -8022,11 +5497,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "R6")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
 				(ref "U3")
 				(pin "15")
 				(pinfunction "Pin_15_15")
@@ -8041,11 +5511,6 @@
 				(ref "J5")
 				(pin "4")
 				(pinfunction "Pin_4_4")
-				(pintype "passive")
-			)
-			(node
-				(ref "R7")
-				(pin "1")
 				(pintype "passive")
 			)
 			(node
@@ -8066,11 +5531,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "R8")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
 				(ref "U3")
 				(pin "17")
 				(pinfunction "Pin_17_17")
@@ -8088,11 +5548,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "R9")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
 				(ref "U3")
 				(pin "18")
 				(pinfunction "Pin_18_18")
@@ -8101,32 +5556,6 @@
 		)
 		(net
 			(code "15")
-			(name "FB_6V")
-			(class "Default")
-			(node
-				(ref "R73")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R74")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R85")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U7")
-				(pin "4")
-				(pinfunction "FB_4")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "16")
 			(name "GND")
 			(class "Default")
 			(node
@@ -8155,27 +5584,7 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "C16")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "C17")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "C18")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
 				(ref "C2")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "C30")
 				(pin "2")
 				(pintype "passive")
 			)
@@ -8190,23 +5599,12 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "C50")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
 				(ref "C8")
 				(pin "2")
 				(pintype "passive")
 			)
 			(node
 				(ref "D30")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "D33")
 				(pin "1")
 				(pinfunction "K_1")
 				(pintype "passive")
@@ -8316,16 +5714,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "R71")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R74")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
 				(ref "SW1")
 				(pin "2")
 				(pinfunction "2_2")
@@ -8345,12 +5733,6 @@
 			)
 			(node
 				(ref "SW6")
-				(pin "1")
-				(pinfunction "A_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "SW7")
 				(pin "1")
 				(pinfunction "A_1")
 				(pintype "passive")
@@ -8397,39 +5779,9 @@
 				(pinfunction "Pin_12_12")
 				(pintype "passive")
 			)
-			(node
-				(ref "U5")
-				(pin "1")
-				(pinfunction "A0_1")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "2")
-				(pinfunction "A1_2")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "3")
-				(pinfunction "A2_3")
-				(pintype "input")
-			)
-			(node
-				(ref "U5")
-				(pin "8")
-				(pinfunction "GND_8")
-				(pintype "power_in")
-			)
-			(node
-				(ref "U7")
-				(pin "1")
-				(pinfunction "GND_1")
-				(pintype "power_in")
-			)
 		)
 		(net
-			(code "17")
+			(code "16")
 			(name "MOTA_N")
 			(class "Default")
 			(node
@@ -8452,7 +5804,7 @@
 			)
 		)
 		(net
-			(code "18")
+			(code "17")
 			(name "MOTA_P")
 			(class "Default")
 			(node
@@ -8475,7 +5827,7 @@
 			)
 		)
 		(net
-			(code "19")
+			(code "18")
 			(name "MOTB_N")
 			(class "Default")
 			(node
@@ -8498,7 +5850,7 @@
 			)
 		)
 		(net
-			(code "20")
+			(code "19")
 			(name "MOTB_P")
 			(class "Default")
 			(node
@@ -8521,33 +5873,12 @@
 			)
 		)
 		(net
-			(code "21")
-			(name "MOTLED_A")
+			(code "20")
+			(name "MOT_STBY")
 			(class "Default")
 			(node
-				(ref "D33")
+				(ref "R55")
 				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R84")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "22")
-			(name "MOT_EN")
-			(class "Default")
-			(node
-				(ref "R70")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R71")
-				(pin "1")
 				(pintype "passive")
 			)
 			(node
@@ -8557,14 +5888,14 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "U7")
-				(pin "5")
-				(pinfunction "EN_5")
+				(ref "U2")
+				(pin "19")
+				(pinfunction "STBY_19")
 				(pintype "input")
 			)
 		)
 		(net
-			(code "23")
+			(code "21")
 			(name "Net-(D1-A)")
 			(class "Default")
 			(node
@@ -8580,7 +5911,7 @@
 			)
 		)
 		(net
-			(code "24")
+			(code "22")
 			(name "Net-(D2-A)")
 			(class "Default")
 			(node
@@ -8596,7 +5927,7 @@
 			)
 		)
 		(net
-			(code "25")
+			(code "23")
 			(name "Net-(D3-A)")
 			(class "Default")
 			(node
@@ -8612,7 +5943,7 @@
 			)
 		)
 		(net
-			(code "26")
+			(code "24")
 			(name "Net-(D4-A)")
 			(class "Default")
 			(node
@@ -8628,7 +5959,7 @@
 			)
 		)
 		(net
-			(code "27")
+			(code "25")
 			(name "Net-(D5-A)")
 			(class "Default")
 			(node
@@ -8644,7 +5975,7 @@
 			)
 		)
 		(net
-			(code "28")
+			(code "26")
 			(name "Net-(D6-A)")
 			(class "Default")
 			(node
@@ -8660,103 +5991,7 @@
 			)
 		)
 		(net
-			(code "29")
-			(name "Net-(D50-A)")
-			(class "Default")
-			(node
-				(ref "D50")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R105")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "30")
-			(name "Net-(D51-A)")
-			(class "Default")
-			(node
-				(ref "D51")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R106")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "31")
-			(name "Net-(D52-A)")
-			(class "Default")
-			(node
-				(ref "D52")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R107")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "32")
-			(name "Net-(D53-A)")
-			(class "Default")
-			(node
-				(ref "D53")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R108")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "33")
-			(name "Net-(D54-A)")
-			(class "Default")
-			(node
-				(ref "D54")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R109")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "34")
-			(name "Net-(D55-A)")
-			(class "Default")
-			(node
-				(ref "D55")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R110")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "35")
+			(code "27")
 			(name "Net-(Q1-D)")
 			(class "Default")
 			(node
@@ -8772,7 +6007,7 @@
 			)
 		)
 		(net
-			(code "36")
+			(code "28")
 			(name "Net-(Q1-G)")
 			(class "Default")
 			(node
@@ -8788,7 +6023,7 @@
 			)
 		)
 		(net
-			(code "37")
+			(code "29")
 			(name "Net-(Q34-B)")
 			(class "Default")
 			(node
@@ -8804,23 +6039,7 @@
 			)
 		)
 		(net
-			(code "38")
-			(name "Net-(SW7-B)")
-			(class "Default")
-			(node
-				(ref "R85")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "SW7")
-				(pin "2")
-				(pinfunction "B_2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "39")
+			(code "30")
 			(name "Net-(U1-BST)")
 			(class "Default")
 			(node
@@ -8836,73 +6055,7 @@
 			)
 		)
 		(net
-			(code "40")
-			(name "Net-(U2-STBY)")
-			(class "Default")
-			(node
-				(ref "R55")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U2")
-				(pin "19")
-				(pinfunction "STBY_19")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "41")
-			(name "Net-(U5-P0)")
-			(class "Default")
-			(node
-				(ref "SW1")
-				(pin "1")
-				(pinfunction "1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U5")
-				(pin "4")
-				(pinfunction "P0_4")
-				(pintype "bidirectional")
-			)
-		)
-		(net
-			(code "42")
-			(name "Net-(U5-P1)")
-			(class "Default")
-			(node
-				(ref "SW2")
-				(pin "1")
-				(pinfunction "1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U5")
-				(pin "5")
-				(pinfunction "P1_5")
-				(pintype "bidirectional")
-			)
-		)
-		(net
-			(code "43")
-			(name "Net-(U7-BOOT)")
-			(class "Default")
-			(node
-				(ref "C15")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U7")
-				(pin "6")
-				(pinfunction "BOOT_6")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "44")
+			(code "31")
 			(name "PLUS3V3")
 			(class "Default")
 			(node
@@ -8923,11 +6076,6 @@
 			)
 			(node
 				(ref "C5")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "C50")
 				(pin "1")
 				(pintype "passive")
 			)
@@ -8961,46 +6109,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "R103")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R104")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R105")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R106")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R107")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R108")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R109")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R110")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
 				(ref "R13")
 				(pin "1")
 				(pintype "passive")
@@ -9066,28 +6174,8 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "R6")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R7")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R8")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
 				(ref "R82")
 				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R9")
-				(pin "2")
 				(pintype "passive")
 			)
 			(node
@@ -9120,15 +6208,9 @@
 				(pinfunction "Pin_14_14")
 				(pintype "passive")
 			)
-			(node
-				(ref "U5")
-				(pin "16")
-				(pinfunction "VDD_16")
-				(pintype "power_in")
-			)
 		)
 		(net
-			(code "45")
+			(code "32")
 			(name "PWRLED_A")
 			(class "Default")
 			(node
@@ -9144,17 +6226,12 @@
 			)
 		)
 		(net
-			(code "46")
+			(code "33")
 			(name "PWR_EN")
 			(class "Default")
 			(node
 				(ref "R69")
 				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R70")
-				(pin "1")
 				(pintype "passive")
 			)
 			(node
@@ -9171,51 +6248,7 @@
 			)
 		)
 		(net
-			(code "47")
-			(name "SCL")
-			(class "Default")
-			(node
-				(ref "R104")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U3")
-				(pin "23")
-				(pinfunction "Pin_23_23")
-				(pintype "passive")
-			)
-			(node
-				(ref "U5")
-				(pin "14")
-				(pinfunction "SCL_14")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "48")
-			(name "SDA")
-			(class "Default")
-			(node
-				(ref "R103")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U3")
-				(pin "22")
-				(pinfunction "Pin_22_22")
-				(pintype "passive")
-			)
-			(node
-				(ref "U5")
-				(pin "15")
-				(pinfunction "SDA_15")
-				(pintype "bidirectional")
-			)
-		)
-		(net
-			(code "49")
+			(code "34")
 			(name "SW_3V3")
 			(class "Default")
 			(node
@@ -9237,93 +6270,41 @@
 			)
 		)
 		(net
-			(code "50")
-			(name "SW_6V")
+			(code "35")
+			(name "USER_BTN")
 			(class "Default")
 			(node
-				(ref "C15")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "L2")
+				(ref "SW1")
 				(pin "1")
 				(pinfunction "1_1")
 				(pintype "passive")
 			)
 			(node
-				(ref "U7")
-				(pin "2")
-				(pinfunction "SW_2")
-				(pintype "power_out")
+				(ref "U3")
+				(pin "22")
+				(pinfunction "Pin_22_22")
+				(pintype "passive")
 			)
 		)
 		(net
-			(code "51")
-			(name "VM_6V")
+			(code "36")
+			(name "USER_BTN2")
 			(class "Default")
 			(node
-				(ref "C11")
+				(ref "SW2")
 				(pin "1")
+				(pinfunction "1_1")
 				(pintype "passive")
 			)
 			(node
-				(ref "C12")
-				(pin "1")
+				(ref "U3")
+				(pin "23")
+				(pinfunction "Pin_23_23")
 				(pintype "passive")
-			)
-			(node
-				(ref "C16")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "C17")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "C30")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "L2")
-				(pin "2")
-				(pinfunction "2_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R73")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R84")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U2")
-				(pin "13")
-				(pinfunction "VM2_13")
-				(pintype "power_in")
-			)
-			(node
-				(ref "U2")
-				(pin "14")
-				(pinfunction "VM3_14")
-				(pintype "power_in")
-			)
-			(node
-				(ref "U2")
-				(pin "24")
-				(pinfunction "VM1_24")
-				(pintype "power_in")
 			)
 		)
 		(net
-			(code "52")
+			(code "37")
 			(name "VM_BATT")
 			(class "Default")
 			(node
@@ -9332,7 +6313,12 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "C18")
+				(ref "C11")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C12")
 				(pin "1")
 				(pintype "passive")
 			)
@@ -9364,31 +6350,26 @@
 				(pintype "power_in")
 			)
 			(node
-				(ref "U7")
-				(pin "3")
-				(pinfunction "VIN_3")
+				(ref "U2")
+				(pin "13")
+				(pinfunction "VM2_13")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U2")
+				(pin "14")
+				(pinfunction "VM3_14")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U2")
+				(pin "24")
+				(pinfunction "VM1_24")
 				(pintype "power_in")
 			)
 		)
 		(net
-			(code "53")
-			(name "WALL_DL_LED")
-			(class "Default")
-			(node
-				(ref "D52")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U5")
-				(pin "9")
-				(pinfunction "P4_9")
-				(pintype "bidirectional")
-			)
-		)
-		(net
-			(code "54")
+			(code "38")
 			(name "WALL_DL_SENSE")
 			(class "Default")
 			(node
@@ -9410,24 +6391,7 @@
 			)
 		)
 		(net
-			(code "55")
-			(name "WALL_DR_LED")
-			(class "Default")
-			(node
-				(ref "D53")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U5")
-				(pin "10")
-				(pinfunction "P5_10")
-				(pintype "bidirectional")
-			)
-		)
-		(net
-			(code "56")
+			(code "39")
 			(name "WALL_DR_SENSE")
 			(class "Default")
 			(node
@@ -9449,7 +6413,7 @@
 			)
 		)
 		(net
-			(code "57")
+			(code "40")
 			(name "WALL_EMIT_DIAG")
 			(class "Default")
 			(node
@@ -9471,7 +6435,7 @@
 			)
 		)
 		(net
-			(code "58")
+			(code "41")
 			(name "WALL_EMIT_FRONT")
 			(class "Default")
 			(node
@@ -9493,7 +6457,7 @@
 			)
 		)
 		(net
-			(code "59")
+			(code "42")
 			(name "WALL_EMIT_SIDE")
 			(class "Default")
 			(node
@@ -9515,24 +6479,7 @@
 			)
 		)
 		(net
-			(code "60")
-			(name "WALL_FL_LED")
-			(class "Default")
-			(node
-				(ref "D50")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U5")
-				(pin "6")
-				(pinfunction "P2_6")
-				(pintype "bidirectional")
-			)
-		)
-		(net
-			(code "61")
+			(code "43")
 			(name "WALL_FL_SENSE")
 			(class "Default")
 			(node
@@ -9554,24 +6501,7 @@
 			)
 		)
 		(net
-			(code "62")
-			(name "WALL_FR_LED")
-			(class "Default")
-			(node
-				(ref "D51")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U5")
-				(pin "7")
-				(pinfunction "P3_7")
-				(pintype "bidirectional")
-			)
-		)
-		(net
-			(code "63")
+			(code "44")
 			(name "WALL_FR_SENSE")
 			(class "Default")
 			(node
@@ -9593,24 +6523,7 @@
 			)
 		)
 		(net
-			(code "64")
-			(name "WALL_SL_LED")
-			(class "Default")
-			(node
-				(ref "D54")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U5")
-				(pin "11")
-				(pinfunction "P6_11")
-				(pintype "bidirectional")
-			)
-		)
-		(net
-			(code "65")
+			(code "45")
 			(name "WALL_SL_SENSE")
 			(class "Default")
 			(node
@@ -9632,24 +6545,7 @@
 			)
 		)
 		(net
-			(code "66")
-			(name "WALL_SR_LED")
-			(class "Default")
-			(node
-				(ref "D55")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U5")
-				(pin "12")
-				(pinfunction "P7_12")
-				(pintype "bidirectional")
-			)
-		)
-		(net
-			(code "67")
+			(code "46")
 			(name "WALL_SR_SENSE")
 			(class "Default")
 			(node
@@ -9671,7 +6567,7 @@
 			)
 		)
 		(net
-			(code "68")
+			(code "47")
 			(name "unconnected-(SW5-C-Pad3)")
 			(class "Default")
 			(node
@@ -9682,7 +6578,7 @@
 			)
 		)
 		(net
-			(code "69")
+			(code "48")
 			(name "unconnected-(SW6-C-Pad3)")
 			(class "Default")
 			(node
@@ -9693,18 +6589,7 @@
 			)
 		)
 		(net
-			(code "70")
-			(name "unconnected-(SW7-C-Pad3)")
-			(class "Default")
-			(node
-				(ref "SW7")
-				(pin "3")
-				(pinfunction "C_3")
-				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "71")
+			(code "49")
 			(name "unconnected-(U3-Pin_13-Pad13)")
 			(class "Default")
 			(node
@@ -9712,17 +6597,6 @@
 				(pin "13")
 				(pinfunction "Pin_13_13")
 				(pintype "passive+no_connect")
-			)
-		)
-		(net
-			(code "72")
-			(name "unconnected-(U5-~{INT}-Pad13)")
-			(class "Default")
-			(node
-				(ref "U5")
-				(pin "13")
-				(pinfunction "~{INT}_13")
-				(pintype "open_collector+no_connect")
 			)
 		)
 	)
