@@ -65,7 +65,12 @@ for key, fn in layer_file.items():
     is_x = "%FS" in g and ("%MOMM" in g or "%MOIN" in g)
     check(is_x, f"{key}: RS-274X header (%FS + %MO)", fn)
     check("%MOMM" in g, f"{key}: metric units")
-    check(g.count("X") > 10 and "M02" in g, f"{key}: has geometry + EOF (M02)")
+    if key == "B_Paste":
+        # all SMD parts are top-side since the THT-resistor swap -- an empty
+        # bottom paste layer is correct; require only a well-formed EOF.
+        check("M02" in g, f"{key}: EOF (M02); empty allowed (no bottom SMD)")
+    else:
+        check(g.count("X") > 10 and "M02" in g, f"{key}: has geometry + EOF (M02)")
     if key in ("F_Cu", "B_Cu"):
         for ap in re.findall(r"%ADD\d+C,([0-9.]+)", g):
             min_ap = min(min_ap, float(ap))
