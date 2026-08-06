@@ -309,14 +309,16 @@ def TB6612(ref, at, footprint="Package_SO:SSOP-24_5.3x8.2mm_P0.65mm"):
 # CONN_COL()'s generic single-row connector below) we instantiate a plain
 # Connector_Generic:Conn_01x23 symbol -- 23 pins in one schematic column --
 # and rely ENTIRELY on the real footprint (xiao:XIAO-nRF52840-Plus-SMD) for
-# physical pad geometry. The schematic symbol's pin NUMBERS ("1".."23") are
-# what matter: they must equal the real footprint's pad numbers 1-23 so
-# build_pcb.py's netlist-driven pad->net mapping lands correctly. Pads 24-29
-# on the real footprint (module-internal USB-C shield tabs + an onboard
-# 2-pin LiPo JST connector -- confirmed present in Seeed's own .kicad_mod,
-# not used by this design) are simply absent from this pin list; they load
-# on the PCB with no net, which is correct (nothing on the carrier board
-# needs them).
+# physical pad geometry. The schematic symbol's pin NUMBERS ("1".."29") are
+# what matter: they must equal the real footprint's pad numbers so
+# build_pcb.py's netlist-driven pad->net mapping lands correctly.
+#
+# CORRECTION 2026-08-06: pads 24-29 were previously described here as
+# "module-internal USB-C shield tabs + an onboard 2-pin LiPo JST connector".
+# That was WRONG. Seeed's own symbol names them SWDIO(24), SWDCLK(25), EN(26),
+# GND(27), VBAT(28), GND(29) -- i.e. the SWD debug cluster and the battery
+# input. SWDIO/SWDCLK/GND are now brought out to test pads (TP1-TP3) so the
+# board is debuggable under Zephyr; EN, VBAT and the spare GND stay unused.
 #
 # PAD MAP (all 23 pins; D-pin identity per pad number is an ASSUMPTION --
 # see the header comment block below and the final report: Seeed's assembled
@@ -331,7 +333,7 @@ def TB6612(ref, at, footprint="Package_SO:SSOP-24_5.3x8.2mm_P0.65mm"):
 #   9 D8 10 D9 11 D10 12 GND 13 5V(unused) 14 3V3
 #   15-20 Plus pads (-Y edge) 21-23 Plus pads (+Y edge) -- all digital GPIO
 # ---------------------------------------------------------------------------
-_XIAO_N = 23
+_XIAO_N = 29   # 23 castellations + SWD cluster (24-27) + VBAT/GND (28-29)
 _XIAO_TOPY = 2.54 * ((_XIAO_N - 1) // 2)
 XIAO_PIN_OFFSET = {str(n): (-5.08, _XIAO_TOPY - 2.54 * (n - 1)) for n in range(1, _XIAO_N + 1)}
 
@@ -705,17 +707,52 @@ TXT("10k pull-ups on all 4 encoder lines -- defensive: N20-encoder wire-color-to
 TXT("CONTROLLER  --  Seeed XIAO nRF52840 Sense Plus (SKU 102010694): 20 signals on 20\ndirect native GPIO pins, exact fit. Own onboard IMU/RGB LED/USB-C/reset button.", (300, 230), size=5)
 
 XIAO_NET = {  # module pad -> net (None = explicit no-connect)
+    # PAD MAP IS NOW VERIFIED, NOT ASSUMED (2026-08-06): our footprint is
+    # byte-identical (md5 d80c7223c66b6e6db973e1406e3f90b2) to Seeed's official
+    # OPL_Kicad_Library/Seeed Studio XIAO Series Library/XIAO-nRF52840-Plus-SMD
+    # .kicad_mod, and Seeed's matching symbol XIAO-nRF52840_Plus_SMD names every
+    # pin. Pad 12/13/14 = 3V3_OUT/GND/VBUS -- identical across every XIAO variant
+    # in that library (nRF52840, nRF52840 Plus, ESP32-S3 Plus, RP2040, nRF54LM20A).
     "1": "WALL_FL_SENSE", "2": "WALL_FR_SENSE", "3": "WALL_DL_SENSE",     # D0-D2 (ADC)
     "4": "WALL_DR_SENSE", "5": "WALL_SL_SENSE", "6": "WALL_SR_SENSE",     # D3-D5 (ADC)
     "7": "AIN1", "8": "AIN2", "9": "BIN1", "10": "BIN2",                 # D6-D9
     "11": "BUZZ_CTRL",                                                    # D10
-    "12": "GND", "13": None, "14": "PLUS3V3",                            # GND / 5V(unused) / 3V3
-    "15": "ENC1_A", "16": "ENC1_B", "17": "ENC2_A", "18": "ENC2_B",       # Plus1-4
-    "19": "WALL_EMIT_FRONT", "20": "WALL_EMIT_DIAG", "21": "WALL_EMIT_SIDE",  # Plus5-7
-    "22": "USER_BTN", "23": "USER_BTN2",   # ex-I2C pins: SW1/SW2 direct (fw INPUT_PULLUP)                                             # Plus8-9 (line-follower rev: was USER_BTN/2)
+    # rev 2026-08-06 CRITICAL FIX: these three were rotated by one position.
+    # Previously pad12=GND (Seeed's 3V3_OUT -> dead short across the module's
+    # regulator output, ~1W in its SOT-23 LDO), pad13=NC (Seeed's GND -> module
+    # ungrounded, could never boot) and pad14=PLUS3V3 (Seeed's VBUS).
+    "12": "PLUS3V3",                       # 3V3_OUT -- board rail feeds the module here
+    "13": "GND",                           # GND -- module ground return (was NC!)
+    "14": None,                            # VBUS -- USB bus rail, intentionally unused
+    # Plus pads = D11..D19 in pad order. D14 (P0.09) and D15 (P0.10) are the
+    # nRF52840's NFC pins (need CONFIG_NFCT_PINS_AS_GPIOS, and they carry NO ESD
+    # diodes); D16 (P0.31) is the module's internal LiPo/battery-sense line. All
+    # three therefore carry OUTPUTS (emitter gates) -- never an input off-board.
+    "15": "ENC1_A", "16": "ENC1_B", "17": "ENC2_A",                       # D11-D13 (clean)
+    "18": "WALL_EMIT_SIDE",                # D14  NFC pin -> output only (was ENC2_B)
+    "19": "WALL_EMIT_FRONT",               # D15  NFC pin -> output only
+    "20": "WALL_EMIT_DIAG",                # D16  battery-sense line -> output only
+    "21": "ENC2_B",                        # D17  clean pin (was WALL_EMIT_SIDE)
+    "22": "USER_BTN", "23": "USER_BTN2",   # D18/D19 clean; SW1/SW2 direct (fw INPUT_PULLUP)
+    # pads 24-27 = SWDIO / SWDCLK / EN / GND, pads 28-29 = VBAT / GND.
+    "24": "SWDIO", "25": "SWDCLK",         # brought out to test pads for Zephyr debug
+    "26": None,                            # EN -- leave floating (module pulls it up)
+    "27": "GND",                           # second ground tie, free to connect
+    "28": None, "29": None,                # VBAT / GND -- module battery input, unused
 }
 U3_BASE = snap((360, 300))
 U3_PINS = XIAO("U3", U3_BASE)
+
+# SWD debug access (rev 2026-08-06): pads 24/25/27 of the module are SWDIO,
+# SWDCLK and GND. Brought out to three 1.5mm test pads so the board can be
+# debugged/flashed over SWD (breakpoints + RTT under Zephyr) instead of only
+# via the module's USB bootloader.
+for _tp, _net, _ty in (("TP1", "SWDIO", 700), ("TP2", "SWDCLK", 715), ("TP3", "GND", 730)):
+    _p = snap((300, _ty))
+    g.add_component("Connector", "TestPoint", _tp,
+                     "SWD test pad (1.5mm, hand-probe)", _p, {"1": ""},
+                     footprint="TestPoint:TestPoint_Pad_D1.5mm")
+    RAIL(_net, pin_at(_p, (0, 0)), rotation=180)
 for _pad, _net in XIAO_NET.items():
     _pos = U3_PINS[_pad]
     if _net is None:

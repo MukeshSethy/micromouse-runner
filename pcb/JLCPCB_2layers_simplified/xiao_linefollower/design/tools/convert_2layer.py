@@ -157,7 +157,7 @@ def mkclass(name, nets, width):
 
 
 s = (s[:i] + header + "\n      " + inner.strip() + "\n    )"
-     + "\n    " + mkclass("power", POWER, 500)
+     + "\n    " + mkclass("power", POWER, 750)   # 0.75mm: shared VM path carries BOTH motors
      + "\n    " + mkclass("power3v3", POWER3, 400)
      + "\n    " + mkclass("motor", MOTOR, 400)
      + s[j + 1:])
