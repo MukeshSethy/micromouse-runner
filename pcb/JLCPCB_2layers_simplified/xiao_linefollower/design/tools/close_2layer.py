@@ -20,6 +20,7 @@ import subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import pcbnew
 import heal_all
+import vendor_geo as VG   # strict JLC-cap-Lion geometry (0.2 clr / 0.5 h2h / 0.25 hole-cu / 0.3 edge)
 
 BASE = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 BOARD = os.path.join(BASE, "micromouse-pcb-simplified-2l.kicad_pcb")
@@ -115,9 +116,13 @@ if PHASE == "healsig":
     # 0.15mm heal 'succeeded' into 7 clearance errors). Escalate budget only.
     # r7 lesson: healing at exactly the 0.2 rule lands marginally under
     # KiCad's clearance measure -- keep >= 0.22 and escalate BUDGET only.
-    LADDER = [dict(width_mm=0.25, clearance_mm=0.25, grid_mm=0.1, max_expansions=400000),
-              dict(width_mm=0.2, clearance_mm=0.22, grid_mm=0.1, max_expansions=900000),
-              dict(width_mm=0.2, clearance_mm=0.22, grid_mm=0.08, max_expansions=900000)]
+    # The rule set is now 0.20mm (JLC-cap-Lion). The A* works on a 0.08-0.1mm
+    # grid and its pad-escape stubs shave the requested clearance, so asking for
+    # 0.22 lands UNDER 0.20 in KiCad's measure -- that produced 10 clearance
+    # errors on the 2026-08-07 cycle. Floor the ladder at 0.30mm instead.
+    LADDER = [dict(width_mm=0.25, clearance_mm=0.32, grid_mm=0.1, max_expansions=400000),
+              dict(width_mm=0.2, clearance_mm=0.30, grid_mm=0.1, max_expansions=900000),
+              dict(width_mm=0.2, clearance_mm=0.30, grid_mm=0.08, max_expansions=900000)]
     for (net, pa, pb) in edges:
         ok = False
         for att in LADDER:
@@ -155,6 +160,7 @@ if PHASE in ("stitch", "chain"):
     if not F or not B:
         print("no GND pour on one side?!", flush=True)
         os._exit(1)
+    _vgmodel = VG.build(b)      # strict-rule obstacle model (built once per pass)
     Fmain = max(F, key=lambda c: abs(c.Area()))
     Bmain = max(B, key=lambda c: abs(c.Area()))
     added = 0
@@ -194,7 +200,7 @@ if PHASE in ("stitch", "chain"):
                             t.PointInside(pv, 0, True) for t in targets(layer)):
                         if not any(vn == "GND" and abs(vx - p[0]) < 1.0 and abs(vy - p[1]) < 1.0
                                    for (vx, vy, vn, vr) in g._vias):
-                            if g._verify_geo([], [p], "GND", 0.2) is None:
+                            if VG.can_place_via(_vgmodel, p)[0]:
                                 g.add_via(p, "GND")
                                 g._vias.append((p[0], p[1], "GND", 0.3))
                                 added += 1
