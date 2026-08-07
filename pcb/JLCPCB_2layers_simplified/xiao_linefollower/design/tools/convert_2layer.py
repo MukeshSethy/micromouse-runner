@@ -99,18 +99,28 @@ ok = pcbnew.ExportSpecctraDSN(b, DSN)
 # inject DSN keepouts at KiCad-vs-Freerouting marginal spots (r8: BIN1 routed
 # 0.15-0.2 from L1 pad 2 -- legal per DSN pad shape, illegal per KiCad DRC).
 # DSN frame: um, y negated. 0.65mm half-box on both copper layers.
-_spots_mm = []   # DSN keepouts DISABLED: a box on L1 pad 2 seals the pad exit
-                 # (16-stuck route). Blind spots are handled by the A* healer instead.
+# DSN keepouts: reserve the corridors that three ground pads need to reach the
+# plane. Without these, Freerouting fills the space around U2.18 / C8.2 / R63.2
+# and the pads end up on isolated pour islands -- legal per DRC, but the TB6612's
+# logic ground floats. Boxes are (cx, cy, half_w, half_h) in mm and are applied
+# to BOTH copper layers. DSN frame is um with Y negated.
+_spots_mm = [
+    # A box in the SSOP centre channel (was 49.30,32.20 for U2 pad 18) costs far
+    # too much: it blocks the main routing lane under U2 and pushed Freerouting
+    # from 1 unrouted net to 12. U2 pad 18 is handled after routing instead.
+    (67.40, 106.10, 1.00, 1.40),  # C8 pad 2  -> via to the NE (low-traffic area)
+    (54.95, 48.60, 0.95, 0.70),   # R63 pad 2 -> via to the E  (low-traffic area)
+]
+_NL = chr(10)          # written explicitly: heredoc-authored escapes kept collapsing
 _ktxt = ""
-for (_sx, _sy) in _spots_mm:
-    x0, x1 = int((_sx - 0.65) * 1000), int((_sx + 0.65) * 1000)
-    y0, y1 = int(-(_sy - 0.65) * 1000), int(-(_sy + 0.65) * 1000)
+for (_sx, _sy, _hw, _hh) in _spots_mm:
+    x0, x1 = int((_sx - _hw) * 1000), int((_sx + _hw) * 1000)
+    y0, y1 = int(-(_sy - _hh) * 1000), int(-(_sy + _hh) * 1000)
     for _lay in ("F.Cu", "B.Cu"):
-        _ktxt += ("\n    (keepout \"ko_%s_%d_%d\" (polygon %s 0  %d %d  %d %d  %d %d  %d %d))"
+        _ktxt += (_NL + '    (keepout "ko_%s_%d_%d" (polygon %s 0  %d %d  %d %d  %d %d  %d %d))'
                   % (_lay.replace(".", ""), x0, -y0, _lay, x0, y0, x1, y0, x1, y1, x0, y1))
 _d = open(DSN, encoding="utf-8").read()
 _i = _d.index("(structure")
-# find the end of the (structure ...) block and insert keepouts before it
 _depth = 0; _j = _i
 while True:
     if _d[_j] == "(": _depth += 1
@@ -118,9 +128,9 @@ while True:
         _depth -= 1
         if _depth == 0: break
     _j += 1
-_d = _d[:_j] + _ktxt + "\n  " + _d[_j:]
-open(DSN, "w", encoding="utf-8", newline="\n").write(_d)
-print("injected %d DSN keepouts" % (2 * len(_spots_mm)), flush=True)
+_d = _d[:_j] + _ktxt + _NL + "  " + _d[_j:]
+open(DSN, "w", encoding="utf-8", newline=_NL).write(_d)
+print("injected %d DSN keepouts (ground-escape corridors)" % (2 * len(_spots_mm)), flush=True)
 print("DSN export (inset boundary):", ok, flush=True)
 
 # 5. power-class surgery on the DSN
