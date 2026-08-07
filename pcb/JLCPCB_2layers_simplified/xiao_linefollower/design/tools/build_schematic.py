@@ -320,18 +320,21 @@ def TB6612(ref, at, footprint="Package_SO:SSOP-24_5.3x8.2mm_P0.65mm"):
 # input. SWDIO/SWDCLK/GND are now brought out to test pads (TP1-TP3) so the
 # board is debuggable under Zephyr; EN, VBAT and the spare GND stay unused.
 #
-# PAD MAP (all 23 pins; D-pin identity per pad number is an ASSUMPTION --
-# see the header comment block below and the final report: Seeed's assembled
-# .kicad_mod gives pad NUMBERS and XY geometry, confirmed exactly against
-# the spec, but not which pad number is electrically which D-pin/GPIO. This
-# uses the standard, widely-documented sequential XIAO pin-table convention
-# (pad1=D0, pad2=D1, ... pad11=D10, pad12=GND, pad13=5V, pad14=3V3; Plus
-# pads 15-23 = the 9 extra GPIOs, no fixed D-number needed since the user
-# spec frees their assignment). FLAG FOR REVIEW: verify against a real
-# board/continuity-meter before fab.
+# PAD MAP -- VERIFIED 2026-08-07, no longer an assumption.
+# Evidence: this project's footprint is byte-identical (md5
+# d80c7223c66b6e6db973e1406e3f90b2) to Seeed's own
+#   OPL_Kicad_Library/Seeed Studio XIAO Series Library/XIAO-nRF52840-Plus-SMD.kicad_mod
+# so the pad NUMBERS are Seeed's, and Seeed's matching symbol
+# XIAO-nRF52840_Plus_SMD names every pin. Pins 12/13/14 = 3V3_OUT/GND/VBUS on
+# every XIAO variant in that library. An earlier revision of this file assumed
+# 12=GND/13=5V/14=3V3, which shorted the module's regulator output to ground.
 #   1 D0(ADC) 2 D1(ADC) 3 D2(ADC) 4 D3(ADC) 5 D4(ADC) 6 D5(ADC) 7 D6 8 D7
-#   9 D8 10 D9 11 D10 12 GND 13 5V(unused) 14 3V3
-#   15-20 Plus pads (-Y edge) 21-23 Plus pads (+Y edge) -- all digital GPIO
+#   9 D8 10 D9 11 D10 12 3V3_OUT 13 GND 14 VBUS(unused)
+#   15 D11  16 D12  17 D13  18 D14*  19 D15*  20 D16*  21 D17  22 D18  23 D19
+#   24 SWDIO  25 SWDCLK  26 EN(nc)  27 GND  28 VBAT(nc)  29 GND(nc)
+#   * D14/D15 = NFC pins P0.09/P0.10 (need CONFIG_NFCT_PINS_AS_GPIOS, no ESD
+#     diodes); D16 = P0.31, the module's LiPo/battery-sense line AND AIN7.
+#     All three carry OUTPUTS only (emitter gates) -- never an off-board input.
 # ---------------------------------------------------------------------------
 _XIAO_N = 29   # 23 castellations + SWD cluster (24-27) + VBAT/GND (28-29)
 _XIAO_TOPY = 2.54 * ((_XIAO_N - 1) // 2)
@@ -677,7 +680,7 @@ TXT("10k pull-ups on all 4 encoder lines -- defensive: N20-encoder wire-color-to
 # analog mux, NO shared/switched pins anywhere in this design (final,
 # locked decision). Exactly 20 signals on 20 of the 23 available pins (11
 # usable on the front header D0-D10 + 9 Plus pads; the 3 remaining main-
-# header pins are GND/5V(unused)/3V3). The 6 ADC-needing wall-sensor signals
+# header pins are 3V3_OUT/GND/VBUS). The 6 ADC-needing wall-sensor signals
 # are on D0-D5, the ONLY ADC-capable pins; everything else (14 signals) is
 # on D6-D10 + the 9 Plus pads.
 #
@@ -689,8 +692,9 @@ TXT("10k pull-ups on all 4 encoder lines -- defensive: N20-encoder wire-color-to
 #   pad5  D4  WALL_SL_SENSE (ADC)   pad6  D5  WALL_SR_SENSE (ADC)
 #   pad7  D6  AIN1   pad8  D7  AIN2   pad9  D8  BIN1   pad10 D9  BIN2
 #   pad11 D10 BUZZ_CTRL
-#   pad12 GND   pad13 5V (module's own USB VBUS output pin -- unused, NC)
-#   pad14 3V3 (fed FROM this board's AP63203 3V3 rail)
+#   pad12 3V3_OUT (this board's AP63203 rail feeds the module here)
+#   pad13 GND (module ground return)
+#   pad14 VBUS (module's USB bus rail -- intentionally NOT connected)
 #   pad15 Plus1 ENC1_A   pad16 Plus2 ENC1_B
 #   pad17 Plus3 ENC2_A   pad18 Plus4 ENC2_B
 #   pad19 Plus5 WALL_EMIT_FRONT   pad20 Plus6 WALL_EMIT_DIAG
