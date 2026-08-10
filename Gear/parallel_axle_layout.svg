@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="784" height="924" viewBox="0 0 784 924">
+<rect x="0.00" y="0.00" width="784.00" height="924.00" rx="0.00" fill="#ffffff" stroke="none" stroke-width="0.00"/>
+<text x="392.0" y="24.0" font-family="Aptos, Segoe UI, sans-serif" font-size="15" fill="#000000" text-anchor="middle" font-weight="bold">Micromouse 4WD 2.11:1 Drivetrain &#8212; Parallel Axle Mounting Layout</text>
+<text x="392.0" y="40.0" font-family="Aptos, Segoe UI, sans-serif" font-size="9" fill="#808080" text-anchor="middle" font-weight="normal">Module 0.5 / 20&#176; involute / POM &#183; 19T &#8594; 40T (3 gears/side) &#183; registered to xiao 2-layer PCB &#183; 2026-08-10</text>
+<text x="95.0" y="58.0" font-family="Aptos, Segoe UI, sans-serif" font-size="12" fill="#e11a27" text-anchor="start" font-weight="bold">A &#8212; SIDE ELEVATION (one side plate pair, viewed from outboard)</text>
+<text x="95.0" y="72.0" font-family="Aptos, Segoe UI, sans-serif" font-size="9" fill="#808080" text-anchor="start" font-weight="normal">All 3 axes are collinear on the wheel-axle line. Scale 1:1 at 6 px/mm. Dimensions in mm.</text>
+<rect x="210.50" y="179.50" width="273.00" height="84.90" rx="18.00" fill="none" stroke="#000000" stroke-width="1.40"/>
+<line x1="85.00" y1="304.00" x2="609.00" y2="304.00" stroke="#000000" stroke-width="1.20"/>
+<line x1="85.00" y1="304.00" x2="79.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="97.00" y1="304.00" x2="91.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="109.00" y1="304.00" x2="103.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="121.00" y1="304.00" x2="115.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="133.00" y1="304.00" x2="127.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="145.00" y1="304.00" x2="139.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="157.00" y1="304.00" x2="151.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="169.00" y1="304.00" x2="163.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="181.00" y1="304.00" x2="175.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="193.00" y1="304.00" x2="187.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="205.00" y1="304.00" x2="199.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="217.00" y1="304.00" x2="211.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="229.00" y1="304.00" x2="223.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="241.00" y1="304.00" x2="235.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="253.00" y1="304.00" x2="247.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="265.00" y1="304.00" x2="259.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="277.00" y1="304.00" x2="271.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="289.00" y1="304.00" x2="283.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="301.00" y1="304.00" x2="295.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="313.00" y1="304.00" x2="307.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="325.00" y1="304.00" x2="319.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="337.00" y1="304.00" x2="331.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="349.00" y1="304.00" x2="343.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="361.00" y1="304.00" x2="355.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="373.00" y1="304.00" x2="367.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="385.00" y1="304.00" x2="379.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="397.00" y1="304.00" x2="391.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="409.00" y1="304.00" x2="403.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="421.00" y1="304.00" x2="415.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="433.00" y1="304.00" x2="427.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="445.00" y1="304.00" x2="439.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="457.00" y1="304.00" x2="451.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="469.00" y1="304.00" x2="463.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="481.00" y1="304.00" x2="475.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="493.00" y1="304.00" x2="487.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="505.00" y1="304.00" x2="499.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="517.00" y1="304.00" x2="511.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="529.00" y1="304.00" x2="523.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="541.00" y1="304.00" x2="535.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="553.00" y1="304.00" x2="547.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="565.00" y1="304.00" x2="559.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="577.00" y1="304.00" x2="571.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="589.00" y1="304.00" x2="583.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="601.00" y1="304.00" x2="595.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="613.00" y1="304.00" x2="607.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<line x1="625.00" y1="304.00" x2="619.00" y2="310.00" stroke="#000000" stroke-width="0.40"/>
+<text x="613.0" y="307.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#808080" text-anchor="start" font-weight="normal">GROUND</text>
+<line x1="91.00" y1="223.00" x2="603.00" y2="223.00" stroke="#e11a27" stroke-width="0.70" stroke-dasharray="10,3,2,3"/>
+<circle cx="258.50" cy="223.00" r="81.00" fill="none" stroke="#808080" stroke-width="0.70" stroke-dasharray="4,3"/>
+<circle cx="435.50" cy="223.00" r="81.00" fill="none" stroke="#808080" stroke-width="0.70" stroke-dasharray="4,3"/>
+<circle cx="258.50" cy="223.00" r="63.00" fill="none" stroke="#000000" stroke-width="0.70"/>
+<circle cx="258.50" cy="223.00" r="60.00" fill="none" stroke="#e11a27" stroke-width="1.00" stroke-dasharray="6,3"/>
+<circle cx="258.50" cy="223.00" r="9.00" fill="none" stroke="#000000" stroke-width="1.00"/>
+<line x1="249.50" y1="223.00" x2="267.50" y2="223.00" stroke="#000000" stroke-width="0.50"/>
+<line x1="258.50" y1="214.00" x2="258.50" y2="232.00" stroke="#000000" stroke-width="0.50"/>
+<text x="258.5" y="276.4" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="middle" font-weight="bold">AXLE 40T</text>
+<text x="258.5" y="287.4" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#e11a27" text-anchor="middle" font-weight="normal">X = -14.75</text>
+<circle cx="347.00" cy="223.00" r="31.50" fill="none" stroke="#000000" stroke-width="0.70"/>
+<circle cx="347.00" cy="223.00" r="28.50" fill="none" stroke="#e11a27" stroke-width="1.00" stroke-dasharray="6,3"/>
+<circle cx="347.00" cy="223.00" r="9.00" fill="none" stroke="#000000" stroke-width="1.00"/>
+<line x1="338.00" y1="223.00" x2="356.00" y2="223.00" stroke="#000000" stroke-width="0.50"/>
+<line x1="347.00" y1="214.00" x2="347.00" y2="232.00" stroke="#000000" stroke-width="0.50"/>
+<text x="347.0" y="276.4" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="middle" font-weight="bold">MOTOR 19T</text>
+<text x="347.0" y="287.4" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#e11a27" text-anchor="middle" font-weight="normal">X = +0.00</text>
+<circle cx="435.50" cy="223.00" r="63.00" fill="none" stroke="#000000" stroke-width="0.70"/>
+<circle cx="435.50" cy="223.00" r="60.00" fill="none" stroke="#e11a27" stroke-width="1.00" stroke-dasharray="6,3"/>
+<circle cx="435.50" cy="223.00" r="9.00" fill="none" stroke="#000000" stroke-width="1.00"/>
+<line x1="426.50" y1="223.00" x2="444.50" y2="223.00" stroke="#000000" stroke-width="0.50"/>
+<line x1="435.50" y1="214.00" x2="435.50" y2="232.00" stroke="#000000" stroke-width="0.50"/>
+<text x="435.5" y="276.4" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="middle" font-weight="bold">AXLE 40T</text>
+<text x="435.5" y="287.4" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#e11a27" text-anchor="middle" font-weight="normal">X = +14.75</text>
+<rect x="310.40" y="192.40" width="73.20" height="61.20" rx="6.00" fill="none" stroke="#000000" stroke-width="0.70"/>
+<circle cx="293.00" cy="196.00" r="6.60" fill="none" stroke="#000000" stroke-width="0.70"/>
+<circle cx="401.00" cy="196.00" r="6.60" fill="none" stroke="#000000" stroke-width="0.70"/>
+<circle cx="293.00" cy="250.00" r="6.60" fill="none" stroke="#000000" stroke-width="0.70"/>
+<circle cx="401.00" cy="250.00" r="6.60" fill="none" stroke="#000000" stroke-width="0.70"/>
+<line x1="258.50" y1="334.00" x2="258.50" y2="342.00" stroke="#000000" stroke-width="0.60"/>
+<line x1="347.00" y1="334.00" x2="347.00" y2="342.00" stroke="#000000" stroke-width="0.60"/>
+<line x1="258.50" y1="338.00" x2="347.00" y2="338.00" stroke="#000000" stroke-width="0.60"/>
+<text x="302.8" y="334.0" font-family="Aptos, Segoe UI, sans-serif" font-size="9" fill="#000000" text-anchor="middle" font-weight="normal">14.75</text>
+<line x1="347.00" y1="334.00" x2="347.00" y2="342.00" stroke="#000000" stroke-width="0.60"/>
+<line x1="435.50" y1="334.00" x2="435.50" y2="342.00" stroke="#000000" stroke-width="0.60"/>
+<line x1="347.00" y1="338.00" x2="435.50" y2="338.00" stroke="#000000" stroke-width="0.60"/>
+<text x="391.2" y="334.0" font-family="Aptos, Segoe UI, sans-serif" font-size="9" fill="#000000" text-anchor="middle" font-weight="normal">14.75</text>
+<line x1="258.50" y1="360.00" x2="258.50" y2="368.00" stroke="#000000" stroke-width="0.60"/>
+<line x1="435.50" y1="360.00" x2="435.50" y2="368.00" stroke="#000000" stroke-width="0.60"/>
+<line x1="258.50" y1="364.00" x2="435.50" y2="364.00" stroke="#000000" stroke-width="0.60"/>
+<text x="347.0" y="360.0" font-family="Aptos, Segoe UI, sans-serif" font-size="9" fill="#000000" text-anchor="middle" font-weight="normal">29.50  WHEELBASE</text>
+<line x1="210.50" y1="386.00" x2="210.50" y2="394.00" stroke="#000000" stroke-width="0.60"/>
+<line x1="483.50" y1="386.00" x2="483.50" y2="394.00" stroke="#000000" stroke-width="0.60"/>
+<line x1="210.50" y1="390.00" x2="483.50" y2="390.00" stroke="#000000" stroke-width="0.60"/>
+<text x="347.0" y="386.0" font-family="Aptos, Segoe UI, sans-serif" font-size="9" fill="#000000" text-anchor="middle" font-weight="normal">45.50  plate length</text>
+<text x="95.0" y="428.0" font-family="Aptos, Segoe UI, sans-serif" font-size="9" fill="#e11a27" text-anchor="start" font-weight="bold">AXIS TABLE</text>
+<text x="95.0" y="443.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#808080" text-anchor="start" font-weight="normal">X</text>
+<text x="173.0" y="443.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#808080" text-anchor="start" font-weight="normal">board y</text>
+<text x="251.0" y="443.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#808080" text-anchor="start" font-weight="normal">teeth</text>
+<text x="311.0" y="443.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#808080" text-anchor="start" font-weight="normal">tip &#8709;</text>
+<text x="387.0" y="443.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#808080" text-anchor="start" font-weight="normal">shaft / bearing</text>
+<line x1="95.00" y1="447.00" x2="525.00" y2="447.00" stroke="#000000" stroke-width="0.50"/>
+<text x="95.0" y="460.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">-14.75</text>
+<text x="173.0" y="460.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">69.25</text>
+<text x="251.0" y="460.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">40T</text>
+<text x="311.0" y="460.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">21.00</text>
+<text x="387.0" y="460.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">&#8709;3 D live axle, 2x F683ZZ</text>
+<text x="95.0" y="473.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">+0.00</text>
+<text x="173.0" y="473.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">84.00</text>
+<text x="251.0" y="473.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">19T</text>
+<text x="311.0" y="473.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">10.50</text>
+<text x="387.0" y="473.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">N20+encoder, &#8709;3 D shaft</text>
+<text x="95.0" y="486.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">+14.75</text>
+<text x="173.0" y="486.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">98.75</text>
+<text x="251.0" y="486.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">40T</text>
+<text x="311.0" y="486.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">21.00</text>
+<text x="387.0" y="486.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">&#8709;3 D live axle, 2x F683ZZ</text>
+<line x1="505.50" y1="304.00" x2="513.50" y2="304.00" stroke="#000000" stroke-width="0.60"/>
+<line x1="505.50" y1="223.00" x2="513.50" y2="223.00" stroke="#000000" stroke-width="0.60"/>
+<line x1="509.50" y1="304.00" x2="509.50" y2="223.00" stroke="#000000" stroke-width="0.60"/>
+<text x="514.5" y="263.5" font-family="Aptos, Segoe UI, sans-serif" font-size="9" fill="#000000" text-anchor="start" font-weight="normal">13.50  axle line</text>
+<line x1="557.50" y1="304.00" x2="565.50" y2="304.00" stroke="#000000" stroke-width="0.60"/>
+<line x1="557.50" y1="264.40" x2="565.50" y2="264.40" stroke="#000000" stroke-width="0.60"/>
+<line x1="561.50" y1="304.00" x2="561.50" y2="264.40" stroke="#000000" stroke-width="0.60"/>
+<text x="566.5" y="284.2" font-family="Aptos, Segoe UI, sans-serif" font-size="9" fill="#000000" text-anchor="start" font-weight="normal">6.60  clear</text>
+<line x1="601.50" y1="264.40" x2="609.50" y2="264.40" stroke="#000000" stroke-width="0.60"/>
+<line x1="601.50" y1="179.50" x2="609.50" y2="179.50" stroke="#000000" stroke-width="0.60"/>
+<line x1="605.50" y1="264.40" x2="605.50" y2="179.50" stroke="#000000" stroke-width="0.60"/>
+<text x="610.5" y="221.9" font-family="Aptos, Segoe UI, sans-serif" font-size="9" fill="#000000" text-anchor="start" font-weight="normal">14.15</text>
+<text x="95.0" y="538.0" font-family="Aptos, Segoe UI, sans-serif" font-size="12" fill="#e11a27" text-anchor="start" font-weight="bold">B &#8212; LATERAL SECTION THROUGH ONE WHEEL AXLE (robot centreline at Y = 0, left side shown)</text>
+<text x="95.0" y="552.0" font-family="Aptos, Segoe UI, sans-serif" font-size="9" fill="#808080" text-anchor="start" font-weight="normal">Both wheel axles use this identical stack. Y datum = robot centreline.</text>
+<line x1="95.00" y1="564.00" x2="95.00" y2="704.00" stroke="#e11a27" stroke-width="1.00" stroke-dasharray="10,3,2,3"/>
+<text x="95.0" y="562.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#e11a27" text-anchor="start" font-weight="normal">&#8676; centreline</text>
+<rect x="95.00" y="564.00" width="347.84" height="80.00" rx="0.00" fill="#eddad1" stroke="#000000" stroke-width="0.90"/>
+<text x="268.9" y="607.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="middle" font-weight="normal" transform="rotate(-90 268.9 607.0)">motor cradle</text>
+<text x="95.0" y="656.0" font-family="Aptos, Segoe UI, sans-serif" font-size="7" fill="#e11a27" text-anchor="middle" font-weight="normal">0.00</text>
+<rect x="442.84" y="564.00" width="36.34" height="80.00" rx="0.00" fill="#f9d1d3" stroke="#000000" stroke-width="0.90"/>
+<text x="461.0" y="607.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="middle" font-weight="normal" transform="rotate(-90 461.0 607.0)">inner plate 3.5</text>
+<text x="442.8" y="656.0" font-family="Aptos, Segoe UI, sans-serif" font-size="7" fill="#e11a27" text-anchor="middle" font-weight="normal">33.50</text>
+<rect x="484.37" y="564.00" width="41.53" height="80.00" rx="0.00" fill="#fbeed7" stroke="#000000" stroke-width="0.90"/>
+<text x="505.1" y="607.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="middle" font-weight="normal" transform="rotate(-90 505.1 607.0)">gear plane 4.0</text>
+<text x="484.4" y="656.0" font-family="Aptos, Segoe UI, sans-serif" font-size="7" fill="#e11a27" text-anchor="middle" font-weight="normal">37.50</text>
+<rect x="531.10" y="564.00" width="197.90" height="80.00" rx="0.00" fill="#E0E0E0" stroke="#000000" stroke-width="0.90"/>
+<text x="630.0" y="607.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="middle" font-weight="normal" transform="rotate(-90 630.0 607.0)">wheel 19.1</text>
+<text x="531.1" y="656.0" font-family="Aptos, Segoe UI, sans-serif" font-size="7" fill="#e11a27" text-anchor="middle" font-weight="normal">42.00</text>
+<text x="729.0" y="656.0" font-family="Aptos, Segoe UI, sans-serif" font-size="7" fill="#e11a27" text-anchor="middle" font-weight="normal">61.06</text>
+<rect x="344.20" y="678.00" width="374.42" height="12.00" rx="0.00" fill="#CCCCCC" stroke="#000000" stroke-width="1.00"/>
+<text x="531.4" y="687.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="middle" font-weight="normal">&#8709;3 D live axle, L = 36.1</text>
+<text x="95.0" y="718.0" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">&#8226; Motor faceplate Y = 37.00 is PCB-DERIVED (board x = 13 / 87 on micromouse-pcb-simplified.kicad_pcb). Do not move it.</text>
+<text x="95.0" y="735.5" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">&#8226; All three gears share ONE plane, Y 37.50..41.50 - the N20's 10 mm shaft is long enough that the pinion needs no</text>
+<text x="105.0" y="748.5" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">separate plane.</text>
+<text x="95.0" y="766.1" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">&#8226; F683ZZ #1 pressed into the inner plate, flange counterbored on the INBOARD face, inner race flush at Y = 37.00</text>
+<text x="95.0" y="783.6" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">&#8226; F683ZZ #2 pressed into the outer plate, flange counterbored 1.0 deep from the OUTBOARD face so the rotating hub clears</text>
+<text x="105.0" y="796.6" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">it</text>
+<text x="95.0" y="814.2" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">&#8226; 0.5 shim between the inner-plate race and the axle gear; 0.8 shim between the outer-plate race and the wheel hub</text>
+<text x="95.0" y="831.8" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">&#8226; Deck ledge tapped M3 at X = +/-9.00, Y = 32.75 - lands under the PCB's H1..H4. PCB underside sits at Z = 5.00.</text>
+<text x="95.0" y="849.3" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">&#8226; Wheel is the mini-sumo wheel measured from miniSumoWheel.3mf: &#8709;27.0 rolling (silicone in a &#8709;23.31</text>
+<text x="105.0" y="862.3" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">channel), 19.06 wide, 6 x &#8709;3.59 on a &#8709;16.05 bolt circle, &#8709;2.85 bore.</text>
+<text x="95.0" y="879.8" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">&#8226; Motor cradle is SPLIT on the axle plane and bolted: both halves print trough-up with no supports, and the motors drop</text>
+<text x="105.0" y="892.8" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">in rather than being threaded through a sealed bore.</text>
+<text x="95.0" y="910.4" font-family="Aptos, Segoe UI, sans-serif" font-size="8" fill="#000000" text-anchor="start" font-weight="normal">&#8226; Overall track over the wheel hubs = 122.12</text>
+</svg>

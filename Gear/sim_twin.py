@@ -1,0 +1,377 @@
+"""
+sim_twin.py - exact offline twin of the viewer's physics + controller.
+
+Same maze (same LCG seed), same friction model, same wall response, same
+trajectory controller. Purpose: tune gains with a fast objective loop instead
+of screenshot-guessing at a 14 fps headless browser, then port numbers back to
+web/viewer_template.html. Keep the two in sync BY HAND - if you change one,
+change the other.
+"""
+
+import math
+
+CELL, WALL, N = 180.0, 12.0, 16
+GOAL = [(7, 7), (8, 7), (7, 8), (8, 8)]
+DX, DY = [0, 1, 0, -1], [1, 0, -1, 0]
+
+# robot, rev 6
+TRACK, FRONT, REAR = 122.12, 84.0, 36.0
+HALFW = TRACK / 2.0
+WHEEL_R = 13.5 / 1000.0
+MASS, G = 0.22, 9.81
+IZZ = MASS * (0.120 ** 2 + 0.107 ** 2) / 12.0
+SREF = 0.06
+
+_seed = [0]
+
+
+def rnd():
+    _seed[0] = (_seed[0] * 1664525 + 1013904223) % (2 ** 32)
+    return _seed[0] / 2 ** 32
+
+
+def build_maze(seed=20260810):
+    _seed[0] = seed
+    wV = [[True] * N for _ in range(N + 1)]
+    wH = [[True] * (N + 1) for _ in range(N)]
+    seen = [[False] * N for _ in range(N)]
+    st = [(0, 0)]
+    seen[0][0] = True
+    while st:
+        c, r = st[-1]
+        nb = []
+        if r + 1 < N and not seen[c][r + 1]: nb.append((c, r + 1, 0))
+        if c + 1 < N and not seen[c + 1][r]: nb.append((c + 1, r, 1))
+        if r - 1 >= 0 and not seen[c][r - 1]: nb.append((c, r - 1, 2))
+        if c - 1 >= 0 and not seen[c - 1][r]: nb.append((c, r - 1, 3) if False else (c - 1, r, 3))
+        if not nb:
+            st.pop(); continue
+        nc, nr, d = nb[int(rnd() * len(nb))]
+        if d == 0: wH[c][r + 1] = False
+        if d == 1: wV[c + 1][r] = False
+        if d == 2: wH[c][r] = False
+        if d == 3: wV[c][r] = False
+        seen[nc][nr] = True
+        st.append((nc, nr))
+    for _ in range(40):
+        c = 1 + int(rnd() * (N - 2)); r = 1 + int(rnd() * (N - 2))
+        if rnd() < 0.5: wV[c][r] = False
+        else: wH[c][r] = False
+    wV[8][7] = wV[8][8] = False
+    wH[7][8] = wH[8][8] = False
+    wV[1][0] = True; wH[0][1] = False
+    for r in range(N): wV[0][r] = True; wV[N][r] = True
+    for c in range(N): wH[c][0] = True; wH[c][N] = True
+    return wV, wH
+
+
+def flood(wV, wH, T):
+    f = [[9999] * N for _ in range(N)]
+    q = list(T)
+    for c, r in T: f[c][r] = 0
+    i = 0
+    while i < len(q):
+        c, r = q[i]; i += 1
+        for d in range(4):
+            blocked = (wH[c][r+1] if d == 0 else wV[c+1][r] if d == 1
+                       else wH[c][r] if d == 2 else wV[c][r])
+            if blocked: continue
+            nc, nr = c + DX[d], r + DY[d]
+            if not (0 <= nc < N and 0 <= nr < N): continue
+            if f[nc][nr] > f[c][r] + 1:
+                f[nc][nr] = f[c][r] + 1; q.append((nc, nr))
+    return f
+
+
+def make_path(wV, wH, turn_r=90.0):
+    f = flood(wV, wH, GOAL)
+    c, r = 0, 0
+    cells = [(90.0, 90.0)]
+    while f[c][r] > 0 and len(cells) < 400:
+        best, bv = -1, 1e9
+        for d in range(4):
+            blocked = (wH[c][r+1] if d == 0 else wV[c+1][r] if d == 1
+                       else wH[c][r] if d == 2 else wV[c][r])
+            if blocked: continue
+            nc, nr = c + DX[d], r + DY[d]
+            if not (0 <= nc < N and 0 <= nr < N): continue
+            if f[nc][nr] < bv: bv = f[nc][nr]; best = d
+        if best < 0: break
+        c, r = c + DX[best], r + DY[best]
+        cells.append((c * CELL + 90.0, r * CELL + 90.0))
+
+    P = [cells[0]]
+    for i in range(1, len(cells) - 1):
+        a, b, d = cells[i-1], cells[i], cells[i+1]
+        d0 = (sgn(b[0]-a[0]), sgn(b[1]-a[1]))
+        d1 = (sgn(d[0]-b[0]), sgn(d[1]-b[1]))
+        if d0 == d1:
+            P.append(b); continue
+        R = turn_r
+        s = (b[0]-R*d0[0], b[1]-R*d0[1])
+        e = (b[0]+R*d1[0], b[1]+R*d1[1])
+        cen = (s[0]+R*d1[0], s[1]+R*d1[1])
+        P.append(s)
+        a0 = math.atan2(s[1]-cen[1], s[0]-cen[0])
+        a1 = math.atan2(e[1]-cen[1], e[0]-cen[0])
+        da = a1 - a0
+        while da > math.pi: da -= 2*math.pi
+        while da < -math.pi: da += 2*math.pi
+        for k in range(1, 9):
+            t = a0 + da*k/8
+            P.append((cen[0]+R*math.cos(t), cen[1]+R*math.sin(t)))
+    P.append(cells[-1])
+
+    # resample ~34 mm then smooth twice (same as the viewer)
+    Q = [P[0]]
+    for i in range(1, len(P)):
+        a, b = Q[-1], P[i]
+        d = math.hypot(b[0]-a[0], b[1]-a[1])
+        while d > 34.0:
+            t = 34.0/d
+            a = (a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t)
+            Q.append(a); d = math.hypot(b[0]-a[0], b[1]-a[1])
+        Q.append(b)
+    Q = [list(p) for p in Q]
+    for _ in range(2):
+        for i in range(1, len(Q)-1):
+            Q[i] = [(Q[i-1][0]+2*Q[i][0]+Q[i+1][0])/4,
+                    (Q[i-1][1]+2*Q[i][1]+Q[i+1][1])/4]
+
+    R_, K_ = [], []
+    for i in range(len(Q)):
+        if i == 0 or i == len(Q)-1:
+            R_.append(1e6); K_.append(0.0); continue
+        a, b, c2 = Q[i-1], Q[i], Q[i+1]
+        ab = math.hypot(b[0]-a[0], b[1]-a[1])
+        bc = math.hypot(c2[0]-b[0], c2[1]-b[1])
+        ca = math.hypot(a[0]-c2[0], a[1]-c2[1])
+        cross = (b[0]-a[0])*(c2[1]-a[1])-(b[1]-a[1])*(c2[0]-a[0])
+        ar = abs(cross)/2
+        R = 1e6 if ar < 1e-6 else (ab*bc*ca)/(4*ar)/1000.0
+        R_.append(R)
+        K_.append(0.0 if R >= 1e5 else math.copysign(1.0/R, cross))
+    return Q, R_, K_
+
+
+def sgn(v):
+    return (v > 0) - (v < 0)
+
+
+def wall_grid(wV, wH):
+    walls = []
+    h = WALL/2
+    for c in range(N+1):
+        for r in range(N):
+            if wV[c][r]: walls.append((c*CELL-h, r*CELL, c*CELL+h, (r+1)*CELL))
+    for c in range(N):
+        for r in range(N+1):
+            if wH[c][r]: walls.append((c*CELL, r*CELL-h, (c+1)*CELL, r*CELL+h))
+    for c in range(N+1):
+        for r in range(N+1):
+            walls.append((c*CELL-h-.5, r*CELL-h-.5, c*CELL+h+.5, r*CELL+h+.5))
+    grid = {}
+    for w in walls:
+        for cc in range(int(w[0]//CELL), int(w[2]//CELL)+1):
+            for rr in range(int(w[1]//CELL), int(w[3]//CELL)+1):
+                grid.setdefault((cc, rr), []).append(w)
+    return grid
+
+
+FOOT = []
+for i in range(7):
+    t = -REAR + (FRONT+REAR)*i/6
+    FOOT.append((t, HALFW)); FOOT.append((t, -HALFW))
+for i in range(1, 6):
+    b = -HALFW + 2*HALFW*i/6
+    FOOT.append((FRONT, b)); FOOT.append((-REAR, b))
+
+
+class Sim:
+    def __init__(self, gains, seed=20260810):
+        self.gn = gains
+        wV, wH = build_maze(seed)
+        self.grid = wall_grid(wV, wH)
+        self.P, self.PR, self.PK = make_path(wV, wH)
+        self.x, self.y, self.th = 90.0, 90.0, math.pi/2
+        self.u = self.v = self.r = 0.0
+        self.wl = self.wr = 0.0
+        self.pathI = 0
+        self.hits = 0; self.stuck = 0.0; self.recover = 0.0
+        self.crash = 0.0
+        self.t = 0.0; self.dist = 0.0
+
+    def control(self):
+        g = self.gn
+        # closest point
+        bi, bd = self.pathI, 1e18
+        for i in range(self.pathI, min(len(self.P), self.pathI+45)):
+            d = math.hypot(self.P[i][0]-self.x, self.P[i][1]-self.y)
+            if d < bd: bd, bi = d, i
+        self.pathI = bi
+        # lookahead point
+        acc, j = 0.0, bi
+        while j < len(self.P)-1 and acc < g["look"]:
+            acc += math.hypot(self.P[j+1][0]-self.P[j][0],
+                              self.P[j+1][1]-self.P[j][1])
+            j += 1
+        tgt = self.P[j]
+        i0 = min(bi, len(self.P)-2)
+        p0, p1 = self.P[i0], self.P[i0+1]
+        tx, ty = p1[0]-p0[0], p1[1]-p0[1]
+        tl = math.hypot(tx, ty) or 1.0
+        e = (tx*(self.y-p0[1]) - ty*(self.x-p0[0]))/tl/1000.0
+        he = math.atan2(ty, tx) - self.th
+        while he > math.pi: he -= 2*math.pi
+        while he < -math.pi: he += 2*math.pi
+        dx, dy = tgt[0]-self.x, tgt[1]-self.y
+        hd = math.atan2(dy, dx) - self.th
+        while hd > math.pi: hd -= 2*math.pi
+        while hd < -math.pi: hd += 2*math.pi
+
+        ud, rmin, bd2 = g["vmax"], 1e6, 0.0
+        i = self.pathI
+        while i < len(self.PR)-1 and bd2 < g["brake_d"]:
+            rmin = min(rmin, self.PR[i])
+            bd2 += math.hypot(self.P[i+1][0]-self.P[i][0],
+                              self.P[i+1][1]-self.P[i][1])
+            i += 1
+        ud = min(ud, math.sqrt(g["fmarg"]*1.10*G*max(0.02, rmin)))
+        if abs(hd) > 1.1: ud = min(ud, 0.20)
+
+        if self.recover > 0:
+            self.wl = self.wr = -0.25/WHEEL_R
+            return
+
+        kFF, accd, i = 0.0, 0.0, i0
+        while i < len(self.PK)-1 and accd < g["ff_d"]:
+            if abs(self.PK[i]) > abs(kFF): kFF = self.PK[i]
+            accd += math.hypot(self.P[i+1][0]-self.P[i][0],
+                               self.P[i+1][1]-self.P[i][1])
+            i += 1
+        v = max(0.12, abs(self.u))
+        kap = (kFF*g["kff"]
+               + g["kp"]*hd/(max(60.0, math.hypot(dx, dy))/1000.0)
+               + g["kh"]*he
+               - math.atan2(g["ke"]*e, v)*g["ka"])
+        kap = max(-16.0, min(16.0, kap))
+        rd = max(-14.0, min(14.0, kap*ud))
+        B = TRACK/1000.0
+        self.wl = (ud - rd*B/2)/WHEEL_R
+        self.wr = (ud + rd*B/2)/WHEEL_R
+
+    def resolve_walls(self):
+        c, s = math.cos(self.th), math.sin(self.th)
+        xp = xn = yp = yn = 0.0
+        any_ = False
+        for (a, b) in FOOT:
+            px = self.x + a*c - b*s
+            py = self.y + a*s + b*c
+            for w in self.grid.get((int(px//CELL), int(py//CELL)), ()):
+                if px <= w[0] or px >= w[2] or py <= w[1] or py >= w[3]:
+                    continue
+                any_ = True
+                dl, dr = px-w[0], w[2]-px
+                db, dt = py-w[1], w[3]-py
+                m = min(dl, dr, db, dt)
+                if m == dl: xn = max(xn, dl)
+                elif m == dr: xp = max(xp, dr)
+                elif m == db: yn = max(yn, db)
+                else: yp = max(yp, dt)
+        if not any_:
+            return False
+        push_x = xp if xp > xn else -xn
+        push_y = yp if yp > yn else -yn
+        self.x += push_x; self.y += push_y
+        L = math.hypot(push_x, push_y)
+        if L > 1e-9:
+            nx, ny = push_x/L, push_y/L
+            vwx = self.u*c - self.v*s
+            vwy = self.u*s + self.v*c
+            dot = vwx*nx + vwy*ny
+            if dot < 0:
+                vwx -= dot*nx; vwy -= dot*ny
+            vwx *= 0.72; vwy *= 0.72
+            self.u = vwx*c + vwy*s
+            self.v = -vwx*s + vwy*c
+        self.r *= 0.5
+        return True
+
+    WH_A = [14.75/1000]*2 + [-14.75/1000]*2
+    WH_B = [ (42.0+19.06/2)/1000, -(42.0+19.06/2)/1000]*2
+    SIDE = [1, -1, 1, -1]
+
+    def step(self, dt):
+        if self.recover > 0: self.recover -= dt
+        self.control()
+        Fx = Fy = Mz = 0.0
+        Nf = MASS*G/4
+        for i in range(4):
+            om = self.wl if self.SIDE[i] > 0 else self.wr
+            vx = self.u - self.r*self.WH_B[i]
+            vy = self.v + self.r*self.WH_A[i]
+            sx, sy = vx - om*WHEEL_R, vy
+            sm = math.hypot(sx, sy)
+            f = 1.10*Nf*min(1.0, sm/SREF)
+            if sm > 1e-6:
+                fx, fy = -f*sx/sm, -f*sy/sm
+                Fx += fx; Fy += fy
+                Mz += self.WH_A[i]*fy - self.WH_B[i]*fx
+        du = Fx/MASS + self.r*self.v
+        dv = Fy/MASS - self.r*self.u
+        dr = Mz/IZZ
+        self.u += du*dt; self.v += dv*dt; self.r += dr*dt
+        self.x += (self.u*math.cos(self.th) - self.v*math.sin(self.th))*dt*1000
+        self.y += (self.u*math.sin(self.th) + self.v*math.cos(self.th))*dt*1000
+        self.th += self.r*dt
+        self.dist += abs(self.u)*dt
+        self.t += dt
+        touch = self.resolve_walls()
+        if touch:
+            if self.crash < 0.02: self.hits += 1
+            self.crash = min(1.0, self.crash + dt*6)
+            if math.hypot(self.u, self.v) < 0.03:
+                self.stuck += dt
+            else:
+                self.stuck = max(0.0, self.stuck - dt*2)
+        else:
+            self.crash = max(0.0, self.crash - dt*1.6)
+            self.stuck = max(0.0, self.stuck - dt*2)
+        if self.stuck > 0.7:
+            self.stuck = 0.0; self.recover = 0.55
+
+    def run(self, tmax=90.0):
+        n = len(self.P)
+        while self.t < tmax:
+            self.step(0.002)
+            if self.pathI >= n - 2:
+                return {"done": True, "t": self.t, "hits": self.hits,
+                        "dist": self.dist}
+        return {"done": False, "t": self.t, "hits": self.hits,
+                "dist": self.dist, "at": self.pathI/(n-1)}
+
+
+BASE = dict(vmax=0.80, fmarg=0.32, brake_d=260.0, ff_d=100.0,
+            kff=1.0, kp=0.45, kh=1.2, ke=2.6, ka=1.8, look=115.0)
+
+if __name__ == "__main__":
+    import itertools, sys
+    res = Sim(BASE).run()
+    print("base gains:", res)
+    if not res["done"] or res["hits"] > 0:
+        print("\nsweeping...")
+        best = None
+        for kff, kh, ke_ka, look, fm in itertools.product(
+                (0.8, 1.0, 1.2), (0.8, 1.2, 1.8), ((2.6, 1.8), (1.6, 1.2),
+                (4.0, 2.4)), (90.0, 115.0, 150.0), (0.25, 0.32, 0.40)):
+            g = dict(BASE, kff=kff, kh=kh, ke=ke_ka[0], ka=ke_ka[1],
+                     look=look, fmarg=fm)
+            r = Sim(g).run()
+            score = ((0 if r["done"] else 100) + r["hits"]*10 + r["t"])
+            if best is None or score < best[0]:
+                best = (score, g, r)
+                print(" new best", r, {k: g[k] for k in
+                      ("kff", "kh", "ke", "ka", "look", "fmarg")})
+        print("\nBEST:", best[2])
+        print("gains:", {k: best[1][k] for k in
+              ("kff", "kh", "ke", "ka", "look", "fmarg")})

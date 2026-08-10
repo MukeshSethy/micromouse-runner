@@ -1,0 +1,40 @@
+#VRML V2.0 utf8
+# N20 rubber wheel, real vendor part (user-supplied listing): 34mm diameter,
+# 3mm D-axis bore, 6.5mm tire width, 3.2g. Sized to that real spec (this
+# supersedes an earlier 32mm/9mm placeholder that matched only this
+# project's own board_geom.py WHEEL_DIA/WHEEL_THK clearance-notch
+# constants, not a real part).
+#
+# FLAG FOR REVIEW: the board's wheel-clearance notch is still cut to the
+# OLD 32mm/9mm figures (board_geom.py WHEEL_DIA/WHEEL_THK) -- a real 34mm
+# wheel is 2mm larger in diameter than that notch allows and 2.5mm
+# narrower than the notch width. The narrower tire fits fine; the larger
+# diameter may rub the notch edge -- re-check clearance (or widen the
+# notch) before relying on this fit mechanically. Not changed here since
+# that's a real board-outline/mechanical change, not a cosmetic one.
+#
+# UNITS: this project's own WRL convention (see N20_Motor_Encoder.wrl) is
+# 1 unit = 2.54mm. radius 17mm=6.6929, tire width 6.5mm=2.5591, hub
+# (cosmetic only, not a real 3mm D-bore hole -- VRML primitives can't cut
+# a hole) radius 4mm=1.5748, height 7mm=2.7559. Shaft-center offset
+# 5mm=1.9685, Z=1.9685 (5mm real height, matches N20_Motor_Encoder.wrl's
+# own shaft/body centerline height above the board).
+
+Group { children [
+    Transform {
+      translation 1.9685 0.0000 1.9685
+      rotation 0 0 1 -1.5708
+      children Shape {
+        appearance Appearance { material Material { diffuseColor 0.08 0.08 0.08 } }
+        geometry Cylinder { radius 6.6929 height 2.5591 }
+      }
+    }
+    Transform {
+      translation 1.9685 0.0000 1.9685
+      rotation 0 0 1 -1.5708
+      children Shape {
+        appearance Appearance { material Material { diffuseColor 0.55 0.55 0.55 } }
+        geometry Cylinder { radius 1.5748 height 2.7559 }
+      }
+    }
+] }

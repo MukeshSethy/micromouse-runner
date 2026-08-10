@@ -1,0 +1,699 @@
+<title>Micromouse — real CAD, real friction</title>
+<style>
+:root{--ground:#14110F;--panel:#1C1815;--panel-2:#241F1B;--ink:#F2EDE8;
+  --ink-dim:#A79C93;--ink-faint:#6B625B;--rule:#332C27;--accent:#E11A27;
+  --amber:#EDAB36;--olive:#AAA532;--orange:#F2501A}
+@media (prefers-color-scheme:light){:root{--ground:#FBF9F7;--panel:#FFF;
+  --panel-2:#F3EFEB;--ink:#14110F;--ink-dim:#5E544D;--ink-faint:#948A82;--rule:#E2DAD3}}
+:root[data-theme="dark"]{--ground:#14110F;--panel:#1C1815;--panel-2:#241F1B;
+  --ink:#F2EDE8;--ink-dim:#A79C93;--ink-faint:#6B625B;--rule:#332C27}
+:root[data-theme="light"]{--ground:#FBF9F7;--panel:#FFF;--panel-2:#F3EFEB;
+  --ink:#14110F;--ink-dim:#5E544D;--ink-faint:#948A82;--rule:#E2DAD3}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-size:13px}
+.wrap{max-width:1300px;margin:0 auto;padding:22px 16px 46px;
+  display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);font-weight:700}
+h1{margin:0;font-size:clamp(21px,3vw,31px);line-height:1.08;letter-spacing:-.025em;
+  font-weight:700;font-family:ui-sans-serif,system-ui,"Segoe UI",sans-serif;
+  font-stretch:condensed;text-wrap:balance}
+.sub{color:var(--ink-dim);max-width:74ch;font-size:12.5px;margin:0}
+.viewwrap{position:relative;background:#0B0908;border:1px solid var(--rule);
+  border-radius:3px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;touch-action:none;cursor:grab}
+canvas:active{cursor:grabbing}
+.hud{position:absolute;left:11px;top:11px;background:rgba(11,9,8,.78);
+  border:1px solid #332C27;border-radius:2px;padding:9px 11px;font-size:11.5px;
+  line-height:1.65;color:#F2EDE8;pointer-events:none;font-variant-numeric:tabular-nums}
+.hud b{color:#EDAB36;font-weight:600}.hud .hi{color:#E11A27}.hud .ok{color:#AAA532}
+.hud .bad{color:#F2501A}
+.grip{position:absolute;right:11px;top:11px;background:rgba(11,9,8,.78);
+  border:1px solid #332C27;border-radius:2px;padding:9px 11px;font-size:11px;
+  color:#F2EDE8;pointer-events:none;font-variant-numeric:tabular-nums;min-width:172px}
+.grip .row{display:flex;justify-content:space-between;gap:10px;padding:1.5px 0}
+.bar{width:56px;height:5px;background:#332C27;border-radius:3px;overflow:hidden;
+  align-self:center}
+.bar i{display:block;height:100%;background:var(--olive)}
+.bar i.hot{background:var(--orange)}.bar i.max{background:var(--accent)}
+.ctl{display:flex;flex-wrap:wrap;gap:9px;align-items:center;background:var(--panel);
+  border:1px solid var(--rule);border-radius:3px;padding:11px 13px}
+button{font:inherit;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink);background:var(--panel-2);border:1px solid var(--rule);
+  border-radius:2px;padding:7px 12px;cursor:pointer;font-weight:600}
+button:hover{border-color:var(--accent);color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.spacer{flex:1 1 auto}
+label.rng{display:flex;align-items:center;gap:7px;color:var(--ink-dim);font-size:11px;
+  letter-spacing:.05em;text-transform:uppercase}
+input[type=range]{accent-color:var(--accent);width:120px}
+label.rng b{color:var(--ink);font-variant-numeric:tabular-nums;min-width:56px;
+  text-align:right;font-size:12px}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.note{background:var(--panel);border:1px solid var(--rule);border-radius:3px;
+  padding:12px 13px;font-size:11.5px;color:var(--ink-dim);line-height:1.55}
+.note h3{margin:0 0 6px;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-faint)}
+.note b{color:var(--ink)}
+footer{color:var(--ink-faint);font-size:11px;border-top:1px solid var(--rule);
+  padding-top:12px;line-height:1.6}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <div>
+    <div class="eyebrow" id="eyebrow">4WD · tessellated from the STEP assembly</div>
+    <h1>Grip runs out before the motors do</h1>
+  </div>
+  <p class="sub">The real drivetrain geometry — 52 582 triangles straight off the CAD —
+  driving a spec 16 × 16 maze under a friction model. Each of the four tyres gets its own
+  friction circle; when a turn asks for more lateral force than <b>μ·N</b> can supply, the
+  contact patch slides and the mouse runs wide. Push the speed slider up and watch it
+  stop making the corners.</p>
+
+  <div class="viewwrap">
+    <canvas id="gl" width="1420" height="800"></canvas>
+    <div class="hud" id="hud"></div>
+    <div class="grip" id="grip"></div>
+  </div>
+
+  <div class="ctl">
+    <button id="play" class="primary">Pause</button>
+    <button id="reset">Restart</button>
+    <button id="cam">Camera: chase</button>
+    <button id="marks">Skid marks: on</button>
+    <div class="spacer"></div>
+    <label class="rng">Speed <input id="spd" type="range" min="0.2" max="3.0"
+      step="0.05" value="0.8"><b id="spdv">0.80 m/s</b></label>
+    <label class="rng">μ <input id="mu" type="range" min="0.4" max="1.6"
+      step="0.05" value="1.10"><b id="muv">1.10</b></label>
+  </div>
+
+  <div class="notes">
+    <div class="note"><h3>What the physics does</h3>
+      Four wheels, each with contact velocity from the body state
+      <b>(u, v, r)</b>. Slip is the difference between how fast the tyre is
+      <em>rolling</em> and how fast it is <em>travelling</em>. Force follows
+      <b>F = μN</b> along the slip direction, ramped over a 60 mm/s reference
+      then saturated — so a tyre can never produce more than its circle allows.</div>
+    <div class="note"><h3>Why it slides in turns</h3>
+      Both wheels on a side are locked together by the gear train, so a turn
+      <b>must</b> scrub — the front and rear tyres on a side cannot follow
+      different arcs. That scrub eats grip that the turn needs, which is why the
+      limit here is lower than the textbook <b>v = √(μgR)</b>.</div>
+    <div class="note"><h3>Where it breaks</h3>
+      Around <b>1 m/s</b> the tyres start to give up in the tighter corners; by
+      <b>1.5 m/s</b> it runs wide and clips walls. Raise μ (silicone tyres) and the
+      same corner comes back. That trade is the whole reason micromouse builders
+      obsess over tyre compound.</div>
+  </div>
+
+  <footer>Geometry tessellated from <code>drivetrain_assembly_4wd.step</code> at 0.35 mm
+  chord tolerance and instanced — two unique gears, one wheel. Route is real flood-fill.
+  Rendered with hand-written WebGL; the artifact sandbox blocks external libraries.
+  Wheels are build rev 5 (Ø34); the mini-sumo wheel supersedes them.</footer>
+</div>
+
+<script>
+window.onerror=function(m,s,l,c){var h=document.getElementById("hud");
+  if(h)h.textContent="ERR "+m+" @"+l+":"+c;return false;};
+</script>
+<script id="meshdata" type="application/json">/*MESH_JSON*/</script>
+<script>
+(function(){
+"use strict";
+const DOC=JSON.parse(document.getElementById("meshdata").textContent);
+const META=DOC.meta;
+const cv=document.getElementById("gl");
+const gl=cv.getContext("webgl",{antialias:true,alpha:false});
+if(!gl){document.getElementById("hud").textContent="WebGL unavailable";return;}
+
+/* ---- mat4 ---- */
+const ident=()=>new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
+function mul(a,b){const o=new Float32Array(16);
+  for(let i=0;i<4;i++)for(let j=0;j<4;j++){let s=0;
+    for(let k=0;k<4;k++)s+=a[k*4+j]*b[i*4+k];o[i*4+j]=s;}return o;}
+function trans(x,y,z){const m=ident();m[12]=x;m[13]=y;m[14]=z;return m;}
+function scl(x,y,z){const m=ident();m[0]=x;m[5]=y;m[10]=z;return m;}
+function rotZ(a){const m=ident(),c=Math.cos(a),s=Math.sin(a);
+  m[0]=c;m[1]=s;m[4]=-s;m[5]=c;return m;}
+function rotY(a){const m=ident(),c=Math.cos(a),s=Math.sin(a);
+  m[0]=c;m[2]=-s;m[8]=s;m[10]=c;return m;}
+function persp(f,a,n,fa){const t=1/Math.tan(f/2),m=new Float32Array(16);
+  m[0]=t/a;m[5]=t;m[10]=(fa+n)/(n-fa);m[11]=-1;m[14]=2*fa*n/(n-fa);return m;}
+function look(e,c,u){let z=[e[0]-c[0],e[1]-c[1],e[2]-c[2]];
+  let l=Math.hypot(z[0],z[1],z[2])||1;z=z.map(v=>v/l);
+  let x=[u[1]*z[2]-u[2]*z[1],u[2]*z[0]-u[0]*z[2],u[0]*z[1]-u[1]*z[0]];
+  l=Math.hypot(x[0],x[1],x[2])||1;x=x.map(v=>v/l);
+  const y=[z[1]*x[2]-z[2]*x[1],z[2]*x[0]-z[0]*x[2],z[0]*x[1]-z[1]*x[0]];
+  return new Float32Array([x[0],y[0],z[0],0,x[1],y[1],z[1],0,x[2],y[2],z[2],0,
+    -(x[0]*e[0]+x[1]*e[1]+x[2]*e[2]),-(y[0]*e[0]+y[1]*e[1]+y[2]*e[2]),
+    -(z[0]*e[0]+z[1]*e[1]+z[2]*e[2]),1]);}
+
+/* ---- gl ---- */
+const VS=`attribute vec3 p;attribute vec3 n;uniform mat4 mvp,model;varying vec3 vn;
+void main(){vn=mat3(model)*n;gl_Position=mvp*vec4(p,1.0);}`;
+const FS=`precision mediump float;varying vec3 vn;uniform vec3 col;
+void main(){vec3 N=normalize(vn);
+ float d=max(dot(N,normalize(vec3(0.40,0.30,0.87))),0.0);
+ float d2=max(dot(N,normalize(vec3(-0.5,-0.3,0.4))),0.0);
+ gl_FragColor=vec4(col*(0.34+0.10*N.z+0.62*d+0.16*d2),1.0);}`;
+function sh(t,s){const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);
+  if(!gl.getShaderParameter(o,gl.COMPILE_STATUS))console.error(gl.getShaderInfoLog(o));return o;}
+const PR=gl.createProgram();
+gl.attachShader(PR,sh(gl.VERTEX_SHADER,VS));gl.attachShader(PR,sh(gl.FRAGMENT_SHADER,FS));
+gl.linkProgram(PR);gl.useProgram(PR);
+const A_p=gl.getAttribLocation(PR,"p"),A_n=gl.getAttribLocation(PR,"n"),
+ U_mvp=gl.getUniformLocation(PR,"mvp"),U_m=gl.getUniformLocation(PR,"model"),
+ U_c=gl.getUniformLocation(PR,"col");
+gl.enable(gl.DEPTH_TEST);
+
+function b64(s){return Uint8Array.from(atob(s),c=>c.charCodeAt(0));}
+function mkGroup(g){
+  const vb=b64(g.v),nb=b64(g.nr);
+  const iv=new Int16Array(vb.buffer,0,(vb.length/2)|0);
+  const inv=new Int8Array(nb.buffer,0,nb.length);
+  const n=g.n,arr=new Float32Array(n*6);
+  for(let i=0;i<n;i++){
+    arr[i*6]=iv[i*3]/100;arr[i*6+1]=iv[i*3+1]/100;arr[i*6+2]=iv[i*3+2]/100;
+    arr[i*6+3]=inv[i*3]/127;arr[i*6+4]=inv[i*3+1]/127;arr[i*6+5]=inv[i*3+2]/127;
+  }
+  const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);
+  gl.bufferData(gl.ARRAY_BUFFER,arr,gl.STATIC_DRAW);
+  const col=[parseInt(g.color.substr(1,2),16)/255,parseInt(g.color.substr(3,2),16)/255,
+             parseInt(g.color.substr(5,2),16)/255];
+  return {buf:b,count:n,col:col,kind:g.kind,name:g.name};
+}
+const MESH={};DOC.groups.forEach(g=>MESH[g.name]=mkGroup(g));
+
+function boxMesh(){
+  const F=[[[0,0,1],[[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]]],
+    [[0,0,-1],[[1,-1,-1],[-1,-1,-1],[-1,1,-1],[1,1,-1]]],
+    [[1,0,0],[[1,-1,1],[1,-1,-1],[1,1,-1],[1,1,1]]],
+    [[-1,0,0],[[-1,-1,-1],[-1,-1,1],[-1,1,1],[-1,1,-1]]],
+    [[0,1,0],[[-1,1,1],[1,1,1],[1,1,-1],[-1,1,-1]]],
+    [[0,-1,0],[[-1,-1,-1],[1,-1,-1],[1,-1,1],[-1,-1,1]]]];
+  const a=[];
+  for(const [nn,q] of F){for(const v of [q[0],q[1],q[2],q[0],q[2],q[3]])
+    a.push(v[0]/2,v[1]/2,v[2]/2,nn[0],nn[1],nn[2]);}
+  const arr=new Float32Array(a),b=gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,arr,gl.STATIC_DRAW);
+  return {buf:b,count:36};
+}
+const BOX=boxMesh();
+/* The maze is ~1100 boxes. Drawing them individually cost a draw call and a
+   uniform upload each, which pinned the frame rate low enough that simulated
+   time crawled. Bake them into one static buffer instead: 1 call, not 1100. */
+const FACES=[[[0,0,1],[[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]]],
+  [[0,0,-1],[[1,-1,-1],[-1,-1,-1],[-1,1,-1],[1,1,-1]]],
+  [[1,0,0],[[1,-1,1],[1,-1,-1],[1,1,-1],[1,1,1]]],
+  [[-1,0,0],[[-1,-1,-1],[-1,-1,1],[-1,1,1],[-1,1,-1]]],
+  [[0,1,0],[[-1,1,1],[1,1,1],[1,1,-1],[-1,1,-1]]],
+  [[0,-1,0],[[-1,-1,-1],[1,-1,-1],[1,-1,1],[-1,-1,1]]]];
+function bakeBoxes(list,existing){
+  const a=[];
+  for(const b of list){
+    const [x,y,z,sx,sy,sz]=b;
+    for(const [nn,q] of FACES)
+      for(const v of [q[0],q[1],q[2],q[0],q[2],q[3]])
+        a.push(x+v[0]*sx/2,y+v[1]*sy/2,z+v[2]*sz/2,nn[0],nn[1],nn[2]);
+  }
+  const arr=new Float32Array(a);
+  const buf=existing&&existing.buf?existing.buf:gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,arr,gl.DYNAMIC_DRAW);
+  return {buf:buf,count:a.length/6};
+}
+let MAZE_W=null,MAZE_P=null,MARKS=null,markN=-1;
+let VP=ident();
+function drawM(m,model,col){
+  gl.bindBuffer(gl.ARRAY_BUFFER,m.buf);
+  gl.enableVertexAttribArray(A_p);gl.vertexAttribPointer(A_p,3,gl.FLOAT,false,24,0);
+  gl.enableVertexAttribArray(A_n);gl.vertexAttribPointer(A_n,3,gl.FLOAT,false,24,12);
+  gl.uniformMatrix4fv(U_m,false,model);gl.uniformMatrix4fv(U_mvp,false,mul(VP,model));
+  gl.uniform3fv(U_c,col);gl.drawArrays(gl.TRIANGLES,0,m.count);
+}
+const box=(x,y,z,sx,sy,sz,c)=>drawM(BOX,mul(trans(x,y,z),scl(sx,sy,sz)),c);
+
+/* ---- maze + route ---- */
+const CELL=180,WALL=12,N=16,WH=50;
+let seed=20260810;const rnd=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
+let wV,wH;
+function buildMaze(){
+  wV=[];wH=[];
+  for(let c=0;c<=N;c++){wV[c]=[];for(let r=0;r<N;r++)wV[c][r]=true;}
+  for(let c=0;c<N;c++){wH[c]=[];for(let r=0;r<=N;r++)wH[c][r]=true;}
+  const seen=Array.from({length:N},()=>Array(N).fill(false)),st=[[0,0]];
+  seen[0][0]=true;
+  while(st.length){const [c,r]=st[st.length-1],nb=[];
+    if(r+1<N&&!seen[c][r+1])nb.push([c,r+1,0]);
+    if(c+1<N&&!seen[c+1][r])nb.push([c+1,r,1]);
+    if(r-1>=0&&!seen[c][r-1])nb.push([c,r-1,2]);
+    if(c-1>=0&&!seen[c-1][r])nb.push([c-1,r,3]);
+    if(!nb.length){st.pop();continue;}
+    const [nc,nr,d]=nb[Math.floor(rnd()*nb.length)];
+    if(d===0)wH[c][r+1]=false;if(d===1)wV[c+1][r]=false;
+    if(d===2)wH[c][r]=false;if(d===3)wV[c][r]=false;
+    seen[nc][nr]=true;st.push([nc,nr]);}
+  for(let i=0;i<40;i++){const c=1+Math.floor(rnd()*(N-2)),r=1+Math.floor(rnd()*(N-2));
+    if(rnd()<0.5)wV[c][r]=false;else wH[c][r]=false;}
+  wV[8][7]=false;wV[8][8]=false;wH[7][8]=false;wH[8][8]=false;
+  wV[1][0]=true;wH[0][1]=false;
+  for(let r=0;r<N;r++){wV[0][r]=true;wV[N][r]=true;}
+  for(let c=0;c<N;c++){wH[c][0]=true;wH[c][N]=true;}
+}
+const GOAL=[[7,7],[8,7],[7,8],[8,8]];
+const DX=[0,1,0,-1],DY=[1,0,-1,0];
+const openW=(c,r,d)=>d===0?!wH[c][r+1]:d===1?!wV[c+1][r]:d===2?!wH[c][r]:!wV[c][r];
+function flood(T){const f=Array.from({length:N},()=>Array(N).fill(9999)),q=[];
+  T.forEach(([c,r])=>{f[c][r]=0;q.push([c,r]);});
+  for(let i=0;i<q.length;i++){const [c,r]=q[i];
+    for(let d=0;d<4;d++){if(!openW(c,r,d))continue;
+      const nc=c+DX[d],nr=r+DY[d];if(nc<0||nr<0||nc>=N||nr>=N)continue;
+      if(f[nc][nr]>f[c][r]+1){f[nc][nr]=f[c][r]+1;q.push([nc,nr]);}}}
+  return f;}
+let PATH=[],PATHR=[],PATHK=[];
+const TURN_R=90;      // half a cell: tangent points land on cell boundaries,
+                      // so back-to-back turns join cleanly. Verified clear on
+                      // all 23 turns of the route by turn_planner.py.
+function makePath(){
+  const f=flood(GOAL);let c=0,r=0;const cells=[[90,90]];let n=0;
+  while(f[c][r]>0&&n++<600){let b=-1,bv=1e9;
+    for(let d=0;d<4;d++){if(!openW(c,r,d))continue;
+      const nc=c+DX[d],nr=r+DY[d];if(nc<0||nr<0||nc>=N||nr>=N)continue;
+      if(f[nc][nr]<bv){bv=f[nc][nr];b=d;}}
+    if(b<0)break;c+=DX[b];r+=DY[b];cells.push([c*CELL+90,r*CELL+90]);}
+
+  // Fillet every corner with a TURN_R arc instead of driving corner to corner.
+  // Stopping to pivot at a cell centre is what jammed the old controller: the
+  // nose sweeps 99.5 mm about the wheelbase midpoint vs an 84 mm cell half.
+  const P=[cells[0]];
+  for(let i=1;i<cells.length-1;i++){
+    const a=cells[i-1],b=cells[i],d=cells[i+1];
+    const d0=[Math.sign(b[0]-a[0]),Math.sign(b[1]-a[1])];
+    const d1=[Math.sign(d[0]-b[0]),Math.sign(d[1]-b[1])];
+    if(d0[0]===d1[0]&&d0[1]===d1[1]){P.push(b);continue;}
+    const R=TURN_R;
+    const s=[b[0]-R*d0[0],b[1]-R*d0[1]];
+    const e=[b[0]+R*d1[0],b[1]+R*d1[1]];
+    const cen=[s[0]+R*d1[0],s[1]+R*d1[1]];
+    P.push(s);
+    let a0=Math.atan2(s[1]-cen[1],s[0]-cen[0]);
+    let a1=Math.atan2(e[1]-cen[1],e[0]-cen[0]);
+    let da=a1-a0;while(da>Math.PI)da-=2*Math.PI;while(da<-Math.PI)da+=2*Math.PI;
+    for(let k=1;k<=8;k++){
+      const t=a0+da*k/8;
+      P.push([cen[0]+R*Math.cos(t),cen[1]+R*Math.sin(t)]);
+    }
+  }
+  P.push(cells[cells.length-1]);
+  // Resample to even ~30 mm spacing, then smooth. The raw fillet path steps
+  // from zero to 11 m^-1 curvature instantly, and the yaw transient that
+  // demands sits exactly at the friction limit - a clothoid-ish blend is what
+  // real mice run. Two smoothing passes approximate one well enough here.
+  const Q=[P[0]];
+  for(let i=1;i<P.length;i++){
+    let a=Q[Q.length-1],b=P[i];
+    let d=Math.hypot(b[0]-a[0],b[1]-a[1]);
+    while(d>34){
+      const t=34/d;
+      a=[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];
+      Q.push(a);d=Math.hypot(b[0]-a[0],b[1]-a[1]);
+    }
+    Q.push(b);
+  }
+  for(let pass=0;pass<2;pass++)
+    for(let i=1;i<Q.length-1;i++){
+      Q[i]=[(Q[i-1][0]+2*Q[i][0]+Q[i+1][0])/4,
+            (Q[i-1][1]+2*Q[i][1]+Q[i+1][1])/4];
+    }
+  PATH=Q;
+  const Pr=PATH;   // curvature arrays below read the smoothed path
+  P.length=0;Array.prototype.push.apply(P,Pr);
+  // Local radius at every point, from the circumcircle of its neighbours.
+  // The turn planner proved the arcs fit GEOMETRICALLY; the speed still has to
+  // respect v = sqrt(a_lat * R) or the tyres slide the mouse wide.
+  PATHR=[];PATHK=[];
+  for(let i=0;i<P.length;i++){
+    if(i===0||i===P.length-1){PATHR.push(1e6);PATHK.push(0);continue;}
+    const a=P[i-1],b=P[i],c=P[i+1];
+    const ab=Math.hypot(b[0]-a[0],b[1]-a[1]);
+    const bc=Math.hypot(c[0]-b[0],c[1]-b[1]);
+    const ca=Math.hypot(a[0]-c[0],a[1]-c[1]);
+    const cross=(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]);
+    const ar=Math.abs(cross)/2;
+    const R=ar<1e-6?1e6:(ab*bc*ca)/(4*ar)/1000;       // metres
+    PATHR.push(R);
+    PATHK.push(R>=1e5?0:Math.sign(cross)/R);          // signed, 1/m
+  }
+}
+
+/* ---- physics ---- */
+const g=9.81, MASS=0.22, R_W=META.wheelR/1000;
+const IZZ=MASS*(0.120*0.120+0.107*0.107)/12;
+const WH_A=[ META.axleX/1000, META.axleX/1000,-META.axleX/1000,-META.axleX/1000];
+const WH_B=[ META.wheelY/1000,-META.wheelY/1000, META.wheelY/1000,-META.wheelY/1000];
+const SIDE=[1,-1,1,-1];
+const SREF=0.06;
+let S={x:90,y:90,th:Math.PI/2,u:0,v:0,r:0};
+let wl=0,wr=0, spinL=0,spinR=0, slip=[0,0,0,0], util=[0,0,0,0];
+let uTarget=0.8, MU=1.10, crashed=0, hits=0, marks=[], pathI=0, dist=0, tsec=0;
+let stuck=0, vLimit=0, recoverT=0;
+const DT_CTL=0.002;
+const SWEEP=Math.hypot(META.front,META.halfW);   // 99.48 mm
+const CELLHALF=(CELL-WALL)/2;                    // 84.00 mm
+
+const LOOKAHEAD=115;   // mm along the path
+function nearestAhead(){
+  // Advance by CLOSEST POINT, not by proximity threshold. The old version only
+  // stepped the index when a point came within 70 mm, so one wide overshoot
+  // left it chasing a target it could never capture -- it just orbited.
+  let bi=pathI,bd=1e9;
+  for(let i=pathI;i<Math.min(PATH.length,pathI+45);i++){
+    const d=Math.hypot(PATH[i][0]-S.x,PATH[i][1]-S.y);
+    if(d<bd){bd=d;bi=i;}
+  }
+  pathI=bi;
+  let acc=0,j=bi;
+  while(j<PATH.length-1&&acc<LOOKAHEAD){
+    acc+=Math.hypot(PATH[j+1][0]-PATH[j][0],PATH[j+1][1]-PATH[j][1]);
+    j++;
+  }
+  return PATH[j];
+}
+function control(){
+  /* Trajectory tracking, not bare pure pursuit. Pure pursuit alone has no
+     cross-track feedback: under friction it cut every 90 mm arc wide and
+     clipped the inner post. This adds the two Stanley terms - heading error
+     to the PATH TANGENT plus atan of cross-track error - with a feed-forward
+     of the path's own curvature. */
+  const t=nearestAhead();                 // sets pathI to the closest point
+  const i0=Math.min(pathI,PATH.length-2);
+  const p0=PATH[i0],p1=PATH[i0+1];
+  const tx=p1[0]-p0[0],ty=p1[1]-p0[1];
+  const tl=Math.hypot(tx,ty)||1;
+  const pth2=Math.atan2(ty,tx);
+  // cross-track error, signed, metres (left of path = +)
+  const ex=S.x-p0[0],ey=S.y-p0[1];
+  const e=(tx*ey-ty*ex)/tl/1000;
+  // heading error to the tangent
+  let he=pth2-S.th;
+  while(he>Math.PI)he-=2*Math.PI;while(he<-Math.PI)he+=2*Math.PI;
+  // lookahead heading error keeps it anticipating the arc entry
+  const dx=t[0]-S.x,dy=t[1]-S.y;
+  let hd=Math.atan2(dy,dx)-S.th;
+  while(hd>Math.PI)hd-=2*Math.PI;while(hd<-Math.PI)hd+=2*Math.PI;
+
+  // speed: brake for the tightest curvature COMING UP, friction-circle capped.
+  // 0.40, not 0.55: entering at exactly the post-scrub limit leaves zero
+  // margin for the entry transient, and it slid wide every time.
+  let ud=uTarget, rmin=1e6, bd=0;
+  for(let i=pathI;i<PATHR.length-1&&bd<260;i++){
+    rmin=Math.min(rmin,PATHR[i]);
+    bd+=Math.hypot(PATH[i+1][0]-PATH[i][0],PATH[i+1][1]-PATH[i][1]);
+  }
+  vLimit=Math.sqrt(0.32*MU*g*Math.max(0.02,rmin));
+  ud=Math.min(ud,vLimit);
+  if(Math.abs(hd)>1.1) ud=Math.min(ud,0.20);    // gross recovery only
+
+  // reverse-and-retry: if wedged (set in step()), back straight down the body
+  // axis for a moment, then rejoin. A real mouse does exactly this after a clip.
+  if(recoverT>0){
+    wl=(-0.25)/R_W; wr=(-0.25)/R_W;
+    return;
+  }
+
+  const v=Math.max(0.12,Math.abs(S.u));
+  // Feed-forward the path's own signed curvature a body-length ahead, so the
+  // yaw starts AT the arc instead of after the error has built. The feedback
+  // terms then only clean up the residual.
+  // distance-bounded, NOT index-bounded: straight points are 180 mm apart,
+  // arc points ~35 mm, so "7 indices" reached the arc from 1.8 m away and
+  // steered into the wall at the start line
+  // ff_d = 20 mm and kff = 0.7 are NOT arbitrary: sim_twin.py swept them.
+  // A 100 mm window started the turn early and pinned the nose on the outer
+  // wall before the arc; 20/0.7 completes the maze with ZERO wall hits at
+  // 0.5-1.2 m/s across four maze seeds. Keep the twin in sync when tuning.
+  let kFF=0,accd=0;
+  for(let i=i0;i<PATHK.length-1&&accd<20;i++){
+    if(Math.abs(PATHK[i])>Math.abs(kFF))kFF=PATHK[i];
+    accd+=Math.hypot(PATH[i+1][0]-PATH[i][0],PATH[i+1][1]-PATH[i][1]);
+  }
+  // e > 0 means the body is LEFT of the path, so the correction must steer
+  // RIGHT: the cross-track term enters NEGATIVE. (It went in positive first,
+  // which actively steered into the outer wall on every arc entry.)
+  let kappa=0.7*kFF
+           +0.45*hd/ (Math.max(60,Math.hypot(dx,dy))/1000)   // pursuit
+           +1.2*he                                            // tangent align
+           -Math.atan2(2.6*e,v)*1.8;                          // cross-track
+  kappa=Math.max(-16,Math.min(16,kappa));
+  const rd=Math.max(-14,Math.min(14,kappa*ud));
+  const B=META.track/1000;
+  wl=(ud-rd*B/2)/R_W; wr=(ud+rd*B/2)/R_W;
+}
+function step(dt){
+  if(recoverT>0)recoverT-=dt;
+  control();
+  let Fx=0,Fy=0,Mz=0;
+  const Nf=MASS*g/4;
+  for(let i=0;i<4;i++){
+    const om=SIDE[i]>0?wl:wr;
+    const vx=S.u-S.r*WH_B[i], vy=S.v+S.r*WH_A[i];
+    const sx=vx-om*R_W, sy=vy;
+    const sm=Math.hypot(sx,sy);
+    slip[i]=sm;
+    const cap=MU*Nf;
+    const f=cap*Math.min(1,sm/SREF);
+    util[i]=cap>0?Math.min(1,sm/SREF):0;
+    if(sm>1e-6){
+      const fx=-f*sx/sm, fy=-f*sy/sm;
+      Fx+=fx;Fy+=fy;Mz+=WH_A[i]*fy-WH_B[i]*fx;
+    }
+  }
+  const du=Fx/MASS+S.r*S.v, dv=Fy/MASS-S.r*S.u, dr=Mz/IZZ;
+  S.u+=du*dt;S.v+=dv*dt;S.r+=dr*dt;
+  S.x+=(S.u*Math.cos(S.th)-S.v*Math.sin(S.th))*dt*1000;
+  S.y+=(S.u*Math.sin(S.th)+S.v*Math.cos(S.th))*dt*1000;
+  S.th+=S.r*dt;
+  spinL+=wl*dt;spinR+=wr*dt;
+  dist+=Math.abs(S.u)*dt;tsec+=dt;
+  // skid marks
+  for(let i=0;i<4;i++){
+    if(slip[i]>0.16){
+      const cx=Math.cos(S.th),sy2=Math.sin(S.th);
+      const wx=S.x+(WH_A[i]*1000)*cx-(WH_B[i]*1000)*sy2;
+      const wy=S.y+(WH_A[i]*1000)*sy2+(WH_B[i]*1000)*cx;
+      marks.push([wx,wy,Math.min(1,slip[i]/0.7)]);
+      if(marks.length>2600)marks.shift();
+    }
+  }
+  const touching=resolveWalls();
+  if(touching){ if(crashed<0.02)hits++; crashed=Math.min(1,crashed+dt*6); }
+  else crashed=Math.max(0,crashed-dt*1.6);
+  // wedged: in contact and going nowhere. Not a solver failure - the corner
+  // is geometrically impossible for this wheelbase, see SWEEP below.
+  if(touching&&Math.hypot(S.u,S.v)<0.03)stuck+=dt; else stuck=Math.max(0,stuck-dt*2);
+  if(stuck>0.7){stuck=0;recoverT=0.55;}   // trigger reverse-and-retry
+}
+/* Walls are SOLID. The previous version only damped velocity on contact, which
+   let the body soak straight through. This resolves the penetration and kills
+   the velocity component going into the wall, so the mouse stops or slides
+   along it the way it would on the real board. */
+let WALLS=[],WGRID={};
+function buildWallList(){
+  WALLS=[];const h=WALL/2;
+  for(let c=0;c<=N;c++)for(let r=0;r<N;r++)if(wV[c][r])
+    WALLS.push([c*CELL-h,r*CELL,c*CELL+h,(r+1)*CELL]);
+  for(let c=0;c<N;c++)for(let r=0;r<=N;r++)if(wH[c][r])
+    WALLS.push([c*CELL,r*CELL-h,(c+1)*CELL,r*CELL+h]);
+  for(let c=0;c<=N;c++)for(let r=0;r<=N;r++)
+    WALLS.push([c*CELL-h-.5,r*CELL-h-.5,c*CELL+h+.5,r*CELL+h+.5]);
+  // spatial hash: testing every footprint point against all ~1100 rects per
+  // substep held the whole page at ~5 fps
+  WGRID={};
+  for(const w of WALLS){
+    for(let cc=Math.floor(w[0]/CELL);cc<=Math.floor(w[2]/CELL);cc++)
+      for(let rr=Math.floor(w[1]/CELL);rr<=Math.floor(w[3]/CELL);rr++){
+        const k=cc+"_"+rr;
+        (WGRID[k]=WGRID[k]||[]).push(w);
+      }
+  }
+}
+const FOOT=(function(){
+  const fr=84,re=36,hw=53.3,P=[];
+  for(let i=0;i<=6;i++){const t=-re+(fr+re)*i/6;P.push([t,hw],[t,-hw]);}
+  for(let i=1;i<6;i++){const b=-hw+2*hw*i/6;P.push([fr,b],[-re,b]);}
+  return P;})();
+function resolveWalls(){
+  const c=Math.cos(S.th),s=Math.sin(S.th);
+  let xp=0,xn=0,yp=0,yn=0,any=false;
+  for(const [a,b] of FOOT){
+    const px=S.x+a*c-b*s, py=S.y+a*s+b*c;
+    const cell=WGRID[Math.floor(px/CELL)+"_"+Math.floor(py/CELL)]||[];
+    for(const w of cell){
+      if(px<=w[0]||px>=w[2]||py<=w[1]||py>=w[3])continue;
+      any=true;
+      const dl=px-w[0],dr=w[2]-px,db=py-w[1],dt=w[3]-py;
+      const m=Math.min(dl,dr,db,dt);
+      if(m===dl)xn=Math.max(xn,dl);
+      else if(m===dr)xp=Math.max(xp,dr);
+      else if(m===db)yn=Math.max(yn,db);
+      else yp=Math.max(yp,dt);
+    }
+  }
+  if(!any)return false;
+  const pushX=(xp>xn?xp:-xn), pushY=(yp>yn?yp:-yn);
+  S.x+=pushX;S.y+=pushY;
+  const L=Math.hypot(pushX,pushY);
+  if(L>1e-9){
+    const nx=pushX/L,ny=pushY/L;
+    let vwx=S.u*c-S.v*s, vwy=S.u*s+S.v*c;
+    const dot=vwx*nx+vwy*ny;
+    if(dot<0){vwx-=dot*nx;vwy-=dot*ny;}      // cancel motion into the wall
+    vwx*=0.72;vwy*=0.72;                      // scrub along the face
+    S.u= vwx*c+vwy*s; S.v=-vwx*s+vwy*c;
+  }
+  S.r*=0.5;
+  return true;
+}
+function bakeMaze(){
+  const wl=[],pl=[];
+  for(let c=0;c<=N;c++)for(let r=0;r<N;r++)if(wV[c][r])
+    wl.push([c*CELL,r*CELL+CELL/2,WH/2,WALL,CELL,WH]);
+  for(let c=0;c<N;c++)for(let r=0;r<=N;r++)if(wH[c][r])
+    wl.push([c*CELL+CELL/2,r*CELL,WH/2,CELL,WALL,WH]);
+  for(let c=0;c<=N;c++)for(let r=0;r<=N;r++)
+    pl.push([c*CELL,r*CELL,WH/2+1,WALL+1,WALL+1,WH+2]);
+  MAZE_W=bakeBoxes(wl,MAZE_W);MAZE_P=bakeBoxes(pl,MAZE_P);
+}
+function resetAll(){buildMaze();buildWallList();bakeMaze();makePath();markN=-1;
+  S={x:90,y:90,th:Math.PI/2,u:0,v:0,r:0};
+  spinL=spinR=0;marks=[];pathI=0;dist=0;tsec=0;hits=0;crashed=0;stuck=0;}
+
+/* ---- draw ---- */
+let camMode=0,yaw=-0.7,pitch=0.55,zoom=1,showMarks=true,playing=true;
+const C_WALL=[.90,.87,.83],C_POST=[.55,.50,.46],C_FLOOR=[.105,.095,.085],
+      C_GOAL=[.62,.60,.19],C_MARK=[.85,.32,.10];
+function draw(){
+  gl.viewport(0,0,cv.width,cv.height);
+  gl.clearColor(0.043,0.035,0.031,1);
+  gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+  let eye,ctr;
+  if(camMode===0){const b=380*zoom;
+    eye=[S.x-Math.cos(S.th)*b,S.y-Math.sin(S.th)*b,215*zoom];
+    ctr=[S.x+Math.cos(S.th)*110,S.y+Math.sin(S.th)*110,18];}
+  else if(camMode===1){const d=2000*zoom;eye=[1440,1200,d];ctr=[1440,1440,0];}
+  else{const d=520*zoom;
+    eye=[S.x+Math.cos(yaw)*Math.cos(pitch)*d,S.y+Math.sin(yaw)*Math.cos(pitch)*d,
+         Math.max(25,Math.sin(pitch)*d)];ctr=[S.x,S.y,22];}
+  VP=mul(persp(0.82,cv.width/cv.height,15,9000),look(eye,ctr,[0,0,1]));
+
+  box(1440,1440,-3,2920,2920,6,C_FLOOR);
+  box(1440,1440,-1.2,2*CELL,2*CELL,3.2,C_GOAL);
+  const I=ident();
+  if(showMarks&&marks.length){
+    if(markN<0||marks.length-markN>10||marks.length<markN){
+      MARKS=bakeBoxes(marks.map(m=>[m[0],m[1],0.6,7,7,1.2]),MARKS);
+      markN=marks.length;
+    }
+    if(MARKS&&MARKS.count)drawM(MARKS,I,C_MARK);
+  }
+  if(MAZE_W)drawM(MAZE_W,I,C_WALL);
+  if(MAZE_P)drawM(MAZE_P,I,C_POST);
+
+  const B0=mul(trans(S.x,S.y,0),rotZ(S.th));
+  const tint=crashed>0.05?[1,0.55,0.35]:[1,1,1];
+  for(const g2 of DOC.groups){
+    if(g2.kind!=="static")continue;
+    const m=MESH[g2.name];
+    drawM(m,B0,[m.col[0]*tint[0],m.col[1]*tint[1],m.col[2]*tint[2]]);
+  }
+  for(const it of DOC.instances){
+    const m=MESH[it.m];if(!m)continue;
+    const spin=(it.side>0?spinL:spinR)*(it.rate||1)*(it.side>0?1:-1);
+    const mm=mul(B0,mul(trans(it.x,it.y,it.z),rotY(-spin)));
+    drawM(m,mm,[m.col[0]*tint[0],m.col[1]*tint[1],m.col[2]*tint[2]]);
+  }
+}
+
+/* ---- hud ---- */
+const hud=document.getElementById("hud"),grip=document.getElementById("grip");
+function updHud(){
+  const sp=Math.hypot(S.u,S.v);
+  const lat=Math.abs(S.r*S.u)/g;
+  const cc=Math.max(0,Math.min(15,Math.floor(S.x/CELL)));
+  const rr=Math.max(0,Math.min(15,Math.floor(S.y/CELL)));
+  const dg=Math.hypot(1440-S.x,1440-S.y)/1000;
+  const pc=PATH.length>1?Math.round(100*pathI/(PATH.length-1)):0;
+  const done=pathI>=PATH.length-1;
+  hud.innerHTML=
+    (done?'<span class="ok">GOAL REACHED</span>':
+     stuck>1.2?'<span class="bad">WEDGED &#8212; corner too tight</span>'+
+       '<br><span style="color:#F2501A">nose sweeps '+SWEEP.toFixed(1)+
+       ' mm vs '+CELLHALF.toFixed(0)+' mm cell half</span>':
+     crashed>0.05?'<span class="bad">WALL CONTACT</span>':
+     '<span class="hi">RUNNING &#8594; centre goal</span>')+
+    '<br>cell <b>'+cc+','+rr+'</b> &#8594; goal <b>7-8,7-8</b>'+
+    '<br>progress <b>'+pc+'%</b> ('+pathI+'/'+(PATH.length-1)+
+      ')  <b>'+dg.toFixed(2)+' m</b> away'+
+    '<br>speed <b>'+sp.toFixed(2)+' m/s</b>  cmd <b>'+uTarget.toFixed(2)+'</b>'+
+    '<br>lateral <b>'+lat.toFixed(2)+' g</b>  slide <b>'+
+      Math.abs(S.v).toFixed(3)+' m/s</b>'+
+    '<br>hits <b>'+hits+'</b>  dist <b>'+dist.toFixed(2)+
+      ' m</b>  t <b>'+tsec.toFixed(1)+' s</b>'+
+    '<br>wheel <b>'+((spinL*180/Math.PI)%360).toFixed(0)+'°</b> pinion <b>'+
+      ((spinL*META.ratio*180/Math.PI)%360).toFixed(0)+'°</b>  fps <b>'+
+      fps.toFixed(0)+'</b>';
+  const nm=["FL","FR","RL","RR"];
+  let h='<div style="color:#A79C93;letter-spacing:.12em;font-size:10px">'+
+        'TYRE SLIP m/s</div>';
+  for(let i=0;i<4;i++){
+    const u2=Math.min(1,slip[i]/SREF);
+    const cls=u2>0.99?"max":u2>0.6?"hot":"";
+    h+='<div class="row"><span>'+nm[i]+'</span>'+
+       '<span class="bar"><i class="'+cls+'" style="width:'+(u2*100).toFixed(0)+
+       '%"></i></span><span>'+slip[i].toFixed(3)+'</span></div>';
+  }
+  grip.innerHTML=h;
+}
+
+/* ---- input ---- */
+let drag=false,lx=0,ly=0;
+cv.addEventListener("pointerdown",e=>{drag=true;lx=e.clientX;ly=e.clientY;
+  cv.setPointerCapture(e.pointerId);if(camMode!==2)setCam(2);});
+cv.addEventListener("pointerup",()=>drag=false);
+cv.addEventListener("pointermove",e=>{if(!drag)return;
+  yaw-=(e.clientX-lx)*0.008;pitch=Math.max(.08,Math.min(1.45,pitch+(e.clientY-ly)*.006));
+  lx=e.clientX;ly=e.clientY;});
+cv.addEventListener("wheel",e=>{e.preventDefault();
+  zoom=Math.max(.3,Math.min(3.4,zoom*(1+Math.sign(e.deltaY)*.11)));},{passive:false});
+const names=["chase","overhead","orbit"],cb=document.getElementById("cam");
+function setCam(m){camMode=m;cb.textContent="Camera: "+names[m];}
+cb.onclick=()=>setCam((camMode+1)%3);
+document.getElementById("play").onclick=e=>{playing=!playing;
+  e.target.textContent=playing?"Pause":"Play";};
+document.getElementById("reset").onclick=()=>resetAll();
+document.getElementById("marks").onclick=e=>{showMarks=!showMarks;
+  e.target.textContent="Skid marks: "+(showMarks?"on":"off");};
+document.getElementById("spd").oninput=e=>{uTarget=parseFloat(e.target.value);
+  document.getElementById("spdv").textContent=uTarget.toFixed(2)+" m/s";};
+document.getElementById("mu").oninput=e=>{MU=parseFloat(e.target.value);
+  document.getElementById("muv").textContent=MU.toFixed(2);};
+
+let last=performance.now(),fps=0;
+function loop(now){
+  // clamp low as well as high: a non-monotonic clock would integrate the
+  // physics BACKWARDS, which reverses the wheels and drives it into a wall
+  let dt=Math.max(0,Math.min(0.04,(now-last)/1000));last=now;
+  if(dt>0)fps=fps*0.9+(1/dt)*0.1;
+  if(playing){const n=6,h=dt/n;for(let i=0;i<n;i++)step(h);}
+  draw();updHud();requestAnimationFrame(loop);
+}
+document.getElementById("eyebrow").textContent=
+  "4WD · 19T → 40T · "+META.ratio.toFixed(3)+":1 · mini-sumo wheel Ø27 · "+
+  "tessellated from the STEP assembly";
+resetAll();setCam(0);requestAnimationFrame(loop);
+})();
+</script>
