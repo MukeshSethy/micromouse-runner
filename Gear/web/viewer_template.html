@@ -615,6 +615,11 @@ function control(dtCtl){
     bd+=Math.hypot(PATH[i+1][0]-PATH[i][0],PATH[i+1][1]-PATH[i][1]);
   }
   vLimit=Math.sqrt(0.28*MU*g*Math.max(0.02,rmin));
+  // motor feasibility: in an arc the OUTER wheel runs v*(1+B/2R); at high mu
+  // nothing else brakes the corner and the outer wheel hits the back-EMF
+  // ceiling and the mouse runs wide. Grip is not the only limit.
+  vLimit=Math.min(vLimit,
+    0.92*W_FREE*R_W/(1+(trackMM/2000)/Math.max(0.02,rmin)));
   ud=Math.min(ud,vLimit);
   if(Math.abs(hd)>1.1) ud=Math.min(ud,0.20);    // gross recovery only
   // launch slip limiter: full speed from rest saturates the friction circle
@@ -1014,7 +1019,13 @@ function loop(now){
   // physics BACKWARDS, which reverses the wheels and drives it into a wall
   let dt=Math.max(0,Math.min(0.04,(now-last)/1000));last=now;
   if(dt>0)fps=fps*0.9+(1/dt)*0.1;
-  if(playing){const n=6,h=dt/n;for(let i=0;i<n;i++)step(h);}
+  if(playing){
+    // substep cap 2 ms: tyre stiffness scales with mu, and at mu 4 the slip
+    // mode's time constant is ~1.5 ms - 6 fixed substeps went unstable on
+    // slow frames (h up to 6.7 ms) and the robot jittered into walls
+    const n=Math.max(6,Math.ceil(dt/0.002)),h=dt/n;
+    for(let i=0;i<n;i++)step(h);
+  }
   draw();updHud();requestAnimationFrame(loop);
 }
 document.getElementById("eyebrow").textContent=

@@ -415,6 +415,10 @@ class Sim:
                               self.P[i+1][1]-self.P[i][1])
             i += 1
         ud = min(ud, math.sqrt(g["fmarg"]*g.get("mu", 1.10)*G*max(0.02, rmin)))
+        # motor feasibility: the outer wheel in an arc needs v*(1+B/2R) and
+        # saturates at the back-EMF ceiling when grip no longer brakes corners
+        ud = min(ud, 0.92*self.WF*WHEEL_R
+                 / (1.0 + (self.trackm/2.0)/max(0.02, rmin)))
         if abs(hd) > 1.1: ud = min(ud, 0.20)
         # launch slip limiter: commanding full speed from rest saturates the
         # friction circle longitudinally, leaving NO lateral grip for an arc
