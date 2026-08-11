@@ -19,7 +19,7 @@ FREE_HALF = (CELL - WALL) / 2.0          # 84.00
 
 # footprint measured from the PIVOT (wheelbase midpoint), rev 6:
 # track 122.12 over the mini-sumo wheels
-FRONT, REAR, HALFW = 84.0, 36.0, 61.06
+FRONT, REAR, HALFW = 84.0, 36.0, 60.06
 
 SEED = [20260810]
 

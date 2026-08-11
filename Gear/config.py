@@ -135,8 +135,11 @@ Y_IN_OUT = Y_MOTOR_FACE                      # 37.0 inner plate OUTBOARD face
 Y_IN_IN = Y_IN_OUT - PLATE_IN_T              # 33.5
 
 GEAR_FW = 4.0
-Y_GEAR = Y_IN_OUT + 0.5                      # 37.5 .. 41.5, all three gears
-IDLER_FW = GEAR_FW + 0.4                     # bridges with 0.2 float per side
+# Rev 7: the gear butts the ROTATING inner race directly (standard practice -
+# both are fixed to the shaft), so the gear plane starts AT the pod face and
+# the loose shims are gone. Rotating faces get 0.3 relief pockets in the pod.
+Y_GEAR = Y_IN_OUT                            # 37.0 .. 41.0, all three gears
+IDLER_FW = GEAR_FW + 0.4
 Y_IDLER = Y_GEAR - 0.2
 
 # Rev 6: NO OUTER PLATE. The 19.06 wide wheel would push an outer plate to
@@ -146,17 +149,35 @@ Y_IDLER = Y_GEAR - 0.2
 # there is no room for bearings outboard of the gear). Loads are micromouse-
 # scale: bearing pair span ~6.5, overhang to wheel centre ~14.6, ratio 2.2 --
 # a 2 N cornering load sees ~4.5 N at the outer race, trivial for an F683ZZ.
-BOSS_T = 10.0                                # boss length inboard of the plate
+BOSS_T = 10.0                                # boss length inboard of the wall
 Y_BOSS_IN = Y_IN_OUT - BOSS_T - PLATE_IN_T   # 23.5, the boss's inboard END
 BOSS_D = 11.0
-WHEEL_SHIM_T = 0.5
-Y_WHEEL = Y_GEAR + GEAR_FW + WHEEL_SHIM_T    # 42.0 wheel inboard face (hub end)
-TRACK_OUTER = 2.0 * (Y_WHEEL + WHEEL_W)      # 122.12
+# no shims: wheel hub presses against the gear hub - one rotating assembly
+Y_WHEEL = Y_GEAR + GEAR_FW                   # 41.0 wheel inboard face (hub end)
+TRACK_OUTER = 2.0 * (Y_WHEEL + WHEEL_W)      # 120.12
 
-AXLE_SHIM_T = 0.5
 Y_AXLE_IN = Y_BOSS_IN + 0.5
 AXLE_LEN = (Y_WHEEL + WHEEL_W - 1.0) - Y_AXLE_IN
 IDLER_DOWEL_D, IDLER_DOWEL_L = 3.0, 10.0
+
+# ------------------------------------------------------------ motor pod
+# Rev 7: ONE printed part per side replaces {inner plate, cradle lower, cradle
+# upper}. Saddle for the N20 + bearing bosses + outboard wall + board mount,
+# 2x M3 into the PCB's own H1..H4. Motor is retained by the gearbox register
+# in the wall plus a band over the can through two eared posts - no clamp
+# half, no support material, no M2 hardware at all.
+POD_X = 32.0                 # half-length
+POD_BASE_T = 2.4
+POD_WALL_Y0 = Y_IN_IN        # 33.5, outboard wall = old plate position
+POD_Y_IN = 3.5               # inboard end of the saddle floor
+# Saddle ribs sit under the CAN (Y 12.6..27.3, and clear of the inboard
+# bearing at Y 23.5..27). The can is NOT round: the vendor STEP shows a
+# 12 x 10 flat-sided oval, so the saddle is a U-CHANNEL, not a V.
+POD_RIB_Y = (15.0, 21.0)
+POD_CHAN_W = 12.3            # U-channel width over the 12.0 can
+POD_CHAN_FLOOR = 8.45        # 0.05 pinch under the flat belly at Z 8.5
+POD_EAR_X, POD_EAR_HOLE_Z = 11.0, 16.0
+POD_RELIEF_T = 0.3           # rotating-face relief on the outboard wall
 
 # ------------------------------------------------------------- side plates
 _SO_R, _SO_CLR = 2.0, 0.5
@@ -184,8 +205,8 @@ M3_TAP = 2.50                                # deck ledge, PCB uses M3 (H1..H4)
 # (chassis_lib.motor_slot_section / motor_channel_section); only clearances live here.
 MOT_SLOT_CL, MOT_SLOT_R = 0.20, 1.0
 TUBE_CHAN_CL = 0.40
-MOT_SHAFT_USED = 4.8        # trim the 10 mm vendor shaft: the pinion plane
-                            # ends at Y 41.5 and the wheel face is at 42.0
+MOT_SHAFT_USED = 3.9        # trim the 10 mm vendor shaft: the pinion plane
+                            # ends at Y 41.0 and the wheel face is at 41.0
 MOT_BODY_REAL = 32.70       # vendor STEP: body runs x -32.70..0
 CABLE_SLOT_X = 12.0         # encoder lead exit in the top of the motor tube
 BRG_LEAD_IN = 0.30          # chamfer at the mouth of every bearing bore

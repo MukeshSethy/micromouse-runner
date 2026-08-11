@@ -147,8 +147,8 @@ def build_assembly(motor_g, idler, wheel_g):
         def mir(x):
             return x.mirror("XZ") if sgn < 0 else x
 
-        a.add(mir(C.place_plate(C.plate_inner(), K.Y_IN_OUT)),
-              name="plate_inner_%s" % side, color=cq.Color(*K.COL["plate"]))
+        a.add(mir(C.place_plate(C.motor_pod(), K.Y_IN_OUT)),
+              name="pod_%s" % side, color=cq.Color(*K.COL["plate"]))
 
         a.add(mir(place_gear(motor_g, K.X_MOTOR, K.Y_GEAR, ph["motor"])),
               name="gear_motor_%s" % side, color=cq.Color(*K.COL["gear"]))
@@ -180,15 +180,6 @@ def build_assembly(motor_g, idler, wheel_g):
                 a.add(mir(b.translate((sx * K.X_AXLE, y0, K.AXLE_Z))),
                       name="brg_%s_%s" % (tag, "out" if flip else "in"),
                       color=cq.Color(*K.COL["brg"]))
-            a.add(mir(C.shim(4.5, 3.1, K.AXLE_SHIM_T)
-                      .rotate((0, 0, 0), (1, 0, 0), -90)
-                      .translate((sx * K.X_AXLE, K.Y_IN_OUT, K.AXLE_Z))),
-                  name="shim_gear_%s" % tag, color=cq.Color(*K.COL["hw"]))
-            a.add(mir(C.shim(4.5, 3.1, K.WHEEL_SHIM_T)
-                      .rotate((0, 0, 0), (1, 0, 0), -90)
-                      .translate((sx * K.X_AXLE, K.Y_GEAR + K.GEAR_FW,
-                                  K.AXLE_Z))),
-                  name="shim_wheel_%s" % tag, color=cq.Color(*K.COL["hw"]))
             # wheel now has a real D-bore, so it clocks with the shaft too
             a.add(mir(place_gear(C.wheel_placeholder(), sx * K.X_AXLE,
                                  K.Y_WHEEL, ph["wheel" + key])),
@@ -204,8 +195,6 @@ def build_assembly(motor_g, idler, wheel_g):
         a.add(mir(C.place_motor()),
               name="motor_N20_encoder_%s" % side, color=cq.Color(*K.COL["hw"]))
 
-    a.add(C.motor_tube(), name="motor_tube",
-          color=cq.Color(*K.COL["tube"]))
     a.add(C.pcb_board(), name="PCB_xiao_2layer_REFERENCE",
           color=cq.Color(*K.COL["pcb"]))
     return a
@@ -224,11 +213,7 @@ def main():
     _save(wheel_g, "gear_%02dT_m0p5_D3bore_WHEEL" % K.N_WHEEL)
 
     print("\n[2/4] printed structure + hardware")
-    _save(C.plate_inner(), "plate_inner_x2")
-    _save(C.motor_tube_lower(), "motor_cradle_LOWER_x1")
-    _save(C.motor_tube_upper(), "motor_cradle_UPPER_x1")
-    _save(C.shim(4.5, 3.1, K.AXLE_SHIM_T), "shim_gear_4p5x3p1x0p5_x4")
-    _save(C.shim(4.5, 3.1, K.WHEEL_SHIM_T), "shim_wheel_4p5x3p1x0p8_x4")
+    _save(C.motor_pod(), "motor_pod_x2")
     _save(C.d_axle(), "axle_D3_L%s_x4_REFERENCE"
           % ("%.1f" % K.AXLE_LEN).replace(".", "p"))
 

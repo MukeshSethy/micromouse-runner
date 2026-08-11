@@ -27,8 +27,8 @@ def main():
         parts.append((child.name, child.obj.val().moved(child.loc)))
 
     # deliberate interference fits: (part-A prefix, part-B prefix, max mm3)
-    EXPECTED = [("plate_", "brg_", 2.0),      # F683ZZ 7.00 into a 6.95 bore
-                ("plate_", "dowel_", 2.0),    # 3.00 dowel into a 2.90 hole
+    EXPECTED = [("pod_", "brg_", 2.0),      # F683ZZ 7.00 into a 6.95 bore
+                ("pod_", "dowel_", 2.0),    # 3.00 dowel into a 2.90 hole
                 # The vendor STEP models a plain round dia-3 output shaft, but
                 # the real part is a D-shaft (Robu: "3 x 10mm, D type"). Our
                 # D-bore therefore bites the modelled cylinder. Artifact of the
@@ -36,7 +36,7 @@ def main():
                 ("gear_motor", "motor_N20", 12.0),
                 # printed slot has R1 corners (printability); the vendor model
                 # has sharp ones. Real gearboxes are radiused too.
-                ("plate_", "motor_N20", 4.0),
+                ("pod_", "motor_N20", 6.0),   # gearbox register + V saddle
                 # wheel bore dia 2.85 pressed onto the dia 3 shaft
                 ("wheel_", "axle_", 4.0)]
 

@@ -79,14 +79,8 @@ def main():
     print("rule: downward faces must be >= %.0f deg from the bed; spans <= %.0f mm "
           "count as bridges\n" % (ANGLE_MIN, BRIDGE_MAX))
     total = 0.0
-    total += audit("plate_inner", C.plate_inner(),
-                   note="print outboard face down; ledge + gussets grow upward")
-    total += audit("motor_cradle_LOWER", C.motor_tube_lower(),
-                   note="print as modelled, trough opens upward")
-    total += audit("motor_cradle_UPPER", C.motor_tube_upper(), flip=True,
-                   note="print FLIPPED, outer face on the bed, trough upward")
-    total += audit("shim_gear", C.shim(4.5, 3.1, K.AXLE_SHIM_T))
-    total += audit("shim_wheel", C.shim(4.5, 3.1, K.WHEEL_SHIM_T))
+    total += audit("motor_pod", C.motor_pod(),
+                   note="print outboard face down; bosses, ribs, ears grow upward")
 
     # Gears are specified as purchased POM, but audit them anyway for anyone
     # mock-printing fit checks: flat on the bed, teeth vertical.

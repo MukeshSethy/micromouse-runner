@@ -93,7 +93,93 @@ def _motor_slot(t):
             .edges("|Z").fillet(K.MOT_SLOT_R).translate((0, 0, -1.0)))
 
 
-# ------------------------------------------------------------- inner plate
+# -------------------------------------------------------------- motor pod
+def motor_pod():
+    """
+    Rev 7: ONE printed part per side replaces the inner plate and both cradle
+    halves. Local frame = plate frame (x longitudinal, y height/Z-global,
+    z = distance inboard from the outboard face at global |Y| = 37).
+
+    Sections, all support-free printed outboard-face-down:
+      wall   z 0..3.5           old plate: motor slot, pinion/gear reliefs
+      bosses z 0..13.5          bearing tubes at x = +/-14.75
+      base   z 3.5..33.5        floor over the PCB, 2x M3 into H1/H2
+      ribs   two V-saddles cradling the N20 can, band ears beside them
+    """
+    t = K.PLATE_IN_T
+    z_base_end = K.Y_IN_OUT - K.POD_Y_IN               # 33.5 inboard reach
+    p = _blank(t)
+
+    # bearing bosses + bores (identical seat geometry to rev 6)
+    for sx in (-1.0, 1.0):
+        x = sx * K.X_AXLE
+        p = p.union(cq.Workplane("XY").circle(K.BOSS_D / 2.0)
+                    .extrude(K.BOSS_T + t).translate((x, K.AXLE_Z, 0)))
+        L = K.BOSS_T + t
+        p = p.cut(_cyl(K.BRG_PRESS, L + 2.0, x, K.AXLE_Z, -1.0))
+        p = p.cut(_cyl(K.BRG_FL_CB, K.BRG_FL_W + 0.05, x, K.AXLE_Z, 0.0))
+        p = p.cut(_lead_in(K.BRG_PRESS, K.BRG_LEAD_IN, x, K.AXLE_Z,
+                           K.BRG_FL_W))
+        p = p.cut(_cyl(K.BRG_FL_CB, K.BRG_FL_W + 0.05, x, K.AXLE_Z,
+                       L - K.BRG_FL_W))
+        p = p.cut(_lead_in(K.BRG_PRESS, K.BRG_LEAD_IN, x, K.AXLE_Z,
+                           L - K.BRG_FL_W, up=False))
+        # rotating-face relief so the 40T (butting the inner race) never rubs
+        # the static wall outside the race diameter
+        p = p.cut(_cyl(2 * K.RA_WHEEL + 1.0, K.POD_RELIEF_T + 1.0,
+                       x, K.AXLE_Z, -1.0))
+
+    # base floor over the board, out to the saddle end - SLOTTED under the
+    # motor: the encoder section (12 wide, bottom at Z 7.5) sits lower than a
+    # solid floor top, so the floor is two rails beside the motor belly
+    p = p.union(_box(-K.POD_X, K.POD_X, K.PL_Z0, K.PL_Z0 + K.POD_BASE_T,
+                     t, z_base_end))
+    # slot width 7.3 per side: the encoder flange (dia ~14 at Y 9.3..10.9)
+    # reaches past the 12-wide body
+    p = p.cut(_box(-7.3, 7.3, K.PL_Z0 - 1.0, K.AXLE_Z, t + 0.6, z_base_end + 1.0))
+
+    # the wall cuts the pod inherited from the plate: gearbox register slot
+    # and the pinion-face relief (the 19T butts nothing, but rotates 0.3 mm
+    # clear of the static wall like the 40Ts do)
+    p = p.cut(_motor_slot(t))
+    p = p.cut(_cyl(2 * K.RA_MOTOR + 1.0, K.POD_RELIEF_T + 1.0,
+                   0.0, K.AXLE_Z, -1.0))
+
+    # M3 board-mount pads: the PCB's H1..H4 land at x +/-9, |Y| 32.75 ->
+    # local z = 37 - 32.75 = 4.25, just inboard of the wall
+    z_h = K.Y_IN_OUT - K.DECK_LEDGE_Y
+    for sx in (-1.0, 1.0):
+        # inner pad edge at 6.7, OUTBOARD of the 12-wide gearbox
+        x0, x1 = sorted((sx * 6.7, sx * (K.DECK_HOLE_X + 4.0)))
+        p = p.union(_box(x0, x1, K.PL_Z0, K.PL_Z0 + 4.5, t, z_h + 3.0))
+        p = p.cut(_cyl_y(3.2, K.PL_Z0 - 2.0, K.PL_Z0 + 6.0,
+                         x=sx * K.DECK_HOLE_X, z=z_h))
+
+    # V-saddle ribs under the motor can (axis at global Z 13.5, dia 10)
+    for zr in K.POD_RIB_Y:
+        zq = K.Y_IN_OUT - zr                            # local z of the rib
+        # U-channel saddle: flat floor under the can's flat belly, cheeks
+        # beside its rounded sides. (A V-saddle was tried first - the N20 can
+        # is a 12x10 flat-sided oval per the vendor STEP, not a cylinder, and
+        # its corners speared the V walls.)
+        rib = _box(-9.4, 9.4, K.PL_Z0, K.AXLE_Z - 1.0, zq - 2.0, zq + 2.0)
+        p = p.union(rib)
+        p = p.cut(_box(-K.POD_CHAN_W / 2.0, K.POD_CHAN_W / 2.0,
+                       K.POD_CHAN_FLOOR, K.AXLE_Z + 6.0,
+                       zq - 3.0, zq + 3.0))
+        # band ears: dia-3 hole through each, elastic band over the can
+        for sx in (-1.0, 1.0):
+            p = p.union(_box(sx * K.POD_EAR_X - 1.5, sx * K.POD_EAR_X + 1.5,
+                             K.PL_Z0, K.POD_EAR_HOLE_Z + 3.0,
+                             zq - 2.0, zq + 2.0))
+            p = p.cut(_cyl_y(3.0, zq - 3.0, zq + 3.0,
+                             x=sx * K.POD_EAR_X, z=K.POD_EAR_HOLE_Z))
+
+    return p
+
+
+# ------------------------------------------------- inner plate (rev 6, kept
+# only because motor_pod builds on the same blank; do not export separately)
 def plate_inner():
     """
     Rev 6: the ONLY plate. Carries a cantilever bearing boss per axle,
