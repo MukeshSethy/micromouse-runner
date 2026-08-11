@@ -325,6 +325,15 @@ class Sim:
         # trimmed to 8 mm (track 98: fits the 110.3 diagonal corridor AND
         # stays inside the 100 mm PCB)
         narrow = bool(gains.get("narrow"))
+        # motor variant: stock N20 (~1500 rpm at the gearbox, tops out at
+        # 1.0 m/s at the wheel) or the high-RPM N20 (~4500 rpm class). Faster
+        # winding = proportionally less stall torque; reflected inertia falls
+        # with the square of the internal ratio. No PID can pass the back-EMF
+        # ceiling - 3 m/s is a MOTOR choice, then a tune.
+        fast = bool(gains.get("fast"))
+        self.WF = 245.0 if fast else W_FREE
+        self.TS = 0.031 if fast else T_STALL
+        self.JE = 1.9e-5 if fast else J_EFF
         self.halfw = 49.0 if narrow else HALFW
         self.trackm = (2*self.halfw)/1000.0
         wy = (41.0 + (8.0 if narrow else 19.06)/2.0)/1000.0
@@ -530,8 +539,8 @@ class Sim:
             duty = max(-1.0, min(1.0, PI_KP*err + PI_KI*integ))
             # wheel pushes floor with -f_long reaction; +fl drives the BODY,
             # so -fl*R loads the wheel
-            T = trim*duty*T_STALL - (T_STALL/W_FREE)*act + fl*WHEEL_R
-            act = act + (T/J_EFF)*dt
+            T = trim*duty*self.TS - (self.TS/self.WF)*act + fl*WHEEL_R
+            act = act + (T/self.JE)*dt
             if s_ == 0: self.wal, self.iL = act, integ
             else: self.war, self.iR = act, integ
         du = Fx/MASS + self.r*self.v

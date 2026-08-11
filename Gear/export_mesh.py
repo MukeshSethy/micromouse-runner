@@ -134,8 +134,10 @@ def main():
     inst = []
     for sy in (1.0, -1.0):
         ny = -sy * yg
+        # NEGATIVE rate: the pinion counter-rotates its wheel gears
+        # (external mesh), 2.105x faster
         inst.append({"m": "pinion", "x": 0.0, "y": ny, "z": K.AXLE_Z,
-                     "side": 1 if ny > 0 else -1, "rate": K.RATIO})
+                     "side": 1 if ny > 0 else -1, "rate": -K.RATIO})
         for sx in (-1.0, 1.0):
             inst.append({"m": "gear", "x": -sx * K.X_AXLE, "y": ny,
                          "z": K.AXLE_Z, "side": 1 if ny > 0 else -1,
