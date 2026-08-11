@@ -414,7 +414,7 @@ class Sim:
             bd2 += math.hypot(self.P[i+1][0]-self.P[i][0],
                               self.P[i+1][1]-self.P[i][1])
             i += 1
-        ud = min(ud, math.sqrt(g["fmarg"]*1.10*G*max(0.02, rmin)))
+        ud = min(ud, math.sqrt(g["fmarg"]*g.get("mu", 1.10)*G*max(0.02, rmin)))
         if abs(hd) > 1.1: ud = min(ud, 0.20)
         # launch slip limiter: commanding full speed from rest saturates the
         # friction circle longitudinally, leaving NO lateral grip for an arc
@@ -513,7 +513,7 @@ class Sim:
     def _dyn(self, dt):
         """Motors + tyres + body: shared by step() and _step_physics().
         self.wl/wr are SETPOINTS; self.wal/war are achieved wheel speeds."""
-        MU = 1.10
+        MU = self.gn.get("mu", 1.10)
         Nf = MASS*G/4
         # tyre forces from ACHIEVED wheel speeds
         Fx = Fy = Mz = 0.0

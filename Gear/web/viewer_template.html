@@ -91,8 +91,8 @@ footer{color:var(--ink-faint);font-size:11px;border-top:1px solid var(--rule);
     <div class="spacer"></div>
     <label class="rng">Speed <input id="spd" type="range" min="0.2" max="3.0"
       step="0.05" value="0.8"><b id="spdv">0.80 m/s</b></label>
-    <label class="rng">μ <input id="mu" type="range" min="0.4" max="1.6"
-      step="0.05" value="1.10"><b id="muv">1.10</b></label>
+    <label class="rng">μ <input id="mu" type="range" min="0.4" max="5.0"
+      step="0.05" value="4.00"><b id="muv">4.00</b></label>
   </div>
 
   <div class="ctl">
@@ -490,7 +490,7 @@ const SIDE=[1,-1,1,-1];
 const SREF=0.06;
 let S={x:90,y:90,th:Math.PI/2,u:0,v:0,r:0};
 let wl=0,wr=0, spinL=0,spinR=0, slip=[0,0,0,0], util=[0,0,0,0];
-let uTarget=0.8, MU=1.10, crashed=0, hits=0, marks=[], pathI=0, dist=0, tsec=0;
+let uTarget=0.8, MU=4.00, crashed=0, hits=0, marks=[], pathI=0, dist=0, tsec=0;
 let stuck=0, vLimit=0, recoverT=0;
 const DT_CTL=0.002;
 /* IMU model. Gyro ON: the controller gets true heading - a BNO055-class IMU
