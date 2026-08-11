@@ -95,16 +95,24 @@ footer{color:var(--ink-faint);font-size:11px;border-top:1px solid var(--rule);
   <div class="ctl">
     <span style="font-size:10.5px;letter-spacing:.14em;color:var(--ink-faint);
       text-transform:uppercase;font-weight:700">Steering PID</span>
-    <label class="rng">P <input id="gp" type="range" min="0.5" max="6.0"
-      step="0.1" value="2.6"><b id="gpv">2.60</b></label>
+    <label class="rng">P <input id="gp" type="range" min="0.2" max="4.0"
+      step="0.1" value="0.9"><b id="gpv">0.90</b></label>
     <label class="rng">D <input id="gd" type="range" min="0.2" max="3.0"
-      step="0.1" value="1.2"><b id="gdv">1.20</b></label>
+      step="0.1" value="1.0"><b id="gdv">1.00</b></label>
     <label class="rng">FF <input id="gf" type="range" min="0.0" max="1.5"
       step="0.05" value="0.70"><b id="gfv">0.70</b></label>
+    <label class="rng">gyro-D <input id="gr" type="range" min="0.0" max="1.5"
+      step="0.05" value="0.50"><b id="grv">0.50</b></label>
+    <span style="font-size:10.5px;letter-spacing:.14em;color:var(--ink-faint);
+      text-transform:uppercase;font-weight:700">Motor PI</span>
+    <label class="rng">P <input id="mp" type="range" min="0.05" max="1.0"
+      step="0.05" value="0.35"><b id="mpv">0.35</b></label>
+    <label class="rng">I <input id="mi" type="range" min="1" max="20"
+      step="0.5" value="8"><b id="miv">8.00</b></label>
     <button id="gtuned">Reset to tuned</button>
     <div class="spacer"></div>
     <span class="check-n" style="align-self:center">defaults = sim_twin sweep
-      optimum (0 hits, 4 mazes)</span>
+      optimum for the real motor plant</span>
   </div>
 
   <div class="notes">
@@ -401,8 +409,18 @@ let mission="run", outbound=true, pauseT=0, legs=0, legStartDist=0;
    the optimum from the sim_twin.py sweep (zero wall hits, 0.5-1.2 m/s, four
    maze seeds). P acts on cross-track error, D on heading-to-tangent, FF on
    the path's own curvature. */
-const GAIN_TUNED={p:2.6,d:1.2,ff:0.7};
-let GAIN={p:2.6,d:1.2,ff:0.7};
+const GAIN_TUNED={p:0.9,d:1.0,ff:0.7,rd:0.5,mp:0.35,mi:8.0};
+let GAIN={p:0.9,d:1.0,ff:0.7,rd:0.5,mp:0.35,mi:8.0};
+
+/* Motor + inner speed loop. Wheels are NO LONGER ideal velocity sources: a
+   per-side PI (the loop the N20 encoders exist for) turns the steering
+   setpoint into PWM duty against a linear DC-motor torque curve on the
+   reflected inertia. Both wheels on a side are locked by the gear train, so
+   one state per side. J bounded by real micromouse accelerations (5+ m/s^2).
+   Inner loop settles ~100 ms; the steering gains and the gyro yaw-rate lead
+   (rd) were re-swept in sim_twin.py for this lagged plant. */
+const W_FREE=75.0, T_STALL=0.10, J_EFF=2.0e-4;
+let wal=0, war=0, piL=0, piR=0, dutyL=0, dutyR=0;
 
 /* Wall sensors: four IR rays like the board's IR LED pairs - side L/R and
    front L/R. Ray-marched against the wall grid, 250 mm range. Telemetry
@@ -478,12 +496,12 @@ function control(dtCtl){
     rmin=Math.min(rmin,PATHR[i]);
     bd+=Math.hypot(PATH[i+1][0]-PATH[i][0],PATH[i+1][1]-PATH[i][1]);
   }
-  vLimit=Math.sqrt(0.32*MU*g*Math.max(0.02,rmin));
+  vLimit=Math.sqrt(0.28*MU*g*Math.max(0.02,rmin));
   ud=Math.min(ud,vLimit);
   if(Math.abs(hd)>1.1) ud=Math.min(ud,0.20);    // gross recovery only
   // launch slip limiter: full speed from rest saturates the friction circle
   // longitudinally, leaving no lateral grip for an arc at the stop
-  ud=Math.min(ud,Math.abs(S.u)+0.15);
+  ud=Math.min(ud,Math.abs(S.u)+0.30);
   // departure creep after a stop (not the initial launch): 0.30 m/s for the
   // first 250 mm so feedback settles before speed arrives
   if(legStartDist>0&&dist-legStartDist<0.25)ud=Math.min(ud,0.30);
@@ -554,17 +572,35 @@ function control(dtCtl){
                   +GAIN.d*he                                      // tangent
                   -Math.atan2(GAIN.p*e,v)*1.8);                   // cross-track
   kappa=Math.max(-16,Math.min(16,kappa));
-  const rd=Math.max(-14,Math.min(14,kappa*ud));
+  let rd=Math.max(-14,Math.min(14,kappa*ud));
+  // gyro yaw-rate lead: the lagged motor plant needs the differential to
+  // anticipate. This is the classic micromouse gyro-D term.
+  if(gyroOn){
+    rd=rd+GAIN.rd*(rd-S.r);
+    rd=Math.max(-14,Math.min(14,rd));
+  }
   const B=META.track/1000;
   wl=(ud-rd*B/2)/R_W; wr=(ud+rd*B/2)/R_W;
+}
+function motorStep(dt,fL,fR){
+  // per-side PI -> duty -> DC torque -> achieved wheel speed
+  const lim=0.6/GAIN.mi;
+  let e1=wl-wal;
+  piL=Math.max(-lim,Math.min(lim,piL+e1*dt));
+  dutyL=Math.max(-1,Math.min(1,GAIN.mp*e1+GAIN.mi*piL));
+  wal+=((TRIM_L*dutyL*T_STALL-(T_STALL/W_FREE)*wal+fL*R_W)/J_EFF)*dt;
+  let e2=wr-war;
+  piR=Math.max(-lim,Math.min(lim,piR+e2*dt));
+  dutyR=Math.max(-1,Math.min(1,GAIN.mp*e2+GAIN.mi*piR));
+  war+=((TRIM_R*dutyR*T_STALL-(T_STALL/W_FREE)*war+fR*R_W)/J_EFF)*dt;
 }
 function step(dt){
   if(recoverT>0)recoverT-=dt;
   control(dt);
-  let Fx=0,Fy=0,Mz=0;
+  let Fx=0,Fy=0,Mz=0,fLongL=0,fLongR=0;
   const Nf=MASS*g/4;
   for(let i=0;i<4;i++){
-    const om=SIDE[i]>0?wl*TRIM_L:wr*TRIM_R;
+    const om=SIDE[i]>0?wal:war;      // ACHIEVED speed, not the setpoint
     const vx=S.u-S.r*WH_B[i], vy=S.v+S.r*WH_A[i];
     const sx=vx-om*R_W, sy=vy;
     const sm=Math.hypot(sx,sy);
@@ -575,15 +611,19 @@ function step(dt){
     if(sm>1e-6){
       const fx=-f*sx/sm, fy=-f*sy/sm;
       Fx+=fx;Fy+=fy;Mz+=WH_A[i]*fy-WH_B[i]*fx;
+      if(SIDE[i]>0)fLongL+=fx;else fLongR+=fx;
     }
   }
+  motorStep(dt,fLongL,fLongR);
   const du=Fx/MASS+S.r*S.v, dv=Fy/MASS-S.r*S.u, dr=Mz/IZZ;
   S.u+=du*dt;S.v+=dv*dt;S.r+=dr*dt;
   S.x+=(S.u*Math.cos(S.th)-S.v*Math.sin(S.th))*dt*1000;
   S.y+=(S.u*Math.sin(S.th)+S.v*Math.cos(S.th))*dt*1000;
   S.th+=S.r*dt;
-  thEst+=((wr*TRIM_R-wl*TRIM_L)*R_W/(META.track/1000))*dt;
-  spinL+=wl*dt;spinR+=wr*dt;
+  // encoders read ACHIEVED rotation (trim and lag included), and the drawn
+  // wheels/gears spin at achieved speed too
+  thEst+=((war-wal)*R_W/(META.track/1000))*dt;
+  spinL+=wal*dt;spinR+=war*dt;
   dist+=Math.abs(S.u)*dt;tsec+=dt;
   // skid marks
   for(let i=0;i<4;i++){
@@ -677,6 +717,7 @@ function bakeMaze(){
 function resetAll(){buildMaze();buildWallList();bakeMaze();makePath();markN=-1;
   S={x:90,y:90,th:Math.PI/2,u:0,v:0,r:0};
   spinL=spinR=0;marks=[];pathI=0;dist=0;tsec=0;hits=0;crashed=0;stuck=0;
+  wal=war=piL=piR=dutyL=dutyR=0;wl=wr=0;
   thEst=Math.PI/2;recoverT=0;
   mission="run";outbound=true;pauseT=0;legs=0;legStartDist=0;}
 
@@ -756,7 +797,11 @@ function updHud(){
     '<br>IMU '+(gyroOn?'<span class="ok">LOCKED</span>':
       '<span class="bad">OFF - encoder odometry</span>')+
     '  yaw <b>'+S.r.toFixed(1)+' rad/s</b>  drift <b>'+
-      (Math.abs(S.th-thEst)*180/Math.PI).toFixed(1)+'°</b>';
+      (Math.abs(S.th-thEst)*180/Math.PI).toFixed(1)+'°</b>'+
+    '<br>motor L <b>'+(wal*9.549).toFixed(0)+'</b>/'+(wl*9.549).toFixed(0)+
+    ' rpm duty <b>'+(dutyL*100).toFixed(0)+'%</b>  R <b>'+
+    (war*9.549).toFixed(0)+'</b>/'+(wr*9.549).toFixed(0)+
+    ' duty <b>'+(dutyR*100).toFixed(0)+'%</b>';
   const nm=["FL","FR","RL","RR"];
   let h='<div style="color:#A79C93;letter-spacing:.12em;font-size:10px">'+
         'TYRE SLIP m/s</div>';
@@ -811,10 +856,12 @@ function bindGain(id,key,lbl){
     GAIN[key]=parseFloat(e.target.value);
     document.getElementById(lbl).textContent=GAIN[key].toFixed(2);};
 }
-bindGain("gp","p","gpv");bindGain("gd","d","gdv");bindGain("gf","ff","gfv");
+const GBIND=[["gp","p","gpv"],["gd","d","gdv"],["gf","ff","gfv"],
+             ["gr","rd","grv"],["mp","mp","mpv"],["mi","mi","miv"]];
+for(const [id,key,lbl] of GBIND)bindGain(id,key,lbl);
 document.getElementById("gtuned").onclick=()=>{
   GAIN={...GAIN_TUNED};
-  for(const [id,key,lbl] of [["gp","p","gpv"],["gd","d","gdv"],["gf","ff","gfv"]]){
+  for(const [id,key,lbl] of GBIND){
     document.getElementById(id).value=GAIN[key];
     document.getElementById(lbl).textContent=GAIN[key].toFixed(2);
   }};

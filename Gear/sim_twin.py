@@ -192,6 +192,22 @@ for i in range(1, 6):
 # veers and weaves.
 MOTOR_TRIM_L, MOTOR_TRIM_R = 1.02, 0.985
 
+# ---- motor + inner speed loop -------------------------------------------
+# Wheel speed used to be an IDEAL velocity source: commanded = achieved,
+# instantly. Real N20s cannot do that; the encoders exist so firmware can run
+# a per-side speed PI that turns setpoints into PWM duty. Model per SIDE
+# (both wheels on a side are locked together by the gear train):
+#   T = trim*duty*T_STALL - (T_STALL/W_FREE)*w - R*F_long   on   J_EFF
+# W_FREE 75 rad/s ~= 1.0 m/s top speed. T_STALL 0.12 N.m per side at the
+# wheel (N20 stall through the 2.105 stage, x2 motors' gearing headroom).
+# J_EFF is dominated by rotor inertia reflected through the squared ratio.
+# Trim scales the torque constant, so motor mismatch now emerges physically.
+# J_EFF sanity-bounded by observed micromouse accelerations: competition
+# mice pull 5+ m/s^2, which needs wheel accel > 370 rad/s^2, so the reflected
+# inertia cannot exceed ~2e-4 per side at this stall torque.
+W_FREE, T_STALL, J_EFF = 75.0, 0.10, 2.0e-4
+PI_KP, PI_KI = 0.35, 8.0          # duty per rad/s (per rad) - tuned below
+
 
 class Sim:
     def __init__(self, gains, seed=20260810, gyro=True, trim=True):
@@ -210,6 +226,8 @@ class Sim:
         self.th_est = math.pi/2
         self.u = self.v = self.r = 0.0
         self.wl = self.wr = 0.0
+        self.wal = self.war = 0.0   # achieved wheel speeds
+        self.iL = self.iR = 0.0     # PI integrators
         self.pathI = 0
         self.hits = 0; self.stuck = 0.0; self.recover = 0.0
         self.crash = 0.0
@@ -284,6 +302,12 @@ class Sim:
                        - math.atan2(g["ke"]*e, v)*g["ka"]))
         kap = max(-16.0, min(16.0, kap))
         rd = max(-14.0, min(14.0, kap*ud))
+        # gyro yaw-rate lead: with a lagged motor plant the commanded
+        # differential must anticipate; this is the classic micromouse
+        # gyro-D term. (On the old ideal-wheel plant it destabilized.)
+        if self.gyro:
+            rd = rd + self.gn.get("krd", 0.0)*(rd - self.r)
+            rd = max(-14.0, min(14.0, rd))
         B = TRACK/1000.0
         self.wl = (ud - rd*B/2)/WHEEL_R
         self.wr = (ud + rd*B/2)/WHEEL_R
@@ -329,37 +353,55 @@ class Sim:
     WH_B = [ (42.0+19.06/2)/1000, -(42.0+19.06/2)/1000]*2
     SIDE = [1, -1, 1, -1]
 
-    def step(self, dt):
-        if self.recover > 0: self.recover -= dt
-        self.control()
-        Fx = Fy = Mz = 0.0
+    def _dyn(self, dt):
+        """Motors + tyres + body: shared by step() and _step_physics().
+        self.wl/wr are SETPOINTS; self.wal/war are achieved wheel speeds."""
+        MU = 1.10
         Nf = MASS*G/4
+        # tyre forces from ACHIEVED wheel speeds
+        Fx = Fy = Mz = 0.0
+        f_long = [0.0, 0.0]                    # per side, for reaction torque
         for i in range(4):
-            om = (self.wl*self.trimL if self.SIDE[i] > 0
-                  else self.wr*self.trimR)
+            om = self.wal if self.SIDE[i] > 0 else self.war
             vx = self.u - self.r*self.WH_B[i]
             vy = self.v + self.r*self.WH_A[i]
             sx, sy = vx - om*WHEEL_R, vy
             sm = math.hypot(sx, sy)
-            f = 1.10*Nf*min(1.0, sm/SREF)
+            f = MU*Nf*min(1.0, sm/SREF)
             if sm > 1e-6:
                 fx, fy = -f*sx/sm, -f*sy/sm
                 Fx += fx; Fy += fy
                 Mz += self.WH_A[i]*fy - self.WH_B[i]*fx
+                f_long[0 if self.SIDE[i] > 0 else 1] += fx
+        # per-side PI speed loop -> duty -> DC motor torque -> wheel accel
+        for s_, (cmd, act, integ, trim, fl) in enumerate((
+                (self.wl, self.wal, self.iL, self.trimL, f_long[0]),
+                (self.wr, self.war, self.iR, self.trimR, f_long[1]))):
+            err = cmd - act
+            integ = max(-0.6/PI_KI, min(0.6/PI_KI, integ + err*dt))
+            duty = max(-1.0, min(1.0, PI_KP*err + PI_KI*integ))
+            # wheel pushes floor with -f_long reaction; +fl drives the BODY,
+            # so -fl*R loads the wheel
+            T = trim*duty*T_STALL - (T_STALL/W_FREE)*act + fl*WHEEL_R
+            act = act + (T/J_EFF)*dt
+            if s_ == 0: self.wal, self.iL = act, integ
+            else: self.war, self.iR = act, integ
         du = Fx/MASS + self.r*self.v
         dv = Fy/MASS - self.r*self.u
-        dr = Mz/IZZ
-        self.u += du*dt; self.v += dv*dt; self.r += dr*dt
+        self.u += du*dt; self.v += dv*dt; self.r += (Mz/IZZ)*dt
         self.x += (self.u*math.cos(self.th) - self.v*math.sin(self.th))*dt*1000
         self.y += (self.u*math.sin(self.th) + self.v*math.cos(self.th))*dt*1000
         self.th += self.r*dt
-        # encoder-odometry heading: real wheel speeds (trim included, because
-        # encoders measure true rotation) but blind to contact-patch slip
-        r_enc = ((self.wr*self.trimR - self.wl*self.trimL)
-                 * WHEEL_R/(TRACK/1000.0))
-        self.th_est += r_enc*dt
+        # encoder-odometry heading: encoders read ACHIEVED wheel speed exactly
+        # (trim and lag included) but stay blind to contact-patch slip
+        self.th_est += ((self.war - self.wal)*WHEEL_R/(TRACK/1000.0))*dt
         self.dist += abs(self.u)*dt
         self.t += dt
+
+    def step(self, dt):
+        if self.recover > 0: self.recover -= dt
+        self.control()
+        self._dyn(dt)
         touch = self.resolve_walls()
         if touch:
             if self.crash < 0.02: self.hits += 1
@@ -436,27 +478,8 @@ class Sim:
         return out
 
     def _step_physics(self, dt):
-        """step() without control - used while braking to rest."""
-        Fx = Fy = Mz = 0.0
-        Nf = MASS*G/4
-        for i in range(4):
-            om = (self.wl*self.trimL if self.SIDE[i] > 0
-                  else self.wr*self.trimR)
-            vx = self.u - self.r*self.WH_B[i]
-            vy = self.v + self.r*self.WH_A[i]
-            sx, sy = vx - om*WHEEL_R, vy
-            sm = math.hypot(sx, sy)
-            f = 1.10*Nf*min(1.0, sm/SREF)
-            if sm > 1e-6:
-                Fx += -f*sx/sm; Fy += -f*sy/sm
-                Mz += self.WH_A[i]*(-f*sy/sm) - self.WH_B[i]*(-f*sx/sm)
-        self.u += (Fx/MASS + self.r*self.v)*dt
-        self.v += (Fy/MASS - self.r*self.u)*dt
-        self.r += (Mz/IZZ)*dt
-        self.x += (self.u*math.cos(self.th) - self.v*math.sin(self.th))*dt*1000
-        self.y += (self.u*math.sin(self.th) + self.v*math.cos(self.th))*dt*1000
-        self.th += self.r*dt
-        self.t += dt
+        """Dynamics without the trajectory controller - braking / turning."""
+        self._dyn(dt)
         self.resolve_walls()
 
 
