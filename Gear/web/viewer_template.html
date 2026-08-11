@@ -85,6 +85,7 @@ footer{color:var(--ink-faint);font-size:11px;border-top:1px solid var(--rule);
     <button id="cam">Camera: chase</button>
     <button id="marks">Skid marks: on</button>
     <button id="gyro" aria-pressed="true">IMU gyro: on</button>
+    <button id="mzmode">Maze: competition</button>
     <div class="spacer"></div>
     <label class="rng">Speed <input id="spd" type="range" min="0.2" max="3.0"
       step="0.05" value="0.8"><b id="spdv">0.80 m/s</b></label>
@@ -294,6 +295,48 @@ function buildMaze(){
   for(let r=0;r<N;r++){wV[0][r]=true;wV[N][r]=true;}
   for(let c=0;c<N;c++){wH[c][0]=true;wH[c][N]=true;}
 }
+let compMaze=true;   // competition layout by default: long straights + staircase
+function buildMazeComp(){
+  // Championship-styled: 14-cell straight N, 14-cell straight E, then a
+  // 10-cell alternating staircase into the goal (the "diagonal"). Remaining
+  // cells fill in as DFS branches so it is still a proper maze.
+  wV=[];wH=[];
+  for(let c=0;c<=N;c++){wV[c]=[];for(let r=0;r<N;r++)wV[c][r]=true;}
+  for(let c=0;c<N;c++){wH[c]=[];for(let r=0;r<=N;r++)wH[c][r]=true;}
+  const route=[];
+  for(let r=0;r<14;r++)route.push([0,r]);
+  for(let c=1;c<14;c++)route.push([c,13]);
+  for(const p of [[13,12],[12,12],[12,11],[11,11],[11,10],[10,10],
+                  [10,9],[9,9],[9,8],[8,8]])route.push(p);
+  for(let i=0;i<route.length-1;i++){
+    const [c1,r1]=route[i],[c2,r2]=route[i+1];
+    if(c2===c1+1)wV[c2][r1]=false;
+    else if(c2===c1-1)wV[c1][r1]=false;
+    else if(r2===r1+1)wH[c1][r2]=false;
+    else wH[c1][r1]=false;
+  }
+  const seen=Array.from({length:N},()=>Array(N).fill(false));
+  for(const [c,r] of route)seen[c][r]=true;
+  const st=route.slice();
+  while(st.length){
+    const [c,r]=st[st.length-1],nb=[];
+    if(r+1<N&&!seen[c][r+1])nb.push([c,r+1,0]);
+    if(c+1<N&&!seen[c+1][r])nb.push([c+1,r,1]);
+    if(r-1>=0&&!seen[c][r-1])nb.push([c,r-1,2]);
+    if(c-1>=0&&!seen[c-1][r])nb.push([c-1,r,3]);
+    if(!nb.length){st.pop();continue;}
+    const [nc,nr,d]=nb[Math.floor(rnd()*nb.length)];
+    if(d===0)wH[c][r+1]=false;if(d===1)wV[c+1][r]=false;
+    if(d===2)wH[c][r]=false;if(d===3)wV[c][r]=false;
+    seen[nc][nr]=true;st.push([nc,nr]);
+  }
+  for(let i=0;i<24;i++){const c=1+Math.floor(rnd()*(N-2)),r=1+Math.floor(rnd()*(N-2));
+    if(rnd()<0.5)wV[c][r]=false;else wH[c][r]=false;}
+  wV[8][7]=false;wV[8][8]=false;wH[7][8]=false;wH[8][8]=false;
+  wV[1][0]=true;wH[0][1]=false;
+  for(let r=0;r<N;r++){wV[0][r]=true;wV[N][r]=true;}
+  for(let c=0;c<N;c++){wH[c][0]=true;wH[c][N]=true;}
+}
 const GOAL=[[7,7],[8,7],[7,8],[8,8]];
 const DX=[0,1,0,-1],DY=[1,0,-1,0];
 const openW=(c,r,d)=>d===0?!wH[c][r+1]:d===1?!wV[c+1][r]:d===2?!wH[c][r]:!wV[c][r];
@@ -491,8 +534,11 @@ function control(dtCtl){
   // speed: brake for the tightest curvature COMING UP, friction-circle capped.
   // 0.40, not 0.55: entering at exactly the post-scrub limit leaves zero
   // margin for the entry transient, and it slid wide every time.
+  // braking window scales with speed: stop distance from v at ~4.2 m/s^2 is
+  // v^2/8.4 - a fixed window overruns corners arriving off a long straight
+  const need=Math.max(260,(S.u*S.u)/8.4*1000+250);
   let ud=uTarget, rmin=1e6, bd=0;
-  for(let i=pathI;i<PATHR.length-1&&bd<260;i++){
+  for(let i=pathI;i<PATHR.length-1&&bd<need;i++){
     rmin=Math.min(rmin,PATHR[i]);
     bd+=Math.hypot(PATH[i+1][0]-PATH[i][0],PATH[i+1][1]-PATH[i][1]);
   }
@@ -714,7 +760,9 @@ function bakeMaze(){
     pl.push([c*CELL,r*CELL,WH/2+1,WALL+1,WALL+1,WH+2]);
   MAZE_W=bakeBoxes(wl,MAZE_W);MAZE_P=bakeBoxes(pl,MAZE_P);
 }
-function resetAll(){buildMaze();buildWallList();bakeMaze();makePath();markN=-1;
+function resetAll(){seed=20260810;
+  if(compMaze)buildMazeComp();else buildMaze();
+  buildWallList();bakeMaze();makePath();markN=-1;
   S={x:90,y:90,th:Math.PI/2,u:0,v:0,r:0};
   spinL=spinR=0;marks=[];pathI=0;dist=0;tsec=0;hits=0;crashed=0;stuck=0;
   wal=war=piL=piR=dutyL=dutyR=0;wl=wr=0;
@@ -797,7 +845,8 @@ function updHud(){
     '<br>IMU '+(gyroOn?'<span class="ok">LOCKED</span>':
       '<span class="bad">OFF - encoder odometry</span>')+
     '  yaw <b>'+S.r.toFixed(1)+' rad/s</b>  drift <b>'+
-      (Math.abs(S.th-thEst)*180/Math.PI).toFixed(1)+'°</b>'+
+      Math.abs((((S.th-thEst)*180/Math.PI)%360+540)%360-180).toFixed(1)+
+      '°</b>'+
     '<br>motor L <b>'+(wal*9.549).toFixed(0)+'</b>/'+(wl*9.549).toFixed(0)+
     ' rpm duty <b>'+(dutyL*100).toFixed(0)+'%</b>  R <b>'+
     (war*9.549).toFixed(0)+'</b>/'+(wr*9.549).toFixed(0)+
@@ -841,6 +890,8 @@ cb.onclick=()=>setCam((camMode+1)%3);
 document.getElementById("play").onclick=e=>{playing=!playing;
   e.target.textContent=playing?"Pause":"Play";};
 document.getElementById("reset").onclick=()=>resetAll();
+document.getElementById("mzmode").onclick=e=>{compMaze=!compMaze;
+  e.target.textContent="Maze: "+(compMaze?"competition":"twisty");resetAll();};
 document.getElementById("marks").onclick=e=>{showMarks=!showMarks;
   e.target.textContent="Skid marks: "+(showMarks?"on":"off");};
 document.getElementById("gyro").onclick=e=>{gyroOn=!gyroOn;

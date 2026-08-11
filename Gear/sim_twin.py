@@ -65,6 +65,67 @@ def build_maze(seed=20260810):
     return wV, wH
 
 
+def build_maze_comp(seed=20260810):
+    """
+    Competition-styled layout: championship mazes are hand-designed with long
+    straights and diagonal staircases. Route: 14-cell straight north, 14-cell
+    straight east, then a 10-cell alternating staircase into the goal - the
+    section a fast mouse runs as a diagonal. The rest of the board is filled
+    with DFS branches off the route so it is still a proper maze.
+    """
+    _seed[0] = seed
+    wV = [[True] * N for _ in range(N + 1)]
+    wH = [[True] * (N + 1) for _ in range(N)]
+
+    route = [(0, r) for r in range(14)]                  # N straight
+    route += [(c, 13) for c in range(1, 14)]             # E straight
+    stair = [(13, 12), (12, 12), (12, 11), (11, 11), (11, 10), (10, 10),
+             (10, 9), (9, 9), (9, 8), (8, 8)]            # staircase to goal
+    route += stair
+
+    def carve(a, b):
+        (c1, r1), (c2, r2) = a, b
+        if c2 == c1 + 1: wV[c2][r1] = False
+        elif c2 == c1 - 1: wV[c1][r1] = False
+        elif r2 == r1 + 1: wH[c1][r2] = False
+        else: wH[c1][r1] = False
+
+    for i in range(len(route) - 1):
+        carve(route[i], route[i + 1])
+
+    # fill the rest as DFS branches hanging off the route
+    seen = [[False] * N for _ in range(N)]
+    for c, r in route: seen[c][r] = True
+    st = list(route)
+    while st:
+        c, r = st[-1]
+        nb = []
+        if r + 1 < N and not seen[c][r + 1]: nb.append((c, r + 1, 0))
+        if c + 1 < N and not seen[c + 1][r]: nb.append((c + 1, r, 1))
+        if r - 1 >= 0 and not seen[c][r - 1]: nb.append((c, r - 1, 2))
+        if c - 1 >= 0 and not seen[c - 1][r]: nb.append((c - 1, r, 3))
+        if not nb:
+            st.pop(); continue
+        nc, nr, d = nb[int(rnd() * len(nb))]
+        if d == 0: wH[c][r + 1] = False
+        if d == 1: wV[c + 1][r] = False
+        if d == 2: wH[c][r] = False
+        if d == 3: wV[c][r] = False
+        seen[nc][nr] = True
+        st.append((nc, nr))
+    for _ in range(24):
+        c = 1 + int(rnd() * (N - 2)); r = 1 + int(rnd() * (N - 2))
+        if rnd() < 0.5: wV[c][r] = False
+        else: wH[c][r] = False
+
+    wV[8][7] = wV[8][8] = False
+    wH[7][8] = wH[8][8] = False
+    wV[1][0] = True; wH[0][1] = False
+    for r in range(N): wV[0][r] = True; wV[N][r] = True
+    for c in range(N): wH[c][0] = True; wH[c][N] = True
+    return wV, wH
+
+
 def flood(wV, wH, T):
     f = [[9999] * N for _ in range(N)]
     q = list(T)
@@ -215,7 +276,8 @@ class Sim:
         self.trimL = MOTOR_TRIM_L if trim else 1.0
         self.trimR = MOTOR_TRIM_R if trim else 1.0
         self.gn = gains
-        wV, wH = build_maze(seed)
+        wV, wH = (build_maze_comp(seed) if gains.get("comp")
+                  else build_maze(seed))
         self.grid = wall_grid(wV, wH)
         self.P, self.PR, self.PK = make_path(wV, wH)
         self.x, self.y, self.th = 90.0, 90.0, math.pi/2
@@ -263,9 +325,13 @@ class Sim:
         while hd > math.pi: hd -= 2*math.pi
         while hd < -math.pi: hd += 2*math.pi
 
+        # braking window scales with speed: from v the stop distance at
+        # ~4.2 m/s^2 is v^2/8.4 - a fixed 260 mm window overruns corners
+        # arriving off a long straight
+        need = max(g["brake_d"], (self.u*self.u)/8.4*1000.0 + 250.0)
         ud, rmin, bd2 = g["vmax"], 1e6, 0.0
         i = self.pathI
-        while i < len(self.PR)-1 and bd2 < g["brake_d"]:
+        while i < len(self.PR)-1 and bd2 < need:
             rmin = min(rmin, self.PR[i])
             bd2 += math.hypot(self.P[i+1][0]-self.P[i][0],
                               self.P[i+1][1]-self.P[i][1])
