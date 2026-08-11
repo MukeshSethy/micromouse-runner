@@ -187,19 +187,34 @@ for i in range(1, 6):
     FOOT.append((FRONT, b)); FOOT.append((-REAR, b))
 
 
+# Real N20s are never matched: a few percent between sides is typical. This is
+# what the gyro loop exists to cancel - without it an open-loop diff drive
+# veers and weaves.
+MOTOR_TRIM_L, MOTOR_TRIM_R = 1.02, 0.985
+
+
 class Sim:
-    def __init__(self, gains, seed=20260810):
+    def __init__(self, gains, seed=20260810, gyro=True, trim=True):
+        self.gyro = gyro
+        self.trimL = MOTOR_TRIM_L if trim else 1.0
+        self.trimR = MOTOR_TRIM_R if trim else 1.0
         self.gn = gains
         wV, wH = build_maze(seed)
         self.grid = wall_grid(wV, wH)
         self.P, self.PR, self.PK = make_path(wV, wH)
         self.x, self.y, self.th = 90.0, 90.0, math.pi/2
+        # Heading ESTIMATE. Gyro ON: the IMU tracks true heading (BNO055-class
+        # drift is negligible over a run). Gyro OFF: encoder odometry only -
+        # (wr-wl)*R/B from real wheel speeds, which is blind to tyre slip, and
+        # skid-steer scrubs in EVERY turn, so the estimate walks off arc by arc.
+        self.th_est = math.pi/2
         self.u = self.v = self.r = 0.0
         self.wl = self.wr = 0.0
         self.pathI = 0
         self.hits = 0; self.stuck = 0.0; self.recover = 0.0
         self.crash = 0.0
         self.t = 0.0; self.dist = 0.0
+        self.leg_start_dist = 0.0
 
     def control(self):
         g = self.gn
@@ -220,12 +235,13 @@ class Sim:
         p0, p1 = self.P[i0], self.P[i0+1]
         tx, ty = p1[0]-p0[0], p1[1]-p0[1]
         tl = math.hypot(tx, ty) or 1.0
+        th_use = self.th if self.gyro else self.th_est
         e = (tx*(self.y-p0[1]) - ty*(self.x-p0[0]))/tl/1000.0
-        he = math.atan2(ty, tx) - self.th
+        he = math.atan2(ty, tx) - th_use
         while he > math.pi: he -= 2*math.pi
         while he < -math.pi: he += 2*math.pi
         dx, dy = tgt[0]-self.x, tgt[1]-self.y
-        hd = math.atan2(dy, dx) - self.th
+        hd = math.atan2(dy, dx) - th_use
         while hd > math.pi: hd -= 2*math.pi
         while hd < -math.pi: hd += 2*math.pi
 
@@ -238,6 +254,14 @@ class Sim:
             i += 1
         ud = min(ud, math.sqrt(g["fmarg"]*1.10*G*max(0.02, rmin)))
         if abs(hd) > 1.1: ud = min(ud, 0.20)
+        # launch slip limiter: commanding full speed from rest saturates the
+        # friction circle longitudinally, leaving NO lateral grip for an arc
+        # that starts at the stop - the tyres spin straight into the wall
+        ud = min(ud, abs(self.u) + g.get("slew", 0.15))
+        # departure creep: hold 0.30 m/s for the first 250 mm after a stop so
+        # the feedback settles before speed arrives
+        if self.leg_start_dist > 0 and self.dist - self.leg_start_dist < 0.25:
+            ud = min(ud, 0.30)
 
         if self.recover > 0:
             self.wl = self.wr = -0.25/WHEEL_R
@@ -250,10 +274,14 @@ class Sim:
                                self.P[i+1][1]-self.P[i][1])
             i += 1
         v = max(0.12, abs(self.u))
+        # feedback authority ramps in with speed: at launch atan2(k*e, v)
+        # divides by near-zero v, so millimetres of error commanded full lock -
+        # that veer cost 6-8 hits departing every stop
+        auth = min(1.0, abs(self.u)/0.25)
         kap = (kFF*g["kff"]
-               + g["kp"]*hd/(max(60.0, math.hypot(dx, dy))/1000.0)
-               + g["kh"]*he
-               - math.atan2(g["ke"]*e, v)*g["ka"])
+               + auth*(g["kp"]*hd/(max(60.0, math.hypot(dx, dy))/1000.0)
+                       + g["kh"]*he
+                       - math.atan2(g["ke"]*e, v)*g["ka"]))
         kap = max(-16.0, min(16.0, kap))
         rd = max(-14.0, min(14.0, kap*ud))
         B = TRACK/1000.0
@@ -307,7 +335,8 @@ class Sim:
         Fx = Fy = Mz = 0.0
         Nf = MASS*G/4
         for i in range(4):
-            om = self.wl if self.SIDE[i] > 0 else self.wr
+            om = (self.wl*self.trimL if self.SIDE[i] > 0
+                  else self.wr*self.trimR)
             vx = self.u - self.r*self.WH_B[i]
             vy = self.v + self.r*self.WH_A[i]
             sx, sy = vx - om*WHEEL_R, vy
@@ -324,6 +353,11 @@ class Sim:
         self.x += (self.u*math.cos(self.th) - self.v*math.sin(self.th))*dt*1000
         self.y += (self.u*math.sin(self.th) + self.v*math.cos(self.th))*dt*1000
         self.th += self.r*dt
+        # encoder-odometry heading: real wheel speeds (trim included, because
+        # encoders measure true rotation) but blind to contact-patch slip
+        r_enc = ((self.wr*self.trimR - self.wl*self.trimL)
+                 * WHEEL_R/(TRACK/1000.0))
+        self.th_est += r_enc*dt
         self.dist += abs(self.u)*dt
         self.t += dt
         touch = self.resolve_walls()
@@ -349,6 +383,81 @@ class Sim:
                         "dist": self.dist}
         return {"done": False, "t": self.t, "hits": self.hits,
                 "dist": self.dist, "at": self.pathI/(n-1)}
+
+    def run_mission(self, legs=2, tmax=120.0):
+        """Brake on arrival, pause, reverse the path, run again - the same
+        terminal behaviour as the viewer. Returns per-leg stats."""
+        out = []
+        done_legs = 0
+        pause = 0.0
+        braking = False
+        turning = False
+        while self.t < tmax and done_legs < legs:
+            if braking:
+                self.wl = self.wr = 0.0
+                # step physics only (control skipped): coast to rest
+                self._step_physics(0.002)
+                if math.hypot(self.u, self.v) < 0.03:
+                    pause += 0.002
+                    if pause > 0.6:
+                        out.append({"leg": done_legs + 1, "t": self.t,
+                                    "hits": self.hits,
+                                    "stopped_speed": math.hypot(self.u, self.v)})
+                        self.P.reverse(); self.PR.reverse()
+                        self.PK.reverse()
+                        self.PK = [-k for k in self.PK]
+                        self.pathI = 0
+                        braking = False; pause = 0.0
+                        done_legs += 1
+                        turning = True
+                        self.leg_start_dist = self.dist
+                continue
+            if turning:
+                # gyro-guided about-turn to face the reversed path before
+                # driving; without this the mouse scrambled through 180 deg
+                # while moving and took 14 hits leaving the goal
+                p0, p3 = self.P[0], self.P[min(3, len(self.P)-1)]
+                tgt = math.atan2(p3[1]-p0[1], p3[0]-p0[0])
+                err = tgt - self.th
+                while err > math.pi: err -= 2*math.pi
+                while err < -math.pi: err += 2*math.pi
+                if abs(err) < 0.05:
+                    turning = False
+                else:
+                    w = math.copysign(0.30, err)/WHEEL_R
+                    self.wl, self.wr = -w, w
+                    self._step_physics(0.002)
+                    continue
+            self.step(0.002)
+            endP = self.P[-1]
+            if (self.pathI >= len(self.P) - 3 and
+                    math.hypot(endP[0]-self.x, endP[1]-self.y) < 45.0):
+                braking = True
+        return out
+
+    def _step_physics(self, dt):
+        """step() without control - used while braking to rest."""
+        Fx = Fy = Mz = 0.0
+        Nf = MASS*G/4
+        for i in range(4):
+            om = (self.wl*self.trimL if self.SIDE[i] > 0
+                  else self.wr*self.trimR)
+            vx = self.u - self.r*self.WH_B[i]
+            vy = self.v + self.r*self.WH_A[i]
+            sx, sy = vx - om*WHEEL_R, vy
+            sm = math.hypot(sx, sy)
+            f = 1.10*Nf*min(1.0, sm/SREF)
+            if sm > 1e-6:
+                Fx += -f*sx/sm; Fy += -f*sy/sm
+                Mz += self.WH_A[i]*(-f*sy/sm) - self.WH_B[i]*(-f*sx/sm)
+        self.u += (Fx/MASS + self.r*self.v)*dt
+        self.v += (Fy/MASS - self.r*self.u)*dt
+        self.r += (Mz/IZZ)*dt
+        self.x += (self.u*math.cos(self.th) - self.v*math.sin(self.th))*dt*1000
+        self.y += (self.u*math.sin(self.th) + self.v*math.cos(self.th))*dt*1000
+        self.th += self.r*dt
+        self.t += dt
+        self.resolve_walls()
 
 
 BASE = dict(vmax=0.80, fmarg=0.32, brake_d=260.0, ff_d=100.0,

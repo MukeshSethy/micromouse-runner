@@ -87,6 +87,17 @@ def main():
                    note="print FLIPPED, outer face on the bed, trough upward")
     total += audit("shim_gear", C.shim(4.5, 3.1, K.AXLE_SHIM_T))
     total += audit("shim_wheel", C.shim(4.5, 3.1, K.WHEEL_SHIM_T))
+
+    # Gears are specified as purchased POM, but audit them anyway for anyone
+    # mock-printing fit checks: flat on the bed, teeth vertical.
+    import gear_lib as gl
+    import generate_drivetrain as G
+    total += audit("gear_pinion_19T", gl.spur_gear(K.MODULE, K.N_MOTOR,
+                   K.GEAR_FW, bore="D3", **G.GK),
+                   note="flat on the bed; mock-print only, spec is POM")
+    total += audit("gear_wheel_40T", gl.spur_gear(K.MODULE, K.N_WHEEL,
+                   K.GEAR_FW, bore="D3", **G.GK),
+                   note="flat on the bed; mock-print only, spec is POM")
     print("\ntotal unsupported overhang: %.2f mm2  -> %s"
           % (total, "SUPPORT-FREE" if total < 1.0 else "REVIEW"))
     return 0 if total < 1.0 else 1

@@ -84,11 +84,27 @@ footer{color:var(--ink-faint);font-size:11px;border-top:1px solid var(--rule);
     <button id="reset">Restart</button>
     <button id="cam">Camera: chase</button>
     <button id="marks">Skid marks: on</button>
+    <button id="gyro" aria-pressed="true">IMU gyro: on</button>
     <div class="spacer"></div>
     <label class="rng">Speed <input id="spd" type="range" min="0.2" max="3.0"
       step="0.05" value="0.8"><b id="spdv">0.80 m/s</b></label>
     <label class="rng">μ <input id="mu" type="range" min="0.4" max="1.6"
       step="0.05" value="1.10"><b id="muv">1.10</b></label>
+  </div>
+
+  <div class="ctl">
+    <span style="font-size:10.5px;letter-spacing:.14em;color:var(--ink-faint);
+      text-transform:uppercase;font-weight:700">Steering PID</span>
+    <label class="rng">P <input id="gp" type="range" min="0.5" max="6.0"
+      step="0.1" value="2.6"><b id="gpv">2.60</b></label>
+    <label class="rng">D <input id="gd" type="range" min="0.2" max="3.0"
+      step="0.1" value="1.2"><b id="gdv">1.20</b></label>
+    <label class="rng">FF <input id="gf" type="range" min="0.0" max="1.5"
+      step="0.05" value="0.70"><b id="gfv">0.70</b></label>
+    <button id="gtuned">Reset to tuned</button>
+    <div class="spacer"></div>
+    <span class="check-n" style="align-self:center">defaults = sim_twin sweep
+      optimum (0 hits, 4 mazes)</span>
   </div>
 
   <div class="notes">
@@ -103,6 +119,12 @@ footer{color:var(--ink-faint);font-size:11px;border-top:1px solid var(--rule);
       <b>must</b> scrub — the front and rear tyres on a side cannot follow
       different arcs. That scrub eats grip that the turn needs, which is why the
       limit here is lower than the textbook <b>v = √(μgR)</b>.</div>
+    <div class="note"><h3>Why the IMU is not optional</h3>
+      Toggle <b>IMU gyro</b> off and the controller falls back to encoder
+      odometry for heading — real wheel rotations, but blind to contact-patch
+      slip. Skid-steer scrubs in <em>every</em> turn, so the estimate walks
+      off a few degrees per corner and the mouse fails within a handful of
+      cells. That drift readout is the BNO055's whole job.</div>
     <div class="note"><h3>Where it breaks</h3>
       Around <b>1 m/s</b> the tyres start to give up in the tighter corners; by
       <b>1.5 m/s</b> it runs wide and clips walls. Raise μ (silicone tyres) and the
@@ -362,6 +384,47 @@ let wl=0,wr=0, spinL=0,spinR=0, slip=[0,0,0,0], util=[0,0,0,0];
 let uTarget=0.8, MU=1.10, crashed=0, hits=0, marks=[], pathI=0, dist=0, tsec=0;
 let stuck=0, vLimit=0, recoverT=0;
 const DT_CTL=0.002;
+/* IMU model. Gyro ON: the controller gets true heading - a BNO055-class IMU
+   holds that over a run. Gyro OFF: heading comes from encoder odometry,
+   (wr-wl)*R/B off the real wheel speeds, trim included (encoders do measure
+   true rotation) but BLIND to contact-patch slip - and skid-steer scrubs in
+   every turn, so the estimate walks off arc by arc. Verified in sim_twin.py:
+   ON completes 0 hits; OFF fails at 22% with the estimate 19 deg wrong. */
+let gyroOn=true, thEst=Math.PI/2;
+const TRIM_L=1.02, TRIM_R=0.985;   // real N20 pairs are never matched
+/* Mission loop. The controller previously had NO terminal state: at the last
+   waypoint the speed command never dropped, so the wheels milled against the
+   parked body - the "always slipping at the goal" symptom. Now: brake to a
+   stop on the goal tile, pause, then navigate the reversed path, repeat. */
+let mission="run", outbound=true, pauseT=0, legs=0, legStartDist=0;
+/* Steering gains, exposed as sliders. Defaults are NOT hand-picked: they are
+   the optimum from the sim_twin.py sweep (zero wall hits, 0.5-1.2 m/s, four
+   maze seeds). P acts on cross-track error, D on heading-to-tangent, FF on
+   the path's own curvature. */
+const GAIN_TUNED={p:2.6,d:1.2,ff:0.7};
+let GAIN={p:2.6,d:1.2,ff:0.7};
+
+/* Wall sensors: four IR rays like the board's IR LED pairs - side L/R and
+   front L/R. Ray-marched against the wall grid, 250 mm range. Telemetry
+   only: the drive controller tracks the planned path and does not consume
+   them yet, exactly like a first bring-up. */
+const SENS=[
+  {n:"L ",a: Math.PI/2, ox:60,oy: 40},
+  {n:"FL",a: 0.42,      ox:84,oy: 34},
+  {n:"FR",a:-0.42,      ox:84,oy:-34},
+  {n:"R ",a:-Math.PI/2, ox:60,oy:-40}];
+function raycast(ox,oy,ang){
+  const c=Math.cos(S.th),s=Math.sin(S.th);
+  let px=S.x+ox*c-oy*s, py=S.y+ox*s+oy*c;
+  const a=S.th+ang, dxr=Math.cos(a)*6, dyr=Math.sin(a)*6;
+  for(let d=0;d<250;d+=6){
+    const cell=WGRID[Math.floor(px/CELL)+"_"+Math.floor(py/CELL)]||[];
+    for(const w of cell)
+      if(px>w[0]&&px<w[2]&&py>w[1]&&py<w[3])return d;
+    px+=dxr;py+=dyr;
+  }
+  return 250;
+}
 const SWEEP=Math.hypot(META.front,META.halfW);   // 99.48 mm
 const CELLHALF=(CELL-WALL)/2;                    // 84.00 mm
 
@@ -383,7 +446,7 @@ function nearestAhead(){
   }
   return PATH[j];
 }
-function control(){
+function control(dtCtl){
   /* Trajectory tracking, not bare pure pursuit. Pure pursuit alone has no
      cross-track feedback: under friction it cut every 90 mm arc wide and
      clipped the inner post. This adds the two Stanley terms - heading error
@@ -399,11 +462,12 @@ function control(){
   const ex=S.x-p0[0],ey=S.y-p0[1];
   const e=(tx*ey-ty*ex)/tl/1000;
   // heading error to the tangent
-  let he=pth2-S.th;
+  const thUse=gyroOn?S.th:thEst;
+  let he=pth2-thUse;
   while(he>Math.PI)he-=2*Math.PI;while(he<-Math.PI)he+=2*Math.PI;
   // lookahead heading error keeps it anticipating the arc entry
   const dx=t[0]-S.x,dy=t[1]-S.y;
-  let hd=Math.atan2(dy,dx)-S.th;
+  let hd=Math.atan2(dy,dx)-thUse;
   while(hd>Math.PI)hd-=2*Math.PI;while(hd<-Math.PI)hd+=2*Math.PI;
 
   // speed: brake for the tightest curvature COMING UP, friction-circle capped.
@@ -417,12 +481,50 @@ function control(){
   vLimit=Math.sqrt(0.32*MU*g*Math.max(0.02,rmin));
   ud=Math.min(ud,vLimit);
   if(Math.abs(hd)>1.1) ud=Math.min(ud,0.20);    // gross recovery only
+  // launch slip limiter: full speed from rest saturates the friction circle
+  // longitudinally, leaving no lateral grip for an arc at the stop
+  ud=Math.min(ud,Math.abs(S.u)+0.15);
+  // departure creep after a stop (not the initial launch): 0.30 m/s for the
+  // first 250 mm so feedback settles before speed arrives
+  if(legStartDist>0&&dist-legStartDist<0.25)ud=Math.min(ud,0.30);
 
   // reverse-and-retry: if wedged (set in step()), back straight down the body
   // axis for a moment, then rejoin. A real mouse does exactly this after a clip.
   if(recoverT>0){
     wl=(-0.25)/R_W; wr=(-0.25)/R_W;
     return;
+  }
+
+  // terminal state: brake on the goal tile, pause, reverse the path, go again
+  const endP=PATH[PATH.length-1];
+  if(mission==="brake"){
+    wl=wr=0;                                   // wheels stop; friction parks it
+    if(Math.hypot(S.u,S.v)<0.03){
+      pauseT+=dtCtl;
+      if(pauseT>0.6){
+        // reverse the route; curvature signs flip with the direction
+        PATH.reverse();PATHR.reverse();
+        PATHK.reverse();for(let i=0;i<PATHK.length;i++)PATHK[i]=-PATHK[i];
+        pathI=0;pauseT=0;legs++;outbound=!outbound;
+        legStartDist=dist;mission="turn";
+      }
+    }
+    return;
+  }
+  if(mission==="turn"){
+    // gyro-guided about-turn to face the reversed path before driving;
+    // scrambling through 180 deg while moving cost 14 hits leaving the goal
+    const p0=PATH[0],p3=PATH[Math.min(3,PATH.length-1)];
+    let err=Math.atan2(p3[1]-p0[1],p3[0]-p0[0])-(gyroOn?S.th:thEst);
+    while(err>Math.PI)err-=2*Math.PI;while(err<-Math.PI)err+=2*Math.PI;
+    if(Math.abs(err)<0.05){mission="run";}
+    else{
+      const w=Math.sign(err)*0.30/R_W;
+      wl=-w;wr=w;return;
+    }
+  }
+  if(pathI>=PATH.length-3&&Math.hypot(endP[0]-S.x,endP[1]-S.y)<45){
+    mission="brake";wl=wr=0;return;
   }
 
   const v=Math.max(0.12,Math.abs(S.u));
@@ -444,10 +546,13 @@ function control(){
   // e > 0 means the body is LEFT of the path, so the correction must steer
   // RIGHT: the cross-track term enters NEGATIVE. (It went in positive first,
   // which actively steered into the outer wall on every arc entry.)
-  let kappa=0.7*kFF
-           +0.45*hd/ (Math.max(60,Math.hypot(dx,dy))/1000)   // pursuit
-           +1.2*he                                            // tangent align
-           -Math.atan2(2.6*e,v)*1.8;                          // cross-track
+  // feedback authority ramps in with speed: at launch atan2(k*e, v) divides
+  // by near-zero v and millimetres of error would command full lock
+  const auth=Math.min(1,Math.abs(S.u)/0.25);
+  let kappa=GAIN.ff*kFF
+           +auth*(0.45*hd/ (Math.max(60,Math.hypot(dx,dy))/1000)  // pursuit
+                  +GAIN.d*he                                      // tangent
+                  -Math.atan2(GAIN.p*e,v)*1.8);                   // cross-track
   kappa=Math.max(-16,Math.min(16,kappa));
   const rd=Math.max(-14,Math.min(14,kappa*ud));
   const B=META.track/1000;
@@ -455,11 +560,11 @@ function control(){
 }
 function step(dt){
   if(recoverT>0)recoverT-=dt;
-  control();
+  control(dt);
   let Fx=0,Fy=0,Mz=0;
   const Nf=MASS*g/4;
   for(let i=0;i<4;i++){
-    const om=SIDE[i]>0?wl:wr;
+    const om=SIDE[i]>0?wl*TRIM_L:wr*TRIM_R;
     const vx=S.u-S.r*WH_B[i], vy=S.v+S.r*WH_A[i];
     const sx=vx-om*R_W, sy=vy;
     const sm=Math.hypot(sx,sy);
@@ -477,6 +582,7 @@ function step(dt){
   S.x+=(S.u*Math.cos(S.th)-S.v*Math.sin(S.th))*dt*1000;
   S.y+=(S.u*Math.sin(S.th)+S.v*Math.cos(S.th))*dt*1000;
   S.th+=S.r*dt;
+  thEst+=((wr*TRIM_R-wl*TRIM_L)*R_W/(META.track/1000))*dt;
   spinL+=wl*dt;spinR+=wr*dt;
   dist+=Math.abs(S.u)*dt;tsec+=dt;
   // skid marks
@@ -570,7 +676,9 @@ function bakeMaze(){
 }
 function resetAll(){buildMaze();buildWallList();bakeMaze();makePath();markN=-1;
   S={x:90,y:90,th:Math.PI/2,u:0,v:0,r:0};
-  spinL=spinR=0;marks=[];pathI=0;dist=0;tsec=0;hits=0;crashed=0;stuck=0;}
+  spinL=spinR=0;marks=[];pathI=0;dist=0;tsec=0;hits=0;crashed=0;stuck=0;
+  thEst=Math.PI/2;recoverT=0;
+  mission="run";outbound=true;pauseT=0;legs=0;legStartDist=0;}
 
 /* ---- draw ---- */
 let camMode=0,yaw=-0.7,pitch=0.55,zoom=1,showMarks=true,playing=true;
@@ -627,14 +735,13 @@ function updHud(){
   const rr=Math.max(0,Math.min(15,Math.floor(S.y/CELL)));
   const dg=Math.hypot(1440-S.x,1440-S.y)/1000;
   const pc=PATH.length>1?Math.round(100*pathI/(PATH.length-1)):0;
-  const done=pathI>=PATH.length-1;
   hud.innerHTML=
-    (done?'<span class="ok">GOAL REACHED</span>':
-     stuck>1.2?'<span class="bad">WEDGED &#8212; corner too tight</span>'+
-       '<br><span style="color:#F2501A">nose sweeps '+SWEEP.toFixed(1)+
-       ' mm vs '+CELLHALF.toFixed(0)+' mm cell half</span>':
+    (mission==="brake"?'<span class="ok">BRAKED on '+
+       (outbound?'GOAL':'START')+' &#8212; leg '+(legs+1)+'</span>':
+     mission==="turn"?'<span class="hi">ABOUT-TURN (gyro-guided)</span>':
      crashed>0.05?'<span class="bad">WALL CONTACT</span>':
-     '<span class="hi">RUNNING &#8594; centre goal</span>')+
+     outbound?'<span class="hi">RUN &#8594; centre goal</span>':
+     '<span class="hi">RETURN &#8594; start</span>')+
     '<br>cell <b>'+cc+','+rr+'</b> &#8594; goal <b>7-8,7-8</b>'+
     '<br>progress <b>'+pc+'%</b> ('+pathI+'/'+(PATH.length-1)+
       ')  <b>'+dg.toFixed(2)+' m</b> away'+
@@ -645,7 +752,11 @@ function updHud(){
       ' m</b>  t <b>'+tsec.toFixed(1)+' s</b>'+
     '<br>wheel <b>'+((spinL*180/Math.PI)%360).toFixed(0)+'°</b> pinion <b>'+
       ((spinL*META.ratio*180/Math.PI)%360).toFixed(0)+'°</b>  fps <b>'+
-      fps.toFixed(0)+'</b>';
+      fps.toFixed(0)+'</b>'+
+    '<br>IMU '+(gyroOn?'<span class="ok">LOCKED</span>':
+      '<span class="bad">OFF - encoder odometry</span>')+
+    '  yaw <b>'+S.r.toFixed(1)+' rad/s</b>  drift <b>'+
+      (Math.abs(S.th-thEst)*180/Math.PI).toFixed(1)+'°</b>';
   const nm=["FL","FR","RL","RR"];
   let h='<div style="color:#A79C93;letter-spacing:.12em;font-size:10px">'+
         'TYRE SLIP m/s</div>';
@@ -655,6 +766,16 @@ function updHud(){
     h+='<div class="row"><span>'+nm[i]+'</span>'+
        '<span class="bar"><i class="'+cls+'" style="width:'+(u2*100).toFixed(0)+
        '%"></i></span><span>'+slip[i].toFixed(3)+'</span></div>';
+  }
+  h+='<div style="color:#A79C93;letter-spacing:.12em;font-size:10px;'+
+     'margin-top:7px">IR WALL SENSORS mm</div>';
+  for(const sn of SENS){
+    const d=raycast(sn.ox,sn.oy,sn.a);
+    const near=d<60, mid=d<120;
+    h+='<div class="row"><span>'+sn.n+'</span>'+
+       '<span class="bar"><i class="'+(near?"max":mid?"hot":"")+
+       '" style="width:'+((1-d/250)*100).toFixed(0)+'%"></i></span>'+
+       '<span>'+(d>=250?"&#8212;":d.toFixed(0))+'</span></div>';
   }
   grip.innerHTML=h;
 }
@@ -677,10 +798,26 @@ document.getElementById("play").onclick=e=>{playing=!playing;
 document.getElementById("reset").onclick=()=>resetAll();
 document.getElementById("marks").onclick=e=>{showMarks=!showMarks;
   e.target.textContent="Skid marks: "+(showMarks?"on":"off");};
+document.getElementById("gyro").onclick=e=>{gyroOn=!gyroOn;
+  thEst=S.th;   // toggling re-zeros the estimate, like an IMU re-init
+  e.target.textContent="IMU gyro: "+(gyroOn?"on":"off");
+  e.target.setAttribute("aria-pressed",gyroOn);};
 document.getElementById("spd").oninput=e=>{uTarget=parseFloat(e.target.value);
   document.getElementById("spdv").textContent=uTarget.toFixed(2)+" m/s";};
 document.getElementById("mu").oninput=e=>{MU=parseFloat(e.target.value);
   document.getElementById("muv").textContent=MU.toFixed(2);};
+function bindGain(id,key,lbl){
+  document.getElementById(id).oninput=e=>{
+    GAIN[key]=parseFloat(e.target.value);
+    document.getElementById(lbl).textContent=GAIN[key].toFixed(2);};
+}
+bindGain("gp","p","gpv");bindGain("gd","d","gdv");bindGain("gf","ff","gfv");
+document.getElementById("gtuned").onclick=()=>{
+  GAIN={...GAIN_TUNED};
+  for(const [id,key,lbl] of [["gp","p","gpv"],["gd","d","gdv"],["gf","ff","gfv"]]){
+    document.getElementById(id).value=GAIN[key];
+    document.getElementById(lbl).textContent=GAIN[key].toFixed(2);
+  }};
 
 let last=performance.now(),fps=0;
 function loop(now){
