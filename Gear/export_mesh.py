@@ -92,11 +92,13 @@ def main():
     # --- static in the body frame ---
     static, static_col = [], []
     for nm, s in parts.items():
-        if nm.startswith(("plate_", "motor_tube")):
+        # rev 7: the printed structure is the two motor pods. This filter is
+        # name-based; when the assembly renamed plate_/motor_tube -> pod_ the
+        # pods silently vanished from the viewer. Fail LOUDLY instead.
+        if nm.startswith(("pod_", "plate_", "motor_tube")):
             static.append(s)
+    assert static, "no printed structure matched - check assembly part names"
     add("chassis", static, "static", color="#E11A27")
-    add("cradle", [s for n, s in parts.items() if n.startswith("motor_tube")],
-        "static", color="#A44319")
     # PCB: keep the board and the parts you can actually see; the 0603s cost
     # ~30k triangles between them and read as noise at this scale.
     pcb_solids = []
@@ -107,7 +109,7 @@ def main():
     add("motors", [s for n, s in parts.items()
                    if n.startswith("motor_N20")], "static", color="#3A3532")
     add("hw", [s for n, s in parts.items()
-               if n.startswith(("standoff", "shim_", "brg_"))],
+               if n.startswith(("standoff", "shim_", "brg_", "dowel"))],
         "static", color="#9A928C")
 
     # --- rotating parts: ONE mesh each, centred on its own axle and mid-plane,
