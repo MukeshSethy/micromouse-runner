@@ -122,6 +122,12 @@ def main():
         origin=(K.X_AXLE, yg, K.AXLE_Z), color="#EDAB36")
     add("wheel", [parts["wheel_L1"]], "spin",
         origin=(K.X_AXLE, yw, K.AXLE_Z), color="#4A4441")
+    # trimmed-barrel variant: 8 mm wide -> track 98, inside the 100 mm PCB and
+    # inside the 110.3 mm diagonal corridor
+    import generate_drivetrain as G2
+    wn = G2.place_gear(C.wheel_placeholder(width=8.0), K.X_AXLE, 41.0, 0.0)
+    add("wheelN", [wn.val()], "spin",
+        origin=(K.X_AXLE, 41.0 + 4.0, K.AXLE_Z), color="#4A4441")
 
     # instance positions get the same 180 deg flip; side is then read off the
     # NEW y, so "side 1" really is the robot's left once it faces +X
@@ -141,7 +147,8 @@ def main():
     meta = {"axleZ": K.AXLE_Z, "axleX": K.X_AXLE, "ratio": K.RATIO,
             "wheelR": K.WHEEL_DIA/2.0, "track": K.TRACK_OUTER,
             "wheelY": yw, "gearY": yg,
-            "front": 84.0, "rear": 36.0, "halfW": K.TRACK_OUTER/2.0}
+            "front": 84.0, "rear": 36.0, "halfW": K.TRACK_OUTER/2.0,
+            "trackN": 98.0, "wheelYN": 45.0, "halfWN": 49.0}
     doc = {"meta": meta, "groups": groups, "instances": inst}
     path = os.path.join(OUT, "robot_mesh.json")
     with open(path, "w") as f:

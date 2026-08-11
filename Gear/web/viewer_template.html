@@ -86,6 +86,7 @@ footer{color:var(--ink-faint);font-size:11px;border-top:1px solid var(--rule);
     <button id="marks">Skid marks: on</button>
     <button id="gyro" aria-pressed="true">IMU gyro: on</button>
     <button id="mzmode">Maze: competition</button>
+    <button id="wheels">Wheels: 19mm (no diagonals)</button>
     <div class="spacer"></div>
     <label class="rng">Speed <input id="spd" type="range" min="0.2" max="3.0"
       step="0.05" value="0.8"><b id="spdv">0.80 m/s</b></label>
@@ -304,10 +305,10 @@ function buildMazeComp(){
   for(let c=0;c<=N;c++){wV[c]=[];for(let r=0;r<N;r++)wV[c][r]=true;}
   for(let c=0;c<N;c++){wH[c]=[];for(let r=0;r<=N;r++)wH[c][r]=true;}
   const route=[];
-  for(let r=0;r<14;r++)route.push([0,r]);
-  for(let c=1;c<14;c++)route.push([c,13]);
-  for(const p of [[13,12],[12,12],[12,11],[11,11],[11,10],[10,10],
-                  [10,9],[9,9],[9,8],[8,8]])route.push(p);
+  for(let r=0;r<15;r++)route.push([0,r]);
+  for(let c=1;c<15;c++)route.push([c,14]);
+  let cc2=14,rr2=14;
+  for(let k=0;k<12;k++){if(k%2===0)rr2--;else cc2--;route.push([cc2,rr2]);}
   for(let i=0;i<route.length-1;i++){
     const [c1,r1]=route[i],[c2,r2]=route[i+1];
     if(c2===c1+1)wV[c2][r1]=false;
@@ -330,9 +331,17 @@ function buildMazeComp(){
     if(d===2)wH[c][r]=false;if(d===3)wV[c][r]=false;
     seen[nc][nr]=true;st.push([nc,nr]);
   }
-  for(let i=0;i<24;i++){const c=1+Math.floor(rnd()*(N-2)),r=1+Math.floor(rnd()*(N-2));
-    if(rnd()<0.5)wV[c][r]=false;else wH[c][r]=false;}
+  // loops only where they do NOT shorten start->goal: the designed highway
+  // must remain the shortest route, like a real championship maze
   wV[8][7]=false;wV[8][8]=false;wH[7][8]=false;wH[8][8]=false;
+  const base=flood(GOAL)[0][0];
+  for(let i=0;i<40;i++){
+    const c=1+Math.floor(rnd()*(N-2)),r=1+Math.floor(rnd()*(N-2));
+    const arr=rnd()<0.5?wV:wH;
+    if(!arr[c][r])continue;
+    arr[c][r]=false;
+    if(flood(GOAL)[0][0]<base)arr[c][r]=true;
+  }
   wV[1][0]=true;wH[0][1]=false;
   for(let r=0;r<N;r++){wV[0][r]=true;wV[N][r]=true;}
   for(let c=0;c<N;c++){wH[c][0]=true;wH[c][N]=true;}
@@ -359,29 +368,58 @@ function makePath(){
       if(f[nc][nr]<bv){bv=f[nc][nr];b=d;}}
     if(b<0)break;c+=DX[b];r+=DY[b];cells.push([c*CELL+90,r*CELL+90]);}
 
-  // Fillet every corner with a TURN_R arc instead of driving corner to corner.
-  // Stopping to pivot at a cell centre is what jammed the old controller: the
-  // nose sweeps 99.5 mm about the wheelbase midpoint vs an 84 mm cell half.
-  const P=[cells[0]];
-  for(let i=1;i<cells.length-1;i++){
-    const a=cells[i-1],b=cells[i],d=cells[i+1];
-    const d0=[Math.sign(b[0]-a[0]),Math.sign(b[1]-a[1])];
-    const d1=[Math.sign(d[0]-b[0]),Math.sign(d[1]-b[1])];
-    if(d0[0]===d1[0]&&d0[1]===d1[1]){P.push(b);continue;}
-    const R=TURN_R;
-    const s=[b[0]-R*d0[0],b[1]-R*d0[1]];
-    const e=[b[0]+R*d1[0],b[1]+R*d1[1]];
-    const cen=[s[0]+R*d1[0],s[1]+R*d1[1]];
-    P.push(s);
-    let a0=Math.atan2(s[1]-cen[1],s[0]-cen[0]);
-    let a1=Math.atan2(e[1]-cen[1],e[0]-cen[0]);
-    let da=a1-a0;while(da>Math.PI)da-=2*Math.PI;while(da<-Math.PI)da+=2*Math.PI;
+  // Anchors: cell centres, with alternating-turn chains collapsed to 45-deg
+  // DIAGONAL segments through the wall-gap centres (midpoints of adjacent
+  // cell centres - exactly collinear). Real-mouse staircase running, gated
+  // on the robot physically fitting the 110.3 mm diagonal corridor.
+  const diagOK=(2*halfW)<=106.0;
+  let anchors=cells.slice();
+  if(diagOK){
+    const mv=[];
+    for(let i2=0;i2<cells.length-1;i2++)
+      mv.push([Math.sign(cells[i2+1][0]-cells[i2][0]),
+               Math.sign(cells[i2+1][1]-cells[i2][1])]);
+    const eq=(a,b)=>a[0]===b[0]&&a[1]===b[1];
+    anchors=[cells[0]];let i2=0;
+    while(i2<mv.length){
+      let j=i2;
+      while(j+1<mv.length&&!eq(mv[j+1],mv[j])&&(j===i2||eq(mv[j+1],mv[j-1])))j++;
+      if(j-i2+1>=4){
+        const mid=k=>[(cells[k][0]+cells[k+1][0])/2,(cells[k][1]+cells[k+1][1])/2];
+        anchors.push(mid(i2));anchors.push(mid(j));
+        i2=j+1;anchors.push(cells[i2]);
+      }else{i2++;anchors.push(cells[i2]);}
+    }
+    if(anchors[anchors.length-1]!==cells[cells.length-1])
+      anchors.push(cells[cells.length-1]);
+  }
+  // generic tangent fillets between legs (any angle: 90s AND 45s)
+  const P=[anchors[0]];
+  for(let i2=1;i2<anchors.length-1;i2++){
+    const a=anchors[i2-1],b=anchors[i2],c=anchors[i2+1];
+    const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]);
+    if(l1<1e-9||l2<1e-9)continue;
+    const u1=[(b[0]-a[0])/l1,(b[1]-a[1])/l1],u2=[(c[0]-b[0])/l2,(c[1]-b[1])/l2];
+    const cr=u1[0]*u2[1]-u1[1]*u2[0];
+    const dt2=Math.max(-1,Math.min(1,u1[0]*u2[0]+u1[1]*u2[1]));
+    if(Math.abs(cr)<1e-6&&dt2>0){P.push(b);continue;}
+    const dang=Math.acos(dt2);
+    let R=dang>1.2?TURN_R:70.0;
+    let t=R*Math.tan(dang/2);
+    const tmax=0.45*Math.min(l1,l2);
+    if(t>tmax){t=tmax;R=t/Math.tan(dang/2);}
+    const sp=[b[0]-u1[0]*t,b[1]-u1[1]*t];
+    const n1=cr>0?[-u1[1],u1[0]]:[u1[1],-u1[0]];
+    const cen=[sp[0]+n1[0]*R,sp[1]+n1[1]*R];
+    const a0=Math.atan2(sp[1]-cen[1],sp[0]-cen[0]);
+    const sweep=cr>0?dang:-dang;
+    P.push(sp);
     for(let k=1;k<=8;k++){
-      const t=a0+da*k/8;
-      P.push([cen[0]+R*Math.cos(t),cen[1]+R*Math.sin(t)]);
+      const th2=a0+sweep*k/8;
+      P.push([cen[0]+R*Math.cos(th2),cen[1]+R*Math.sin(th2)]);
     }
   }
-  P.push(cells[cells.length-1]);
+  P.push(anchors[anchors.length-1]);
   // Resample to even ~30 mm spacing, then smooth. The raw fillet path steps
   // from zero to 11 m^-1 curvature instantly, and the yaw transient that
   // demands sits exactly at the friction limit - a clothoid-ish blend is what
@@ -427,7 +465,26 @@ function makePath(){
 const g=9.81, MASS=0.22, R_W=META.wheelR/1000;
 const IZZ=MASS*(0.120*0.120+0.107*0.107)/12;
 const WH_A=[ META.axleX/1000, META.axleX/1000,-META.axleX/1000,-META.axleX/1000];
-const WH_B=[ META.wheelY/1000,-META.wheelY/1000, META.wheelY/1000,-META.wheelY/1000];
+/* Wheel variant. As-bought mini-sumo barrels are 19.06 wide -> track 120.12
+   (wheels overhang the 100 mm PCB by ~10 mm/side, which is why the robot is
+   wider than the board). Trimmed to 8 mm -> track 98: inside the PCB width
+   AND inside the 110.3 mm diagonal corridor, which unlocks diagonal running.
+   Geometry, collision footprint and steering gains all switch together. */
+let narrowWheels=false;
+let halfW=META.halfW, trackMM=META.track, WH_B=[0,0,0,0], FOOT=[];
+function applyVariant(){
+  halfW=narrowWheels?META.halfWN:META.halfW;
+  trackMM=narrowWheels?META.trackN:META.track;
+  const wy=(narrowWheels?META.wheelYN:META.wheelY)/1000;
+  WH_B=[wy,-wy,wy,-wy];
+  FOOT=[];
+  const fr=META.front,re=META.rear;
+  for(let i=0;i<=6;i++){const t=-re+(fr+re)*i/6;FOOT.push([t,halfW],[t,-halfW]);}
+  for(let i=1;i<6;i++){const b=-halfW+2*halfW*i/6;FOOT.push([fr,b],[-re,b]);}
+  GAIN_TUNED.d=narrowWheels?1.7:1.3;
+  GAIN_TUNED.rd=narrowWheels?1.1:0.5;
+  GAIN.d=GAIN_TUNED.d;GAIN.rd=GAIN_TUNED.rd;
+}
 const SIDE=[1,-1,1,-1];
 const SREF=0.06;
 let S={x:90,y:90,th:Math.PI/2,u:0,v:0,r:0};
@@ -452,7 +509,7 @@ let mission="run", outbound=true, pauseT=0, legs=0, legStartDist=0;
    the optimum from the sim_twin.py sweep (zero wall hits, 0.5-1.2 m/s, four
    maze seeds). P acts on cross-track error, D on heading-to-tangent, FF on
    the path's own curvature. */
-const GAIN_TUNED={p:1.2,d:1.3,ff:0.7,rd:0.5,mp:0.35,mi:8.0};
+let GAIN_TUNED={p:1.2,d:1.3,ff:0.7,rd:0.5,mp:0.35,mi:8.0};
 let GAIN={p:1.2,d:1.3,ff:0.7,rd:0.5,mp:0.35,mi:8.0};
 
 /* Motor + inner speed loop. Wheels are NO LONGER ideal velocity sources: a
@@ -536,7 +593,7 @@ function control(dtCtl){
   // margin for the entry transient, and it slid wide every time.
   // braking window scales with speed: stop distance from v at ~4.2 m/s^2 is
   // v^2/8.4 - a fixed window overruns corners arriving off a long straight
-  const need=Math.max(260,(S.u*S.u)/8.4*1000+250);
+  const need=Math.max(260,(S.u*S.u)/8.4*1000+400);
   let ud=uTarget, rmin=1e6, bd=0;
   for(let i=pathI;i<PATHR.length-1&&bd<need;i++){
     rmin=Math.min(rmin,PATHR[i]);
@@ -548,6 +605,13 @@ function control(dtCtl){
   // launch slip limiter: full speed from rest saturates the friction circle
   // longitudinally, leaving no lateral grip for an arc at the stop
   ud=Math.min(ud,Math.abs(S.u)+0.30);
+  // diagonal discipline: ~6 mm/side corridor margin -> hold the swept-optimal
+  // 0.70 cruise and stiffen the servo 2.2x; and no throttle until aligned,
+  // or corner-exit overshoot spears the wall
+  const diagHere=Math.abs(Math.abs(Math.atan2(ty,tx))%(Math.PI/2)-Math.PI/4)<0.12;
+  const kmul=diagHere?2.2:1.0;
+  if(diagHere)ud=Math.min(ud,0.70);
+  if(Math.abs(he)>0.10)ud=Math.min(ud,0.50);
   // departure creep after a stop (not the initial launch): 0.30 m/s for the
   // first 250 mm so feedback settles before speed arrives
   if(legStartDist>0&&dist-legStartDist<0.25)ud=Math.min(ud,0.30);
@@ -615,8 +679,8 @@ function control(dtCtl){
   const auth=Math.min(1,Math.abs(S.u)/0.25);
   let kappa=GAIN.ff*kFF
            +auth*(0.45*hd/ (Math.max(60,Math.hypot(dx,dy))/1000)  // pursuit
-                  +GAIN.d*he                                      // tangent
-                  -Math.atan2(GAIN.p*e,v)*1.8);                   // cross-track
+                  +GAIN.d*he*kmul                                 // tangent
+                  -Math.atan2(GAIN.p*kmul*e,v)*1.8);              // cross-track
   kappa=Math.max(-16,Math.min(16,kappa));
   let rd=Math.max(-14,Math.min(14,kappa*ud));
   // gyro yaw-rate lead: the lagged motor plant needs the differential to
@@ -625,7 +689,7 @@ function control(dtCtl){
     rd=rd+GAIN.rd*(rd-S.r);
     rd=Math.max(-14,Math.min(14,rd));
   }
-  const B=META.track/1000;
+  const B=trackMM/1000;
   wl=(ud-rd*B/2)/R_W; wr=(ud+rd*B/2)/R_W;
 }
 function motorStep(dt,fL,fR){
@@ -668,7 +732,7 @@ function step(dt){
   S.th+=S.r*dt;
   // encoders read ACHIEVED rotation (trim and lag included), and the drawn
   // wheels/gears spin at achieved speed too
-  thEst+=((war-wal)*R_W/(META.track/1000))*dt;
+  thEst+=((war-wal)*R_W/(trackMM/1000))*dt;
   spinL+=wal*dt;spinR+=war*dt;
   dist+=Math.abs(S.u)*dt;tsec+=dt;
   // skid marks
@@ -687,7 +751,8 @@ function step(dt){
   // wedged: in contact and going nowhere. Not a solver failure - the corner
   // is geometrically impossible for this wheelbase, see SWEEP below.
   if(touching&&Math.hypot(S.u,S.v)<0.03)stuck+=dt; else stuck=Math.max(0,stuck-dt*2);
-  if(stuck>0.7){stuck=0;recoverT=0.55;}   // trigger reverse-and-retry
+  if(stuck>0.7){stuck=0;recoverT=0.55;
+    legStartDist=dist;}   // reverse-and-retry, then CREEP back up to speed
 }
 /* Walls are SOLID. The previous version only damped velocity on contact, which
    let the body soak straight through. This resolves the penetration and kills
@@ -713,11 +778,6 @@ function buildWallList(){
       }
   }
 }
-const FOOT=(function(){
-  const fr=84,re=36,hw=53.3,P=[];
-  for(let i=0;i<=6;i++){const t=-re+(fr+re)*i/6;P.push([t,hw],[t,-hw]);}
-  for(let i=1;i<6;i++){const b=-hw+2*hw*i/6;P.push([fr,b],[-re,b]);}
-  return P;})();
 function resolveWalls(){
   const c=Math.cos(S.th),s=Math.sin(S.th);
   let xp=0,xn=0,yp=0,yn=0,any=false;
@@ -808,9 +868,13 @@ function draw(){
     drawM(m,B0,[m.col[0]*tint[0],m.col[1]*tint[1],m.col[2]*tint[2]]);
   }
   for(const it of DOC.instances){
-    const m=MESH[it.m];if(!m)continue;
+    let mName=it.m, iy=it.y;
+    if(it.m==="wheel"&&narrowWheels){
+      mName="wheelN"; iy=Math.sign(it.y)*META.wheelYN;
+    }
+    const m=MESH[mName];if(!m)continue;
     const spin=(it.side>0?spinL:spinR)*(it.rate||1)*(it.side>0?1:-1);
-    const mm=mul(B0,mul(trans(it.x,it.y,it.z),rotY(-spin)));
+    const mm=mul(B0,mul(trans(it.x,iy,it.z),rotY(-spin)));
     drawM(m,mm,[m.col[0]*tint[0],m.col[1]*tint[1],m.col[2]*tint[2]]);
   }
 }
@@ -892,6 +956,10 @@ document.getElementById("play").onclick=e=>{playing=!playing;
 document.getElementById("reset").onclick=()=>resetAll();
 document.getElementById("mzmode").onclick=e=>{compMaze=!compMaze;
   e.target.textContent="Maze: "+(compMaze?"competition":"twisty");resetAll();};
+document.getElementById("wheels").onclick=e=>{narrowWheels=!narrowWheels;
+  e.target.textContent=narrowWheels?
+    "Wheels: 8mm trimmed (DIAGONALS)":"Wheels: 19mm (no diagonals)";
+  applyVariant();resetAll();};
 document.getElementById("marks").onclick=e=>{showMarks=!showMarks;
   e.target.textContent="Skid marks: "+(showMarks?"on":"off");};
 document.getElementById("gyro").onclick=e=>{gyroOn=!gyroOn;
@@ -929,6 +997,6 @@ function loop(now){
 document.getElementById("eyebrow").textContent=
   "4WD · 19T → 40T · "+META.ratio.toFixed(3)+":1 · mini-sumo wheel Ø27 · "+
   "tessellated from the STEP assembly";
-resetAll();setCam(0);requestAnimationFrame(loop);
+applyVariant();resetAll();setCam(0);requestAnimationFrame(loop);
 })();
 </script>

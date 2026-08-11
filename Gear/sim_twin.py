@@ -77,10 +77,14 @@ def build_maze_comp(seed=20260810):
     wV = [[True] * N for _ in range(N + 1)]
     wH = [[True] * (N + 1) for _ in range(N)]
 
-    route = [(0, r) for r in range(14)]                  # N straight
-    route += [(c, 13) for c in range(1, 14)]             # E straight
-    stair = [(13, 12), (12, 12), (12, 11), (11, 11), (11, 10), (10, 10),
-             (10, 9), (9, 9), (9, 8), (8, 8)]            # staircase to goal
+    route = [(0, r) for r in range(15)]                  # N straight, 15 cells
+    route += [(c, 14) for c in range(1, 15)]             # E straight, 14 cells
+    stair = []
+    c, r = 14, 14
+    for k in range(12):                                  # 12-move staircase
+        if k % 2 == 0: r -= 1
+        else: c -= 1
+        stair.append((c, r))                             # ends at (8, 8)
     route += stair
 
     def carve(a, b):
@@ -113,13 +117,23 @@ def build_maze_comp(seed=20260810):
         if d == 3: wV[c][r] = False
         seen[nc][nr] = True
         st.append((nc, nr))
-    for _ in range(24):
-        c = 1 + int(rnd() * (N - 2)); r = 1 + int(rnd() * (N - 2))
-        if rnd() < 0.5: wV[c][r] = False
-        else: wH[c][r] = False
-
+    # loops are only punched if they DON'T shorten start->goal: the designed
+    # highway must stay the shortest route, like a real championship maze.
+    # (Unguarded punching let the flood route shortcut through the middle and
+    # skip the straights and staircase entirely.)
     wV[8][7] = wV[8][8] = False
     wH[7][8] = wH[8][8] = False
+    base = flood(wV, wH, GOAL)[0][0]
+    for _ in range(40):
+        c = 1 + int(rnd() * (N - 2)); r = 1 + int(rnd() * (N - 2))
+        vert = rnd() < 0.5
+        arr = wV if vert else wH
+        if not arr[c][r]:
+            continue
+        arr[c][r] = False
+        if flood(wV, wH, GOAL)[0][0] < base:
+            arr[c][r] = True                     # would shortcut - revert
+
     wV[1][0] = True; wH[0][1] = False
     for r in range(N): wV[0][r] = True; wV[N][r] = True
     for c in range(N): wH[c][0] = True; wH[c][N] = True
@@ -144,7 +158,7 @@ def flood(wV, wH, T):
     return f
 
 
-def make_path(wV, wH, turn_r=90.0):
+def make_path(wV, wH, turn_r=90.0, diag=False):
     f = flood(wV, wH, GOAL)
     c, r = 0, 0
     cells = [(90.0, 90.0)]
@@ -161,27 +175,62 @@ def make_path(wV, wH, turn_r=90.0):
         c, r = c + DX[best], r + DY[best]
         cells.append((c * CELL + 90.0, r * CELL + 90.0))
 
-    P = [cells[0]]
-    for i in range(1, len(cells) - 1):
-        a, b, d = cells[i-1], cells[i], cells[i+1]
-        d0 = (sgn(b[0]-a[0]), sgn(b[1]-a[1]))
-        d1 = (sgn(d[0]-b[0]), sgn(d[1]-b[1]))
-        if d0 == d1:
+    # ---- anchors: cell centres, with alternating-turn chains collapsed to
+    # 45-degree DIAGONAL segments through the wall-gap centres (which are the
+    # midpoints of adjacent cell centres, and are exactly collinear). This is
+    # how real mice run staircases. Gated on the robot actually fitting the
+    # 110.3 mm diagonal corridor.
+    anchors = list(cells)
+    if diag:
+        moves = [(sgn(cells[i+1][0]-cells[i][0]),
+                  sgn(cells[i+1][1]-cells[i][1])) for i in range(len(cells)-1)]
+        anchors, i = [cells[0]], 0
+        while i < len(moves):
+            j = i
+            while (j + 1 < len(moves) and moves[j+1] != moves[j]
+                   and (j == i or moves[j+1] == moves[j-1])):
+                j += 1
+            if j - i + 1 >= 4:                    # >= 4 alternating moves
+                mid = lambda k: ((cells[k][0]+cells[k+1][0])/2.0,
+                                 (cells[k][1]+cells[k+1][1])/2.0)
+                anchors.append(mid(i))            # diagonal entry
+                anchors.append(mid(j))            # diagonal exit
+                i = j + 1
+                anchors.append(cells[i])
+            else:
+                i += 1
+                anchors.append(cells[i])
+        if anchors[-1] != cells[-1]:
+            anchors.append(cells[-1])
+
+    # ---- generic tangent fillets between anchor legs (any angle)
+    P = [anchors[0]]
+    for i in range(1, len(anchors) - 1):
+        a, b, c2 = anchors[i-1], anchors[i], anchors[i+1]
+        v1 = (b[0]-a[0], b[1]-a[1]); l1 = math.hypot(*v1)
+        v2 = (c2[0]-b[0], c2[1]-b[1]); l2 = math.hypot(*v2)
+        if l1 < 1e-9 or l2 < 1e-9: continue
+        u1 = (v1[0]/l1, v1[1]/l1); u2 = (v2[0]/l2, v2[1]/l2)
+        cross = u1[0]*u2[1] - u1[1]*u2[0]
+        dot = max(-1.0, min(1.0, u1[0]*u2[0] + u1[1]*u2[1]))
+        if abs(cross) < 1e-6 and dot > 0:
             P.append(b); continue
-        R = turn_r
-        s = (b[0]-R*d0[0], b[1]-R*d0[1])
-        e = (b[0]+R*d1[0], b[1]+R*d1[1])
-        cen = (s[0]+R*d1[0], s[1]+R*d1[1])
-        P.append(s)
-        a0 = math.atan2(s[1]-cen[1], s[0]-cen[0])
-        a1 = math.atan2(e[1]-cen[1], e[0]-cen[0])
-        da = a1 - a0
-        while da > math.pi: da -= 2*math.pi
-        while da < -math.pi: da += 2*math.pi
+        dang = math.acos(dot)                     # turn magnitude
+        R = turn_r if dang > 1.2 else 70.0        # 90s at 90 mm, 45s at 70
+        t = R * math.tan(dang / 2.0)
+        tmax = 0.45 * min(l1, l2)
+        if t > tmax:
+            t = tmax; R = t / math.tan(dang / 2.0)
+        sp = (b[0]-u1[0]*t, b[1]-u1[1]*t)
+        n1 = (-u1[1], u1[0]) if cross > 0 else (u1[1], -u1[0])
+        cen = (sp[0]+n1[0]*R, sp[1]+n1[1]*R)
+        a0 = math.atan2(sp[1]-cen[1], sp[0]-cen[0])
+        sweep = dang if cross > 0 else -dang
+        P.append(sp)
         for k in range(1, 9):
-            t = a0 + da*k/8
-            P.append((cen[0]+R*math.cos(t), cen[1]+R*math.sin(t)))
-    P.append(cells[-1])
+            th2 = a0 + sweep*k/8.0
+            P.append((cen[0]+R*math.cos(th2), cen[1]+R*math.sin(th2)))
+    P.append(anchors[-1])
 
     # resample ~34 mm then smooth twice (same as the viewer)
     Q = [P[0]]
@@ -272,6 +321,23 @@ PI_KP, PI_KI = 0.35, 8.0          # duty per rad/s (per rad) - tuned below
 
 class Sim:
     def __init__(self, gains, seed=20260810, gyro=True, trim=True):
+        # wheel variant: mini-sumo barrel as-is (19.06 -> track 120.12) or
+        # trimmed to 8 mm (track 98: fits the 110.3 diagonal corridor AND
+        # stays inside the 100 mm PCB)
+        narrow = bool(gains.get("narrow"))
+        self.halfw = 49.0 if narrow else HALFW
+        self.trackm = (2*self.halfw)/1000.0
+        wy = (41.0 + (8.0 if narrow else 19.06)/2.0)/1000.0
+        self.WH_B = [wy, -wy, wy, -wy]
+        self.FOOT = []
+        for i in range(7):
+            t2 = -REAR + (FRONT+REAR)*i/6
+            self.FOOT.append((t2, self.halfw))
+            self.FOOT.append((t2, -self.halfw))
+        for i in range(1, 6):
+            b2 = -self.halfw + 2*self.halfw*i/6
+            self.FOOT.append((FRONT, b2)); self.FOOT.append((-REAR, b2))
+        self.diag_ok = (2*self.halfw) <= 106.0   # 110.3 corridor - margin
         self.gyro = gyro
         self.trimL = MOTOR_TRIM_L if trim else 1.0
         self.trimR = MOTOR_TRIM_R if trim else 1.0
@@ -279,7 +345,8 @@ class Sim:
         wV, wH = (build_maze_comp(seed) if gains.get("comp")
                   else build_maze(seed))
         self.grid = wall_grid(wV, wH)
-        self.P, self.PR, self.PK = make_path(wV, wH)
+        self.P, self.PR, self.PK = make_path(
+            wV, wH, diag=self.diag_ok and bool(gains.get("diag")))
         self.x, self.y, self.th = 90.0, 90.0, math.pi/2
         # Heading ESTIMATE. Gyro ON: the IMU tracks true heading (BNO055-class
         # drift is negligible over a run). Gyro OFF: encoder odometry only -
@@ -328,7 +395,9 @@ class Sim:
         # braking window scales with speed: from v the stop distance at
         # ~4.2 m/s^2 is v^2/8.4 - a fixed 260 mm window overruns corners
         # arriving off a long straight
-        need = max(g["brake_d"], (self.u*self.u)/8.4*1000.0 + 250.0)
+        # +400 not +250: braking must FINISH ~100 mm before the arc, or the
+        # leftover longitudinal slip eats the friction circle at turn-in
+        need = max(g["brake_d"], (self.u*self.u)/8.4*1000.0 + 400.0)
         ud, rmin, bd2 = g["vmax"], 1e6, 0.0
         i = self.pathI
         while i < len(self.PR)-1 and bd2 < need:
@@ -357,15 +426,28 @@ class Sim:
             accd += math.hypot(self.P[i+1][0]-self.P[i][0],
                                self.P[i+1][1]-self.P[i][1])
             i += 1
+        # diagonal discipline: on 45-degree tangents the corridor margin is
+        # ~6 mm/side, so slow down and stiffen the tracking servo - exactly
+        # what real mice do entering a diagonal chain
+        diag_here = abs(abs(math.atan2(ty, tx)) % (math.pi/2) - math.pi/4) < 0.12
+        kmul = 2.2 if diag_here else 1.0
+        if diag_here: ud = min(ud, g.get("vdiag", 0.55))
+        # no throttle until aligned: corner-exit overshoot (~12 deg) plus hard
+        # acceleration speared the wall on every 1.0 m/s exit
+        if abs(he) > 0.10: ud = min(ud, 0.50)
         v = max(0.12, abs(self.u))
         # feedback authority ramps in with speed: at launch atan2(k*e, v)
         # divides by near-zero v, so millimetres of error commanded full lock -
         # that veer cost 6-8 hits departing every stop
+        # authority ramps in at launch AND schedules down with speed: the
+        # feedback-to-yaw path multiplies by v, so fixed gains that are stable
+        # at 0.8 weave to a crash mid-straight at 1.0
         auth = min(1.0, abs(self.u)/0.25)
+
         kap = (kFF*g["kff"]
                + auth*(g["kp"]*hd/(max(60.0, math.hypot(dx, dy))/1000.0)
-                       + g["kh"]*he
-                       - math.atan2(g["ke"]*e, v)*g["ka"]))
+                       + g["kh"]*he*kmul
+                       - math.atan2(g["ke"]*kmul*e, v)*g["ka"]))
         kap = max(-16.0, min(16.0, kap))
         rd = max(-14.0, min(14.0, kap*ud))
         # gyro yaw-rate lead: with a lagged motor plant the commanded
@@ -374,7 +456,7 @@ class Sim:
         if self.gyro:
             rd = rd + self.gn.get("krd", 0.0)*(rd - self.r)
             rd = max(-14.0, min(14.0, rd))
-        B = TRACK/1000.0
+        B = self.trackm
         self.wl = (ud - rd*B/2)/WHEEL_R
         self.wr = (ud + rd*B/2)/WHEEL_R
 
@@ -382,7 +464,7 @@ class Sim:
         c, s = math.cos(self.th), math.sin(self.th)
         xp = xn = yp = yn = 0.0
         any_ = False
-        for (a, b) in FOOT:
+        for (a, b) in self.FOOT:
             px = self.x + a*c - b*s
             py = self.y + a*s + b*c
             for w in self.grid.get((int(px//CELL), int(py//CELL)), ()):
@@ -481,6 +563,7 @@ class Sim:
             self.stuck = max(0.0, self.stuck - dt*2)
         if self.stuck > 0.7:
             self.stuck = 0.0; self.recover = 0.55
+            self.leg_start_dist = self.dist   # creep on re-departure too
 
     def run(self, tmax=90.0):
         n = len(self.P)

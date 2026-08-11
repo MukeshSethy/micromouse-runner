@@ -349,7 +349,7 @@ def bearing_f683():
     return b.cut(_cyl(K.BRG_ID, K.BRG_W + K.BRG_FL_W + 2.0, z=-1.0))
 
 
-def wheel_placeholder():
+def wheel_placeholder(width=None):
     """
     The mini-sumo wheel, rebuilt as a solid from the dimensions sliced out of
     miniSumoWheel.3mf: flanges dia 26.52, silicone channel dia 23.31, width
@@ -357,7 +357,7 @@ def wheel_placeholder():
     plate at ONE end (~4.5 thick, mounted inboard = local z 0). Plus the
     user's silicone band bringing the rolling dia to WHEEL_DIA.
     """
-    w = K.WHEEL_W
+    w = width or K.WHEEL_W
     fl = K.WHEEL_FLANGE_W
     body = _cyl(K.WHEEL_FLANGE_D, fl)                       # inboard flange
     body = body.union(_cyl(K.WHEEL_CHAN_D, w - 2 * fl, z=fl))
