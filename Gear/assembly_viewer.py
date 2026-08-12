@@ -56,7 +56,7 @@ def _plan(name):
     if name.startswith("motor_N20"):
         return 5, UP, 55.0             # motors lift out of the pod channels
     if name.startswith("pod_"):
-        return 6, UP, 25.0             # unscrew M3s, pods off the PCB
+        return 7, UP, 25.0             # deck screws out first, then pods
     return -1, UP, 0.0                 # PCB stays put
 
 
@@ -67,7 +67,23 @@ DRIVETRAIN_STEPS = [
     "Press the F683ZZ bearings out of the bosses (flange side leads)",
     "Pull the 19T pinions off the N20 motor shafts",
     "Lift the motors out of the pod U-channels",
-    "Unscrew the four M3s and lift the pods off the PCB",
+    "Unscrew the four countersunk M3×8 deck screws from under the board "
+    "(flush heads — they preserve the 3 mm ground clearance)",
+    "Lift the pods off the PCB",
+]
+
+DRIVETRAIN_HW = [
+    "4× M3×8 countersunk (DIN 7991) — pods to PCB through H1..H4, driven "
+    "from below, thread-forming into the printed pod pads. No nuts",
+    "8× F683ZZ flanged bearings — press-fit, no fasteners",
+    "3× M3×16 socket-head — the tyre mould clamp (see the other tab)",
+    "Everything else drives on D-flats: gears, axles and wheels need "
+    "no fasteners at all",
+]
+
+MOLD_HW = [
+    "3× M3×16 socket-head (DIN 912) — plug to cup, thread-forming into "
+    "the 2.90 mm pilots in the printed bosses. No nuts",
 ]
 
 MOLD_STEPS = [
@@ -97,14 +113,19 @@ def _color(name):
     return "#888888"
 
 
-def _emit(name, shape, stage, dcad, dist, color, tol):
+def _emit(name, shape, stage, dcad, dist, color, tol,
+          fill=None, pour=0, cut=0):
+    """fill=[zA,zB,t0,t1]: silicone body revealed bottom-up between pour
+    times t0..t1. pour=1: waste body drawn only while the pour runs.
+    cut=1: half-sectioned during the pour so the fill is visible."""
     P, N, _ = EM.tess(shape, (0, 0, 0), tol)
     v64, n64 = EM.pack(P, N)
     # tess() rotates 180 deg about Z, so directions rotate with it
     dv = [-dcad[0], -dcad[1], dcad[2]]
     print("  %-26s stage %2d %7d tris" % (name, stage, len(P) // 3))
     return {"name": name, "color": color, "stage": stage, "dir": dv,
-            "dist": dist, "n": len(P), "v": v64, "nr": n64}
+            "dist": dist, "fill": fill, "pour": pour, "cut": cut,
+            "n": len(P), "v": v64, "nr": n64}
 
 
 def scene_drivetrain():
@@ -130,7 +151,17 @@ def scene_drivetrain():
             tol = 0.4
         parts.append(_emit(ch.name, shape, stage, dcad, dist,
                            _color(ch.name), tol))
+    # the four deck screws: flush countersunk heads under the board,
+    # threading up into the printed pod pads through H1..H4
+    k = 0
+    for x in (-K.DECK_HOLE_X, K.DECK_HOLE_X):
+        for y in (-K.DECK_LEDGE_Y, K.DECK_LEDGE_Y):
+            scr = _m3x8_csk().translate((x, y, K.BOARD_Z))
+            parts.append(_emit("screw_M3x8_csk_%d" % k, scr.val(),
+                               6, (0.0, 0.0, -1.0), 26.0, "#55504C", 0.15))
+            k += 1
     return {"label": "Drivetrain", "steps": DRIVETRAIN_STEPS,
+            "hw": DRIVETRAIN_HW,
             "cz": 12.0, "czk": 14.0, "d": 240.0, "parts": parts}
 
 
@@ -140,6 +171,17 @@ def _m3x16_shcs():
          .union(cq.Workplane("XY").circle(3.0 / 2).extrude(-16.0)))
     hexs = (cq.Workplane("XY").polygon(6, 2.5 / math.cos(math.radians(30)))
             .extrude(1.6).translate((0, 0, 1.4)))
+    return s.cut(hexs)
+
+
+def _m3x8_csk():
+    """M3x8 countersunk (DIN 7991), flat face at z=0, shank pointing UP -
+    the deck screws drive from under the board, flush with its underside."""
+    head = cq.Solid.makeCone(5.5 / 2, 3.0 / 2, 1.25)
+    s = (cq.Workplane("XY").newObject([head])
+         .union(cq.Workplane("XY").circle(3.0 / 2).extrude(8.0)))
+    hexs = (cq.Workplane("XY").polygon(6, 2.0 / math.cos(math.radians(30)))
+            .extrude(1.0).translate((0, 0, -0.05)))
     return s.cut(hexs)
 
 
@@ -153,12 +195,22 @@ def scene_mold():
     # heads seat on the plug plate top; 16 mm reaches ~12 mm into the
     # tapped cup bosses (2.90 pilot, thread-forming - no nuts)
     z_head = zw + M.W + M.PLATE_T
+    # pour-path landmarks (world frame, wheel bottom at zw)
+    hub_top = zw + M.HUB_T
+    roof = hub_top + M.PLENUM_H
+    cav0, cav1 = zw + M.FL_W, zw + M.FL_W + M.CH_W
+    gate_z = zw + M.FL_W + M.CH_W / 3.0
     parts = [
-        _emit("mold_cup", M.mold_cup().val(), -1, UP, 0.0, COL["cup"], 0.3),
+        _emit("mold_cup", M.mold_cup().val(), -1, UP, 0.0, COL["cup"], 0.3,
+              cut=1),
         # wheel and tyre leave TOGETHER - the keying is permanent
-        _emit("wheel_keyed", wheel.val(), 2, UP, 34.0, COL["wheel"], 0.3),
-        _emit("tyre_cast", tyre.val(), 2, UP, 34.0, COL["tyre"], 0.3),
-        _emit("mold_plug", plug.val(), 1, UP, 37.0, COL["plug"], 0.3),
+        _emit("wheel_keyed", wheel.val(), 2, UP, 34.0, COL["wheel"], 0.3,
+              cut=1),
+        # the tyre doubles as the cavity fill body during the pour
+        _emit("tyre_cast", tyre.val(), 2, UP, 34.0, COL["tyre"], 0.3,
+              fill=[cav0, cav1, 0.28, 0.80], cut=1),
+        _emit("mold_plug", plug.val(), 1, UP, 37.0, COL["plug"], 0.3,
+              cut=1),
     ]
     for k in range(3):
         a = math.radians(120 * k + 60)
@@ -167,8 +219,37 @@ def scene_mold():
              z_head))
         # travel keeps the shank tips above the plug's exploded position
         parts.append(_emit("screw_M3x16_%d" % k, scr.val(), 0, UP, 55.0,
-                           "#55504C", 0.15))
-    return {"label": "Tyre mould", "steps": MOLD_STEPS,
+                           "#55504C", 0.15, cut=1))
+    # --- silicone waste bodies, drawn only while the pour runs -----------
+    plenum = (cq.Workplane("XY").circle(M.INNER_D / 2)
+              .extrude(M.PLENUM_H).translate((0, 0, hub_top)))
+    parts.append(_emit("pour_plenum", plenum.val(), -1, UP, 0.0,
+                       COL["tyre"], 0.3,
+                       fill=[hub_top, roof, 0.03, 0.25], pour=1, cut=1))
+    for k in range(3):
+        g = (cq.Workplane("YZ").workplane(offset=M.INNER_D / 2 - 1.0)
+             .circle(1.5).extrude(M.CH_D / 2 - M.INNER_D / 2 + 1.3)
+             .translate((0, 0, gate_z))
+             .rotate((0, 0, 0), (0, 0, 1), 120 * k))
+        parts.append(_emit("pour_gate_%d" % k, g.val(), -1, UP, 0.0,
+                           COL["tyre"], 0.2,
+                           fill=[gate_z - 1.5, gate_z + 1.5, 0.20, 0.30],
+                           pour=1, cut=1))
+    vent = (cq.Workplane("XY").circle(M.FL_D / 2 + M.STEP_CLR)
+            .extrude(zw + M.W - cav1)
+            .cut(cq.Workplane("XY").circle(M.FL_D / 2)
+                 .extrude(zw + M.W - cav1))
+            .translate((0, 0, cav1)))
+    parts.append(_emit("pour_vent", vent.val(), -1, UP, 0.0,
+                       COL["tyre"], 0.05,
+                       fill=[cav1, zw + M.W, 0.80, 0.88], pour=1, cut=1))
+    sprue = (cq.Workplane("XY").circle(M.FUNNEL_D / 2)
+             .extrude(z_head - roof).translate((0, 0, roof)))
+    parts.append(_emit("pour_sprue", sprue.val(), -1, UP, 0.0,
+                       COL["tyre"], 0.3,
+                       fill=[roof, z_head, 0.86, 1.0], pour=1, cut=1))
+    return {"label": "Tyre mould", "steps": MOLD_STEPS, "hw": MOLD_HW,
+            "pour": 1,
             "cz": 14.0, "czk": 26.0, "d": 120.0, "parts": parts}
 
 
@@ -221,6 +302,12 @@ font-size:11.8px;line-height:1.45}
 .step.done b{color:#6B625B}
 .step.live{background:#2A1214;color:var(--ink);outline:1px solid #57272B}
 .step.live b{color:var(--accent)}
+.hw{margin-top:10px;padding-top:10px;border-top:1px solid var(--rule)}
+.hw h3{margin:0 0 6px;font-size:10.5px;letter-spacing:.14em;
+text-transform:uppercase;color:var(--gold);font-weight:700}
+.hw div{font-size:11.3px;color:var(--dim);line-height:1.5;
+padding:3px 0 3px 12px;position:relative}
+.hw div:before{content:"\2192";position:absolute;left:0;color:var(--gold)}
 .note{margin-top:auto;padding-top:10px;border-top:1px solid var(--rule);
 font-size:11px;color:#6B625B;line-height:1.55}
 .hud{font-size:11px;color:var(--dim)}
@@ -237,11 +324,14 @@ padding-top:10px;line-height:1.6}
     value="0"></label>
   <button id="dis">Disassemble &#9654;</button>
   <button id="asm">&#9664; Assemble</button>
+  <button id="pour" style="display:none">Pour silicone &#9654;</button>
   <span class="hud" id="hud"><b>Assembled</b></span>
 </div>
 <div class="grid">
   <canvas id="gl" width="1280" height="880"></canvas>
   <div class="steps"><h2 id="st">Disassembly order</h2><div id="list"></div>
+  <div class="hw"><h3>Fasteners &amp; hardware</h3><div
+    style="padding:0" id="hwl"></div></div>
   <div class="note">Slider left&rarr;right = disassembly. Right&rarr;left =
   the same steps in reverse: the assembly procedure. Each band of the slider
   moves exactly one step. Drag the canvas to orbit, wheel to zoom.</div></div>
@@ -260,9 +350,14 @@ const DOC=JSON.parse(document.getElementById("mesh").textContent);
 const cv=document.getElementById("gl"),
 gl=cv.getContext("webgl",{antialias:true});
 const VS=`attribute vec3 p;attribute vec3 n;uniform mat4 mvp;uniform vec3 off;
-varying vec3 vn;void main(){vn=n;gl_Position=mvp*vec4(p+off,1.0);}`;
-const FS=`precision mediump float;varying vec3 vn;uniform vec3 col;
-void main(){vec3 N=normalize(vn);
+varying vec3 vn;varying vec3 vw;
+void main(){vn=n;vw=p+off;gl_Position=mvp*vec4(p+off,1.0);}`;
+const FS=`precision mediump float;varying vec3 vn;varying vec3 vw;
+uniform vec3 col;uniform float cut;uniform vec2 fill;
+void main(){
+if(cut>0.5&&vw.y<0.0)discard;   // drop the camera-side half: pour cutaway
+if(fill.x>0.5&&vw.z>fill.y)discard;       // silicone rises to fill.y
+vec3 N=normalize(vn);
 float d=max(dot(N,normalize(vec3(0.4,0.3,0.85))),0.0);
 float d2=max(dot(N,normalize(vec3(-0.5,-0.2,0.3))),0.0);
 gl_FragColor=vec4(col*(0.34+0.56*d+0.18*d2),1.0);}`;
@@ -274,7 +369,8 @@ gl.attachShader(PR,sh(gl.FRAGMENT_SHADER,FS));
 gl.linkProgram(PR);gl.useProgram(PR);gl.enable(gl.DEPTH_TEST);
 const A_p=gl.getAttribLocation(PR,"p"),A_n=gl.getAttribLocation(PR,"n"),
 U_mvp=gl.getUniformLocation(PR,"mvp"),U_off=gl.getUniformLocation(PR,"off"),
-U_c=gl.getUniformLocation(PR,"col");
+U_c=gl.getUniformLocation(PR,"col"),U_cut=gl.getUniformLocation(PR,"cut"),
+U_fill=gl.getUniformLocation(PR,"fill");
 const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
 const SCENES=DOC.scenes.map(sc=>({...sc,parts:sc.parts.map(g=>{
   const vb=b64(g.v),nb=b64(g.nr);
@@ -287,6 +383,7 @@ const SCENES=DOC.scenes.map(sc=>({...sc,parts:sc.parts.map(g=>{
   const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
   gl.bufferData(gl.ARRAY_BUFFER,a,gl.STATIC_DRAW);
   return {buf,count:g.n,stage:g.stage,dir:g.dir,dist:g.dist,
+    fill:g.fill,pour:g.pour,cut:g.cut,
     col:[1,3,5].map(k=>parseInt(g.color.substr(k,2),16)/255)};
 })}));
 function mul(a,b){const o=new Float32Array(16);
@@ -304,24 +401,50 @@ x[2],y[2],z[2],0,-(x[0]*e[0]+x[1]*e[1]+x[2]*e[2]),
 -(y[0]*e[0]+y[1]*e[1]+y[2]*e[2]),-(z[0]*e[0]+z[1]*e[1]+z[2]*e[2]),1]);}
 const ss=t=>{t=Math.max(0,Math.min(1,t));return t*t*(3-2*t);};
 let cur=0,yaw=0.72,pitch=0.42,zoom=1,ex=0,vel=0,drag=false,lx=0,ly=0;
+let pourT=0,pouring=false;   // pour timeline 0..1; runs only in mould scene
+const POUR_S=10;             // seconds for a full pour
+const CAPS=[[0.03,"Silicone streams down the funnel and pools in the "+
+  "plenum above the wheel hub"],
+[0.20,"Plenum full &mdash; silicone feeds outward through the three "+
+  "&Oslash;3 gates (the lower keying row)"],
+[0.30,"The cavity fills from the bottom flange up; air is pushed ahead "+
+  "of the front"],
+[0.80,"Silicone reaches the 0.10 mm vent ring around the top flange "+
+  "&mdash; air out, rubber stays"],
+[0.86,"Sprue backfills &mdash; STOP pouring. Cure 4&ndash;6 h at room "+
+  "temperature"]];
 const exEl=document.getElementById("ex"),hud=document.getElementById("hud"),
 list=document.getElementById("list"),tabs=document.getElementById("tabs"),
-bDis=document.getElementById("dis"),bAsm=document.getElementById("asm");
+bDis=document.getElementById("dis"),bAsm=document.getElementById("asm"),
+bPour=document.getElementById("pour"),hwl=document.getElementById("hwl");
+function stopPour(){pourT=0;pouring=false;
+  bPour.innerHTML="Pour silicone &#9654;";}
 function buildTabs(){tabs.innerHTML="";SCENES.forEach((s,i)=>{
   const b=document.createElement("button");b.textContent=s.label;
   b.className=i===cur?"on":"";
-  b.onclick=()=>{cur=i;ex=0;vel=0;exEl.value=0;buildTabs();buildSteps();};
-  tabs.appendChild(b);});}
+  b.onclick=()=>{cur=i;ex=0;vel=0;exEl.value=0;stopPour();
+    buildTabs();buildSteps();};
+  tabs.appendChild(b);});
+  bPour.style.display=SCENES[cur].pour?"":"none";}
 function buildSteps(){list.innerHTML="";SCENES[cur].steps.forEach((s,i)=>{
   const d=document.createElement("div");d.className="step";d.dataset.i=i;
-  d.innerHTML="<b>"+(i+1)+"</b><span>"+s+"</span>";list.appendChild(d);});}
+  d.innerHTML="<b>"+(i+1)+"</b><span>"+s+"</span>";list.appendChild(d);});
+  hwl.innerHTML="";(SCENES[cur].hw||[]).forEach(s=>{
+  const d=document.createElement("div");d.textContent=s;
+  hwl.appendChild(d);});}
 buildTabs();buildSteps();
+bPour.onclick=()=>{
+  if(pouring||pourT>=1){stopPour();return;}
+  ex=0;vel=0;exEl.value=0;pourT=0.0001;pouring=true;
+  yaw=-1.15;pitch=0.15;bPour.innerHTML="&#9632; Stop / reset";};
 // #scene=1&ex=0.5 - deep-link a state (also how the page is smoke-tested)
 (function(){const h=new URLSearchParams(location.hash.slice(1));
 if(h.has("scene")){cur=Math.min(SCENES.length-1,+h.get("scene")||0);
   buildTabs();buildSteps();}
 if(h.has("ex")){ex=Math.max(0,Math.min(1,+h.get("ex")||0));exEl.value=ex;}
-if(h.has("yaw"))yaw=+h.get("yaw");if(h.has("pitch"))pitch=+h.get("pitch");})();
+if(h.has("yaw"))yaw=+h.get("yaw");if(h.has("pitch"))pitch=+h.get("pitch");
+if(h.has("pour")){pourT=Math.min(1,+h.get("pour")||0);
+  yaw=-1.15;pitch=0.15;}})();
 cv.addEventListener("pointerdown",e=>{drag=true;lx=e.clientX;ly=e.clientY;
 cv.setPointerCapture(e.pointerId);});
 cv.addEventListener("pointerup",()=>drag=false);
@@ -331,20 +454,28 @@ pitch+(e.clientY-ly)*0.006));lx=e.clientX;ly=e.clientY;});
 cv.addEventListener("wheel",e=>{e.preventDefault();
 zoom=Math.max(0.35,Math.min(3,zoom*(1+Math.sign(e.deltaY)*0.1)));},
 {passive:false});
-exEl.oninput=e=>{ex=parseFloat(e.target.value);vel=0;};
-bDis.onclick=()=>{vel=0.22;};
-bAsm.onclick=()=>{vel=-0.22;};
+exEl.oninput=e=>{ex=parseFloat(e.target.value);vel=0;stopPour();};
+bDis.onclick=()=>{vel=0.22;stopPour();};
+bAsm.onclick=()=>{vel=-0.22;stopPour();};
 let tPrev=null;
 function frame(ts){
   if(tPrev==null)tPrev=ts;
   const dt=Math.min(0.05,(ts-tPrev)/1000);tPrev=ts;
   if(vel){ex=Math.max(0,Math.min(1,ex+vel*dt));exEl.value=ex;
     if(ex<=0||ex>=1)vel=0;}
+  if(pouring){pourT=Math.min(1,pourT+dt/POUR_S);
+    if(pourT>=1){pouring=false;
+      bPour.innerHTML="Cured &#10003; &mdash; reset";}}
   const S=SCENES[cur],NS=S.steps.length;
   const live=ex<=0?-1:ex>=1?NS:Math.min(NS-1,Math.floor(ex*NS));
   for(const el of list.children){const i=+el.dataset.i;
     el.className="step"+(i<live?" done":i===live?" live":"");}
-  hud.innerHTML=ex<=0?"<b>Assembled</b>":ex>=1?"<b>Fully disassembled</b>":
+  if(pourT>0){let cap=CAPS[0][1];
+    for(const c of CAPS)if(pourT>=c[0])cap=c[1];
+    hud.innerHTML=pourT>=1?"<b>Cured.</b> Now run the disassembly "+
+      "slider to demould":"<b>Pouring&hellip;</b> "+cap;}
+  else hud.innerHTML=ex<=0?"<b>Assembled</b>":
+    ex>=1?"<b>Fully disassembled</b>":
     "<b>Step "+(live+1)+"/"+NS+"</b>"+(vel<0?" (assembling)":"");
   gl.viewport(0,0,cv.width,cv.height);
   gl.clearColor(0.043,0.035,0.031,1);
@@ -356,6 +487,8 @@ function frame(ts){
                look(eye,[0,0,cz],[0,0,1]));
   gl.uniformMatrix4fv(U_mvp,false,VP);
   for(const m of S.parts){
+    if(m.pour&&pourT<=0)continue;           // waste exists only mid-pour
+    if(m.fill&&pourT>0&&pourT<m.fill[2])continue;
     const k=m.stage<0?0:ss(ex*NS-m.stage);
     gl.bindBuffer(gl.ARRAY_BUFFER,m.buf);
     gl.enableVertexAttribArray(A_p);
@@ -364,6 +497,11 @@ function frame(ts){
     gl.vertexAttribPointer(A_n,3,gl.FLOAT,false,24,12);
     gl.uniform3f(U_off,m.dir[0]*m.dist*k,m.dir[1]*m.dist*k,
                  m.dir[2]*m.dist*k);
+    gl.uniform1f(U_cut,(pourT>0&&m.cut)?1:0);
+    if(m.fill&&pourT>0){const f=m.fill,
+      u=Math.max(0,Math.min(1,(pourT-f[2])/(f[3]-f[2])));
+      gl.uniform2f(U_fill,1,f[0]+(f[1]-f[0])*u+0.001);}
+    else gl.uniform2f(U_fill,0,0);
     gl.uniform3fv(U_c,m.col);gl.drawArrays(gl.TRIANGLES,0,m.count);
   }
   requestAnimationFrame(frame);
