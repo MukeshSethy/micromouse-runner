@@ -77,15 +77,25 @@ def build_maze_comp(seed=20260810):
     wV = [[True] * N for _ in range(N + 1)]
     wH = [[True] * (N + 1) for _ in range(N)]
 
-    route = [(0, r) for r in range(15)]                  # N straight, 15 cells
-    route += [(c, 14) for c in range(1, 15)]             # E straight, 14 cells
-    stair = []
-    c, r = 14, 14
-    for k in range(12):                                  # 12-move staircase
-        if k % 2 == 0: r -= 1
-        else: c -= 1
-        stair.append((c, r))                             # ends at (8, 8)
-    route += stair
+    # Championship-length route, 67 moves: full-height west straight, full
+    # top straight, a 20-move diagonal cutting the whole board, an
+    # S-combination of short straights, and a second opposing diagonal in.
+    route = [(0, r) for r in range(16)]                  # N straight, 16 cells
+    route += [(c, 15) for c in range(1, 16)]             # E straight, 15 cells
+    route += [(15, r) for r in (14, 13, 12)]             # short S drop
+    c, r = 15, 12
+    for k in range(20):                                  # 20-move SW diagonal
+        if k % 2 == 0: c -= 1
+        else: r -= 1
+        route.append((c, r))                             # ends at (5, 2)
+    route += [(4, 2), (3, 2), (2, 2)]                    # W straight
+    route += [(2, 3), (2, 4), (2, 5)]                    # N straight
+    c, r = 2, 5
+    for k in range(6):                                   # 6-move NE diagonal
+        if k % 2 == 0: c += 1
+        else: r += 1
+        route.append((c, r))                             # ends at (5, 8)
+    route += [(6, 8), (7, 8)]                            # into the goal
 
     def carve(a, b):
         (c1, r1), (c2, r2) = a, b
@@ -443,7 +453,7 @@ class Sim:
         # ~6 mm/side, so slow down and stiffen the tracking servo - exactly
         # what real mice do entering a diagonal chain
         diag_here = abs(abs(math.atan2(ty, tx)) % (math.pi/2) - math.pi/4) < 0.12
-        kmul = 2.2 if diag_here else 1.0
+        kmul = self.gn.get("kmul", 2.2) if diag_here else 1.0
         if diag_here: ud = min(ud, g.get("vdiag", 0.55))
         # no throttle until aligned: corner-exit overshoot (~12 deg) plus hard
         # acceleration speared the wall on every 1.0 m/s exit
