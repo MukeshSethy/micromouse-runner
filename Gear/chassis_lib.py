@@ -390,12 +390,16 @@ def wheel_placeholder(width=None, bare=False, keyed=False):
         # torque. Two staggered rows of radial dia-2.2 holes through the
         # channel wall into the hollow shell; the poured silicone forms
         # mechanical plugs that lock the tyre rotationally AND axially.
-        for row, (zf, a0) in enumerate(((1.0 / 3.0, 0.0), (2.0 / 3.0, 60.0))):
+        # lower row dia 3.0: these are also the FEED GATES when casting
+        # (silicone pours through the wheel interior and enters the cavity
+        # here); upper row dia 2.2 keys the far side
+        for row, (zf, a0, hd) in enumerate(((1.0 / 3.0, 0.0, 1.5),
+                                            (2.0 / 3.0, 60.0, 1.1))):
             zc = fl + (w - 2 * fl) * zf
             for k in range(3):
                 a = math.radians(a0 + 120.0 * k)
                 hole = (cq.Workplane("XZ")
-                        .circle(1.1).extrude(-(K.WHEEL_CHAN_D / 2.0 + 2.0)))
+                        .circle(hd).extrude(-(K.WHEEL_CHAN_D / 2.0 + 2.0)))
                 hole = hole.rotate((0, 0, 0), (0, 0, 1), math.degrees(a))
                 body = body.cut(hole.translate((0, 0, zc)))
     return body
