@@ -349,7 +349,7 @@ def bearing_f683():
     return b.cut(_cyl(K.BRG_ID, K.BRG_W + K.BRG_FL_W + 2.0, z=-1.0))
 
 
-def wheel_placeholder(width=None):
+def wheel_placeholder(width=None, bare=False):
     """
     The mini-sumo wheel, rebuilt as a solid from the dimensions sliced out of
     miniSumoWheel.3mf: flanges dia 26.52, silicone channel dia 23.31, width
@@ -363,7 +363,8 @@ def wheel_placeholder(width=None):
     body = body.union(_cyl(K.WHEEL_CHAN_D, w - 2 * fl, z=fl))
     body = body.union(_cyl(K.WHEEL_FLANGE_D, fl, z=w - fl)) # outboard flange
     # silicone band in the channel, up to the rolling diameter
-    body = body.union(_cyl(K.WHEEL_DIA, w - 2 * fl, z=fl))
+    if not bare:
+        body = body.union(_cyl(K.WHEEL_DIA, w - 2 * fl, z=fl))
     # hollow shell: bore out everything outboard of the 4.5 hub plate
     body = body.cut(_cyl(K.WHEEL_CHAN_D - 3.0, w - 4.5 + 1.0, z=4.5))
     # bolt pattern through the hub plate
