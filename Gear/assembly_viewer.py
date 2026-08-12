@@ -10,6 +10,7 @@ Two scenes in one page: the 4WD drivetrain and the tyre-casting mould stack.
 """
 
 import json
+import math
 import os
 import sys
 
@@ -70,8 +71,10 @@ DRIVETRAIN_STEPS = [
 ]
 
 MOLD_STEPS = [
-    "Unscrew the 3× M3 clamp bolts and lift the plug — the cured "
-    "sprue and plenum puck pull out with it; snip flush at the three gates",
+    "Unscrew the three M3×16 socket-head clamp screws (they thread "
+    "straight into the printed cup bosses — no nuts)",
+    "Lift the plug — the cured sprue and plenum puck pull out with it; "
+    "snip flush at the three gates",
     "Push the three ejector pins — the wheel rises out of the cup with "
     "its tyre already keyed on. Nothing else to do: the tyre stays on the "
     "wheel for life",
@@ -131,6 +134,15 @@ def scene_drivetrain():
             "cz": 12.0, "czk": 14.0, "d": 240.0, "parts": parts}
 
 
+def _m3x16_shcs():
+    """M3x16 socket-head cap screw, head at z=0, shank hanging down."""
+    s = (cq.Workplane("XY").circle(5.5 / 2).extrude(3.0)
+         .union(cq.Workplane("XY").circle(3.0 / 2).extrude(-16.0)))
+    hexs = (cq.Workplane("XY").polygon(6, 2.5 / math.cos(math.radians(30)))
+            .extrude(1.6).translate((0, 0, 1.4)))
+    return s.cut(hexs)
+
+
 def scene_mold():
     zw = M.FLOOR_T
     tyre = (cq.Workplane("XY").circle(M.MOLD_BORE / 2).extrude(M.CH_W)
@@ -138,15 +150,26 @@ def scene_mold():
             .translate((0, 0, zw + M.FL_W)))
     wheel = C.wheel_placeholder(bare=True, keyed=True).translate((0, 0, zw))
     plug = M.mold_plug().translate((0, 0, zw + M.W))
+    # heads seat on the plug plate top; 16 mm reaches ~12 mm into the
+    # tapped cup bosses (2.90 pilot, thread-forming - no nuts)
+    z_head = zw + M.W + M.PLATE_T
     parts = [
         _emit("mold_cup", M.mold_cup().val(), -1, UP, 0.0, COL["cup"], 0.3),
         # wheel and tyre leave TOGETHER - the keying is permanent
-        _emit("wheel_keyed", wheel.val(), 1, UP, 34.0, COL["wheel"], 0.3),
-        _emit("tyre_cast", tyre.val(), 1, UP, 34.0, COL["tyre"], 0.3),
-        _emit("mold_plug", plug.val(), 0, UP, 42.0, COL["plug"], 0.3),
+        _emit("wheel_keyed", wheel.val(), 2, UP, 34.0, COL["wheel"], 0.3),
+        _emit("tyre_cast", tyre.val(), 2, UP, 34.0, COL["tyre"], 0.3),
+        _emit("mold_plug", plug.val(), 1, UP, 37.0, COL["plug"], 0.3),
     ]
+    for k in range(3):
+        a = math.radians(120 * k + 60)
+        scr = _m3x16_shcs().translate(
+            (M.BOLT_BC / 2 * math.cos(a), M.BOLT_BC / 2 * math.sin(a),
+             z_head))
+        # travel keeps the shank tips above the plug's exploded position
+        parts.append(_emit("screw_M3x16_%d" % k, scr.val(), 0, UP, 55.0,
+                           "#55504C", 0.15))
     return {"label": "Tyre mould", "steps": MOLD_STEPS,
-            "cz": 14.0, "czk": 18.0, "d": 120.0, "parts": parts}
+            "cz": 14.0, "czk": 26.0, "d": 120.0, "parts": parts}
 
 
 def main(out_path):
