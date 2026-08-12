@@ -117,7 +117,7 @@ def verify():
     assert (W - RECESS_D) - RING_H > 0.02, "clamp must land on the wheel"
 
     # wheel (BARE - no silicone) placed as the core, deck at z=0
-    wheel = (C.wheel_placeholder(bare=True).val()
+    wheel = (C.wheel_placeholder(bare=True, keyed=True).val()
              .moved(cq.Location(cq.Vector(0, 0, -RECESS_D))))
     parts = {"base": mold_base().val(), "ring": mold_ring().val(),
              # the lid clamps ON THE WHEEL (its top face, 0.06 above the
@@ -147,7 +147,9 @@ def verify():
 def main():
     os.makedirs(STEP, exist_ok=True)
     ok = verify()
-    for name, wp in (("mold_tyre_base_x1", mold_base()),
+    for name, wp in (("wheel_printable_keyed_x4", C.wheel_placeholder(
+                          bare=True, keyed=True)),
+                     ("mold_tyre_base_x1", mold_base()),
                      ("mold_tyre_ring_x1", mold_ring()),
                      ("mold_tyre_lid_x1", mold_lid())):
         path = os.path.join(STEP, name + ".step")

@@ -349,7 +349,7 @@ def bearing_f683():
     return b.cut(_cyl(K.BRG_ID, K.BRG_W + K.BRG_FL_W + 2.0, z=-1.0))
 
 
-def wheel_placeholder(width=None, bare=False):
+def wheel_placeholder(width=None, bare=False, keyed=False):
     """
     The mini-sumo wheel, rebuilt as a solid from the dimensions sliced out of
     miniSumoWheel.3mf: flanges dia 26.52, silicone channel dia 23.31, width
@@ -375,6 +375,29 @@ def wheel_placeholder(width=None, bare=False):
                              K.WHEEL_BC_R * math.sin(a), -0.5))
     # centre bore, press on the 3 mm shaft
     body = body.cut(_cyl(K.WHEEL_BORE, 6.0, z=-0.5))
+    if keyed:
+        # 45-deg cone under the TOP flange lip: printed hub-face-down the lip
+        # otherwise overhangs the channel wall by 1.6 mm radially. The cone
+        # doubles as a tyre-retention shoulder moulded into the silicone.
+        lip = (K.WHEEL_FLANGE_D - K.WHEEL_CHAN_D) / 2.0
+        cone = cq.Solid.makeCone(K.WHEEL_CHAN_D / 2.0,
+                                 K.WHEEL_FLANGE_D / 2.0, lip)
+        ring_cone = (cq.Workplane("XY").newObject([cone])
+                     .cut(_cyl(K.WHEEL_CHAN_D - 3.0, lip + 2.0, z=-1.0)))
+        body = body.union(ring_cone.translate((0, 0, w - fl - lip)))
+        # tyre keying: the channel is a smooth cylinder and silicone does not
+        # bond printed plastic strongly - a smooth-channel tyre can spin under
+        # torque. Two staggered rows of radial dia-2.2 holes through the
+        # channel wall into the hollow shell; the poured silicone forms
+        # mechanical plugs that lock the tyre rotationally AND axially.
+        for row, (zf, a0) in enumerate(((1.0 / 3.0, 0.0), (2.0 / 3.0, 60.0))):
+            zc = fl + (w - 2 * fl) * zf
+            for k in range(3):
+                a = math.radians(a0 + 120.0 * k)
+                hole = (cq.Workplane("XZ")
+                        .circle(1.1).extrude(-(K.WHEEL_CHAN_D / 2.0 + 2.0)))
+                hole = hole.rotate((0, 0, 0), (0, 0, 1), math.degrees(a))
+                body = body.cut(hole.translate((0, 0, zc)))
     return body
 
 
