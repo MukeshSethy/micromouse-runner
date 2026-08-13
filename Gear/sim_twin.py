@@ -213,7 +213,13 @@ def make_path(wV, wH, turn_r=90.0, diag=False):
         if anchors[-1] != cells[-1]:
             anchors.append(cells[-1])
 
-    # ---- generic tangent fillets between anchor legs (any angle)
+    # ---- cubic BEZIER turns between anchor legs (any angle).
+    # Endpoints are the same tangent points the old arc fillets used, and
+    # the control legs use the circle-approximation length
+    # c = (4/3)*tan(dang/4)*R, so the curve matches the verified R90/R70
+    # arc geometry to <0.03% - clearances and the tuned gains carry over -
+    # while every turn is a genuine polynomial Bezier with tangent-
+    # continuous entry/exit.
     P = [anchors[0]]
     for i in range(1, len(anchors) - 1):
         a, b, c2 = anchors[i-1], anchors[i], anchors[i+1]
@@ -231,15 +237,23 @@ def make_path(wV, wH, turn_r=90.0, diag=False):
         tmax = 0.45 * min(l1, l2)
         if t > tmax:
             t = tmax; R = t / math.tan(dang / 2.0)
-        sp = (b[0]-u1[0]*t, b[1]-u1[1]*t)
-        n1 = (-u1[1], u1[0]) if cross > 0 else (u1[1], -u1[0])
-        cen = (sp[0]+n1[0]*R, sp[1]+n1[1]*R)
-        a0 = math.atan2(sp[1]-cen[1], sp[0]-cen[0])
-        sweep = dang if cross > 0 else -dang
+        sp = (b[0]-u1[0]*t, b[1]-u1[1]*t)        # curve entry
+        ep = (b[0]+u2[0]*t, b[1]+u2[1]*t)        # curve exit
+        cl = (4.0/3.0) * math.tan(dang/4.0) * R  # control-leg length
+        c1 = (sp[0]+u1[0]*cl, sp[1]+u1[1]*cl)
+        c2b = (ep[0]-u2[0]*cl, ep[1]-u2[1]*cl)
         P.append(sp)
-        for k in range(1, 9):
-            th2 = a0 + sweep*k/8.0
-            P.append((cen[0]+R*math.cos(th2), cen[1]+R*math.sin(th2)))
+        # 8 samples per turn, EXACTLY like the arc fillets before: the
+        # 34 mm resampler only splits segments, never merges, so turn
+        # sample spacing is an implicit tuning parameter - denser Bezier
+        # sampling (12/turn) took the fast regime from 0 to 13 wall hits
+        n = 8
+        for k in range(1, n + 1):
+            s = k / float(n); m = 1.0 - s
+            P.append((m*m*m*sp[0] + 3*m*m*s*c1[0] + 3*m*s*s*c2b[0]
+                      + s*s*s*ep[0],
+                      m*m*m*sp[1] + 3*m*m*s*c1[1] + 3*m*s*s*c2b[1]
+                      + s*s*s*ep[1]))
     P.append(anchors[-1])
 
     # resample ~34 mm then smooth twice (same as the viewer)
