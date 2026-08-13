@@ -89,11 +89,15 @@ MOLD_HW = [
 MOLD_STEPS = [
     "Unscrew the three M3×16 socket-head clamp screws (they thread "
     "straight into the printed cup bosses — no nuts)",
-    "Lift the plug — the cured sprue and plenum puck pull out with it; "
-    "snip flush at the three gates",
+    "Lift the plug — the cured sprue and plenum puck come out WITH it, "
+    "anchored by the funnel countersink; they tear free at the three "
+    "thin gate necks",
     "Push the three ejector pins — the wheel rises out of the cup with "
-    "its tyre already keyed on. Nothing else to do: the tyre stays on the "
-    "wheel for life",
+    "its tyre already keyed on",
+    "Clean-up: peel the sprue/puck off the plug (silicone does not bond "
+    "to the print), pull the hairline vent-ring flash off the tyre, trim "
+    "the gate stubs flush inside the hub. Left over: the wheel with its "
+    "tyre — the six rubber rivets in the keying holes stay for life",
 ]
 
 COL = {
@@ -114,17 +118,23 @@ def _color(name):
 
 
 def _emit(name, shape, stage, dcad, dist, color, tol,
-          fill=None, pour=0, cut=0):
+          fill=None, cut=0, moves=None):
     """fill=[zA,zB,t0,t1]: silicone body revealed bottom-up between pour
-    times t0..t1. pour=1: waste body drawn only while the pour runs.
-    cut=1: half-sectioned during the pour so the fill is visible."""
+    times t0..t1. cut=1: half-sectioned during the pour so the fill is
+    visible. moves: list of (stage, dirCAD, dist) segments for parts that
+    travel with one part and later separate from it (e.g. the sprue rides
+    the plug, then peels off); overrides stage/dcad/dist."""
     P, N, _ = EM.tess(shape, (0, 0, 0), tol)
     v64, n64 = EM.pack(P, N)
+    if moves is None:
+        moves = [] if stage < 0 else [(stage, dcad, dist)]
     # tess() rotates 180 deg about Z, so directions rotate with it
-    dv = [-dcad[0], -dcad[1], dcad[2]]
-    print("  %-26s stage %2d %7d tris" % (name, stage, len(P) // 3))
-    return {"name": name, "color": color, "stage": stage, "dir": dv,
-            "dist": dist, "fill": fill, "pour": pour, "cut": cut,
+    mv = [[s, -d[0], -d[1], d[2], dd] for (s, d, dd) in moves]
+    print("  %-26s %-22s %7d tris"
+          % (name, "+".join("s%d" % m[0] for m in mv) or "static",
+             len(P) // 3))
+    return {"name": name, "color": color, "moves": mv,
+            "fill": fill, "cut": cut,
             "n": len(P), "v": v64, "nr": n64}
 
 
@@ -200,14 +210,16 @@ def scene_mold():
     roof = hub_top + M.PLENUM_H
     cav0, cav1 = zw + M.FL_W, zw + M.FL_W + M.CH_W
     gate_z = zw + M.FL_W + M.CH_W / 3.0
+    # waste rides the plug in stage 1, then peels off it in stage 3
+    WASTE_MOVES = [(1, UP, 37.0), (3, (-0.6, 0.0, 0.8), 26.0)]
     parts = [
         _emit("mold_cup", M.mold_cup().val(), -1, UP, 0.0, COL["cup"], 0.3,
               cut=1),
         # wheel and tyre leave TOGETHER - the keying is permanent
-        _emit("wheel_keyed", wheel.val(), 2, UP, 34.0, COL["wheel"], 0.3,
+        _emit("wheel_keyed", wheel.val(), 2, UP, 26.0, COL["wheel"], 0.3,
               cut=1),
         # the tyre doubles as the cavity fill body during the pour
-        _emit("tyre_cast", tyre.val(), 2, UP, 34.0, COL["tyre"], 0.3,
+        _emit("tyre_cast", tyre.val(), 2, UP, 26.0, COL["tyre"], 0.3,
               fill=[cav0, cav1, 0.28, 0.80], cut=1),
         _emit("mold_plug", plug.val(), 1, UP, 37.0, COL["plug"], 0.3,
               cut=1),
@@ -220,34 +232,40 @@ def scene_mold():
         # travel keeps the shank tips above the plug's exploded position
         parts.append(_emit("screw_M3x16_%d" % k, scr.val(), 0, UP, 55.0,
                            "#55504C", 0.15, cut=1))
-    # --- silicone waste bodies, drawn only while the pour runs -----------
+    # --- cured silicone besides the tyre. Always drawn (a completed cast,
+    # like the tyre); fill windows animate them during a pour. -------------
     plenum = (cq.Workplane("XY").circle(M.INNER_D / 2)
               .extrude(M.PLENUM_H).translate((0, 0, hub_top)))
-    parts.append(_emit("pour_plenum", plenum.val(), -1, UP, 0.0,
+    parts.append(_emit("waste_plenum", plenum.val(), 0, UP, 0.0,
                        COL["tyre"], 0.3,
-                       fill=[hub_top, roof, 0.03, 0.25], pour=1, cut=1))
+                       fill=[hub_top, roof, 0.03, 0.25], cut=1,
+                       moves=WASTE_MOVES))
     for k in range(3):
+        # the in-wall length is the rivet (stays); the inboard stub is
+        # what step 4 says to trim flush
         g = (cq.Workplane("YZ").workplane(offset=M.INNER_D / 2 - 1.0)
              .circle(1.5).extrude(M.CH_D / 2 - M.INNER_D / 2 + 1.3)
              .translate((0, 0, gate_z))
              .rotate((0, 0, 0), (0, 0, 1), 120 * k))
-        parts.append(_emit("pour_gate_%d" % k, g.val(), -1, UP, 0.0,
+        parts.append(_emit("rivet_gate_%d" % k, g.val(), 2, UP, 26.0,
                            COL["tyre"], 0.2,
                            fill=[gate_z - 1.5, gate_z + 1.5, 0.20, 0.30],
-                           pour=1, cut=1))
+                           cut=1))
     vent = (cq.Workplane("XY").circle(M.FL_D / 2 + M.STEP_CLR)
             .extrude(zw + M.W - cav1)
             .cut(cq.Workplane("XY").circle(M.FL_D / 2)
                  .extrude(zw + M.W - cav1))
             .translate((0, 0, cav1)))
-    parts.append(_emit("pour_vent", vent.val(), -1, UP, 0.0,
+    parts.append(_emit("flash_vent", vent.val(), 0, UP, 0.0,
                        COL["tyre"], 0.05,
-                       fill=[cav1, zw + M.W, 0.80, 0.88], pour=1, cut=1))
+                       fill=[cav1, zw + M.W, 0.80, 0.88], cut=1,
+                       moves=[(2, UP, 34.0), (3, (0.85, 0.0, 0.53), 22.0)]))
     sprue = (cq.Workplane("XY").circle(M.FUNNEL_D / 2)
              .extrude(z_head - roof).translate((0, 0, roof)))
-    parts.append(_emit("pour_sprue", sprue.val(), -1, UP, 0.0,
+    parts.append(_emit("waste_sprue", sprue.val(), 0, UP, 0.0,
                        COL["tyre"], 0.3,
-                       fill=[roof, z_head, 0.86, 1.0], pour=1, cut=1))
+                       fill=[roof, z_head, 0.86, 1.0], cut=1,
+                       moves=WASTE_MOVES))
     return {"label": "Tyre mould", "steps": MOLD_STEPS, "hw": MOLD_HW,
             "pour": 1,
             "cz": 14.0, "czk": 26.0, "d": 120.0, "parts": parts}
@@ -382,8 +400,7 @@ const SCENES=DOC.scenes.map(sc=>({...sc,parts:sc.parts.map(g=>{
     a[i*6+5]=inv[i*3+2]/127;}
   const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
   gl.bufferData(gl.ARRAY_BUFFER,a,gl.STATIC_DRAW);
-  return {buf,count:g.n,stage:g.stage,dir:g.dir,dist:g.dist,
-    fill:g.fill,pour:g.pour,cut:g.cut,
+  return {buf,count:g.n,moves:g.moves,fill:g.fill,cut:g.cut,
     col:[1,3,5].map(k=>parseInt(g.color.substr(k,2),16)/255)};
 })}));
 function mul(a,b){const o=new Float32Array(16);
@@ -487,16 +504,16 @@ function frame(ts){
                look(eye,[0,0,cz],[0,0,1]));
   gl.uniformMatrix4fv(U_mvp,false,VP);
   for(const m of S.parts){
-    if(m.pour&&pourT<=0)continue;           // waste exists only mid-pour
     if(m.fill&&pourT>0&&pourT<m.fill[2])continue;
-    const k=m.stage<0?0:ss(ex*NS-m.stage);
+    let ox=0,oy=0,oz=0;
+    for(const mv of m.moves){const k=ss(ex*NS-mv[0]);
+      ox+=mv[1]*mv[4]*k;oy+=mv[2]*mv[4]*k;oz+=mv[3]*mv[4]*k;}
     gl.bindBuffer(gl.ARRAY_BUFFER,m.buf);
     gl.enableVertexAttribArray(A_p);
     gl.vertexAttribPointer(A_p,3,gl.FLOAT,false,24,0);
     gl.enableVertexAttribArray(A_n);
     gl.vertexAttribPointer(A_n,3,gl.FLOAT,false,24,12);
-    gl.uniform3f(U_off,m.dir[0]*m.dist*k,m.dir[1]*m.dist*k,
-                 m.dir[2]*m.dist*k);
+    gl.uniform3f(U_off,ox,oy,oz);
     gl.uniform1f(U_cut,(pourT>0&&m.cut)?1:0);
     if(m.fill&&pourT>0){const f=m.fill,
       u=Math.max(0,Math.min(1,(pourT-f[2])/(f[3]-f[2])));
