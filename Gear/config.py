@@ -183,7 +183,10 @@ POD_Y_IN = 3.5               # inboard end of the saddle floor
 POD_RIB_Y = (15.0, 21.0)
 POD_CHAN_W = 12.3            # U-channel width over the 12.0 can
 POD_CHAN_FLOOR = 8.45        # 0.05 pinch under the flat belly at Z 8.5
-POD_EAR_X, POD_EAR_HOLE_Z = 11.0, 16.0
+# ear at x 8.5, NOT 11: the inner F683ZZ presses out inboard through the
+# annulus x 10.65..18.85, and an ear at 11 stood in that path - the part
+# fit assembled but the bearing could never be inserted (check_assembly)
+POD_EAR_X, POD_EAR_HOLE_Z = 8.5, 16.0
 POD_RELIEF_T = 0.3           # rotating-face relief on the outboard wall
 
 # ------------------------------------------------------------- side plates

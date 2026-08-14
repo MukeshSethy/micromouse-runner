@@ -56,7 +56,11 @@ def _plan(name):
     if name.startswith("gear_motor_"):
         return 4, out, 20.0            # pinions off the motor shafts
     if name.startswith("motor_N20"):
-        return 5, UP, 55.0             # motors lift out of the pod channels
+        # NOT straight up: the gearbox registers in the wall slot, so the
+        # motor slides inboard out of the register first, THEN lifts
+        # (check_assembly proved straight-up collides with the wall).
+        # Fractional stage = second segment fires mid-band.
+        return None, [(5, inw, 16.0), (5.45, UP, 42.0)], 0.0
     if name.startswith("pod_"):
         return 7, UP, 25.0             # deck screws out first, then pods
     return -1, UP, 0.0                 # PCB stays put
@@ -70,7 +74,8 @@ DRIVETRAIN_STEPS = [
     "Slide the four D3 axles out through the bearings",
     "Press the F683ZZ bearings out of the bosses (flange side leads)",
     "Pull the 19T pinions off the N20 motor shafts",
-    "Lift the motors out of the pod U-channels",
+    "Slide the motors INBOARD out of the wall register, then lift them "
+    "from the U-channels (they cannot come straight up)",
     "Unscrew the four countersunk M3×8 deck screws from under the board "
     "(flush heads — they preserve the 3 mm ground clearance)",
     "Lift the pods off the PCB",
@@ -388,6 +393,8 @@ padding-top:10px;line-height:1.6}
     value="0"></label>
   <button id="dis">Disassemble &#9654;</button>
   <button id="asm">&#9664; Assemble</button>
+  <button id="stepb" title="one build step back">&#9664; Step</button>
+  <button id="stepf" title="one build step forward">Step &#9654;</button>
   <button id="pour" style="display:none">Pour silicone &#9654;</button>
   <span class="hud" id="hud"><b>Assembled</b></span>
 </div>
@@ -396,9 +403,11 @@ padding-top:10px;line-height:1.6}
   <div class="steps"><h2 id="st">Disassembly order</h2><div id="list"></div>
   <div class="hw"><h3>Fasteners &amp; hardware</h3><div
     style="padding:0" id="hwl"></div></div>
-  <div class="note">Slider left&rarr;right = disassembly. Right&rarr;left =
-  the same steps in reverse: the assembly procedure. Each band of the slider
-  moves exactly one step. Drag the canvas to orbit, wheel to zoom.</div></div>
+  <div class="note">BUILDER GUIDE: start fully disassembled and press
+  &#9664;&thinsp;Step repeatedly &mdash; each press fits ONE group in build
+  order and halts, with the live step highlighted. Slider left&rarr;right =
+  disassembly; each band is exactly one step. Drag the canvas to orbit,
+  wheel to zoom.</div></div>
 </div>
 <footer>Rendered from the same parametric CAD that generated the STEP files
 (Gear/generate_drivetrain.py, Gear/mold_tyre.py). 19T&rarr;40T, 2.105:1,
@@ -512,19 +521,29 @@ cv.addEventListener("pointerdown",e=>{drag=true;lx=e.clientX;ly=e.clientY;
 cv.setPointerCapture(e.pointerId);});
 cv.addEventListener("pointerup",()=>drag=false);
 cv.addEventListener("pointermove",e=>{if(!drag)return;
-yaw+=(e.clientX-lx)*0.008;pitch=Math.max(-1.3,Math.min(1.45,
+// grab-the-model convention: drag right, model turns right
+yaw-=(e.clientX-lx)*0.008;pitch=Math.max(-1.3,Math.min(1.45,
 pitch+(e.clientY-ly)*0.006));lx=e.clientX;ly=e.clientY;});
 cv.addEventListener("wheel",e=>{e.preventDefault();
 zoom=Math.max(0.35,Math.min(3,zoom*(1+Math.sign(e.deltaY)*0.1)));},
 {passive:false});
-exEl.oninput=e=>{ex=parseFloat(e.target.value);vel=0;stopPour();};
-bDis.onclick=()=>{vel=0.22;stopPour();};
-bAsm.onclick=()=>{vel=-0.22;stopPour();};
+let exStop=null;   // builder-guide mode: animate to a stage boundary, halt
+exEl.oninput=e=>{ex=parseFloat(e.target.value);vel=0;exStop=null;stopPour();};
+bDis.onclick=()=>{vel=0.22;exStop=null;stopPour();};
+bAsm.onclick=()=>{vel=-0.22;exStop=null;stopPour();};
+document.getElementById("stepf").onclick=()=>{stopPour();
+  const NS=SCENES[cur].steps.length;
+  exStop=Math.min(1,(Math.floor(ex*NS+1e-6)+1)/NS);vel=0.22;};
+document.getElementById("stepb").onclick=()=>{stopPour();
+  const NS=SCENES[cur].steps.length;
+  exStop=Math.max(0,(Math.ceil(ex*NS-1e-6)-1)/NS);vel=-0.22;};
 let tPrev=null;
 function frame(ts){
   if(tPrev==null)tPrev=ts;
   const dt=Math.min(0.05,(ts-tPrev)/1000);tPrev=ts;
   if(vel){ex=Math.max(0,Math.min(1,ex+vel*dt));exEl.value=ex;
+    if(exStop!=null&&((vel>0&&ex>=exStop)||(vel<0&&ex<=exStop))){
+      ex=exStop;exEl.value=ex;vel=0;exStop=null;}
     if(ex<=0||ex>=1)vel=0;}
   if(pouring){pourT=Math.min(1,pourT+dt/POUR_S);
     if(pourT>=1){pouring=false;

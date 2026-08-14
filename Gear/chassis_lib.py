@@ -129,14 +129,17 @@ def motor_pod():
         p = p.cut(_cyl(2 * K.RA_WHEEL + 1.0, K.POD_RELIEF_T + 1.0,
                        x, K.AXLE_Z, -1.0))
 
-    # base floor over the board, out to the saddle end - SLOTTED under the
-    # motor: the encoder section (12 wide, bottom at Z 7.5) sits lower than a
-    # solid floor top, so the floor is two rails beside the motor belly
-    p = p.union(_box(-K.POD_X, K.POD_X, K.PL_Z0, K.PL_Z0 + K.POD_BASE_T,
-                     t, z_base_end))
-    # slot width 7.3 per side: the encoder flange (dia ~14 at Y 9.3..10.9)
-    # reaches past the 12-wide body
-    p = p.cut(_box(-7.3, 7.3, K.PL_Z0 - 1.0, K.AXLE_Z, t + 0.6, z_base_end + 1.0))
+    # base: TWO NARROW RAILS, not a floor. The old full-width slab
+    # (POD_X wide, reaching to global Y ~3.5) had exactly two structural
+    # jobs - tie the saddle ribs back to the wall and stiffen it - and it
+    # also blocked pressing the inner bearings out inboard. Rails under
+    # the rib cheeks do the same at ~1/6 the area, ending just past the
+    # innermost rib instead of spanning half the robot.
+    z_rail_end = (K.Y_IN_OUT - min(K.POD_RIB_Y)) + 2.5
+    for sx in (-1.0, 1.0):
+        x0, x1 = sorted((sx * 6.5, sx * 10.0))
+        p = p.union(_box(x0, x1, K.PL_Z0, K.PL_Z0 + K.POD_BASE_T,
+                         t, z_rail_end))
 
     # the wall cuts the pod inherited from the plate: gearbox register slot
     # and the pinion-face relief (the 19T butts nothing, but rotates 0.3 mm
@@ -167,7 +170,11 @@ def motor_pod():
         p = p.cut(_box(-K.POD_CHAN_W / 2.0, K.POD_CHAN_W / 2.0,
                        K.POD_CHAN_FLOOR, K.AXLE_Z + 6.0,
                        zq - 3.0, zq + 3.0))
-        # band ears: dia-3 hole through each, elastic band over the can
+        # band ears: dia-3 hole through each, elastic band over the can.
+        # ONE row only, on the rib nearest the gearbox: one band holds an
+        # N20, and the second row was half of the "pillar forest"
+        if zr != max(K.POD_RIB_Y):
+            continue
         for sx in (-1.0, 1.0):
             p = p.union(_box(sx * K.POD_EAR_X - 1.5, sx * K.POD_EAR_X + 1.5,
                              K.PL_Z0, K.POD_EAR_HOLE_Z + 3.0,
