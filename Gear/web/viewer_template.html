@@ -88,6 +88,7 @@ footer{color:var(--ink-faint);font-size:11px;border-top:1px solid var(--rule);
     <button id="mzmode">Maze: competition</button>
     <button id="wheels">Wheels: 19mm (no diagonals)</button>
     <button id="motors">Motors: stock (1 m/s max)</button>
+    <button id="tyres">Tyres: plain silicone</button>
     <div class="spacer"></div>
     <label class="rng">Speed <input id="spd" type="range" min="0.2" max="3.0"
       step="0.05" value="0.8"><b id="spdv">0.80 m/s</b></label>
@@ -537,17 +538,31 @@ let GAIN={p:1.2,d:1.3,ff:0.7,rd:0.5,mp:0.35,mi:8.0};
    class at the gearbox: ~3.3x speed, ~1/3 stall torque, ~1/9 reflected
    inertia), and then an aggressive tune (gyro-D 2.2). */
 let fastMotors=false;
+/* Tyre variant. Plain silicone = the conservative bring-up: mu 4 is on the
+   slider but the planner only uses 28% of the circle. Race glue = taped
+   sticky tyres like actual events: honest mu 2.3 but 70% usage, diagonals
+   at 0.90, stiffer servo. Swept in sim_twin: 11.61 s / 0 hits on the
+   championship maze at 3.0 m/s vs 13.44 s on plain (tuned FOR the 3 m/s
+   racing regime - other slider speeds may clip). */
+let glueTyres=false, FMARG=0.28;
 let W_FREE=75.0, T_STALL=0.10, J_EFF=2.0e-4, VDIAG=0.70;
 function applyMotor(){
   W_FREE=fastMotors?245.0:75.0;
   T_STALL=fastMotors?0.031:0.10;
   J_EFF=fastMotors?1.9e-5:2.0e-4;
-  VDIAG=0.72;
-  GAIN_TUNED.rd=fastMotors?2.2:(narrowWheels?1.1:0.5);
+  VDIAG=(glueTyres&&fastMotors)?0.90:0.72;
+  GAIN_TUNED.rd=fastMotors?(glueTyres?2.8:2.2):(narrowWheels?1.1:0.5);
   // fast d: 1.9 not 1.7 - re-swept in sim_twin after the Bezier turns
-  // (13.44 s, zero hits on the championship maze at 3.0 m/s)
-  GAIN_TUNED.d=fastMotors?1.9:(narrowWheels?1.7:1.3);
+  // (13.44 s, zero hits on the championship maze at 3.0 m/s);
+  // glue+fast: 2.3/2.8 from the race-glue sweep (11.61 s, zero hits)
+  GAIN_TUNED.d=fastMotors?(glueTyres?2.3:1.9):(narrowWheels?1.7:1.3);
   GAIN.rd=GAIN_TUNED.rd;GAIN.d=GAIN_TUNED.d;
+}
+function applyGrip(){
+  FMARG=glueTyres?0.70:0.28;
+  MU=glueTyres?2.30:4.00;
+  const m=document.getElementById("mu");
+  m.value=MU;document.getElementById("muv").textContent=MU.toFixed(2);
 }
 let wal=0, war=0, piL=0, piR=0, dutyL=0, dutyR=0;
 
@@ -628,7 +643,11 @@ function control(dtCtl){
     rmin=Math.min(rmin,PATHR[i]);
     bd+=Math.hypot(PATH[i+1][0]-PATH[i][0],PATH[i+1][1]-PATH[i][1]);
   }
-  vLimit=Math.sqrt(0.28*MU*g*Math.max(0.02,rmin));
+  // FMARG = how much of the friction circle the planner is ALLOWED to use.
+  // Plain tyres: 28% (bring-up margins). Race glue (taped tyres, like real
+  // events): 70%, the sim_twin sweep optimum - this, not raw mu, is most of
+  // why competition mice corner so much faster.
+  vLimit=Math.sqrt(FMARG*MU*g*Math.max(0.02,rmin));
   // motor feasibility: in an arc the OUTER wheel runs v*(1+B/2R); at high mu
   // nothing else brakes the corner and the outer wheel hits the back-EMF
   // ceiling and the mouse runs wide. Grip is not the only limit.
@@ -1002,6 +1021,20 @@ document.getElementById("motors").onclick=e=>{fastMotors=!fastMotors;
   e.target.textContent=fastMotors?
     "Motors: high-RPM (3 m/s)":"Motors: stock (1 m/s max)";
   applyMotor();resetAll();};
+document.getElementById("tyres").onclick=e=>{glueTyres=!glueTyres;
+  e.target.textContent=glueTyres?
+    "Tyres: RACE GLUE (taped)":"Tyres: plain silicone";
+  // the glue tune is swept for the 3 m/s racing regime: switching it on
+  // also selects the fast motors and full speed, like race day
+  if(glueTyres&&!fastMotors){fastMotors=true;
+    document.getElementById("motors").textContent="Motors: high-RPM (3 m/s)";}
+  if(glueTyres&&!narrowWheels){narrowWheels=true;
+    document.getElementById("wheels").textContent=
+      "Wheels: 8mm trimmed (DIAGONALS)";}
+  if(glueTyres){uTarget=3.0;
+    document.getElementById("spd").value=3.0;
+    document.getElementById("spdv").textContent="3.00 m/s";}
+  applyGrip();applyVariant();applyMotor();resetAll();};
 document.getElementById("marks").onclick=e=>{showMarks=!showMarks;
   e.target.textContent="Skid marks: "+(showMarks?"on":"off");};
 document.getElementById("gyro").onclick=e=>{gyroOn=!gyroOn;

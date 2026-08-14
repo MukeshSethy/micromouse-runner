@@ -379,7 +379,8 @@ class Sim:
                   else build_maze(seed))
         self.grid = wall_grid(wV, wH)
         self.P, self.PR, self.PK = make_path(
-            wV, wH, diag=self.diag_ok and bool(gains.get("diag")))
+            wV, wH, turn_r=gains.get("turnr", 90.0),
+            diag=self.diag_ok and bool(gains.get("diag")))
         self.x, self.y, self.th = 90.0, 90.0, math.pi/2
         # Heading ESTIMATE. Gyro ON: the IMU tracks true heading (BNO055-class
         # drift is negligible over a run). Gyro OFF: encoder odometry only -
@@ -486,13 +487,26 @@ class Sim:
                        + g["kh"]*he*kmul
                        - math.atan2(g["ke"]*kmul*e, v)*g["ka"]))
         kap = max(-16.0, min(16.0, kap))
-        rd = max(-14.0, min(14.0, kap*ud))
+        # yaw-rate clamp: 14 rad/s silently caps every R90 corner at
+        # 1.26 m/s (r = v/R), which is what kept the race-glue regime slow.
+        # But a FIXED higher clamp destabilizes the straights: at the
+        # back-EMF ceiling the motors have no differential authority left,
+        # and commanding it anyway just saturates the duty and winds the
+        # PIs. So the clamp follows the plant: what differential the
+        # motors can actually deliver at this speed, floored at the old 14.
+        rdmax = self.gn.get("rdmax", 14.0)
+        if rdmax > 14.0:
+            ceil_v = 0.92 * self.WF * WHEEL_R
+            rdmax = min(rdmax,
+                        max(14.0, 2.0 * (ceil_v - abs(self.u))
+                            / max(0.02, self.trackm)))
+        rd = max(-rdmax, min(rdmax, kap*ud))
         # gyro yaw-rate lead: with a lagged motor plant the commanded
         # differential must anticipate; this is the classic micromouse
         # gyro-D term. (On the old ideal-wheel plant it destabilized.)
         if self.gyro:
             rd = rd + self.gn.get("krd", 0.0)*(rd - self.r)
-            rd = max(-14.0, min(14.0, rd))
+            rd = max(-rdmax, min(rdmax, rd))
         B = self.trackm
         self.wl = (ud - rd*B/2)/WHEEL_R
         self.wr = (ud + rd*B/2)/WHEEL_R
