@@ -210,18 +210,24 @@ def scene_mold():
     roof = hub_top + M.PLENUM_H
     cav0, cav1 = zw + M.FL_W, zw + M.FL_W + M.CH_W
     gate_z = zw + M.FL_W + M.CH_W / 3.0
-    # waste rides the plug in stage 1, then peels off it in stage 3
-    WASTE_MOVES = [(1, UP, 37.0), (3, (-0.6, 0.0, 0.8), 26.0)]
+    # waste rides the plug in stage 1, then peels off it in stage 3.
+    # Peel direction is DOWN-and-sideways: the puck hangs under the plug
+    # boss, so it comes off away from the plate - the earlier upward peel
+    # pushed the sprue through the funnel and across the plate (impossible).
+    # CAD +x maps to viewer -x (tess 180-flip).
+    WASTE_MOVES = [(1, UP, 39.0), (3, (0.95, 0.0, -0.31), 32.0)]
     parts = [
         _emit("mold_cup", M.mold_cup().val(), -1, UP, 0.0, COL["cup"], 0.3,
               cut=1),
         # wheel and tyre leave TOGETHER - the keying is permanent
-        _emit("wheel_keyed", wheel.val(), 2, UP, 26.0, COL["wheel"], 0.3,
+        # wheel travel 22 < plug 39: the ejected wheel must NOT rise back
+        # around the plenum puck that already left inside the plug
+        _emit("wheel_keyed", wheel.val(), 2, UP, 22.0, COL["wheel"], 0.3,
               cut=1),
         # the tyre doubles as the cavity fill body during the pour
-        _emit("tyre_cast", tyre.val(), 2, UP, 26.0, COL["tyre"], 0.3,
+        _emit("tyre_cast", tyre.val(), 2, UP, 22.0, COL["tyre"], 0.3,
               fill=[cav0, cav1, 0.28, 0.80], cut=1),
-        _emit("mold_plug", plug.val(), 1, UP, 37.0, COL["plug"], 0.3,
+        _emit("mold_plug", plug.val(), 1, UP, 39.0, COL["plug"], 0.3,
               cut=1),
     ]
     for k in range(3):
@@ -230,7 +236,7 @@ def scene_mold():
             (M.BOLT_BC / 2 * math.cos(a), M.BOLT_BC / 2 * math.sin(a),
              z_head))
         # travel keeps the shank tips above the plug's exploded position
-        parts.append(_emit("screw_M3x16_%d" % k, scr.val(), 0, UP, 55.0,
+        parts.append(_emit("screw_M3x16_%d" % k, scr.val(), 0, UP, 58.0,
                            "#55504C", 0.15, cut=1))
     # --- cured silicone besides the tyre. Always drawn (a completed cast,
     # like the tyre); fill windows animate them during a pour. -------------
@@ -247,7 +253,7 @@ def scene_mold():
              .circle(1.5).extrude(M.CH_D / 2 - M.INNER_D / 2 + 1.3)
              .translate((0, 0, gate_z))
              .rotate((0, 0, 0), (0, 0, 1), 120 * k))
-        parts.append(_emit("rivet_gate_%d" % k, g.val(), 2, UP, 26.0,
+        parts.append(_emit("rivet_gate_%d" % k, g.val(), 2, UP, 22.0,
                            COL["tyre"], 0.2,
                            fill=[gate_z - 1.5, gate_z + 1.5, 0.20, 0.30],
                            cut=1))
@@ -259,7 +265,7 @@ def scene_mold():
     parts.append(_emit("flash_vent", vent.val(), 0, UP, 0.0,
                        COL["tyre"], 0.05,
                        fill=[cav1, zw + M.W, 0.80, 0.88], cut=1,
-                       moves=[(2, UP, 34.0), (3, (0.85, 0.0, 0.53), 22.0)]))
+                       moves=[(2, UP, 22.0), (3, (-0.88, 0.0, 0.25), 26.0)]))
     sprue = (cq.Workplane("XY").circle(M.FUNNEL_D / 2)
              .extrude(z_head - roof).translate((0, 0, roof)))
     parts.append(_emit("waste_sprue", sprue.val(), 0, UP, 0.0,
@@ -504,7 +510,7 @@ function frame(ts){
                look(eye,[0,0,cz],[0,0,1]));
   gl.uniformMatrix4fv(U_mvp,false,VP);
   for(const m of S.parts){
-    if(m.fill&&pourT>0&&pourT<m.fill[2])continue;
+    if(m.fill&&pourT>0&&pourT<1&&pourT<m.fill[2])continue;
     let ox=0,oy=0,oz=0;
     for(const mv of m.moves){const k=ss(ex*NS-mv[0]);
       ox+=mv[1]*mv[4]*k;oy+=mv[2]*mv[4]*k;oz+=mv[3]*mv[4]*k;}
@@ -514,8 +520,11 @@ function frame(ts){
     gl.enableVertexAttribArray(A_n);
     gl.vertexAttribPointer(A_n,3,gl.FLOAT,false,24,12);
     gl.uniform3f(U_off,ox,oy,oz);
-    gl.uniform1f(U_cut,(pourT>0&&m.cut)?1:0);
-    if(m.fill&&pourT>0){const f=m.fill,
+    gl.uniform1f(U_cut,(pourT>0&&pourT<1&&m.cut)?1:0); // section only mid-pour
+    // fill clip is in UNEXPLODED coordinates, so it only applies mid-pour
+    // (explode is held at 0 then); a cured part that translates would
+    // otherwise be discarded wholesale by its own stale clip plane
+    if(m.fill&&pourT>0&&pourT<1){const f=m.fill,
       u=Math.max(0,Math.min(1,(pourT-f[2])/(f[3]-f[2])));
       gl.uniform2f(U_fill,1,f[0]+(f[1]-f[0])*u+0.001);}
     else gl.uniform2f(U_fill,0,0);
