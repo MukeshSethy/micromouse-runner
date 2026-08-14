@@ -45,6 +45,16 @@ GK = dict(alpha_deg=K.PRESSURE_ANGLE, backlash=K.BACKLASH,
 def make_gears():
     motor = gl.spur_gear(K.MODULE, K.N_MOTOR, K.GEAR_FW, bore="D3", **GK)
     wheel = gl.spur_gear(K.MODULE, K.N_WHEEL, K.GEAR_FW, bore="D3", **GK)
+    # the wheel's own 6-hole bolt circle, repeated in the gear (M2 clear):
+    # both parts clock to the same D-flat, so holes cut at the same angles
+    # in the part frame stay aligned through mesh phasing and mirroring
+    for k in range(6):
+        a = math.radians(60 * k)
+        wheel = wheel.cut(
+            cq.Workplane("XY").circle(K.GEAR_BC_HOLE / 2.0)
+            .extrude(K.GEAR_FW + 2.0)
+            .translate((K.WHEEL_BC_R * math.cos(a),
+                        K.WHEEL_BC_R * math.sin(a), -1.0)))
     idler = None
     if K.N_IDLER is not None:
         idler = gl.spur_gear(K.MODULE, K.N_IDLER, K.IDLER_FW,

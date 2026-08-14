@@ -107,6 +107,13 @@ WHEEL_FLANGE_D, WHEEL_CHAN_D = 26.52, 23.31
 WHEEL_FLANGE_W = 1.5                   # each flange, channel between
 WHEEL_BORE = 2.85
 WHEEL_BC_R, WHEEL_BC_HOLE = 8.026, 3.587
+# gear-to-wheel positive lock: the 40T carries the SAME bolt circle so M2
+# screws tie gear and wheel together (belt-and-braces over the D-flats).
+# M2, not M3.5: a 3.587 hole edge at this BC reaches R9.82 - through the
+# 40T tooth roots (R9.375) - while a 2.2 clearance hole stops at R9.13,
+# under the roots and outside the pinion's mesh sweep (R9.5).
+# Fastened with 3x M2x10 + washer + nut per wheel, on alternate holes.
+GEAR_BC_HOLE = 2.2                     # M2 clearance, 6x on WHEEL_BC_R
 AXLE_Z = WHEEL_DIA / 2.0               # 13.5
 AXLE_D, AXLE_FLAT = 3.0, 2.5
 GEAR_GND_CLR = AXLE_Z - RA_WHEEL       # 4.25 under the 45T

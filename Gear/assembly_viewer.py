@@ -42,11 +42,13 @@ def _plan(name):
     out = (0.0, s, 0.0)
     inw = (0.0, -s, 0.0)
     if name.startswith("wheel_"):
-        return 0, out, 60.0            # pull wheels off the D-flats
-    if name.startswith("axle_"):
-        return 1, out, 40.0            # slide axles out through the bearings
+        return 0, out, 60.0            # wheel+gear leave as a BOLTED unit
     if name.startswith("gear_axle_"):
-        return 2, UP, 26.0             # 40T gears are now loose - lift out
+        # rides its wheel off the axle, then the M2s come out and the
+        # gear separates inboard
+        return None, [(0, out, 60.0), (1, inw, 18.0)], 0.0
+    if name.startswith("axle_"):
+        return 2, out, 40.0            # slide axles out through the bearings
     if name.startswith("brg_"):
         # flange dictates the press direction: outer presses out outboard,
         # inner presses out inboard
@@ -61,9 +63,11 @@ def _plan(name):
 
 
 DRIVETRAIN_STEPS = [
-    "Pull the four wheels off the axle D-flats",
+    "Pull each wheel off its axle D-flat — the 40T gear comes with it, "
+    "bolted through the hub bolt circle",
+    "Unscrew the three M2×12 per wheel: nuts and washers drop out of the "
+    "hub hollow, the gear lifts off the wheel",
     "Slide the four D3 axles out through the bearings",
-    "Lift out the 40T wheel gears (loose once the axle is gone)",
     "Press the F683ZZ bearings out of the bosses (flange side leads)",
     "Pull the 19T pinions off the N20 motor shafts",
     "Lift the motors out of the pod U-channels",
@@ -73,12 +77,15 @@ DRIVETRAIN_STEPS = [
 ]
 
 DRIVETRAIN_HW = [
+    "12× M2×12 + M2 nut + M2 washer — each 40T gear bolts to its wheel "
+    "through the shared R8.03 bolt circle (3 of the 6 holes); the washer "
+    "spans the wheel's Ø3.6 hole, nut sits in the hub hollow",
     "4× M3×8 countersunk (DIN 7991) — pods to PCB through H1..H4, driven "
     "from below, thread-forming into the printed pod pads. No nuts",
     "8× F683ZZ flanged bearings — press-fit, no fasteners",
     "3× M3×16 socket-head — the tyre mould clamp (see the other tab)",
-    "Everything else drives on D-flats: gears, axles and wheels need "
-    "no fasteners at all",
+    "Pinions, axles and wheels still key on D-flats — the M2s are a "
+    "positive lock on top of the press fit, not the torque path",
 ]
 
 MOLD_HW = [
@@ -159,8 +166,12 @@ def scene_drivetrain():
             tol = 0.55
         else:
             tol = 0.4
-        parts.append(_emit(ch.name, shape, stage, dcad, dist,
-                           _color(ch.name), tol))
+        if stage is None:              # gear_axle: multi-segment motion
+            parts.append(_emit(ch.name, shape, -1, UP, 0.0,
+                               _color(ch.name), tol, moves=dcad))
+        else:
+            parts.append(_emit(ch.name, shape, stage, dcad, dist,
+                               _color(ch.name), tol))
     # the four deck screws: flush countersunk heads under the board,
     # threading up into the printed pod pads through H1..H4
     k = 0
@@ -170,6 +181,35 @@ def scene_drivetrain():
             parts.append(_emit("screw_M3x8_csk_%d" % k, scr.val(),
                                6, (0.0, 0.0, -1.0), 26.0, "#55504C", 0.15))
             k += 1
+    # gear-to-wheel M2 bolted lock: screw heads on the gear's inboard
+    # face, washer+nut inside the hub hollow. Positions follow the mesh
+    # phase, since gear and wheel holes clock to the shared D-flat.
+    # (place_gear maps a part-frame hole angle a to world
+    #  x = x0 + R cos a, z = AXLE_Z - R sin a; mirroring only flips y)
+    ph = G.mesh_phase()
+    for sx in (-1.0, 1.0):
+        phi = ph["wheel+" if sx > 0 else "wheel-"]
+        for s in (1.0, -1.0):
+            tag = "%s%s" % ("L" if s > 0 else "R", 0 if sx < 0 else 1)
+            for k in (0, 2, 4):
+                a = math.radians(60.0 * k + phi)
+                wx = sx * K.X_AXLE + K.WHEEL_BC_R * math.cos(a)
+                wz = K.AXLE_Z - K.WHEEL_BC_R * math.sin(a)
+                y0 = K.Y_GEAR
+                scr = (C._cyl_y(3.8, s * (y0 - 1.3), s * y0, x=wx, z=wz)
+                       .union(C._cyl_y(2.0, s * y0, s * (y0 + 12.0),
+                                       x=wx, z=wz)))
+                out = (0.0, s, 0.0)
+                parts.append(_emit(
+                    "screw_M2_%s_%d" % (tag, k), scr.val(), 0, out, 0.0,
+                    "#55504C", 0.15,
+                    moves=[(0, out, 60.0), (1, (0.0, -s, 0.0), 30.0)]))
+                nw = (C._cyl_y(5.0, s * 45.6, s * 46.4, x=wx, z=wz)
+                      .union(C._cyl_y(4.4, s * 46.4, s * 48.0, x=wx, z=wz)))
+                parts.append(_emit(
+                    "nutwasher_M2_%s_%d" % (tag, k), nw.val(), 0, out, 0.0,
+                    "#6E6862", 0.15,
+                    moves=[(0, out, 60.0), (1, (0.0, 0.0, -1.0), 26.0)]))
     return {"label": "Drivetrain", "steps": DRIVETRAIN_STEPS,
             "hw": DRIVETRAIN_HW,
             "cz": 12.0, "czk": 14.0, "d": 240.0, "parts": parts}
