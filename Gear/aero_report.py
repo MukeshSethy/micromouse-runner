@@ -56,6 +56,10 @@ def main(out_path):
     pv = os.path.join(HERE, "_video_frames.json")
     if os.path.exists(pv):
         vid = json.load(open(pv))
+    wings = None
+    pw = os.path.join(HERE, "aero_wings.json")
+    if os.path.exists(pw):
+        wings = json.load(open(pw))
 
     rows = []
     for v in SPEEDS:
@@ -208,6 +212,35 @@ def main(out_path):
     svg3.append('</svg>')
     chart3 = "".join(svg3)
 
+    # ---- measured wing / diffuser table ---------------------------------
+    wtab = ""
+    if wings and "baseline" in wings:
+        b = wings["baseline"]
+        wr = []
+        for name in ("baseline", "rear wing", "diffuser", "wing + diffuser"):
+            if name not in wings:
+                continue
+            e = wings[name]
+            dcl = b["CL"] - e["CL"]                 # positive = downforce won
+            gain = dcl * 0.5 * RHO * A_p * v0 * v0
+            dcd = 100.0*(e["CD"]/b["CD"] - 1.0)
+            wr.append("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td>"
+                      "<td>%s</td></tr>"
+                      % (name, fmt(e["CL"], 3),
+                         "&mdash;" if name == "baseline"
+                         else "%+.3f" % dcl,
+                         "&mdash;" if name == "baseline"
+                         else "%+.2f mN (%+.2f%%)" % (gain*1000,
+                                                      100*gain/W),
+                         "&mdash;" if name == "baseline"
+                         else "%+.1f%%" % dcd))
+        wtab = ("<div class=\"scroll\"><table><thead><tr>"
+                "<th>Configuration</th><th>Measured CL</th>"
+                "<th>&Delta;CL vs bare</th>"
+                "<th>Downforce gained at %s m/s</th>"
+                "<th>Drag penalty</th></tr></thead><tbody>%s</tbody>"
+                "</table></div>" % (fmt(v0, 2), "".join(wr)))
+
     trows = "".join(
         "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>"
         "<td>%s</td><td>%s</td></tr>"
@@ -266,6 +299,13 @@ def main(out_path):
         "__DFCPCT__": fmt(100*0.5*RHO*0.30*A_p*v0*v0/W, 1),
         "__FANF__": fmt(250*A_p, 2),
         "__FANPCT__": fmt(100*(v_with(250*A_p/W)/v0 - 1), 0),
+        "__WTAB__": wtab,
+        "__WGAIN__": fmt(((wings["baseline"]["CL"]-wings["rear wing"]["CL"])
+                          * 0.5*RHO*A_p*v0*v0*1000) if wings else 0, 1),
+        "__WDRAG__": fmt((100*(wings["rear wing"]["CD"]
+                               / wings["baseline"]["CD"] - 1))
+                         if wings else 0, 1),
+        "__CLNEED__": "%.0f" % (W/(0.5*RHO*A_p*v0*v0)),
     }.items():
         html = html.replace(k, v)
     with open(out_path, "w", encoding="utf-8") as f:
@@ -463,7 +503,26 @@ __VIDEO__
  and this robot corners at about __VCORNER__&nbsp;m/s. At that speed a
  realistic printed wing-and-splitter package (CL&nbsp;0.3 on plan area)
  makes __DFC__&nbsp;mN of downforce &mdash; __DFCPCT__&nbsp;% of the
- robot's weight. The aero device is asleep precisely where you need it.</p>
+ robot's weight. The aero device is asleep precisely where you need it.
+ The assumption-free version of the same point: at __VCORNER__&nbsp;m/s
+ the dynamic pressure is 0.85&nbsp;Pa, so matching the robot's own weight
+ would need <strong>CL&nbsp;&asymp;&nbsp;__CLNEED__</strong>. The best
+ wings ever built reach 2&ndash;3.</p>
+ <p>That first estimate used a literature CL, which is an assumption, not
+ a test &mdash; so I built the parts and measured them. A rear wing
+ (26&nbsp;mm chord at &minus;12&deg; on struts) and an upswept underbody
+ diffuser were added to the robot's real side profile and the force on the
+ body was integrated by momentum exchange across the bounce-back links:</p>
+ __WTAB__
+ <p>The bare robot makes a little <em>lift</em> &mdash; the wheels are its
+ highest surfaces, so flow accelerates over them and pulls up. The wing
+ claws back about a quarter of that, worth __WGAIN__&nbsp;mN at corner
+ speed, for __WDRAG__&nbsp;% more drag. The diffuser measures as doing
+ nothing at all: at a 5&nbsp;mm ride height and this Reynolds number the
+ underbody gap is thick with boundary layer, so there is no fast, clean
+ flow for a diffuser to expand. This is measured, and it is
+ <em>worse</em> than the CL&nbsp;0.3 I assumed before &mdash; and 2D
+ simulation flatters wings, because it has no tip vortices.</p>
  <div class="card">__CHART3__</div>
  <p>Two of those bars are the whole lesson. <strong>Ballast does
  nothing</strong>: cornering speed is

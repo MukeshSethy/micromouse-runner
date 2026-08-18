@@ -325,7 +325,26 @@ requestAnimationFrame(loop);
  and this robot corners at about 1.19&nbsp;m/s. At that speed a
  realistic printed wing-and-splitter package (CL&nbsp;0.3 on plan area)
  makes 3.3&nbsp;mN of downforce &mdash; 0.2&nbsp;% of the
- robot's weight. The aero device is asleep precisely where you need it.</p>
+ robot's weight. The aero device is asleep precisely where you need it.
+ The assumption-free version of the same point: at 1.19&nbsp;m/s
+ the dynamic pressure is 0.85&nbsp;Pa, so matching the robot's own weight
+ would need <strong>CL&nbsp;&asymp;&nbsp;196</strong>. The best
+ wings ever built reach 2&ndash;3.</p>
+ <p>That first estimate used a literature CL, which is an assumption, not
+ a test &mdash; so I built the parts and measured them. A rear wing
+ (26&nbsp;mm chord at &minus;12&deg; on struts) and an upswept underbody
+ diffuser were added to the robot's real side profile and the force on the
+ body was integrated by momentum exchange across the bounce-back links:</p>
+ <div class="scroll"><table><thead><tr><th>Configuration</th><th>Measured CL</th><th>&Delta;CL vs bare</th><th>Downforce gained at 1.19 m/s</th><th>Drag penalty</th></tr></thead><tbody><tr><td>baseline</td><td>0.867</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr><tr><td>rear wing</td><td>0.691</td><td>+0.176</td><td>+1.94 mN (+0.09%)</td><td>+8.8%</td></tr><tr><td>diffuser</td><td>0.885</td><td>-0.019</td><td>-0.20 mN (-0.01%)</td><td>-0.6%</td></tr><tr><td>wing + diffuser</td><td>0.661</td><td>+0.205</td><td>+2.27 mN (+0.11%)</td><td>+8.5%</td></tr></tbody></table></div>
+ <p>The bare robot makes a little <em>lift</em> &mdash; the wheels are its
+ highest surfaces, so flow accelerates over them and pulls up. The wing
+ claws back about a quarter of that, worth 1.9&nbsp;mN at corner
+ speed, for 8.8&nbsp;% more drag. The diffuser measures as doing
+ nothing at all: at a 5&nbsp;mm ride height and this Reynolds number the
+ underbody gap is thick with boundary layer, so there is no fast, clean
+ flow for a diffuser to expand. This is measured, and it is
+ <em>worse</em> than the CL&nbsp;0.3 I assumed before &mdash; and 2D
+ simulation flatters wings, because it has no tip vortices.</p>
  <div class="card"><svg viewBox="0 0 720 278" role="img" aria-label="Corner speed by option"><line x1="493.7" y1="6" x2="493.7" y2="252" stroke="#898781" stroke-width="1" stroke-dasharray="4 4"/><text x="493.7" y="268" fill="#898781" font-size="11" text-anchor="middle">baseline 1.19 m/s</text><text x="288" y="6" fill="#a79c93" font-size="12" dy="14" text-anchor="end">Rear wing + splitter (CL 0.3)</text><rect x="300" y="6" width="193.8" height="20" rx="4" fill="#d95926"/><text x="502.8" y="6" fill="#f2ede8" font-size="12" dy="15" font-weight="600">1.19 m/s  +0%</text><text x="288" y="40" fill="#a79c93" font-size="12" dy="14" text-anchor="end">Full ground-effect diffuser (CL 0.6)</text><rect x="300" y="40" width="194.0" height="20" rx="4" fill="#d95926"/><text x="503.0" y="40" fill="#f2ede8" font-size="12" dy="15" font-weight="600">1.19 m/s  +0%</text><text x="288" y="74" fill="#a79c93" font-size="12" dy="14" text-anchor="end">F1-grade underbody (CL 1.5, not reachable)</text><rect x="300" y="74" width="194.4" height="20" rx="4" fill="#d95926"/><text x="503.4" y="74" fill="#f2ede8" font-size="12" dy="15" font-weight="600">1.20 m/s  +0%</text><text x="288" y="108" fill="#a79c93" font-size="12" dy="14" text-anchor="end">Add 100 g of ballast</text><rect x="300" y="108" width="193.7" height="20" rx="4" fill="#898781"/><text x="502.7" y="108" fill="#f2ede8" font-size="12" dy="15" font-weight="600">1.19 m/s  +0%</text><text x="288" y="142" fill="#a79c93" font-size="12" dy="14" text-anchor="end">Suction fan, 100 Pa</text><rect x="300" y="142" width="244.8" height="20" rx="4" fill="#199e70"/><text x="553.8" y="142" fill="#f2ede8" font-size="12" dy="15" font-weight="600">1.51 m/s  +26%</text><text x="288" y="176" fill="#a79c93" font-size="12" dy="14" text-anchor="end">Suction fan, 250 Pa</text><rect x="300" y="176" width="305.9" height="20" rx="4" fill="#199e70"/><text x="614.9" y="176" fill="#f2ede8" font-size="12" dy="15" font-weight="600">1.88 m/s  +58%</text><text x="288" y="210" fill="#a79c93" font-size="12" dy="14" text-anchor="end">Tyre tape: mu 2.3 to 3.0</text><rect x="300" y="210" width="221.2" height="20" rx="4" fill="#199e70"/><text x="530.2" y="210" fill="#f2ede8" font-size="12" dy="15" font-weight="600">1.36 m/s  +14%</text></svg></div>
  <p>Two of those bars are the whole lesson. <strong>Ballast does
  nothing</strong>: cornering speed is
