@@ -52,6 +52,10 @@ def main(out_path):
     p = os.path.join(HERE, "_flow_images.json")
     if os.path.exists(p):
         imgs = json.load(open(p))
+    vid = None
+    pv = os.path.join(HERE, "_video_frames.json")
+    if os.path.exists(pv):
+        vid = json.load(open(pv))
 
     rows = []
     for v in SPEEDS:
@@ -180,6 +184,12 @@ def main(out_path):
                      (imgs[key], cap.split(".")[0], cap))
 
     html = TEMPLATE
+    if vid and vid.get("frames"):
+        html = html.replace("__VIDEO__", PLAYER)
+        html = html.replace("/*FRAMES*/", json.dumps(vid,
+                                                     separators=(",", ":")))
+    else:
+        html = html.replace("__VIDEO__", "")
     for k, v in {
         "__CHART1__": chart1, "__CHART2__": chart2, "__ROWS__": trows,
         "__FIGS__": figs,
@@ -278,6 +288,25 @@ footer{border-top:1px solid var(--rule);padding-top:14px;font-size:12.5px;
  color:var(--muted);line-height:1.65}
 code{font-family:ui-monospace,Consolas,monospace;font-size:.92em;
  color:var(--ink)}
+.pbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+ margin-bottom:12px}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:6px;
+ overflow:hidden}
+.seg button{background:transparent;color:var(--ink2);border:0;
+ padding:6px 12px;font:inherit;font-size:12.5px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--rule)}
+.seg button.on{background:var(--accent);color:#fff;font-weight:600}
+.pbar>button{background:transparent;color:var(--ink);
+ border:1px solid var(--rule);border-radius:6px;padding:6px 12px;
+ font:inherit;font-size:12.5px;cursor:pointer}
+.pbar>button:hover{border-color:var(--accent)}
+.rng{display:flex;align-items:center;gap:8px;font-size:12px;
+ color:var(--ink2)}
+.rng input{accent-color:var(--accent);width:150px}
+.hud{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+canvas{width:100%;height:auto;display:block;border-radius:6px;
+ background:var(--surface)}
+.cap{font-size:13.5px}
 </style>
 <div class="wrap">
 
@@ -357,6 +386,8 @@ shows what the flow actually does in straights and in corners.</p>
  same speeds so the comparison is like-for-like.</div>
 </section>
 
+__VIDEO__
+
 <section>
  <h2>What the flow does</h2>
  <p>A 2D lattice-Boltzmann solve over the robot's real silhouette. Read
@@ -390,6 +421,146 @@ ground vehicles, not measurements &mdash; they are the least certain inputs
 here, and the conclusion holds across the whole band.
 </footer>
 </div>
+"""
+
+
+PLAYER = r"""
+<section id="wake">
+ <h2>The wake in motion</h2>
+ <p>The wake behind a bluff body is not steady &mdash; it sheds. These are
+ the same lattice-Boltzmann solves run in time, after the start-up
+ transient has washed out. Switch between straight and cornering attitude,
+ and between speed and vorticity (vorticity shows the individual vortices
+ rolling off the corners; speed shows how far the slow wake reaches).</p>
+ <div class="card">
+  <div class="pbar">
+   <span class="seg" id="segCase">
+    <button data-case="straight" class="on">Straight</button
+    ><button data-case="corner">Cornering 6.7&deg;</button>
+   </span>
+   <span class="seg" id="segField">
+    <button data-field="vort" class="on">Vorticity</button
+    ><button data-field="speed">Speed</button>
+   </span>
+   <button id="vplay">&#10073;&#10073; Pause</button>
+   <label class="rng">Frame
+    <input id="vscrub" type="range" min="0" max="0" step="1" value="0">
+   </label>
+   <span class="hud" id="vhud"></span>
+  </div>
+  <canvas id="vcv" width="900" height="420"></canvas>
+  <div class="legend" id="vleg"></div>
+ </div>
+ <p class="cap">Flow runs left to right. The body is drawn in ink; behind
+ it the wake alternates as vortices peel off each side. In the cornering
+ frame the shedding is asymmetric &mdash; one side separates earlier
+ &mdash; which is the side force in the table above, and the reason a real
+ crosswind would be felt as a small steering bias rather than as drag.</p>
+</section>
+<script id="vframes" type="application/json">/*FRAMES*/</script>
+<script>
+(function(){
+"use strict";
+const DOC=JSON.parse(document.getElementById("vframes").textContent);
+const cv=document.getElementById("vcv"),cx=cv.getContext("2d");
+const hud=document.getElementById("vhud"),leg=document.getElementById("vleg");
+const scrub=document.getElementById("vscrub"),play=document.getElementById("vplay");
+let curCase="straight",curField="vort",idx=0,playing=true,acc=0,last=0;
+// colour maps: vorticity is diverging (two hues + neutral), speed is one hue
+const RAMP={
+  vort:[[0.00,[26,92,171]],[0.35,[120,160,200]],[0.50,[224,222,214]],
+        [0.65,[214,140,86]],[1.00,[169,60,24]]],
+  speed:[[0.00,[22,19,16]],[0.30,[90,58,31]],[0.60,[200,110,40]],
+         [0.85,[224,138,42]],[1.00,[245,213,154]]]};
+function lut(name){
+  const st=RAMP[name],L=new Uint8ClampedArray(256*3);
+  for(let i=0;i<256;i++){const t=i/255;
+    let a=st[0],b=st[st.length-1];
+    for(let k=0;k<st.length-1;k++){if(t>=st[k][0]&&t<=st[k+1][0]){a=st[k];b=st[k+1];break;}}
+    const u=(t-a[0])/Math.max(1e-6,(b[0]-a[0]));
+    for(let c=0;c<3;c++)L[i*3+c]=a[1][c]+(b[1][c]-a[1][c])*u;}
+  return L;}
+const LUT={vort:lut("vort"),speed:lut("speed")};
+const BODY=[232,226,218];
+const cache={};                     // decoded ImageData per case/field/frame
+function decode(cs,fd,i,cb){
+  const key=cs+fd+i;
+  if(cache[key])return cb(cache[key]);
+  const meta=DOC.frames[cs];
+  const im=new Image();
+  im.onload=()=>{
+    const off=document.createElement("canvas");
+    off.width=meta.w;off.height=meta.h;
+    const oc=off.getContext("2d");
+    oc.drawImage(im,0,0);
+    const src=oc.getImageData(0,0,meta.w,meta.h).data;
+    const out=oc.createImageData(meta.w,meta.h),L=LUT[fd];
+    for(let p=0,n=meta.w*meta.h;p<n;p++){
+      const g=src[p*4];
+      if(g===0){out.data[p*4]=BODY[0];out.data[p*4+1]=BODY[1];
+                out.data[p*4+2]=BODY[2];}
+      else{out.data[p*4]=L[g*3];out.data[p*4+1]=L[g*3+1];
+           out.data[p*4+2]=L[g*3+2];}
+      out.data[p*4+3]=255;}
+    cache[key]=out;cb(out);};
+  im.src="data:image/png;base64,"+DOC.frames[cs][fd][i];
+}
+const tmp=document.createElement("canvas");
+function draw(){
+  const meta=DOC.frames[curCase];
+  decode(curCase,curField,idx,img=>{
+    tmp.width=meta.w;tmp.height=meta.h;
+    tmp.getContext("2d").putImageData(img,0,0);
+    const s=Math.min(cv.width/meta.w,cv.height/meta.h);
+    const w=meta.w*s,h=meta.h*s;
+    cx.fillStyle=getComputedStyle(cv).getPropertyValue("--surface")||"#1a1a19";
+    cx.fillRect(0,0,cv.width,cv.height);
+    cx.imageSmoothingEnabled=true;
+    cx.drawImage(tmp,(cv.width-w)/2,(cv.height-h)/2,w,h);
+  });
+  hud.textContent="frame "+(idx+1)+" / "+DOC.frames[curCase][curField].length
+    +"  ·  lattice Re ≈ "+DOC.frames[curCase].Re;
+  const r=curField==="vort"?DOC.meta.vort_range:DOC.meta.speed_range;
+  leg.innerHTML=curField==="vort"
+    ?'<span><i style="background:#1a5cab"></i>clockwise</span>'
+     +'<span><i style="background:#e0ded6"></i>irrotational</span>'
+     +'<span><i style="background:#a93c18"></i>counter-clockwise</span>'
+     +'<span>vorticity '+r[0]+' … '+r[1]+' (normalised)</span>'
+    :'<span><i style="background:#161310"></i>stalled wake</span>'
+     +'<span><i style="background:#e08a2a"></i>freestream</span>'
+     +'<span><i style="background:#f5d59a"></i>accelerated ('+r[1]+'×)</span>';
+}
+function setCase(c){curCase=c;idx=Math.min(idx,DOC.frames[c][curField].length-1);
+  scrub.max=DOC.frames[c][curField].length-1;draw();}
+document.getElementById("segCase").onclick=e=>{
+  const b=e.target.closest("button");if(!b)return;
+  for(const x of e.currentTarget.children)x.className="";
+  b.className="on";setCase(b.dataset.case);};
+document.getElementById("segField").onclick=e=>{
+  const b=e.target.closest("button");if(!b)return;
+  for(const x of e.currentTarget.children)x.className="";
+  b.className="on";curField=b.dataset.field;draw();};
+scrub.oninput=e=>{idx=+e.target.value;playing=false;
+  play.innerHTML="&#9654; Play";draw();};
+play.onclick=()=>{playing=!playing;
+  play.innerHTML=playing?"&#10073;&#10073; Pause":"&#9654; Play";};
+function loop(ts){
+  if(!last)last=ts;
+  const dt=(ts-last)/1000;last=ts;
+  if(playing){acc+=dt;
+    if(acc>0.075){acc=0;
+      idx=(idx+1)%DOC.frames[curCase][curField].length;
+      scrub.value=idx;draw();}}
+  requestAnimationFrame(loop);
+}
+setCase("straight");
+// warm the cache so playback is smooth from the first loop
+for(const cs of Object.keys(DOC.frames))
+  for(const fd of ["vort","speed"])
+    for(let i=0;i<DOC.frames[cs][fd].length;i++)decode(cs,fd,i,()=>{});
+requestAnimationFrame(loop);
+})();
+</script>
 """
 
 
