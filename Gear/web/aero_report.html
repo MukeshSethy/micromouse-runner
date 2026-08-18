@@ -318,14 +318,38 @@ requestAnimationFrame(loop);
 </section>
 
 <section>
- <h2>So what would actually help</h2>
- <p>Nothing aerodynamic &mdash; at this scale streamlining buys back a
- fraction of a milliNewton. The forces that decide your lap time are grip
- (tyre compound and how much of the friction circle the planner dares to
- use), motor back-EMF ceiling, and mass. The one aero effect worth
- remembering is the opposite of drag: at these speeds you get essentially
- <em>no</em> downforce either, which is why the full-size mice that chase
- 2&nbsp;m/s corner speeds fit a vacuum fan and generate their own.</p>
+ <h2>Would a wing or a diffuser help?</h2>
+ <p>No &mdash; and the reason is worth understanding, because it also
+ rules out several other intuitive fixes. Downforce scales with
+ <em>v&sup2;</em>, exactly like drag. But grip only matters in corners,
+ and this robot corners at about 1.19&nbsp;m/s. At that speed a
+ realistic printed wing-and-splitter package (CL&nbsp;0.3 on plan area)
+ makes 3.3&nbsp;mN of downforce &mdash; 0.2&nbsp;% of the
+ robot's weight. The aero device is asleep precisely where you need it.</p>
+ <div class="card"><svg viewBox="0 0 720 278" role="img" aria-label="Corner speed by option"><line x1="493.7" y1="6" x2="493.7" y2="252" stroke="#898781" stroke-width="1" stroke-dasharray="4 4"/><text x="493.7" y="268" fill="#898781" font-size="11" text-anchor="middle">baseline 1.19 m/s</text><text x="288" y="6" fill="#a79c93" font-size="12" dy="14" text-anchor="end">Rear wing + splitter (CL 0.3)</text><rect x="300" y="6" width="193.8" height="20" rx="4" fill="#d95926"/><text x="502.8" y="6" fill="#f2ede8" font-size="12" dy="15" font-weight="600">1.19 m/s  +0%</text><text x="288" y="40" fill="#a79c93" font-size="12" dy="14" text-anchor="end">Full ground-effect diffuser (CL 0.6)</text><rect x="300" y="40" width="194.0" height="20" rx="4" fill="#d95926"/><text x="503.0" y="40" fill="#f2ede8" font-size="12" dy="15" font-weight="600">1.19 m/s  +0%</text><text x="288" y="74" fill="#a79c93" font-size="12" dy="14" text-anchor="end">F1-grade underbody (CL 1.5, not reachable)</text><rect x="300" y="74" width="194.4" height="20" rx="4" fill="#d95926"/><text x="503.4" y="74" fill="#f2ede8" font-size="12" dy="15" font-weight="600">1.20 m/s  +0%</text><text x="288" y="108" fill="#a79c93" font-size="12" dy="14" text-anchor="end">Add 100 g of ballast</text><rect x="300" y="108" width="193.7" height="20" rx="4" fill="#898781"/><text x="502.7" y="108" fill="#f2ede8" font-size="12" dy="15" font-weight="600">1.19 m/s  +0%</text><text x="288" y="142" fill="#a79c93" font-size="12" dy="14" text-anchor="end">Suction fan, 100 Pa</text><rect x="300" y="142" width="244.8" height="20" rx="4" fill="#199e70"/><text x="553.8" y="142" fill="#f2ede8" font-size="12" dy="15" font-weight="600">1.51 m/s  +26%</text><text x="288" y="176" fill="#a79c93" font-size="12" dy="14" text-anchor="end">Suction fan, 250 Pa</text><rect x="300" y="176" width="305.9" height="20" rx="4" fill="#199e70"/><text x="614.9" y="176" fill="#f2ede8" font-size="12" dy="15" font-weight="600">1.88 m/s  +58%</text><text x="288" y="210" fill="#a79c93" font-size="12" dy="14" text-anchor="end">Tyre tape: mu 2.3 to 3.0</text><rect x="300" y="210" width="221.2" height="20" rx="4" fill="#199e70"/><text x="530.2" y="210" fill="#f2ede8" font-size="12" dy="15" font-weight="600">1.36 m/s  +14%</text></svg></div>
+ <p>Two of those bars are the whole lesson. <strong>Ballast does
+ nothing</strong>: cornering speed is
+ &radic;(&mu;gR), independent of mass &mdash; extra weight buys grip and
+ inertia in equal measure. <strong>A passive wing does almost
+ nothing</strong> here, not because the aerodynamics are wrong but because
+ 1.19&nbsp;m/s is too slow to load it. Even a perfect F1-grade
+ underbody, which a 5&nbsp;mm ride height over a jointed maze floor cannot
+ physically sustain, would buy under 1&nbsp;%.</p>
+ <p>What does work is force that <em>doesn't</em> come with mass and
+ <em>doesn't</em> need speed: a <strong>suction fan</strong> pulling a
+ partial vacuum under a skirted underbody. 250&nbsp;Pa across the
+ 12900&nbsp;mm&sup2; plan area is 3.23&nbsp;N &mdash; more than the
+ robot's own weight, available at a standstill, and worth
+ 58&nbsp;% on corner speed. That is why serious mice fit fans and
+ not wings. There is room for it: the board has a clear
+ 32&nbsp;&times;&nbsp;32&nbsp;mm window at its centre, big enough for a
+ 28&nbsp;mm fan duct, though using it means a hole through the PCB, a
+ flexible skirt at 1&ndash;2&nbsp;mm ride height, and a second battery
+ budget.</p>
+ <p>Cheapest real gain, though, needs no hardware at all: better tyre
+ rubber and a planner that dares to use more of the friction circle. The
+ last bar is the same robot on tape, which is the change you already have
+ in the simulator.</p>
 </section>
 
 <footer>

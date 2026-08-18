@@ -157,6 +157,57 @@ def main(out_path):
     svg2.append('</svg>')
     chart2 = "".join(svg2)
 
+    # ---- SVG: what actually raises corner speed --------------------------
+    R_T, MU_T, USE = 0.09, 2.3, 0.70
+    v0 = math.sqrt(USE*MU_T*G*R_T)
+
+    def v_with(df_over_w=0.0, mu=MU_T, R=R_T):
+        return math.sqrt(USE*mu*G*R*(1.0 + df_over_w))
+
+    def v_passive(cl):
+        v = v0
+        for _ in range(40):
+            df = 0.5*RHO*cl*A_p*v*v
+            v = math.sqrt(USE*MU_T*G*R_T*(1.0 + df/W))
+        return v
+
+    opts = [
+        ("Rear wing + splitter (CL 0.3)", v_passive(0.30), C_DRAG),
+        ("Full ground-effect diffuser (CL 0.6)", v_passive(0.60), C_DRAG),
+        ("F1-grade underbody (CL 1.5, not reachable)", v_passive(1.50),
+         C_DRAG),
+        ("Add 100 g of ballast", v_with(0.0), MUTED),
+        ("Suction fan, 100 Pa", v_with(100*A_p/W), C_ROLL),
+        ("Suction fan, 250 Pa", v_with(250*A_p/W), C_ROLL),
+        ("Tyre tape: mu 2.3 to 3.0", v_with(0.0, mu=3.0), C_ROLL),
+    ]
+    bw3 = 720
+    bh3 = 34*len(opts) + 40
+    bl3 = 300
+    vspan = max(o[1] for o in opts) * 1.02
+    svg3 = ['<svg viewBox="0 0 %d %d" role="img" aria-label="Corner speed '
+            'by option">' % (bw3, bh3)]
+    x0 = bl3
+    xw = bw3 - bl3 - 108
+    svg3.append('<line x1="%.1f" y1="6" x2="%.1f" y2="%d" stroke="%s" '
+                'stroke-width="1" stroke-dasharray="4 4"/>'
+                % (x0 + xw*v0/vspan, x0 + xw*v0/vspan, bh3-26, MUTED))
+    svg3.append('<text x="%.1f" y="%d" fill="%s" font-size="11" '
+                'text-anchor="middle">baseline %s m/s</text>'
+                % (x0 + xw*v0/vspan, bh3-10, MUTED, fmt(v0, 2)))
+    for i, (lab, v, col) in enumerate(opts):
+        y = 6 + i*34
+        wpx = xw*v/vspan
+        svg3.append('<text x="%d" y="%d" fill="%s" font-size="12" dy="14" '
+                    'text-anchor="end">%s</text>' % (bl3-12, y, INK2, lab))
+        svg3.append('<rect x="%d" y="%d" width="%.1f" height="20" rx="4" '
+                    'fill="%s"/>' % (x0, y, wpx, col))
+        svg3.append('<text x="%.1f" y="%d" fill="%s" font-size="12" dy="15" '
+                    'font-weight="600">%s m/s  %+.0f%%</text>'
+                    % (x0+wpx+9, y, INK, fmt(v, 2), 100*(v/v0-1)))
+    svg3.append('</svg>')
+    chart3 = "".join(svg3)
+
     trows = "".join(
         "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>"
         "<td>%s</td><td>%s</td></tr>"
@@ -209,7 +260,12 @@ def main(out_path):
         "__YAWPCT__": fmt(100*(A_yaw/A_f - 1), 1),
         "__SIDE5__": fmt(rows[-1]["side"]*1000, 2),
         "__RE5__": "{:,.0f}".format(rows[-1]["Re"]),
-        "__VCORNER__": fmt(math.sqrt(0.70*2.3*G*0.09), 2),
+        "__VCORNER__": fmt(v0, 2),
+        "__CHART3__": chart3,
+        "__DFC__": fmt(0.5*RHO*0.30*A_p*v0*v0*1000, 1),
+        "__DFCPCT__": fmt(100*0.5*RHO*0.30*A_p*v0*v0/W, 1),
+        "__FANF__": fmt(250*A_p, 2),
+        "__FANPCT__": fmt(100*(v_with(250*A_p/W)/v0 - 1), 0),
     }.items():
         html = html.replace(k, v)
     with open(out_path, "w", encoding="utf-8") as f:
@@ -400,14 +456,38 @@ __VIDEO__
 </section>
 
 <section>
- <h2>So what would actually help</h2>
- <p>Nothing aerodynamic &mdash; at this scale streamlining buys back a
- fraction of a milliNewton. The forces that decide your lap time are grip
- (tyre compound and how much of the friction circle the planner dares to
- use), motor back-EMF ceiling, and mass. The one aero effect worth
- remembering is the opposite of drag: at these speeds you get essentially
- <em>no</em> downforce either, which is why the full-size mice that chase
- 2&nbsp;m/s corner speeds fit a vacuum fan and generate their own.</p>
+ <h2>Would a wing or a diffuser help?</h2>
+ <p>No &mdash; and the reason is worth understanding, because it also
+ rules out several other intuitive fixes. Downforce scales with
+ <em>v&sup2;</em>, exactly like drag. But grip only matters in corners,
+ and this robot corners at about __VCORNER__&nbsp;m/s. At that speed a
+ realistic printed wing-and-splitter package (CL&nbsp;0.3 on plan area)
+ makes __DFC__&nbsp;mN of downforce &mdash; __DFCPCT__&nbsp;% of the
+ robot's weight. The aero device is asleep precisely where you need it.</p>
+ <div class="card">__CHART3__</div>
+ <p>Two of those bars are the whole lesson. <strong>Ballast does
+ nothing</strong>: cornering speed is
+ &radic;(&mu;gR), independent of mass &mdash; extra weight buys grip and
+ inertia in equal measure. <strong>A passive wing does almost
+ nothing</strong> here, not because the aerodynamics are wrong but because
+ __VCORNER__&nbsp;m/s is too slow to load it. Even a perfect F1-grade
+ underbody, which a 5&nbsp;mm ride height over a jointed maze floor cannot
+ physically sustain, would buy under 1&nbsp;%.</p>
+ <p>What does work is force that <em>doesn't</em> come with mass and
+ <em>doesn't</em> need speed: a <strong>suction fan</strong> pulling a
+ partial vacuum under a skirted underbody. 250&nbsp;Pa across the
+ __AP__&nbsp;mm&sup2; plan area is __FANF__&nbsp;N &mdash; more than the
+ robot's own weight, available at a standstill, and worth
+ __FANPCT__&nbsp;% on corner speed. That is why serious mice fit fans and
+ not wings. There is room for it: the board has a clear
+ 32&nbsp;&times;&nbsp;32&nbsp;mm window at its centre, big enough for a
+ 28&nbsp;mm fan duct, though using it means a hole through the PCB, a
+ flexible skirt at 1&ndash;2&nbsp;mm ride height, and a second battery
+ budget.</p>
+ <p>Cheapest real gain, though, needs no hardware at all: better tyre
+ rubber and a planner that dares to use more of the friction circle. The
+ last bar is the same robot on tape, which is the change you already have
+ in the simulator.</p>
 </section>
 
 <footer>
