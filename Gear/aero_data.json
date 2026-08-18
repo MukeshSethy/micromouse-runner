@@ -1,0 +1,27 @@
+{
+ "areas": {
+  "front_mm2": 2118.5,
+  "side_mm2": 1664.75,
+  "plan_mm2": 12900.25,
+  "length_mm": 120.0
+ },
+ "rho": 1.204,
+ "nu": 1.516e-05,
+ "mass": 0.22,
+ "slip": {
+  "stock 0.8": {
+   "beta_corner_mean": 2.2564785736152237,
+   "beta_corner_p95": 4.307919144947016,
+   "beta_corner_max": 5.194971873631454,
+   "beta_all_mean": 0.991023653018309,
+   "n": 4006
+  },
+  "fast 3.0": {
+   "beta_corner_mean": 3.894632603888534,
+   "beta_corner_p95": 6.70663129974865,
+   "beta_corner_max": 7.239182732583117,
+   "beta_all_mean": 0.7740228392683053,
+   "n": 1095
+  }
+ }
+}
