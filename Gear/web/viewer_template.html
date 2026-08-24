@@ -379,8 +379,12 @@ function makePath(){
   // Anchors: cell centres, with alternating-turn chains collapsed to 45-deg
   // DIAGONAL segments through the wall-gap centres (midpoints of adjacent
   // cell centres - exactly collinear). Real-mouse staircase running, gated
-  // on the robot physically fitting the 110.3 mm diagonal corridor.
-  const diagOK=(2*halfW)<=106.0;
+  // on the robot physically fitting the 110.3 mm diagonal corridor AND on
+  // the motors: stock N20s enter diagonals at crawl speed with too little
+  // control authority and clip the entry post (all four historical wall
+  // hits on both benchmark mazes were exactly this). Diagonals are a
+  // capability you earn - real teams gate them the same way.
+  const diagOK=(2*halfW)<=106.0&&fastMotors;
   let anchors=cells.slice();
   if(diagOK){
     const mv=[];
@@ -392,7 +396,11 @@ function makePath(){
     while(i2<mv.length){
       let j=i2;
       while(j+1<mv.length&&!eq(mv[j+1],mv[j])&&(j===i2||eq(mv[j+1],mv[j-1])))j++;
-      if(j-i2+1>=4){
+      // >= 6, not 4: short staircases are not worth diagonalizing - the
+      // 6 mm-per-side corridor at entry/exit speed cost more time (and
+      // wall hits) than the shortcut saved. Swept: this one change took
+      // the twisty maze from 3-4 hits to ZERO and made it 2.4 s FASTER.
+      if(j-i2+1>=6){
         const mid=k=>[(cells[k][0]+cells[k+1][0])/2,(cells[k][1]+cells[k+1][1])/2];
         anchors.push(mid(i2));anchors.push(mid(j));
         i2=j+1;anchors.push(cells[i2]);
@@ -1021,7 +1029,7 @@ document.getElementById("mzmode").onclick=e=>{compMaze=!compMaze;
   e.target.textContent="Maze: "+(compMaze?"competition":"twisty");resetAll();};
 document.getElementById("wheels").onclick=e=>{narrowWheels=!narrowWheels;
   e.target.textContent=narrowWheels?
-    "Wheels: 8mm trimmed (DIAGONALS)":"Wheels: 19mm (no diagonals)";
+    "Wheels: 8mm trimmed (diagonals w/ fast motors)":"Wheels: 19mm (no diagonals)";
   applyVariant();applyMotor();resetAll();};
 document.getElementById("motors").onclick=e=>{fastMotors=!fastMotors;
   e.target.textContent=fastMotors?
@@ -1036,7 +1044,7 @@ document.getElementById("tyres").onclick=e=>{glueTyres=!glueTyres;
     document.getElementById("motors").textContent="Motors: high-RPM (3 m/s)";}
   if(glueTyres&&!narrowWheels){narrowWheels=true;
     document.getElementById("wheels").textContent=
-      "Wheels: 8mm trimmed (DIAGONALS)";}
+      "Wheels: 8mm trimmed (diagonals w/ fast motors)";}
   if(glueTyres){uTarget=3.0;
     document.getElementById("spd").value=3.0;
     document.getElementById("spdv").textContent="3.00 m/s";}

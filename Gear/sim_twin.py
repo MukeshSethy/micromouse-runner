@@ -168,7 +168,7 @@ def flood(wV, wH, T):
     return f
 
 
-def make_path(wV, wH, turn_r=90.0, diag=False):
+def make_path(wV, wH, turn_r=90.0, diag=False, chain_min=6):
     f = flood(wV, wH, GOAL)
     c, r = 0, 0
     cells = [(90.0, 90.0)]
@@ -200,7 +200,7 @@ def make_path(wV, wH, turn_r=90.0, diag=False):
             while (j + 1 < len(moves) and moves[j+1] != moves[j]
                    and (j == i or moves[j+1] == moves[j-1])):
                 j += 1
-            if j - i + 1 >= 4:                    # >= 4 alternating moves
+            if j - i + 1 >= chain_min:            # alternating moves
                 mid = lambda k: ((cells[k][0]+cells[k+1][0])/2.0,
                                  (cells[k][1]+cells[k+1][1])/2.0)
                 anchors.append(mid(i))            # diagonal entry
@@ -380,7 +380,8 @@ class Sim:
         self.grid = wall_grid(wV, wH)
         self.P, self.PR, self.PK = make_path(
             wV, wH, turn_r=gains.get("turnr", 90.0),
-            diag=self.diag_ok and bool(gains.get("diag")))
+            diag=self.diag_ok and bool(gains.get("diag")),
+            chain_min=int(gains.get("chain_min", 6)))
         self.x, self.y, self.th = 90.0, 90.0, math.pi/2
         # Heading ESTIMATE. Gyro ON: the IMU tracks true heading (BNO055-class
         # drift is negligible over a run). Gyro OFF: encoder odometry only -
@@ -472,7 +473,8 @@ class Sim:
         if diag_here: ud = min(ud, g.get("vdiag", 0.55))
         # no throttle until aligned: corner-exit overshoot (~12 deg) plus hard
         # acceleration speared the wall on every 1.0 m/s exit
-        if abs(he) > 0.10: ud = min(ud, 0.50)
+        if abs(he) > 0.10:
+            ud = min(ud, g.get("align_cap", 0.50))
         v = max(0.12, abs(self.u))
         # feedback authority ramps in with speed: at launch atan2(k*e, v)
         # divides by near-zero v, so millimetres of error commanded full lock -
@@ -480,7 +482,7 @@ class Sim:
         # authority ramps in at launch AND schedules down with speed: the
         # feedback-to-yaw path multiplies by v, so fixed gains that are stable
         # at 0.8 weave to a crash mid-straight at 1.0
-        auth = min(1.0, abs(self.u)/0.25)
+        auth = min(1.0, abs(self.u)/g.get("auth_v", 0.25))
 
         kap = (kFF*g["kff"]
                + auth*(g["kp"]*hd/(max(60.0, math.hypot(dx, dy))/1000.0)
