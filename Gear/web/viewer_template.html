@@ -551,7 +551,10 @@ function applyMotor(){
   T_STALL=fastMotors?0.031:0.10;
   J_EFF=fastMotors?1.9e-5:2.0e-4;
   VDIAG=(glueTyres&&fastMotors)?0.90:0.72;
-  GAIN_TUNED.rd=fastMotors?(glueTyres?2.8:2.2):(narrowWheels?1.1:0.5);
+  GAIN_TUNED.rd=fastMotors?(glueTyres?2.8:2.6):(narrowWheels?1.1:0.5);
+  // gyro-D 2.6: tightest lead that is better-or-equal on BOTH mazes
+  // (twisty 4 hits -> 3, comp stays clean; 3.0 tracks tighter on the
+  // comp maze but clips the twisty one - dial it up on the slider)
   // fast d 2.3 / p 1.8: the settling sweep (pid_settle.py) - corners now
   // hold cross-track inside +/-3 mm THROUGH the turn instead of
   // recovering in ~314 ms after it, and the comp-maze 2.0 m/s run went
