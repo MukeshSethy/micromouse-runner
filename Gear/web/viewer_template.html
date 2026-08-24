@@ -552,11 +552,14 @@ function applyMotor(){
   J_EFF=fastMotors?1.9e-5:2.0e-4;
   VDIAG=(glueTyres&&fastMotors)?0.90:0.72;
   GAIN_TUNED.rd=fastMotors?(glueTyres?2.8:2.2):(narrowWheels?1.1:0.5);
-  // fast d: 1.9 not 1.7 - re-swept in sim_twin after the Bezier turns
-  // (13.44 s, zero hits on the championship maze at 3.0 m/s);
-  // glue+fast: 2.3/2.8 from the race-glue sweep (11.61 s, zero hits)
-  GAIN_TUNED.d=fastMotors?(glueTyres?2.3:1.9):(narrowWheels?1.7:1.3);
-  GAIN.rd=GAIN_TUNED.rd;GAIN.d=GAIN_TUNED.d;
+  // fast d 2.3 / p 1.8: the settling sweep (pid_settle.py) - corners now
+  // hold cross-track inside +/-3 mm THROUGH the turn instead of
+  // recovering in ~314 ms after it, and the comp-maze 2.0 m/s run went
+  // from 2 wall hits to 0 at the same lap time.
+  // glue+fast keeps its own sweep (d 2.3, rd 2.8, p 1.2 - 11.61 s clean)
+  GAIN_TUNED.d=fastMotors?(glueTyres?2.3:2.3):(narrowWheels?1.7:1.3);
+  GAIN_TUNED.p=(fastMotors&&!glueTyres)?1.8:1.2;
+  GAIN.rd=GAIN_TUNED.rd;GAIN.d=GAIN_TUNED.d;GAIN.p=GAIN_TUNED.p;
 }
 function applyGrip(){
   FMARG=glueTyres?0.70:0.28;

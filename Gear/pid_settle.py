@@ -37,8 +37,10 @@ INK, INK2, MUTED, GRID, SURF = ("#f2ede8", "#a79c93", "#898781",
                                 "#2c2c2a", "#161310")
 C1, C2, C3 = "#e08a2a", "#199e70", "#8a7bb8"
 
+# kh 2.3 / ke 1.8: the harder settling tune (swept in this file's own
+# sweep, validated 0-hit on comp 2.0/3.0 with unchanged lap times)
 GAINS = dict(vmax=V_TGT, fmarg=0.32, brake_d=260.0, ff_d=20.0, kff=0.7,
-             kp=0.45, kh=1.9, ke=1.2, ka=1.8, look=115.0, krd=2.2,
+             kp=0.45, kh=2.3, ke=1.8, ka=1.8, look=115.0, krd=2.2,
              kmul=4.5, vdiag=0.72, slew=0.30, mu=1.1, comp=True,
              fast=True, narrow=True, diag=True)
 
