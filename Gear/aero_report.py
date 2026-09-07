@@ -261,7 +261,21 @@ def main(out_path):
                       "force, and it is what a crosswind would look like."),
                      ("side", "Side view with the maze floor modelled. The "
                       "5 mm underbody gap runs faster than the top surface; "
-                      "the square tail sheds a thick separated wake.")):
+                      "the square tail sheds a thick separated wake."),
+                     ("wheel_static", "One wheel close-up, the NAIVE way "
+                      "(static wheel, static ground): clean stagnation at "
+                      "the front, separation over the crown, and a floor "
+                      "boundary layer that would not exist for a moving "
+                      "robot."),
+                     ("wheel_rolling", "The same wheel done CORRECTLY - "
+                      "rolling rim plus moving ground, i.e. the robot's own "
+                      "frame. The rim top runs against the flow at twice "
+                      "freestream, dragging the separation point forward "
+                      "and thickening the wake, while the moving ground "
+                      "sweeps the floor boundary layer away. This "
+                      "rotating-wheel effect is why full-size vehicle CFD "
+                      "always models wheels with rotation and a rolling "
+                      "road.")):
         if key in imgs:
             figs += ('<figure><img src="%s" alt="%s"/>'
                      '<figcaption>%s</figcaption></figure>' %
