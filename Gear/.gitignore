@@ -7,3 +7,5 @@ _m_*.npy
 _video_frames.json
 _pid_*.png
 _thermal.png
+_flow_pkg_*.png
+aero_package.json
