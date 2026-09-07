@@ -1,0 +1,35 @@
+{
+ "assumptions": {
+  "RTH_K_per_W": 45.0,
+  "C_J_per_K": 5.0,
+  "T_amb_C": 25.0,
+  "T_limit_C": 100.0
+ },
+ "stock 0.8 m/s": {
+  "dT_one_run_K": 19.0,
+  "p_avg_W": 1.237,
+  "p_avg_unlimited_W": 2.12,
+  "p_peak_W": 8.44,
+  "T_steady_C": 80.7,
+  "minutes_to_limit": null,
+  "mission_logged_s": 76.7
+ },
+ "fast 3.0 m/s": {
+  "dT_one_run_K": 113.2,
+  "p_avg_W": 9.399,
+  "p_avg_unlimited_W": 13.74,
+  "p_peak_W": 12.5,
+  "T_steady_C": 447.9,
+  "minutes_to_limit": 0.7,
+  "mission_logged_s": 60.2
+ },
+ "race glue 3.0 m/s": {
+  "dT_one_run_K": 24.4,
+  "p_avg_W": 10.521,
+  "p_avg_unlimited_W": 16.86,
+  "p_peak_W": 12.5,
+  "T_steady_C": 498.4,
+  "minutes_to_limit": 0.6,
+  "mission_logged_s": 11.6
+ }
+}
