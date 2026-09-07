@@ -139,6 +139,7 @@ def pack(frames, obs, lo, hi):
 
 def main():
     m_plan = np.load(os.path.join(HERE, "_m_plan.npy"))
+    m_plan = np.fliplr(m_plan)   # nose to the inlet (see aero_flow note)
     cases = [("straight", downsample(m_plan, 104), 0.0),
              ("corner", downsample(rot_mask(m_plan, 6.7), 104), 6.7)]
     doc = {"frames": {}, "meta": {}}

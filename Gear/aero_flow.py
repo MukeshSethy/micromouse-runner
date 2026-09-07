@@ -150,6 +150,13 @@ def b64(path):
 def main():
     m_plan = np.load(os.path.join(HERE, "_m_plan.npy"))
     m_side = np.load(os.path.join(HERE, "_m_side.npy"))
+    # The mesh frame puts the nose at MAX x -> the high-column end of the
+    # raster, but the LBM inlet is column 0. Left as-is the air would hit
+    # the flat TAIL first and trail the wake off the rounded nose -
+    # backwards. The robot drives nose-first, so mirror x to put the nose
+    # at the inlet: the conventional "robot faces into the wind" view.
+    m_plan = np.fliplr(m_plan)
+    m_side = np.fliplr(m_side)
     print("plan mask", m_plan.shape, " side mask", m_side.shape)
 
     # NO rot90: raster_area keeps (rows, cols) = (lateral, longitudinal)
@@ -159,7 +166,8 @@ def main():
     p0 = downsample(m_plan, 110)
     cases.append(("straight", p0,
                   "Plan view - straight running (yaw 0)",
-                  "flow left to right; white = robot, wheels included"))
+                  "robot faces LEFT into a left-to-right wind (nose = "
+                  "upstream); white = robot, wheels included"))
     p5 = downsample(rot_mask(m_plan, 6.7), 110)
     cases.append(("corner", p5,
                   "Plan view - cornering attitude (yaw 6.7 deg)",
